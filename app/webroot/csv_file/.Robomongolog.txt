@@ -1,0 +1,2106 @@
+Wed Sep 03 05:58:18.086 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Sep 03 05:58:18.104 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Sep 03 05:58:40.524 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Sep 03 05:58:40.533 [Robomongo] Connecting to localhost:27017...
+Wed Sep 03 05:58:40.658 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Sep 03 05:58:40.658 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Sep 03 05:58:45.191 [Robomongo] Connecting to localhost:27017...
+Wed Sep 03 05:58:45.209 [Robomongo] Openning shell...
+Wed Sep 03 05:58:45.209 [Robomongo] db.startup_log.find()
+Wed Sep 03 05:58:45.238 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Sep 03 05:58:45.239 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+
+
+***** APPLICATION RESTARTED *****
+
+
+Thu Sep 04 23:23:25.084 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Thu Sep 04 23:23:25.091 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Thu Sep 04 23:23:27.162 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Thu Sep 04 23:23:27.209 [Robomongo] Connecting to localhost:27017...
+Thu Sep 04 23:23:27.282 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Thu Sep 04 23:23:27.283 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Thu Sep 04 23:23:33.604 [Robomongo] Connecting to localhost:27017...
+Thu Sep 04 23:23:33.682 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Thu Sep 04 23:23:33.683 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Thu Sep 04 23:23:33.711 [Robomongo] Openning shell...
+Thu Sep 04 23:23:33.711 [Robomongo] db.help_desk_replies.find()
+Thu Sep 04 23:23:39.923 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Thu Sep 04 23:23:42.549 [Robomongo] Connecting to localhost:27017...
+Thu Sep 04 23:23:42.574 [Robomongo] Openning shell...
+Thu Sep 04 23:23:42.574 [Robomongo] db.help_desk_replies.find()
+Thu Sep 04 23:23:42.606 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Thu Sep 04 23:23:42.606 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Thu Sep 04 23:26:18.514 [Robomongo] Connecting to localhost:27017...
+Thu Sep 04 23:26:18.540 [Robomongo] Openning shell...
+Thu Sep 04 23:26:18.541 [Robomongo] db.help_desks.find()
+Thu Sep 04 23:26:18.586 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Thu Sep 04 23:26:18.587 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+
+
+***** APPLICATION RESTARTED *****
+
+
+Fri Sep 05 04:06:14.062 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Sep 05 04:06:14.066 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Sep 05 04:06:15.516 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Sep 05 04:06:15.625 [Robomongo] Connecting to localhost:27017...
+Fri Sep 05 04:06:15.929 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Sep 05 04:06:15.936 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Sep 05 04:12:19.385 [Robomongo] Connecting to localhost:27017...
+Fri Sep 05 04:12:19.442 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Sep 05 04:12:19.443 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Sep 05 04:12:19.487 [Robomongo] Openning shell...
+Fri Sep 05 04:12:19.487 [Robomongo] db.templates.find()
+Fri Sep 05 04:12:57.456 [Robomongo] db.templates.find()
+Fri Sep 05 04:13:34.905 [Robomongo] db.templates.find()
+Fri Sep 05 04:16:59.809 [Robomongo] Connecting to localhost:27017...
+Fri Sep 05 04:16:59.834 [Robomongo] Openning shell...
+Fri Sep 05 04:16:59.834 [Robomongo] db.templates.find()
+Fri Sep 05 04:16:59.872 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Sep 05 04:16:59.872 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Sep 05 05:20:56.437 [Robomongo] db.templates.find()
+Fri Sep 05 06:44:45.069 [Robomongo] Connecting to localhost:27017...
+Fri Sep 05 06:44:45.260 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Sep 05 06:44:45.261 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Sep 05 06:44:45.271 [Robomongo] Openning shell...
+Fri Sep 05 06:44:45.271 [Robomongo] db.groups.find()
+Fri Sep 05 06:44:46.282 [Robomongo] Connecting to localhost:27017...
+Fri Sep 05 06:44:46.313 [Robomongo] Openning shell...
+Fri Sep 05 06:44:46.313 [Robomongo] db.help_desk_replies.find()
+Fri Sep 05 06:44:46.360 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Sep 05 06:44:46.360 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+
+
+***** APPLICATION RESTARTED *****
+
+
+Sat Sep 06 04:29:22.194 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Sat Sep 06 04:29:22.200 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sat Sep 06 04:29:25.574 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sat Sep 06 04:29:25.724 [Robomongo] Connecting to localhost:27017...
+Sat Sep 06 04:29:25.902 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Sep 06 04:29:25.902 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Sep 06 04:29:35.293 [Robomongo] Connecting to localhost:27017...
+Sat Sep 06 04:29:35.370 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Sep 06 04:29:35.371 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Sep 06 04:29:35.422 [Robomongo] Openning shell...
+Sat Sep 06 04:29:35.422 [Robomongo] db.user_roles.find()
+Sat Sep 06 04:30:04.922 [Robomongo] Connecting to localhost:27017...
+Sat Sep 06 04:30:04.948 [Robomongo] Openning shell...
+Sat Sep 06 04:30:04.949 [Robomongo] db.users.find()
+Sat Sep 06 04:30:04.982 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Sep 06 04:30:04.982 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Sep 06 04:30:57.761 [Robomongo] Connecting to localhost:27017...
+Sat Sep 06 04:30:57.790 [Robomongo] Openning shell...
+Sat Sep 06 04:30:57.790 [Robomongo] db.user_temps.find()
+Sat Sep 06 04:30:57.818 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Sep 06 04:30:57.819 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Sep 06 04:31:39.578 [Robomongo] Connecting to localhost:27017...
+Sat Sep 06 04:31:39.606 [Robomongo] Openning shell...
+Sat Sep 06 04:31:39.607 [Robomongo] db.user_temps.find()
+Sat Sep 06 04:31:39.641 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Sep 06 04:31:39.641 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Sep 06 04:31:45.834 [Robomongo] db.user_temps.find()
+Sat Sep 06 04:33:54.939 [Robomongo] db.users.find()
+Sat Sep 06 04:43:55.068 [Robomongo] db.users.find()
+Sat Sep 06 04:48:05.347 [Robomongo] Connecting to localhost:27017...
+Sat Sep 06 04:48:05.377 [Robomongo] Openning shell...
+Sat Sep 06 04:48:05.377 [Robomongo] db.discussion_comments.find()
+Sat Sep 06 04:48:05.407 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Sep 06 04:48:05.407 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Sep 06 04:48:13.323 [Robomongo] Connecting to localhost:27017...
+Sat Sep 06 04:48:13.354 [Robomongo] Openning shell...
+Sat Sep 06 04:48:13.354 [Robomongo] db.discussion_posts.find()
+Sat Sep 06 04:48:13.383 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Sep 06 04:48:13.384 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Sep 06 05:20:37.335 [Robomongo] Connecting to localhost:27017...
+Sat Sep 06 05:20:37.380 [Robomongo] Openning shell...
+Sat Sep 06 05:20:37.380 [Robomongo] db.user_temps.find()
+Sat Sep 06 05:20:37.415 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Sep 06 05:20:37.416 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Sep 06 05:20:48.127 [Robomongo] Connecting to localhost:27017...
+Sat Sep 06 05:20:48.160 [Robomongo] Openning shell...
+Sat Sep 06 05:20:48.160 [Robomongo] db.users.find()
+Sat Sep 06 05:20:48.193 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Sep 06 05:20:48.193 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Sep 06 05:21:19.376 [Robomongo] Connecting to localhost:27017...
+Sat Sep 06 05:21:19.412 [Robomongo] Openning shell...
+Sat Sep 06 05:21:19.413 [Robomongo] db.help_desks.find()
+Sat Sep 06 05:21:19.436 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Sep 06 05:21:19.436 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Sep 06 05:32:22.266 [Robomongo] db.user_temps.find()
+Sat Sep 06 05:32:55.018 [Robomongo] db.user_temps.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Tue Sep 09 03:37:37.079 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 09 03:37:37.081 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 09 03:37:39.666 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 09 03:37:39.667 [Robomongo] Connecting to localhost:27017...
+Tue Sep 09 03:37:39.797 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 09 03:37:39.797 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Sep 09 04:21:12.131 [Robomongo] Connecting to localhost:27017...
+Tue Sep 09 04:21:12.184 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 09 04:21:12.184 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Sep 09 04:21:12.262 [Robomongo] Openning shell...
+Tue Sep 09 04:21:12.262 [Robomongo] db.discussion_comments.find()
+Tue Sep 09 04:21:13.723 [Robomongo] Connecting to localhost:27017...
+Tue Sep 09 04:21:13.751 [Robomongo] Openning shell...
+Tue Sep 09 04:21:13.751 [Robomongo] db.discussion_posts.find()
+Tue Sep 09 04:21:13.775 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 09 04:21:13.775 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Sep 09 04:22:14.770 [Robomongo] Connecting to localhost:27017...
+Tue Sep 09 04:22:14.796 [Robomongo] Openning shell...
+Tue Sep 09 04:22:14.796 [Robomongo] db.discussion_posts.find()
+Tue Sep 09 04:22:14.825 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 09 04:22:14.825 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Sep 09 04:43:11.371 [Robomongo] Connecting to localhost:27017...
+Tue Sep 09 04:43:11.389 [Robomongo] Openning shell...
+Tue Sep 09 04:43:11.390 [Robomongo] db.users.find()
+Tue Sep 09 04:43:11.415 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 09 04:43:11.415 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Sep 09 04:49:50.969 [Robomongo] db.discussion_posts.find()
+Tue Sep 09 04:56:36.432 [Robomongo] Connecting to localhost:27017...
+Tue Sep 09 04:56:36.444 [Robomongo] Openning shell...
+Tue Sep 09 04:56:36.444 [Robomongo] db.discussion_posts.find()
+Tue Sep 09 04:56:36.467 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 09 04:56:36.467 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Sep 09 04:56:39.480 [Robomongo] db.discussion_posts.find()
+Tue Sep 09 17:00:35.262 [Robomongo] Connecting to localhost:27017...
+Tue Sep 09 17:00:35.278 [Robomongo] Openning shell...
+Tue Sep 09 17:00:35.278 [Robomongo] db.discussion_posts.find()
+Tue Sep 09 17:00:35.300 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 09 17:00:35.300 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Sep 09 17:27:39.812 [Robomongo] db.discussion_posts.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Tue Sep 09 18:44:55.188 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 09 18:44:55.192 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 09 18:45:00.215 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 09 18:45:00.260 [Robomongo] Connecting to localhost:27017...
+Tue Sep 09 18:45:00.370 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 09 18:45:00.370 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+
+
+***** APPLICATION RESTARTED *****
+
+
+Wed Sep 10 11:55:41.281 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Sep 10 11:55:41.286 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Sep 10 11:55:43.134 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Sep 10 11:55:43.135 [Robomongo] Connecting to localhost:27017...
+Wed Sep 10 11:55:43.171 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Sep 10 11:55:43.172 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Sep 10 11:56:17.490 [Robomongo] Connecting to localhost:27017...
+Wed Sep 10 11:56:17.536 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Sep 10 11:56:17.536 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Sep 10 11:56:17.564 [Robomongo] Openning shell...
+Wed Sep 10 11:56:17.564 [Robomongo] db.discussion_posts.find()
+Wed Sep 10 11:56:48.306 [Robomongo] Connecting to localhost:27017...
+Wed Sep 10 11:56:48.330 [Robomongo] Openning shell...
+Wed Sep 10 11:56:48.330 [Robomongo] db.wings.find()
+Wed Sep 10 11:56:48.360 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Sep 10 11:56:48.361 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Sep 10 12:04:40.354 [Robomongo] Connecting to localhost:27017...
+Wed Sep 10 12:04:40.379 [Robomongo] Openning shell...
+Wed Sep 10 12:04:40.379 [Robomongo] db.users.find()
+Wed Sep 10 12:04:40.405 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Sep 10 12:04:40.406 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Sep 10 12:40:29.849 [Robomongo] db.discussion_posts.find()
+Wed Sep 10 12:54:57.911 [Robomongo] Connecting to localhost:27017...
+Wed Sep 10 12:54:57.929 [Robomongo] Openning shell...
+Wed Sep 10 12:54:57.929 [Robomongo] db.users.find()
+Wed Sep 10 12:54:57.950 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Sep 10 12:54:57.951 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Sep 10 13:08:39.757 [Robomongo] db.discussion_posts.find()
+Wed Sep 10 13:10:22.118 [Robomongo] db.discussion_posts.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Wed Sep 10 16:55:34.561 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Sep 10 16:55:34.569 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Sep 10 16:55:40.854 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Sep 10 16:55:40.903 [Robomongo] Connecting to localhost:27017...
+Wed Sep 10 16:55:41.011 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Sep 10 16:55:41.012 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Sep 10 16:56:03.401 [Robomongo] Connecting to localhost:27017...
+Wed Sep 10 16:56:03.470 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Sep 10 16:56:03.471 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Sep 10 16:56:03.514 [Robomongo] Openning shell...
+Wed Sep 10 16:56:03.514 [Robomongo] db.users.find()
+Wed Sep 10 16:56:39.096 [Robomongo] db.users.find()
+Wed Sep 10 16:56:41.001 [Robomongo] Connecting to localhost:27017...
+Wed Sep 10 16:56:41.027 [Robomongo] Openning shell...
+Wed Sep 10 16:56:41.028 [Robomongo] db.user_temps.find()
+Wed Sep 10 16:56:41.066 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Sep 10 16:56:41.067 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Sep 10 16:59:44.655 [Robomongo] Connecting to localhost:27017...
+Wed Sep 10 16:59:44.683 [Robomongo] Openning shell...
+Wed Sep 10 16:59:44.683 [Robomongo] db.discussion_comments.find()
+Wed Sep 10 16:59:44.722 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Sep 10 16:59:44.723 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Sep 10 16:59:45.447 [Robomongo] Connecting to localhost:27017...
+Wed Sep 10 16:59:45.484 [Robomongo] Openning shell...
+Wed Sep 10 16:59:45.485 [Robomongo] db.discussion_posts.find()
+Wed Sep 10 16:59:45.517 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Sep 10 16:59:45.518 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Sep 10 16:59:51.496 [Robomongo] db.discussion_comments.find()
+Wed Sep 10 17:00:57.368 [Robomongo] db.discussion_comments.find()
+Wed Sep 10 17:00:59.016 [Robomongo] db.discussion_posts.find()
+Wed Sep 10 17:44:48.823 [Robomongo] db.discussion_posts.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Thu Sep 11 14:06:35.919 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Thu Sep 11 14:06:35.922 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Thu Sep 11 14:06:37.789 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Thu Sep 11 14:06:37.807 [Robomongo] Connecting to localhost:27017...
+Thu Sep 11 14:06:37.843 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Thu Sep 11 14:06:37.843 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Thu Sep 11 14:06:59.048 [Robomongo] Connecting to localhost:27017...
+Thu Sep 11 14:06:59.100 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Thu Sep 11 14:06:59.100 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Thu Sep 11 14:06:59.171 [Robomongo] Openning shell...
+Thu Sep 11 14:06:59.171 [Robomongo] db.sub_modules.find()
+Thu Sep 11 14:07:20.640 [Robomongo] Connecting to localhost:27017...
+Thu Sep 11 14:07:20.667 [Robomongo] Openning shell...
+Thu Sep 11 14:07:20.667 [Robomongo] db.role_privileges.find()
+Thu Sep 11 14:07:20.698 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Thu Sep 11 14:07:20.698 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Thu Sep 11 14:09:23.160 [Robomongo] db.role_privileges.find()
+Thu Sep 11 16:57:05.748 [Robomongo] Connecting to localhost:27017...
+Thu Sep 11 16:57:05.939 [Robomongo] Openning shell...
+Thu Sep 11 16:57:05.939 [Robomongo] db.notices.find()
+Thu Sep 11 16:57:05.970 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Thu Sep 11 16:57:05.972 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Thu Sep 11 17:20:54.105 [Robomongo] Connecting to localhost:27017...
+Thu Sep 11 17:20:54.134 [Robomongo] Openning shell...
+Thu Sep 11 17:20:54.134 [Robomongo] db.wings.find()
+Thu Sep 11 17:20:54.232 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Thu Sep 11 17:20:54.234 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+
+
+***** APPLICATION RESTARTED *****
+
+
+Fri Sep 12 11:55:22.921 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Sep 12 11:55:22.929 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Sep 12 11:55:28.948 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Sep 12 11:55:28.949 [Robomongo] Connecting to localhost:27017...
+Fri Sep 12 11:55:29.080 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Sep 12 11:55:29.081 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Sep 12 11:55:49.782 [Robomongo] Connecting to localhost:27017...
+Fri Sep 12 11:55:49.874 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Sep 12 11:55:49.875 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Sep 12 11:55:49.936 [Robomongo] Openning shell...
+Fri Sep 12 11:55:49.936 [Robomongo] db.notices.find()
+Fri Sep 12 15:14:45.019 [Robomongo] Connecting to localhost:27017...
+Fri Sep 12 15:14:45.442 [Robomongo] Openning shell...
+Fri Sep 12 15:14:45.442 [Robomongo] db.users.find()
+Fri Sep 12 15:14:45.449 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Sep 12 15:14:45.451 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Sep 12 16:02:26.038 [Robomongo] Connecting to localhost:27017...
+Fri Sep 12 16:02:26.129 [Robomongo] Openning shell...
+Fri Sep 12 16:02:26.129 [Robomongo] db.discussion_posts.find()
+Fri Sep 12 16:02:26.220 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Sep 12 16:02:26.222 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Sep 12 16:44:42.152 [Robomongo] db.discussion_posts.find()
+Fri Sep 12 16:45:48.310 [Robomongo] db.discussion_posts.find()
+Fri Sep 12 16:48:51.085 [Robomongo] db.discussion_posts.find()
+Fri Sep 12 16:53:01.820 [Robomongo] Connecting to localhost:27017...
+Fri Sep 12 16:53:01.869 [Robomongo] Openning shell...
+Fri Sep 12 16:53:01.869 [Robomongo] db.discussion_comments.find()
+Fri Sep 12 16:53:01.923 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Sep 12 16:53:01.924 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Sep 12 16:54:06.621 [Robomongo] db.discussion_comments.find()
+Fri Sep 12 18:12:44.363 [Robomongo] db.discussion_comments.find()
+Fri Sep 12 18:12:58.234 [Robomongo] db.discussion_comments.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Fri Sep 12 20:23:55.579 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Sep 12 20:23:55.585 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Sep 12 20:23:57.763 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Sep 12 20:23:57.828 [Robomongo] Connecting to localhost:27017...
+Fri Sep 12 20:23:57.895 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Sep 12 20:23:57.897 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Sep 12 20:24:04.521 [Robomongo] Connecting to localhost:27017...
+Fri Sep 12 20:24:04.555 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Sep 12 20:24:04.556 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Sep 12 20:24:04.602 [Robomongo] Openning shell...
+Fri Sep 12 20:24:04.602 [Robomongo] db.discussion_comments.find()
+Fri Sep 12 20:24:30.966 [Robomongo] Connecting to localhost:27017...
+Fri Sep 12 20:24:31.000 [Robomongo] Openning shell...
+Fri Sep 12 20:24:31.000 [Robomongo] db.discussion_posts.find()
+Fri Sep 12 20:24:31.032 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Sep 12 20:24:31.033 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+
+
+***** APPLICATION RESTARTED *****
+
+
+Sat Sep 13 12:36:07.233 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Sat Sep 13 12:36:07.242 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sat Sep 13 12:36:08.798 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sat Sep 13 12:36:08.799 [Robomongo] Connecting to localhost:27017...
+Sat Sep 13 12:36:08.853 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Sep 13 12:36:08.853 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Sep 13 12:36:14.254 [Robomongo] Connecting to localhost:27017...
+Sat Sep 13 12:36:14.313 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Sep 13 12:36:14.315 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Sep 13 12:36:14.340 [Robomongo] Openning shell...
+Sat Sep 13 12:36:14.340 [Robomongo] db.discussion_posts.find()
+Sat Sep 13 12:39:50.840 [Robomongo] db.discussion_posts.find()
+Sat Sep 13 12:40:21.489 [Robomongo] db.discussion_posts.find()
+Sat Sep 13 12:47:41.602 [Robomongo] db.discussion_posts.find()
+Sat Sep 13 13:04:34.563 [Robomongo] Connecting to localhost:27017...
+Sat Sep 13 13:04:34.595 [Robomongo] Openning shell...
+Sat Sep 13 13:04:34.595 [Robomongo] db.discussion_comments.find()
+Sat Sep 13 13:04:34.627 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Sep 13 13:04:34.627 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Sep 13 14:12:33.056 [Robomongo] db.discussion_posts.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Sun Sep 14 12:24:37.899 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 12:24:37.903 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 12:24:40.109 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 12:24:40.189 [Robomongo] Connecting to localhost:27017...
+Sun Sep 14 12:24:40.271 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 14 12:24:40.273 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Sep 14 12:24:46.172 [Robomongo] Connecting to localhost:27017...
+Sun Sep 14 12:24:46.250 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 14 12:24:46.251 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Sep 14 12:24:46.308 [Robomongo] Openning shell...
+Sun Sep 14 12:24:46.308 [Robomongo] db.discussion_comments.find()
+Sun Sep 14 12:52:37.502 [Robomongo] db.discussion_comments.find()
+Sun Sep 14 13:30:03.795 [Robomongo] Connecting to localhost:27017...
+Sun Sep 14 13:30:03.827 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 14 13:30:03.828 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Sep 14 13:30:03.894 [Robomongo] Openning shell...
+Sun Sep 14 13:30:03.894 [Robomongo] db.discussion_posts.find()
+Sun Sep 14 14:00:05.298 [Robomongo] db.discussion_comments.find()
+Sun Sep 14 14:02:18.714 [Robomongo] db.discussion_posts.find()
+Sun Sep 14 14:03:33.163 [Robomongo] db.discussion_posts.find()
+Sun Sep 14 14:05:52.811 [Robomongo] db.discussion_posts.find()
+Sun Sep 14 14:06:37.282 [Robomongo] db.discussion_posts.find()
+Sun Sep 14 14:08:50.274 [Robomongo] db.discussion_posts.find()
+Sun Sep 14 15:46:42.183 [Robomongo] db.discussion_comments.find()
+Sun Sep 14 15:46:55.514 [Robomongo] db.discussion_comments.find()
+Sun Sep 14 15:47:03.427 [Robomongo] db.discussion_comments.find()
+Sun Sep 14 15:47:10.642 [Robomongo] db.discussion_comments.find()
+Sun Sep 14 15:47:16.843 [Robomongo] db.discussion_comments.find()
+Sun Sep 14 16:11:37.572 [Robomongo] db.discussion_comments.find()
+Sun Sep 14 16:11:56.348 [Robomongo] db.discussion_comments.find()
+Sun Sep 14 16:13:34.517 [Robomongo] db.discussion_comments.find()
+Sun Sep 14 16:14:21.548 [Robomongo] db.discussion_comments.find()
+Sun Sep 14 16:15:52.493 [Robomongo] db.discussion_comments.find()
+Sun Sep 14 16:16:06.942 [Robomongo] db.discussion_posts.find()
+Sun Sep 14 16:16:08.917 [Robomongo] db.discussion_comments.find()
+Sun Sep 14 16:19:58.430 [Robomongo] db.discussion_comments.find()
+Sun Sep 14 16:24:17.720 [Robomongo] db.discussion_comments.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Sun Sep 14 16:26:19.426 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 16:26:19.452 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 16:28:25.881 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+
+
+***** APPLICATION RESTARTED *****
+
+
+Sun Sep 14 16:28:28.247 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 16:28:28.247 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 16:28:29.828 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 16:28:29.829 [Robomongo] Connecting to localhost:27017...
+Sun Sep 14 16:28:29.893 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 14 16:28:29.894 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Sep 14 16:28:34.320 [Robomongo] Connecting to localhost:27017...
+Sun Sep 14 16:28:34.367 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 14 16:28:34.383 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Sep 14 16:28:34.414 [Robomongo] Openning shell...
+Sun Sep 14 16:28:34.414 [Robomongo] db.discussion_comments.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Sun Sep 14 16:34:11.927 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 16:34:11.927 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 16:34:13.485 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 16:34:13.487 [Robomongo] Connecting to localhost:27017...
+Sun Sep 14 16:34:13.539 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 14 16:34:13.539 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Sep 14 16:34:17.899 [Robomongo] Connecting to localhost:27017...
+Sun Sep 14 16:34:17.930 [Robomongo] Openning shell...
+Sun Sep 14 16:34:17.930 [Robomongo] db.discussion_posts.find()
+Sun Sep 14 16:34:17.961 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 14 16:34:17.961 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Sep 14 16:34:18.570 [Robomongo] Connecting to localhost:27017...
+Sun Sep 14 16:34:18.602 [Robomongo] Openning shell...
+Sun Sep 14 16:34:18.602 [Robomongo] db.discussion_comments.find()
+Sun Sep 14 16:34:18.633 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 14 16:34:18.633 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+
+
+***** APPLICATION RESTARTED *****
+
+
+Sun Sep 14 16:35:25.131 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 16:35:25.138 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 16:35:26.542 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 16:35:26.543 [Robomongo] Connecting to localhost:27017...
+Sun Sep 14 16:35:26.581 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 14 16:35:26.582 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Sep 14 16:35:31.197 [Robomongo] Connecting to localhost:27017...
+Sun Sep 14 16:35:31.224 [Robomongo] Openning shell...
+Sun Sep 14 16:35:31.224 [Robomongo] db.discussion_comments.find()
+Sun Sep 14 16:35:31.249 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 14 16:35:31.250 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+
+
+***** APPLICATION RESTARTED *****
+
+
+Sun Sep 14 17:17:15.569 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 17:17:15.585 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 17:20:15.905 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+
+
+***** APPLICATION RESTARTED *****
+
+
+Sun Sep 14 17:21:14.385 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 17:21:14.390 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 17:21:16.793 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 17:21:16.794 [Robomongo] Connecting to localhost:27017...
+Sun Sep 14 17:21:16.853 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 14 17:21:16.854 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Sep 14 17:21:25.650 [Robomongo] Connecting to localhost:27017...
+Sun Sep 14 17:21:25.687 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 14 17:21:25.688 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Sep 14 17:21:25.724 [Robomongo] Openning shell...
+Sun Sep 14 17:21:25.725 [Robomongo] db.discussion_comments.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Sun Sep 14 17:26:06.125 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 17:26:06.129 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 17:26:08.085 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 17:26:08.087 [Robomongo] Connecting to localhost:27017...
+Sun Sep 14 17:26:08.145 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 14 17:26:08.146 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Sep 14 17:26:14.068 [Robomongo] Connecting to localhost:27017...
+Sun Sep 14 17:26:14.103 [Robomongo] Openning shell...
+Sun Sep 14 17:26:14.103 [Robomongo] db.discussion_comments.find()
+Sun Sep 14 17:26:14.104 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 14 17:26:14.105 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+
+
+***** APPLICATION RESTARTED *****
+
+
+Sun Sep 14 17:32:06.413 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 17:32:06.418 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 17:33:11.822 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 17:33:11.823 [Robomongo] Connecting to localhost:27017...
+Sun Sep 14 17:33:11.863 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 14 17:33:11.863 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Sep 14 17:33:17.512 [Robomongo] Connecting to localhost:27017...
+Sun Sep 14 17:33:17.544 [Robomongo] Openning shell...
+Sun Sep 14 17:33:17.544 [Robomongo] db.discussion_comments.find()
+Sun Sep 14 17:33:17.578 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 14 17:33:17.579 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Sep 14 17:42:16.192 [Robomongo] db.discussion_comments.find()
+Sun Sep 14 17:45:10.678 [Robomongo] db.discussion_comments.find()
+Sun Sep 14 17:49:16.402 [Robomongo] Connecting to localhost:27017...
+Sun Sep 14 17:49:16.445 [Robomongo] Openning shell...
+Sun Sep 14 17:49:16.445 [Robomongo] db.users.find()
+Sun Sep 14 17:49:16.492 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 14 17:49:16.494 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Sep 14 17:59:41.620 [Robomongo] db.discussion_comments.find()
+Sun Sep 14 18:02:52.530 [Robomongo] db.discussion_comments.find()
+Sun Sep 14 18:04:13.649 [Robomongo] db.discussion_comments.find()
+Sun Sep 14 18:04:38.161 [Robomongo] db.discussion_comments.find()
+Sun Sep 14 18:04:59.360 [Robomongo] db.discussion_comments.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Sun Sep 14 21:26:03.476 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 21:26:03.476 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 14 21:26:10.362 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+
+
+***** APPLICATION RESTARTED *****
+
+
+Mon Sep 15 00:28:42.695 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 15 00:28:42.702 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 15 00:28:45.073 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 15 00:28:45.102 [Robomongo] Connecting to localhost:27017...
+Mon Sep 15 00:28:45.177 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 15 00:28:45.178 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+
+
+***** APPLICATION RESTARTED *****
+
+
+Mon Sep 15 14:26:35.630 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 15 14:26:35.634 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 15 14:26:43.917 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 15 14:26:43.953 [Robomongo] Connecting to localhost:27017...
+Mon Sep 15 14:26:44.026 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 15 14:26:44.027 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Sep 15 14:26:55.445 [Robomongo] Connecting to localhost:27017...
+Mon Sep 15 14:26:55.501 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 15 14:26:55.503 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Sep 15 14:26:55.943 [Robomongo] Openning shell...
+Mon Sep 15 14:26:55.943 [Robomongo] db.discussion_posts.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Mon Sep 15 15:58:43.727 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 15 15:58:43.740 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 15 16:15:02.525 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 15 16:15:02.608 [Robomongo] Connecting to localhost:27017...
+Mon Sep 15 16:15:02.832 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 15 16:15:02.833 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Sep 15 16:34:43.505 [Robomongo] Connecting to localhost:27017...
+Mon Sep 15 16:34:43.558 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 15 16:34:43.559 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Sep 15 16:34:43.809 [Robomongo] Openning shell...
+Mon Sep 15 16:34:43.809 [Robomongo] db.discussion_comments.find()
+Mon Sep 15 17:23:45.281 [Robomongo] Connecting to localhost:27017...
+Mon Sep 15 17:23:45.313 [Robomongo] Openning shell...
+Mon Sep 15 17:23:45.313 [Robomongo] db.discussion_posts.find()
+Mon Sep 15 17:23:45.348 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 15 17:23:45.349 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Sep 15 17:25:57.102 [Robomongo] Connecting to localhost:27017...
+Mon Sep 15 17:25:57.115 [Robomongo] Openning shell...
+Mon Sep 15 17:25:57.116 [Robomongo] db.users.find()
+Mon Sep 15 17:25:57.138 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 15 17:25:57.139 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Sep 15 18:24:43.395 [Robomongo] Connecting to localhost:27017...
+Mon Sep 15 18:24:43.467 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 15 18:24:43.469 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Sep 15 18:24:43.471 [Robomongo] Openning shell...
+Mon Sep 15 18:24:43.471 [Robomongo] db.roles.find()
+Mon Sep 15 18:27:46.315 [Robomongo] db.discussion_posts.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Tue Sep 16 11:04:43.818 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 16 11:04:43.825 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 16 11:05:18.954 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 16 11:05:18.956 [Robomongo] Connecting to localhost:27017...
+Tue Sep 16 11:05:19.298 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 16 11:05:19.300 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+
+
+***** APPLICATION RESTARTED *****
+
+
+Tue Sep 16 16:47:08.766 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 16 16:47:08.783 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 16 16:49:18.472 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 16 16:49:18.521 [Robomongo] Connecting to localhost:27017...
+Tue Sep 16 16:49:18.604 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 16 16:49:18.605 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Sep 16 16:49:27.735 [Robomongo] Connecting to localhost:27017...
+Tue Sep 16 16:49:27.812 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 16 16:49:27.813 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Sep 16 16:49:27.977 [Robomongo] Openning shell...
+Tue Sep 16 16:49:27.977 [Robomongo] db.users.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Tue Sep 16 17:49:42.375 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 16 17:49:42.382 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 16 17:49:43.940 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 16 17:49:43.964 [Robomongo] Connecting to localhost:27017...
+Tue Sep 16 17:49:44.028 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 16 17:49:44.029 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+
+
+***** APPLICATION RESTARTED *****
+
+
+Tue Sep 16 17:49:53.946 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 16 17:49:53.958 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 16 17:49:55.116 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 16 17:49:55.117 [Robomongo] Connecting to localhost:27017...
+Tue Sep 16 17:49:55.160 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 16 17:49:55.161 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Sep 16 17:50:02.138 [Robomongo] Connecting to localhost:27017...
+Tue Sep 16 17:50:02.176 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 16 17:50:02.177 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Sep 16 17:50:02.285 [Robomongo] Openning shell...
+Tue Sep 16 17:50:02.285 [Robomongo] db.users.find()
+Tue Sep 16 18:42:42.576 [Robomongo] Connecting to localhost:27017...
+Tue Sep 16 18:42:42.605 [Robomongo] Openning shell...
+Tue Sep 16 18:42:42.606 [Robomongo] db.templates.find()
+Tue Sep 16 18:42:42.642 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 16 18:42:42.643 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+
+
+***** APPLICATION RESTARTED *****
+
+
+Tue Sep 16 22:32:57.173 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 16 22:32:57.187 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 16 22:33:02.382 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 16 22:33:02.383 [Robomongo] Connecting to localhost:27017...
+Tue Sep 16 22:33:02.422 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 16 22:33:02.423 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Sep 16 22:33:17.565 [Robomongo] Connecting to localhost:27017...
+Tue Sep 16 22:33:17.597 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 16 22:33:17.598 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Sep 16 22:33:17.626 [Robomongo] Openning shell...
+Tue Sep 16 22:33:17.626 [Robomongo] db.sms.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Wed Sep 17 14:23:34.716 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Sep 17 14:23:34.721 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Sep 17 14:23:38.253 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Sep 17 14:23:38.254 [Robomongo] Connecting to localhost:27017...
+Wed Sep 17 14:23:38.335 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Sep 17 14:23:38.336 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Sep 17 14:26:08.141 [Robomongo] Connecting to localhost:27017...
+Wed Sep 17 14:26:08.176 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Sep 17 14:26:08.176 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Sep 17 14:26:08.221 [Robomongo] Openning shell...
+Wed Sep 17 14:26:08.221 [Robomongo] db.sub_modules.find()
+Wed Sep 17 16:55:09.963 [Robomongo] Connecting to localhost:27017...
+Wed Sep 17 16:55:09.995 [Robomongo] Openning shell...
+Wed Sep 17 16:55:09.995 [Robomongo] db.help_desks.find()
+Wed Sep 17 16:55:10.036 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Sep 17 16:55:10.038 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+
+
+***** APPLICATION RESTARTED *****
+
+
+Thu Sep 18 12:35:47.680 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Thu Sep 18 12:35:47.684 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Thu Sep 18 12:35:53.991 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Thu Sep 18 12:35:53.993 [Robomongo] Connecting to localhost:27017...
+Thu Sep 18 12:35:54.056 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Thu Sep 18 12:35:54.057 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Thu Sep 18 12:36:01.025 [Robomongo] Connecting to localhost:27017...
+Thu Sep 18 12:36:01.090 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Thu Sep 18 12:36:01.091 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Thu Sep 18 12:36:01.150 [Robomongo] Openning shell...
+Thu Sep 18 12:36:01.150 [Robomongo] db.users.find()
+Thu Sep 18 13:05:13.607 [Robomongo] Connecting to localhost:27017...
+Thu Sep 18 13:05:13.635 [Robomongo] Openning shell...
+Thu Sep 18 13:05:13.636 [Robomongo] db.help_desk_replies.find()
+Thu Sep 18 13:05:13.668 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Thu Sep 18 13:05:13.669 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Thu Sep 18 13:10:55.128 [Robomongo] db.help_desk_replies.find()
+Thu Sep 18 13:13:17.455 [Robomongo] db.help_desk_replies.find()
+Thu Sep 18 13:32:39.110 [Robomongo] Connecting to localhost:27017...
+Thu Sep 18 13:32:39.146 [Robomongo] Openning shell...
+Thu Sep 18 13:32:39.146 [Robomongo] db.discussion_posts.find()
+Thu Sep 18 13:32:39.185 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Thu Sep 18 13:32:39.186 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Thu Sep 18 16:05:43.451 [Robomongo] Connecting to localhost:27017...
+Thu Sep 18 16:05:44.309 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Thu Sep 18 16:05:44.311 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Thu Sep 18 16:05:44.466 [Robomongo] Openning shell...
+Thu Sep 18 16:05:44.466 [Robomongo] db.discussion_comments.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Fri Sep 19 11:45:26.615 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Sep 19 11:45:26.624 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Sep 19 11:49:06.471 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Sep 19 11:49:06.495 [Robomongo] Connecting to localhost:27017...
+Fri Sep 19 11:49:06.584 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Sep 19 11:49:06.585 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Sep 19 11:49:14.472 [Robomongo] Connecting to localhost:27017...
+Fri Sep 19 11:49:14.525 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Sep 19 11:49:14.526 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Sep 19 11:49:14.637 [Robomongo] Openning shell...
+Fri Sep 19 11:49:14.638 [Robomongo] db.templates.find()
+Fri Sep 19 12:00:14.756 [Robomongo] Connecting to localhost:27017...
+Fri Sep 19 12:00:14.782 [Robomongo] Openning shell...
+Fri Sep 19 12:00:14.782 [Robomongo] db.sub_modules.find()
+Fri Sep 19 12:00:14.818 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Sep 19 12:00:14.819 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+
+
+***** APPLICATION RESTARTED *****
+
+
+Fri Sep 19 22:51:36.175 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Sep 19 22:51:36.181 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Sep 19 22:51:44.798 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+
+
+***** APPLICATION RESTARTED *****
+
+
+Sat Sep 20 12:12:05.712 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Sat Sep 20 12:12:05.722 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sat Sep 20 12:12:07.516 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sat Sep 20 12:12:07.585 [Robomongo] Connecting to localhost:27017...
+Sat Sep 20 12:12:07.664 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Sep 20 12:12:07.666 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Sep 20 12:12:14.654 [Robomongo] Connecting to localhost:27017...
+Sat Sep 20 12:12:14.714 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Sep 20 12:12:14.715 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Sep 20 12:12:14.805 [Robomongo] Openning shell...
+Sat Sep 20 12:12:14.805 [Robomongo] db.users.find()
+Sat Sep 20 16:08:55.770 [Robomongo] Connecting to localhost:27017...
+Sat Sep 20 16:08:55.786 [Robomongo] Openning shell...
+Sat Sep 20 16:08:55.786 [Robomongo] db.discussion_comments.find()
+Sat Sep 20 16:08:55.814 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Sep 20 16:08:55.815 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Sep 20 16:08:56.890 [Robomongo] Connecting to localhost:27017...
+Sat Sep 20 16:08:56.917 [Robomongo] Openning shell...
+Sat Sep 20 16:08:56.918 [Robomongo] db.discussion_posts.find()
+Sat Sep 20 16:08:56.967 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Sep 20 16:08:56.968 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Sep 20 17:05:07.013 [Robomongo] db.discussion_posts.find()
+Sat Sep 20 17:05:12.100 [Robomongo] db.discussion_comments.find()
+Sat Sep 20 17:19:09.807 [Robomongo] db.discussion_comments.find()
+Sat Sep 20 17:19:11.094 [Robomongo] db.discussion_posts.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Sun Sep 21 14:08:53.734 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 21 14:08:53.740 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 21 14:09:00.235 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Sep 21 14:09:00.287 [Robomongo] Connecting to localhost:27017...
+Sun Sep 21 14:09:00.367 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 21 14:09:00.369 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Sep 21 14:09:08.988 [Robomongo] Connecting to localhost:27017...
+Sun Sep 21 14:09:09.068 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 21 14:09:09.069 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Sep 21 14:09:09.129 [Robomongo] Openning shell...
+Sun Sep 21 14:09:09.129 [Robomongo] db.discussion_comments.find()
+Sun Sep 21 14:09:14.180 [Robomongo] Connecting to localhost:27017...
+Sun Sep 21 14:09:14.207 [Robomongo] Openning shell...
+Sun Sep 21 14:09:14.207 [Robomongo] db.discussion_posts.find()
+Sun Sep 21 14:09:14.243 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 21 14:09:14.244 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Sep 21 15:38:12.263 [Robomongo] Connecting to localhost:27017...
+Sun Sep 21 15:38:12.289 [Robomongo] Openning shell...
+Sun Sep 21 15:38:12.289 [Robomongo] db.discussion_comments.find()
+Sun Sep 21 15:38:12.320 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 21 15:38:12.321 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Sep 21 15:38:15.783 [Robomongo] Connecting to localhost:27017...
+Sun Sep 21 15:38:15.811 [Robomongo] Openning shell...
+Sun Sep 21 15:38:15.812 [Robomongo] db.discussion_comments.find()
+Sun Sep 21 15:38:15.838 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 21 15:38:15.840 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Sep 21 15:38:16.783 [Robomongo] Connecting to localhost:27017...
+Sun Sep 21 15:38:16.814 [Robomongo] Openning shell...
+Sun Sep 21 15:38:16.814 [Robomongo] db.discussion_posts.find()
+Sun Sep 21 15:38:16.843 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 21 15:38:16.845 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Sep 21 16:21:14.188 [Robomongo] Connecting to localhost:27017...
+Sun Sep 21 16:21:14.217 [Robomongo] Openning shell...
+Sun Sep 21 16:21:14.218 [Robomongo] db.sub_modules.find()
+Sun Sep 21 16:21:14.249 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 21 16:21:14.250 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Sep 21 16:22:05.139 [Robomongo] Connecting to localhost:27017...
+Sun Sep 21 16:22:05.174 [Robomongo] Openning shell...
+Sun Sep 21 16:22:05.175 [Robomongo] db.role_privileges.find()
+Sun Sep 21 16:22:05.205 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 21 16:22:05.207 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Sep 21 17:30:42.131 [Robomongo] Connecting to localhost:27017...
+Sun Sep 21 17:30:42.158 [Robomongo] Openning shell...
+Sun Sep 21 17:30:42.158 [Robomongo] db.main_modules.find()
+Sun Sep 21 17:30:42.199 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 21 17:30:42.200 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Sep 21 17:30:49.107 [Robomongo] Connecting to localhost:27017...
+Sun Sep 21 17:30:49.133 [Robomongo] Openning shell...
+Sun Sep 21 17:30:49.133 [Robomongo] db.sub_modules.find()
+Sun Sep 21 17:30:49.175 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 21 17:30:49.176 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Sep 21 17:32:28.258 [Robomongo] Connecting to localhost:27017...
+Sun Sep 21 17:32:28.287 [Robomongo] Openning shell...
+Sun Sep 21 17:32:28.288 [Robomongo] db.pages.find()
+Sun Sep 21 17:32:28.317 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Sep 21 17:32:28.320 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+
+
+***** APPLICATION RESTARTED *****
+
+
+
+
+***** APPLICATION RESTARTED *****
+
+
+Mon Sep 22 10:54:27.831 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 22 10:54:27.837 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 22 10:54:27.849 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 22 10:54:27.853 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 22 10:54:37.833 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 22 10:54:42.427 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+
+
+***** APPLICATION RESTARTED *****
+
+
+Mon Sep 22 10:54:45.999 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 22 10:54:46.006 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 22 10:54:48.133 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 22 10:54:48.151 [Robomongo] Connecting to localhost:27017...
+Mon Sep 22 10:54:48.192 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 22 10:54:48.193 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Sep 22 11:06:13.116 [Robomongo] Connecting to localhost:27017...
+Mon Sep 22 11:06:13.178 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 22 11:06:13.179 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Sep 22 11:06:13.251 [Robomongo] Openning shell...
+Mon Sep 22 11:06:13.251 [Robomongo] db.users.find()
+Mon Sep 22 11:11:25.416 [Robomongo] Connecting to localhost:27017...
+Mon Sep 22 11:11:25.444 [Robomongo] Openning shell...
+Mon Sep 22 11:11:25.445 [Robomongo] db.discussion_posts.find()
+Mon Sep 22 11:11:25.482 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 22 11:11:25.484 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Sep 22 11:11:26.399 [Robomongo] Connecting to localhost:27017...
+Mon Sep 22 11:11:26.420 [Robomongo] Openning shell...
+Mon Sep 22 11:11:26.420 [Robomongo] db.discussion_comments.find()
+Mon Sep 22 11:11:26.454 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 22 11:11:26.455 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Sep 22 11:52:26.465 [Robomongo] db.discussion_comments.find()
+Mon Sep 22 11:52:53.576 [Robomongo] db.discussion_posts.find()
+Mon Sep 22 16:16:20.210 [Robomongo] Connecting to localhost:27017...
+Mon Sep 22 16:16:21.262 [Robomongo] Openning shell...
+Mon Sep 22 16:16:21.262 [Robomongo] db.users.find()
+Mon Sep 22 16:16:21.361 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 22 16:16:21.362 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Sep 22 16:39:50.083 [Robomongo] Connecting to localhost:27017...
+Mon Sep 22 16:39:50.102 [Robomongo] Openning shell...
+Mon Sep 22 16:39:50.102 [Robomongo] db.events.find()
+Mon Sep 22 16:39:50.149 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 22 16:39:50.151 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+
+
+***** APPLICATION RESTARTED *****
+
+
+Mon Sep 22 17:07:38.223 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 22 17:07:38.226 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 22 17:08:08.509 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 22 17:08:08.511 [Robomongo] Connecting to localhost:27017...
+Mon Sep 22 17:08:08.560 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 22 17:08:08.560 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Sep 22 17:08:14.848 [Robomongo] Connecting to localhost:27017...
+Mon Sep 22 17:08:14.908 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 22 17:08:14.909 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Sep 22 17:08:14.974 [Robomongo] Openning shell...
+Mon Sep 22 17:08:14.974 [Robomongo] db.users.find()
+Mon Sep 22 17:20:53.737 [Robomongo] Connecting to localhost:27017...
+Mon Sep 22 17:20:53.771 [Robomongo] Openning shell...
+Mon Sep 22 17:20:53.771 [Robomongo] db.events.find()
+Mon Sep 22 17:20:53.804 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 22 17:20:53.805 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Sep 22 17:21:26.546 [Robomongo] db.events.find()
+Mon Sep 22 17:21:47.281 [Robomongo] db.events.find()
+Mon Sep 22 17:22:07.642 [Robomongo] db.events.find()
+Mon Sep 22 17:22:25.810 [Robomongo] db.events.find()
+Mon Sep 22 17:22:52.922 [Robomongo] db.events.find()
+Mon Sep 22 17:25:43.605 [Robomongo] db.events.find()
+Mon Sep 22 17:27:49.158 [Robomongo] db.events.find()
+Mon Sep 22 17:28:07.887 [Robomongo] db.events.find()
+Mon Sep 22 17:28:28.399 [Robomongo] db.events.find()
+Mon Sep 22 17:33:33.609 [Robomongo] db.events.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Mon Sep 22 21:35:57.291 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 22 21:35:57.291 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 22 21:36:08.144 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 22 21:36:08.327 [Robomongo] Connecting to localhost:27017...
+Mon Sep 22 21:36:08.451 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 22 21:36:08.453 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+
+
+***** APPLICATION RESTARTED *****
+
+
+Tue Sep 23 11:17:48.404 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 23 11:17:48.415 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 23 11:26:04.687 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 23 11:26:04.713 [Robomongo] Connecting to localhost:27017...
+Tue Sep 23 11:26:04.776 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 23 11:26:04.777 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Sep 23 11:26:13.079 [Robomongo] Connecting to localhost:27017...
+Tue Sep 23 11:26:13.143 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 23 11:26:13.144 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Sep 23 11:26:13.199 [Robomongo] Openning shell...
+Tue Sep 23 11:26:13.200 [Robomongo] db.events.find()
+Tue Sep 23 11:39:20.994 [Robomongo] db.events.find()
+Tue Sep 23 11:39:57.051 [Robomongo] db.events.find()
+Tue Sep 23 11:40:18.322 [Robomongo] db.events.find()
+Tue Sep 23 11:40:42.546 [Robomongo] db.events.find()
+Tue Sep 23 11:41:12.290 [Robomongo] db.events.find()
+Tue Sep 23 11:46:41.148 [Robomongo] db.events.find()
+Tue Sep 23 11:47:04.586 [Robomongo] db.events.find()
+Tue Sep 23 11:47:26.468 [Robomongo] db.events.find()
+Tue Sep 23 11:47:44.164 [Robomongo] db.events.find()
+Tue Sep 23 11:48:03.395 [Robomongo] db.events.find()
+Tue Sep 23 11:48:14.812 [Robomongo] db.events.find()
+Tue Sep 23 11:50:13.836 [Robomongo] db.events.find()
+Tue Sep 23 11:57:19.309 [Robomongo] db.events.find()
+Tue Sep 23 11:57:24.765 [Robomongo] db.events.find()
+Tue Sep 23 12:02:10.038 [Robomongo] db.events.find()
+Tue Sep 23 12:02:21.734 [Robomongo] db.events.find()
+Tue Sep 23 12:02:32.350 [Robomongo] db.events.find()
+Tue Sep 23 12:03:01.958 [Robomongo] db.events.find()
+Tue Sep 23 12:03:17.839 [Robomongo] db.events.find()
+Tue Sep 23 12:03:33.558 [Robomongo] db.events.find()
+Tue Sep 23 12:03:46.271 [Robomongo] db.events.find()
+Tue Sep 23 12:21:11.401 [Robomongo] db.events.find()
+Tue Sep 23 12:21:41.537 [Robomongo] db.events.find()
+Tue Sep 23 12:21:53.449 [Robomongo] db.events.find()
+Tue Sep 23 12:22:04.345 [Robomongo] db.events.find()
+Tue Sep 23 12:22:16.561 [Robomongo] db.events.find()
+Tue Sep 23 12:22:31.088 [Robomongo] db.events.find()
+Tue Sep 23 12:22:48.033 [Robomongo] db.events.find()
+Tue Sep 23 12:43:52.981 [Robomongo] db.events.find()
+Tue Sep 23 12:58:37.367 [Robomongo] db.events.find()
+Tue Sep 23 13:23:32.451 [Robomongo] db.events.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Wed Sep 24 10:52:37.392 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Sep 24 10:52:37.408 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Sep 24 13:14:29.105 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Sep 24 13:14:29.164 [Robomongo] Connecting to localhost:27017...
+Wed Sep 24 13:14:29.256 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Sep 24 13:14:29.256 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Sep 24 13:39:35.002 [Robomongo] Connecting to localhost:27017...
+Wed Sep 24 13:39:35.065 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Sep 24 13:39:35.067 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Sep 24 13:39:35.180 [Robomongo] Openning shell...
+Wed Sep 24 13:39:35.181 [Robomongo] db.email_communications.find()
+Wed Sep 24 13:43:55.508 [Robomongo] db.email_communications.find()
+Wed Sep 24 13:45:15.653 [Robomongo] Connecting to localhost:27017...
+Wed Sep 24 13:45:15.680 [Robomongo] Openning shell...
+Wed Sep 24 13:45:15.681 [Robomongo] db.sms.find()
+Wed Sep 24 13:45:15.716 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Sep 24 13:45:15.718 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Sep 24 13:45:25.549 [Robomongo] db.sms.find()
+Wed Sep 24 13:45:52.589 [Robomongo] db.sms.find()
+Wed Sep 24 13:46:04.333 [Robomongo] db.sms.find()
+Wed Sep 24 13:46:33.181 [Robomongo] db.sms.find()
+Wed Sep 24 13:47:50.621 [Robomongo] db.sms.find()
+Wed Sep 24 13:47:59.005 [Robomongo] db.sms.find()
+Wed Sep 24 13:48:10.333 [Robomongo] db.sms.find()
+Wed Sep 24 13:48:41.222 [Robomongo] db.sms.find()
+Wed Sep 24 13:49:26.445 [Robomongo] db.sms.find()
+Wed Sep 24 13:50:16.565 [Robomongo] db.sms.find()
+Wed Sep 24 13:50:27.366 [Robomongo] db.sms.find()
+Wed Sep 24 14:08:33.375 [Robomongo] Connecting to localhost:27017...
+Wed Sep 24 14:08:33.406 [Robomongo] Openning shell...
+Wed Sep 24 14:08:33.406 [Robomongo] db.groups.find()
+Wed Sep 24 14:08:33.437 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Sep 24 14:08:33.438 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Sep 24 14:16:36.312 [Robomongo] db.email_communications.find()
+Wed Sep 24 14:16:56.456 [Robomongo] db.email_communications.find()
+Wed Sep 24 14:17:55.936 [Robomongo] db.email_communications.find()
+Wed Sep 24 14:46:59.562 [Robomongo] db.email_communications.find()
+Wed Sep 24 14:47:46.242 [Robomongo] db.email_communications.find()
+Wed Sep 24 14:50:24.170 [Robomongo] db.email_communications.find()
+Wed Sep 24 14:52:20.298 [Robomongo] db.email_communications.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Thu Sep 25 16:57:51.377 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Thu Sep 25 16:57:51.377 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Thu Sep 25 16:57:59.107 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+
+
+***** APPLICATION RESTARTED *****
+
+
+Fri Sep 26 10:11:08.281 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Sep 26 10:11:08.296 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Sep 26 10:11:15.069 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+
+
+***** APPLICATION RESTARTED *****
+
+
+Fri Sep 26 13:20:37.917 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Sep 26 13:20:37.920 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Sep 26 13:20:42.496 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+
+
+***** APPLICATION RESTARTED *****
+
+
+Fri Sep 26 18:58:18.931 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Sep 26 18:58:18.931 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Sep 26 18:58:23.264 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+
+
+***** APPLICATION RESTARTED *****
+
+
+Sat Sep 27 13:21:13.603 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Sat Sep 27 13:21:13.607 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sat Sep 27 13:21:15.247 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sat Sep 27 13:21:15.321 [Robomongo] Connecting to localhost:27017...
+Sat Sep 27 13:21:15.415 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Sep 27 13:21:15.417 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Sep 27 13:21:25.832 [Robomongo] Connecting to localhost:27017...
+Sat Sep 27 13:21:25.883 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Sep 27 13:21:25.884 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Sep 27 13:21:25.930 [Robomongo] Openning shell...
+Sat Sep 27 13:21:25.930 [Robomongo] db.notices.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Mon Sep 29 11:25:31.470 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 29 11:25:31.482 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 29 11:25:33.544 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 29 11:25:33.611 [Robomongo] Connecting to localhost:27017...
+Mon Sep 29 11:25:33.683 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 29 11:25:33.685 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Sep 29 12:02:20.616 [Robomongo] Connecting to localhost:27017...
+Mon Sep 29 12:02:20.688 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 29 12:02:20.689 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Sep 29 12:02:20.725 [Robomongo] Openning shell...
+Mon Sep 29 12:02:20.725 [Robomongo] db.test.find()
+Mon Sep 29 12:36:19.567 [Robomongo] db.test.find()
+Mon Sep 29 12:36:21.696 [Robomongo] db.test.find()
+Mon Sep 29 12:36:45.496 [Robomongo] db.test.find()
+Mon Sep 29 13:10:57.582 [Robomongo] db.test.find()
+Mon Sep 29 13:11:24.390 [Robomongo] db.test.find()
+Mon Sep 29 13:17:38.375 [Robomongo] db.test.find()
+Mon Sep 29 13:18:42.783 [Robomongo] db.test.find()
+Mon Sep 29 13:18:50.439 [Robomongo] db.test.find()
+Mon Sep 29 13:19:32.567 [Robomongo] db.test.find()
+Mon Sep 29 13:19:39.248 [Robomongo] db.test.find()
+Mon Sep 29 13:19:41.928 [Robomongo] db.test.find()
+Mon Sep 29 13:20:31.296 [Robomongo] db.test.find()
+Mon Sep 29 13:21:04.327 [Robomongo] Connecting to localhost:27017...
+Mon Sep 29 13:21:04.353 [Robomongo] Openning shell...
+Mon Sep 29 13:21:04.353 [Robomongo] db.test.find()
+Mon Sep 29 13:21:04.379 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 29 13:21:04.380 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Sep 29 13:21:30.143 [Robomongo] db.test.find()
+Mon Sep 29 13:22:41.648 [Robomongo] db.test.find()
+Mon Sep 29 13:22:48.929 [Robomongo] db.test.find()
+Mon Sep 29 13:23:20.041 [Robomongo] db.test.find()
+Mon Sep 29 13:24:59.385 [Robomongo] db.test.find()
+Mon Sep 29 13:25:15.344 [Robomongo] db.test.find()
+Mon Sep 29 13:27:07.345 [Robomongo] db.test.find()
+Mon Sep 29 13:27:42.761 [Robomongo] db.test.find()
+Mon Sep 29 13:32:42.626 [Robomongo] db.test.find()
+Mon Sep 29 13:33:01.249 [Robomongo] Connecting to localhost:27017...
+Mon Sep 29 13:33:01.273 [Robomongo] Openning shell...
+Mon Sep 29 13:33:01.273 [Robomongo] db.test.find()
+Mon Sep 29 13:33:01.302 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 29 13:33:01.303 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Sep 29 14:17:37.976 [Robomongo] db.test.find()
+Mon Sep 29 14:18:54.490 [Robomongo] db.test.find()
+Mon Sep 29 14:19:18.113 [Robomongo] Connecting to localhost:27017...
+Mon Sep 29 14:19:18.138 [Robomongo] Openning shell...
+Mon Sep 29 14:19:18.138 [Robomongo] db.test.find()
+Mon Sep 29 14:19:18.199 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 29 14:19:18.200 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Sep 29 14:43:38.781 [Robomongo] db.test.find()
+Mon Sep 29 14:43:50.597 [Robomongo] db.test.find()
+Mon Sep 29 14:43:52.853 [Robomongo] db.test.find()
+Mon Sep 29 14:44:40.580 [Robomongo] Connecting to localhost:27017...
+Mon Sep 29 14:44:40.594 [Robomongo] Openning shell...
+Mon Sep 29 14:44:40.595 [Robomongo] db.test.find()
+Mon Sep 29 14:44:40.628 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 29 14:44:40.629 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Sep 29 14:51:40.862 [Robomongo] db.test.find()
+Mon Sep 29 14:52:51.319 [Robomongo] db.test.find()
+Mon Sep 29 14:53:01.471 [Robomongo] db.test.find()
+Mon Sep 29 14:53:09.559 [Robomongo] db.test.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Mon Sep 29 14:54:48.675 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 29 14:54:48.680 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 29 14:54:50.116 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Sep 29 14:54:50.118 [Robomongo] Connecting to localhost:27017...
+Mon Sep 29 14:54:50.155 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 29 14:54:50.156 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Sep 29 14:54:54.071 [Robomongo] Connecting to localhost:27017...
+Mon Sep 29 14:54:54.136 [Robomongo] Openning shell...
+Mon Sep 29 14:54:54.136 [Robomongo] db.test.find()
+Mon Sep 29 14:54:54.153 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Sep 29 14:54:54.154 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Sep 29 15:06:59.938 [Robomongo] db.test.find()
+Mon Sep 29 15:07:47.762 [Robomongo] db.test.find()
+Mon Sep 29 15:10:51.802 [Robomongo] db.test.find()
+Mon Sep 29 15:11:10.803 [Robomongo] db.test.find()
+Mon Sep 29 15:16:58.972 [Robomongo] db.test.find()
+Mon Sep 29 15:17:34.747 [Robomongo] db.test.find()
+Mon Sep 29 15:19:58.292 [Robomongo] db.test.find()
+Mon Sep 29 15:20:10.668 [Robomongo] db.test.find()
+Mon Sep 29 15:46:02.694 [Robomongo] db.test.find()
+Mon Sep 29 15:46:25.134 [Robomongo] db.test.find()
+Mon Sep 29 15:47:50.846 [Robomongo] db.test.find()
+Mon Sep 29 15:48:02.190 [Robomongo] db.test.find()
+Mon Sep 29 15:48:17.718 [Robomongo] db.test.find()
+Mon Sep 29 15:48:35.974 [Robomongo] db.test.find()
+Mon Sep 29 15:50:42.510 [Robomongo] db.test.find()
+Mon Sep 29 15:51:12.790 [Robomongo] db.test.find()
+Mon Sep 29 15:53:35.254 [Robomongo] db.test.find()
+Mon Sep 29 15:54:00.838 [Robomongo] db.test.find()
+Mon Sep 29 15:54:15.302 [Robomongo] db.test.find()
+Mon Sep 29 16:11:00.862 [Robomongo] db.test.find()
+Mon Sep 29 16:11:29.078 [Robomongo] db.test.find()
+Mon Sep 29 16:11:43.854 [Robomongo] db.test.find()
+Mon Sep 29 16:11:45.654 [Robomongo] db.test.find()
+Mon Sep 29 16:19:01.967 [Robomongo] db.test.find()
+Mon Sep 29 16:28:20.111 [Robomongo] db.test.find()
+Mon Sep 29 16:28:35.895 [Robomongo] db.test.find()
+Mon Sep 29 16:28:49.404 [Robomongo] db.test.find()
+Mon Sep 29 16:30:14.454 [Robomongo] db.test.find()
+Mon Sep 29 16:30:29.702 [Robomongo] db.test.find()
+Mon Sep 29 16:31:47.624 [Robomongo] db.test.find()
+Mon Sep 29 17:11:30.190 [Robomongo] db.test.find()
+Mon Sep 29 17:11:36.180 [Robomongo] db.test.find()
+Mon Sep 29 17:11:37.452 [Robomongo] db.test.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Tue Sep 30 12:12:49.050 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 30 12:12:49.059 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 30 12:12:50.782 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 30 12:12:50.783 [Robomongo] Connecting to localhost:27017...
+Tue Sep 30 12:12:50.823 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 30 12:12:50.824 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Sep 30 12:12:58.761 [Robomongo] Connecting to localhost:27017...
+Tue Sep 30 12:12:58.835 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 30 12:12:58.836 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Sep 30 12:12:58.853 [Robomongo] Openning shell...
+Tue Sep 30 12:12:58.853 [Robomongo] db.users.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Tue Sep 30 14:12:32.176 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 30 14:12:32.182 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 30 14:45:39.042 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 30 14:45:39.045 [Robomongo] Connecting to localhost:27017...
+Tue Sep 30 14:45:39.114 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 30 14:45:39.115 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Sep 30 14:45:57.413 [Robomongo] Connecting to localhost:27017...
+Tue Sep 30 14:45:57.456 [Robomongo] Openning shell...
+Tue Sep 30 14:45:57.456 [Robomongo] db.polls.find()
+Tue Sep 30 14:45:57.476 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 30 14:45:57.477 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Sep 30 14:56:25.327 [Robomongo] db.polls.find()
+Tue Sep 30 14:56:48.295 [Robomongo] db.polls.find()
+Tue Sep 30 14:57:39.766 [Robomongo] db.polls.find()
+Tue Sep 30 14:58:34.487 [Robomongo] db.polls.find()
+Tue Sep 30 14:59:03.551 [Robomongo] db.polls.find()
+Tue Sep 30 14:59:05.143 [Robomongo] Connecting to localhost:27017...
+Tue Sep 30 14:59:05.154 [Robomongo] Openning shell...
+Tue Sep 30 14:59:05.177 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 30 14:59:05.178 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Sep 30 14:59:08.087 [Robomongo] db.polls.find()
+Tue Sep 30 14:59:22.319 [Robomongo] db.polls.find()
+Tue Sep 30 15:05:43.920 [Robomongo] db.polls.find()
+Tue Sep 30 15:14:28.056 [Robomongo] db.polls.find()
+Tue Sep 30 15:22:01.642 [Robomongo] db.polls.find()
+Tue Sep 30 15:26:19.066 [Robomongo] db.polls.find()
+Tue Sep 30 18:18:48.792 [Robomongo] db.polls.find()
+Tue Sep 30 18:27:12.209 [Robomongo] db.polls.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Tue Sep 30 21:14:58.170 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 30 21:14:58.174 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 30 21:15:00.998 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Sep 30 21:15:00.999 [Robomongo] Connecting to localhost:27017...
+Tue Sep 30 21:15:01.100 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 30 21:15:01.103 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Sep 30 21:15:32.795 [Robomongo] Connecting to localhost:27017...
+Tue Sep 30 21:15:32.830 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Sep 30 21:15:32.830 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Sep 30 21:15:32.901 [Robomongo] Openning shell...
+Tue Sep 30 21:15:32.901 [Robomongo] db.polls.find()
+Tue Sep 30 21:50:51.199 [Robomongo] db.polls.find()
+Tue Sep 30 21:53:42.583 [Robomongo] db.polls.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Wed Oct 01 11:39:39.753 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Oct 01 11:39:39.760 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Oct 01 11:39:41.266 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Oct 01 11:39:41.267 [Robomongo] Connecting to localhost:27017...
+Wed Oct 01 11:39:41.311 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Oct 01 11:39:41.312 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Oct 01 11:39:48.749 [Robomongo] Connecting to localhost:27017...
+Wed Oct 01 11:39:48.809 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Oct 01 11:39:48.810 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Oct 01 11:39:48.863 [Robomongo] Openning shell...
+Wed Oct 01 11:39:48.863 [Robomongo] db.polls.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Mon Oct 06 13:49:21.711 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Oct 06 13:49:21.716 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Oct 06 13:49:49.886 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Oct 06 13:49:49.888 [Robomongo] Connecting to localhost:27017...
+Mon Oct 06 13:49:50.030 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Oct 06 13:49:50.032 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Oct 06 13:50:00.479 [Robomongo] Connecting to localhost:27017...
+Mon Oct 06 13:50:00.531 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Oct 06 13:50:00.532 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Oct 06 13:50:00.597 [Robomongo] Openning shell...
+Mon Oct 06 13:50:00.598 [Robomongo] db.polls.find()
+Mon Oct 06 14:18:30.838 [Robomongo] db.polls.find()
+Mon Oct 06 14:19:52.670 [Robomongo] db.polls.find()
+Mon Oct 06 14:27:55.214 [Robomongo] db.polls.find()
+Mon Oct 06 14:28:21.421 [Robomongo] db.polls.find()
+Mon Oct 06 14:28:42.606 [Robomongo] db.polls.find()
+Mon Oct 06 14:28:55.349 [Robomongo] db.polls.find()
+Mon Oct 06 14:30:55.558 [Robomongo] db.polls.find()
+Mon Oct 06 14:31:29.869 [Robomongo] db.polls.find()
+Mon Oct 06 14:31:41.741 [Robomongo] db.polls.find()
+Mon Oct 06 14:32:18.022 [Robomongo] db.polls.find()
+Mon Oct 06 14:32:43.005 [Robomongo] db.polls.find()
+Mon Oct 06 14:34:27.133 [Robomongo] db.polls.find()
+Mon Oct 06 14:38:33.413 [Robomongo] db.polls.find()
+Mon Oct 06 14:39:12.509 [Robomongo] db.polls.find()
+Mon Oct 06 14:54:57.628 [Robomongo] db.polls.find()
+Mon Oct 06 14:55:23.883 [Robomongo] db.polls.find()
+Mon Oct 06 14:55:39.067 [Robomongo] db.polls.find()
+Mon Oct 06 14:57:02.908 [Robomongo] db.polls.find()
+Mon Oct 06 14:59:36.756 [Robomongo] db.polls.find()
+Mon Oct 06 14:59:45.556 [Robomongo] db.polls.find()
+Mon Oct 06 15:04:26.940 [Robomongo] db.polls.find()
+Mon Oct 06 15:05:02.587 [Robomongo] db.polls.find()
+Mon Oct 06 15:05:43.635 [Robomongo] db.polls.find()
+Mon Oct 06 15:06:42.099 [Robomongo] db.polls.find()
+Mon Oct 06 15:06:57.091 [Robomongo] db.polls.find()
+Mon Oct 06 15:10:23.731 [Robomongo] db.polls.find()
+Mon Oct 06 15:11:48.299 [Robomongo] db.polls.find()
+Mon Oct 06 15:15:24.699 [Robomongo] db.polls.find()
+Mon Oct 06 15:17:41.915 [Robomongo] db.polls.find()
+Mon Oct 06 15:18:29.323 [Robomongo] db.polls.find()
+Mon Oct 06 15:19:30.531 [Robomongo] db.polls.find()
+Mon Oct 06 15:20:36.898 [Robomongo] db.polls.find()
+Mon Oct 06 15:22:12.899 [Robomongo] db.polls.find()
+Mon Oct 06 15:23:51.355 [Robomongo] db.polls.find()
+Mon Oct 06 15:24:12.794 [Robomongo] db.polls.find()
+Mon Oct 06 15:25:06.323 [Robomongo] db.polls.find()
+Mon Oct 06 15:28:12.570 [Robomongo] db.polls.find()
+Mon Oct 06 15:28:41.986 [Robomongo] db.polls.find()
+Mon Oct 06 15:29:35.754 [Robomongo] db.polls.find()
+Mon Oct 06 15:30:04.282 [Robomongo] db.polls.find()
+Mon Oct 06 15:30:22.930 [Robomongo] db.polls.find()
+Mon Oct 06 15:31:12.682 [Robomongo] db.polls.find()
+Mon Oct 06 15:32:04.962 [Robomongo] db.polls.find()
+Mon Oct 06 15:33:11.906 [Robomongo] db.polls.find()
+Mon Oct 06 15:35:45.393 [Robomongo] db.polls.find()
+Mon Oct 06 15:36:08.625 [Robomongo] db.polls.find()
+Mon Oct 06 15:38:10.978 [Robomongo] db.polls.find()
+Mon Oct 06 15:44:09.721 [Robomongo] db.polls.find()
+Mon Oct 06 17:14:52.503 [Robomongo] db.polls.find()
+Mon Oct 06 17:16:45.176 [Robomongo] db.polls.find()
+Mon Oct 06 17:17:01.952 [Robomongo] db.polls.find()
+Mon Oct 06 17:17:15.376 [Robomongo] db.polls.find()
+Mon Oct 06 17:19:13.176 [Robomongo] db.polls.find()
+Mon Oct 06 17:20:11.991 [Robomongo] db.polls.find()
+Mon Oct 06 17:21:28.359 [Robomongo] db.polls.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Mon Oct 06 17:21:57.614 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Oct 06 17:21:57.644 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Oct 06 17:21:59.973 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Oct 06 17:21:59.974 [Robomongo] Connecting to localhost:27017...
+Mon Oct 06 17:22:00.156 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Oct 06 17:22:00.158 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Oct 06 17:22:10.815 [Robomongo] Connecting to localhost:27017...
+Mon Oct 06 17:22:10.845 [Robomongo] Openning shell...
+Mon Oct 06 17:22:10.846 [Robomongo] db.polls.find()
+Mon Oct 06 17:22:10.874 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Oct 06 17:22:10.876 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Oct 06 17:23:08.655 [Robomongo] db.polls.find()
+Mon Oct 06 17:24:55.318 [Robomongo] db.polls.find()
+Mon Oct 06 17:47:46.770 [Robomongo] db.polls.find()
+Mon Oct 06 18:17:21.051 [Robomongo] db.polls.find()
+Mon Oct 06 18:18:35.444 [Robomongo] db.polls.find()
+Mon Oct 06 18:23:13.555 [Robomongo] db.polls.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Tue Oct 07 11:05:11.735 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Oct 07 11:05:11.749 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Oct 07 11:05:13.554 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Oct 07 11:05:13.555 [Robomongo] Connecting to localhost:27017...
+Tue Oct 07 11:05:13.592 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Oct 07 11:05:13.593 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Oct 07 11:05:39.300 [Robomongo] Connecting to localhost:27017...
+Tue Oct 07 11:05:39.350 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Oct 07 11:05:39.351 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Oct 07 11:05:39.398 [Robomongo] Openning shell...
+Tue Oct 07 11:05:39.398 [Robomongo] db.polls.find()
+Tue Oct 07 12:36:32.615 [Robomongo] db.polls.find()
+Tue Oct 07 12:38:46.038 [Robomongo] db.polls.find()
+Tue Oct 07 14:15:41.782 [Robomongo] db.polls.find()
+Tue Oct 07 14:18:48.324 [Robomongo] db.polls.find()
+Tue Oct 07 14:20:14.811 [Robomongo] db.polls.find()
+Tue Oct 07 14:24:54.385 [Robomongo] db.polls.find()
+Tue Oct 07 14:30:55.877 [Robomongo] db.polls.find()
+Tue Oct 07 14:35:04.611 [Robomongo] db.polls.find()
+Tue Oct 07 14:36:28.066 [Robomongo] db.polls.find()
+Tue Oct 07 14:41:25.440 [Robomongo] db.polls.find()
+Tue Oct 07 14:43:07.999 [Robomongo] db.polls.find()
+Tue Oct 07 14:44:52.021 [Robomongo] db.polls.find()
+Tue Oct 07 14:49:06.446 [Robomongo] db.polls.find()
+Tue Oct 07 14:51:21.917 [Robomongo] db.polls.find()
+Tue Oct 07 15:57:00.541 [Robomongo] db.polls.find()
+Tue Oct 07 16:02:42.066 [Robomongo] db.polls.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Tue Oct 07 16:25:50.156 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Oct 07 16:25:50.160 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Oct 07 16:25:51.671 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Oct 07 16:25:51.672 [Robomongo] Connecting to localhost:27017...
+Tue Oct 07 16:25:51.718 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Oct 07 16:25:51.719 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Oct 07 16:26:01.722 [Robomongo] Connecting to localhost:27017...
+Tue Oct 07 16:26:01.755 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Oct 07 16:26:01.756 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Oct 07 16:26:02.049 [Robomongo] Openning shell...
+Tue Oct 07 16:26:02.049 [Robomongo] db.polls.find()
+Tue Oct 07 16:26:20.739 [Robomongo] db.polls.find()
+Tue Oct 07 16:30:54.682 [Robomongo] db.polls.find()
+Tue Oct 07 16:38:37.786 [Robomongo] db.polls.find()
+Tue Oct 07 16:39:43.018 [Robomongo] db.polls.find()
+Tue Oct 07 16:43:34.504 [Robomongo] db.polls.find()
+Tue Oct 07 16:44:24.865 [Robomongo] db.polls.find()
+Tue Oct 07 17:09:26.335 [Robomongo] db.polls.find()
+Tue Oct 07 17:12:05.334 [Robomongo] db.polls.find()
+Tue Oct 07 17:37:24.131 [Robomongo] db.polls.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Tue Oct 07 17:47:54.871 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Oct 07 17:47:54.873 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Oct 07 17:47:57.412 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Oct 07 17:47:57.413 [Robomongo] Connecting to localhost:27017...
+Tue Oct 07 17:47:57.457 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Oct 07 17:47:57.457 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Oct 07 17:51:47.744 [Robomongo] Connecting to localhost:27017...
+Tue Oct 07 17:51:47.840 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Oct 07 17:51:47.841 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Oct 07 17:51:48.048 [Robomongo] Openning shell...
+Tue Oct 07 17:51:48.048 [Robomongo] db.polls.find()
+Tue Oct 07 17:54:32.305 [Robomongo] db.polls.find()
+Tue Oct 07 17:54:59.089 [Robomongo] db.polls.find()
+Tue Oct 07 17:56:50.953 [Robomongo] db.polls.find()
+Tue Oct 07 17:59:22.809 [Robomongo] db.polls.find()
+Tue Oct 07 18:03:44.946 [Robomongo] Connecting to localhost:27017...
+Tue Oct 07 18:03:44.972 [Robomongo] Openning shell...
+Tue Oct 07 18:03:44.972 [Robomongo] db.users.find()
+Tue Oct 07 18:03:45.007 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Oct 07 18:03:45.008 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Oct 07 18:05:16.329 [Robomongo] db.polls.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Tue Oct 07 18:11:31.331 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Oct 07 18:11:31.335 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Oct 07 18:11:32.534 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Oct 07 18:11:32.535 [Robomongo] Connecting to localhost:27017...
+Tue Oct 07 18:11:32.582 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Oct 07 18:11:32.583 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Oct 07 18:11:39.154 [Robomongo] Connecting to localhost:27017...
+Tue Oct 07 18:11:39.208 [Robomongo] Openning shell...
+Tue Oct 07 18:11:39.208 [Robomongo] db.polls.find()
+Tue Oct 07 18:11:39.235 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Oct 07 18:11:39.236 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+
+
+***** APPLICATION RESTARTED *****
+
+
+Wed Oct 08 10:53:00.509 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Oct 08 10:53:00.525 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Oct 08 10:54:42.845 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Oct 08 10:54:42.846 [Robomongo] Connecting to localhost:27017...
+Wed Oct 08 10:54:42.919 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Oct 08 10:54:42.920 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Oct 08 10:58:10.965 [Robomongo] Connecting to localhost:27017...
+Wed Oct 08 10:58:11.076 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Oct 08 10:58:11.079 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Oct 08 10:58:11.432 [Robomongo] Openning shell...
+Wed Oct 08 10:58:11.433 [Robomongo] db.users.find()
+Wed Oct 08 12:27:28.789 [Robomongo] Connecting to localhost:27017...
+Wed Oct 08 12:27:28.802 [Robomongo] Openning shell...
+Wed Oct 08 12:27:28.803 [Robomongo] db.polls.find()
+Wed Oct 08 12:27:28.828 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Oct 08 12:27:28.830 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Oct 08 15:21:24.435 [Robomongo] db.polls.find()
+Wed Oct 08 15:24:10.642 [Robomongo] Connecting to localhost:27017...
+Wed Oct 08 15:24:11.010 [Robomongo] Openning shell...
+Wed Oct 08 15:24:11.011 [Robomongo] db.users.find()
+Wed Oct 08 15:24:11.116 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Oct 08 15:24:11.117 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Oct 08 15:34:37.897 [Robomongo] db.polls.find()
+Wed Oct 08 15:39:12.945 [Robomongo] db.polls.find()
+Wed Oct 08 15:46:39.153 [Robomongo] db.polls.find()
+Wed Oct 08 15:57:11.929 [Robomongo] db.polls.find()
+Wed Oct 08 15:57:49.633 [Robomongo] db.polls.find()
+Wed Oct 08 16:00:10.609 [Robomongo] db.polls.find()
+Wed Oct 08 16:04:53.704 [Robomongo] db.polls.find()
+Wed Oct 08 16:07:05.009 [Robomongo] db.polls.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Wed Oct 08 22:39:29.825 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Oct 08 22:39:29.829 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Oct 08 22:39:32.458 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Oct 08 22:39:32.459 [Robomongo] Connecting to localhost:27017...
+Wed Oct 08 22:39:32.495 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Oct 08 22:39:32.496 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Oct 08 22:39:49.424 [Robomongo] Connecting to localhost:27017...
+Wed Oct 08 22:39:49.456 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Oct 08 22:39:49.457 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Oct 08 22:39:49.565 [Robomongo] Openning shell...
+Wed Oct 08 22:39:49.565 [Robomongo] db.help_desks.find()
+Wed Oct 08 23:01:10.886 [Robomongo] Connecting to localhost:27017...
+Wed Oct 08 23:01:10.901 [Robomongo] Openning shell...
+Wed Oct 08 23:01:10.901 [Robomongo] db.users.find()
+Wed Oct 08 23:01:10.948 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Oct 08 23:01:10.948 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Oct 08 23:02:14.865 [Robomongo] Connecting to localhost:27017...
+Wed Oct 08 23:02:14.878 [Robomongo] Openning shell...
+Wed Oct 08 23:02:14.878 [Robomongo] db.polls.find()
+Wed Oct 08 23:02:14.900 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Oct 08 23:02:14.902 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+
+
+***** APPLICATION RESTARTED *****
+
+
+Wed Oct 08 23:17:23.831 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Oct 08 23:17:23.847 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Oct 08 23:17:32.602 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Oct 08 23:17:32.602 [Robomongo] Connecting to localhost:27017...
+Wed Oct 08 23:17:32.649 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Oct 08 23:17:32.649 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+
+
+***** APPLICATION RESTARTED *****
+
+
+Thu Oct 09 10:48:35.914 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Thu Oct 09 10:48:35.926 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Thu Oct 09 10:48:43.724 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Thu Oct 09 10:48:43.729 [Robomongo] Connecting to localhost:27017...
+Thu Oct 09 10:48:43.790 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Thu Oct 09 10:48:43.791 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Thu Oct 09 10:49:03.127 [Robomongo] Connecting to localhost:27017...
+Thu Oct 09 10:49:03.204 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Thu Oct 09 10:49:03.205 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Thu Oct 09 10:49:03.236 [Robomongo] Openning shell...
+Thu Oct 09 10:49:03.236 [Robomongo] db.polls.find()
+Thu Oct 09 11:11:06.956 [Robomongo] Connecting to localhost:27017...
+Thu Oct 09 11:11:06.984 [Robomongo] Openning shell...
+Thu Oct 09 11:11:06.984 [Robomongo] db.help_desks.find()
+Thu Oct 09 11:11:07.013 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Thu Oct 09 11:11:07.015 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Thu Oct 09 11:29:13.777 [Robomongo] db.help_desks.find()
+Thu Oct 09 11:56:15.767 [Robomongo] db.help_desks.find()
+Thu Oct 09 12:37:44.864 [Robomongo] Connecting to localhost:27017...
+Thu Oct 09 12:37:44.894 [Robomongo] Openning shell...
+Thu Oct 09 12:37:44.895 [Robomongo] db.test.find()
+Thu Oct 09 12:37:44.932 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Thu Oct 09 12:37:44.933 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Thu Oct 09 12:38:01.336 [Robomongo] Connecting to localhost:27017...
+Thu Oct 09 12:38:01.364 [Robomongo] Openning shell...
+Thu Oct 09 12:38:01.364 [Robomongo] db.users.find()
+Thu Oct 09 12:38:01.396 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Thu Oct 09 12:38:01.397 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Thu Oct 09 13:12:25.201 [Robomongo] db.test.find()
+Thu Oct 09 13:12:46.888 [Robomongo] db.test.find()
+Thu Oct 09 15:59:52.030 [Robomongo] db.test.find()
+Thu Oct 09 16:00:13.355 [Robomongo] db.test.find()
+Thu Oct 09 16:02:13.377 [Robomongo] db.test.find()
+Thu Oct 09 16:02:29.449 [Robomongo] db.test.find()
+Thu Oct 09 16:02:42.528 [Robomongo] db.test.find()
+Thu Oct 09 16:03:16.880 [Robomongo] db.test.find()
+Thu Oct 09 16:03:30.712 [Robomongo] db.test.find()
+Thu Oct 09 16:17:52.333 [Robomongo] db.test.find()
+Thu Oct 09 16:32:22.178 [Robomongo] db.test.find()
+Thu Oct 09 16:45:56.912 [Robomongo] db.test.find()
+Thu Oct 09 16:45:58.591 [Robomongo] db.test.find()
+Thu Oct 09 16:49:47.973 [Robomongo] db.test.find()
+Thu Oct 09 16:49:58.676 [Robomongo] db.test.find()
+Thu Oct 09 16:50:00.773 [Robomongo] db.test.find()
+Thu Oct 09 16:50:34.123 [Robomongo] db.test.find()
+Thu Oct 09 16:58:53.288 [Robomongo] db.test.find()
+Thu Oct 09 16:59:12.256 [Robomongo] db.test.find()
+Thu Oct 09 17:01:05.216 [Robomongo] db.test.find()
+Thu Oct 09 17:08:09.628 [Robomongo] db.test.find()
+Thu Oct 09 17:08:33.612 [Robomongo] db.test.find()
+Thu Oct 09 17:08:51.324 [Robomongo] db.test.find()
+Thu Oct 09 17:09:10.579 [Robomongo] db.test.find()
+Thu Oct 09 17:16:20.713 [Robomongo] db.test.find()
+Thu Oct 09 17:47:00.789 [Robomongo] db.users.find()
+Thu Oct 09 17:48:24.052 [Robomongo] db.users.find()
+Thu Oct 09 17:49:06.435 [Robomongo] db.users.find()
+Thu Oct 09 17:50:18.418 [Robomongo] db.users.find()
+Thu Oct 09 17:50:35.234 [Robomongo] db.users.find()
+Thu Oct 09 17:54:24.894 [Robomongo] db.users.find()
+Thu Oct 09 17:54:53.111 [Robomongo] db.users.find()
+Thu Oct 09 17:55:30.413 [Robomongo] db.users.find()
+Thu Oct 09 17:55:56.598 [Robomongo] db.users.find()
+Thu Oct 09 17:56:50.670 [Robomongo] db.users.find()
+Thu Oct 09 17:57:01.469 [Robomongo] db.users.find()
+Thu Oct 09 17:58:30.467 [Robomongo] db.users.find()
+Thu Oct 09 17:59:57.547 [Robomongo] db.users.find()
+Thu Oct 09 18:00:57.987 [Robomongo] db.users.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Fri Oct 10 11:56:16.392 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Oct 10 11:56:16.398 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Oct 10 11:56:18.284 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Oct 10 11:56:18.284 [Robomongo] Connecting to localhost:27017...
+Fri Oct 10 11:56:18.322 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Oct 10 11:56:18.323 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Oct 10 11:56:32.693 [Robomongo] Connecting to localhost:27017...
+Fri Oct 10 11:56:32.750 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Oct 10 11:56:32.751 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Oct 10 11:56:32.796 [Robomongo] Openning shell...
+Fri Oct 10 11:56:32.796 [Robomongo] db.users.find()
+Fri Oct 10 12:03:36.014 [Robomongo] db.users.find()
+Fri Oct 10 12:04:53.895 [Robomongo] db.users.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Sat Oct 11 12:34:58.462 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Sat Oct 11 12:34:58.467 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sat Oct 11 12:35:00.063 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sat Oct 11 12:35:00.064 [Robomongo] Connecting to localhost:27017...
+Sat Oct 11 12:35:00.126 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Oct 11 12:35:00.128 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Oct 11 12:35:05.456 [Robomongo] Connecting to localhost:27017...
+Sat Oct 11 12:35:05.508 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Oct 11 12:35:05.509 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Oct 11 12:35:05.575 [Robomongo] Openning shell...
+Sat Oct 11 12:35:05.575 [Robomongo] db.discussion_posts.find()
+Sat Oct 11 12:46:44.504 [Robomongo] Connecting to localhost:27017...
+Sat Oct 11 12:46:44.532 [Robomongo] Openning shell...
+Sat Oct 11 12:46:44.533 [Robomongo] db.help_desks.find()
+Sat Oct 11 12:46:44.570 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Oct 11 12:46:44.571 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Oct 11 12:49:22.237 [Robomongo] db.help_desks.find()
+Sat Oct 11 12:58:46.303 [Robomongo] Connecting to localhost:27017...
+Sat Oct 11 12:58:46.327 [Robomongo] Openning shell...
+Sat Oct 11 12:58:46.327 [Robomongo] db.polls.find()
+Sat Oct 11 12:58:46.356 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Oct 11 12:58:46.357 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Oct 11 13:07:14.273 [Robomongo] Connecting to localhost:27017...
+Sat Oct 11 13:07:14.303 [Robomongo] Openning shell...
+Sat Oct 11 13:07:14.304 [Robomongo] db.resources.find()
+Sat Oct 11 13:07:14.334 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Oct 11 13:07:14.336 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Oct 11 13:12:39.446 [Robomongo] Connecting to localhost:27017...
+Sat Oct 11 13:12:39.476 [Robomongo] Openning shell...
+Sat Oct 11 13:12:39.477 [Robomongo] db.events.find()
+Sat Oct 11 13:12:39.506 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Oct 11 13:12:39.507 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Oct 11 13:28:03.220 [Robomongo] db.events.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Mon Oct 13 11:11:16.174 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Oct 13 11:11:16.186 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Oct 13 11:11:17.851 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Oct 13 11:11:17.852 [Robomongo] Connecting to localhost:27017...
+Mon Oct 13 11:11:17.926 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Oct 13 11:11:17.927 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Oct 13 11:11:28.213 [Robomongo] Connecting to localhost:27017...
+Mon Oct 13 11:11:28.269 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Oct 13 11:11:28.270 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Oct 13 11:11:28.400 [Robomongo] Openning shell...
+Mon Oct 13 11:11:28.400 [Robomongo] db.users.find()
+Mon Oct 13 11:11:44.637 [Robomongo] db.users.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Mon Oct 13 12:07:49.000 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Oct 13 12:07:49.014 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Oct 13 12:07:50.638 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Mon Oct 13 12:07:50.640 [Robomongo] Connecting to localhost:27017...
+Mon Oct 13 12:07:50.679 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Oct 13 12:07:50.680 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Oct 13 12:08:00.399 [Robomongo] Connecting to localhost:27017...
+Mon Oct 13 12:08:00.461 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Mon Oct 13 12:08:00.462 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Mon Oct 13 12:08:00.546 [Robomongo] Openning shell...
+Mon Oct 13 12:08:00.547 [Robomongo] db.events.find()
+Mon Oct 13 12:09:31.759 [Robomongo] db.events.find()
+Mon Oct 13 12:11:26.094 [Robomongo] db.events.find()
+Mon Oct 13 12:12:48.565 [Robomongo] db.events.find()
+Mon Oct 13 12:13:39.125 [Robomongo] db.events.find()
+Mon Oct 13 12:16:45.516 [Robomongo] db.events.find()
+Mon Oct 13 12:17:26.691 [Robomongo] db.events.find()
+Mon Oct 13 12:18:21.811 [Robomongo] db.events.find()
+Mon Oct 13 12:20:00.530 [Robomongo] db.events.find()
+Mon Oct 13 12:20:49.418 [Robomongo] db.events.find()
+Mon Oct 13 12:21:06.401 [Robomongo] db.events.find()
+Mon Oct 13 12:22:07.297 [Robomongo] db.events.find()
+Mon Oct 13 12:22:26.481 [Robomongo] db.events.find()
+Mon Oct 13 12:22:53.345 [Robomongo] db.events.find()
+Mon Oct 13 14:52:09.913 [Robomongo] db.events.find()
+Mon Oct 13 14:54:39.265 [Robomongo] db.events.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Tue Oct 14 11:44:15.228 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Oct 14 11:44:15.232 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Oct 14 11:44:16.861 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Oct 14 11:44:16.862 [Robomongo] Connecting to localhost:27017...
+Tue Oct 14 11:44:16.960 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Oct 14 11:44:16.961 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Oct 14 11:44:24.520 [Robomongo] Connecting to localhost:27017...
+Tue Oct 14 11:44:24.560 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Oct 14 11:44:24.561 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Oct 14 11:44:24.631 [Robomongo] Openning shell...
+Tue Oct 14 11:44:24.631 [Robomongo] db.events.find()
+Tue Oct 14 11:46:30.385 [Robomongo] db.events.find()
+Tue Oct 14 14:27:59.490 [Robomongo] db.events.find()
+Tue Oct 14 14:47:00.692 [Robomongo] db.events.find()
+Tue Oct 14 14:57:18.861 [Robomongo] db.events.find()
+Tue Oct 14 14:58:25.838 [Robomongo] db.events.find()
+Tue Oct 14 14:59:46.414 [Robomongo] db.events.find()
+Tue Oct 14 15:35:32.147 [Robomongo] db.events.find()
+Tue Oct 14 15:35:46.322 [Robomongo] db.events.find()
+Tue Oct 14 15:36:12.226 [Robomongo] db.events.find()
+Tue Oct 14 15:37:19.354 [Robomongo] db.events.find()
+Tue Oct 14 15:39:04.426 [Robomongo] db.events.find()
+Tue Oct 14 15:39:54.346 [Robomongo] db.events.find()
+Tue Oct 14 15:40:01.078 [Robomongo] db.events.find()
+Tue Oct 14 15:40:06.203 [Robomongo] db.events.find()
+Tue Oct 14 15:40:10.335 [Robomongo] db.events.find()
+Tue Oct 14 15:41:21.305 [Robomongo] db.events.find()
+Tue Oct 14 15:41:35.021 [Robomongo] Connecting to localhost:27017...
+Tue Oct 14 15:41:35.079 [Robomongo] Openning shell...
+Tue Oct 14 15:41:35.079 [Robomongo] db.events.find()
+Tue Oct 14 15:41:35.179 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Oct 14 15:41:35.181 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Oct 14 15:44:15.080 [Robomongo] db.events.find()
+Tue Oct 14 15:44:46.496 [Robomongo] db.events.find()
+Tue Oct 14 15:45:03.975 [Robomongo] db.events.find()
+Tue Oct 14 15:45:35.184 [Robomongo] db.events.find()
+Tue Oct 14 15:46:20.728 [Robomongo] db.events.find()
+Tue Oct 14 15:47:44.887 [Robomongo] db.events.find()
+Tue Oct 14 15:53:57.021 [Robomongo] db.events.find()
+Tue Oct 14 15:55:09.245 [Robomongo] db.events.find()
+Tue Oct 14 16:14:46.104 [Robomongo] db.events.find()
+Tue Oct 14 18:08:04.932 [Robomongo] db.events.find()
+Tue Oct 14 18:08:50.836 [Robomongo] db.events.find()
+Tue Oct 14 18:09:05.820 [Robomongo] db.events.find()
+Tue Oct 14 18:09:54.908 [Robomongo] db.events.find()
+Tue Oct 14 18:10:13.907 [Robomongo] db.events.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Wed Oct 15 11:09:12.793 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Oct 15 11:09:12.797 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Oct 15 11:09:16.679 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Oct 15 11:09:16.680 [Robomongo] Connecting to localhost:27017...
+Wed Oct 15 11:09:16.735 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Oct 15 11:09:16.736 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Oct 15 11:09:23.913 [Robomongo] Connecting to localhost:27017...
+Wed Oct 15 11:09:23.979 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Oct 15 11:09:23.980 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Oct 15 11:09:24.006 [Robomongo] Openning shell...
+Wed Oct 15 11:09:24.007 [Robomongo] db.events.find()
+Wed Oct 15 11:13:20.948 [Robomongo] db.events.find()
+Wed Oct 15 11:14:56.949 [Robomongo] db.events.find()
+Wed Oct 15 11:23:07.550 [Robomongo] db.events.find()
+Wed Oct 15 11:59:02.309 [Robomongo] db.events.find()
+Wed Oct 15 12:04:11.849 [Robomongo] db.events.find()
+Wed Oct 15 12:11:53.868 [Robomongo] db.events.find()
+Wed Oct 15 12:19:19.656 [Robomongo] db.events.find()
+Wed Oct 15 12:26:27.541 [Robomongo] db.events.find()
+Wed Oct 15 14:37:27.298 [Robomongo] db.events.find()
+Wed Oct 15 15:05:11.667 [Robomongo] Connecting to localhost:27017...
+Wed Oct 15 15:05:11.695 [Robomongo] Openning shell...
+Wed Oct 15 15:05:11.696 [Robomongo] db.notices.find()
+Wed Oct 15 15:05:11.737 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Oct 15 15:05:11.738 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Oct 15 15:06:45.959 [Robomongo] db.notices.find()
+Wed Oct 15 15:18:41.364 [Robomongo] Connecting to localhost:27017...
+Wed Oct 15 15:18:41.381 [Robomongo] Openning shell...
+Wed Oct 15 15:18:41.382 [Robomongo] db.wings.find()
+Wed Oct 15 15:18:41.422 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Oct 15 15:18:41.423 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Oct 15 15:18:50.501 [Robomongo] Connecting to localhost:27017...
+Wed Oct 15 15:18:50.529 [Robomongo] Openning shell...
+Wed Oct 15 15:18:50.530 [Robomongo] db.users.find()
+Wed Oct 15 15:18:50.597 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Oct 15 15:18:50.598 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Oct 15 15:21:12.837 [Robomongo] db.users.find()
+Wed Oct 15 15:21:16.949 [Robomongo] db.notices.find()
+Wed Oct 15 15:21:51.110 [Robomongo] db.notices.find()
+Wed Oct 15 15:30:29.058 [Robomongo] db.notices.find()
+Wed Oct 15 15:42:05.911 [Robomongo] db.notices.find()
+Wed Oct 15 15:43:06.031 [Robomongo] db.notices.find()
+Wed Oct 15 15:43:29.871 [Robomongo] db.notices.find()
+Wed Oct 15 16:46:42.875 [Robomongo] Connecting to localhost:27017...
+Wed Oct 15 16:46:42.907 [Robomongo] Openning shell...
+Wed Oct 15 16:46:42.907 [Robomongo] db.notice_board_replies.find()
+Wed Oct 15 16:46:42.934 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Oct 15 16:46:42.935 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Oct 15 18:07:10.185 [Robomongo] Connecting to localhost:27017...
+Wed Oct 15 18:07:10.339 [Robomongo] Openning shell...
+Wed Oct 15 18:07:10.339 [Robomongo] db.help_desks.find()
+Wed Oct 15 18:07:10.408 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Oct 15 18:07:10.409 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+
+
+***** APPLICATION RESTARTED *****
+
+
+Fri Oct 17 00:47:37.359 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Oct 17 00:47:37.365 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Oct 17 00:53:25.085 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+
+
+***** APPLICATION RESTARTED *****
+
+
+Fri Oct 17 11:14:44.257 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Oct 17 11:14:44.263 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Oct 17 11:14:45.629 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Fri Oct 17 11:14:45.642 [Robomongo] Connecting to localhost:27017...
+Fri Oct 17 11:14:45.682 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Oct 17 11:14:45.682 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Oct 17 11:14:55.623 [Robomongo] Connecting to localhost:27017...
+Fri Oct 17 11:14:55.682 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Oct 17 11:14:55.683 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Oct 17 11:14:55.797 [Robomongo] Openning shell...
+Fri Oct 17 11:14:55.798 [Robomongo] db.notifications.find()
+Fri Oct 17 11:15:16.848 [Robomongo] db.notifications.find()
+Fri Oct 17 11:15:32.687 [Robomongo] Connecting to localhost:27017...
+Fri Oct 17 11:15:32.717 [Robomongo] Openning shell...
+Fri Oct 17 11:15:32.717 [Robomongo] db.notifications.find()
+Fri Oct 17 11:15:32.773 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Oct 17 11:15:32.774 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Oct 17 11:19:22.682 [Robomongo] db.notifications.find()
+Fri Oct 17 11:20:29.138 [Robomongo] Connecting to localhost:27017...
+Fri Oct 17 11:20:29.167 [Robomongo] Openning shell...
+Fri Oct 17 11:20:29.167 [Robomongo] db.notifications.find()
+Fri Oct 17 11:20:29.200 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Oct 17 11:20:29.200 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Oct 17 11:20:49.499 [Robomongo] db.notifications.find()
+Fri Oct 17 11:21:25.771 [Robomongo] db.notifications.find()
+Fri Oct 17 11:23:04.406 [Robomongo] db.notifications.find()
+Fri Oct 17 11:23:20.822 [Robomongo] db.notifications.find()
+Fri Oct 17 11:23:29.997 [Robomongo] db.notifications.find()
+Fri Oct 17 11:23:56.389 [Robomongo] db.notifications.find()
+Fri Oct 17 11:24:07.205 [Robomongo] db.notifications.find()
+Fri Oct 17 11:24:36.093 [Robomongo] db.notifications.find()
+Fri Oct 17 11:24:45.302 [Robomongo] db.notifications.find()
+Fri Oct 17 11:25:21.189 [Robomongo] db.notifications.find()
+Fri Oct 17 11:26:55.079 [Robomongo] db.notifications.find()
+Fri Oct 17 11:27:25.047 [Robomongo] db.notifications.find()
+Fri Oct 17 11:28:00.536 [Robomongo] db.notifications.find()
+Fri Oct 17 11:28:13.440 [Robomongo] db.notifications.find()
+Fri Oct 17 11:29:29.456 [Robomongo] db.notifications.find()
+Fri Oct 17 11:35:02.307 [Robomongo] db.notifications.find()
+Fri Oct 17 11:41:42.856 [Robomongo] db.notifications.find()
+Fri Oct 17 11:49:16.374 [Robomongo] db.notifications.find()
+Fri Oct 17 11:51:29.311 [Robomongo] db.notifications.find()
+Fri Oct 17 12:37:46.071 [Robomongo] Connecting to localhost:27017...
+Fri Oct 17 12:37:46.099 [Robomongo] Openning shell...
+Fri Oct 17 12:37:46.100 [Robomongo] db.users.find()
+Fri Oct 17 12:37:46.133 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Oct 17 12:37:46.134 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Oct 17 12:37:47.503 [Robomongo] Connecting to localhost:27017...
+Fri Oct 17 12:37:47.529 [Robomongo] Openning shell...
+Fri Oct 17 12:37:47.529 [Robomongo] db.user_temps.find()
+Fri Oct 17 12:37:47.552 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Oct 17 12:37:47.553 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Oct 17 12:46:39.958 [Robomongo] db.user_temps.find()
+Fri Oct 17 13:26:18.451 [Robomongo] db.notifications.find()
+Fri Oct 17 13:42:08.702 [Robomongo] db.notifications.find()
+Fri Oct 17 14:38:50.198 [Robomongo] db.notifications.find()
+Fri Oct 17 15:15:40.625 [Robomongo] Connecting to localhost:27017...
+Fri Oct 17 15:15:40.958 [Robomongo] Openning shell...
+Fri Oct 17 15:15:40.974 [Robomongo] db.user_temps.find()
+Fri Oct 17 15:15:41.350 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Oct 17 15:15:41.352 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Oct 17 15:36:02.595 [Robomongo] db.notifications.find()
+Fri Oct 17 15:36:14.843 [Robomongo] Connecting to localhost:27017...
+Fri Oct 17 15:36:14.932 [Robomongo] Openning shell...
+Fri Oct 17 15:36:14.933 [Robomongo] db.alerts.find()
+Fri Oct 17 15:36:14.949 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Oct 17 15:36:14.950 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Oct 17 15:37:31.652 [Robomongo] db.notifications.find()
+Fri Oct 17 15:38:42.483 [Robomongo] db.alerts.find()
+Fri Oct 17 15:42:12.540 [Robomongo] Connecting to localhost:27017...
+Fri Oct 17 15:42:12.594 [Robomongo] Openning shell...
+Fri Oct 17 15:42:12.594 [Robomongo] db.user_temps.find()
+Fri Oct 17 15:42:12.621 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Oct 17 15:42:12.622 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Oct 17 15:52:46.104 [Robomongo] Connecting to localhost:27017...
+Fri Oct 17 15:52:46.203 [Robomongo] Openning shell...
+Fri Oct 17 15:52:46.204 [Robomongo] db.roles.find()
+Fri Oct 17 15:52:46.296 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Oct 17 15:52:46.297 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Oct 17 15:57:44.096 [Robomongo] Connecting to localhost:27017...
+Fri Oct 17 15:57:44.146 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Oct 17 15:57:44.147 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Oct 17 15:57:44.157 [Robomongo] Openning shell...
+Fri Oct 17 15:57:44.158 [Robomongo] db.user_temps.find()
+Fri Oct 17 15:58:16.159 [Robomongo] Connecting to localhost:27017...
+Fri Oct 17 15:58:16.174 [Robomongo] Openning shell...
+Fri Oct 17 15:58:16.175 [Robomongo] db.alerts.find()
+Fri Oct 17 15:58:16.228 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Oct 17 15:58:16.229 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Oct 17 15:58:40.639 [Robomongo] Connecting to localhost:27017...
+Fri Oct 17 15:58:40.654 [Robomongo] Openning shell...
+Fri Oct 17 15:58:40.654 [Robomongo] db.users.find()
+Fri Oct 17 15:58:40.686 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Oct 17 15:58:40.687 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Oct 17 15:59:43.705 [Robomongo] db.user_temps.find()
+Fri Oct 17 16:00:22.353 [Robomongo] db.alerts.find()
+Fri Oct 17 16:00:57.529 [Robomongo] db.user_temps.find()
+Fri Oct 17 16:01:44.529 [Robomongo] db.user_temps.find()
+Fri Oct 17 16:02:13.889 [Robomongo] db.alerts.find()
+Fri Oct 17 16:07:43.827 [Robomongo] db.alerts.find()
+Fri Oct 17 16:33:44.305 [Robomongo] Connecting to localhost:27017...
+Fri Oct 17 16:33:44.339 [Robomongo] Openning shell...
+Fri Oct 17 16:33:44.340 [Robomongo] db.discussion_comments.find()
+Fri Oct 17 16:33:44.438 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Oct 17 16:33:44.439 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Oct 17 16:33:46.473 [Robomongo] Connecting to localhost:27017...
+Fri Oct 17 16:33:46.511 [Robomongo] Openning shell...
+Fri Oct 17 16:33:46.512 [Robomongo] db.discussion_posts.find()
+Fri Oct 17 16:33:46.561 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Fri Oct 17 16:33:46.562 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Fri Oct 17 16:38:30.106 [Robomongo] db.discussion_comments.find()
+Fri Oct 17 16:38:45.547 [Robomongo] db.discussion_posts.find()
+Fri Oct 17 16:49:19.462 [Robomongo] db.discussion_posts.find()
+Fri Oct 17 16:49:21.598 [Robomongo] db.discussion_comments.find()
+Fri Oct 17 16:49:53.206 [Robomongo] db.alerts.find()
+Fri Oct 17 16:51:15.719 [Robomongo] db.discussion_comments.find()
+Fri Oct 17 16:51:42.783 [Robomongo] db.discussion_comments.find()
+Fri Oct 17 16:51:51.454 [Robomongo] db.alerts.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Sat Oct 18 10:41:09.942 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Sat Oct 18 10:41:09.957 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sat Oct 18 17:21:29.053 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sat Oct 18 17:21:29.388 [Robomongo] Connecting to localhost:27017...
+Sat Oct 18 17:21:29.643 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Oct 18 17:21:29.643 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Oct 18 17:22:11.721 [Robomongo] Connecting to localhost:27017...
+Sat Oct 18 17:22:11.799 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Oct 18 17:22:11.799 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Oct 18 17:22:11.846 [Robomongo] Openning shell...
+Sat Oct 18 17:22:11.846 [Robomongo] db.main_modules.find()
+Sat Oct 18 17:22:46.900 [Robomongo] Connecting to localhost:27017...
+Sat Oct 18 17:22:46.931 [Robomongo] Openning shell...
+Sat Oct 18 17:22:46.931 [Robomongo] db.sub_modules.find()
+Sat Oct 18 17:22:46.978 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Oct 18 17:22:46.978 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Oct 18 17:23:28.459 [Robomongo] Connecting to localhost:27017...
+Sat Oct 18 17:23:28.475 [Robomongo] Openning shell...
+Sat Oct 18 17:23:28.475 [Robomongo] db.role_privileges.find()
+Sat Oct 18 17:23:28.506 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Oct 18 17:23:28.506 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Oct 18 17:23:45.505 [Robomongo] Connecting to localhost:27017...
+Sat Oct 18 17:23:45.520 [Robomongo] Openning shell...
+Sat Oct 18 17:23:45.520 [Robomongo] db.main_modules.find()
+Sat Oct 18 17:23:45.551 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Oct 18 17:23:45.567 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sat Oct 18 17:41:28.976 [Robomongo] Connecting to localhost:27017...
+Sat Oct 18 17:41:29.007 [Robomongo] Openning shell...
+Sat Oct 18 17:41:29.007 [Robomongo] db.sub_modules.find()
+Sat Oct 18 17:41:29.054 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sat Oct 18 17:41:29.054 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+
+
+***** APPLICATION RESTARTED *****
+
+
+Sun Oct 19 14:30:54.583 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Oct 19 14:30:54.583 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Oct 19 14:30:56.248 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Sun Oct 19 14:30:56.249 [Robomongo] Connecting to localhost:27017...
+Sun Oct 19 14:30:56.317 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Oct 19 14:30:56.317 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Oct 19 14:32:01.888 [Robomongo] Connecting to localhost:27017...
+Sun Oct 19 14:32:01.932 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Oct 19 14:32:01.933 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Oct 19 14:32:01.992 [Robomongo] Openning shell...
+Sun Oct 19 14:32:01.992 [Robomongo] db.email_requests.find()
+Sun Oct 19 14:37:01.063 [Robomongo] db.email_requests.find()
+Sun Oct 19 14:44:56.623 [Robomongo] Connecting to localhost:27017...
+Sun Oct 19 14:44:56.638 [Robomongo] Openning shell...
+Sun Oct 19 14:44:56.638 [Robomongo] db.emails.find()
+Sun Oct 19 14:44:56.685 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Oct 19 14:44:56.685 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Oct 19 15:18:43.370 [Robomongo] Connecting to localhost:27017...
+Sun Oct 19 15:18:43.401 [Robomongo] Openning shell...
+Sun Oct 19 15:18:43.401 [Robomongo] db.main_modules.find()
+Sun Oct 19 15:18:43.448 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Oct 19 15:18:43.448 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Oct 19 15:37:49.848 [Robomongo] db.main_modules.find()
+Sun Oct 19 16:47:31.282 [Robomongo] Connecting to localhost:27017...
+Sun Oct 19 16:47:31.313 [Robomongo] Openning shell...
+Sun Oct 19 16:47:31.313 [Robomongo] db.module_type.find()
+Sun Oct 19 16:47:31.376 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Sun Oct 19 16:47:31.376 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Sun Oct 19 16:59:46.059 [Robomongo] db.main_modules.find()
+
+
+***** APPLICATION RESTARTED *****
+
+
+Tue Oct 28 14:17:58.294 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Oct 28 14:17:58.310 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Oct 28 14:18:00.300 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Tue Oct 28 14:18:00.303 [Robomongo] Connecting to localhost:27017...
+Tue Oct 28 14:18:00.427 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Oct 28 14:18:00.427 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Oct 28 14:18:08.486 [Robomongo] Connecting to localhost:27017...
+Tue Oct 28 14:18:08.580 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Oct 28 14:18:08.580 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Oct 28 14:18:08.627 [Robomongo] Openning shell...
+Tue Oct 28 14:18:08.627 [Robomongo] db.notices.find()
+Tue Oct 28 14:20:08.606 [Robomongo] Connecting to localhost:27017...
+Tue Oct 28 14:20:08.653 [Robomongo] Openning shell...
+Tue Oct 28 14:20:08.653 [Robomongo] db.users.find()
+Tue Oct 28 14:20:08.716 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Oct 28 14:20:08.716 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Oct 28 15:14:54.099 [Robomongo] Connecting to localhost:27017...
+Tue Oct 28 15:14:54.115 [Robomongo] Openning shell...
+Tue Oct 28 15:14:54.115 [Robomongo] db.resources.find()
+Tue Oct 28 15:14:54.177 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Oct 28 15:14:54.177 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Oct 28 15:36:19.933 [Robomongo] db.resources.find()
+Tue Oct 28 15:43:46.939 [Robomongo] db.resources.find()
+Tue Oct 28 15:48:09.212 [Robomongo] Connecting to localhost:27017...
+Tue Oct 28 15:48:09.243 [Robomongo] Openning shell...
+Tue Oct 28 15:48:09.243 [Robomongo] db.users.find()
+Tue Oct 28 15:48:09.306 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Oct 28 15:48:09.306 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Oct 28 15:58:20.893 [Robomongo] db.resources.find()
+Tue Oct 28 15:59:46.027 [Robomongo] db.resources.find()
+Tue Oct 28 17:59:48.302 [Robomongo] Connecting to localhost:27017...
+Tue Oct 28 17:59:48.364 [Robomongo] Openning shell...
+Tue Oct 28 17:59:48.364 [Robomongo] db.pages.find()
+Tue Oct 28 17:59:48.395 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Oct 28 17:59:48.395 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Tue Oct 28 18:08:02.484 [Robomongo] Connecting to localhost:27017...
+Tue Oct 28 18:08:02.515 [Robomongo] Openning shell...
+Tue Oct 28 18:08:02.515 [Robomongo] db.events.find()
+Tue Oct 28 18:08:02.578 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Tue Oct 28 18:08:02.578 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+
+
+***** APPLICATION RESTARTED *****
+
+
+Wed Oct 29 12:19:23.518 [Robomongo] SettingsManager initialized in C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Oct 29 12:19:23.534 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Oct 29 12:19:25.080 [Robomongo] Settings saved to: C:/Users/abhilash/.config/robomongo/robomongo.json
+Wed Oct 29 12:19:25.082 [Robomongo] Connecting to localhost:27017...
+Wed Oct 29 12:19:25.233 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Oct 29 12:19:25.233 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Oct 29 12:19:31.281 [Robomongo] Connecting to localhost:27017...
+Wed Oct 29 12:19:31.359 file [C:/Users/abhilash/.mongorc.js] doesn't exist
+Wed Oct 29 12:19:31.359 file [C:/Users/abhilash/.robomongorc.js] doesn't exist
+Wed Oct 29 12:19:31.422 [Robomongo] Openning shell...
+Wed Oct 29 12:19:31.422 [Robomongo] db.users.find()
+Wed Oct 29 12:55:53.586 [Robomongo] db.users.find()
