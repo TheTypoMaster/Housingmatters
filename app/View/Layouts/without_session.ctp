@@ -8,21 +8,21 @@
 <?php
 echo $this->fetch('meta');
 ?>
-<link href="http://52.74.61.249/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="http://52.74.61.249/assets/css/metro.css" rel="stylesheet" />
-  <link href="http://52.74.61.249/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-  <link href="http://52.74.61.249/assets/css/style.1.css" rel="stylesheet" />
-  <link href="http://52.74.61.249/assets/css/style_responsive.1.css" rel="stylesheet" />
-  <link href="http://52.74.61.249/assets/css/style_default.css" rel="stylesheet" id="style_color" />
-  <link rel="stylesheet" type="text/css" href="http://52.74.61.249/assets/uniform/css/uniform.default.css" />
-   <link rel="stylesheet" type="text/css" href="http://52.74.61.249/assets/chosen-bootstrap/chosen/chosen.css" />
-     <link rel="stylesheet" type="text/css" href="http://52.74.61.249/assets/chosen-bootstrap/chosen/chosen.css" />
+<link href="<?php echo $webroot_path; ?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="<?php echo $webroot_path; ?>assets/css/metro.css" rel="stylesheet" />
+  <link href="<?php echo $webroot_path; ?>assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+  <link href="<?php echo $webroot_path; ?>assets/css/style.1.css" rel="stylesheet" />
+  <link href="<?php echo $webroot_path; ?>assets/css/style_responsive.1.css" rel="stylesheet" />
+  <link href="<?php echo $webroot_path; ?>assets/css/style_default.css" rel="stylesheet" id="style_color" />
+  <link rel="stylesheet" type="text/css" href="<?php echo $webroot_path; ?>assets/uniform/css/uniform.default.css" />
+   <link rel="stylesheet" type="text/css" href="<?php echo $webroot_path; ?>assets/chosen-bootstrap/chosen/chosen.css" />
+     <link rel="stylesheet" type="text/css" href="<?php echo $webroot_path; ?>assets/chosen-bootstrap/chosen/chosen.css" />
      <link rel="shortcut icon" href="favicon.ico" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 
 
-<link href="http://52.74.61.249/as/bootstrap.min.css" rel="stylesheet">
+<link href="<?php echo $webroot_path; ?>as/bootstrap.min.css" rel="stylesheet">
 		<style>
 		label.valid {
 		  width: 24px;
@@ -37,8 +37,8 @@ echo $this->fetch('meta');
 			margin-top: 2px;
 		}
 		</style>
- <script src="http://52.74.61.249/as/js/jquery-1.7.1.min.js"></script>
-<script src="http://52.74.61.249/as/js/jquery.validate.min.js"></script>
+ <script src="<?php echo $webroot_path; ?>as/js/jquery-1.7.1.min.js"></script>
+<script src="<?php echo $webroot_path; ?>as/js/jquery.validate.min.js"></script>
 </head>
 <body class="login">
 
@@ -52,19 +52,19 @@ echo $this->fetch('meta');
 <!-----------js----------------->
 
 <!-----js--------------->
-<script src="http://52.74.61.249/assets/js/jquery-1.8.3.min.js"></script>			
-	<script src="http://52.74.61.249/assets/breakpoints/breakpoints.js"></script>			
-	<script src="http://52.74.61.249/assets/jquery-slimscroll/jquery-ui-1.9.2.custom.min.js"></script>	
-	<script src="http://52.74.61.249/assets/bootstrap/js/bootstrap.min.js"></script>
-	  <script src="http://52.74.61.249/assets/uniform/jquery.uniform.min.js"></script> 
-	<script src="http://52.74.61.249/assets/js/jquery.blockui.js"></script>
+<script src="<?php echo $webroot_path; ?>assets/js/jquery-1.8.3.min.js"></script>			
+	<script src="<?php echo $webroot_path; ?>assets/breakpoints/breakpoints.js"></script>			
+	<script src="<?php echo $webroot_path; ?>assets/jquery-slimscroll/jquery-ui-1.9.2.custom.min.js"></script>	
+	<script src="<?php echo $webroot_path; ?>assets/bootstrap/js/bootstrap.min.js"></script>
+	  <script src="<?php echo $webroot_path; ?>assets/uniform/jquery.uniform.min.js"></script> 
+	<script src="<?php echo $webroot_path; ?>assets/js/jquery.blockui.js"></script>
 	
 	
-	<script type="text/javascript" src="http://52.74.61.249/assets/chosen-bootstrap/chosen/chosen.jquery.min.js"></script>
+	<script type="text/javascript" src="<?php echo $webroot_path; ?>assets/chosen-bootstrap/chosen/chosen.jquery.min.js"></script>
 	
 	
 	
-		<script src="http://52.74.61.249/assets/js/app.1.js"></script>		
+		<script src="<?php echo $webroot_path; ?>assets/js/app.1.js"></script>		
 	<script>
 		jQuery(document).ready(function() {			
 			// initiate layout and plugins
@@ -73,6 +73,6 @@ echo $this->fetch('meta');
 		});
 	</script>
 	
-<script src="http://52.74.61.249/as/js/jquery.validate.min.js"></script>
+<script src="<?php echo $webroot_path; ?>as/js/jquery.validate.min.js"></script>
 </body>
 </html>
