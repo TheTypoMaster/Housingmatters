@@ -107,6 +107,7 @@ $user_name = $collection['user']['user_name'];
 <td valign="top"><button type="button" name="sub" class="btn yellow" id="go">Go</button></td>
 </tr>
 </tbody></table>
+<div id="validate_result"></div>
 </br>
 </form>
 </div>
@@ -152,21 +153,25 @@ $user_name = $collection['user']['user_name'];
 
 <script>
 $(document).ready(function() {
-	$("#go").live('click',function(){
-		var date1=document.getElementById('date1').value;
-		var date2=document.getElementById('date2').value;
-		var tp=document.getElementById('tp').value; 
-		
-		if((tp=='')) { alert('Please Select Bill Type'); }
-		if((date1=='')) { alert('Please Input Date-from'); }
-		if((date2=='')) { alert('Please Input Date-to'); }
-		else
-		{
-		$("#result").html('<div align="center" style="padding:10px;"><img src="as/loding.gif" />Loading....</div>').load("supplimentry_reports_show_ajax?date1=" +date1+ "&date2=" +date2+ "&tp=" +tp+ "");
-		}
-		
-	});
-	
+$("#go").live('click',function(){
+var date1=document.getElementById('date1').value;
+var date2=document.getElementById('date2').value;
+var tp=document.getElementById('tp').value; 
+
+if(tp === "") {
+$('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Select an Option</div>'); return false; }
+else
+{
+$('#validate_result').html('<div> </div>'); 	
+}
+
+
+
+
+
+$("#result").html('<div align="center" style="padding:10px;"><img src="as/loding.gif" />Loading....</div>').load("supplimentry_reports_show_ajax?date1=" +date1+ "&date2=" +date2+ "&tp=" +tp+ "");
+
+});
 });
 </script>	
 
