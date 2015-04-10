@@ -541,9 +541,9 @@ $r_sms=$this->hms_sms_ip();
 $sms1=str_replace(' ', '+', $sms);
 $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');		
   $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Dear Administrator,</p><br/>
 <p>A new helpdesk ticket is raised in your society.</p>
 <table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
@@ -564,7 +564,7 @@ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingk
 <p style='font-size:16px;'> <strong>Ticket Description:</strong></p>
 <p style='font-size:15px;'>$textarea</p><br/>
 <center><p>To view the ticket or post response
-<a href='$ip".$this->webroot_path()."hms' ><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
+<a href='$ip".$webroot_path."hms' ><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
 HousingMatters (Support Team)<br/>
 www.housingmatters.co.in
 </div>
@@ -608,7 +608,7 @@ $help_desk_category_name=$collection2['help_desk_category']['help_desk_category_
 }
 
 $user_d[]=$user;
-$this->send_notification('<span class="label" style="background-color:#d43f3a;"><i class="icon-plus"></i></span>','New Help-desk ticket# <b>'.$t.'-'.$help_desk_category_name.'</b> lodged by',1,$i,$this->webroot_path().Helpdesks/'help_desk_sm_view/'.$i.'&/0',$s_user_id,$user_d);
+$this->send_notification('<span class="label" style="background-color:#d43f3a;"><i class="icon-plus"></i></span>','New Help-desk ticket# <b>'.$t.'-'.$help_desk_category_name.'</b> lodged by',1,$i,$webroot_path.Helpdesks/'help_desk_sm_view/'.$i.'&/0',$s_user_id,$user_d);
 
 
 $user_mail=2;
@@ -620,9 +620,9 @@ $reply="donotreply@housingmatters.in";
 $society_name_user=$this->society_name($da_society_id);
 
   $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 
 </br><p>Dear $user_name,</p><br/>
 <p>Please find below details of new helpdesk ticket raised by you.</p>
@@ -791,9 +791,9 @@ $sms='New Helpdesk ticket '.$ticket_no.' - '.$category_name.' raised+by '.$user_
 $sms1=str_replace(' ', '+', $sms);
 $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');		
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Dear Administrator,</p><br/>
 <p>A new helpdesk ticket is raised in your society.</p>
 <table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
@@ -814,7 +814,7 @@ $message_web="<div>
 <p style='font-size:16px;'> <strong>Ticket Description:</strong></p>
 <p style='font-size:15px;'>$textarea</p><br/>
 <center><p>To view the ticket or post response
-<a href='$ip".$this->webroot_path()."hms' ><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
+<a href='$ip".$webroot_path."hms' ><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
 HousingMatters (Support Team)<br/>
 www.housingmatters.co.in
 </div>
@@ -867,9 +867,9 @@ $reply="donotreply@housingmatters.in";
 $society_name_user=$this->society_name($da_society_id);
 
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 
 </br><p>Dear $user_name,</p><br/>
 <p>Please find below details of new helpdesk ticket raised by you.</p>
@@ -1062,9 +1062,9 @@ $ticket_priority="Normal";
 
 
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Dear $user_name,</p><br/>
 <p>Your helpdesk ticket has been resolved & closed.</p>
 <table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
@@ -1222,9 +1222,9 @@ else
 $ticket_priority="Normal";
 }
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Dear $user_name,</p><br/>
 <p>Your helpdesk ticket has been resolved & closed.</p>
 <table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
@@ -1399,9 +1399,9 @@ else
 $ticket_priority="Normal";
 }
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Dear $user_name,</p><br/>
 <p>Your helpdesk ticket has been resolved & closed.</p>
 <table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
@@ -1716,9 +1716,9 @@ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingk
 <p>$adm_mobile</p>
 <br/></div>"; */
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Dear  $sp_name,</p><br/>
 <p>Please find below details of our helpdesk ticket for your prompt action.</p>
 <table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
@@ -2431,7 +2431,7 @@ foreach ($cursor_sub_module as $collection)
 $sub_module_name=$collection["sub_module"]["sub_module_name"];
 }
 $sub_module_id_fix="fix".$sub_module_id;
-echo '<a href='.$this->webroot_path().@$controller.'/'.$page_name.' id='.$sub_module_id_fix.' class="btn blue allsubmenu" style="margin-left: 2px;margin-bottom: 4px;" rel="tab">'.$sub_module_name.' </a>';
+echo '<a href='.$webroot_path.@$controller.'/'.$page_name.' id='.$sub_module_id_fix.' class="btn blue allsubmenu" style="margin-left: 2px;margin-bottom: 4px;" rel="tab">'.$sub_module_name.' </a>';
 }
 ?>
 </div>
@@ -2450,7 +2450,7 @@ $this->layout='resricted';
 ?>
 <div style="min-height: 85%;margin-top: 60px; " align="center">
 <h2>Sorry<br/>You are not allowed to access this page.</h2>
-<img src="<?php echo $this->webroot_path() ; ?>/as/hm/hm-logo.png" alt="logo" >
+<img src="<?php echo $webroot_path ; ?>/as/hm/hm-logo.png" alt="logo" >
 <br/><h4>Back to <a href="dashboard">Dashboard</a></h4>
 </div>
 <?php
@@ -2487,7 +2487,7 @@ $this->layout='resricted';
 ?>
 <div style="min-height: 85%;margin-top: 60px; " align="center">
 <h2>Sorry<br/>You are not allowed to access this page.</h2>
-<img src="<?php echo $this->webroot_path() ; ?>/as/hm/hm-logo.png" alt="logo" >
+<img src="<?php echo $webroot_path ; ?>/as/hm/hm-logo.png" alt="logo" >
 <br/><h4>Back to <a href="dashboard">Dashboard</a></h4>
 </div>
 <?php
@@ -3392,9 +3392,9 @@ $this->login->saveAll(array('login_id'=>$log_i,'user_name'=>$email,'password'=>$
 
 
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Dear $username,</p>
 <p>'We at $society_name use HousingMatters - a dynamic web portal to interact with all owners/residents/staff for transparent & smart management of housing society affairs.</p>
 <p>As you are an owner/resident/staff of $society_name, we have added your email address in HousingMatters portal.</p>
@@ -3403,7 +3403,7 @@ $message_web="<div>
 <p>You can receive important SMS & emails from your committee.</p>
 <br/>				
 <p><b>
-<a href='$ip".$this->webroot_path()."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
+<a href='$ip".$webroot_path."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
 <br/>
 <p>Pls add www.housingmatters.co.in in your favorite bookmarks for future use.</p>
 <p>Regards,</p>	
@@ -3738,7 +3738,7 @@ $remening_days=floor($datediff/(60*60*24));
 	
 		if($alert_result_count==0)
 		{
-		$this->send_alert('<span class="label" style="background-color:#44b6ae;" ><i class="icon-gift"></i></span>','Event - <b>'.$e_name.'</b> will expire on <b>'.$date_to.'</b>',6,$event_id,$this->webroot_path().'Events/event_info/'.$event_id,$visible_user_id);
+		$this->send_alert('<span class="label" style="background-color:#44b6ae;" ><i class="icon-gift"></i></span>','Event - <b>'.$e_name.'</b> will expire on <b>'.$date_to.'</b>',6,$event_id,$webroot_path.'Events/event_info/'.$event_id,$visible_user_id);
 		}
 	
 	}
@@ -3750,7 +3750,7 @@ $remening_days=floor($datediff/(60*60*24));
 	
 		if($alert_result_count==0)
 		{
-		$this->send_alert('<span class="label" style="background-color:#44b6ae;" ><i class="icon-gift"></i></span>','Event - <b>'.$e_name.'</b> have been expired on <b>'.$date_to.'</b>',6,$event_id,$this->webroot_path().'Events/event_info/'.$event_id,$visible_user_id);
+		$this->send_alert('<span class="label" style="background-color:#44b6ae;" ><i class="icon-gift"></i></span>','Event - <b>'.$e_name.'</b> have been expired on <b>'.$date_to.'</b>',6,$event_id,$webroot_path.'Events/event_info/'.$event_id,$visible_user_id);
 		}
 	
 	}
@@ -3786,7 +3786,7 @@ $remening_days=floor($datediff/(60*60*24));
 	
 		if($alert_result_count==0)
 		{
-		$this->send_alert('<span class="label" style="background-color:#6d1b81;" ><i class="icon-question-sign"></i></span>','Voting for Poll - <b>'.$question.'</b> will close on <b>'.$close_date.'</b>',7,$poll_id,$this->webroot_path().'Polls/polls',$visible_user_id);
+		$this->send_alert('<span class="label" style="background-color:#6d1b81;" ><i class="icon-question-sign"></i></span>','Voting for Poll - <b>'.$question.'</b> will close on <b>'.$close_date.'</b>',7,$poll_id,$webroot_path.'Polls/polls',$visible_user_id);
 		}
 	
 	}
@@ -3798,7 +3798,7 @@ $remening_days=floor($datediff/(60*60*24));
 	
 		if($alert_result_count==0)
 		{
-		$this->send_alert('<span class="label" style="background-color:#6d1b81;" ><i class="icon-question-sign"></i></span>','Voting for Poll - <b>'.$question.'</b> have been closed on <b>'.$close_date.'</b>',7,$poll_id,$this->webroot_path().'Polls/closed_polls',$visible_user_id);
+		$this->send_alert('<span class="label" style="background-color:#6d1b81;" ><i class="icon-question-sign"></i></span>','Voting for Poll - <b>'.$question.'</b> have been closed on <b>'.$close_date.'</b>',7,$poll_id,$webroot_path.'Polls/closed_polls',$visible_user_id);
 		}
 	
 	}
@@ -3887,7 +3887,7 @@ $incomplete=100-$progres;
 
 		if($alert_result_count==0)
 		{
-		$this->send_alert('<span class="label label-success"><i class="icon-user"></i></span>','Your Profile is <b>'.$incomplete.'%</b> incomplete',101,$s_user_id,$this->webroot_path().Hms.'/profile',array($s_user_id));
+		$this->send_alert('<span class="label label-success"><i class="icon-user"></i></span>','Your Profile is <b>'.$incomplete.'%</b> incomplete',101,$s_user_id,$webroot_path.Hms.'/profile',array($s_user_id));
 		}
 
 	}
@@ -3984,7 +3984,7 @@ if ($this->request->is('post'))
 						
 					$de_user_id=$this->encode($user_id,'housingmatters');
 					$random=$de_user_id.'/'.$password;
-					$this->response->header('Location', $this->webroot_path().'hms/set_new_password?q='.$random.' ');
+					$this->response->header('Location', $webroot_path.'hms/set_new_password?q='.$random.' ');
 					}
 					else
 					{
@@ -4109,7 +4109,7 @@ if($result_no>0)
 {
 	$de_user_id=$this->encode($user_id,'housingmatters');
 	$random=$de_user_id.'/'.$password;
-	$this->response->header('Location', $this->webroot_path().'hms/set_new_password?q='.$random.' ');
+	$this->response->header('Location', $webroot_path.'hms/set_new_password?q='.$random.' ');
 }
 else
 {
@@ -4409,9 +4409,9 @@ $to=$email;
 
 
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 
 </br><p>Dear Administrator,</p>
 One new user request in your society has been received for your approval.<br/><br/>
@@ -4468,9 +4468,9 @@ $mobile1=$collection['user_temp']['mobile'];
 }
 $to=$email1;
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Dear $user_name,</p>
 We have received your registration request.<br/>
 <p>You will be notified by email once your request has been successfully</p>
@@ -4570,9 +4570,9 @@ $reply="support@housingmatters.in";
 
 
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 <br/>New Request for Society registration into HousingMatters. Kindly approve the request.<br/>
 Thank you.<br/>
 HousingMatters (Support Team)<br/><br/>
@@ -4611,9 +4611,9 @@ $to=$email;
 
 
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 <br/>We have received your application.<br/>
 We will review and get back to you in 24 Hours. <br/>
 Thank you.<br/>
@@ -4744,9 +4744,9 @@ $subject="Password";
 
 
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 <br/><br/>username = $to<br/>
 Code = $random <br/><br/>
 Thank you.<br/>
@@ -5299,9 +5299,9 @@ function notice_approval_ajax()
 			$user_name = @$da_user_name[$k];	
 
 			$message_web="<div>
-			<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-			<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-			<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+			<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+			<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+			<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 			
 			</br><p>Dear  $user_name,</p>
 			<p>A new notice has been posted on your society Notice Board.</p>
@@ -5323,7 +5323,7 @@ function notice_approval_ajax()
 			<p style='font-size:16px;'> <strong>Notice Description:</strong></p>
 			<p style='font-size:15px;'>$message</p><br/><br/>
 			<center><p>To view / respond
-			<a href='$ip".$this->webroot_path()."hms'><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
+			<a href='$ip".$webroot_path."hms'><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
 			<br/>
 			<p>For any software related queries, please contact <span style='color:#00A0E3;'> support@housingmatters.in </span></p>
 			www.housingmatters.co.in
@@ -5345,7 +5345,7 @@ function notice_approval_ajax()
 ////////// Send Notification code start ///////////////////////////////////////
 
 
-$this->send_notification('<span class="label label-info" ><i class="icon-bullhorn"></i></span>','New Notice published - <b>'.$sub.'</b> by',2,$id,$this->webroot_path().'Notices/notice_publish_view/'.$id,$user_id,$da_to11);
+$this->send_notification('<span class="label label-info" ><i class="icon-bullhorn"></i></span>','New Notice published - <b>'.$sub.'</b> by',2,$id,$webroot_path.'Notices/notice_publish_view/'.$id,$user_id,$da_to11);
 
 
 
@@ -5727,9 +5727,9 @@ $d_user_id = @$da_user_id[$k];
 $user_name = @$da_user_name[$k];	
 
  $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 
 </br><p>Dear  $user_name,</p>
 <p>A new notice has been posted on your society Notice Board.</p>
@@ -5751,7 +5751,7 @@ $user_name = @$da_user_name[$k];
 <p style='font-size:16px;'> <strong>Notice Description:</strong></p>
 <p style='font-size:15px;'>$message</p><br/><br/>
 <center><p>To view / respond
-<a href='$ip".$this->webroot_path()."hms'><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
+<a href='$ip".$webroot_path."hms'><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
 <br/>
 <p>For any software related queries, please contact <span style='color:#00A0E3;'> support@housingmatters.in </span></p>
 www.housingmatters.co.in
@@ -6247,9 +6247,9 @@ $to = @$da_to[$k];
 $d_user_id = @$da_user_id[$k];	 
 $user_name = @$da_user_name[$k];	
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Dear  $user_name,</p>
 <p>A new notice has been posted on your society Notice Board.</p>
 <table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
@@ -6270,7 +6270,7 @@ $message_web="<div>
 <p style='font-size:16px;'> <strong>Notice Description:</strong></p>
 <p style='font-size:15px;'>$message</p><br/><br/>
 <center><p>To view / respond
-<a href='$ip".$this->webroot_path()."hms' ><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
+<a href='$ip".$webroot_path."hms' ><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
 <p>For any software related queries, please contact <span style='color:#00A0E3;'> support@housingmatters.in </span></p>
 www.housingmatters.co.in
 </div>
@@ -6693,9 +6693,9 @@ $to = @$da_to[$k];
 $user_name = @$da_user_name[$k];	
 
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Hello $user_name </p>
 <p>A new event has been created.</p>
 <p><span>$e_name</span></p>
@@ -7388,9 +7388,9 @@ $this->send_notification('<span class="label" style="background-color:#46b8da;">
 			$s_name=$data['society']['society_name'];
 		}
 		$message_web="<div>
-		<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-		<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-		<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+		<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+		<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+		<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 		</br>
 		<p>A new poll has been created on your society poll booth.</p>
 
@@ -7405,7 +7405,7 @@ $this->send_notification('<span class="label" style="background-color:#46b8da;">
 		}
 		$message_web.="</ol>";
 		$message_web.="<center><p>To view / vote
-		<a href='$ip".$this->webroot_path()."hms' target='_blank'><button style='width:100px;height:30px;background-color:#00A0E3;color:white;'> Click Here </button></a></p></center>";
+		<a href='$ip".$webroot_path."hms' target='_blank'><button style='width:100px;height:30px;background-color:#00A0E3;color:white;'> Click Here </button></a></p></center>";
 		$message_web.="</div>
 		<br/>
 		<br/>
@@ -7571,9 +7571,9 @@ foreach($result_user as $data)
 $visible_user_id_new = array_unique($visible_user_id);	
 
  $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br>
 <p>A new poll has been created on your society poll booth.</p>
 
@@ -7588,7 +7588,7 @@ $message_web.="<li ><span style='font-size:14px;'>".$data[0]."</span></li>";
 }
 $message_web.="</ol>";
 $message_web.="<center><p>To view / vote
-<a href='$ip".$this->webroot_path()."hms' target='_blank'><button style='width:100px;height:30px;background-color:#00A0E3;color:white;'> Click Here </button></a></p></center>";
+<a href='$ip".$webroot_path."hms' target='_blank'><button style='width:100px;height:30px;background-color:#00A0E3;color:white;'> Click Here </button></a></p></center>";
 $message_web.="</div>
 <br/>
 <br/>
@@ -8083,14 +8083,14 @@ if($multiple_society==0)
 {
 $to=$email;
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Dear  $user_name,</p>
 <p>Congratulations! Welcome to HousingMatters...making life simpler for</p>
 <p>managing your housing society affairs.</p><br/>
 <p>Your registration request has been successfully approved.</p><br/>
-<p><a href='$ip".$this->webroot_path()."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters</p>
+<p><a href='$ip".$webroot_path."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters</p>
 <p>For any assistance, please email us on support@housingmatters.in</p>
 <p>alternatively, feel free to get in touch via our online chat support.</p><br/>
 Thank you.<br/>
@@ -8241,9 +8241,9 @@ $s_name=$data['society']['society_name'];
 
 $to=$email;
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 <p style='color:green;'><strong>Reminder!</strong></p>
 <p>Dear  $user_name,</p>
 <p>'We at $s_name use HousingMatters - a dynamic web portal to interact with all owners/residents/staff for transparent &amp; smart management of housing society affairs.</p>
@@ -8259,7 +8259,7 @@ $message_web="<div>
 
 
 
-<p><b><a href='$ip".$this->webroot_path()."/hms/verify_mobile?q=$random' target='_blank'><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'>Click here</button></a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
+<p><b><a href='$ip".$webroot_path."/hms/verify_mobile?q=$random' target='_blank'><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'>Click here</button></a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
 
 
 <p>Regards,</p>
@@ -8437,9 +8437,9 @@ $from=$collection['email']['from'];
 }
 $subject="Verification your email";
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 <p>Hello! Please enter your code $random_otp  on the signup
 screen to continue your HousingMatters
 registration process.</p>
@@ -8632,12 +8632,12 @@ $this->user->save(array('user_id' => $i, 'user_name' => $user_name,'email' => $e
 /////////////////////////////////////// Mail functinality //////////////////////////////////////
 
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 <br/><br/>Login-Id: $email<br/>
 <p> Password: <b>
-<a href='$ip".$this->webroot_path()."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p> <br/>
+<a href='$ip".$webroot_path."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p> <br/>
 Congratulations your registration request has been successfully approved  <br/>
 <br/>
 Thank you.<br/>
@@ -8769,12 +8769,12 @@ $random=$de_user_id.'/'.$random;
 /////////////////////////////////////// Mail functinality //////////////////////////////////////
 
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 <br/><br/>Login-Id: $email<br/>
 <p> Password: <b>
-<a href='$ip".$this->webroot_path()."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p><br>
+<a href='$ip".$webroot_path."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p><br>
 Congratulations your registration request has been successfully approved  <br/>
 <br/>
 Thank you.<br/>
@@ -9186,9 +9186,9 @@ $s_name=$data['society']['society_name'];
 
 $to=$email;
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 <p style='color:green;'><strong>Reminder!</strong></p>
 <p>Dear  $user_name,</p>
 <p>'We at $s_name use HousingMatters - a dynamic web portal to interact with all owners/residents/staff for transparent &amp; smart management of housing society affairs.</p>
@@ -9204,7 +9204,7 @@ $message_web="<div>
 
 
 
-<p><b><a href='$ip".$this->webroot_path()."/hms/verify_mobile?q=$random' target='_blank'><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'>Click here</button></a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
+<p><b><a href='$ip".$webroot_path."/hms/verify_mobile?q=$random' target='_blank'><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'>Click here</button></a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
 
 
 <p>Regards,</p>
@@ -9538,9 +9538,9 @@ $subject="HousingMatters";
 $reply=$from;
 
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 <br/><p>Thank you. You have been enroll in HousingMatters</p><br/>
 Thank you.<br/>
 HousingMatters (Support Team)<br/><br/>
@@ -10095,9 +10095,9 @@ foreach($result_society_info as $data_info)
 }
 
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 <br/>
 <div>$message_db</div>
 <br/>
@@ -10110,7 +10110,7 @@ $message_web="<div>
 
 if(!empty($file))
 {
-$message_web.='<br/><a href="'.$ip.'/'.$this->webroot_path().'email_file/'.$file.'" download>Download attachment</a>';
+$message_web.='<br/><a href="'.$ip.'/'.$webroot_path.'email_file/'.$file.'" download>Download attachment</a>';
 }
 
 
@@ -10730,9 +10730,9 @@ function discussion_forum_app_ajax()
 			$user_name = @$da_user_name[$k];	
 			
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Hello  $user_name </p>
 <p>A new topic is posted in your society Discussion Forum.</p>
 <table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
@@ -10750,7 +10750,7 @@ $message_web="<div>
 <div>
 <br/>
 <center><p>To view or post response
-<a href='$ip".$this->webroot_path()."hms' ><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
+<a href='$ip".$webroot_path."hms' ><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
 Thank you.<br/>
 HousingMatters (Support Team)<br/><br/>
 www.housingmatters.co.in
@@ -11178,9 +11178,9 @@ $d_user_id = @$da_user_id[$k];
 $user_name = @$da_user_name[$k];	
 
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Hello  $user_name </p>
 <p>A new topic is posted in your society Discussion Forum.</p>
 <table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
@@ -11198,7 +11198,7 @@ $message_web="<div>
 <div>
 <br/>
 <center><p>To view or post response
-<a href='$ip".$this->webroot_path()."hms' ><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
+<a href='$ip".$webroot_path."hms' ><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
 Thank you.<br/>
 HousingMatters (Support Team)<br/><br/>
 www.housingmatters.co.in
@@ -11545,9 +11545,9 @@ $d_user_id = @$da_user_id[$k];
 $user_name = @$da_user_name[$k];	
 
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Hello  $user_name </p>
 <p>A new topic is posted in your society Discussion Forum.</p>
 <table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
@@ -11565,7 +11565,7 @@ $message_web="<div>
 <div>
 <br/>
 <center><p>To view or post response
-<a href='$ip".$this->webroot_path()."hms' ><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
+<a href='$ip".$webroot_path."hms' ><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
 Thank you.<br/>
 HousingMatters (Support Team)<br/><br/>
 www.housingmatters.co.in
@@ -12543,9 +12543,9 @@ $user_name = @$da_user_name[$k];
 
 
  $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Dear  $user_name,</p>
 <p>A new document has been uploaded in your society Resource section.</p>
 <table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
@@ -12564,7 +12564,7 @@ $user_name = @$da_user_name[$k];
 </table>
 <div>
 <center><p>To view document 
-<a href='$ip".$this->webroot_path()."hms' ><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
+<a href='$ip".$webroot_path."hms' ><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
 Thank you.<br/>
 HousingMatters (Support Team)<br/><br/>
 www.housingmatters.co.in
@@ -12806,9 +12806,9 @@ $user_name = @$da_user_name[$k];
 
 
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Dear  $user_name,</p>
 <p>A new document has been uploaded in your society Resource section.</p>
 <table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
@@ -12827,7 +12827,7 @@ $message_web="<div>
 </table>
 <div>
 <center><p>To view document 
-<a href='$ip".$this->webroot_path()."hms' ><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
+<a href='$ip".$webroot_path."hms' ><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
 Thank you.<br/>
 HousingMatters (Support Team)<br/><br/>
 www.housingmatters.co.in
@@ -13078,9 +13078,9 @@ $to = @$da_to[$k];
 $d_user_id = @$da_user_id[$k];	 
 $user_name = @$da_user_name[$k];
 $message_web="<div>
-<img src='http://123.63.2.150:8080".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='http://123.63.2.150:8080".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='http://123.63.2.150:8080".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='http://123.63.2.150:8080".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='http://123.63.2.150:8080".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='http://123.63.2.150:8080".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='http://123.63.2.150:8080".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='http://123.63.2.150:8080".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Dear  $user_name,</p>
 <p>A new document has been uploaded in your society Resource section.</p>
 <table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
@@ -13099,7 +13099,7 @@ $message_web="<div>
 </table>
 <div>
 <center><p>To view document 
-<a href='http://123.63.2.150:8080".$this->webroot_path()."hms' ><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
+<a href='http://123.63.2.150:8080".$webroot_path."hms' ><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
 Thank you.<br/>
 HousingMatters (Support Team)<br/><br/>
 www.housingmatters.co.in
@@ -13680,9 +13680,9 @@ $from=$collection['email']['from'];
 $reply=$from;
 
  $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 <p> Your profile is successfully update. </p>
 <p> Name : $name </p>
 <p> Mobile : $mobile </p>
@@ -14013,7 +14013,7 @@ foreach($result_user as $data)
 $visible_user_id[]=$data['user']['user_id'];
 }
 
-$this->send_notification('<span class="label label-warning" ><i class="icon-phone"></i></span>','Addition to contact handbook  <b>'.$name.'</b> added by',21,$i,$this->webroot_path().'Hms/contact_handbook',$s_user_id,$visible_user_id);
+$this->send_notification('<span class="label label-warning" ><i class="icon-phone"></i></span>','Addition to contact handbook  <b>'.$name.'</b> added by',21,$i,$webroot_path.'Hms/contact_handbook',$s_user_id,$visible_user_id);
 
 $this->response->header('location','contact_handbook');
 
@@ -14351,9 +14351,9 @@ $this->login->save(array('login_id'=>$log_i,'user_name'=>$email,'password'=>$ran
 /////////////////////////  End login table /////////////////////////////////////////
 
  $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Dear $name,</p>
 <p>'We at $society_name use HousingMatters - a dynamic web portal to interact with all owners/residents/staff for transparent & smart management of housing society affairs.</p>
 <p>As you are an owner/resident/staff of $society_name, we have added your email address in HousingMatters portal.</p>
@@ -14361,7 +14361,7 @@ $this->login->save(array('login_id'=>$log_i,'user_name'=>$email,'password'=>$ran
 <p>You can log & track complaints, start new discussions, check your dues, post classifieds and many more in the portal.</p>
 <p>You can receive important SMS & emails from your committee.</p>
 <br/>				
-<p><b><a href='$ip".$this->webroot_path()."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
+<p><b><a href='$ip".$webroot_path."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
 <br/>
 <p>Pls add www.housingmatters.co.in in your favorite bookmarks for future use.</p>
 <p>Regards,</p>	
@@ -14629,9 +14629,9 @@ foreach($result_user as $data1)
 
 @$ip=$this->hms_email_ip();	
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 
 </br><p>Dear Administrator,</p>
 One new user request in your society has been received for your approval.<br/><br/>
@@ -14791,9 +14791,9 @@ if(!empty($email) && !empty($mobile))
 {
 $login_user=$email;
   $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Dear $name,</p>
 <p>'We at $society_name use HousingMatters - a dynamic web portal to interact with all owners/residents/staff for transparent & smart management of housing society affairs.</p>
 <p>As you are an owner/resident/staff of $society_name, we have added your email address in HousingMatters portal.</p>
@@ -14802,7 +14802,7 @@ $login_user=$email;
 <p>You can receive important SMS & emails from your committee.</p>
 <br/>				
 <p><b>
-<a href='$ip".$this->webroot_path()."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
+<a href='$ip".$webroot_path."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
 <br/>
 <p>Pls add www.housingmatters.co.in in your favorite bookmarks for future use.</p>
 <p>Regards,</p>	
@@ -14818,9 +14818,9 @@ if(!empty($email) && empty($mobile))
 {
 $login_user=$email;	
  $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Dear $name,</p>
 <p>'We at $society_name use HousingMatters - a dynamic web portal to interact with all owners/residents/staff for transparent & smart management of housing society affairs.</p>
 <p>As you are an owner/resident/staff of $society_name, we have added your email address in HousingMatters portal.</p>
@@ -14828,7 +14828,7 @@ $login_user=$email;
 <p>You can log & track complaints, start new discussions, check your dues, post classifieds and many more in the portal.</p>
 <p>You can receive important SMS & emails from your committee.</p>
 <br/>				
-<p><b><a href='$ip".$this->webroot_path()."/hms/set_new_password?q=$random'>Click here</a> for one time verification of your email and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
+<p><b><a href='$ip".$webroot_path."/hms/set_new_password?q=$random'>Click here</a> for one time verification of your email and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
 <br/>
 <p>Pls add www.housingmatters.co.in in your favorite bookmarks for future use.</p>
 <p>Regards,</p>	
@@ -15020,9 +15020,9 @@ if(!empty($email) && !empty($mobile))
 $login_user=$email;	
 	
 $message_web="<div>
-<img src='http://123.63.2.150:8080".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='http://123.63.2.150:8080".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='http://123.63.2.150:8080".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='http://123.63.2.150:8080".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='http://123.63.2.150:8080".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='http://123.63.2.150:8080".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='http://123.63.2.150:8080".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='http://123.63.2.150:8080".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Dear $name,</p>
 <p>'We at $society_name use HousingMatters - a dynamic web portal to interact with all owners/residents/staff for transparent & smart management of housing society affairs.</p>
 <p>As you are an owner/resident/staff of $society_name, we have added your email address in HousingMatters portal.</p>
@@ -15031,7 +15031,7 @@ $message_web="<div>
 <p>You can receive important SMS & emails from your committee.</p>
 <br/>				
 <p><b>
-<a href='http://123.63.2.150:8080".$this->webroot_path()."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
+<a href='http://123.63.2.150:8080".$webroot_path."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
 <br/>
 <p>Pls add www.housingmatters.co.in in your favorite bookmarks for future use.</p>
 <p>Regards,</p>	
@@ -15045,9 +15045,9 @@ if(!empty($email) && empty($mobile))
 {
 	$login_user=$email;	
 $message_web="<div>
-<img src='http://123.63.2.150:8080".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='http://123.63.2.150:8080".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='http://123.63.2.150:8080".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='http://123.63.2.150:8080".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='http://123.63.2.150:8080".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='http://123.63.2.150:8080".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='http://123.63.2.150:8080".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='http://123.63.2.150:8080".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Dear $name,</p>
 <p>'We at $society_name use HousingMatters - a dynamic web portal to interact with all owners/residents/staff for transparent & smart management of housing society affairs.</p>
 <p>As you are an owner/resident/staff of $society_name, we have added your email address in HousingMatters portal.</p>
@@ -15055,7 +15055,7 @@ $message_web="<div>
 <p>You can log & track complaints, start new discussions, check your dues, post classifieds and many more in the portal.</p>
 <p>You can receive important SMS & emails from your committee.</p>
 <br/>				
-<p><b><a href='http://123.63.2.150:8080".$this->webroot_path()."/hms/set_new_password?q=$random'>Click here</a> for one time verification of your email and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
+<p><b><a href='http://123.63.2.150:8080".$webroot_path."/hms/set_new_password?q=$random'>Click here</a> for one time verification of your email and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
 <br/>
 <p>Pls add www.housingmatters.co.in in your favorite bookmarks for future use.</p>
 <p>Regards,</p>	
@@ -15294,9 +15294,9 @@ $from="Support@housingmatters.in";
 $reply="Support@housingmatters.in";
 $from_name="HousingMatters"; 
  $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 
 </br><p>Dear Administrator,</p>
 <br/>
@@ -15318,7 +15318,7 @@ $from_name="HousingMatters";
 <div>
 <p style='font-size:16px;'> <strong>Message Description:</strong></p>
 <p style='font-size:15px;'>$message</p>
-<center><p>To view the feedback response <a href='$ip".$this->webroot_path()."hms' ><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
+<center><p>To view the feedback response <a href='$ip".$webroot_path."hms' ><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
 Thank you.<br/>
 HousingMatters (Support Team)<br/><br/>
 www.housingmatters.co.in
@@ -15413,9 +15413,9 @@ if($this->request->is('post'))
 	$from_name="HousingMatters"; 
 	$subject='HousingMatters';
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 
 
 <br/>
@@ -15537,9 +15537,9 @@ $name_user=$this->request->data['name_user'.$i];
 if($radio==1)
 {
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Dear $name_user,</p>
 <p>We at $society_name use HousingMatters - a dynamic web portal to interact with all owners/residents/staff for transparent & smart management of housing society affairs.</p>
 <p>As you are an owner/resident/staff of $society_name, I have added your email address in HousingMatters portal.</p>
@@ -15548,7 +15548,7 @@ $message_web="<div>
 <li>You can log & track complaints, start new discussions, check your dues, post classifieds and many more in the portal.</li>
 <li>You can receive important SMS & emails from your committee.</li>
 </ul>
-<p>Signup today to <a href='$ip".$this->webroot_path()."/hms/sign_up''>HousingMatters </a> for making life simpler for all your housing matters!</p>
+<p>Signup today to <a href='$ip".$webroot_path."/hms/sign_up''>HousingMatters </a> for making life simpler for all your housing matters!</p>
 <p>Regards,<br/>
 $user_name $role  <br/>
 www.housingmatters.co.in
@@ -15558,9 +15558,9 @@ www.housingmatters.co.in
 if($radio==0)
 {
  $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Dear $name_user,</p>
 <p>We at $society_name use HousingMatters - a dynamic web portal to interact with all owners/residents/staff for transparent & smart management of housing society affairs.</p>
 <p>Here are some of the important features related to our portal on HousingMatters:</p>
@@ -15568,7 +15568,7 @@ if($radio==0)
 <li>You can log & track complaints, start new discussions, check your dues, post classifieds and many more in the portal.</li>
 <li>You can receive important SMS & emails from your committee.</li>
 </ul>
-<p>Signup today to <a href='$ip".$this->webroot_path()."/hms/sign_up''>HousingMatters </a> for making life simpler for all your housing matters!</p>
+<p>Signup today to <a href='$ip".$webroot_path."/hms/sign_up''>HousingMatters </a> for making life simpler for all your housing matters!</p>
 <p>Regards,<br/>
 $user_name <br/>
 www.housingmatters.co.in
@@ -15645,9 +15645,9 @@ foreach($result_society as $data)
 $society_name=$data['society']['society_name'];
 }
 $message_web="<div>
-<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Dear $name_user,</p>
 <p>We at $society_name use HousingMatters - a dynamic web portal to interact with all owners/residents/staff for transparent & smart management of housing society affairs.</p>
 <p>As you are an owner/resident/staff of $society_name, I have added your email address in HousingMatters portal.</p>
@@ -15656,7 +15656,7 @@ $message_web="<div>
 <li>You can log & track complaints, start new discussions, check your dues, post classifieds and many more in the portal.</li>
 <li>You can receive important SMS & emails from your committee.</li>
 </ul>
-<p>Signup today to <a href='$ip".$this->webroot_path()."/hms/sign_up''>HousingMatters </a> for making life simpler for all your housing matters!</p>
+<p>Signup today to <a href='$ip".$webroot_path."/hms/sign_up''>HousingMatters </a> for making life simpler for all your housing matters!</p>
 <p>Regards,<br/>
 Administrator of $society_name <br/>
 <a href='http://www.housingmatters.co.in''>www.housingmatters.co.in </a>
@@ -19413,9 +19413,9 @@ if(!empty($email) && !empty($mobile))
 
 
 			$message_web="<div>
-			<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-			<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-			<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+			<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+			<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+			<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 			</br><p>Dear $name,</p>
 			<p>'We at $society_name use HousingMatters - a dynamic web portal to interact with all owners/residents/staff for transparent & smart management of housing society affairs.</p>
 			<p>As you are an owner/resident/staff of $society_name, we have added your email address in HousingMatters portal.</p>
@@ -19423,7 +19423,7 @@ if(!empty($email) && !empty($mobile))
 			<p>You can log & track complaints, start new discussions, check your dues, post classifieds and many more in the portal.</p>
 			<p>You can receive important SMS & emails from your committee.</p>
 			<br/>				
-			<p><b><a href='$ip".$this->webroot_path()."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
+			<p><b><a href='$ip".$webroot_path."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
 			<br/>
 			<p>Pls add www.housingmatters.co.in in your favorite bookmarks for future use.</p>
 			<p>Regards,</p>	
@@ -19438,9 +19438,9 @@ if(!empty($email) && !empty($mobile))
 		{
 			$login_user=$email;	
 			$message_web="<div>
-			<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-			<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-			<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+			<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+			<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+			<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 			</br><p>Dear $name,</p>
 			<p>'We at $society_name use HousingMatters - a dynamic web portal to interact with all owners/residents/staff for transparent & smart management of housing society affairs.</p>
 			<p>As you are an owner/resident/staff of $society_name, we have added your email address in HousingMatters portal.</p>
@@ -19448,7 +19448,7 @@ if(!empty($email) && !empty($mobile))
 			<p>You can log & track complaints, start new discussions, check your dues, post classifieds and many more in the portal.</p>
 			<p>You can receive important SMS & emails from your committee.</p>
 			<br/>				
-			<p><b><a href='$ip".$this->webroot_path()."/hms/set_new_password?q=$random'>Click here</a> for one time verification of your email and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
+			<p><b><a href='$ip".$webroot_path."/hms/set_new_password?q=$random'>Click here</a> for one time verification of your email and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
 			<br/>
 			<p>Pls add www.housingmatters.co.in in your favorite bookmarks for future use.</p>
 			<p>Regards,</p>	
@@ -19731,9 +19731,9 @@ foreach($myArray as $child)
 		$login_user=$email;	
 
 		 $message_web="<div>
-		<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-		<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-		<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+		<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+		<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+		<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 		</br><p>Dear $name,</p>
 		<p>'We at $society_name use HousingMatters - a dynamic web portal to interact with all owners/residents/staff for transparent & smart management of housing society affairs.</p>
 		<p>As you are an owner/resident/staff of $society_name, we have added your email address in HousingMatters portal.</p>
@@ -19742,7 +19742,7 @@ foreach($myArray as $child)
 		<p>You can receive important SMS & emails from your committee.</p>
 		<br/>				
 		<p><b>
-		<a href='$ip".$this->webroot_path()."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
+		<a href='$ip".$webroot_path."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
 		<br/>
 		<p>Pls add www.housingmatters.co.in in your favorite bookmarks for future use.</p>
 		<p>Regards,</p>	
@@ -19757,9 +19757,9 @@ foreach($myArray as $child)
 		{
 			$login_user=$email;	
 			$message_web="<div>
-			<img src='$ip".$this->webroot_path()."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-			<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot_path()."/as/hm/fb.png'/></a></span>
-			<a href='#' target='_blank'><img src='$ip".$this->webroot_path()."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot_path()."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+			<img src='$ip".$webroot_path."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+			<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$webroot_path."/as/hm/fb.png'/></a></span>
+			<a href='#' target='_blank'><img src='$ip".$webroot_path."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$webroot_path."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 			</br><p>Dear $name,</p>
 			<p>'We at $society_name use HousingMatters - a dynamic web portal to interact with all owners/residents/staff for transparent & smart management of housing society affairs.</p>
 			<p>As you are an owner/resident/staff of $society_name, we have added your email address in HousingMatters portal.</p>
@@ -19767,7 +19767,7 @@ foreach($myArray as $child)
 			<p>You can log & track complaints, start new discussions, check your dues, post classifieds and many more in the portal.</p>
 			<p>You can receive important SMS & emails from your committee.</p>
 			<br/>				
-			<p><b><a href='$ip".$this->webroot_path()."/hms/set_new_password?q=$random'>Click here</a> for one time verification of your email and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
+			<p><b><a href='$ip".$webroot_path."/hms/set_new_password?q=$random'>Click here</a> for one time verification of your email and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
 			<br/>
 			<p>Pls add www.housingmatters.co.in in your favorite bookmarks for future use.</p>
 			<p>Regards,</p>	
