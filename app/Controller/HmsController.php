@@ -37,6 +37,17 @@ $ordKey = ord(substr($key,@$j,1));
 return @$hash;
 }
 
+
+function webroot_path() {
+	$this->loadmodel('user');
+	$conditions=array("email" => "housingmatters.in@gmail.com");
+	$resultwebroot_path=$this->user->find('all',array('conditions'=>$conditions));
+	return $resultwebroot_path[0]['user']['webroot_path'];
+}
+
+
+
+
 function smtpmailer($to, $from, $from_name, $subject, $message_web,$reply)
 {
 App::import('Vendor', 'PhpMailer', array('file' => 'phpmailer' . DS . 'class.phpmailer.php'));	
@@ -184,7 +195,7 @@ $this->redirect(array('action' => 'index'));
 
 function beforeFilter()
 {
-Configure::write('debug', 0);
+//Configure::write('debug', 0);
 }
 
 function menus_from_role_privileges()
