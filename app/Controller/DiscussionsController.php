@@ -156,7 +156,7 @@ function new_topic(){
 
 
 	//////////////////////current user info///////////////
-	$result_self=$this->requestAction(array('controller' => 'Hms', 'action' => 'profile_picture'),array('pass' => array($s_user_id)));
+	$result_self=$profile_picture($s_user_id);
 	foreach($result_self as $data3)
 	{
 	$this->set('user_name',$data3["user"]["user_name"]);
