@@ -43,7 +43,7 @@ function index($id=null,$list=null){
 	$wing=$data3["user"]["wing"];
 	$flat=$data3["user"]["flat"];
 	}
-	$this->set('flat_info',$this->wing_flat($wing,$flat);
+	$this->set('flat_info',$this->wing_flat($wing,$flat));
 	//////////////////////current user info///////////////
 
 	$this->loadmodel('role');
@@ -163,7 +163,7 @@ function new_topic(){
 	$wing=$data3["user"]["wing"];
 	$flat=$data3["user"]["flat"];
 	}
-	$this->set('flat_info',$this->wing_flat($wing,$flat);
+	$this->set('flat_info',$this->wing_flat($wing,$flat));
 	//////////////////////current user info///////////////
 	$this->loadmodel('role');
 	$conditions=array("society_id" => $s_society_id);
@@ -563,8 +563,9 @@ $c=htmlentities(wordwrap($g, 25, " ", true));
 $c=nl2br($c);
 $date=date("d-m-y");
 $time=date('h:i:a',time());
+	$c_mod=explode(' ',$g);
 	
-	$r=$this->content_moderation_society('pass' => array($g));
+	$r=$this->content_moderation_society($c_mod);
 	
 if($r==0)
 {
