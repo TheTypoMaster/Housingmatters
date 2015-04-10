@@ -67,6 +67,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
            </td>
            </tr>
            </table>
+           <div id="validate_result"></div> 
            </div>
 
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
@@ -82,19 +83,17 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <script>
 $(document).ready(function() {
 	$("#go").live('click',function(){
-		var unic = document.getElementById('un').value;
-		
-		
-		
+	var unic = document.getElementById('un').value;
 	
-		
-		$("#result").html('<div align="center" style="padding:10px;"><img src="as/loding.gif" />Loding....</div>').load("in_report_ajax?un=" +unic+ "");
-		
-		
-	});
-	
+if(unic === '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Selectan Option</div>'); return false; }
+else 
+{
+$('#validate_result').html('<div></div>');
+}
+
+$("#result").html('<div align="center" style="padding:10px;"><img src="as/loding.gif" />Loding....</div>').load("in_report_ajax?un=" +unic+ "");
+});
+
 });
 </script>	
-
-
 

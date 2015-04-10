@@ -2826,7 +2826,13 @@ function all_tenant_deactive()
 }
 function multiple_flat()
 {
-	$this->layout="session";
+	if($this->RequestHandler->isAjax()){
+		$this->layout='blank';
+	}else{
+		$this->layout='session';
+	}
+	$this->ath();
+	$this->check_user_privilages();	
 	$s_society_id=$this->Session->read('society_id');
 	$s_user_id=$this->Session->read('user_id');
 	$result=$this->all_user_deactive();
@@ -15463,6 +15469,8 @@ if($this->RequestHandler->isAjax()){
 	}else{
 		$this->layout='session';
 	}
+	$this->ath();
+	$this->check_user_privilages();
 $s_society_id=(int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
 if(isset($this->request->data['sub'])) 
@@ -15575,6 +15583,8 @@ if($this->RequestHandler->isAjax()){
 	}else{
 		$this->layout='session';
 	}
+	$this->ath();
+	$this->check_user_privilages();
 $s_society_id=(int)$this->Session->read('society_id');
 $this->loadmodel('invitation');
 $condition=array('society_id'=>$s_society_id);
@@ -19818,7 +19828,14 @@ return $this->ledger_account->find('all',array('conditions'=>$conditions));
 }
 ////////////////End Function Fetch expense Tracker Add Fetch2 (Accounts)//////////////
 
-
+///////////////////////////////////////// Start Expense Tracker View History Expense Head (Accounts) /////////
+function expense_tracker_fetch($auto_id)
+{
+$this->loadmodel('expense_tracker');
+$conditions=array("auto_id" => $auto_id);
+return $this->expense_tracker->find('all',array('conditions'=>$conditions));
+}
+///////////////////////// End Expense Tracker View History Expense Head Fetch (Accounts) //////////////////////////////
 
 
 

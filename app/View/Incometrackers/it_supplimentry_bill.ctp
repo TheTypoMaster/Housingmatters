@@ -43,10 +43,10 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			<div class="portlet-body form">
 			<h3 class="block"></h3>
 			
-			<form class="form-horizontal" method="post" id="contact-form" novalidate>		
+	  <form class="form-horizontal" method="post" id="contact-form" novalidate>		
 		
         
-       <!-- <div class="control-group">
+        <!-- <div class="control-group">
         <div class="controls">
         <label class="" style="font-size:14px;">Billing Cycle</label>
         <select name="bill_p" id="bp" class="m-wrap medium">
