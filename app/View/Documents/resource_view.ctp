@@ -83,7 +83,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
                                           <?php
 										if(!empty($name))
 										{
-										if($ext=="jpg" ||$ext=="png"||$ext=="gif")
+										if($ext=="jpg" ||$ext=="png"||$ext=="gif" ||$ext=="JPG" ||$ext=="PNG"||$ext=="GIF")
 										{ ?>
                                         
                                          <a href="#portlet-configxx<?php echo $i; ?>" data-toggle="modal" class="config btn mini green tooltips" data-placement="bottom" data-original-title="<?php echo $name; ?>"><i class=" icon-download-alt"></i> </a> 
