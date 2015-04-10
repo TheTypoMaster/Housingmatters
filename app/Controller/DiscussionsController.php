@@ -541,10 +541,12 @@ $this->layout='blank';
 $s_society_id=$this->Session->read('society_id'); 
 
 $con=(int)$this->request->query('con');
+$con=(int)$this->decode($con,'housingmatters');
 if($con==0) { $this->redirect(array('controller' => 'Discussions','action' => 'index')); }
 
 $this->loadmodel('discussion_post');
 $this->discussion_post->updateAll(array("delete_id" =>1),array("discussion_post_id" => $con));
+
 $this->redirect(array('controller' => 'Discussions','action' => 'index/mytopics/1'));
 }
 
@@ -553,6 +555,7 @@ function archive()
 	$this->layout='blank';
 	$s_society_id=$this->Session->read('society_id'); 
 	$con=(int)$this->request->query('con');
+	$con=(int)$this->decode($con,'housingmatters');
 	if($con==0) { $this->redirect(array('controller' => 'Discussions','action' => 'index')); }
 	$this->loadmodel('discussion_post');
 	$this->discussion_post->updateAll(array("delete_id" =>2),array("discussion_post_id" => $con));
