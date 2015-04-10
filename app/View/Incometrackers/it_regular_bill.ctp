@@ -176,9 +176,10 @@ $wing_name = $collection['wing']['wing_name'];
 ?>
 <label class="checkbox">
 <div class="checker" id="uniform-undefined"><span>
-<input type="checkbox" value="<?php echo $wing_id; ?>" style="opacity: 0;" name="wing<?php echo $wing_id; ?>"></span></div><?php echo $wing_name; ?> 
+<input type="checkbox" value="<?php echo $wing_id; ?>" style="opacity: 0;" name="wing<?php echo $wing_id; ?>" class="requirecheck1" id="requirecheck1"></span></div><?php echo $wing_name; ?> 
 </label>
 <?php } ?>
+<label id="requirecheck1"></label>
 </div>
 </div>        
 <br />        
@@ -254,7 +255,175 @@ No
 		</div>
 		</div>		
 
-		
+<script>
+$(document).ready(function() {
+$("#go").live('click',function(){
+
+var from1 = document.getElementById("from").value;
+var per_tp = document.getElementById("bp").value;
+var date = from1.split("-"); 
+var d = date[0];
+var m = date[1];
+var y = date[2];
+var date2 = m + "/" + d + "/" + y; 
+//alert(date2);
+var datobj=new Date(date2);
+
+//alert(d);
+//alert(m);
+//alert(y);
+if(per_tp == 1)
+{
+var to1 = new Date(date2).addMonths(1);  //
+to1 = to1.setDate(to1.getDate()-1);
+to1 =  new Date(to1);
+var to1 = to1.toString("dd-MM-yyyy");
+}
+else if(per_tp == 2)
+{
+var to1 = new Date(date2).addMonths(2);  //
+to1 = to1.setDate(to1.getDate()-1);
+to1 =  new Date(to1);
+var to1 = to1.toString("dd-MM-yyyy");
+}
+else if(per_tp == 3)
+{
+var to1 = new Date(date2).addMonths(4);  //
+to1 = to1.setDate(to1.getDate()-1);
+to1 =  new Date(to1);
+var to1 = to1.toString("dd-MM-yyyy");
+}
+else if(per_tp == 4)
+{
+var to1 = new Date(date2).addMonths(6);  //
+to1 = to1.setDate(to1.getDate()-1);
+to1 =  new Date(to1);
+var to1 = to1.toString("dd-MM-yyyy");
+}
+else if(per_tp == 5)
+{
+var to1 = new Date(date2).addMonths(12);  //
+to1 = to1.setDate(to1.getDate()-1);
+to1 =  new Date(to1);
+var to1 = to1.toString("dd-MM-yyyy");
+}
+
+
+
+
+var fi = document.getElementById("fi").value;
+var ti = document.getElementById("ti").value;
+var cn = document.getElementById("cn").value;
+var fe = fi.split(",");
+var te = ti.split(",");
+var due1 = document.getElementById("due").value;
+var fb = document.getElementById("fb").value;
+var tb= document.getElementById("tb").value;
+
+var from = from1.split("-").reverse().join("-");
+var to = to1.split("-").reverse().join("-");
+var due = due1.split("-").reverse().join("-");
+if(from == "")
+{
+}
+else if(to == "")
+{
+
+}
+else if(Date.parse(to) <= Date.parse(from))
+{
+$("#result11").load("regular_vali?ss=" + 1 + "");
+return false;
+}
+else if(Date.parse(tb) >= Date.parse(from))
+{
+$("#result11").load("regular_vali?ss=" + 5 + "");
+return false;	
+}
+else
+{
+$("#result11").load("regular_vali?ss=" + 11 + "");
+}
+
+var nnn = 55;
+for(var i=0; i<cn; i++)
+{
+var fd = fe[i];
+var td = te[i]
+
+if(from == "")
+{
+nnn = 555;
+break;	
+}
+else if(to == "")
+{
+nnn = 555;
+break;
+}
+else if(Date.parse(fd) <= Date.parse(from))
+{
+if(Date.parse(td) >= Date.parse(to))
+{
+nnn = 5;
+break;
+}
+else
+{
+
+}
+} 
+}
+
+
+if(nnn == 55)
+{
+$("#result11").load("regular_vali?ss=" + 2 + "");
+return false;	
+}
+else if(nnn == 555)
+{
+
+}
+else
+{
+$("#result11").load("regular_vali?ss=" + 12 + "");		
+}
+
+
+
+
+if(due == "")
+{
+
+}
+else if(Date.parse(due) <= Date.parse(from))	 
+{
+$("#result12").load("regular_vali?ss=" + 3 + "");
+return false;
+}
+else
+{
+$("#result12").load("regular_vali?ss=" + 13 + "");	 
+}
+
+
+});
+});
+</script>
+
+<script>        
+function wing()
+{
+$("#show_bill_for").show();	
+}
+function flat()
+{
+$("#show_bill_for").hide();	
+}
+
+</script>      
+
 <script>
 $.validator.addMethod('requirecheck1', function (value, element) {
 	 return $('.requirecheck1:checked').size() > 0;
@@ -272,7 +441,6 @@ $.validator.addMethod('filesize', function(value, element, param) {
 });
 
 $(document).ready(function(){
-	
 			var checkboxes = $('.requirecheck1');
 			var checkbox_names = $.map(checkboxes, function(e, i) {
 				return $(e).attr("name")
@@ -286,8 +454,10 @@ $(document).ready(function(){
 			
 			
 			
-	$.validator.setDefaults({ ignore: ":hidden:not(select)" });
-		$('#contact-form').validate({ 
+
+	
+	
+		$('#contact-form').validate({
 		
 		 errorElement: "label",
                     //place all errors in a <div id="errors"> element
@@ -300,40 +470,34 @@ $(document).ready(function(){
 			qwerty: checkbox_names2
         },
 		
-		
+		ignore: ".ignore",
 		rules: {
-			pen: {
-			 required: true	
-			},
-			
-	      from: {
+	      bill_p: {
 	        required: true
 	      },
-		 		  due_date : {
-			  required: true  
-		  },
-		 		   bill_p: {
+		    from: {
+	        required: true
+	      },
+		 due_date: {
+	        required: true
+	      },
+	     
+		  bill_for: {
+	        required: true
+	      },
+		  
+		   pen: {
 	        required: true
 	      },
 		 
-		   "terms[]": {
-	        required: true
-	      },
 		 
-		  "i_head[]": {
-			 required: true
-	      },
-		   
-		   bill_for: {
-			 required: true
-	      },
 		  
-		  
-		 bill_for
+		 
+		 
 	    },
 		messages: {
 	                from: {
-	                    required: "Bill Date is Required."
+	                    required: "Bill date is required."
 	                },
 					to: {
 	                    required: "To date is required."
@@ -361,171 +525,20 @@ $(document).ready(function(){
 }); 
 </script>
 
-<script>
-		$(document).ready(function() {
-		$("#go").live('click',function(){
-        
-		var from1 = document.getElementById("from").value;
-		var per_tp = document.getElementById("bp").value;
-		var date = from1.split("-"); 
-		var d = date[0];
-		var m = date[1];
-		var y = date[2];
-		var date2 = m + "/" + d + "/" + y; 
-		//alert(date2);
-		var datobj=new Date(date2);
-		
-		//alert(d);
-		//alert(m);
-		//alert(y);
-		if(per_tp == 1)
-		{
-		var to1 = new Date(date2).addMonths(1);  //
-		to1 = to1.setDate(to1.getDate()-1);
-		to1 =  new Date(to1);
-		var to1 = to1.toString("dd-MM-yyyy");
-		}
-		else if(per_tp == 2)
-		{
-		var to1 = new Date(date2).addMonths(2);  //
-		to1 = to1.setDate(to1.getDate()-1);
-		to1 =  new Date(to1);
-		var to1 = to1.toString("dd-MM-yyyy");
-		}
-		else if(per_tp == 3)
-		{
-		var to1 = new Date(date2).addMonths(4);  //
-		to1 = to1.setDate(to1.getDate()-1);
-		to1 =  new Date(to1);
-		var to1 = to1.toString("dd-MM-yyyy");
-		}
-		else if(per_tp == 4)
-		{
-		var to1 = new Date(date2).addMonths(6);  //
-		to1 = to1.setDate(to1.getDate()-1);
-		to1 =  new Date(to1);
-		var to1 = to1.toString("dd-MM-yyyy");
-		}
-		else if(per_tp == 5)
-		{
-		var to1 = new Date(date2).addMonths(12);  //
-		to1 = to1.setDate(to1.getDate()-1);
-		to1 =  new Date(to1);
-		var to1 = to1.toString("dd-MM-yyyy");
-		}
-		
-		
-		
-		
-		var fi = document.getElementById("fi").value;
-		var ti = document.getElementById("ti").value;
-		var cn = document.getElementById("cn").value;
-		var fe = fi.split(",");
-		var te = ti.split(",");
-		var due1 = document.getElementById("due").value;
-		var fb = document.getElementById("fb").value;
-		var tb= document.getElementById("tb").value;
-		
-		var from = from1.split("-").reverse().join("-");
-		var to = to1.split("-").reverse().join("-");
-		var due = due1.split("-").reverse().join("-");
-		if(from == "")
-		{
-		}
-		else if(to == "")
-		{
-			
-		}
-		else if(Date.parse(to) <= Date.parse(from))
-		{
-       	$("#result11").load("regular_vali?ss=" + 1 + "");
-        return false;
-		}
-		else if(Date.parse(tb) >= Date.parse(from))
-		{
-		$("#result11").load("regular_vali?ss=" + 5 + "");
-        return false;	
-		}
-		else
-		{
-		$("#result11").load("regular_vali?ss=" + 11 + "");
-       	}
-		
-		var nnn = 55;
-		for(var i=0; i<cn; i++)
-		{
-		var fd = fe[i];
-		var td = te[i]
-		
-		    if(from == "")
-			{
-				nnn = 555;
-			break;	
-			}
-			else if(to == "")
-			{
-				nnn = 555;
-				break;
-			}
-			else if(Date.parse(fd) <= Date.parse(from))
-		     {
-			 if(Date.parse(td) >= Date.parse(to))
-			 {
-				 nnn = 5;
-				 break;
-			 }
-			 else
-			 {
-				 
-			 }
-        	 } 
-			 }
-			 
-		
-		if(nnn == 55)
-		{
-		$("#result11").load("regular_vali?ss=" + 2 + "");
-        return false;	
-		}
-		else if(nnn == 555)
-		{
-			
-		}
-		else
-		{
-		$("#result11").load("regular_vali?ss=" + 12 + "");		
-		}
-		
-		
-		
-		
-		if(due == "")
-		{
-			
-		}
-		else if(Date.parse(due) <= Date.parse(from))	 
-		{
-		$("#result12").load("regular_vali?ss=" + 3 + "");
-		return false;
-		}
-		else
-		{
-		$("#result12").load("regular_vali?ss=" + 13 + "");	 
-		}
-		
-		
-		});
-		});
-		</script>
-        
-<script>        
-function wing()
-{
-$("#show_bill_for").show();	
-}
-function flat()
-{
-$("#show_bill_for").hide();	
-}
-   
-</script>        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  

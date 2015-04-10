@@ -2260,7 +2260,7 @@ $this->response->header('Location','supplimentry_bill_view2?f='.$f2.'&due='.$due
 
 
 $this->loadmodel('ledger_sub_account');
-$conditions=array("society_id"=>$s_society_id, "ledger_id" => 34,"deactive"=>0);
+$conditions=array("society_id"=>$s_society_id, "ledger_id" => 34);
 $cursor1=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);	
 
