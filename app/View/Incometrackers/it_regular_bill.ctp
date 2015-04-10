@@ -160,6 +160,7 @@ Wing Wise
 <div class="radio" id="uniform-undefined"><span><input type="radio" name="bill_for" value="2" style="opacity: 0;" id="bill_for" onclick="flat()"></span></div>
 All Flats
 </label>
+<label id="bill_for"></label>
 </div>       
 <br />   
         
@@ -271,6 +272,7 @@ $.validator.addMethod('filesize', function(value, element, param) {
 });
 
 $(document).ready(function(){
+	
 			var checkboxes = $('.requirecheck1');
 			var checkbox_names = $.map(checkboxes, function(e, i) {
 				return $(e).attr("name")
@@ -285,7 +287,7 @@ $(document).ready(function(){
 			
 			
 	$.validator.setDefaults({ ignore: ":hidden:not(select)" });
-		$('#contact-form').validate({
+		$('#contact-form').validate({ 
 		
 		 errorElement: "label",
                     //place all errors in a <div id="errors"> element
@@ -321,7 +323,13 @@ $(document).ready(function(){
 		  "i_head[]": {
 			 required: true
 	      },
-		 
+		   
+		   bill_for: {
+			 required: true
+	      },
+		  
+		  
+		 bill_for
 	    },
 		messages: {
 	                from: {
