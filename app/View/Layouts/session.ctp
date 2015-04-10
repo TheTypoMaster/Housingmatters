@@ -6,35 +6,37 @@
 <!-- Include external files and scripts here (See HTML helper for more info.) -->
 <?php
 echo $this->fetch('meta');
+$webroot_path=$this->requestAction(array('controller' => 'Hms', 'action' => 'webroot_path'));
 ?>
-<link href="http://52.74.61.249/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="http://52.74.61.249/assets/css/metro.css" rel="stylesheet" />
-	<link href="http://52.74.61.249/assets/bootstrap/css/bootstrap-responsive.min.1.css" rel="stylesheet" />
-	<link href="http://52.74.61.249/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-	<link href="http://52.74.61.249/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
-	<link href="http://52.74.61.249/assets/css/style.1.css" rel="stylesheet" />
-	<link href="http://52.74.61.249/assets/css/style_responsive.css" rel="stylesheet" />
-	<link href="http://52.74.61.249/assets/css/style_default.1.css" rel="stylesheet" id="style_color" />
-	<link rel="stylesheet" type="text/css" href="http://52.74.61.249/assets/uniform/css/uniform.default.css" />
-	    <link href="http://52.74.61.249/assets/bootstrap/css/bootstrap-fileupload.css" rel="stylesheet" />
-     <link rel="stylesheet" type="text/css" href="http://52.74.61.249/assets/gritter/css/jquery.gritter.css" />
-   <link rel="stylesheet" type="text/css" href="http://52.74.61.249/assets/chosen-bootstrap/chosen/chosen.css" />
-   <link rel="stylesheet" type="text/css" href="http://52.74.61.249/assets/jquery-tags-input/jquery.tagsinput.css" />
-   <link rel="stylesheet" type="text/css" href="http://52.74.61.249/assets/clockface/css/clockface.css" />
-   <link rel="stylesheet" type="text/css" href="http://52.74.61.249/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
-   <link rel="stylesheet" type="text/css" href="http://52.74.61.249/assets/bootstrap-datepicker/css/datepicker.css" />
-   <link rel="stylesheet" type="text/css" href="http://52.74.61.249/assets/bootstrap-timepicker/compiled/timepicker.css" />
-   <link rel="stylesheet" type="text/css" href="http://52.74.61.249/assets/bootstrap-colorpicker/css/colorpicker.css" />
-   <link rel="stylesheet" href="http://52.74.61.249/assets/bootstrap-toggle-buttons/static/stylesheets/bootstrap-toggle-buttons.css" />
-   <link rel="stylesheet" href="http://52.74.61.249/assets/data-tables/DT_bootstrap.css" />
-   <link rel="stylesheet" type="text/css" href="http://52.74.61.249/assets/bootstrap-daterangepicker/daterangepicker.css" />
-   <link href="http://52.74.61.249/assets/fancybox/source/jquery.fancybox.css" rel="stylesheet" />
-	<link href="http://52.74.61.249/assets/jqvmap/jqvmap/jqvmap.css" media="screen" rel="stylesheet" type="text/css" />
+
+<link href="<?php echo $webroot_path; ?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="<?php echo $webroot_path; ?>assets/css/metro.css" rel="stylesheet" />
+	<link href="<?php echo $webroot_path; ?>assets/bootstrap/css/bootstrap-responsive.min.1.css" rel="stylesheet" />
+	<link href="<?php echo $webroot_path; ?>assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+	<link href="<?php echo $webroot_path; ?>assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
+	<link href="<?php echo $webroot_path; ?>assets/css/style.1.css" rel="stylesheet" />
+	<link href="<?php echo $webroot_path; ?>assets/css/style_responsive.css" rel="stylesheet" />
+	<link href="<?php echo $webroot_path; ?>assets/css/style_default.1.css" rel="stylesheet" id="style_color" />
+	<link rel="stylesheet" type="text/css" href="<?php echo $webroot_path; ?>assets/uniform/css/uniform.default.css" />
+	    <link href="<?php echo $webroot_path; ?>assets/bootstrap/css/bootstrap-fileupload.css" rel="stylesheet" />
+     <link rel="stylesheet" type="text/css" href="<?php echo $webroot_path; ?>assets/gritter/css/jquery.gritter.css" />
+   <link rel="stylesheet" type="text/css" href="<?php echo $webroot_path; ?>assets/chosen-bootstrap/chosen/chosen.css" />
+   <link rel="stylesheet" type="text/css" href="<?php echo $webroot_path; ?>assets/jquery-tags-input/jquery.tagsinput.css" />
+   <link rel="stylesheet" type="text/css" href="<?php echo $webroot_path; ?>assets/clockface/css/clockface.css" />
+   <link rel="stylesheet" type="text/css" href="<?php echo $webroot_path; ?>assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
+   <link rel="stylesheet" type="text/css" href="<?php echo $webroot_path; ?>assets/bootstrap-datepicker/css/datepicker.css" />
+   <link rel="stylesheet" type="text/css" href="<?php echo $webroot_path; ?>assets/bootstrap-timepicker/compiled/timepicker.css" />
+   <link rel="stylesheet" type="text/css" href="<?php echo $webroot_path; ?>assets/bootstrap-colorpicker/css/colorpicker.css" />
+   <link rel="stylesheet" href="<?php echo $webroot_path; ?>assets/bootstrap-toggle-buttons/static/stylesheets/bootstrap-toggle-buttons.css" />
+   <link rel="stylesheet" href="<?php echo $webroot_path; ?>assets/data-tables/DT_bootstrap.css" />
+   <link rel="stylesheet" type="text/css" href="<?php echo $webroot_path; ?>assets/bootstrap-daterangepicker/daterangepicker.css" />
+   <link href="<?php echo $webroot_path; ?>assets/fancybox/source/jquery.fancybox.css" rel="stylesheet" />
+	<link href="<?php echo $webroot_path; ?>assets/jqvmap/jqvmap/jqvmap.css" media="screen" rel="stylesheet" type="text/css" />
 	<link rel="shortcut icon" href="favicon.ico" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="http://52.74.61.249/as/bootstrap.min.css" rel="stylesheet">
-<link href="http://52.74.61.249/as/animate.css" rel="stylesheet" />
-<link href="http://52.74.61.249/as/demo-styles.css" rel="stylesheet" />
+<link href="<?php echo $webroot_path; ?>as/bootstrap.min.css" rel="stylesheet">
+<link href="<?php echo $webroot_path; ?>as/animate.css" rel="stylesheet" />
+<link href="<?php echo $webroot_path; ?>as/demo-styles.css" rel="stylesheet" />
 		<style>
 		label.valid {
 		  width: 24px;
@@ -74,51 +76,51 @@ echo $this->fetch('meta');
 	<!-----notification css--------------->
 	
 <!-----js--------------->
-	<script src="http://52.74.61.249/assets/js/jquery-1.8.3.min.js"></script>			
-	<script src="http://52.74.61.249/assets/breakpoints/breakpoints.js"></script>			
-	<script src="http://52.74.61.249/assets/jquery-slimscroll/jquery-ui-1.9.2.custom.min.js"></script>	
-	<script src="http://52.74.61.249/assets/bootstrap/js/bootstrap.min.js"></script>
-	<script src="http://52.74.61.249/assets/js/jquery.blockui.js"></script>
-	<script src="http://52.74.61.249/assets/fullcalendar/fullcalendar/fullcalendar.min.js"></script>	
-	<script type="text/javascript" src="http://52.74.61.249/assets/uniform/jquery.uniform.min.js"></script>
-	<script type="text/javascript" src="http://52.74.61.249/assets/chosen-bootstrap/chosen/chosen.jquery.min.js"></script>
-	<script src="http://52.74.61.249/assets/flot/jquery.flot.js"></script>
-	<script src="http://52.74.61.249/assets/flot/jquery.flot.resize.js"></script>
-	<script src="http://52.74.61.249/assets/flot/jquery.flot.pie.js"></script>
-	<script src="http://52.74.61.249/assets/flot/jquery.flot.stack.js"></script>
-	<script src="http://52.74.61.249/assets/flot/jquery.flot.crosshair.js"></script>
-	   <script type="text/javascript" src="http://52.74.61.249/assets/ckeditor/ckeditor.js"></script>  
-   <script type="text/javascript" src="http://52.74.61.249/assets/bootstrap/js/bootstrap-fileupload.js"></script>
-     <script type="text/javascript" src="http://52.74.61.249/assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script> 
-   <script type="text/javascript" src="http://52.74.61.249/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
-   <script type="text/javascript" src="http://52.74.61.249/assets/jquery-tags-input/jquery.tagsinput.min.js"></script>
-   <script type="text/javascript" src="http://52.74.61.249/assets/bootstrap-toggle-buttons/static/js/jquery.toggle.buttons.js"></script>
-   <script type="text/javascript" src="http://52.74.61.249/assets/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-   <script type="text/javascript" src="http://52.74.61.249/assets/clockface/js/clockface.js"></script>
-   <script type="text/javascript" src="http://52.74.61.249/assets/bootstrap-daterangepicker/date.js"></script>
-   <script type="text/javascript" src="http://52.74.61.249/assets/bootstrap-daterangepicker/daterangepicker.js"></script> 
-   <script type="text/javascript" src="http://52.74.61.249/assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>  
-   <script type="text/javascript" src="http://52.74.61.249/assets/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
-    <script src="http://52.74.61.249/assets/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
-   	<script src="http://52.74.61.249/assets/fancybox/source/jquery.fancybox.pack.js"></script>
-	<script src="http://52.74.61.249/assets/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-	<script src="http://52.74.61.249/assets/js/jquery.cookie.js"></script>
-	<script src="http://52.74.61.249/assets/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>	
-	<script src="http://52.74.61.249/assets/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
-	<script src="http://52.74.61.249/assets/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
-	<script src="http://52.74.61.249/assets/jqvmap/jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>
-	<script src="http://52.74.61.249/assets/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
-	<script src="http://52.74.61.249/assets/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
-	<script src="http://52.74.61.249/assets/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>	
-		<script type="text/javascript" src="http://52.74.61.249/assets/gritter/js/jquery.gritter.js"></script>
-	<script type="text/javascript" src="http://52.74.61.249/assets/js/jquery.pulsate.min.js"></script>	
-	  <script src="http://52.74.61.249/assets/uniform/jquery.uniform.min.js"></script> 
+	<script src="<?php echo $webroot_path; ?>assets/js/jquery-1.8.3.min.js"></script>			
+	<script src="<?php echo $webroot_path; ?>assets/breakpoints/breakpoints.js"></script>			
+	<script src="<?php echo $webroot_path; ?>assets/jquery-slimscroll/jquery-ui-1.9.2.custom.min.js"></script>	
+	<script src="<?php echo $webroot_path; ?>assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="<?php echo $webroot_path; ?>assets/js/jquery.blockui.js"></script>
+	<script src="<?php echo $webroot_path; ?>assets/fullcalendar/fullcalendar/fullcalendar.min.js"></script>	
+	<script type="text/javascript" src="<?php echo $webroot_path; ?>assets/uniform/jquery.uniform.min.js"></script>
+	<script type="text/javascript" src="<?php echo $webroot_path; ?>assets/chosen-bootstrap/chosen/chosen.jquery.min.js"></script>
+	<script src="<?php echo $webroot_path; ?>assets/flot/jquery.flot.js"></script>
+	<script src="<?php echo $webroot_path; ?>assets/flot/jquery.flot.resize.js"></script>
+	<script src="<?php echo $webroot_path; ?>assets/flot/jquery.flot.pie.js"></script>
+	<script src="<?php echo $webroot_path; ?>assets/flot/jquery.flot.stack.js"></script>
+	<script src="<?php echo $webroot_path; ?>assets/flot/jquery.flot.crosshair.js"></script>
+	   <script type="text/javascript" src="<?php echo $webroot_path; ?>assets/ckeditor/ckeditor.js"></script>  
+   <script type="text/javascript" src="<?php echo $webroot_path; ?>assets/bootstrap/js/bootstrap-fileupload.js"></script>
+     <script type="text/javascript" src="<?php echo $webroot_path; ?>assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script> 
+   <script type="text/javascript" src="<?php echo $webroot_path; ?>assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+   <script type="text/javascript" src="<?php echo $webroot_path; ?>assets/jquery-tags-input/jquery.tagsinput.min.js"></script>
+   <script type="text/javascript" src="<?php echo $webroot_path; ?>assets/bootstrap-toggle-buttons/static/js/jquery.toggle.buttons.js"></script>
+   <script type="text/javascript" src="<?php echo $webroot_path; ?>assets/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+   <script type="text/javascript" src="<?php echo $webroot_path; ?>assets/clockface/js/clockface.js"></script>
+   <script type="text/javascript" src="<?php echo $webroot_path; ?>assets/bootstrap-daterangepicker/date.js"></script>
+   <script type="text/javascript" src="<?php echo $webroot_path; ?>assets/bootstrap-daterangepicker/daterangepicker.js"></script> 
+   <script type="text/javascript" src="<?php echo $webroot_path; ?>assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>  
+   <script type="text/javascript" src="<?php echo $webroot_path; ?>assets/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+    <script src="<?php echo $webroot_path; ?>assets/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+   	<script src="<?php echo $webroot_path; ?>assets/fancybox/source/jquery.fancybox.pack.js"></script>
+	<script src="<?php echo $webroot_path; ?>assets/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="<?php echo $webroot_path; ?>assets/js/jquery.cookie.js"></script>
+	<script src="<?php echo $webroot_path; ?>assets/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>	
+	<script src="<?php echo $webroot_path; ?>assets/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
+	<script src="<?php echo $webroot_path; ?>assets/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
+	<script src="<?php echo $webroot_path; ?>assets/jqvmap/jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>
+	<script src="<?php echo $webroot_path; ?>assets/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
+	<script src="<?php echo $webroot_path; ?>assets/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
+	<script src="<?php echo $webroot_path; ?>assets/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>	
+		<script type="text/javascript" src="<?php echo $webroot_path; ?>assets/gritter/js/jquery.gritter.js"></script>
+	<script type="text/javascript" src="<?php echo $webroot_path; ?>assets/js/jquery.pulsate.min.js"></script>	
+	  <script src="<?php echo $webroot_path; ?>assets/uniform/jquery.uniform.min.js"></script> 
  	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-	<script src="http://52.74.61.249/assets/js/gmaps.js"></script>
-	<script src="http://52.74.61.249/assets/js/demo.gmaps.js"></script>
-		<script type="text/javascript" src="http://52.74.61.249/assets/data-tables/jquery.dataTables.js"></script>
-	<script type="text/javascript" src="http://52.74.61.249/assets/data-tables/DT_bootstrap.js"></script>
-		<script src="http://52.74.61.249/assets/js/app.1.js"></script>		
+	<script src="<?php echo $webroot_path; ?>assets/js/gmaps.js"></script>
+	<script src="<?php echo $webroot_path; ?>assets/js/demo.gmaps.js"></script>
+		<script type="text/javascript" src="<?php echo $webroot_path; ?>assets/data-tables/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="<?php echo $webroot_path; ?>assets/data-tables/DT_bootstrap.js"></script>
+		<script src="<?php echo $webroot_path; ?>assets/js/app.1.js"></script>		
 	<script>
 		jQuery(document).ready(function() {			
 			// initiate layout and plugins
@@ -138,7 +140,7 @@ echo $this->fetch('meta');
 	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 	  })();
 	</script>
-<script src="http://52.74.61.249/as/js/jquery.validate.min.js"></script>
+<script src="<?php echo $webroot_path; ?>as/js/jquery.validate.min.js"></script>
 
 <script type="text/javascript">
 window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
@@ -214,11 +216,11 @@ $(document).ready(function() {
 	}, 3000);
 	
 	$(".notification_button").live('click',function(){
-	   $('#notification_div').html('<div align="center" style="padding: 20px;"><img src="http://52.74.61.249/as/windows.gif" /></div>').load('<?php echo Router::url(array('controller' => 'Hms', 'action' =>'notifications'), true); ?>');
+	   $('#notification_div').html('<div align="center" style="padding: 20px;"><img src="<?php echo $webroot_path; ?>as/windows.gif" /></div>').load('<?php echo Router::url(array('controller' => 'Hms', 'action' =>'notifications'), true); ?>');
 	});
 	
 	$(".alert_button").live('click',function(){
-	   $('#alert_div').html('<div align="center" style="padding: 20px;"><img src="http://52.74.61.249/as/windows.gif" /></div>').load('<?php echo Router::url(array('controller' => 'Hms', 'action' =>'alerts'), true); ?>');
+	   $('#alert_div').html('<div align="center" style="padding: 20px;"><img src="<?php echo $webroot_path; ?>as/windows.gif" /></div>').load('<?php echo Router::url(array('controller' => 'Hms', 'action' =>'alerts'), true); ?>');
 	});
 });
 </script>
@@ -234,7 +236,7 @@ $(document).ready(function() {
 			<div class="container-fluid" style="padding-right: 0px;">
 				<!-- BEGIN LOGO -->
 				<a class="brand" href="http://52.74.61.249Hms/dashboard" style="margin-top:-9px;">
-				<img src="http://52.74.61.249/as/hm/hm-logo.png" alt="logo" height="16px" width="120px"/>
+				<img src="<?php echo $webroot_path; ?>as/hm/hm-logo.png" alt="logo" height="16px" width="120px"/>
 				</a>
 				
 				<!--change Society -->
@@ -307,7 +309,7 @@ $(document).ready(function() {
 				
 					<!--------facebook--------------->
 					<!--<li class="external">
-						<a href="https://www.facebook.com/HousingMatters.co.in" target="_blank"><img src="http://52.74.61.249/as/fb.jpg" width="25px" height="20px"></a>
+						<a href="https://www.facebook.com/HousingMatters.co.in" target="_blank"><img src="<?php echo $webroot_path; ?>as/fb.jpg" width="25px" height="20px"></a>
 					</li>--->
 					<!--------facebook------------------->
 					
@@ -426,7 +428,7 @@ $(document).ready(function() {
 					?>
 					<li class="dropdown user">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<img alt="" src="http://52.74.61.249/profile/<?php echo $profile_pic; ?>"  style="width:28px; height:28px;" />
+						<img alt="" src="<?php echo $webroot_path; ?>profile/<?php echo $profile_pic; ?>"  style="width:28px; height:28px;" />
 						<span class="username">Hello <?php echo $user_name; ?></span>
 						<i class="icon-angle-down"></i>
 						</a>
