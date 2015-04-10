@@ -19828,7 +19828,14 @@ return $this->ledger_account->find('all',array('conditions'=>$conditions));
 }
 ////////////////End Function Fetch expense Tracker Add Fetch2 (Accounts)//////////////
 
-
+///////////////////////////////////////// Start Expense Tracker View History Expense Head (Accounts) /////////
+function expense_tracker_fetch($auto_id)
+{
+$this->loadmodel('expense_tracker');
+$conditions=array("auto_id" => $auto_id);
+return $this->expense_tracker->find('all',array('conditions'=>$conditions));
+}
+///////////////////////// End Expense Tracker View History Expense Head Fetch (Accounts) //////////////////////////////
 
 
 
