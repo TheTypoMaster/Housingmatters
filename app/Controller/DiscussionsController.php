@@ -265,7 +265,7 @@ if($discussion_forum1==1 && $s_role_id!=3)
 				Discussion Forum are sent for approval.
 				</div> 
 				<div class="modal-footer">
-				<a href="discussion_forum" class="btn green">OK</a>
+				<a href="<?php echo $this->webroot; ?>Discussions/index" class="btn green">OK</a>
 				</div>
 				</div>
 				<!----alert-------------->
