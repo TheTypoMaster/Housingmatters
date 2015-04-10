@@ -41,7 +41,7 @@ function sm_parking_slot()
 			$j=$this->autoincrement('parking','parking_id');
 			 $to_flot= '2-'.$i ;
 			 $this->loadmodel('parking');
-			 $this->parking->saveAll(array('parking_id'=>$j,'slot_no'=>$to_flot,'type'=>2,'society_id'=>$s_society_id,'status'=>0));
+			 $this->parking->saveAll(array('parking_id'=>$j,'slot_no'=>$to_flot,'type'=>2,'society_id'=>$s_society_id,'status'=>0,'stiker_number'=>$j));
 		}
 		
 		for($k=$four_start;$k<$four_r; $k++)
@@ -49,7 +49,7 @@ function sm_parking_slot()
 			$j=$this->autoincrement('parking','parking_id');
 			 $fo_flot= '4-'.$k ;
 			 $this->loadmodel('parking');
-			 $this->parking->saveAll(array('parking_id'=>$j,'slot_no'=>$fo_flot,'type'=>4,'society_id'=>$s_society_id,'status'=>0));
+			 $this->parking->saveAll(array('parking_id'=>$j,'slot_no'=>$fo_flot,'type'=>4,'society_id'=>$s_society_id,'status'=>0,'stiker_number'=>$j));
 		}
 		
 		 //$this->response->header('location','parking_system_view');
