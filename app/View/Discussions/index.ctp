@@ -1,3 +1,4 @@
+<?php echo $webroot_path; exit; ?>
 <style>
 .topic:hover{
 /*background-color:#8CC1FD !important; color:#FFF !important;*/
