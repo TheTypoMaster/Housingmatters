@@ -8863,7 +8863,7 @@ class TCPDF {
 				} elseif ($info['subset'] AND ((!$compressed) OR ($compressed AND function_exists('gzcompress')))) {
 					if ($compressed) {
 						// uncompress font
-						$font = gzuncompress($font);
+						//$font = gzuncompress($font);
 					}
 					// merge subset characters
 					$subsetchars = array(); // used chars
