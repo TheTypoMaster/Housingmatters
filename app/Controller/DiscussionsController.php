@@ -43,7 +43,7 @@ function index($id=null,$list=null){
 	$wing=$data3["user"]["wing"];
 	$flat=$data3["user"]["flat"];
 	}
-	$this->set('flat_info',$this->requestAction(array('controller' => 'Hms', 'action' => 'wing_flat'),array('pass' => array($wing,$flat))));
+	$this->set('flat_info',$this->wing_flat($wing,$flat));
 	//////////////////////current user info///////////////
 
 	$this->loadmodel('role');
@@ -143,7 +143,7 @@ function new_topic(){
 	}else{
 		$this->layout='session';
 	}
-	$this->requestAction(array('controller' => 'Hms', 'action' => 'ath'));
+	$this->ath();
 	
 	
 	$s_user_id=$this->Session->read('user_id'); 
@@ -156,14 +156,14 @@ function new_topic(){
 
 
 	//////////////////////current user info///////////////
-	$result_self=$this->requestAction(array('controller' => 'Hms', 'action' => 'profile_picture'),array('pass' => array($s_user_id)));
+	$result_self=$this->profile_picture($s_user_id);
 	foreach($result_self as $data3)
 	{
 	$this->set('user_name',$data3["user"]["user_name"]);
 	$wing=$data3["user"]["wing"];
 	$flat=$data3["user"]["flat"];
 	}
-	$this->set('flat_info',$this->requestAction(array('controller' => 'Hms', 'action' => 'wing_flat'),array('pass' => array($wing,$flat))));
+	$this->set('flat_info',$this->wing_flat($wing,$flat));
 	//////////////////////current user info///////////////
 	$this->loadmodel('role');
 	$conditions=array("society_id" => $s_society_id);
@@ -175,7 +175,7 @@ function new_topic(){
 	$this->set('wing_result',$wing_result);
 	///////////////////////start new topic//////////////////////////////////
 
-	$result_soc=$this->requestAction(array('controller' => 'Hms', 'action' => 'society_name'),array('pass' => array($s_society_id)));
+	$result_soc=$this->society_name($s_society_id);
 	foreach($result_soc as $data)
 	{
 		 @$discussion_forum1=$data['society']['discussion_forum'];
@@ -250,7 +250,7 @@ if($discussion_forum1==1 && $s_role_id!=3)
 					}
 					
 					
-	$discussion_post_id=$this->requestAction(array('controller' => 'Hms', 'action' => 'autoincrement'),array('pass' => array('discussion_post','discussion_post_id')));
+	$discussion_post_id=$this->autoincrement('discussion_post','discussion_post_id');
 	$this->loadmodel('discussion_post');
 	$multipleRowData = Array( Array("discussion_post_id" => $discussion_post_id, "user_id" => $s_user_id , "society_id" => $s_society_id, "topic" => $topic,"description" => $description, "file" =>$file,"delete_id" =>4, "date" =>$date, "time" => $time, "visible" => $visible, "sub_visible" => $sub_visible));
 	$this->discussion_post->saveAll($multipleRowData); 
@@ -307,7 +307,7 @@ if($this->request->is('post'))
 	$visible=1;
 	$sub_visible[]=0;
 	/////////////////////////////////////////// All user ////////////////////////////
-	$result_user=$this->requestAction(array('controller' => 'Hms', 'action' => 'all_user_deactive'));
+	$result_user=$this->all_user_deactive();
 	foreach($result_user as $data)
 	{
 	$da_to[]=$data['user']['email'];
@@ -322,7 +322,7 @@ if($this->request->is('post'))
 	$visible=4;
 	$sub_visible[]=0;
 	/////////////////////////////////////////// All Owners ////////////////////////////
-	$result_user=$this->requestAction(array('controller' => 'Hms', 'action' => 'all_owner_deactive'));
+	$result_user=$this->all_owner_deactive();
 	foreach($result_user as $data)
 	{
 	$da_to[]=$data['user']['email'];
@@ -337,7 +337,7 @@ if($this->request->is('post'))
 	$visible=5;
 	$sub_visible[]=0;
 	/////////////////////////////////////////// All Tenant ////////////////////////////
-	$result_user=$this->requestAction(array('controller' => 'Hms', 'action' => 'all_tenant_deactive'));
+	$result_user=$this->all_tenant_deactive();
 	foreach($result_user as $data)
 	{
 	$da_to[]=$data['user']['email'];
@@ -361,13 +361,7 @@ if($this->request->is('post'))
 	$sub_visible[]=(int)$role_id;
 
 	/////////////////////////////////////////// All role  functionality  conditions /////////////////////////////////////////////
-	$params = array(
-		'controller' => 'Hms',
-		'action' => 'all_role_wise_deactive',
-		'plugin' => null,
-		'pass' => array($role_id)
-		);
-	$result_user=$this->requestAction($params);
+	$result_user=$this->all_role_wise_deactive($role_id);
 	foreach($result_user as $data)
 	{
 	$da_to[]=$data['user']['email'];
@@ -403,7 +397,7 @@ if($this->request->is('post'))
 		'plugin' => null,
 		'pass' => array($wing_id)
 		);
-	$result_user=$this->requestAction($params);
+	$result_user=$this->all_wing_wise_deactive($wing_id);
 	foreach($result_user as $data)
 	{
 	$da_to[]=$data['user']['email'];
@@ -420,13 +414,7 @@ if($this->request->is('post'))
 
 	}
 	
-	$params = array(
-		'controller' => 'Hms',
-		'action' => 'autoincrement',
-		'plugin' => null,
-		'pass' => array('discussion_post','discussion_post_id')
-		);
-	$discussion_post_id=$this->requestAction($params);
+	$discussion_post_id=$this->autoincrement('discussion_post','discussion_post_id');
 	
 	$this->loadmodel('discussion_post');
 	
@@ -460,7 +448,7 @@ if($this->request->is('post'))
 
 	}
 
-	$result_user=$this->requestAction(array('controller' => 'Hms', 'action' => 'profile_picture',array('pass' => array($s_user_id))));
+	$result_user=$this->profile_picture($s_user_id);
 	foreach($result_user as $data1)
 	{
 	$user_name_post=$data1['user']['user_name'];
@@ -468,7 +456,7 @@ if($this->request->is('post'))
 	$flat=$data1['user']['flat'];
 
 	}
-	$wing_flat=$this->requestAction(array('controller' => 'Hms', 'action' => 'wing_flat',array('pass' => array($wing,$flat))));
+	$wing_flat=$this->wing_flat($wing,$flat);
 	if($dis_email_setting==1)
 	{
 	for($k=0;$k<sizeof($da_to);$k++)
@@ -511,7 +499,7 @@ if($this->request->is('post'))
 	if($n>0)
 	{
 	@$subject.= ''. $society_name . '  ' .'     '.' '.$sub.'';
-	$this->requestAction(array('controller' => 'Hms', 'action' => 'send_email',array('pass' => array($to,$from,$from_name,$subject,$message_web,$reply))));
+	$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 	$subject="";
 	}	
 	}
@@ -565,7 +553,7 @@ function archive()
 
 function discussion_save_comment(){
 $this->layout='blank';
-$this->requestAction(array('controller' => 'Hms', 'action' => 'ath'));
+$this->ath();
 $s_user_id=$this->Session->read('user_id'); 
 $s_society_id=$this->Session->read('society_id'); 
 $tid=(int)$this->request->query('tid');
@@ -575,8 +563,9 @@ $c=htmlentities(wordwrap($g, 25, " ", true));
 $c=nl2br($c);
 $date=date("d-m-y");
 $time=date('h:i:a',time());
+	$c_mod=explode(' ',$g);
 	
-	$r=$this->requestAction(array('controller' => 'Hms', 'action' => 'content_moderation_society'),array('pass' => array($g)));
+	$r=$this->content_moderation_society($c_mod);
 	
 if($r==0)
 {
@@ -596,16 +585,10 @@ foreach ($cursor_last_color as $collection_color)
 $last_color=$collection_color["discussion_comment"]["color"];
 }
 if(sizeof($cursor_last_color)==0) {  $last_color='blue'; }
-$params = array(
-		'controller' => 'Hms',
-		'action' => 'rendom_color',
-		'plugin' => null,
-		'pass' => array($last_color)
-		);
-	$color_in=$this->requestAction($params);
+	$color_in=$this->rendom_color($last_color);
 //////////////////end color///////////////////
 
-$discussion_comment_id=$this->requestAction(array('controller' => 'Hms', 'action' => 'autoincrement'),array('pass' => array('discussion_comment','discussion_comment_id')));
+$discussion_comment_id=$this->autoincrement('discussion_comment','discussion_comment_id');
 $this->loadmodel('discussion_comment');
 $multipleRowData = Array( Array("discussion_comment_id" => $discussion_comment_id, "user_id" => $s_user_id , "society_id" => $s_society_id, "comment" => $c,"discussion_post_id" => $tid, "delete_id" =>0, "date" =>$date, "time" => $time, "color" => $color_in));
 $this->discussion_comment->saveAll($multipleRowData); 

@@ -158,7 +158,7 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
 $(document).ready(function() {
 	$("a[rel='tab']").live('click',function(e){
 		e.preventDefault();
-		$("#loading_ajax").html('<div style="position: fixed; top: 7px; z-index: 9999; width: 100%; text-align: center;"><img src="/cakephp_test/as/fb_loading.gif"></div>');
+		$("#loading_ajax").html('<div style="position: fixed; top: 7px; z-index: 9999; width: 100%; text-align: center;"><img src="<?php echo $webroot_path; ?>as/fb_loading.gif"></div>');
 		
 		pageurl = $(this).attr('href');
 		$.ajax({

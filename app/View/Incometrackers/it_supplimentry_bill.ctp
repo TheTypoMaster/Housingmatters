@@ -109,14 +109,14 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			<div class="control-group ">
 			<div class="controls">
 			<label class="radio">
-			<div class="radio requirecheck1" id="uniform-undefined"><input type="radio" class="go requirecheck1" name="type" value="1" style="opacity: 0;" id="requirecheck1"></div>
+			<div class="radio requirecheck1" id="uniform-undefined"><input type="radio" class="go requirecheck1" name="type" value="1" style="opacity: 0;" id="qw"></div>
 			Non-residential
 			</label>
 			<label class="radio">
-			<div class="radio" id="uniform-undefined"><input type="radio" class="go1 requirecheck1" name="type" value="2"  style="opacity: 0;" id="requirecheck1"></span></div>
+			<div class="radio" id="uniform-undefined"><input type="radio" class="go1 requirecheck1" name="type" value="2"  style="opacity: 0;" id="qw"></span></div>
 			Residential
 			</label> 
-<label id="requirecheck1"></label>			
+<label id="qw"></label>			
 			</div>
 			</div>		
 		
@@ -202,7 +202,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
             <tr>
             <td>
 <label class="checkbox">
-<div class="checker" id="uniform-undefined"><span><input type="checkbox" value="<?php echo $income_heads_id; ?>" style="opacity: 0;" id="ih<?php echo $income_heads_id; ?>" name="ih<?php echo $income_heads_id; ?>" onclick="show(<?php echo $income_heads_id; ?>)"></span></div><?php echo $income_heads_name; ?>
+<div class="checker" id="uniform-undefined"><span><input type="checkbox" value="<?php echo $income_heads_id; ?>" style="opacity: 0;" name="ih<?php echo $income_heads_id; ?>" onclick="show(<?php echo $income_heads_id; ?>)" chking='checkbox'></span></div><?php echo $income_heads_name; ?>
 </label>
 </td>
 <td>
@@ -213,7 +213,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
             <tr>
             <td>
 <label class="checkbox">
-<div class="checker" id="uniform-undefined"><span><input type="checkbox" value="43" style="opacity: 0;" name="ih43" id="ih43" onclick="show(43)"></span></div>Non Occupancy Charges
+<div class="checker" id="uniform-undefined"><span><input type="checkbox" value="43" style="opacity: 0;" name="ih43"  onclick="show(43)"></span></div>Non Occupancy Charges
 </label>
             </td>
             <td>
@@ -221,7 +221,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
             </td>
             </tr>
             </table>
-           	</div>
+            </div>
 			</div>
 		    </div>
 	
@@ -421,6 +421,9 @@ $(document).ready(function(){
 			filesize: 1048576
 	      },
 		 
+		
+		 
+		 
 	    },
 		messages: {
 	                from: {
@@ -561,14 +564,27 @@ $(document).ready(function(){
 <script>
 function show(k)
 {
-if($("#ih"+k).is(':checked')) 
-{
-$("#amt"+k).show();
-} 
-else 
-{
-$("#amt"+k).hide();
-}
+//if($("#ih"+k).is(':checked')) 
+//{
+//$("#amt"+k).show();
+//} 
+//else 
+//{
+//$("#amt"+k).hide();
+//}
+$( "input[chking='checkbox']" ).live('click',function(e){
+		if($(this).is(':checked')) {
+		$("#amt"+k).show();
+		}
+		else
+		{
+		$("#amt"+k).hide();	
+		}
+	});
+
+
+
+
 }
 </script>		
 		
