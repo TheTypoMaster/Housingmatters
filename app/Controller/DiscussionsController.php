@@ -542,6 +542,7 @@ $s_society_id=$this->Session->read('society_id');
 
 $con=(int)$this->request->query('con');
 $con=(int)$this->decode($con,'housingmatters');
+
 if($con==0) { $this->redirect(array('controller' => 'Discussions','action' => 'index')); }
 
 $this->loadmodel('discussion_post');
