@@ -143,6 +143,7 @@ function new_topic(){
 	}else{
 		$this->layout='session';
 	}
+	$this->ath();
 	$this->requestAction(array('controller' => 'Hms', 'action' => 'ath'));
 	
 	

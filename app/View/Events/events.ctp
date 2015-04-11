@@ -9,11 +9,25 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 });
 </script>
 
-<div align="center">
-<a href="events" class="btn red" rel='tab'>Table View</a>
-<a href="events_calendar" class="btn blue" rel='tab'>Calendar View</a></div>
 
-<div style="width:80%; margin-left:10%;margin-top:4px;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row-fluid" style="padding:2px;">
+	<div class="span6">
+		
+		
 <!-- BEGIN BORDERED TABLE PORTLET-->
 <div class="portlet box" style="background-color:#44b6ae;">
 	<div class="portlet-title">
@@ -61,5 +75,26 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 	</div>
 </div>
 <!-- END BORDERED TABLE PORTLET-->
+		
+		
+	</div>
+	<div class="span6">
+		<div id="calendar_div" ></div>
+	</div>
+	
 </div>
 
+
+
+
+<script>
+$(document).ready(function() {
+	$("#calendar_div").html('<div align="center"><img src="<?php echo $this->webroot ; ?>/as/windows.gif" /></div>').load('<?php echo $this->webroot; ?>Hms/calendar');
+
+	$(".next").live('click',function(){
+		var d=$(this).attr('result');
+		
+		$("#calendar_div").html('<div align="center"><img src="<?php echo $this->webroot ; ?>/as/windows.gif" /></div>').load('<?php echo $this->webroot; ?>Hms/calendar?m_y='+d);
+	 });
+});
+</script>

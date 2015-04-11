@@ -28,11 +28,11 @@ display:block;
 
 <div class="pull-right" style="padding-top:2px;">
 
-<a href="<?php echo $webroot_path;?>Discussions/index/<?php echo @$id; ?>/0" role='button' rel="tab" class="btn" style=" background-color: #398439;color:#fff;" ><i class="icon-cloud"></i> All Topics</a>
-<a href="<?php echo $webroot_path;?>Discussions/index/<?php echo @$id; ?>/1" role='button' rel="tab" class="btn" style=" background-color: #d58512; color:#fff;"><i class="icon-heart"></i> My Topics</a>
-<a href="<?php echo $webroot_path;?>Discussions/new_topic" role='button' rel="tab" class="btn" style="background-color: #357ebd; color:#fff;"><i class=" icon-plus-sign"></i> Start Topic</a>
+<a href="<?php echo $webroot_path; ?>Discussions/index/<?php echo @$id; ?>/0" role='button' rel="tab" class="btn" style=" background-color: #398439;color:#fff;" ><i class="icon-cloud"></i> All Topics</a>
+<a href="<?php echo $webroot_path; ?>Discussions/index/<?php echo @$id; ?>/1" role='button' rel="tab" class="btn" style=" background-color: #d58512; color:#fff;"><i class="icon-heart"></i> My Topics</a>
+<a href="<?php echo $webroot_path; ?>Discussions/new_topic" role='button' rel="tab" class="btn" style="background-color: #357ebd; color:#fff;"><i class=" icon-plus-sign"></i> Start Topic</a>
 <input type="text" class="m-wrap" id="search_topic_box" placeholder="Search Topic" onkeyup="search_topic()" style="background-color: #FFF !important;height: 22px;">
-<a href="<?php echo $webroot_path;?>Discussions/index/<?php echo @$id; ?>/2" role='button' rel="tab" class="btn black"><i class="icon-trash"></i> Archives</a>
+<a href="<?php echo $webroot_path; ?>Discussions/index/<?php echo @$id; ?>/2" role='button' rel="tab" class="btn black"><i class="icon-trash"></i> Archives</a>
 </div>
 
 </div>
