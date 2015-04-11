@@ -159,7 +159,7 @@ $result_amt = $this->requestAction(array('controller' => 'hms', 'action' => 'amo
                                             <td><?php echo $amount; ?></td>
                                             
                                             <td class="hide_at_print"> <!--<a href="#" class="btn mini blue">Reverse</a> -->
-                                            <a href="bank_receipt_pdf?c=<?php echo $transaction_id; ?>" class="btn mini purple  tooltips" target="_blank" data-placement="bottom" data-original-title="Download Pdf">Pdf</a>
+                                            <a href="bank_receipt_pdf?c=<?php echo $transaction_id; ?>&m=1" class="btn mini purple  tooltips" target="_blank" data-placement="bottom" data-original-title="Download Pdf">Pdf</a>
                                              <a href="" class="btn mini black tooltips" data-placement="bottom" data-original-title="Created By:<?php echo $prepaired_by_name; ?>
 										     Creation Date : <?php echo $creation_date; ?>">!</a>
 											  <!-- <a href="bank_receipt_edit.php?a=<?php //echo $receipt_no; ?>" class="btn mini purple">Edit</a> -->
@@ -188,7 +188,7 @@ $result_amt = $this->requestAction(array('controller' => 'hms', 'action' => 'amo
                                             <td><?php echo $amount; ?></td>
                                             <td class="hide_at_print">
                                            <!-- <td><a href="#" class="btn mini blue">Reverse</a> -->
-                                           <a href="bank_receipt_pdf?c=<?php echo $transaction_id; ?>" target="_blank" class="btn mini purple tooltips" data-placement="bottom" data-original-title="Download Pdf">Pdf</a>
+                                           <a href="bank_receipt_pdf?c=<?php echo $transaction_id; ?>&m=1" target="_blank" class="btn mini purple tooltips" data-placement="bottom" data-original-title="Download Pdf">Pdf</a>
                                              <a href="" class="btn mini black tooltips" data-placement="bottom" data-original-title="Created By:<?php echo $prepaired_by_name; ?>
 										     Creation Date : <?php echo $creation_date; ?>">!</a>
                                             </td>

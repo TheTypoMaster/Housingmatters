@@ -1,18 +1,18 @@
 <?php 
 foreach ($cursor1 as $collection) 
 {
-$receipt_no = (int)$collection['bank_receipt']['receipt_id'];
-$d_date = $collection['bank_receipt']['transaction_date'];
+$receipt_no = (int)$collection['cash_bank']['receipt_id'];
+$d_date = $collection['cash_bank']['transaction_date'];
 $today = date("d-M-Y");
-$user_id_d = $collection['bank_receipt']['user_id'];
-$amount = $collection['bank_receipt']['amount'];
-$society_id = (int)$collection['bank_receipt']['society_id'];
-$bill_reference = $collection['bank_receipt']['bill_reference'];
-$narration = $collection['bank_receipt']['narration'];
-$member = (int)$collection['bank_receipt']['member'];
-$receiver_name = @$collection['bank_receipt']['receiver_name'];
-$receipt_mode = $collection['bank_receipt']['receipt_mode'];
-$sub_account = (int)$collection['bank_receipt']['sub_account_id'];
+$user_id_d = $collection['cash_bank']['user_id'];
+$amount = $collection['cash_bank']['amount'];
+$society_id = (int)$collection['cash_bank']['society_id'];
+$bill_reference = $collection['cash_bank']['bill_reference'];
+$narration = $collection['cash_bank']['narration'];
+$member = (int)$collection['cash_bank']['member'];
+$receiver_name = @$collection['cash_bank']['receiver_name'];
+$receipt_mode = $collection['cash_bank']['receipt_mode'];
+$sub_account = (int)$collection['cash_bank']['sub_account_id'];
 }
 if($member == 2)
 {
@@ -70,134 +70,107 @@ $tcpdf->AddPage();
 $tcpdf->SetTextColor(0, 0, 0); 
 $tcpdf->SetFont($textfont,'B',2); 
 $tcpdf->writeHTML('
-<div style="border:solid 1px;">
-<table border="0" width="100%">
-<tr>
-<td>
-<br><br>
-<table width="100%" border="0">
-<tr>
-<td align="left"><p style="font-size:10px;">Receipt No:'.$receipt_no.'</p></td>
-<td align="center"><p style="font-size:18px;">RECEIPT</p></td>
-<td align="right"><p style="font-size:10px;">Date:'.$date.'</p></td>
-</tr>
-<tr>
-<td colspan="3" align="center"><p style="font-size:12px;">for Previous Bill</p></td>
-</tr>
-<tr>
-<td colspan="3" align="center"><p style="font-size:10px;"></p></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</table>
-</td>
-</tr>
-<tr>
-<td>
-<br><Br>
-<table width="100%" border="0">
-<tr>
-<td width="80%"><p style="font-size:10px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Received with thanks from:'.$user_name.'</p></td>
-<td rowspan="6">
-&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;
-&nbsp;&nbsp;&nbsp;
-<table border="0" width="30%">
-<tr>
-<td>
-<br><bR><BR>
 <table border="1" width="100%">
 <tr>
 <td>
-<p style="font-size:11px;">'.$wing_flat.'</p>
+<br><br><br><br>
+<table border="0" width="94%">
+<tr>
+<td align="center">
+<p style="font-size:10px;">
+Receipt No:'.$receipt_no.'</p>
+</td>
+<td align="center">
+<p style="font-size:18px;">RECEIPT</p>
+</td>
+<td align="right">
+<p style="font-size:10px;">
+Date:'.$date.'
+</p>
+</td>
+</tr>
+<tr>
+<td></td>
+<td align="center">
+<p style="font-size:12px;">
+for Previous Bill 
+</p>
+</td>
+<td></td>
+</tr>
+<tr>
+<td colspan="2" align="center">
+<br><br><br><br>
+<p style="font-size:10px;">
+Received with thanks from: '.$user_name.'<br>
+Rs. (words) only 
+</p>
+</td>
+<td align="center">
+<p style="font-size:10px;">
+'.$wing_flat.'
+</p>
+</td>
+</tr>
+<tr>
+<td colspan="2" align="center">
+<p style="font-size:10px;">
+Via '.$receipt_mode.'
+</p>
+</td>
+<td align="center">
+<p style="font-size:10px;">
+Rs. &nbsp;&nbsp;
+'.$amount.'
+</p>
+</td>
+</tr>
+<tr>
+<td colspan="2" align="center">
+<p style="font-size:10px;">
+Payment for Bill No. '.$receipt_no.' Dated '.$date.'
+</p>
+</td>
+<td align="center">
+<p style="font-size:10px;">
+Subject to realization of Cheque
+</p>
+</td>
+</tr>
+<tr>
+<td colspan="2">
+</td>
+<td align="center">
+<br><br><br><Br>
+<p style="font-size:10px;">
+For:'.$society_name.'<br>
+Secretary/Treasurer
+</p>
 </td>
 </tr>
 </table>
-</td>
-</tr>
-<tr>
-<td>
-<br><br><br><br><br>
-<table border="1" width="100%">
-<tr>
-<td>
-<p style="font-size:11px;">'.$amount.'</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </td>
 </tr>
 </table>
-</td>
-</tr>
-</table>
-</center>
-</td>
-</tr>
-<tr>
-<td></td>
-</tr>
-<tr>
-<td><p style="font-size:10px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rs.&nbsp;&nbsp;(words)&nbsp; only</p></td>
-</tr>
-<tr>
-<td></td>
-</tr>
-<tr>
-<td><p style="font-size:10px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Via'.$receipt_mode.'&nbsp;&nbsp;&nbsp;'.$bank_name.'Bank&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rs.</p>
-
-
-</td>
-</tr>
-<tr>
-<td></td>
-</tr>
-<tr>
-<td colspan="2"><p style="font-size:10px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Payment for Bill No:'.$receipt_no.' dated '.$date.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Subject to Realization of Cheque</p></td>
-</tr>
-</table>
-
-
-
-<br><Br><Br>
-
-
-
-
-
-<table width="100%" border="0">
-<tr>
-<td></td>
-<td><p style="font-size:10px;">&nbsp;&nbsp;&nbsp;&nbsp;For:'.$society_name.'</p></td>
-</tr>
-
-<tr>
-<td></td>
-<td></td>
-</tr>
-
-
-<tr>
-<td></td>
-<td></td>
-</tr>
-
-<tr>
-<td></td>
-<td><p style="font-size:10px;">&nbsp;&nbsp;&nbsp;&nbsp;Secretary/Treasurer</p></td>
-</tr>
-
-
-</table>
-
-<br><Br><br>
-</td>
-</tr>
-
-
-
-</table>
-</div>
 ');
 
 

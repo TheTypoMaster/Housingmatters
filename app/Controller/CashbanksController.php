@@ -786,6 +786,7 @@ if($this->RequestHandler->isAjax()){
 	}else{
 		$this->layout='session';
 	}
+
 	
 $this->ath();
 $this->check_user_privilages();	
@@ -2396,13 +2397,14 @@ $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
 
-
+$module_id = (int)$this->request->query('m');
 $trns_id = (int)$this->request->query('c');
 $this->set('trns_id',$trns_id);
+$this->set('module_id',$module_id);
 
-$this->loadmodel('bank_receipt');
-$conditions=array("transaction_id" => $trns_id);
-$cursor1=$this->bank_receipt->find('all',array('conditions'=>$conditions));
+$this->loadmodel('cash_bank');
+$conditions=array("transaction_id" => $trns_id,"module_id"=>$module_id);
+$cursor1=$this->cash_bank->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);
 
 
