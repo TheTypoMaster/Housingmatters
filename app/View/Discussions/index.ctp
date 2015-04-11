@@ -123,7 +123,7 @@ $flat_info=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_f
 <div style="margin-top:2px;" >
 <table>
 <tr>
-<td width="15%"><img src="<?php echo $this->webroot ; ?>/profile/<?php echo $profile_pic; ?>" style="height:50px; width:50px;"/></td>
+<td width="15%"><img src="<?php echo $webroot_path; ; ?>/profile/<?php echo $profile_pic; ?>" style="height:50px; width:50px;"/></td>
 <td width="85%" valign="top" style="padding-left:5px;" >
 <span style="font-size:16px;"><?php echo $user_name; ?>&nbsp;&nbsp;<?php echo $flat_info; ?></span>
 
@@ -145,7 +145,7 @@ $flat_info=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_f
 <!---------------------------------------------->
 <?php if(!empty($file)) { ?>
 <div style="margin-top:2px;" >
-<img src="<?php echo $this->webroot ; ?>/discussion_file/<?php echo $file; ?>" style="width:100%; height:160px;">
+<img src="<?php echo $webroot_path; ; ?>/discussion_file/<?php echo $file; ?>" style="width:100%; height:160px;">
 <div>
 <?php } ?>
 <!---------------------------------------------->
@@ -178,7 +178,7 @@ $flat_info=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_f
 <div style="background-color: #fafafa;border-top: solid 2px #f1f3fa;" id="comm<?php echo $discussion_comment_id; ?>" class="">
 <table width="100%">
 <tr>
-<td width="15%" valign="top" style="padding:10px;"><img src="<?php echo $this->webroot ; ?>/profile/<?php echo $profile_pic; ?>" style="height:50px; width:50px;"/></td>
+<td width="15%" valign="top" style="padding:10px;"><img src="<?php echo $webroot_path; ; ?>/profile/<?php echo $profile_pic; ?>" style="height:50px; width:50px;"/></td>
 <td width="85%" valign="top" style="padding-left:5px;">
 				
 <?php if($s_user_id==$comment_user_id) { ?>
@@ -375,7 +375,7 @@ $(document).ready(function(){
 <script>
 function my_topic(q)
 {
-$('#topics_list').html('<div style="border:solid 2px #F4F8FF; padding:5px;" align="center"><img src="<?php echo $this->webroot ; ?>/as/windows.gif" /></div>').load('discussion_my_topic?q=' + q);
+$('#topics_list').html('<div style="border:solid 2px #F4F8FF; padding:5px;" align="center"><img src="<?php echo $webroot_path; ; ?>/as/windows.gif" /></div>').load('discussion_my_topic?q=' + q);
 }
 
 
@@ -384,14 +384,14 @@ function details_topic(t)
 {
 //$("#topic_detail").removeClass('animated zoomIn');
 $("#topic_detail").removeClass('fadeleftsome');
-$('#topic_detail').html('<div style="border:solid 2px #F4F8FF; margin-top:25px;" align="center"><img src="<?php echo $this->webroot ; ?>/as/windows.gif" /></div>').load('topic_view?t=' + t);
+$('#topic_detail').html('<div style="border:solid 2px #F4F8FF; margin-top:25px;" align="center"><img src="<?php echo $webroot_path; ; ?>/as/windows.gif" /></div>').load('topic_view?t=' + t);
 
 }
 
 function details_topic_deleted(x)
 {
 $("#topic_detail").removeClass('fadeleftsome');
-$('#topic_detail').html('<div style="border:solid 2px #F4F8FF; margin-top:25px;" align="center"><img src="<?php echo $this->webroot ; ?>/as/windows.gif" /></div>').load('topic_view_deleted?t=' + x);
+$('#topic_detail').html('<div style="border:solid 2px #F4F8FF; margin-top:25px;" align="center"><img src="<?php echo $webroot_path; ; ?>/as/windows.gif" /></div>').load('topic_view_deleted?t=' + x);
 
 }
 
@@ -487,7 +487,7 @@ function search_topic()
 {
 
 var s=$('#search_topic_box').val();
-$('#topics_list').html('<div style="border:solid 2px #F4F8FF; padding:5px;" align="center"><img src="<?php echo $this->webroot ; ?>/as/windows.gif" /></div>').load('<?php echo $webroot_path; ?>Discussions/discussion_search_topic?s='+s);
+$('#topics_list').html('<div style="border:solid 2px #F4F8FF; padding:5px;" align="center"><img src="<?php echo $webroot_path; ; ?>/as/windows.gif" /></div>').load('<?php echo $webroot_path; ?>Discussions/discussion_search_topic?s='+s);
 }
 </script>
 
