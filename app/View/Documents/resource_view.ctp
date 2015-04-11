@@ -95,7 +95,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 										{
                                             ?>
             
-              <a href="<?php echo $this->webroot ; ?>/resource_file/<?php echo $name; ?>" target="_blank" class="btn mini green tooltips"  data-placement="bottom" data-original-title="<?php echo $name; ?>"><i class=" icon-download-alt"></i></a>
+              <a href="<?php echo $webroot_path; ?>/resource_file/<?php echo $name; ?>" target="_blank" class="btn mini green tooltips"  data-placement="bottom" data-original-title="<?php echo $name; ?>"><i class=" icon-download-alt"></i></a>
               
                                            <?php
 										} }
@@ -111,7 +111,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 				</div>
 				<div class="modal-body">
 					
-                   <img src="<?php echo $this->webroot ; ?>/resource_file/<?php echo $name; ?>" width="400px;" height="300px;">
+                   <img src="<?php echo $webroot_path; ?>/resource_file/<?php echo $name; ?>" width="400px;" height="300px;">
                    
 				</div>
                <div class="modal-footer"><button data-dismiss="modal"  class="btn purple" type="button">close</button></div> 
