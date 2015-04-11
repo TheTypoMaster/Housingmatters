@@ -33,8 +33,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <br>
 <center>
 <div class="hide_at_print">
-<a href="<?php echo $this->webroot; ?>Bookkeepings/journal_add" class="btn blue" rel='tab'> Create</a>
-<a href="<?php echo $this->webroot; ?>Bookkeepings/journal_view" class="btn red" rel='tab'> View</a>
+<a href="<?php echo $webroot_path; ?>Bookkeepings/journal_add" class="btn blue" rel='tab'> Create</a>
+<a href="<?php echo $webroot_path; ?>Bookkeepings/journal_view" class="btn red" rel='tab'> View</a>
 </div>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 

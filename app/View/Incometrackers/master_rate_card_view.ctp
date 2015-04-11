@@ -29,21 +29,21 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
             
            <table  align="center" border="1" bordercolor="#FFFFFF" cellpadding="0">
             <tr>
-            <td><a href="<?php echo $this->webroot; ?>Incometrackers/select_income_heads" class="btn" rel='tab'>Selection of Income Heads</a>
+            <td><a href="<?php echo $webroot_path; ?>Incometrackers/select_income_heads" class="btn" rel='tab'>Selection of Income Heads</a>
 			<!--<td>
             <a href="it_due_tax" class="btn" style="font-size:16px;">Due tax</a>
             </td>-->
             <td>
-            <a href="<?php echo $this->webroot; ?>Incometrackers/it_setup" class="btn " style="font-size:16px;" rel='tab'>Terms & Condition</a>
+            <a href="<?php echo $webroot_path; ?>Incometrackers/it_setup" class="btn " style="font-size:16px;" rel='tab'>Terms & Condition</a>
             </td>
             <td>
-            <a href="<?php echo $this->webroot; ?>Incometrackers/master_rate_card" class="btn yellow" style="font-size:16px;" rel='tab'>Rate Card</a>
+            <a href="<?php echo $webroot_path; ?>Incometrackers/master_rate_card" class="btn yellow" style="font-size:16px;" rel='tab'>Rate Card</a>
             </td>
 			<td>
-            <a href="<?php echo $this->webroot; ?>Incometrackers/master_noc" class="btn" style="font-size:16px;" rel='tab'>Non Occupancy Charges</a>
+            <a href="<?php echo $webroot_path; ?>Incometrackers/master_noc" class="btn" style="font-size:16px;" rel='tab'>Non Occupancy Charges</a>
             </td>
 			<td>
-            <a href="<?php echo $this->webroot; ?>Incometrackers/it_penalty" class="btn" style="font-size:16px;" rel='tab'>Penalty Option</a>
+            <a href="<?php echo $webroot_path; ?>Incometrackers/it_penalty" class="btn" style="font-size:16px;" rel='tab'>Penalty Option</a>
             </td>
 			</tr>
 			</table> 
@@ -51,8 +51,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <br />
 <center>
-       <a href="<?php echo $this->webroot; ?>Incometrackers/master_rate_card" class="btn yellow" rel='tab'>Rate Card Add</a>     
-       <a href="<?php echo $this->webroot; ?>Incometrackers/master_rate_card_view" class="btn purple" rel='tab'>Rate Card View / Update</a> 
+       <a href="<?php echo $webroot_path; ?>Incometrackers/master_rate_card" class="btn yellow" rel='tab'>Rate Card Add</a>     
+       <a href="<?php echo $webroot_path; ?>Incometrackers/master_rate_card_view" class="btn purple" rel='tab'>Rate Card View / Update</a> 
        </center>    
        <br />
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////// ?>

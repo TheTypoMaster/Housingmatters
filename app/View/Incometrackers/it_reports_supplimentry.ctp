@@ -31,10 +31,10 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
         </div> -->
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
 <div style="text-align:center;" class="hide_at_print">
-<a href="<?php echo $this->webroot; ?>Incometrackers/in_head_report" class="btn" rel='tab'>bill Report</a>
-<a href="<?php echo $this->webroot; ?>Incometrackers/it_reports_regular" class="btn" rel='tab'>Regular</a>
-<a href="<?php echo $this->webroot; ?>Incometrackers/it_reports_supplimentry" class="btn yellow" rel='tab'>Supplementary</a>
-<a href="<?php echo $this->webroot; ?>Incometrackers/income_heads_report" class="btn" rel='tab'>Income head report</a>
+<a href="<?php echo $webroot_path; ?>Incometrackers/in_head_report" class="btn" rel='tab'>bill Report</a>
+<a href="<?php echo $webroot_path; ?>Incometrackers/it_reports_regular" class="btn" rel='tab'>Regular</a>
+<a href="<?php echo $webroot_path; ?>Incometrackers/it_reports_supplimentry" class="btn yellow" rel='tab'>Supplementary</a>
+<a href="<?php echo $webroot_path; ?>Incometrackers/income_heads_report" class="btn" rel='tab'>Income head report</a>
 </div>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////?>
  <?php
