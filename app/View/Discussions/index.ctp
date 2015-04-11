@@ -1,12 +1,4 @@
-<script>
-$( document ).ready( function() {
-   jQuery('.tooltips').tooltip();
-    var test = $("input[type=checkbox]:not(.toggle), input[type=radio]:not(.toggle)");
-        if (test) {
-            test.uniform();
-        }
-});
-</script>
+<?php echo $webroot_path ; exit; ?>
 <style>
 .topic:hover{
 /*background-color:#8CC1FD !important; color:#FFF !important;*/
