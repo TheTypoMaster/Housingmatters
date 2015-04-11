@@ -4867,7 +4867,7 @@ if($this->RequestHandler->isAjax()){
 	}else{
 	$this->layout='session';
 	}
-	echo file_get_contents('http://alerts.sinfini.com/api/web2sms.php??method=sms&workingkey=A0cbbf83b328c37dd51dcf5066b7990f3&sender=NMINVT&to=9636653883&message=hello');
+	echo file_get_contents('http://alerts.sinfini.com/api/web2sms.php??method=sms&api_key=A0cbbf83b328c37dd51dcf5066b7990f3&sender=NMINVT&to=9636653883&message=hello&format=json&custom=1,2&flash=0');
 	exit;
 
 $this->ath();
