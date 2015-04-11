@@ -2131,11 +2131,14 @@ $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
 
+$module_id = (int)$this->request->query('m');
 $tns_id = (int)$this->request->query('c');
 $this->set('tns_id',$tns_id);
+$this->set('module_id',$module_id);
+
 
 $this->loadmodel('petty_cash_payment');
-$conditions=array("transaction_id" => $tns_id);
+$conditions=array("transaction_id" => $tns_id,"module_id"=>$module_id);
 $cursor1=$this->petty_cash_payment->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);
 
