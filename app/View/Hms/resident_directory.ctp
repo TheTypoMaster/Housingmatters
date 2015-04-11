@@ -138,7 +138,7 @@ background-color:rgb(218, 236, 240);
 
 <div class="r_d fadeleftsome" onclick="view_ticket(<?php echo $c_user_id;?>)">
 <div class="hv_b" style="overflow: auto;padding: 5px;cursor: pointer;" title="">
-<img src="<?php echo $this->webroot ; ?>/profile/<?php echo $profile_pic; ?>" style="float:left;width:25%;height:80px;"/>
+<img src="<?php echo $webroot_path ; ?>/profile/<?php echo $profile_pic; ?>" style="float:left;width:25%;height:80px;"/>
 <div style="float:left;margin-left:3%;">
 <span style="font-size:22px;"><?php echo $c_name; ?> &nbsp; </span> 
 <?php if(@$medical_pro==1){ ?> <span style="float:right;color:red; font-size:18px;"> <i class="icon-plus-sign"></i> </span> <?php } ?> <br/>
