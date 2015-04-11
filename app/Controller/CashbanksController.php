@@ -619,7 +619,7 @@ $m_from = date("Y-m-d", strtotime($from));
 $m_from = new MongoDate(strtotime($m_from));
 
 $s_society_id = (int)$this->Session->read('society_id');
-$s_role_id=$this->Session->read('role_id');
+$s_role_id= (int)$this->Session->read('role_id');
 
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
@@ -654,6 +654,8 @@ $excel = "<table border='1'>
 <th>Narration</th>
 <th>Amount</th>
 </tr>";
+
+$total_debit = 0;
 $this->loadmodel('cash_bank');
 $conditions=array("society_id" => $s_society_id,"module_id"=>1);
 $cursor=$this->cash_bank->find('all',array('conditions'=>$conditions));
@@ -683,8 +685,10 @@ if($member == 2)
 $ref = $collection['cash_bank']['bill_reference'];
 $receiver_name = @$collection['cash_bank']['receiver_name'];
 }
-$creation_date = date('d-m-Y',$current_date->sec);		
 
+
+
+$creation_date = date('d-m-Y',$current_date->sec);		
 $result_prb = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($prepaired_by_id)));
 foreach ($result_prb as $collection) 
 {
@@ -695,7 +699,12 @@ if($member == 2)
 $user_name = $receiver_name;
 $wing_flat = "";
 	
-}		
+}
+
+
+
+
+		
 else
 {			
 $result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($received_from_id)));			
@@ -713,7 +722,18 @@ $tenant = (int)$collection['user']['tenant'];
 }	
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));	
 			
-}			
+}	
+
+
+
+
+
+
+
+
+
+
+		
 	$result_amt = $this->requestAction(array('controller' => 'hms', 'action' => 'amount_category'),array('pass'=>array($amount_category_id)));
 	foreach ($result_amt as $collection) 
 	{
@@ -725,8 +745,7 @@ $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing
 	{
 	$account_no = $collection['ledger_sub_account']['name'];  
 	}	
-									
-									
+								
 
 if($date >= $m_from && $date <= $m_to)
 {
@@ -734,7 +753,6 @@ if(@$user_id == @$s_user_id)
 {
 $date = date('d-m-Y',$date->sec);	
 $total_debit =  $total_debit + $amount; 
-
 
 $excel.="<tr>
 <td>$receipt_no</td>
