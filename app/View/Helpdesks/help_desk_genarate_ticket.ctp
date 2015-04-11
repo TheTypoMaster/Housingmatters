@@ -144,7 +144,7 @@ $(document).ready(function(){
 }); 
 </script>
 
-<script src="<?php echo $webroot_path; ?>/as/bootstrap-maxlength.min.js"></script>
+<script src="<?php echo $this->webroot; ?>/as/bootstrap-maxlength.min.js"></script>
 	
     <script>
         $(document).ready(function () {

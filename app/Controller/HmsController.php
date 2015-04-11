@@ -171,7 +171,7 @@ $this->redirect(array('action' => 'index'));
 }
 
 date_default_timezone_set('Asia/Kolkata');	
-$this->set('webroot_path',$this->webroot_path());
+$this->set('this->webroot',$this->webroot_path());
 
 }
 
