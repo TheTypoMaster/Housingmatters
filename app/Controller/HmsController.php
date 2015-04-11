@@ -113,7 +113,7 @@ function cronjob()
 
 function content_moderation_society($content_check)
 {
-	//$content_check=explode(' ',$content_check);
+	$content_check=explode(' ',$content_check);
 	
 	$s_society_id=$this->Session->read('society_id');
 	$this->loadmodel('society');
