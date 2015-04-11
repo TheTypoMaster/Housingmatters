@@ -394,16 +394,7 @@ $order=array('event.event_id'=>'DESC');
 $this->set('result_event',$this->event->find('all', array('conditions' => $conditions,'order' => $order)));
 }
 
-function events_calendar()
-{
-if($this->RequestHandler->isAjax()){
-	$this->layout='blank';
-	}else{
-	$this->layout='session';
-	}
-$this->ath();
 
-}
 
 function event_info($e_id=null)
 {
