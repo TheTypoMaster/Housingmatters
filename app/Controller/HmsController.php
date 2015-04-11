@@ -4869,6 +4869,7 @@ if($this->RequestHandler->isAjax()){
 	}
 	echo file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey=A0cbbf83b328c37dd51dcf5066b7990f3&sender=NMINVT&to=9636653883&message=hello');
 	exit;
+	
 
 $this->ath();
 $r=$this->request->query('try');
