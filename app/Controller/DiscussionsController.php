@@ -630,6 +630,7 @@ exit;
 
 function discussion_comment_refresh(){
 $this->layout='blank';
+$this->ath();
 $s_user_id=$this->Session->read('user_id'); 
 $this->set('s_user_id',$s_user_id);
 $s_society_id=$this->Session->read('society_id'); 
