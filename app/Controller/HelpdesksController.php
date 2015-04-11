@@ -1220,7 +1220,7 @@ foreach ($result_vendor as $collection)
 $vendor_id = (int)$collection['vendor']['vendor_id'];
 }
 
-$result_sp2=$this->fetch_service_provider_info_via_vendor_id($vendor_id);
+$result_sp2=$this->fetch_service_provider_info_via_vendor_id(@$vendor_id);
 foreach ($result_sp2 as $collection3)
 {
 $this->set('sp_name',$collection3['service_provider']['sp_name']);
@@ -1447,10 +1447,11 @@ $this->response->header('Location:help_desk_sm_open_ticket');
 
 function save_reply_resident($reply=null,$id=null)
 {
-$this->layout='blank';
+$this->layout='blank_signup';
  $reply=htmlentities($reply);
 
-$reply=nl2br($reply);
+echo $reply=nl2br($reply);
+exit;
 $rep=explode(' ',$reply);
 
 $r=$this->content_moderation_society($rep);

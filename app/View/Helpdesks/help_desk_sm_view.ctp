@@ -1,4 +1,4 @@
-<link href="<?php echo $this->webroot ; ?>/as/reply.css" rel="stylesheet" />
+<link href="<?php echo $webroot_path; ?>/as/reply.css" rel="stylesheet" />
 <div style="border:solid 2px #269abc; width:80%; margin-left:10%;overflow: auto;">
 <div style="border-bottom:solid 2px #269abc; color:white; background-color: #39b3d7; padding:4px; font-size:20px; " align="center">Ticket# <?php echo $ticket_id; ?>-<?php echo $help_desk_category_name; ?></div>
 
@@ -286,6 +286,7 @@ $(document).ready(function() {
 			//$("#reply_post").append('<div class="outt"><div><span class="pull-right" style="font-size:12px; color:#A5A5A5;">Few minutes ago</span><br>'+ r +'</div></div>');
 			
 			r=encodeURIComponent(r);
+			alert(r);
 			$("#reply_post").load('<?php echo $this->webroot;?>Helpdesks/save_reply_resident/' + r + '/' + a);
 			$("#msg_reply").val('');
 			

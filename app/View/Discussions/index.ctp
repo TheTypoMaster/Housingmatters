@@ -215,7 +215,7 @@ $flat_info=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_f
 <!--<a href="#" role='button' class="btn mini red pull-right showme" onclick="delete_comment(<?php echo $discussion_comment_id; ?>)"><i class="icon-trash"></i> </a>-->
 
 
-<span style="font-size:14px;color:<?php echo $color; ?>"><?php echo $user_name; ?>&nbsp;&nbsp;<?php echo $flat_info_c; ?></span>
+<span style="font-size:14px;color:<?php echo $color; ?>"><?php echo $user_name; ?>&nbsp;&nbsp;<?php echo $flat_info; ?></span>
 <span style="color:#ADABAB;font-size:12px;" class="pull-right"><?php echo $date; ?>&nbsp;&nbsp;<?php echo $time; ?> &nbsp; </span><br/>
 <span style="color:#000;font-size:14px;"><?php echo $comment; ?></span>
 </td>
