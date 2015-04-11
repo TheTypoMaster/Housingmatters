@@ -1,5 +1,5 @@
 <input type="hidden" value="<?php echo $hd_id; ?>" id="hd_id">
-<link href="<?php echo $this->webroot ; ?>/as/reply.css" rel="stylesheet" />
+<link href="<?php echo $webroot_path ; ?>/as/reply.css" rel="stylesheet" />
 
 <div style="border:solid 2px #269abc; width:80%; margin-left:10%;overflow:auto;">
 <div style="border-bottom:solid 2px #269abc; color:white; background-color: #39b3d7; padding:4px; font-size:20px;" align="center">Ticket# <?php echo $ticket_id; ?>-<?php echo $help_desk_category_name; ?></div>
@@ -22,7 +22,7 @@
 <br/>
 <p style="font-size:14px;"><b>Attachment</b></p>
 <div >
-<img src="<?php echo $this->webroot ; ?>/help_desk_file/<?php echo $help_desk_file; ?>" style="height:150px; max-width:80%;" />
+<img src="<?php echo $webroot_path ; ?>/help_desk_file/<?php echo $help_desk_file; ?>" style="height:150px; max-width:80%;" />
 </div>
 <?php } ?>
 

@@ -37,7 +37,7 @@ $flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat')
 <br/>
 <p style="font-size:14px;"><b>Attachment</b></p>
 <div >
-<img src="<?php echo $this->webroot ; ?>/help_desk_file/<?php echo $help_desk_file; ?>" style="height:150px; max-width:80%;" />
+<img src="<?php echo $webroot_path ; ?>/help_desk_file/<?php echo $help_desk_file; ?>" style="height:150px; max-width:80%;" />
 </div>
 <hr/>
 <?php } ?>
@@ -286,7 +286,7 @@ $(document).ready(function() {
 			//$("#reply_post").append('<div class="outt"><div><span class="pull-right" style="font-size:12px; color:#A5A5A5;">Few minutes ago</span><br>'+ r +'</div></div>');
 			
 			r1=encodeURIComponent(r);
-			alert(r1);
+			
 			$("#reply_post").load('<?php echo $this->webroot;?>Helpdesks/save_reply_resident/' + r1 + '/' + a);
 			$("#msg_reply").val('');
 			

@@ -1327,7 +1327,8 @@ function assign_ticket_to_sp()
 {
 $this->layout='blank';
 $this->ath();
- $sp_id=(int)$this->request->query('sp_id');
+  $sp_id=(int)$this->request->query('sp_id');
+
  $msg=$this->request->query('msg');
  $hd_id=(int)$this->request->query('hd_id');
 
@@ -1447,11 +1448,11 @@ $this->response->header('Location:help_desk_sm_open_ticket');
 
 function save_reply_resident($reply=null,$id=null)
 {
-$this->layout='blank_signup';
- $reply=htmlentities($reply);
+	$this->layout='blank';
+	$reply=htmlentities($reply);
 
-echo $reply=nl2br($reply);
-exit;
+ $reply=nl2br($reply);
+
 $rep=explode(' ',$reply);
 
 $r=$this->content_moderation_society($rep);
