@@ -16,6 +16,11 @@ if($this->RequestHandler->isAjax()){
 	}else{
 		$this->layout='session';
 	}
+	
+$this->ath();
+$this->check_user_privilages();	
+	
+	
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = $this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
@@ -74,6 +79,11 @@ $this->layout='blank';
 }else{
 $this->layout='session';
 }
+
+$this->ath();
+$this->check_user_privilages();
+
+
 App::import('', 'sendsms.php');
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
@@ -776,6 +786,10 @@ if($this->RequestHandler->isAjax()){
 	}else{
 		$this->layout='session';
 	}
+	
+$this->ath();
+$this->check_user_privilages();	
+	
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = $this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
@@ -1056,6 +1070,10 @@ if($this->RequestHandler->isAjax()){
 	}else{
 		$this->layout='session';
 	}
+	
+$this->ath();
+$this->check_user_privilages();	
+	
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = $this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
@@ -1381,6 +1399,11 @@ if($this->RequestHandler->isAjax()){
 	}else{
 		$this->layout='session';
 	}
+	
+$this->ath();
+$this->check_user_privilages();	
+	
+	
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = $this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
@@ -1622,6 +1645,11 @@ if($this->RequestHandler->isAjax()){
 	}else{
 		$this->layout='session';
 	}
+	
+$this->ath();
+$this->check_user_privilages();	
+	
+	
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = $this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
@@ -1860,6 +1888,11 @@ if($this->RequestHandler->isAjax()){
 	}else{
 		$this->layout='session';
 	}
+	
+$this->ath();
+$this->check_user_privilages();	
+	
+	
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = $this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
@@ -2079,6 +2112,10 @@ if($this->RequestHandler->isAjax()){
 	}else{
 		$this->layout='session';
 	}
+	
+$this->ath();
+$this->check_user_privilages();	
+	
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = $this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
