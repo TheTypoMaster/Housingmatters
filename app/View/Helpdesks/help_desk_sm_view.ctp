@@ -285,9 +285,9 @@ $(document).ready(function() {
 			{
 			//$("#reply_post").append('<div class="outt"><div><span class="pull-right" style="font-size:12px; color:#A5A5A5;">Few minutes ago</span><br>'+ r +'</div></div>');
 			
-			r=encodeURIComponent(r);
-			alert(r);
-			$("#reply_post").load('<?php echo $this->webroot;?>Helpdesks/save_reply_resident/' + r + '/' + a);
+			r1=encodeURIComponent(r);
+			alert(r1);
+			$("#reply_post").load('<?php echo $this->webroot;?>Helpdesks/save_reply_resident/' + r1 + '/' + a);
 			$("#msg_reply").val('');
 			
 			}
