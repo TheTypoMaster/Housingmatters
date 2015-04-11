@@ -14091,7 +14091,7 @@ if($this->RequestHandler->isAjax()){
 $s_role_id=$this->Session->read('role_id');	
 
  $s_society_id=$this->Session->read('society_id');
-
+$this->ath();
 $this->loadmodel('wing');
 $conditions1=array('society_id'=>$s_society_id);
 $result1=$this->wing->find('all',array('conditions'=>$conditions1));
@@ -14109,6 +14109,7 @@ $this->set('result_user',$result);
 function resident_directory_view()
 {
 $this->layout="blank";
+$this->ath();
 $s_role_id=$this->Session->read('role_id');	
 $s_society_id=$this->Session->read('society_id');	
 $this->set('role_id',$s_role_id);
@@ -14129,6 +14130,7 @@ $this->set('result_user1',$result);
 function resident_directory_search_wing_ajax()
 {
 $this->layout="blank";
+$this->ath();
 $search_wing=(int)$this->request->query('con');
 $this->set('search_value',$search_wing);
 $s_society_id=$this->Session->read('society_id');
@@ -14150,6 +14152,7 @@ $this->set('result_user3',$result2);
 function resident_directory_search_name()
 {
 $this->layout="blank";
+$this->ath();
 $s_society_id=$this->Session->read('society_id');
 $search=$this->request->query('con');
 $this->set('search_value',$search);

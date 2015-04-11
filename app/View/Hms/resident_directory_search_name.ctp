@@ -19,7 +19,7 @@ if(!empty($search_value))
 
 <div class="r_d fadeleftsome" onclick="view_ticket(<?php echo $c_user_id;?>)">
 <div class="hv_b" style="overflow: auto;padding: 5px;cursor: pointer;" title="">
-<img src="<?php echo $this->webroot ; ?>/profile/<?php echo $profile_pic; ?>" style="float:left;width:25%;height:80px;"/>
+<img src="<?php echo $webroot_path ; ?>/profile/<?php echo $profile_pic; ?>" style="float:left;width:25%;height:80px;"/>
 <div style="float:left;margin-left:3%;">
 <span style="font-size:22px;"><?php echo $c_name; ?></span><br/>
 <span style="font-size:16px;"><?php echo $wing_flat ; ?></span>
@@ -60,7 +60,7 @@ if(empty($search_value))
 
 <div class="r_d fadeleftsome" onclick="view_ticket(<?php echo $c_user_id;?>)">
 <div class="hv_b" style="overflow: auto;padding: 5px;cursor: pointer;" title="">
-<img src="<?php echo $this->webroot ; ?>/profile/<?php echo $profile_pic; ?>" style="float:left;width:25%;height:80px;"/>
+<img src="<?php echo $webroot_path; ?>/profile/<?php echo $profile_pic; ?>" style="float:left;width:25%;height:80px;"/>
 <div style="float:left;margin-left:3%;">
 <span style="font-size:22px;"><?php echo $c_name; ?></span><br/>
 <span style="font-size:16px;"><?php echo $wing_flat ; ?></span>
