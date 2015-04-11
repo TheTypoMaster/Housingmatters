@@ -12,8 +12,8 @@ echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), a
 <h3><b>Master Financial Year</b></h3>
 </center>
 
-<a href="<?php echo $this->webroot; ?>Accounts/master_financial_period_status" class="btn yellow" rel='tab'>Financial Year Status</a>
-<a href="<?php echo $this->webroot; ?>Accounts/master_financial_year" class="btn purple" rel='tab'>Open New Year</a>
+<a href="<?php echo $webroot_path; ?>Accounts/master_financial_period_status" class="btn yellow" rel='tab'>Financial Year Status</a>
+<a href="<?php echo $webroot_path; ?>Accounts/master_financial_year" class="btn purple" rel='tab'>Open New Year</a>
 <br><br>
 <center>
  <div class="portlet box grey" style="width:90%; margin-left:1%; margin-right:1%;">

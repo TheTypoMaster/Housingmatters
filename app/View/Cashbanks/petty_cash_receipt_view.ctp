@@ -67,8 +67,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
               {
               ?>
 <div class="hide_at_print">
-<a href="<?php echo $this->webroot; ?>Cashbanks/petty_cash_receipt" class="btn blue" rel='tab'>Create</a>
-<a href="<?php echo $this->webroot; ?>Cashbanks/petty_cash_receipt_view" class="btn red" rel='tab'>View</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/petty_cash_receipt" class="btn blue" rel='tab'>Create</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/petty_cash_receipt_view" class="btn red" rel='tab'>View</a>
 </div>
  <?php } ?>
 

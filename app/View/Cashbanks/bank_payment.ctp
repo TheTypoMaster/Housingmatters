@@ -91,8 +91,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 						<?php } ?>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <center>
-<a href="<?php echo $this->webroot; ?>Cashbanks/bank_payment" class="btn red" rel='tab'>Create</a>
-<a href="<?php echo $this->webroot; ?>Cashbanks/bank_payment_view" class="btn blue" rel='tab'>View</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/bank_payment" class="btn red" rel='tab'>Create</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/bank_payment_view" class="btn blue" rel='tab'>View</a>
 <!-- <a href="bank_payment_list" class="btn blue">List</a> -->
 </center>	
 

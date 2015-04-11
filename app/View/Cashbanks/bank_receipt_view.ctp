@@ -77,8 +77,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
              if($s_role_id == 3)
              {
              ?>              
-            <a href="<?php echo $this->webroot; ?>Cashbanks/bank_receipt" class="btn blue" rel='tab'>Create</a>
-            <a href="<?php echo $this->webroot; ?>Cashbanks/bank_receipt_view" class="btn red" rel='tab'>View</a>
+            <a href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt" class="btn blue" rel='tab'>Create</a>
+            <a href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt_view" class="btn red" rel='tab'>View</a>
             <?php } ?>
            
 

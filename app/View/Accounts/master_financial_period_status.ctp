@@ -8,8 +8,8 @@ echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), a
 <center>
 <h3><b>Financial Period Status</b></h3>
 </center>
-<a href="<?php echo $this->webroot; ?>Accounts/master_financial_period_status" class="btn purple" rel='tab'>Financial Year Status</a>
-<a href="<?php echo $this->webroot; ?>Accounts/master_financial_year" class="btn yellow" rel='tab'>Open New Year</a>
+<a href="<?php echo $webroot_path; ?>Accounts/master_financial_period_status" class="btn purple" rel='tab'>Financial Year Status</a>
+<a href="<?php echo $webroot_path; ?>Accounts/master_financial_year" class="btn yellow" rel='tab'>Open New Year</a>
 <br><br>
 
 

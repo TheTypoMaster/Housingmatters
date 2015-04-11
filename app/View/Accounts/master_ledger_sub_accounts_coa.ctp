@@ -10,8 +10,8 @@ echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), a
 
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
-<a href="<?php echo $this->webroot; ?>Accounts/master_ledger_account_coa" class="btn yellow" rel='tab'>Ledger Accounts</a>
-<a href="<?php echo $this->webroot; ?>Accounts/master_ledger_sub_accounts_coa" class="btn purple" rel='tab'>Ledger Sub Accounts</a>
+<a href="<?php echo $webroot_path; ?>Accounts/master_ledger_account_coa" class="btn yellow" rel='tab'>Ledger Accounts</a>
+<a href="<?php echo $webroot_path; ?>Accounts/master_ledger_sub_accounts_coa" class="btn purple" rel='tab'>Ledger Sub Accounts</a>
 
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <center>
