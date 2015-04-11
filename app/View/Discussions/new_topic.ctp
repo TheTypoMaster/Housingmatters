@@ -37,11 +37,11 @@ display:block;
 
 <div class="pull-right" style="padding-top:2px;">
 
-<a href="<?php echo $this->webroot;?>Discussions/index/<?php echo @$id; ?>/0" role='button' rel="tab" class="btn" style=" background-color: #398439;color:#fff;" ><i class="icon-cloud"></i> All Topics</a>
-<a href="<?php echo $this->webroot;?>Discussions/index/<?php echo @$id; ?>/1" role='button' rel="tab" class="btn" style=" background-color: #d58512; color:#fff;"><i class="icon-heart"></i> My Topics</a>
-<a href="<?php echo $this->webroot;?>Discussions/new_topic" role='button' rel="tab" class="btn" style="background-color: #357ebd; color:#fff;"><i class=" icon-plus-sign"></i> Start Topic</a>
+<a href="<?php echo $webroot_path;?>Discussions/index/<?php echo @$id; ?>/0" role='button' rel="tab" class="btn" style=" background-color: #398439;color:#fff;" ><i class="icon-cloud"></i> All Topics</a>
+<a href="<?php echo $webroot_path;?>Discussions/index/<?php echo @$id; ?>/1" role='button' rel="tab" class="btn" style=" background-color: #d58512; color:#fff;"><i class="icon-heart"></i> My Topics</a>
+<a href="<?php echo $webroot_path;?>Discussions/new_topic" role='button' rel="tab" class="btn" style="background-color: #357ebd; color:#fff;"><i class=" icon-plus-sign"></i> Start Topic</a>
 <input type="text" class="m-wrap" id="search_topic_box" placeholder="Search Topic" onkeyup="search_topic()" style="background-color: #FFF !important;height: 22px;">
-<a href="<?php echo $this->webroot;?>Discussions/index/<?php echo @$id; ?>/2" role='button' rel="tab" class="btn black"><i class="icon-trash"></i> Archives</a>
+<a href="<?php echo $webroot_path;?>Discussions/index/<?php echo @$id; ?>/2" role='button' rel="tab" class="btn black"><i class="icon-trash"></i> Archives</a>
 </div>
 
 </div>
@@ -236,7 +236,7 @@ $(document).ready(function(){
 		  description: {
 	        required: true,
 			maxlength: 500,
-			//remote:"<?php echo $this->webroot;?>hms/content_check_des"
+			//remote:"<?php echo $webroot_path;?>hms/content_check_des"
 	      },
 		  file: {
 			accept: "gif,jpg",
@@ -275,7 +275,7 @@ $(document).ready(function(){
 <script>
 function my_topic(q)
 {
-$('#topics_list').html('<div style="border:solid 2px #F4F8FF; padding:5px;" align="center"><img src="<?php echo $this->webroot ; ?>/as/windows.gif" /></div>').load('discussion_my_topic?q=' + q);
+$('#topics_list').html('<div style="border:solid 2px #F4F8FF; padding:5px;" align="center"><img src="<?php echo $webroot_path ; ?>/as/windows.gif" /></div>').load('discussion_my_topic?q=' + q);
 }
 
 
@@ -284,14 +284,14 @@ function details_topic(t)
 {
 //$("#topic_detail").removeClass('animated zoomIn');
 $("#topic_detail").removeClass('fadeleftsome');
-$('#topic_detail').html('<div style="border:solid 2px #F4F8FF; margin-top:25px;" align="center"><img src="<?php echo $this->webroot ; ?>/as/windows.gif" /></div>').load('topic_view?t=' + t);
+$('#topic_detail').html('<div style="border:solid 2px #F4F8FF; margin-top:25px;" align="center"><img src="<?php echo $webroot_path ; ?>/as/windows.gif" /></div>').load('topic_view?t=' + t);
 
 }
 
 function details_topic_deleted(x)
 {
 $("#topic_detail").removeClass('fadeleftsome');
-$('#topic_detail').html('<div style="border:solid 2px #F4F8FF; margin-top:25px;" align="center"><img src="<?php echo $this->webroot ; ?>/as/windows.gif" /></div>').load('topic_view_deleted?t=' + x);
+$('#topic_detail').html('<div style="border:solid 2px #F4F8FF; margin-top:25px;" align="center"><img src="<?php echo $webroot_path ; ?>/as/windows.gif" /></div>').load('topic_view_deleted?t=' + x);
 
 }
 
@@ -394,7 +394,7 @@ function search_topic()
 {
 
 var s=$('#search_topic_box').val();
-$('#topics_list').html('<div style="border:solid 2px #F4F8FF; padding:5px;" align="center"><img src="<?php echo $this->webroot ; ?>/as/windows.gif" /></div>').load('discussion_search_topic?s='+s);
+$('#topics_list').html('<div style="border:solid 2px #F4F8FF; padding:5px;" align="center"><img src="<?php echo $webroot_path ; ?>/as/windows.gif" /></div>').load('discussion_search_topic?s='+s);
 }
 </script>
 
@@ -430,7 +430,7 @@ $(document).ready(function() {
 	 });
 });
 </script>
-<script src="<?php echo $this->webroot ; ?>/as/bootstrap-maxlength.min.js"></script>
+<script src="<?php echo $webroot_path ; ?>/as/bootstrap-maxlength.min.js"></script>
 	
     <script>
         $(document).ready(function () {
