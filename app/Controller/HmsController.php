@@ -4867,6 +4867,8 @@ if($this->RequestHandler->isAjax()){
 	}else{
 	$this->layout='session';
 	}
+	echo file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey=A897e827eaf0964173dfb26f444906695&sender=phppoetacc&to=9636653883&message=hello');
+	exit;
 
 $this->ath();
 $r=$this->request->query('try');

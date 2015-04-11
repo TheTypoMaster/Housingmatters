@@ -261,7 +261,7 @@ $n_comments=$this->requestAction(array('controller' => 'hms', 'action' => 'count
 <?php } ?>
 
 <?php if($list==1) { ?>
-<a  class="btn mini red pull-right" role='button' onclick="delete_topic(<?php echo $discussion_post_id; ?>)">Close Topic </a>
+<a  class="btn mini red pull-right" role='button' onclick="delete_topic('<?php echo $discussion_post_id; ?>')">Close Topic </a>
 <a href="<?php echo $webroot_path;?>Discussions/index/<?php echo $discussion_post_id; ?>/1" role='button' rel="tab" style="text-decoration:none;">
 <div style="padding:2px;">
 <div  style="background-color:#F4F8FF; cursor:pointer; color:#06F; padding:5px; border:solid 2px #D9E8FF;" class="topic sel" id="t1" >
@@ -274,7 +274,7 @@ $n_comments=$this->requestAction(array('controller' => 'hms', 'action' => 'count
 <?php } ?>
 
 <?php if($list==2) { ?>
-<a href="#" class="btn mini red pull-right" role='button' onclick="delete_topic_archive(<?php echo $discussion_post_id; ?>)"> <i class='icon-remove'></i> </a>
+<a href="#" class="btn mini red pull-right" role='button' onclick="delete_topic_archive('<?php echo $discussion_post_id; ?>')"> <i class='icon-remove'></i> </a>
 <a href="<?php echo $webroot_path;?>Discussions/index/<?php echo $discussion_post_id; ?>/2" role='button' rel="tab" style="text-decoration:none;">
 <div style="padding:2px;">
 <div  style="background-color:#F4F8FF; cursor:pointer; color:#06F; padding:5px; border:solid 2px #D9E8FF;" class="topic sel" id="t1" >
