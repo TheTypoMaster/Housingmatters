@@ -27,7 +27,7 @@ $flat_info_c=$this->requestAction(array('controller' => 'hms', 'action' => 'wing
 <?php } else { ?>  style="background-color: #fafafa;border-top: solid 2px #f1f3fa;" 
 <?php } ?> id="comm<?php echo $discussion_comment_id; ?>" class="showhim"><table width="100%">
 <tr>
-<td width="15%" valign="top" style="padding:10px;"><img src="<?php echo $this->webroot ; ?>/profile/<?php echo $profile_pic; ?>" style="height:50px; width:50px;"/></td>
+<td width="15%" valign="top" style="padding:10px;"><img src="<?php echo $webroot_path ; ?>/profile/<?php echo $profile_pic; ?>" style="height:50px; width:50px;"/></td>
 <td width="85%" valign="top" style="padding-left:5px;">
 
 
