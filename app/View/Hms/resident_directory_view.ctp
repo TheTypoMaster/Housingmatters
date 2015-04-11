@@ -148,7 +148,7 @@
                                             
                                             
                
-                    <img src="<?php echo $this->webroot ; ?>/profile/<?php echo $profile_pic; ?>" style="width:100%; height:160px;">
+                    <img src="<?php echo $webroot_path ; ?>/profile/<?php echo $profile_pic; ?>" style="width:100%; height:160px;">
                   							
                                             
                                             
