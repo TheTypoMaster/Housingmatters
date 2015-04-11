@@ -1,12 +1,3 @@
-<script>
-$( document ).ready( function() {
-   jQuery('.tooltips').tooltip();
-    var test = $("input[type=checkbox]:not(.toggle), input[type=radio]:not(.toggle)");
-        if (test) {
-            test.uniform();
-        }
-});
-</script>
 <style>
 .topic:hover{
 /*background-color:#8CC1FD !important; color:#FFF !important;*/
@@ -37,11 +28,11 @@ display:block;
 
 <div class="pull-right" style="padding-top:2px;">
 
-<a href="<?php echo $this->webroot;?>Discussions/index/<?php echo $id; ?>/0" role='button' rel="tab" class="btn" style=" background-color: #398439;color:#fff;" ><i class="icon-cloud"></i> All Topics</a>
-<a href="<?php echo $this->webroot;?>Discussions/index/<?php echo $id; ?>/1" role='button' rel="tab" class="btn" style=" background-color: #d58512; color:#fff;"><i class="icon-heart"></i> My Topics</a>
-<a href="<?php echo $this->webroot;?>Discussions/new_topic" role='button' rel="tab" class="btn" style="background-color: #357ebd; color:#fff;"><i class=" icon-plus-sign"></i> Start Topic</a>
+<a href="<?php echo $webroot_path;?>Discussions/index/<?php echo $id; ?>/0" role='button' rel="tab" class="btn" style=" background-color: #398439;color:#fff;" ><i class="icon-cloud"></i> All Topics</a>
+<a href="<?php echo $webroot_path;?>Discussions/index/<?php echo $id; ?>/1" role='button' rel="tab" class="btn" style=" background-color: #d58512; color:#fff;"><i class="icon-heart"></i> My Topics</a>
+<a href="<?php echo $webroot_path;?>Discussions/new_topic" role='button' rel="tab" class="btn" style="background-color: #357ebd; color:#fff;"><i class=" icon-plus-sign"></i> Start Topic</a>
 <input type="text" class="m-wrap" id="search_topic_box" placeholder="Search Topic" onkeyup="search_topic()" style="background-color: #FFF !important;height: 22px;">
-<a href="<?php echo $this->webroot;?>Discussions/index/<?php echo $id; ?>/2" role='button' rel="tab" class="btn black"><i class="icon-trash"></i> Archives</a>
+<a href="<?php echo $webroot_path;?>Discussions/index/<?php echo $id; ?>/2" role='button' rel="tab" class="btn black"><i class="icon-trash"></i> Archives</a>
 </div>
 
 </div>
@@ -239,7 +230,7 @@ $time=$collection["discussion_post"]["time"];
 $n_comments=$this->requestAction(array('controller' => 'hms', 'action' => 'count_comment_of_topic'), array('pass' => array($discussion_post_id)));
 ?>
 <?php if($list==0) { ?>
-<a href="<?php echo $this->webroot;?>Discussions/index/<?php echo $discussion_post_id; ?>/0" role='button' rel="tab" style="text-decoration:none;">
+<a href="<?php echo $webroot_path;?>Discussions/index/<?php echo $discussion_post_id; ?>/0" role='button' rel="tab" style="text-decoration:none;">
 <div style="padding:2px;">
 <div  style="background-color:#F4F8FF; cursor:pointer; color:#06F; padding:5px; border:solid 2px #D9E8FF;" class="topic sel" id="t1" >
 <div align="center" style="font-size:18px;" ><?php echo $topic; ?></div>
@@ -251,7 +242,7 @@ $n_comments=$this->requestAction(array('controller' => 'hms', 'action' => 'count
 
 <?php if($list==1) { ?>
 <a  class="btn mini red pull-right" role='button' onclick="delete_topic(<?php echo $discussion_post_id; ?>)">Close Topic </a>
-<a href="<?php echo $this->webroot;?>Discussions/index/<?php echo $discussion_post_id; ?>/1" role='button' rel="tab" style="text-decoration:none;">
+<a href="<?php echo $webroot_path;?>Discussions/index/<?php echo $discussion_post_id; ?>/1" role='button' rel="tab" style="text-decoration:none;">
 <div style="padding:2px;">
 <div  style="background-color:#F4F8FF; cursor:pointer; color:#06F; padding:5px; border:solid 2px #D9E8FF;" class="topic sel" id="t1" >
 
@@ -264,7 +255,7 @@ $n_comments=$this->requestAction(array('controller' => 'hms', 'action' => 'count
 
 <?php if($list==2) { ?>
 <a href="#" class="btn mini red pull-right" role='button' onclick="delete_topic_archive(<?php echo $discussion_post_id; ?>)"> <i class='icon-remove'></i> </a>
-<a href="<?php echo $this->webroot;?>Discussions/index/<?php echo $discussion_post_id; ?>/2" role='button' rel="tab" style="text-decoration:none;">
+<a href="<?php echo $webroot_path;?>Discussions/index/<?php echo $discussion_post_id; ?>/2" role='button' rel="tab" style="text-decoration:none;">
 <div style="padding:2px;">
 <div  style="background-color:#F4F8FF; cursor:pointer; color:#06F; padding:5px; border:solid 2px #D9E8FF;" class="topic sel" id="t1" >
 <div align="center" style="font-size:18px;" ><?php echo $topic; ?></div>
@@ -415,8 +406,8 @@ var flat='<?php echo $flat_info; ?>';
 if(c!="")
 {
 $('#post_comment').hide();
-	$( "#save_comment" ).load( '<?php echo $this->webroot; ?>Discussions/discussion_save_comment?tid=' + tid+'&c='+c, function() {
-		$('#comments_container').load('<?php echo $this->webroot; ?>Discussions/discussion_comment_refresh?con='+tid);
+	$( "#save_comment" ).load( '<?php echo $webroot_path; ?>Discussions/discussion_save_comment?tid=' + tid+'&c='+c, function() {
+		$('#comments_container').load('<?php echo $webroot_path; ?>Discussions/discussion_comment_refresh?con='+tid);
 		$('#posttext').val('');
 		$('#post_comment').show();
 	});
@@ -429,7 +420,7 @@ $('#post_comment').hide();
 <script>
 function delete_topic(dt)
 {
-$('#delete_topic_result').html('<div id="pp"><div class="modal-backdrop fade in"></div><div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true"><div class="modal-body" style="font-size:14px;"><i class="icon-warning-sign" style="color:#d84a38;"></i> Are you sure you want to archive the topic & close it for further discussion ? </div><div class="modal-footer"><a href="<?php echo $this->webroot; ?>Discussions/delete_topic?con='+dt+'" class="btn blue" id="yes">Yes</a><a href="#"  role="button" id="can" class="btn">No</a></div></div></div>');
+$('#delete_topic_result').html('<div id="pp"><div class="modal-backdrop fade in"></div><div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true"><div class="modal-body" style="font-size:14px;"><i class="icon-warning-sign" style="color:#d84a38;"></i> Are you sure you want to archive the topic & close it for further discussion ? </div><div class="modal-footer"><a href="<?php echo $webroot_path; ?>Discussions/delete_topic?con='+dt+'" class="btn blue" id="yes">Yes</a><a href="#"  role="button" id="can" class="btn">No</a></div></div></div>');
 
 $("#can").live('click',function(){
    $('#pp').hide();
@@ -441,7 +432,7 @@ $("#can").live('click',function(){
 function delete_topic_archive(dt)
 {
 
-$('#delete_topic_result').html('<div id="pp"><div class="modal-backdrop fade in"></div><div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true"><div class="modal-body" style="font-size:14px;"><i class="icon-warning-sign" style="color:#d84a38;"></i> Sure, you want to delete the discussion permanently ?</div><div class="modal-footer"><a href="<?php echo $this->webroot; ?>Discussions/archive?con='+dt+'" class="btn blue" id="yes">Yes</a><a href="#" role="button" id="can" class="btn">No</a></div></div></div>');
+$('#delete_topic_result').html('<div id="pp"><div class="modal-backdrop fade in"></div><div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true"><div class="modal-body" style="font-size:14px;"><i class="icon-warning-sign" style="color:#d84a38;"></i> Sure, you want to delete the discussion permanently ?</div><div class="modal-footer"><a href="<?php echo $webroot_path; ?>Discussions/archive?con='+dt+'" class="btn blue" id="yes">Yes</a><a href="#" role="button" id="can" class="btn">No</a></div></div></div>');
 
 $("#can").live('click',function(){
    $('#pp').hide();
@@ -465,7 +456,7 @@ $("#no").live('click',function(){
 
 function offensive_delete(co_id,co_u_id)
 {
- $('#comm'+co_id).load('<?php echo $this->webroot; ?>Discussions/discussion_offensive_delete_ajax?c_id='+co_id +'&c_u_id='+co_u_id);
+ $('#comm'+co_id).load('<?php echo $webroot_path; ?>Discussions/discussion_offensive_delete_ajax?c_id='+co_id +'&c_u_id='+co_u_id);
  $('#comm'+co_id).addClass('animated zoomOut');
 setTimeout(
   function() 
@@ -479,7 +470,7 @@ setTimeout(
 
 function hide_comment_div(ca)
 {
-$('#delete_topic_result').load('<?php echo $this->webroot; ?>Discussions/discussion_comment_delete_ajax?c_id='+ca);
+$('#delete_topic_result').load('<?php echo $webroot_path; ?>Discussions/discussion_comment_delete_ajax?c_id='+ca);
 $('#main_div').hide();
 $('#comm'+ca).addClass('animated zoomOut');
 setTimeout(
@@ -496,7 +487,7 @@ function search_topic()
 {
 
 var s=$('#search_topic_box').val();
-$('#topics_list').html('<div style="border:solid 2px #F4F8FF; padding:5px;" align="center"><img src="<?php echo $this->webroot ; ?>/as/windows.gif" /></div>').load('<?php echo $this->webroot; ?>Discussions/discussion_search_topic?s='+s);
+$('#topics_list').html('<div style="border:solid 2px #F4F8FF; padding:5px;" align="center"><img src="<?php echo $this->webroot ; ?>/as/windows.gif" /></div>').load('<?php echo $webroot_path; ?>Discussions/discussion_search_topic?s='+s);
 }
 </script>
 
