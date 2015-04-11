@@ -9,11 +9,10 @@ $('.date-picker').datepicker().on('changeDate', function(){
 }); 
 $(".chosen").chosen(); 
 $('.text-toggle-button').toggleButtons({
-            width: 200,
-            label: {
-                enabled: "Active",
-                disabled: "Deactive"
-            }
-        });
-	
+	width: 200,
+	label: {
+		enabled: "Active",
+		disabled: "Deactive"
+	}
+});
 </script>
