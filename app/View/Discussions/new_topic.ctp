@@ -1,12 +1,3 @@
-<script>
-$( document ).ready( function() {
-   jQuery('.tooltips').tooltip();
-    var test = $("input[type=checkbox]:not(.toggle), input[type=radio]:not(.toggle)");
-        if (test) {
-            test.uniform();
-        }
-});
-</script>
 <style>
 .topic:hover{
 /*background-color:#8CC1FD !important; color:#FFF !important;*/
@@ -363,7 +354,7 @@ $("#no").live('click',function(){
 
 function offensive_delete(co_id,co_u_id)
 {
- $('#comm'+co_id).load('discussion_offensive_delete_ajax?c_id='+co_id +'&c_u_id='+co_u_id);
+ $('#comm'+co_id).load('<?php echo $webroot_path ; ?>/Discussions/discussion_offensive_delete_ajax?c_id='+co_id +'&c_u_id='+co_u_id);
  $('#comm'+co_id).addClass('animated zoomOut');
 setTimeout(
   function() 
@@ -377,7 +368,7 @@ setTimeout(
 
 function hide_comment_div(ca)
 {
-$('#delete_topic_result').load('discussion_comment_delete_ajax?c_id='+ca);
+$('#delete_topic_result').load('<?php echo $webroot_path ; ?>/Discussions/discussion_comment_delete_ajax?c_id='+ca);
 $('#main_div').hide();
 $('#comm'+ca).addClass('animated zoomOut');
 setTimeout(

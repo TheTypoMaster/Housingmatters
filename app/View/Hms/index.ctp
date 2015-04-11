@@ -1,6 +1,6 @@
 <!-- BEGIN LOGO -->
   <div class="logo">
-    <img src="<?php echo $this->webroot ; ?>/as/hm/hm-logo.png" alt="logo" /> 
+    <img src="<?php echo $webroot_path ; ?>/as/hm/hm-logo.png" alt="logo" /> 
   </div>
   <!-- END LOGO -->
   <!-- BEGIN LOGIN -->
@@ -34,12 +34,12 @@
       <div class="forget-password">
         <h4>Forgot your password ?</h4>
         <p>
-          no worries, click <a href="<?php echo $this->webroot ; ?>/hms/forget" class="" id="forget-password">here</a>
+          no worries, click <a href="<?php echo $webroot_path ; ?>/hms/forget" class="" id="forget-password">here</a>
           to reset your password.
         </p>
       </div>
       <center>
-      <a href="<?php echo $this->webroot ; ?>/hms/sign_up" class="btn blue " style="font-size:16px;" >New User Sign up</a> </center>
+      <a href="<?php echo $webroot_path ; ?>/hms/sign_up" class="btn blue " style="font-size:16px;" >New User Sign up</a> </center>
       </fieldset>
     </form>
     <!-- END LOGIN FORM -->        
