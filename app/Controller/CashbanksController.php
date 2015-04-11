@@ -1692,6 +1692,8 @@ header ("Content-Description: Generated Report" );
 
 $s_society_id = (int)$this->Session->read('society_id');
 $s_role_id=$this->Session->read('role_id');
+$s_user_id=$this->Session->read('user_id');
+
 
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
@@ -1753,6 +1755,7 @@ $prepaired_by = (int)$collection['cash_bank']['prepaired_by'];
 $current_date = $collection['cash_bank']['current_date'];
 $creation_date = date('d-m-Y',$current_date->sec);					
 
+
 $result_gh = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($prepaired_by)));
 foreach ($result_gh as $collection) 
 {
@@ -1761,11 +1764,10 @@ $prepaired_by_name = (int)$collection['user']['user_name'];
 
 if($account_type == 1)
 {
-
 $user_id1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($d_user_id)));
 foreach ($user_id1 as $collection)
 {
-$user_id = $collection['ledger_sub_account']['user_id'];
+$user_id = (int)$collection['ledger_sub_account']['user_id'];
 }
 $result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
 foreach ($result as $collection) 
@@ -1779,6 +1781,9 @@ $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing
 }
 
 
+
+
+
 if($account_type == 2)
 {
 $user_name1 = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_amount'),array('pass'=>array($d_user_id)));
@@ -1788,7 +1793,10 @@ $user_name = $collection['ledger_account']['ledger_name'];
 $wing_flat = "";
 }
 }
-			
+
+
+
+		
 $result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($prepaired_by)));
 foreach ($result2 as $collection) 
 {
@@ -1803,17 +1811,21 @@ $amount_category_name = $collection['amount_category']['amount_category'];
 }	
 
 
+
+
+
 if($date >= $m_from && $date <= $m_to)
 {
-if($s_user_id == $d_user_id)  
+if($s_user_id == $user_id)  
 {
 $date = date('d-m-Y',$date->sec);
 $total_debit = $total_debit + $amount;
+
  $excel.="<tr>
 <td>$receipt_no</td>
 <td>$date</td>
 <td>$narration</td>
-<td>$user_name&nbsp&nbsp&nbsp&nbsp$wing_flat</td>
+<td>$user_name &nbsp;&nbsp;&nbsp;&nbsp; $wing_flat</td>
 <td>$amount</td>
 </tr>";
 }
@@ -1826,7 +1838,7 @@ $excel.="<tr>
 <td>$receipt_no</td>
 <td>$date</td>
 <td>$narration</td>
-<td>$user_name &nbsp&nbsp&nbsp&nbsp$wing_flat</td>
+<td>$user_name &nbsp;&nbsp;&nbsp;&nbsp; $wing_flat</td>
 <td>$amount</td>
 </tr>";
  }}}
@@ -1836,6 +1848,7 @@ $excel.="<tr>
 <th>$total_debit</th>  
 </tr>
 </table>"; 
+
 echo $excel;
 
 }
@@ -2240,6 +2253,7 @@ header ("Content-Description: Generated Report" );
 
 $s_society_id = (int)$this->Session->read('society_id');
 $s_role_id=$this->Session->read('role_id');
+$s_user_id= (int)$this->Session->read('user_id');
 
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
