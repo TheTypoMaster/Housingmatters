@@ -129,7 +129,7 @@ $(document).ready(function(){
 	      },
 		  description: {
 			//required: true,
-	        //remote: "<?php echo $this->webroot;?>hms/content_check_des"
+	        //remote: "<?php echo $webroot_path;?>hms/content_check_des"
 	      },
 		  
 	    },
@@ -153,7 +153,7 @@ $(document).ready(function(){
 }); 
 </script>
 
-<script src="<?php echo $this->webroot ; ?>/as/bootstrap-maxlength.min.js"></script>
+<script src="<?php echo $webroot_path ; ?>/as/bootstrap-maxlength.min.js"></script>
 	
     <script>
         $(document).ready(function () {
