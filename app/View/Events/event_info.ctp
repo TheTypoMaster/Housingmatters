@@ -3,7 +3,7 @@ if(sizeof($result_event_detail)==0)
 {
 echo '<div style="min-height: 85%;margin-top: 60px; " align="center">
 	<h2>Sorry<br/>This page is not available.</h2>
-	<img src="<?php echo $this->webroot ; ?>/as/hm/hm-logo.png" alt="logo">
+	<img src="<?php echo $webroot_path ; ?>/as/hm/hm-logo.png" alt="logo">
 	<br/><h4>Back to <a href="dashboard">All Events</a></h4>
 	</div>';
 }
