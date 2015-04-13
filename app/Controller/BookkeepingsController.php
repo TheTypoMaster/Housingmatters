@@ -621,7 +621,7 @@ foreach($cursor as $collection)
 {
 $society_name = $collection['society']['society_name'];
 }
-exit;
+
 
 
 $from = $this->request->query('f');
@@ -678,11 +678,17 @@ $account_type = (int)@$collection['ledger']['account_type'];
 $receipt_id = @$collection['ledger']['receipt_id']; 
 $amount_o = @$collection['ledger']['amount'];
 $amount_category_id = (int)@$collection['ledger']['amount_category_id'];
-$module_id = (int)@$collection['ledger']['module_id'];
+//$module_id = (int)@$collection['ledger']['module_id'];
 $sub_account_id = (int)@$collection['ledger']['account_id']; 
 $current_date = @$collection['ledger']['current_date'];
 $society_id = (int)@$collection['ledger']['society_id'];
 $op_date = @$collection['ledger']['op_date'];
+$table_name = $collection['ledger']['table_name'];
+if($table_name == "cash_bank")
+{
+$module_id = (int)$collection['ledger']['module_id'];
+}
+
 $op_im_deb = 0;
 $op_im_cre = 0;
 
@@ -704,30 +710,39 @@ $op_im_cre = $amount_o;
 }}
 if($receipt_id != 'O_B')
 {
-$module_fetch=$this->requestAction(array('controller'=>'hms','action'=>'module_fetch'),array('pass'=>array($module_id)));										
+/*
+$module_fetch=$this->requestAction(array('controller'=>'hms','action'=>'module_fetch'),array('pass'=>array($module_id)));	
 foreach ($module_fetch as $collection) 
 {
 $module_name = @$collection['account_category']['ac_category'];
 }
+*/
+if($table_name == "cash_bank")
+{
+$module_date_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id)));
+}
+else
+{
+$module_date_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch'),array('pass'=>array($table_name,$receipt_id)));
+}
 
-$module_date_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch'),array('pass'=>array($module_name,$receipt_id)));
 foreach ($module_date_fetch as $collection) 
 {
-$date1 = @$collection[$module_name]['transaction_date'];
+$date1 = @$collection[$table_name]['transaction_date'];
 if(empty($date1))
 {
-$date1 = @$collection[$module_name]['posting_date'];	
+$date1 = @$collection[$table_name]['posting_date'];	
 }
 if(empty($date1))
 {
-$date1 = @$collection[$module_name]['purchase_date'];	
+$date1 = @$collection[$table_name]['purchase_date'];	
 }
 if(empty($date1))
 {
-$date1 = @$collection[$module_name]['date'];	
+$date1 = @$collection[$table_name]['date'];	
 }
-$narration = @$collection[$module_name]['narration'];
-$remark = @$collection[$module_name]['remark'];
+$narration = @$collection[$table_name]['narration'];
+$remark = @$collection[$table_name]['remark'];
 }
 
 $amount_category_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'amount_category'),array('pass'=>array($amount_category_id)));						
@@ -806,49 +821,60 @@ $account_type = (int)@$collection['ledger']['account_type'];
 $receipt_id = @$collection['ledger']['receipt_id']; 
 $amount = @$collection['ledger']['amount'];
 $amount_category_id = (int)@$collection['ledger']['amount_category_id'];
-$module_id = (int)@$collection['ledger']['module_id'];
+//$module_id = (int)@$collection['ledger']['module_id'];
 $sub_account_id = (int)@$collection['ledger']['account_id']; 
 $current_date = @$collection['ledger']['current_date'];
 $society_id = (int)@$collection['ledger']['society_id'];
-
+$table_name = $collection['ledger']['table_name'];
+$module_name = $collection['ledger']['module_name'];
+if($table_name == "cash_bank")
+{
+$module_id = (int)$collection['ledger']['module_id'];
+}
  if($receipt_id == 'O_B')
  continue;
 
-
+/*
 $module_fetch2 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_fetch'),array('pass'=>array($module_id)));
 foreach ($module_fetch2 as $collection) 
 {
 $module_name = @$collection['account_category']['ac_category'];
 $module_name2 = @$collection['account_category']['module_name'];
 }
-
-$module_date_fetch2 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch'),array('pass'=>array($module_name,$receipt_id)));
-
+*/
+if($table_name == "cash_bank")
+{
+$module_date_fetch2 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id)));
+}
+else
+{
+$module_date_fetch2 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch'),array('pass'=>array($table_name,$receipt_id)));
+}
 foreach ($module_date_fetch2 as $collection) 
 {
-$date = @$collection[$module_name]['transaction_date'];
+$date = @$collection[$table_name]['transaction_date'];
 if(empty($date))
 {
-$date = @$collection[$module_name]['posting_date'];	
+$date = @$collection[$table_name]['posting_date'];	
 }
 if(empty($date))
 {
-$date = @$collection[$module_name]['purchase_date'];	
+$date = @$collection[$table_name]['purchase_date'];	
 }
 if(empty($date))
 {
-$date = @$collection[$module_name]['date'];	
+$date = @$collection[$table_name]['date'];	
 }
-$narration = @$collection[$module_name]['narration'];
+$narration = @$collection[$table_name]['narration'];
 if(empty($narration))
 {
-$narration = @$collection[$module_name]['remark'];
+$narration = @$collection[$table_name]['remark'];
 }
 if(empty($narration))
 {
-$narration = @$collection[$module_name]['description'];	
+$narration = @$collection[$table_name]['description'];	
 }
-$remark = @$collection[$module_name]['remark'];
+$remark = @$collection[$table_name]['remark'];
 }
 
 $amount_category_fetch2 = $this->requestAction(array('controller' => 'hms', 'action' =>'amount_category'),array('pass'=>array($amount_category_id)));
@@ -868,7 +894,7 @@ $date = date('d-m-Y',$date->sec);
 $excel.="<tr>
 <td>$date</td>
 <td>$narration</td>
-<td>$module_name2</td>
+<td>$module_name</td>
 <td>$receipt_id</td>
 <td>";
 if($amount_category_id == 1) { $balance = $balance - $amount; 
@@ -986,11 +1012,17 @@ $account_type = (int)@$collection['ledger']['account_type'];
 $receipt_id = @$collection['ledger']['receipt_id']; 
 $amount_o = @$collection['ledger']['amount'];
 $amount_category_id = (int)@$collection['ledger']['amount_category_id'];
-$module_id = (int)@$collection['ledger']['module_id'];
+//$module_id = (int)@$collection['ledger']['module_id'];
 $sub_account_id = (int)@$collection['ledger']['account_id']; 
 $current_date = @$collection['ledger']['current_date'];
 $society_id = (int)@$collection['ledger']['society_id'];
 $op_date = @$collection['ledger']['op_date'];
+$table_name = $collection['ledger']['table_name'];
+if($table_name == "cash_bank")
+{
+$module_id = (int)$collection['ledger']['module_id'];
+}
+
 $op_im_deb = 0;
 $op_im_cre = 0;
 if($receipt_id == 'O_B')
@@ -1014,30 +1046,38 @@ $op_im_cre =  $amount_o;
 
 if($receipt_id != 'O_B')
 {
+/*
 $account_category_fetch = $this->requestAction(array('controller' => 'hms', 'action' =>'module_fetch'),array('pass'=>array($module_id)));									
 foreach ($account_category_fetch as $collection) 
 {
 $module_name = @$collection['account_category']['ac_category'];
 }
-
-$module_date_fetch3 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch'),array('pass'=>array($module_name,$receipt_id)));   
+*/
+if($table_name == "cash_bank")
+{
+$module_date_fetch3 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id)));
+}
+else
+{
+$module_date_fetch3 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch'),array('pass'=>array($table_name,$receipt_id)));
+}   
 foreach ($module_date_fetch3 as $collection) 
 {
-$date1 = @$collection[$module_name]['transaction_date'];
+$date1 = @$collection[$table_name]['transaction_date'];
 if(empty($date1))
 {
-$date1 = @$collection[$module_name]['posting_date'];	
+$date1 = @$collection[$table_name]['posting_date'];	
 }
 if(empty($date1))
 {
-$date1 = @$collection[$module_name]['purchase_date'];	
+$date1 = @$collection[$table_name]['purchase_date'];	
 }
 if(empty($date1))
 {
-$date1 = @$collection[$module_name]['date'];	
+$date1 = @$collection[$table_name]['date'];	
 }
-$narration = @$collection[$module_name]['narration'];
-$remark = @$collection[$module_name]['remark'];
+$narration = @$collection[$table_name]['narration'];
+$remark = @$collection[$table_name]['remark'];
 }
 
 $amount_category_fetch3 = $this->requestAction(array('controller' => 'hms', 'action' =>'amount_category'),array('pass'=>array($amount_category_id)));
@@ -1116,47 +1156,61 @@ $account_type = (int)@$collection['ledger']['account_type'];
 $receipt_id = @$collection['ledger']['receipt_id']; 
 $amount = @$collection['ledger']['amount'];
 $amount_category_id = (int)@$collection['ledger']['amount_category_id'];
-$module_id = (int)@$collection['ledger']['module_id'];
+//$module_id = (int)@$collection['ledger']['module_id'];
 $sub_account_id = (int)@$collection['ledger']['account_id']; 
 $current_date = @$collection['ledger']['current_date'];
 $society_id = (int)@$collection['ledger']['society_id'];
+$module_name2 = $collection['ledger']['module_name'];
+$table_name = $collection['ledger']['table_name'];
+if($table_name == "cash_bank")
+{
+$module_id = (int)$collection['ledger']['module_id'];
+}
 
  if($receipt_id == 'O_B')
  continue;
- 
+ /*
 $account_category_fetch2 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_fetch'),array('pass'=>array($module_id)));									
 foreach ($account_category_fetch2 as $collection) 
 {
 $module_name = @$collection['account_category']['ac_category'];
 $module_name2 = @$collection['account_category']['module_name'];
 }
+*/
 
-$module_date_fetch4 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch'),array('pass'=>array($module_name,$receipt_id)));   
+if($table_name == "cash_bank")
+{
+$module_date_fetch4 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id)));   
+}
+else
+{
+$module_date_fetch4 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch'),array('pass'=>array($table_name,$receipt_id)));   
+}
 foreach ($module_date_fetch4 as $collection) 
 {
-$date = @$collection[$module_name]['transaction_date'];
+$date = @$collection[$table_name]['transaction_date'];
 if(empty($date))
 {
-$date = @$collection[$module_name]['posting_date'];	
+$date = @$collection[$table_name]['posting_date'];	
 }
 if(empty($date))
 {
-$date = @$collection[$module_name]['purchase_date'];	
+$date = @$collection[$table_name]['purchase_date'];	
 }
 if(empty($date))
 {
-$date = @$collection[$module_name]['date'];	
+$date = @$collection[$table_name]['date'];	
 }
-$narration = @$collection[$module_name]['narration'];
+$narration = @$collection[$table_name]['narration'];
 if(empty($narration))
 {
-$narration = @$collection[$module_name]['remark'];
+$narration = @$collection[$table_name]['remark'];
 }
 if(empty($narration))
 {
-$narration = @$collection[$module_name]['description'];	
+$narration = @$collection[$table_name]['description'];	
 }
-$remark = @$collection[$module_name]['remark'];
+$remark = @$collection[$table_name]['remark'];
 }
 
 $amount_category_fetch4 = $this->requestAction(array('controller' => 'hms', 'action' =>'amount_category'),array('pass'=>array($amount_category_id)));
