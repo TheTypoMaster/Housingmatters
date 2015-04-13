@@ -4438,7 +4438,7 @@ HousingMatters (Support Team)<br/><br/>
 www.housingmatters.co.in
 </div >
 </div>";
-exit;
+
 $from_name="HousingMatters";
 $reply="support@housingmatters.in";
 $this->loadmodel('email');
@@ -4467,7 +4467,7 @@ $user_name=$collection['user_temp']['user_name'];
 $mobile1=$collection['user_temp']['mobile'];
 }
 $to=$email1;
-$message_web="<div>
+echo $message_web="<div>
 <img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 <span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
 <a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
@@ -4482,7 +4482,7 @@ www.housingmatters.co.in
 </div >
 
 </div>";
-
+exit;
 $from_name="HousingMatters";
 $reply="support@housingmatters.in";
 
