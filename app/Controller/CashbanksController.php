@@ -2664,8 +2664,41 @@ $this->set('s_role_id',$s_role_id);
 
 }
 
-//////////////////////////////////////////////////////////// End Fix Deposit View (Accounts) ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////// End Fix Deposit View (Accounts) /////////////////////////////
 
+//////////////////////////////////// Start Fix Deposit Show Ajax ///////////////////////////////////////////////////////
+
+function fixed_diposit_show_ajax()
+{
+$this->layout='blank';
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = $this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
+
+$from = $this->request->query('date1');
+$to = $this->request->query('date2');
+
+$this->set('from',$from);
+$this->set('to',$to);
+
+//$from = date("Y-m-d", strtotime($from));
+//$from = new MongoDate(strtotime($from));
+
+//$to = date("Y-m-d", strtotime($to));
+//$to = new MongoDate(strtotime($to));
+
+$this->loadmodel('fix_deposit');
+$conditions=array("society_id" => $s_society_id);
+$cursor1 = $this->fix_deposit->find('all',array('conditions'=>$conditions));
+$this->set('cursor1',$cursor1);
+
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor2=$this->society->find('all',array('conditions'=>$conditions));
+$this->set('cursor2',$cursor2);
+
+}
+//////////////////////////////////// End Fix Deposit Show Ajax ///////////////////////////////////////////////////////
 
 
 }
