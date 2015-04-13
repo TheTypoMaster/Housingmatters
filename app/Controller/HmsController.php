@@ -19568,22 +19568,23 @@ $dd=explode(' ',$sco_na);
 
 
 $myArray = json_decode($q, true);
-
+$c=0;
 foreach($myArray as $child){
+	$c++;
 	if(empty($child[0])){
-		$output = json_encode(array('type'=>'error', 'text' => 'Please enter a name'));
+		$output = json_encode(array('type'=>'error', 'text' => 'Please enter name in row '.$c));
         die($output);
 	}
 	if(empty($child[1])){
-		$output = json_encode(array('type'=>'error', 'text' => 'Please Select a wing'));
+		$output = json_encode(array('type'=>'error', 'text' => 'Please Select a wing in row '.$c));
         die($output);
 	}
 	if(empty($child[2])){
-		$output = json_encode(array('type'=>'error', 'text' => 'Please Select a flat'));
+		$output = json_encode(array('type'=>'error', 'text' => 'Please Select a flat in row '.$c));
         die($output);
 	}
 	if (!filter_var($child[3], FILTER_VALIDATE_EMAIL) && !empty($child[3])) {
-	  $output = json_encode(array('type'=>'error', 'text' => 'Invalid email format'));
+	  $output = json_encode(array('type'=>'error', 'text' => 'Invalid email format in row '.$c));
         die($output);
 	}elseif(!empty($child[3])){
 		$this->loadmodel('user_temp');
@@ -19596,12 +19597,12 @@ foreach($myArray as $child){
 		$n4 = sizeof($result4);
 		$e=$n3+$n4;
 		if ($e > 0) {
-			$output = json_encode(array('type'=>'error', 'text' => 'Email already exist.'));
+			$output = json_encode(array('type'=>'error', 'text' => 'Email already exist in row '.$c));
 			die($output);
 		}
 	}
 	if (!preg_match ( '/^\\d{10}$/',$child[4]) && !empty($child[4])) {
-	  $output = json_encode(array('type'=>'error', 'text' => 'Invalid mobile format'));
+	  $output = json_encode(array('type'=>'error', 'text' => 'Invalid mobile format in row '.$c));
         die($output);
 	}elseif(!empty($child[4])){
 		$this->loadmodel('user_temp');
@@ -19614,23 +19615,23 @@ foreach($myArray as $child){
 		$n4 = sizeof($result4);
 		$e=$n3+$n4;
 		if ($e > 0) {
-			$output = json_encode(array('type'=>'error', 'text' => 'Mobile already exist.'));
+			$output = json_encode(array('type'=>'error', 'text' => 'Mobile already exist in row '.$c));
 			die($output);
 		}
 	}
 	if (empty($child[5])) {
-	  $output = json_encode(array('type'=>'error', 'text' => 'Please Select owner'));
+	  $output = json_encode(array('type'=>'error', 'text' => 'Please Select owner in row '.$c));
         die($output);
 	}else{
 			if ($child[5]==1){
 					if (empty($child[6])){
-						$output = json_encode(array('type'=>'error', 'text' => 'Please Select a Committee'));
+						$output = json_encode(array('type'=>'error', 'text' => 'Please Select a Committee in row '.$c));
 						die($output);
 					}
 			}
 	}
 	if (empty($child[7])) {
-	  $output = json_encode(array('type'=>'error', 'text' => 'Please Select residing'));
+	  $output = json_encode(array('type'=>'error', 'text' => 'Please Select residing in row '.$c));
         die($output);
 	}
 	

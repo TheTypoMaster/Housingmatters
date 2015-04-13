@@ -8,57 +8,64 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 });
 </script>
 
-<div style="margin:auto;width:90%;">
+
 <div style="border-bottom:solid 2px #44b6ae; color:white; background-color: #44b6ae; padding:4px; font-size:20px;"><i class="icon-calendar"></i> Create New Event</div>
-<div style="padding:10px;background-color:#fff;">
+<div style="padding:10px;background-color:#fff;border: solid 1px rgb(68, 182, 174);">
 
 
 <form method="post"  enctype="multipart/form-data">
 <!-------------------------------------->
+<div class="row-fluid">
+	<div class="span6">
+		
+		
+		<div class="control-group">
+		  <label class="control-label">Event Name</label>
+		  <div class="controls">
+			 <input type="text" name="e_name" class="span9 m-wrap" maxlength="50" id="alloptions" placeholder="Event Name">
+		  </div>
+		</div>
 
+		<div class="control-group ">
+		  <div class="controls">
+		   <label class="" style="font-size:14px;">Description</label>
+			  <textarea name="description" rows="2"  id="textarea" maxlength="500" class="span9 m-wrap" style="resize:none;" placeholder="More info about enent"></textarea>
+		  </div>
+		</div>
 
-<div class="control-group">
-  <label class="control-label">Event Name</label>
-  <div class="controls">
-	 <input type="text" name="e_name" class="span8 m-wrap" maxlength="50" id="alloptions" placeholder="Event Name">
-  </div>
-</div>
+		<div class="controls">
+			<label class="radio">
+			<input type="radio" name="day_type" id="single" checked=""  value="1" style="opacity: 0;">
+			Single day Event
+			</label>
+			<label class="radio">
+			<input type="radio" name="day_type" id="multiple" value="2" style="opacity: 0;">
+			Multiple days Event
+			</label> 
+		</div>
 
-<div class="control-group ">
-  <div class="controls">
-   <label class="" style="font-size:14px;">Description</label>
-	  <textarea name="description" rows="2"  id="textarea" maxlength="500" class="span8 m-wrap" style="resize:none;" placeholder="More info about enent"></textarea>
-  </div>
-</div>
+		<div class="control-group" id="dubble_date" style="display:none;">
+		  <div class="controls">
+			<input type="text" name="date_from" data-date-format="dd-mm-yyyy" class="span3 m-wrap date-picker" placeholder="Date From">
+			<input type="text" name="date_to" data-date-format="dd-mm-yyyy" class="span3 m-wrap date-picker" placeholder="Date To">
+		  </div>
+		</div>
 
-<div class="controls">
-	<label class="radio">
-	<input type="radio" name="day_type" id="single" checked=""  value="1" style="opacity: 0;">
-	Single day Event
-	</label>
-	<label class="radio">
-	<input type="radio" name="day_type" id="multiple" value="2" style="opacity: 0;">
-	Multiple days Event
-	</label> 
-</div>
+		<div class="control-group" id="single_date" >
+		  <div class="controls">
+			<input type="text" name="date_single" data-date-format="dd-mm-yyyy" class="span3 m-wrap date-picker" placeholder="Date">
+		  </div>
+		</div>
 
-<div class="control-group" id="dubble_date" style="display:none;">
-  <div class="controls">
-	<input type="text" name="date_from" data-date-format="dd-mm-yyyy" class="span3 m-wrap date-picker" placeholder="Date From">
-	<input type="text" name="date_to" data-date-format="dd-mm-yyyy" class="span3 m-wrap date-picker" placeholder="Date To">
-  </div>
-</div>
-
-<div class="control-group" id="single_date" >
-  <div class="controls">
-	<input type="text" name="date_single" data-date-format="dd-mm-yyyy" class="span3 m-wrap date-picker" placeholder="Date">
-  </div>
-</div>
-
-
-
-
-<div class="control-group">
+		
+		
+		
+		
+	</div>
+	<div class="span6">
+		
+		
+		<div class="control-group">
   <label class="control-label">Location</label>
   <div class="controls">
 	 <input type="text" name="location" class="span8 m-wrap" maxlength="100" id="alloptions" placeholder="Location">
@@ -135,14 +142,16 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 	
 	
 	<!---------------end visible-------------------------------->
-			
-<br/><br/>			
+		
+	</div>
+</div>
+		
 <div  style="margin-bottom:0px !important;">
 	<button type="submit" name="create_event" class="btn blue" style="font-size: 20px;padding: 12px;"><i class="icon-calendar"></i> Create Event</button>
 </div>
 </form>
 </div>
-</div>
+
 
 <script>
 $(document).ready(function(){

@@ -86,7 +86,7 @@ $wing_name=$data["wing"]["wing_name"];
 </form>
 <script>
 $(document).ready(function() { 
-	 $("#add_row").live('click',function(){
+	 $("#add_row").bind('click',function(){
 		var h=$('#hidden').val();
 		h++;
 		$('#hidden').val(h);
