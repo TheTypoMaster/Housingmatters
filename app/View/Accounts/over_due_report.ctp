@@ -122,7 +122,7 @@ $flat_name = $collection['flat']['flat_number'];
 <script>
 $(document).ready(function() {
 	$("#go").live('click',function(){
-		alert();
+		
 var date1=document.getElementById('date1').value;
 if(date1 === '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Fill Date</div>'); return false; }
 		

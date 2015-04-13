@@ -21,16 +21,20 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <button type="button" class=" printt btn green" onclick="window.print()"><i class="icon-print"></i> Print</button>
 </span>
 </div>-->
+<?php
+$b_date = date('1-d-Y');
+$c_date = date('d-m-Y');
+?>
 <center>
 <br />
 
 <table border="0">
 <tr>
 <td>
- <input type="text" placeholder="From Date" id="date1" style="height:77%; background-color:white !important;" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="from">
+ <input type="text" placeholder="From Date" id="date1" style="height:77%; background-color:white !important;" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="from" value="<?php echo $b_date; ?>">
 </td>
 <td>
-<input type="text" placeholder="To Date" id="date2" style="height:77%; background-color:white !important;" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="to">
+<input type="text" placeholder="To Date" id="date2" style="height:77%; background-color:white !important;" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="to" value="<?php echo $c_date; ?>">
 </td>
 <td>
 <button type="button" id="go" name="sub" class="btn yellow" style="margin-bottom:10px;">Go</button>

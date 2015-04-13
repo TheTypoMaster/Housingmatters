@@ -37,6 +37,7 @@ $b_date = date('1-m-Y');
 <div class="hide_at_print">
 <form method="post" id="contact-form">
 <br>
+<div id="validate_result"></div>
 <table>
 <tbody><tr>
 <td>
@@ -146,7 +147,7 @@ var date1=document.getElementById('date1').value;
 var date2=document.getElementById('date2').value;
 var tp=document.getElementById('tp').value; 
 
-if((tp=='')) { alert('Please Select Bill Type'); }
+if(tp=== '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Select an Option</div>'); return false; }
 if((date1=='')) { alert('Please Input Date-from'); }
 if((date2=='')) { alert('Please Input Date-to'); }
 else
