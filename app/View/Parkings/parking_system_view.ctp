@@ -35,6 +35,8 @@ Parking Managment System
 <th style="">Sr No.</th>
 <th>Slot no </th>
 <th>Type</th>
+<th>Stiker Number</th>
+
 </tr>
 </thead>
 <tbody>
@@ -46,6 +48,7 @@ foreach($result_parking as $data)
 $i++;
 @$slot_no=@$data['parking']['slot_no'];
 @$type=@$data['parking']['type'];
+@$stiker_number=@$data['parking']['stiker_number'];
 
 ?>
 <tr class="odd gradeX" >
@@ -55,6 +58,11 @@ $i++;
  </td>
 <td>
 <?php echo $type ; ?>
+
+
+  </td>
+  <td>
+<?php echo $stiker_number ; ?>
 
 
   </td>
