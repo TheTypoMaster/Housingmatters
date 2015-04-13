@@ -148,10 +148,11 @@ var date2=document.getElementById('date2').value;
 var tp=document.getElementById('tp').value; 
 
 if(tp=== '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Select an Option</div>'); return false; }
-if((date1=='')) { alert('Please Input Date-from'); }
-if((date2=='')) { alert('Please Input Date-to'); }
+
 else
 {
+ $('#validate_result').html('<div></div>');	
+	
 $("#result").html('<div align="center" style="padding:10px;"><img src="as/loding.gif" />Loading....</div>').load("my_flat_bill_ajax?date1=" +date1+ "&date2=" +date2+ "&tp=" +tp+ "");
 }
 });

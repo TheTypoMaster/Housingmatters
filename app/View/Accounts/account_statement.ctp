@@ -7,10 +7,14 @@
 
 
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-
+<?php
+$b_date = date('1-m-Y');
+$c_date = date('d-m-Y');
+?>
 
 <center>
 <div class="hide_at_print">
+<div id="validate_result"></div>
 <table border="0">
 <tr>
 <td>
@@ -29,10 +33,10 @@ $user_name1 = $collection['user']['user_name'];
 </select>
 </td>
 <td>
-<input type="text" class="medium m-wrap date-picker" name="from" id="from" style="background-color:white !important; margin-top:8px;" />
+<input type="text" class="medium m-wrap date-picker" name="from" id="from" style="background-color:white !important; margin-top:8px;"  value="<?php echo $b_date; ?>"/>
 </td>
 <td>
-<input type="text" class="medium m-wrap date-picker" name="to" id="to" style="background-color:white !important; margin-top:8px;" />
+<input type="text" class="medium m-wrap date-picker" name="to" id="to" style="background-color:white !important; margin-top:8px;"  value="<?php echo $c_date; ?>"/>
 </td>
 <td>
 <button type="button" name="" id="go" class="btn yellow" style="">Go</button>
@@ -127,9 +131,14 @@ $(document).ready(function() {
 	var from = document.getElementById('from').value;	
 	var to = document.getElementById('to').value;	
 
-	
-	$("#show").html('Loading...').load("account_statement_show_ajax?ff=" + usid + "&f=" + from +"&t=" + to +"");
-	
+if(usid=== '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Select an Option</div>'); return false; }
+else if(from=== '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Fill From date</div>'); return false; }
+else if(to=== '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Fill To date</div>'); return false; }
+else
+{
+$('#validate_result').html('<div></div>'); 
+$("#show").html('Loading...').load("account_statement_show_ajax?ff=" + usid + "&f=" + from +"&t=" + to +"");
+}
 	
 	});
 });

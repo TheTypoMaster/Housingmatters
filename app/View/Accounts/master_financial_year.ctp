@@ -181,6 +181,12 @@ thanks</textarea>
          var fd1 = document.getElementById("fd1").value;
 		 var td1 = document.getElementById("td1").value;
          
+		 if(fromd1=== '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Fill from date</div>'); return false; }
+		 
+		 if(tod1=== '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Fill to date</div>'); return false; }
+		 
+		 
+		 
 		 var fromd = fromd1.split("-").reverse().join("-");
 		 var tod = tod1.split("-").reverse().join("-");
 		 if(fromd == "")
