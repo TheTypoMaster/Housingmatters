@@ -4406,9 +4406,9 @@ $sms='Hello!+New+User+request+:+'.$user_name1.'+'.$wing_flat.'+'.$tenant.'+Pleas
 $sms1=str_replace(' ', '+', $sms);
 $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 $to=$email;
+echo $ip ;
 
-
-$message_web="<div>
+echo $message_web="<div>
 <img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 <span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
 <a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
@@ -4438,7 +4438,7 @@ HousingMatters (Support Team)<br/><br/>
 www.housingmatters.co.in
 </div >
 </div>";
-
+exit;
 $from_name="HousingMatters";
 $reply="support@housingmatters.in";
 $this->loadmodel('email');
