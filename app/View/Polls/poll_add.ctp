@@ -258,14 +258,14 @@ $("#show_4").hide();
 <script>
 $(document).ready(function() {
 	var inc=2;
-	 $("#add1").live('click',function(){
+	 $("#add1").bind('click',function(){
 	 alert(inc);
 		inc++;
 		$("#choice_text_box1").val(inc);
 		$("#choice_div").append('<div class="controls" id=tax'+inc+'><input name=choice'+inc+' type="text" class="span10 m-wrap" placeholder='+inc+'></div>');
 	 });
 	 
-	 $("#remove1").live('click',function(){
+	 $("#remove1").bind('click',function(){
 		$("#tax"+inc).remove();
 		if(inc>2)
 		{
@@ -278,7 +278,7 @@ $(document).ready(function() {
 
 <script>
 $(document).ready(function() {
-	 $("#preview").live('click',function(){
+	 $("#preview").bind('click',function(){
 	 var question=$("#question").val();
 	 $("#get_question").text(question);
 	 
