@@ -111,7 +111,7 @@ $result_amt = $this->requestAction(array('controller' => 'hms', 'action' => 'amo
 <td><?php echo $narration; ?> </td>
 <td><?php echo $amount; ?></td>
 
-<td class="hide_at_print"><a href="petty_cash_payment_pdf?c=<?php echo $transaction_id; ?>&m=4" target="_blank" class="btn mini purple tooltips"
+<td class="hide_at_print"><a href="petty_cash_payment_pdf?c=<?php echo $transaction_id; ?>" target="_blank" class="btn mini purple tooltips"
  data-placement="bottom" data-original-title="Download Pdf" >Pdf</a>
 <a class="btn mini black tooltips" data-placement="bottom" data-original-title="Created By:<?php echo $prepaired_by_name; ?>
 										   Creation Date : <?php echo $creation_date; ?>">!</a>

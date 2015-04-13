@@ -1,14 +1,14 @@
 <?php
 foreach($cursor1 as $collection)
 {
-$account_type = (int)$collection['petty_cash_receipt']['account_type'];
-$receipt_no = (int)$collection['petty_cash_receipt']['receipt_id'];
-$d_date = $collection['petty_cash_receipt']['transaction_date'];
+$account_type = (int)$collection['cash_bank']['account_type'];
+$receipt_no = (int)$collection['cash_bank']['receipt_id'];
+$d_date = $collection['cash_bank']['transaction_date'];
 $today = date("d-M-Y");
-$user_id_d = (int)$collection['petty_cash_receipt']['user_id'];
-$amount = $collection['petty_cash_receipt']['amount'];
-$society_id = (int)$collection['petty_cash_receipt']['society_id'];
-$narration = $collection['petty_cash_receipt']['narration'];
+$user_id_d = (int)$collection['cash_bank']['user_id'];
+$amount = $collection['cash_bank']['amount'];
+$society_id = (int)$collection['cash_bank']['society_id'];
+$narration = $collection['cash_bank']['narration'];
 }
 if($account_type == 1)
 {

@@ -99,11 +99,11 @@ for Previous Bill
 <td></td>
 </tr>
 <tr>
-<td colspan="2" align="center">
+<td colspan="2">
 <br><br><br><br>
 <p style="font-size:10px;">
-Received with thanks from: '.$user_name.'<br>
-Rs. (words) only 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Received with thanks from: '.$user_name.'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rs. (words) only 
 </p>
 </td>
 <td align="center">
@@ -113,9 +113,9 @@ Rs. (words) only
 </td>
 </tr>
 <tr>
-<td colspan="2" align="center">
+<td colspan="2">
 <p style="font-size:10px;">
-Via '.$receipt_mode.'
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Via '.$receipt_mode.'
 </p>
 </td>
 <td align="center">
@@ -126,9 +126,9 @@ Rs. &nbsp;&nbsp;
 </td>
 </tr>
 <tr>
-<td colspan="2" align="center">
+<td colspan="2">
 <p style="font-size:10px;">
-Payment for Bill No. '.$receipt_no.' Dated '.$date.'
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Payment for Bill No. '.$receipt_no.' Dated '.$date.'
 </p>
 </td>
 <td align="center">
@@ -146,6 +146,7 @@ Subject to realization of Cheque
 For:'.$society_name.'<br>
 Secretary/Treasurer
 </p>
+<br>
 </td>
 </tr>
 </table>

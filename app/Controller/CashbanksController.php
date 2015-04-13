@@ -1507,7 +1507,7 @@ $i = 1000;
 else
 {	
 $auto = $last11;
-$i = $last12;
+$i = $last22;
 }
 $auto++;
 $i++; 
@@ -1866,9 +1866,10 @@ $s_user_id=$this->Session->read('user_id');
 $tns_id = (int)$this->request->query('c');
 $this->set('tns_id',$tns_id);
 
-$this->loadmodel('petty_cash_receipt');
-$conditions=array("transaction_id" => $tns_id);
-$cursor1=$this->petty_cash_receipt->find('all',array('conditions'=>$conditions));
+
+$this->loadmodel('cash_bank');
+$conditions=array("transaction_id" => $tns_id,"module_id"=>3);
+$cursor1=$this->cash_bank->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);
 
 
@@ -2175,9 +2176,9 @@ $this->set('tns_id',$tns_id);
 $this->set('module_id',$module_id);
 
 
-$this->loadmodel('petty_cash_payment');
-$conditions=array("transaction_id" => $tns_id,"module_id"=>$module_id);
-$cursor1=$this->petty_cash_payment->find('all',array('conditions'=>$conditions));
+$this->loadmodel('cash_bank');
+$conditions=array("transaction_id" => $tns_id,"module_id"=>4);
+$cursor1=$this->cash_bank->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);
 
 
@@ -2505,12 +2506,16 @@ $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
 
+$module_id = (int)$this->request->query('m');
 $tns_id = (int)$this->request->query('c');
 $this->set('tns_id',$tns_id);
+$this->set('module_id',$module_id);
 
-$this->loadmodel('bank_payment');
-$conditions=array("transaction_id" => $tns_id);
-$cursor1=$this->bank_payment->find('all',array('conditions'=>$conditions));
+
+
+$this->loadmodel('cash_bank');
+$conditions=array("transaction_id" => $tns_id,"module_id"=>$module_id);
+$cursor1=$this->cash_bank->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);
 
 $this->loadmodel('society');
@@ -2529,11 +2534,110 @@ if($this->RequestHandler->isAjax()){
 	}else{
 		$this->layout='session';
 	}
+	
+$this->ath();
+$this->check_user_privilages();		
+	
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = $this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
 
 $this->set('s_role_id',$s_role_id);
+
+if(isset($this->request->data['sub']))
+{
+$bank_name = $this->request->data['bank_name'];
+$branch = $this->request->data['branch'];
+$account_reference = $this->request->data['account_reference'];
+$principal_amount = $this->request->data['principal_amount'];
+$start_date = $this->request->data['start_date'];
+$maturity_date = $this->request->data['maturity_date'];
+$interest_rate = $this->request->data['interest_rate'];
+$remark = $this->request->data['remark'];
+$reminder = $this->request->data['reminder'];
+$tds = $this->request->data['tds'];
+$name = $this->request->data['name'];
+$email = $this->request->data['email'];
+$mobile = $this->request->data['mobile'];
+
+$current_date = date('d-m-Y');
+$current_date = date("Y-m-d", strtotime($current_date));
+$current_date = new MongoDate(strtotime($current_date));
+
+$start_date = date("Y-m-d", strtotime($start_date));
+$start_date = new MongoDate(strtotime($start_date));
+
+$maturity_date = date("Y-m-d", strtotime($maturity_date));
+$maturity_date = new MongoDate(strtotime($maturity_date));
+
+$this->loadmodel('fix_deposit');
+$conditions=array("society_id" => $s_society_id);
+$order=array('fix_deposit.auto_id'=> 'DESC');
+$cursor=$this->fix_deposit->find('all',array('conditions'=>$conditions,'order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last11 = $collection['fix_deposit']['auto_id'];
+}
+if(empty($last11))
+{
+$i=0;
+}	
+else
+{	
+$i=$last11;
+}
+$i++; 
+$this->loadmodel('fix_deposit');
+$multipleRowData = Array( Array("auto_id" => $i, "bank_name" => $bank_name,  "branch" => $branch, "account_reference" => $account_reference, "prepaired_by" => $s_user_id, 
+"principal_amount" => $principal_amount, "start_date" => $start_date,"maturity_date" => $maturity_date, "interest_rate" => $interest_rate,"remark" => $remark, "reminder" => $reminder,"tds" => $tds, "name" => $name, "society_id" => $s_society_id, "email" => $email,"mobile" => $mobile, "current_date"=>$current_date));
+$this->fix_deposit->saveAll($multipleRowData);
+?>
+
+<div class="modal-backdrop fade in"></div>
+<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+<div class="modal-header">
+<center>
+<h3 id="myModalLabel3" style="color:#999;"><b>Fix Deposit</b></h3>
+</center>
+</div>
+<div class="modal-body">
+<center>
+<h5><b>Record Inserted Successfully</b></h5>
+</center>
+</div>
+<div class="modal-footer">
+<a href="fix_deposit_view" class="btn blue">OK</a>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 /////////////////////////////////////End Fix Deposit Add (Accounts) //////////////////////////////////////////////////////
@@ -2546,6 +2650,11 @@ if($this->RequestHandler->isAjax()){
 	}else{
 		$this->layout='session';
 	}
+	
+$this->ath();
+$this->check_user_privilages();		
+	
+	
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = $this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');

@@ -140,7 +140,7 @@ $result_lsa2 = $this->requestAction(array('controller' => 'hms', 'action' => 'le
                                             <td><?php echo $account_no; ?> </td>
                                             <td><?php echo $description; ?> </td>
                                             <td class="hide_at_print">
-                                            <a href="bank_payment_pdf?c=<?php echo $transaction_id; ?>" class="btn mini blue tooltips" target="_blank" data-placement="bottom" data-original-title="Download Pdf">Pdf</a>
+                                            <a href="bank_payment_pdf?c=<?php echo $transaction_id; ?>&m=2" class="btn mini blue tooltips" target="_blank" data-placement="bottom" data-original-title="Download Pdf">Pdf</a>
 											 <a href="" class="btn mini black tooltips" data-placement="bottom" data-original-title="Created By:<?php echo $prepaired_by_name; ?>
 										     Creation Date : <?php echo $creation_date; ?>" >!</a>
 											
@@ -166,7 +166,7 @@ $result_lsa2 = $this->requestAction(array('controller' => 'hms', 'action' => 'le
                                             <td><?php echo $account_no; ?> </td>
                                             <td><?php echo $description; ?> </td>
                                            <td class="hide_at_print">
-                                           <a href="bank_payment_pdf?c=<?php echo $transaction_id; ?>" class="btn mini purple tooltips" target="_blank" ata-placement="bottom" data-original-title="Download Pdf">Pdf</a>
+                                           <a href="bank_payment_pdf?c=<?php echo $transaction_id; ?>&m=2" class="btn mini purple tooltips" target="_blank" ata-placement="bottom" data-original-title="Download Pdf">Pdf</a>
 							               <a href="" class="btn mini black tooltips" data-placement="bottom" data-original-title="Created By:<?php echo $prepaired_by_name; ?>
 										   Creation Date : <?php echo $creation_date; ?>" >!</a>
                                            </td>

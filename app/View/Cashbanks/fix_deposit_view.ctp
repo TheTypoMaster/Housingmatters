@@ -32,13 +32,10 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <br>
 <center>
-<a href="fix_deposit_add" class="btn blue">Add</a>
-<a href="fix_deposit_view" class="btn red">Active Deposits</a>
-<a href="matured_deposit_view" class="btn blue">Matured Deposits</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/fix_deposit_add" class="btn blue" rel='tab'>Add</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/fix_deposit_view" class="btn red" rel='tab'>Active Deposits</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/matured_deposit_view" class="btn blue" rel='tab'>Matured Deposits</a>
 </center>	
-             <div align="right">
-             <a href="fix_deposit_excel" class="btn " target="_new" style="margin-right:5%"> <img src="as/Download-icon.png"></a>
-             </div>
 
 
 

@@ -1,14 +1,14 @@
 <?php
 foreach ($cursor1 as $collection) 
 {
-$receipt_no = (int)$collection['petty_cash_payment']['receipt_id'];
-$d_date = $collection['petty_cash_payment']['transaction_date'];
+$receipt_no = (int)$collection['cash_bank']['receipt_id'];
+$d_date = $collection['cash_bank']['transaction_date'];
 $today = date("d-M-Y");
-$user_id_d = (int)$collection['petty_cash_payment']['user_id'];
-$amount = $collection['petty_cash_payment']['amount'];
-$society_id = (int)$collection['petty_cash_payment']['society_id'];
-$narration = $collection['petty_cash_payment']['narration'];
-$account_type = (int)$collection['petty_cash_payment']['account_type'];
+$user_id_d = (int)$collection['cash_bank']['user_id'];
+$amount = $collection['cash_bank']['amount'];
+$society_id = (int)$collection['cash_bank']['society_id'];
+$narration = $collection['cash_bank']['narration'];
+$account_type = (int)$collection['cash_bank']['account_type'];
 }
 
 if($account_type == 1)
@@ -16,7 +16,7 @@ if($account_type == 1)
 $result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($user_id_d)));
 foreach($result_lsa as $collection)
 {
-$user_name = (int)$collection['ledger_sub_account']['name'];
+$user_name = $collection['ledger_sub_account']['name'];
 }
 }
 else if($account_type == 2)

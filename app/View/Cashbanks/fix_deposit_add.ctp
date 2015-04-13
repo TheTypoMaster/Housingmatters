@@ -34,9 +34,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <br>
 <center>
-<a href="fix_deposit_add" class="btn red">Add</a>
-<a href="fix_deposit_view" class="btn blue">Active Deposits</a>
-<a href="matured_deposit_view" class="btn blue">Matured Deposits</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/fix_deposit_add" class="btn red" rel='tab'>Add</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/fix_deposit_view" class="btn blue" rel='tab'>Active Deposits</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/matured_deposit_view" class="btn blue" rel='tab'>Matured Deposits</a>
 </center>	
 
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
@@ -57,7 +57,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			<label class="" style="font-size:14px;">Bank Name</label>
 			</td>
 			<td><br>
-			<input type="text" name="bank_name" class="m-wrap medium">
+			<input type="text" name="bank_name" class="m-wrap medium" id="bkn">
+            <label id="bkn"></label>
 			</td>
 			</tr>
 
@@ -67,7 +68,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			<label class="" style="font-size:14px;">Branch</label>
 			</td>
 			<td><br>
-			<input type="text"  name="branch" class="m-wrap medium">
+			<input type="text"  name="branch" class="m-wrap medium" id="brc">
+             <label id="brc"></label>
 			</td>
 			</tr>	
 
@@ -77,7 +79,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			<label class="" style="font-size:14px;">Account Reference</label>
 			</td>
 			<td><br>
-			<input type="text"  name="account_reference" class="m-wrap medium"> 
+			<input type="text"  name="account_reference" class="m-wrap medium" id="arf"> 
+            <label id="arf"></label>
 			</td>
 			</tr>
 
@@ -87,7 +90,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			<label class="" style="font-size:14px;">Principal Amount</label>
 			</td>
 			<td><br>
-			<input type="text"  name="principal_amount" class="m-wrap medium"> 
+			<input type="text"  name="principal_amount" class="m-wrap medium" id="prm">
+             <label id="prm"></label> 
 			</td>
 			</tr>
 
@@ -97,7 +101,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			<label class="" style="font-size:14px;">Start Date</label>
 			</td>
 			<td><br>
-			<input type="text" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="start_date">
+			<input type="text" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="start_date" id="std">
+             <label id="std"></label>
 			</td>
 			</tr>
 
@@ -107,7 +112,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			<label class="" style="font-size:14px;">Maturity Date</label>
 			</td>
 			<td><br>
-			<input type="text" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="maturity_date">
+			<input type="text" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="maturity_date" id="mtd">
+             <label id="mtd"></label>
 			</td>
 			</tr>
 
@@ -117,7 +123,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			<label class="" style="font-size:14px;">Interest Rate %</label>
 			</td>
 			<td><br>
-			<input type="text"  name="interest_rate" class="m-wrap medium">
+			<input type="text"  name="interest_rate" class="m-wrap medium" id="ir">
+             <label id="ir"></label>
 			</td>
 			</tr>
 
@@ -127,7 +134,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			<label class="" style="font-size:14px;">Remarks</label>
 			</td>
 			<td><br>
-			<input type="text" name="remark" class="m-wrap medium">
+			<input type="text" name="remark" class="m-wrap medium" id="rmk">
+             <label id="rmk"></label>
 			</td>
 			</tr>
 
@@ -137,7 +145,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			<label class="" style="font-size:14px;">Reminder Days</label>
 			</td>
 			<td><br>
-			<input type="text" name="reminder" class="m-wrap medium">
+			<input type="text" name="reminder" class="m-wrap medium" id="rmd">
+             <label id="rmd"></label>
 			</td>
 			</tr>
 
@@ -147,7 +156,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			<label class="" style="font-size:14px;">TDS Amount</label>
 			</td>
 			<td><br>
-			<input type="text" name="tds" class="m-wrap medium">
+			<input type="text" name="tds" class="m-wrap medium" id="tda">
+             <label id="tda"></label>
 			</td>
 			</tr>
 
@@ -182,19 +192,25 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			<table style="width:80%;">
 			<tr>
 			<td style="width:37%;"><br><label class="" style="font-size:14px;">Name</label></td>
-			<td><br><input type="text"  name="name" class="m-wrap medium"></td>
+			<td><br><input type="text"  name="name" class="m-wrap medium" id="name">
+             <label id="name"></label>
+            </td>
 			</tr>
 			
 			
 			<tr>
 			<td><br><label class="" style="font-size:14px;">E-mail</label></td>
-			<td><br><input type="text" name="email" class="m-wrap medium"></td>
+			<td><br><input type="text" name="email" class="m-wrap medium" id="email">
+             <label id="email"></label>
+            </td>
 			</tr>
 
 			
 			<tr>
 			<td><br><label class="" style="font-size:14px;">Mobile</label></td>
-			<td><br><input type="text" name="mobile" class="m-wrap medium"></td>
+			<td><br><input type="text" name="mobile" class="m-wrap medium" id="mobile">
+             <label id="mobile"></label>
+            </td>
 			</tr>
 			
 			</table>
@@ -229,7 +245,109 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>			
 			
 			
-			
+<script>
+$(document).ready(function(){
+
+$.validator.setDefaults({ ignore: ":hidden:not(select)" });
+
+
+		$('#contact-form').validate({
+		
+		errorElement: "label",
+                    //place all errors in a <div id="errors"> element
+                    errorPlacement: function(error, element) {
+                        //error.appendTo("label#errors");
+						error.appendTo('label#' + element.attr('id'));
+                    },
+		
+		
+		
+	    rules: {
+	      bank_name: {
+	       
+	        required: true
+	      },
+		  
+		  
+		  mobile: {
+	       
+	        required: true,
+			number: true
+	      },
+		  
+		   email: {
+	       
+	        required: true
+	      },
+		  
+		  
+		  
+		   name: {
+	       
+	        required: true
+	      },
+	 
+		  account_reference: {
+	            required: true
+	      },
+
+	     branch: {
+	       required: true
+	      },
+		  
+		  
+		  
+		
+		 principal_amount: {
+	       
+	        required: true,
+			number: true
+	      },
+		  
+		   start_date: {
+	       
+	        required: true
+	      },
+		
+		 maturity_date: {
+	       
+	        required: true
+	      },
+		 
+		 interest_rate: {
+	        required: true,
+			number: true
+	      },
+		
+		
+		tds: {
+	        required: true,
+			number: true
+	      },
+		
+		remark: {
+	        required: true
+	      },
+		
+		reminder: {
+	        required: true,
+			number: true
+	      },
+		
+		
+		},
+			highlight: function(element) {
+				$(element).closest('.control-group').removeClass('success').addClass('error');
+			},
+			success: function(element) {
+				element
+				.text('OK!').addClass('valid')
+				.closest('.control-group').removeClass('error').addClass('success');
+			}
+	  });
+
+}); 
+</script>				
 			
 			
 			
