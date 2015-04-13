@@ -158,7 +158,24 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
 $(document).ready(function() {
 	$("a[rel='tab']").live('click',function(e){
 		e.preventDefault();
-		$("#loading_ajax").html('<div style="position: fixed; top: 7px; z-index: 9999; width: 100%; text-align: center;"><img src="<?php echo $webroot_path; ?>as/fb_loading.gif"></div>');
+		$("#loading_ajax").html('<div id="progress-bar" style="position: fixed; top: 42px; z-index: 9999;  text-align: center;background-color:rgb(0, 141, 210);height: 4px;"></div>');
+		
+		
+		var progressBar = $('#progress-bar'),
+		width = 0;
+		progressBar.width(width);
+
+		var interval = setInterval(function() {
+
+		width += 1;
+
+		progressBar.css('width', width + '%');
+
+		if (width >= 100) {
+			clearInterval(interval);
+		}
+		}, 10);
+		
 		
 		pageurl = $(this).attr('href');
 		$.ajax({
@@ -197,6 +214,12 @@ $(document).ready(function() {
 		pageurl = location.pathname;
 		$('.page-content').load(pageurl+'?rel=tab');
 	};
+	
+	
+		
+
+		
+
 });
 </script>
 
