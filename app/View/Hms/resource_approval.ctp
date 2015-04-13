@@ -72,7 +72,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			
 
 										?>
-										<tr class="odd gradeX" id='load_data<?php echo $id ; ?>'>
+										<tr class="odd gradeX" id='load_data_t<?php echo $id ; ?>'>
 											<td><?php echo $i; ?></td>
                                             <td><?php echo $title; ?></td>
                                             <td><?php echo $category; ?></td>
@@ -103,9 +103,12 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 								
 <script>
 $(document).ready(function() {
- $(".app").live('click',function(){
+ $(".app").bind('click',function(){
+ 
  var a_id=$(this).attr("ap_id");
- $("#load_data" + a_id).html("<td colspan='8'>loading......</td>").load('resource_approve_ajax?t=' + a_id);
+ 
+
+ $("#load_data_t" + a_id).html("<td colspan='8'>loading......</td>").load('resource_approve_ajax?t=' + a_id);
   });
  
  $(".reject").live('click',function(){

@@ -12652,7 +12652,11 @@ function resource_reject()
 }	
 function resource_approve_ajax()
 {
+	if($this->RequestHandler->isAjax()){
 	$this->layout='blank';
+	}else{
+	$this->layout='session';
+	}
 	$s_society_id=$this->Session->read('society_id');
 	$id=(int)$this->request->query('t');
 	$ip=$this->hms_email_ip();
@@ -12856,7 +12860,7 @@ $this->send_notification('<span class="label label-warning" ><i class="icon-fold
 
 $this->loadmodel('resource');
 $this->resource->updateAll(array('resource_delete'=>0),array('resource_id'=>$id));	
-echo"<td colspan='8'>Documents have published</td>";	
+
 }
 
 function resource_view()

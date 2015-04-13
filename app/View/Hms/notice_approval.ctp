@@ -91,24 +91,3 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 								  </div>
 								  
 								
-<script>
-$(document).ready(function() {
- $(".app").live('click',function(){
- var a_id=$(this).attr("ap_id");
- $("#load_data" + a_id).html("<td colspan='8'>loading......</td>").load('notice_approval_ajax?con=' + a_id);
- 
-  });
- 
-$(".reject").live('click',function(){
- var a_id=$(this).attr("ap_id");
-alert(a_id);
- 	
-});
- });
- 
- 
- 
-
-
-
-</script>								  		
