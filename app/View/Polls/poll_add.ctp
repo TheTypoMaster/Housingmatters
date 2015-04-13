@@ -259,7 +259,7 @@ $("#show_4").hide();
 $(document).ready(function() {
 	var inc=2;
 	 $("#add1").bind('click',function(){
-	 alert(inc);
+	
 		inc++;
 		$("#choice_text_box1").val(inc);
 		$("#choice_div").append('<div class="controls" id=tax'+inc+'><input name=choice'+inc+' type="text" class="span10 m-wrap" placeholder='+inc+'></div>');
