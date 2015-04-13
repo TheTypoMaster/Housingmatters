@@ -39,11 +39,3 @@ $wing_name=$data["wing"]["wing_name"];
 </div>
 </td>
 </tr>
-<script>
-$( document ).ready( function() {
-    var test = $("input[type=checkbox]:not(.toggle), input[type=radio]:not(.toggle)");
-        if (test) {
-            test.uniform();
-        }
-});
-</script>
