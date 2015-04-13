@@ -405,7 +405,7 @@ if($this->RequestHandler->isAjax()){
 	}
 	
 $this->ath();
-
+$this->check_user_privilages();
 $s_society_id=$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
 $this->set('s_user_id',$s_user_id);
