@@ -195,7 +195,7 @@ $this->redirect(array('action' => 'index'));
 
 function beforeFilter()
 {
-  Configure::write('debug', 0);
+Configure::write('debug', 0);
 }
 
 function menus_from_role_privileges()
@@ -239,9 +239,9 @@ return $mt_id=$ddq["main_module"]["mt_id"];
 
 function fetch_module_type_name($result_moduletype_id) 
 {
- $this->loadmodel('module_type');
- $conditions=array("module_type_id" => $result_moduletype_id);
- return $this->module_type->find('all',array('conditions'=>$conditions));
+$this->loadmodel('module_type');
+$conditions=array("module_type_id" => $result_moduletype_id);
+return $this->module_type->find('all',array('conditions'=>$conditions));
 
 }
 
