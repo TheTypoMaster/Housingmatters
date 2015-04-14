@@ -232,26 +232,7 @@ $(document).ready(function(){
 
 <script>
 $(document).ready(function() {
- // $('#summernote').summernote();
-  $('#summernote').summernote({
-	  height: 150,   //set editable area's height
-	  codemirror: { // codemirror options
-		theme: 'monokai'
-	  },
-	  toolbar: [
-    //[groupname, [button list]]
-     
-   
-	['style', ['style' ,'bold', 'italic', 'underline' , 'strikethrough', 'clear']],
-	['font', ['strikethrough']],
-	['color', ['color']],
-    ['fontsize', ['fontsize', 'fontname',]],
-    ['Layout', ['ul', 'ol', 'height']],
-	['paragraph', [ 'paragraph']],
-    ['Misc', ['fullscreen'  , 'undo' , 'redo']],
-    ['Insert', ['table' , 'hr']],
-  ]
-	});
+$('#summernote').summernote();
 });
 </script>
 
