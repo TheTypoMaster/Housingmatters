@@ -66,7 +66,7 @@ $gt_pay_amt = $gt_pay_amt + $pay_amt;
 <td style="text-align:center;"><?php echo $total_amount; ?></td>
 <td style="text-align:center;"><?php echo $pay_amt; ?></td>
 <td style="text-align:center;" class="hide_at_print">
-<a href="ac_statement_bill_view?bill=<?php echo $bill_no; ?>" class="btn mini yellow" target="_blank">View Bill</a>
+<a href="ac_statement_bill_view/<?php echo $bill_no; ?>" class="btn mini yellow" target="_blank">View Bill</a>
 
 </td>
 </tr>
@@ -134,7 +134,7 @@ $gt_pay_amt = $gt_pay_amt + $pay_amt;
 <td style="text-align:center;"><?php echo $total_amount; ?></td>
 <td style="text-align:center;"><?php echo $pay_amt; ?></td>
 <td style="text-align:center;" class="hide_at_print">
-<a href="ac_statement_bill_view?bill=<?php echo $bill_no; ?>" class="btn mini yellow" target="_blank">View Bill</a>
+<a href="ac_statement_bill_view/<?php echo $bill_no; ?>" class="btn mini yellow" target="_blank">View Bill</a>
 </td>
 </tr>
 <?php

@@ -159,7 +159,7 @@ $m = 555;
 if(!empty($charge) && $m !=5)
 {
 ?>
-<a href="master_rate_card_edit?a=<?php echo $auto_id11; ?>" class="mini btn purple">Edit</a>
+<a href="master_rate_card_edit/<?php echo $auto_id11; ?>" class="mini btn purple">Edit</a>
 <?php } ?>
 </td>
 </tr>

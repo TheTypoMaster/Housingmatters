@@ -3415,9 +3415,15 @@ $this->set('cursor4',$cursor4);
 /////////////////////////// End master rate card view (Accounts)/////////////////////////////////
 
 ///////////////////// Start Master rate Card Edit ///////////////////////////////////
-function master_rate_card_edit()
+function master_rate_card_edit($auto_id5=null)
 {
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
 $this->layout='session';
+}
+
+
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
@@ -3475,11 +3481,11 @@ $this->flat_type->updateAll(array('charge'=>$ch_arr),array('auto_id'=>$au));
 $this->response->header('Location','master_rate_card_view');
 }
 
-$auto_id = (int)$this->request->query('a');
-$this->set('auto_id',$auto_id);
+$auto_id5 = (int)$auto_id5;
+$this->set('auto_id',$auto_id5);
 
 $this->loadmodel('flat_type');
-$condition=array('society_id'=>$s_society_id,"auto_id"=>$auto_id,"status"=>0);
+$condition=array('society_id'=>$s_society_id,"auto_id"=>$auto_id5,"status"=>0);
 $result2=$this->flat_type->find('all',array('conditions'=>$condition)); 
 $this->set('cursor1',$result2);
 
@@ -4465,14 +4471,14 @@ $this->set('tems_arr',$tems_arr);
 //////////////////////////////////////////// End Supplimentry Bill Pdf (Accounts)///////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////// Start Regular Bill View (Accounts)//////////////////////////////////////////////////////////////
-function regular_bill_view()
+function regular_bill_view($auto_id=null)
 {
 $this->layout='session';
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
 
-$auto_id = (int)$this->request->query('bill');
+$auto_id = (int)$auto_id;
 
 $this->loadmodel('regular_bill');
 $conditions=array("regular_bill_id"=>$auto_id,"society_id" => $s_society_id);
@@ -4614,6 +4620,31 @@ $cursor1 = $this->flat_type->find('all',array('conditions'=>$condition,'order' =
 $this->set('cursor1',$cursor1);
 }
 /////////////////////////// End Nov View2 ///////////////////////////////////////////////////////////
+
+//////////////////////////////Start Supplimentry Bill show/////////////////////////////////////////
+function supplimentry_view($auto_id=null)
+{
+$this->layout='session';
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
+
+$auto_id = (int)$auto_id;
+
+$this->loadmodel('adhoc_bill');
+$conditions=array("receipt_id"=>$auto_id,"society_id" => $s_society_id);
+$cursor=$this->adhoc_bill->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$bill_html = $collection['adhoc_bill']['bill_html'];	
+}
+
+$this->set('bill_html',$bill_html);
+
+
+
+}
+//////////////////////////////End Supplimentry Bill show/////////////////////////////////////////
 
 }
 ?>

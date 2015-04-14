@@ -83,7 +83,7 @@ $due_amount = number_format($due_amount);
 <td style="text-align:center;"><?php echo $due_date; ?></td>
 <td style="text-align:center;"><?php echo $total_amount; ?></td>
 <td style="text-align:center;"><?php echo $due_amount; ?></td>
-<td style="text-align:center;" class="hide_at_print"><a href="ac_statement_bill_view?bill=<?php echo $receipt_id; ?>" class="btn mini yellow" target="_blank">View Bill</a></td>
+<td style="text-align:center;" class="hide_at_print"><a href="ac_statement_bill_view/<?php echo $receipt_id; ?>" class="btn mini yellow" target="_blank">View Bill</a></td>
 </tr>
 
 <?php

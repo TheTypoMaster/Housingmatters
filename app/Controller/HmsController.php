@@ -16067,7 +16067,11 @@ $this->set('cursor2',$cursor2);
 ////////////////////////////////////// Start Fix Asset View (Accounts)///////////////////////////////////////////////////////////////////////////////////
 function fix_asset_view()
 {
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
 $this->layout='session';
+}
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = $this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');

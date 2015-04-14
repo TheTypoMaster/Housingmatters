@@ -1220,14 +1220,15 @@ echo $excel;
 
 //////////////// Start ac statement Bill View////////////////////////////////////////
 /////////// Done////////////////////////////
-function ac_statement_bill_view()
+function ac_statement_bill_view($receipt_id=null)
 {
 $this->layout='blank';
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
 
-$receipt_id = (int)$this->request->query('bill');
+//$receipt_id = (int)$this->request->query('bill');
+$receipt_id = (int)$receipt_id; 
 $this->loadmodel('regular_bill');
 $conditions=array("receipt_id"=>$receipt_id,"society_id" => $s_society_id);
 $cursor=$this->regular_bill->find('all',array('conditions'=>$conditions));

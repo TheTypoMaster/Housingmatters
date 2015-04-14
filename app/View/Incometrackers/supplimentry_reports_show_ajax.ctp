@@ -104,7 +104,7 @@ $grand_total = $grand_total + $g_total;
 <td><?php 
 $g_total = number_format($g_total);
 echo $g_total; ?></td>
-<td class="hide_at_print"><a href="supplimentry_bill_view2?bill=<?php echo $adhoc_bill; ?>" class="btn mini yellow" target="_blank">View</a>
+<td class="hide_at_print"><a href="supplimentry_view/<?php echo $adhoc_bill; ?>" class="btn mini yellow" target="_blank">View</a>
 <a href="supplimentry_bill_pdf?p=<?php echo $adhoc_bill; ?>" class="btn mini purple" target="_blank">Pdf</a>
 </td>
 </tr>
@@ -199,7 +199,7 @@ $grand_total = $grand_total + $g_total;
 <td><?php
 $g_total = number_format($g_total);
  echo $g_total; ?></td>
-<td class="hide_at_print"><a href="supplimentry_bill_view2?bill=<?php echo $adhoc_bill; ?>" class="btn mini yellow" target="_blank">View</a>
+<td class="hide_at_print"><a href="supplimentry_view/<?php echo $adhoc_bill; ?>" class="btn mini yellow" target="_blank">View</a>
 <a href="supplimentry_bill_pdf?p=<?php echo $adhoc_bill; ?>" class="btn mini purple" target="_blank">Pdf</a>
 </td>
 </tr>
@@ -283,7 +283,7 @@ $grand_total = $grand_total + $g_total;
 <td><?php 
 $g_total = number_format($g_total);
 echo $g_total; ?></td>
-<td class="hide_at_print"><a href="supplimentry_bill_view2?bill=<?php echo $adhoc_bill; ?>" class="btn mini yellow" target="_blank">View</a>
+<td class="hide_at_print"><a href="supplimentry_view/<?php echo $adhoc_bill; ?>" class="btn mini yellow" target="_blank">View</a>
 <a href="supplimentry_bill_pdf?p=<?php echo $adhoc_bill; ?>" class="btn mini purple" target="_blank">Pdf</a>
 </td>
 </tr>
