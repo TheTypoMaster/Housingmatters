@@ -3921,7 +3921,8 @@ $ua=$this->Cookie->read('username');
 $pa=$this->Cookie->read('password');
 $this->set('bgColor',$ua);
 $this->set('txtColor',$pa);
-$this->layout='without_session';	
+$this->layout='without_session';
+$this->set('webroot_path',$this->webroot_path());
 if ($this->request->is('post')) 
 {
 	
@@ -4193,6 +4194,7 @@ function sign_up()
 {
 $this->layout='without_session';
 App::import('', 'sendsms.php');
+$this->set('webroot_path',$this->webroot_path());
 if ($this->request->is('POST')) 
 {
 
@@ -4720,6 +4722,7 @@ echo "true";
 function forget() 
 {
 $this->layout='without_session';
+$this->set('webroot_path',$this->webroot_path());
 if ($this->request->is('POST')) 
 {
 $ip=$this->hms_email_ip();
@@ -4785,7 +4788,7 @@ function verification()
 {
 $this->layout='without_session';
 $emil=$this->request->query['con'];
-
+$this->set('webroot_path',$this->webroot_path());
 if ($this->request->is('POST')) 
 {
 $verification=(int)$this->request->data['email'];
@@ -4818,6 +4821,7 @@ function change_password()
 {
 $this->layout='without_session';
 $emil=$this->request->query['con'];
+$this->set('webroot_path',$this->webroot_path());
 if ($this->request->is('POST')) 
 {
 $pass=$this->request->data['pass'];
