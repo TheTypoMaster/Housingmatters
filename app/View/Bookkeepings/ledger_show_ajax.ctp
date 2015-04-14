@@ -842,6 +842,7 @@ $amount_category = @$collection['amount_category']['amount_category'];
 
 										<tr>
 										<th style="text-align:center;"><?php 
+										$opening_balance = number_format($opening_balance);
 										if($opening_balance > 0) 
 										{ 
 										$opening_balance = $opening_balance.'Cr';
@@ -851,7 +852,6 @@ $amount_category = @$collection['amount_category']['amount_category'];
 										$opening_balance = abs($opening_balance);
 										$opening_balance = $opening_balance.'Dr';
 										}
-										$opening_balance = number_format($opening_balance);
 										echo $opening_balance; ?></th>
 										<th colspan="" style="text-align:center;"><?php 
 										$total_debit = number_format($total_debit);
@@ -861,6 +861,7 @@ $amount_category = @$collection['amount_category']['amount_category'];
 										$total_credit = number_format($total_credit);
 										echo $total_credit; ?></th>
 										<th colspan="3" style="text-align:center;"><?php 
+										$closing_balance = number_format($closing_balance);
 										if($closing_balance > 0) 
 										{ 
 										$closing_balance = $closing_balance.'&nbsp;&nbsp;Cr';  
@@ -870,7 +871,6 @@ $amount_category = @$collection['amount_category']['amount_category'];
 										$closing_balance = abs($closing_balance);
 										$closing_balance = $closing_balance.'&nbsp;&nbsp;Dr';
 										}
-										$closing_balance = number_format($closing_balance);
 										echo $closing_balance; ?></th>
 										</tr>
 

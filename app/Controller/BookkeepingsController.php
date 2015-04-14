@@ -9,6 +9,20 @@ public $components = array(
 
 var $name = 'Bookkeepings';
 
+/////////////////// Start Cash Bank Vali (Accounts) ////////////////////////////////////
+function cash_bank_vali()
+{
+$this->layout='blank';
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');	
+
+$cc = (int)$this->request->query('ss');
+$this->set('cc',$cc);
+}
+/////////////////// End Cash Bank Vali (Accounts) ////////////////////////////////////////
+
+
 /////////////////////////////// Start Journal Add (Accounts)///////////////////
 function journal_add()
 {

@@ -125,7 +125,7 @@ foreach ($cursor1 as $collection)
 
 <script>
 $(document).ready(function() {
-	$("#go").live('click',function(){
+	$("#go").bind('click',function(){
 		
 	var usid = document.getElementById('abc').value;	
 	var from = document.getElementById('from').value;	

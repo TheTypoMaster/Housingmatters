@@ -506,7 +506,7 @@ $("#show_ledger_type" + t).load("show_ledger_type?c1=" +c1+ "&t=" +t+ "");
 
 <script>
 		$(document).ready(function() {
-		$("#vali").live('click',function(){
+		$("#vali").bind('click',function(){
         
 		var fi = document.getElementById("fi").value;
 		var ti = document.getElementById("ti").value;

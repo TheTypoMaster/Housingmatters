@@ -86,7 +86,7 @@ foreach($result2 as $collection2)
 {
 $ex_head = (int)$collection2['ledger_account']['auto_id'];	
 $expense_head = $collection2['ledger_account']['ledger_name'];
-for($k=0; $k<sizeof($expense_arr); $k++)
+for($k=0; $k<sizeof(@$expense_arr); $k++)
 {
 $exp_arr1 = $expense_arr[$k];
 $auto_id2 = (int)$exp_arr1[0];
@@ -159,7 +159,7 @@ break;
 </table>
 
 <?php
-for($l=0; $l<sizeof($abc); $l++)
+for($l=0; $l<sizeof(@$abc); $l++)
 {
 $month1 = $abc[$l];
 

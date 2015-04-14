@@ -68,7 +68,7 @@ $b_date = date('1-m-Y');
 
 <script>
 $(document).ready(function() {
-	$("#go").live('click',function(){
+	$("#go").bind('click',function(){
 		var date1=document.getElementById('date1').value;
 		var date2=document.getElementById('date2').value;
 		

@@ -153,7 +153,7 @@ $user_name = $collection['user']['user_name'];
 
 <script>
 $(document).ready(function() {
-$("#go").live('click',function(){
+$("#go").bind('click',function(){
 var date1=document.getElementById('date1').value;
 var date2=document.getElementById('date2').value;
 var tp=document.getElementById('tp').value; 

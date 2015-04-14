@@ -92,7 +92,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 		
 <script>
 $(document).ready(function() {
-	$("#main_id").live('change',function(){
+	$("#main_id").bind('change',function(){
 		var c1 = document.getElementById('main_id').value;
 		
 		
@@ -109,7 +109,7 @@ $(document).ready(function() {
 		
 <script>
 $(document).ready(function() {
-	$("#go").live('click',function(){
+	$("#go").bind('click',function(){
 		var main_id = document.getElementById('main_id').value;
 		
 		if(main_id=== '') { $('#validate_result').html('<div style="background-color:#f2dede; color:#b94a48; padding:5px;"><b>Please Select Ledger Type</b></div>'); return false; }

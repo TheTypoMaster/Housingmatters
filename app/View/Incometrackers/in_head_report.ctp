@@ -82,7 +82,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 <script>
 $(document).ready(function() {
-	$("#go").live('click',function(){
+	$("#go").bind('click',function(){
 	var unic = document.getElementById('un').value;
 	
 if(unic === '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Selectan Option</div>'); return false; }
