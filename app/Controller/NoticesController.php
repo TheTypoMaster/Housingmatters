@@ -1351,6 +1351,18 @@ $this->set('result_notice_publish',$this->notice->find('all', array('conditions'
 }
 ///////////////////////////////// End Notice board ////////////////////////////////
 
+function new_notice(){
+	if($this->RequestHandler->isAjax()){
+	$this->layout='blank';
+	}else{
+	$this->layout='session';
+	}
+	$this->ath();
+	
+	if(isset($this->request->data['post'])){
+		pr($this->request->data['notice']);exit;
+	}
+}
 
 
 
