@@ -411,13 +411,8 @@ if($this->request->is('post'))
 
 	}
 	
-	$params = array(
-		'controller' => 'Hms',
-		'action' => 'autoincrement',
-		'plugin' => null,
-		'pass' => array('discussion_post','discussion_post_id')
-		);
-	$discussion_post_id=$this->requestAction($params);
+
+	$discussion_post_id=$this->autoincrement('discussion_post','discussion_post_id');
 	
 	$this->loadmodel('discussion_post');
 	
