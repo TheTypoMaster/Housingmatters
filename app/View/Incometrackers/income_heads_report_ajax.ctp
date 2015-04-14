@@ -59,10 +59,11 @@ $grand_tt = 0;
 </tr>
 </thead>
 <?php
-$h=0;
 foreach($cursor2 as $collection)
 {
 $total = 0;	
+$date_from = $collection['regular_bill']['bill_daterange_from'];
+$date_to = $collection['regular_bill']['bill_daterange_to'];	
 $bill_id = $collection['regular_bill']['receipt_id'];
 $user_id = (int)$collection['regular_bill']['bill_for_user'];
 $ih_detail2 = $collection['regular_bill']['ih_detail'];
@@ -74,7 +75,11 @@ $wing_id = $collection['user']['wing'];
 $flat_id = (int)$collection['user']['flat'];
 $user_name = $collection['user']['user_name'];
 }	
-$wing_flat = $this->requestAction(array('controller' => 'hms', 'action'=>'wing_flat'),array('pass'=>array($wing_id,$flat_id)));	
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action'=>'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
+
+if($date_from >= $date1 && $date_to <= $date2)
+{
+	
 ?>
 <tr>
 <td style="text-align:center;"><?php echo $bill_id; ?></td>
@@ -134,7 +139,7 @@ $noc_tt = $noc_tt + $amt;
 </tr>
 <?php
 $grand_tt = $grand_tt + $total;
-}
+}}
 ?>
 <tr>
 <th colspan="3">Grand Total</th>
