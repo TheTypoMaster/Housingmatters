@@ -454,7 +454,7 @@ if($this->request->is('post'))
 	$flat=$data1['user']['flat'];
 
 	}
-	$wing_flat=$this->requestAction(array('controller' => 'Hms', 'action' => 'wing_flat',array('pass' => array($wing,$flat))));
+	$wing_flat=$this->wing_flat($wing,$flat);
 	if($dis_email_setting==1)
 	{
 	for($k=0;$k<sizeof($da_to);$k++)
@@ -497,7 +497,7 @@ if($this->request->is('post'))
 	if($n>0)
 	{
 	@$subject.= ''. $society_name . '  ' .'     '.' '.$sub.'';
-	$this->requestAction(array('controller' => 'Hms', 'action' => 'send_email',array('pass' => array($to,$from,$from_name,$subject,$message_web,$reply))));
+	$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 	$subject="";
 	}	
 	}
