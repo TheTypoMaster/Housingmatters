@@ -362,13 +362,8 @@ if($this->request->is('post'))
 	$sub_visible[]=(int)$role_id;
 
 	/////////////////////////////////////////// All role  functionality  conditions /////////////////////////////////////////////
-	$params = array(
-		'controller' => 'Hms',
-		'action' => 'all_role_wise_deactive',
-		'plugin' => null,
-		'pass' => array($role_id)
-		);
-	$result_user=$this->requestAction($params);
+	
+	$result_user=$this->all_role_wise_deactive($role_id);
 	foreach($result_user as $data)
 	{
 	$da_to[]=$data['user']['email'];
