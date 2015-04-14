@@ -1,4 +1,3 @@
-
 	<script>
 	$( document ).ready(function() {
    $('.try_again').click(function(){ 
@@ -9,7 +8,7 @@
   </script>
   <div id="again_try">
  <div class="logo" >
-    <img src="<?php echo $this->webroot ; ?>/as/hm/hm-logo.png" alt="logo" />   
+    <img src="<?php echo $webroot_path; ?>/as/hm/hm-logo.png" alt="logo" />   
   </div>
   <!-- END LOGO -->
   <!-- BEGIN LOGIN -->
@@ -39,7 +38,7 @@
 	   <div class="control-group">
 			  <div class="controls">
         	<div>
-			<center><image src="<?php echo $this->webroot ; ?>/as/hm/mobile.jpg" ></center>
+			<center><image src="<?php echo $webroot_path; ?>/as/hm/mobile.jpg" ></center>
              </div>
 		</div>
 	  </div>
@@ -65,7 +64,7 @@
 	  <div class="control-group">
 			  <div class="controls">
         	<div>
-		<image src="<?php echo $this->webroot ; ?>/as/hm/flag.jpg" width="20px" height="20px" > &nbsp<span> +91 </span>  <span>	 <?php 
+		<image src="<?php echo $webroot_path; ?>/as/hm/flag.jpg" width="20px" height="20px" > &nbsp<span> +91 </span>  <span>	 <?php 
 		//$r= substr($mobb, 0, 2);
 		//$l= substr($mobb, 8, 10);
 		//$g= chunk_split($r,2,"******");
