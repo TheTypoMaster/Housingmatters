@@ -4274,7 +4274,8 @@ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingk
 
 function sign_up_next()
 {
-$this->layout='without_session';	
+$this->layout='without_session';
+$this->set('webroot_path',$this->webroot_path());	
 $user=$this->request->query['user'];
 $this->set('user', $user);
 }
@@ -4284,6 +4285,7 @@ $this->set('user', $user);
 function resident_signup()
 {
 $this->layout='without_session';
+$this->set('webroot_path',$this->webroot_path());
 $user=(int)$this->request->query['user'];
 $this->set('user_id', $user);
 $this->loadmodel('society');
@@ -4521,7 +4523,8 @@ function society_signup()
 {
 App::import('', 'sendsms.php');
 App::import('phpmailer', 'mail.php');
-$this->layout='without_session';	
+$this->layout='without_session';
+$this->set('webroot_path',$this->webroot_path());	
 $user=(int)$this->request->query['user'];
 $this->set('user_id', $user);
 if($this->request->is('post')) 
@@ -8314,6 +8317,7 @@ function set_new_password()
 
 
 $this->layout='without_session';
+$this->set('webroot_path',$this->webroot_path());
  $q=$this->request->query['q'];
 
 $q_new=explode('/',$q);
@@ -8387,6 +8391,7 @@ function verify_email()
 {
 $var=1;	
 $this->layout='without_session';
+$this->set('webroot_path',$this->webroot_path());
 @$q=$this->request->query['q'];
 $q_new=explode('/',$q);
 $q_new[0];
@@ -8474,6 +8479,7 @@ function verify_mobile()
 $var=1;
 
 $this->layout='without_session';
+$this->set('webroot_path',$this->webroot_path());
 $q=$this->request->query['q'];
 
 $q_new=explode('/',$q);
