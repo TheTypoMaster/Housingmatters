@@ -227,8 +227,8 @@ $(document).ready(function(){
 
 
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
-<link href="<?php echo $this->webroot ; ?>summernote.css" rel="stylesheet">
-<script src="<?php echo $this->webroot ; ?>summernote.min.js"></script>
+<link href="<?php echo $webroot_path ; ?>summernote.css" rel="stylesheet">
+<script src="<?php echo $webroot_path ; ?>summernote.min.js"></script>
 
 <script>
 $(document).ready(function() {
@@ -368,7 +368,7 @@ messages: {
 
 
 
-<script src="<?php echo $this->webroot ; ?>/as/bootstrap-maxlength.min.js"></script>
+<script src="<?php echo $webroot_path ; ?>/as/bootstrap-maxlength.min.js"></script>
 <script>
         $(document).ready(function () {
             $(
