@@ -1,6 +1,6 @@
  <!-- BEGIN LOGO -->
   <div class="logo">
-    <img src="<?php echo $webroot; ?>/as/hm/hm-logo.png" alt="logo" /> 
+    <img src="<?php echo $webroot_path; ?>/as/hm/hm-logo.png" alt="logo" /> 
   </div>
   <!-- END LOGO -->
   <!-- BEGIN LOGIN -->
