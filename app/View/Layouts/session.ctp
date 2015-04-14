@@ -158,23 +158,23 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
 $(document).ready(function() {
 	$("a[rel='tab']").live('click',function(e){
 		e.preventDefault();
-		$("#loading_ajax").html('<div id="progress-bar" style="position: fixed; top: 42px; z-index: 9999;  text-align: center;background-color:rgb(0, 141, 210);height: 4px;"></div>');
+		//$("#loading_ajax").html('<div id="progress-bar" style="position: fixed; top: 42px; z-index: 9999;  text-align: center;background-color:rgb(0, 141, 210);height: 4px;"></div>');
 		
 		
-		var progressBar = $('#progress-bar'),
-		width = 0;
-		progressBar.width(width);
+		//var progressBar = $('#progress-bar'),
+		//width = 0;
+		//progressBar.width(width);
 
-		var interval = setInterval(function() {
+		//var interval = setInterval(function() {
 
-		width += 1;
+		//width += 1;
 
-		progressBar.css('width', width + '%');
+		//progressBar.css('width', width + '%');
 
-		if (width >= 100) {
-			clearInterval(interval);
-		}
-		}, 10);
+		//if (width >= 100) {
+		//	clearInterval(interval);
+		//}
+		//}, 10);
 		
 		
 		pageurl = $(this).attr('href');
@@ -258,7 +258,7 @@ $(document).ready(function() {
 		<div class="navbar-inner hide_at_print">
 			<div class="container-fluid" style="padding-right: 0px;">
 				<!-- BEGIN LOGO -->
-				<a class="brand" href="http://52.74.61.249Hms/dashboard" style="margin-top:-9px;">
+				<a class="brand" href="<?php echo $webroot_path; ?>Hms/dashboard" style="margin-top:-9px;">
 				<img src="<?php echo $webroot_path; ?>as/hm/hm-logo.png" alt="logo" height="16px" width="120px"/>
 				</a>
 				
