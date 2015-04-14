@@ -7,7 +7,7 @@
 <!-- Include external files and scripts here (See HTML helper for more info.) -->
 <?php
 echo $this->fetch('meta');
-$webroot_path=$this->requestAction(array('controller' => 'Hms', 'action' => 'webroot_path'));
+echo $webroot_path=$this->requestAction(array('controller' => 'Hms', 'action' => 'webroot_path')); exit;
 ?>
 <link href="<?php echo $webroot_path; ?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
   <link href="<?php echo $webroot_path; ?>assets/css/metro.css" rel="stylesheet" />
