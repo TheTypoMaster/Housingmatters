@@ -4414,9 +4414,10 @@ $conditions=array("delete_id" => 0,"society_id"=>$s_society_id);
 $cursor1=$this->income_head->find('all',array('conditions'=>$conditions,'order' =>$order));
 $this->set('cursor1',$cursor1);	
 
-$this->loadmodel('user');
+$this->loadmodel('regular_bill');
+$order=array('regular_bill.receipt_id'=> 'ASC');
 $conditions=array("society_id"=>$s_society_id);
-$cursor2=$this->user->find('all',array('conditions'=>$conditions));
+$cursor2=$this->regular_bill->find('all',array('conditions'=>$conditions,'order' =>$order));
 $this->set('cursor2',$cursor2);	
 
 }
