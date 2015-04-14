@@ -43,7 +43,7 @@ function index($id=null,$list=null){
 	$wing=$data3["user"]["wing"];
 	$flat=$data3["user"]["flat"];
 	}
-	$this->set('flat_info',$this->requestAction(array('controller' => 'Hms', 'action' => 'wing_flat'),array('pass' => array($wing,$flat))));
+	$this->set('flat_info',$this->wing_flat($wing,$flat));
 	//////////////////////current user info///////////////
 
 	$this->loadmodel('role');
@@ -125,7 +125,7 @@ function index($id=null,$list=null){
 	$result_discussion_last=$this->discussion_post->find('all',array('conditions'=>$conditions,'order'=>$order,'limit'=>1));
 	foreach($result_discussion_last as $data2)
 	{
-	$discussion_post_id=(int)$data2["discussion_post"]["discussion_post_id"];
+	  $discussion_post_id=(int)$data2["discussion_post"]["discussion_post_id"];
 	}
 	$this->set('result_discussion_last',$result_discussion_last);
 	$this->set('last_discussion_post_id',@$discussion_post_id); 	
@@ -144,7 +144,7 @@ function new_topic(){
 		$this->layout='session';
 	}
 	$this->ath();
-	$this->requestAction(array('controller' => 'Hms', 'action' => 'ath'));
+	
 	
 	
 	$s_user_id=$this->Session->read('user_id'); 
@@ -157,14 +157,14 @@ function new_topic(){
 
 
 	//////////////////////current user info///////////////
-	$result_self=$this->requestAction(array('controller' => 'Hms', 'action' => 'profile_picture'),array('pass' => array($s_user_id)));
+	$result_self=$this->profile_picture($s_user_id);
 	foreach($result_self as $data3)
 	{
 	$this->set('user_name',$data3["user"]["user_name"]);
 	$wing=$data3["user"]["wing"];
 	$flat=$data3["user"]["flat"];
 	}
-	$this->set('flat_info',$this->requestAction(array('controller' => 'Hms', 'action' => 'wing_flat'),array('pass' => array($wing,$flat))));
+	$this->set('flat_info',$this->wing_flat($wing,$flat));
 	//////////////////////current user info///////////////
 	$this->loadmodel('role');
 	$conditions=array("society_id" => $s_society_id);
@@ -176,7 +176,7 @@ function new_topic(){
 	$this->set('wing_result',$wing_result);
 	///////////////////////start new topic//////////////////////////////////
 
-	$result_soc=$this->requestAction(array('controller' => 'Hms', 'action' => 'society_name'),array('pass' => array($s_society_id)));
+	$result_soc=$this->society_name($s_society_id);
 	foreach($result_soc as $data)
 	{
 		 @$discussion_forum1=$data['society']['discussion_forum'];
@@ -251,7 +251,7 @@ if($discussion_forum1==1 && $s_role_id!=3)
 					}
 					
 					
-	$discussion_post_id=$this->requestAction(array('controller' => 'Hms', 'action' => 'autoincrement'),array('pass' => array('discussion_post','discussion_post_id')));
+	$discussion_post_id=$this->autoincrement('discussion_post','discussion_post_id');
 	$this->loadmodel('discussion_post');
 	$multipleRowData = Array( Array("discussion_post_id" => $discussion_post_id, "user_id" => $s_user_id , "society_id" => $s_society_id, "topic" => $topic,"description" => $description, "file" =>$file,"delete_id" =>4, "date" =>$date, "time" => $time, "visible" => $visible, "sub_visible" => $sub_visible));
 	$this->discussion_post->saveAll($multipleRowData); 
@@ -308,7 +308,7 @@ if($this->request->is('post'))
 	$visible=1;
 	$sub_visible[]=0;
 	/////////////////////////////////////////// All user ////////////////////////////
-	$result_user=$this->requestAction(array('controller' => 'Hms', 'action' => 'all_user_deactive'));
+	$result_user=$this->all_user_deactive();
 	foreach($result_user as $data)
 	{
 	$da_to[]=$data['user']['email'];
@@ -323,7 +323,7 @@ if($this->request->is('post'))
 	$visible=4;
 	$sub_visible[]=0;
 	/////////////////////////////////////////// All Owners ////////////////////////////
-	$result_user=$this->requestAction(array('controller' => 'Hms', 'action' => 'all_owner_deactive'));
+	$result_user=$this->all_owner_deactive();
 	foreach($result_user as $data)
 	{
 	$da_to[]=$data['user']['email'];
@@ -338,7 +338,7 @@ if($this->request->is('post'))
 	$visible=5;
 	$sub_visible[]=0;
 	/////////////////////////////////////////// All Tenant ////////////////////////////
-	$result_user=$this->requestAction(array('controller' => 'Hms', 'action' => 'all_tenant_deactive'));
+	$result_user=$this->all_tenant_deactive();
 	foreach($result_user as $data)
 	{
 	$da_to[]=$data['user']['email'];
