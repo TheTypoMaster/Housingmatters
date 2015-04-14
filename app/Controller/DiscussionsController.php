@@ -446,7 +446,7 @@ if($this->request->is('post'))
 
 	}
 
-	$result_user=$this->requestAction(array('controller' => 'Hms', 'action' => 'profile_picture',array('pass' => array($s_user_id))));
+	$result_user=$this->profile_picture($s_user_id);
 	foreach($result_user as $data1)
 	{
 	$user_name_post=$data1['user']['user_name'];
