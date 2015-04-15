@@ -2465,9 +2465,8 @@ function check_user_privilages()
 $s_society_id=$this->Session->read('society_id');
 $s_role_id=$this->Session->read('role_id');
 
- $page_namr_url=pathinfo($_SERVER[ 'REQUEST_URI'],PATHINFO_FILENAME);
- $url = parse_url($page_namr_url) ;
- $page_namr_url=  $url['path'];
+$page_namr_url=$this->request->params['action']; 
+ 
 $this->loadmodel('page');
 $conditions=array("page_name" => $page_namr_url);
 $cursor=$this->page->find('all',array('conditions'=>$conditions));
