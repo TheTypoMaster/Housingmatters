@@ -114,6 +114,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <br />
 <input type="text" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="date" placeholder="Transaction Date" style="background-color:white !important;" id="date">
 <label id="date"></label>
+<div id="result11"></div>
 </td>
 </tr>
 <tr>

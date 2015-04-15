@@ -3413,6 +3413,32 @@ $this->set('cursor4',$cursor4);
 
 }
 /////////////////////////// End master rate card view (Accounts)/////////////////////////////////
+////////////////////// Start Supplimentry Vali (Accounts)////////////////////////////////
+function supplimentry_vali()
+{
+$this->layout='blank';
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');	
+
+$cc = (int)$this->request->query('ss');
+$this->set('cc',$cc);
+}
+////////////////////// End Supplimentry Vali (Accounts)////////////////////////////////
+/////////////////////Start Financial Vali Ajax(Accounts)//////////////////////////////
+function regular_vali()
+{
+$this->layout='blank';
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');	
+
+$cc = (int)$this->request->query('ss');
+$this->set('cc',$cc);
+
+}
+/////////////////////End Financial Vali Ajax(Accounts)//////////////////////////////
+
 
 ///////////////////// Start Master rate Card Edit ///////////////////////////////////
 function master_rate_card_edit($auto_id5=null)
