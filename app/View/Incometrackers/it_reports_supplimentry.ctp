@@ -1,3 +1,5 @@
+
+<div class="hide_at_print">	
 <?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 ?>				   
@@ -7,7 +9,7 @@ $("#fix<?php echo $id_current_page; ?>").removeClass("blue");
 $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
-
+</div>
 
 
 <?php ///////////////////////////////////////////////////////////////////////////////////////// ?>		
