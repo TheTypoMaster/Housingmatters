@@ -101,14 +101,14 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
               <div class="portlet-title">
               <h4><i class="icon-reorder"></i>Bank Receipt</h4>
               </div>
-              <div class="portlet-body form" style="background-color:rgb(245, 245, 209);"> 
+              <div class="portlet-body form" style="background-color:white;"> 
 
 			   <form id="contact-form" method="POST" class="form-horizontal" enctype="multipart/form-data">         
                <center>
 			  
 <?php ////////////////////////////////////////////////////////////////////////////////////// ?>
 
-<div style="width:90%; background-color:rgb(245, 245, 209); border:solid 1px;">
+<div style="width:90%; background-color:white; border:solid 1px;">
                           <br />
                   <table class="table table-bordered" style="width:100%;">        
                    <tr>
@@ -158,9 +158,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 					</tr>
 					<tr>
 					<td style="text-align:center;"><label id="date"></label><div id="result11"></div></td>
-					<td style="text-align:center;"><label id="ins"></label></td>
-					<td style="text-align:center;"><label id="bank"></label></td>
 					<td style="text-align:center;"><label id="mode"></label></td>
+					<td style="text-align:center;"></td>
+					<td style="text-align:center;"><label id="bank"></label></td>
 					</tr>
 					</table>
 					
@@ -360,20 +360,13 @@ $(document).ready(function(){
 	      },
 		  
 		  
-		  instruction: {
-	       
-	        required: true
-	      },
-		  
+				  
 		   bank_account: {
 	       
 	        required: true
 	      },
 		  
-		  description: {
-	       
-	        required: true
-	      },
+		 
 		 
 	         mode: {
                 required: true

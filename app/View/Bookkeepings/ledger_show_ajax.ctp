@@ -675,11 +675,13 @@ $amount_category = @$collection['amount_category']['amount_category'];
                                    	$op_bal2 = $opening_balance;
 									if($opening_balance > 0)
 									{
+									$opening_balance = number_format($opening_balance);	
 									$opening_balance = $opening_balance.'&nbsp;&nbsp;Cr';
 									}
 									else if($opening_balance < 0)
 									{
 									$opening_balance = abs($opening_balance);
+									$opening_balance = number_format($opening_balance);	
 									$opening_balance = $opening_balance.'&nbsp;&nbsp;Dr';
 									}
 									echo $opening_balance; ?></th>
@@ -797,11 +799,11 @@ $amount_category = @$collection['amount_category']['amount_category'];
 											<td><?php echo $receipt_id; ?></td>
 											
 											<td><?php if($amount_category_id == 1) { $balance = $balance - $amount;   
-											$amount = number_format($amount);
-											echo $amount; } else { echo "-"; } ?></td>
+											$amount2 = number_format($amount);
+											echo $amount2; } else { echo "-"; } ?></td>
 										    <td><?php if($amount_category_id == 2) { $balance = $balance + $amount;  
-											 $amount = number_format($amount);
-											 echo $amount; } else { echo "-"; } ?></td>
+											 $amount3 = number_format($amount);
+											 echo $amount3; } else { echo "-"; } ?></td>
 									</tr>
                                        
 										
@@ -842,33 +844,37 @@ $amount_category = @$collection['amount_category']['amount_category'];
 
 										<tr>
 										<th style="text-align:center;"><?php 
-										$opening_balance = number_format($opening_balance);
-										if($opening_balance > 0) 
+										
+										if($op_bal2 > 0) 
 										{ 
-										$opening_balance = $opening_balance.'Cr';
+										$opening_balance2 = number_format($op_bal2);
+										$opening_balance2 = $opening_balance2.'Cr';
 										} 
-									    else if($opening_balance < 0)
+									    else if($op_bal2 < 0)
 										{
-										$opening_balance = abs($opening_balance);
-										$opening_balance = $opening_balance.'Dr';
+										$opening_balance2 = abs($op_bal2);
+										$opening_balance2 = number_format($opening_balance2);
+										$opening_balance2 = $opening_balance2.'Dr';
 										}
-										echo $opening_balance; ?></th>
+										echo $opening_balance2; ?></th>
 										<th colspan="" style="text-align:center;"><?php 
-										$total_debit = number_format($total_debit);
+										//$total_debit = number_format($total_debit);
 										echo $total_debit ?></th>
 									
 										<th style="text-align:center;"><?php 
-										$total_credit = number_format($total_credit);
+										//$total_credit = number_format($total_credit);
 										echo $total_credit; ?></th>
 										<th colspan="3" style="text-align:center;"><?php 
-										$closing_balance = number_format($closing_balance);
+										
 										if($closing_balance > 0) 
 										{ 
+										$closing_balance = number_format($closing_balance);
 										$closing_balance = $closing_balance.'&nbsp;&nbsp;Cr';  
 										}
                                         else if($closing_balance < 0)
                                         { 										
 										$closing_balance = abs($closing_balance);
+										$closing_balance = number_format($closing_balance);
 										$closing_balance = $closing_balance.'&nbsp;&nbsp;Dr';
 										}
 										echo $closing_balance; ?></th>
@@ -1071,16 +1077,19 @@ $amount_category_fetch3 = $this->requestAction(array('controller' => 'hms', 'act
                                     <th><?php 
 									$opening_balance = $opening_balance;
 									$op_bal2 = $opening_balance;
+									
 									if($opening_balance > 0)
 									{
+									$opening_balance = number_format($opening_balance);
 									$opening_balance = $opening_balance.'&nbsp;&nbsp;Cr';
 									}
 									else if($opening_balance < 0)
 									{
 									$opening_balance = abs($opening_balance);
+									$opening_balance = number_format($opening_balance);
 									$opening_balance = $opening_balance.'&nbsp;&nbsp;Dr';
 									}
-									$opening_balance = number_format($opening_balance);
+									//$opening_balance = number_format($opening_balance);
 									echo $opening_balance; ?></th>
                                     </tr>
 									
@@ -1202,11 +1211,11 @@ $module_date_fetch4 = $this->requestAction(array('controller' => 'hms', 'action'
 											<td><?php echo $receipt_id; ?></td>
 											
 											<td><?php if($amount_category_id == 1) { $balance = $balance - $amount;   
-											$amount = number_format($amount);
-											echo $amount; } else { echo "-"; } ?></td>
+											$amount2 = number_format($amount);
+											echo $amount2; } else { echo "-"; } ?></td>
 										    <td><?php if($amount_category_id == 2) { $balance = $balance + $amount;   
-											 $amount = number_format($amount);
-											 echo $amount; } else { echo "-"; } ?></td>
+											 $amount3 = number_format($amount);
+											 echo $amount3; } else { echo "-"; } ?></td>
 										    
                                         </tr>
 										
@@ -1253,35 +1262,39 @@ $module_date_fetch4 = $this->requestAction(array('controller' => 'hms', 'action'
 								<tr>
                                 <th style="text-align:center;">
 								<?php 
-								if($opening_balance > 0)
+								if($op_bal2 > 0)
 								{
-								$opening_balance = $opening_balance;
+								$opening_balance2 = number_format($opening_balance2);
+								$opening_balance2 = $op_bal2.'&nbsp;&nbsp;Cr';
 								}
-								else if($opening_balance < 0)
+								else if($op_bal2 < 0)
 								{
-								$opening_balance = abs($opening_balance);
-								$opening_balance = $opening_balance;
+								$opening_balance2 = abs($op_bal2);
+								$opening_balance2 = number_format($opening_balance2);
+								$opening_balance2 = $opening_balance2.'&nbsp;&nbsp;Dr';
 								}
-								$opening_balance = number_format($opening_balance);
-								echo $opening_balance; ?>
+								
+								echo $opening_balance2; ?>
 								</th>
                                 <th colspan="" style="text-align:center;"><?php 
-								$total_debit = number_format($total_debit);
+								//$total_debit = number_format($total_debit);
 								echo $total_debit ?></th>
                                 <th style="text-align:center;"><?php 
-								$total_credit = number_format($total_credit);
+								//$total_credit = number_format($total_credit);
 								echo $total_credit; ?></th>
                                 <th colspan="3" style="text-align:center;"><?php 
 								if($closing_balance > 0)
 								{
+								$closing_balance = number_format($closing_balance);
 								$closing_balance = $closing_balance.'&nbsp;&nbsp;Cr';
 								}
 								else if($closing_balance < 0)
 								{
 								$closing_balance = abs($closing_balance);
+								$closing_balance = number_format($closing_balance);
 								$closing_balance = $closing_balance.'&nbsp;&nbsp;Dr';
 								}
-								$closing_balance = number_format($closing_balance);
+								
 								echo $closing_balance;
 								?></th>
                                 </tr>

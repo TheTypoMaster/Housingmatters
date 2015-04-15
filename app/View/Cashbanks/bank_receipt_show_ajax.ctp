@@ -19,7 +19,7 @@ $m_to = new MongoDate(strtotime($m_to));
 <br />			
 			
 			
-			 <table class="table table-bordered" width="100%" style=" background-color:#FDFDEE;">
+			 <table class="table table-bordered" width="100%" style=" background-color:white;">
 
 
 					 
