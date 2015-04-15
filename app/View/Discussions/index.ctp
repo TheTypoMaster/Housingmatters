@@ -421,6 +421,7 @@ function comment(tid)
 
 var old_c=$('#posttext').val()
 var c=encodeURIComponent(old_c);
+
 var u_name='<?php echo $user_name; ?>';
 var flat='<?php echo $flat_info; ?>';
 if(c!="")

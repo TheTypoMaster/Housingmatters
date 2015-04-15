@@ -2761,7 +2761,7 @@ $this->set('result_user_deactive',$result);
 
 function user_deactive_ajax()
 {
-	 $this->layout="blank";
+	 $this->layout="blank_signup";
 	 $s_society_id=$this->Session->read('society_id');
 	 $user_id=(int)$this->request->query['t'];
 	 $status=(int)$this->request->query['d'];
