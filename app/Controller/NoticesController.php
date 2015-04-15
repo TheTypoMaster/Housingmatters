@@ -292,7 +292,7 @@ if($this->RequestHandler->isAjax()){
 		$this->layout='session';
 	}
 $this->ath();
-$this->check_user_privilages();
+//$this->check_user_privilages();
 $s_society_id=$this->Session->read('society_id');
 $s_role_id=$this->Session->read('role_id'); 
 $this->loadmodel('master_notice_category');
@@ -1358,12 +1358,31 @@ function new_notice(){
 	$this->layout='session';
 	}
 	$this->ath();
+	$this->check_user_privilages();
+	$s_society_id=$this->Session->read('society_id');
+	$s_user_id=$this->Session->read('user_id');
+	$s_role_id=$this->Session->read('role_id'); 
+	$this->loadmodel('master_notice_category');
+	$this->set('result1', $this->master_notice_category->find('all'));
+	$this->loadmodel('master_notice_category');
+	$this->set('result1', $this->master_notice_category->find('all'));
+	$this->loadmodel('role');
+	$conditions=array("society_id" => $s_society_id);
+	$role_result=$this->role->find('all',array('conditions'=>$conditions));
+	$this->set('role_result',$role_result);
+	$this->loadmodel('wing');
+	$wing_result=$this->wing->find('all');
+	$this->set('wing_result',$wing_result);
 	
-	if(isset($this->request->data['post'])){
-		pr($this->request->data['notice']);exit;
-	}
+	
 }
 
+
+function submit_notice(){
+	$this->layout=Null;
+		$output = json_encode(array('type'=>'error', 'text' => 'Enter only digits in phone number'));
+        die($output);
+}
 
 
 }
