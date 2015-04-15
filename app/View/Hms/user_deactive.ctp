@@ -1,8 +1,14 @@
 <script>
-function user_active(status,act_id,auto)
-{
-$('#replace'+auto).load('user_deactive_ajax?t=' + act_id + '&d='+status + '&a='+auto );
-}
+
+$(document).ready(function(){
+$(".check").click(function() {
+var id=$(this).attr("idt");
+var did=$(this).attr("idd");
+value = +$('.test'+id).is( ':checked' );
+$('#replace').load('user_deactive_ajax?t=' + did + '&d='+value);
+});
+});
+
 </script>
 <div style="background-color:#EFEFEF; border-top:1px solid #e6e6e6; border-bottom:1px solid #e6e6e6; padding:10px; box-shadow:5px; font-size:16px; color:#006;">
 Active & Deactive Users
@@ -60,9 +66,9 @@ $status='Tenant';
 <td>
  <div class="control-group">
                               <!--<label class="control-label">Toggle Buttons with Text</label>-->
-                              <div class="controls">
-                                 <div class="text-toggle-button check">
-                                    <input type="checkbox" class="toggle" id="<?php echo $i; ?>" <?php if($det==0){ ?>  checked=""/ <?php } ?> idd="<?php echo $user_id ; ?>"  >
+                              <div class="controls  ">
+                                 <div class="text-toggle-button check " idt='<?php echo $i; ?>' idd="<?php echo $user_id ; ?>">
+                                    <input type="checkbox" class="toggle test<?php echo $i; ?>" id="<?php echo $i; ?>" <?php if($det==0){ ?>  checked=""/ <?php } ?> idd="<?php echo $user_id ; ?>"  >
                                  </div>
                               </div>
                            </div>
@@ -79,14 +85,26 @@ $status='Tenant';
 
 <script>
 $(document).ready(function(){
-$( ".checkable" ).click(function() {
+
+$( ".checkablefgfghfghgfh" ).click(function() {
+
 var id=$(this).parent().children().attr("id");
+alert(id);
  var did=$(this).parent().children().attr("idd");
+ alert(did);
 value = +$('#'+id).is( ':checked' );
+alert(value);
 $('#replace').load('user_deactive_ajax?t=' + did + '&d='+value);
 });
 
 
 });
+
+
+
+
 </script>
+
+
+
 

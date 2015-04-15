@@ -124,7 +124,7 @@ function sm_assign_parking_system()
 	$s_society_id=$this->Session->read('society_id');
 	$s_user_id=$this->Session->read('user_id');
 	$this->loadmodel('user');
-	$conditions=array('society_id'=>$s_society_id);
+	$conditions=array('society_id'=>$s_society_id,'deactive'=>0);
 	$result=$this->user->find('all',array('conditions'=>$conditions));
 	$this->set('result_user',$result);
 	$this->loadmodel('parking');

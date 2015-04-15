@@ -2761,7 +2761,7 @@ $this->set('result_user_deactive',$result);
 
 function user_deactive_ajax()
 {
-	 $this->layout="blank";
+	 $this->layout="blank_signup";
 	 $s_society_id=$this->Session->read('society_id');
 	 $user_id=(int)$this->request->query['t'];
 	 $status=(int)$this->request->query['d'];
@@ -2775,13 +2775,13 @@ function user_deactive_ajax()
 		date_default_timezone_set('Asia/kolkata');
 		$date=date("d-m-Y");
 		$time=date('h:i:a',time());
-		$this->user->updateAll(array('deactive'=>0),array('user_id'=>$user_id));
+		$this->user->updateAll(array('deactive'=>1),array('user_id'=>$user_id));
 		$this->loadmodel('log');
 		$i=$this->autoincrement('log','log_id');
 		$this->log->save(array('log_id'=>$i,'user_id'=>$user_id,'society_id'=>$s_society_id,'deactive_date'=>$date,'deactive_time'=>$time,'status'=>1));
 		
 		$this->loadmodel('ledger_sub_account');
-		$this->ledger_sub_account->updateAll(array('deactive'=>0),array('user_id'=>$user_id));
+		$this->ledger_sub_account->updateAll(array('deactive'=>1),array('user_id'=>$user_id));
 		
 		
 	 }
@@ -2794,13 +2794,13 @@ function user_deactive_ajax()
 		date_default_timezone_set('Asia/kolkata');
 		$date=date("d-m-Y");
 		$time=date('h:i:a',time());
-		$this->user->updateAll(array('deactive'=>1),array('user_id'=>$user_id));
+		$this->user->updateAll(array('deactive'=>0),array('user_id'=>$user_id));
 		$this->loadmodel('log');
 		$i=$this->autoincrement('log','log_id');
 		$this->log->save(array('log_id'=>$i,'user_id'=>$user_id,'society_id'=>$s_society_id,'active_date'=>$date,'active_time'=>$time,'status'=>2));
 		
 		$this->loadmodel('ledger_sub_account');
-		$this->ledger_sub_account->updateAll(array('deactive'=>1),array('user_id'=>$user_id));
+		$this->ledger_sub_account->updateAll(array('deactive'=>0),array('user_id'=>$user_id));
 		
 	 }
 		
