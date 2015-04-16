@@ -4789,6 +4789,7 @@ $this->set('wrong','This Email is not exist');
 function verification() 
 {
 $this->layout='without_session';
+$this->set('webroot_path',$this->webroot_path());
 $emil=$this->request->query['con'];
 $this->set('webroot_path',$this->webroot_path());
 if ($this->request->is('POST')) 
