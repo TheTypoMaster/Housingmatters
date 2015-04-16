@@ -8471,7 +8471,7 @@ function verify_mobile()
 {
 
 $var=1;
-
+$this->set('webroot_path',$this->webroot_path());
 $this->layout='without_session';
 $q=$this->request->query['q'];
 
