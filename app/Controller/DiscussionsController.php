@@ -552,18 +552,19 @@ function archive()
 
 function discussion_save_comment(){
 $this->layout='blank';
-$this->requestAction(array('controller' => 'Hms', 'action' => 'ath'));
+$this->ath();
 $s_user_id=$this->Session->read('user_id'); 
 $s_society_id=$this->Session->read('society_id'); 
 $tid=(int)$this->request->query('tid');
-$g=$this->request->query('c');
+ $g=$this->request->query('c'); 
 $c=htmlentities(wordwrap($g, 25, " ", true));
 
 $c=nl2br($c);
+
 $date=date("d-m-y");
 $time=date('h:i:a',time());
 	
-	$r=$this->requestAction(array('controller' => 'Hms', 'action' => 'content_moderation_society'),array('pass' => array($g)));
+	$r=$this->content_moderation_society($g);
 	
 if($r==0)
 {
@@ -583,16 +584,11 @@ foreach ($cursor_last_color as $collection_color)
 $last_color=$collection_color["discussion_comment"]["color"];
 }
 if(sizeof($cursor_last_color)==0) {  $last_color='blue'; }
-$params = array(
-		'controller' => 'Hms',
-		'action' => 'rendom_color',
-		'plugin' => null,
-		'pass' => array($last_color)
-		);
-	$color_in=$this->requestAction($params);
+
+	$color_in=$this->rendom_color($last_color);
 //////////////////end color///////////////////
 
-$discussion_comment_id=$this->requestAction(array('controller' => 'Hms', 'action' => 'autoincrement'),array('pass' => array('discussion_comment','discussion_comment_id')));
+$discussion_comment_id=$this->autoincrement('discussion_comment','discussion_comment_id');
 $this->loadmodel('discussion_comment');
 $multipleRowData = Array( Array("discussion_comment_id" => $discussion_comment_id, "user_id" => $s_user_id , "society_id" => $s_society_id, "comment" => $c,"discussion_post_id" => $tid, "delete_id" =>0, "date" =>$date, "time" => $time, "color" => $color_in));
 $this->discussion_comment->saveAll($multipleRowData); 

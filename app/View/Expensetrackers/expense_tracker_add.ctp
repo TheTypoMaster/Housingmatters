@@ -232,12 +232,12 @@ The Last Receipt Number is : <?php echo $zz; ?>
 							<span class="btn btn-file">
 							<span class="fileupload-new">Select file</span>
 							<span class="fileupload-exists">Change</span>
-							<input type="file" class="default" name="uploaded">
+							<input type="file" class="default" name="uploaded" id="upl">
 							</span>
 							<span class="fileupload-preview"></span>
 							<a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none"></a>
 							</div>
-
+                            <label id="upl"></label>
 							</td>
 							</tr>
 
@@ -262,6 +262,12 @@ The Last Receipt Number is : <?php echo $zz; ?>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <script>
 $(document).ready(function(){
+	
+ jQuery.validator.addMethod("notEqual", function(value, element, param) {
+  return this.optional(element) || value !== param;
+}, "Please choose Other value!");	
+	
+	
 
 $.validator.setDefaults({ ignore: ":hidden:not(select)" });
 
@@ -306,18 +312,27 @@ $.validator.setDefaults({ ignore: ":hidden:not(select)" });
 	     posting_date: {
 	       
 	        required: true
+			
 	      },
 		
 		 invoice_amount: {
 	       
-	        required: true
+	        required: true,
+			notEqual: "0"
 	      },
 		  
 		   description: {
 	       
 	        required: true
 	      },
-
+         uploaded:{
+	       
+	        required: true
+	      },
+		
+		
+		
+		
 		},
 			highlight: function(element) {
 				$(element).closest('.control-group').removeClass('success').addClass('error');

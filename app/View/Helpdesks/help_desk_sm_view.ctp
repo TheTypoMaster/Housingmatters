@@ -277,7 +277,7 @@ function assign_ticket(sp_id)
 	
 
 $(document).ready(function() {
-	$("#reply123").live('click',function(){
+	$("#reply123").bind('click',function(){
 			var r=$("#msg_reply").val();
 			var a=$("#hd_id").val();
 
@@ -286,8 +286,7 @@ $(document).ready(function() {
 			//$("#reply_post").append('<div class="outt"><div><span class="pull-right" style="font-size:12px; color:#A5A5A5;">Few minutes ago</span><br>'+ r +'</div></div>');
 			
 			r1=encodeURIComponent(r);
-			
-			$("#reply_post").load('<?php echo $this->webroot;?>Helpdesks/save_reply_resident/' + r1 + '/' + a);
+			$("#reply_post").load('<?php echo $webroot_path;?>/Helpdesks/save_reply_resident?con1=' + r1 + '&con2=' + a);
 			$("#msg_reply").val('');
 			
 			}

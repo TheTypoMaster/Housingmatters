@@ -249,6 +249,11 @@ $(document).ready(function() {
 
 <script>
 $(document).ready(function(){
+	
+ jQuery.validator.addMethod("notEqual", function(value, element, param) {
+  return this.optional(element) || value !== param;
+}, "Please choose Other value!");	
+	
 
 $.validator.setDefaults({ ignore: ":hidden:not(select)" });
 
@@ -282,7 +287,8 @@ $.validator.setDefaults({ ignore: ":hidden:not(select)" });
 		   ammount: {
 	       
 	        required: true,
-			number: true
+			number: true,
+			notEqual: "0"
 	      },
 		 
 		  

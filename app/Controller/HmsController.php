@@ -8389,6 +8389,7 @@ function set_new_password()
 
 
 $this->layout='without_session';
+$this->set('webroot_path',$this->webroot_path());
  $q=$this->request->query['q'];
 
 $q_new=explode('/',$q);
@@ -8547,7 +8548,7 @@ function verify_mobile()
 {
 
 $var=1;
-
+$this->set('webroot_path',$this->webroot_path());
 $this->layout='without_session';
 $q=$this->request->query['q'];
 
@@ -12048,13 +12049,13 @@ exit;
 
 function count_comment_of_topic($id)
 {
-$this->layout='blank';
+	$this->layout='blank';
+	$id=(int)$this->decode($id,'housingmatters');
+	$this->loadmodel('discussion_comment');
+	$conditions =array( '$or' => array( 
+	array('discussion_post_id' =>$id,'delete_id' =>0),array('discussion_post_id' =>$id,'delete_id' =>2)));
+	return $this->discussion_comment->find('count',array('conditions'=>$conditions)); 
 
-$this->loadmodel('discussion_comment');
-//$conditions=array("discussion_post_id"=>$id,"delete_id" => 0);
-$conditions =array( '$or' => array( 
-array('discussion_post_id' =>$id,'delete_id' =>0),array('discussion_post_id' =>$id,'delete_id' =>2)));
-return $this->discussion_comment->find('count',array('conditions'=>$conditions)); 
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

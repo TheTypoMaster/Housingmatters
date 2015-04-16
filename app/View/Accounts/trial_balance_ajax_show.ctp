@@ -73,7 +73,7 @@ $amount1 = $collection['ledger']['amount'];
 $ammount_type_id1 = (int)$collection['ledger']['amount_category_id'];
 //$module_id = (int)@$collection['ledger']['module_id'];
 $receipt_id = (int)$collection['ledger']['receipt_id'];
-$op_date = $collection['ledger']['op_date'];
+$op_date = @$collection['ledger']['op_date'];
 $table_name = $collection['ledger']['table_name'];
 if($table_name == "cash_bank")
 {
@@ -197,14 +197,16 @@ $total_closing_balance = $total_closing_balance + $amount1;
 		<td><?php 
 		if($total_opening_balance > 0)
 		{
+		$total_opening_balance = number_format($total_opening_balance);
 		$total_opening_balance = $total_opening_balance.'Cr';
 		}
 		else if($total_opening_balance < 0)
 		{
 		$total_opening_balance = abs($total_opening_balance);
+		$total_opening_balance = number_format($total_opening_balance);
 		$total_opening_balance = $total_opening_balance.'Dr';
 		}
-		$total_opening_balance = number_format($total_opening_balance);
+		
 		echo $total_opening_balance; ?></td>
 		<td><?php 
 		$total_debit1 = number_format($total_debit1);
@@ -215,14 +217,16 @@ $total_closing_balance = $total_closing_balance + $amount1;
 		<td><?php 
 		if($total_closing_balance > 0)
 		{
+		$total_closing_balance = number_format($total_closing_balance);
 		$total_closing_balance = $total_closing_balance.'Cr';
 		}
 		else if($total_closing_balance < 0)
 		{
 		$total_closing_balance = abs($total_closing_balance);
+		$total_closing_balance = number_format($total_closing_balance);
 		$total_closing_balance = $total_closing_balance.'Dr';
 		}
-		$total_closing_balance = number_format($total_closing_balance);
+		
 		echo $total_closing_balance; ?></td>
 		</tr>
 		
@@ -234,14 +238,16 @@ $total_closing_balance = $total_closing_balance + $amount1;
 		<th><?php 
 		if($grand_total_opening_balance > 0)
 		{
+		$grand_total_opening_balance = number_format($grand_total_opening_balance);
 		$grand_total_opening_balance = $grand_total_opening_balance.'Cr';
 		}
 		else if($grand_total_opening_balance < 0)
 		{
 		$grand_total_opening_balance = abs($grand_total_opening_balance);
+		$grand_total_opening_balance = number_format($grand_total_opening_balance);
 		$grand_total_opening_balance = $grand_total_opening_balance.'Dr';
 		}
-		$grand_total_opening_balance = number_format($grand_total_opening_balance);
+		
 		echo $grand_total_opening_balance; ?></th>
 		<th><?php 
 		$grand_total_debit = number_format($grand_total_debit);
@@ -252,14 +258,15 @@ $total_closing_balance = $total_closing_balance + $amount1;
 		<th><?php 
 		if($grand_total_closing_balance > 0)
 		{
+		$grand_total_closing_balance = number_format($grand_total_closing_balance);
 		$grand_total_closing_balance = $grand_total_closing_balance.'Cr';
 		}
 		else if($grand_total_closing_balance < 0)
 		{
 		$grand_total_closing_balance = abs($grand_total_closing_balance);
+		$grand_total_closing_balance = number_format($grand_total_closing_balance);
 		$grand_total_closing_balance = $grand_total_closing_balance.'Dr';
 		}
-		$grand_total_closing_balance = number_format($grand_total_closing_balance);
 		echo $grand_total_closing_balance; ?></th>
 		</tr>
 		</table>
@@ -330,7 +337,7 @@ $ledger1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger
 				$ammount_type_id1 = (int)$collection['ledger']['amount_category_id'];
 				//$module_id = (int)@$collection['ledger']['module_id'];
 		        $receipt_id = (int)$collection['ledger']['receipt_id'];
-                $op_date = $collection['ledger']['op_date'];
+                $op_date = @$collection['ledger']['op_date'];
                 $table_name = $collection['ledger']['table_name']; 
 				if($table_name == "cash_bank")
 				{
@@ -447,14 +454,16 @@ $total_closing_balance = $total_closing_balance + $amount1;
 		<td><?php 
 		if($total_opening_balance > 0)
 		{
+		$total_opening_balance = number_format($total_opening_balance);
 		$total_opening_balance = $total_opening_balance.'Cr';
 		}
 		else if($total_opening_balance < 0)
 		{
 		$total_opening_balance = abs($total_opening_balance);
+		$total_opening_balance = number_format($total_opening_balance);
 		$total_opening_balance = $total_opening_balance.'Dr';
 		}
-		$total_opening_balance = number_format($total_opening_balance);
+		
 		echo $total_opening_balance; ?></td>
 		<td><?php 
 		$total_debit1 = number_format($total_debit1);
@@ -465,14 +474,15 @@ $total_closing_balance = $total_closing_balance + $amount1;
 		<td><?php 
 		if($total_closing_balance > 0)
 		{
+		$total_closing_balance = number_format($total_closing_balance);
 		$total_closing_balance = $total_closing_balance.'Cr';
 		}
 		else if($total_closing_balance < 0)
 		{
 		$total_closing_balance = abs($total_closing_balance);
+		$total_closing_balance = number_format($total_closing_balance);
 		$total_closing_balance = $total_closing_balance.'Dr';
 		}
-		$total_closing_balance = number_format($total_closing_balance);
 		echo $total_closing_balance; ?></td>
 		</tr>
 		
@@ -483,14 +493,16 @@ $total_closing_balance = $total_closing_balance + $amount1;
 		<th><?php 
 		if($grand_total_opening_balance > 0)
 		{
+		$grand_total_opening_balance = number_format($grand_total_opening_balance);
 		$grand_total_opening_balance = $grand_total_opening_balance.'Cr';
 		}
 		else if($grand_total_opening_balance < 0)
 		{
 		$grand_total_opening_balance = abs($grand_total_opening_balance);
+		$grand_total_opening_balance = number_format($grand_total_opening_balance);
 		$grand_total_opening_balance = $grand_total_opening_balance.'Dr';
 		}
-		$grand_total_opening_balance = number_format($grand_total_opening_balance);
+		
 		echo $grand_total_opening_balance; ?></th>
 		<th><?php 
 		$grand_total_debit = number_format($grand_total_debit);
@@ -501,14 +513,16 @@ $total_closing_balance = $total_closing_balance + $amount1;
 		<th><?php 
 		if($grand_total_closing_balance > 0)
 		{
+		$grand_total_closing_balance = number_format($grand_total_closing_balance);
 		$grand_total_closing_balance = $grand_total_closing_balance.'Cr';
 		}
 		else if($grand_total_closing_balance < 0)
 		{
 		$grand_total_closing_balance = abs($grand_total_closing_balance);
+		$grand_total_closing_balance = number_format($grand_total_closing_balance);
 		$grand_total_closing_balance = $grand_total_closing_balance.'Dr';
 		}
-		$grand_total_closing_balance = number_format($grand_total_closing_balance);
+		
 		echo $grand_total_closing_balance; ?></th>
 		</tr>
 		</table>
@@ -579,7 +593,7 @@ $ledger1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger
 				$ammount_type_id1 = (int)$collection['ledger']['amount_category_id'];
 				//$module_id = (int)@$collection['ledger']['module_id'];
 		        $receipt_id = (int)$collection['ledger']['receipt_id'];
-                $op_date = $collection['ledger']['op_date']; 
+                $op_date = @$collection['ledger']['op_date']; 
                 $table_name = $collection['ledger']['table_name'];
 				if($table_name == "cash_bank")
 				{
@@ -708,14 +722,16 @@ $total_closing_balance = $total_closing_balance + $amount1;
 <td><?php 
 		if($total_opening_balance > 0)
 		{
+		$total_opening_balance = number_format($total_opening_balance);
 		$total_opening_balance = $total_opening_balance.'Cr';
 		}
 		else if($total_opening_balance < 0)
 		{
 		$total_opening_balance = abs($total_opening_balance);
+		$total_opening_balance = number_format($total_opening_balance);
 		$total_opening_balance = $total_opening_balance.'Dr';
 		}
-		$total_opening_balance = number_format($total_opening_balance);
+		
 		echo $total_opening_balance; ?></td>
 		<td><?php 
 		$total_debit1 = number_format($total_debit1);
@@ -726,14 +742,16 @@ $total_closing_balance = $total_closing_balance + $amount1;
 		<td><?php 
 		if($total_closing_balance > 0)
 		{
+		$total_closing_balance = number_format($total_closing_balance);
 		$total_closing_balance = $total_closing_balance.'Cr';
 		}
 		else if($total_closing_balance < 0)
 		{
 		$total_closing_balance = abs($total_closing_balance);
+		$total_closing_balance = number_format($total_closing_balance);
 		$total_closing_balance = $total_closing_balance.'Dr';
 		}
-		$total_closing_balance = number_format($total_closing_balance);
+		
 		echo $total_closing_balance; ?></td>
 		</tr>
 		
@@ -744,14 +762,16 @@ $total_closing_balance = $total_closing_balance + $amount1;
 		<th><?php 
 		if($grand_total_opening_balance > 0)
 		{
+		$grand_total_opening_balance = number_format($grand_total_opening_balance);
 		$grand_total_opening_balance = $grand_total_opening_balance.'Cr';
 		}
 		else if($grand_total_opening_balance < 0)
 		{
 		$grand_total_opening_balance = abs($grand_total_opening_balance);
+		$grand_total_opening_balance = number_format($grand_total_opening_balance);
 		$grand_total_opening_balance = $grand_total_opening_balance.'Dr';
 		}
-		$grand_total_opening_balance = number_format($grand_total_opening_balance);
+		
 		echo $grand_total_opening_balance; ?></th>
 		<th><?php 
 		$grand_total_debit = number_format($grand_total_debit);
@@ -762,14 +782,16 @@ $total_closing_balance = $total_closing_balance + $amount1;
 		<th><?php
         if($grand_total_closing_balance > 0)
         {		
-        $grand_total_closing_balance = $grand_total_closing_balance.'Cr';
+        $grand_total_closing_balance = number_format($grand_total_closing_balance);
+		$grand_total_closing_balance = $grand_total_closing_balance.'Cr';
         }
 		else if($grand_total_closing_balance < 0)
 		{
 		$grand_total_closing_balance = abs($grand_total_closing_balance);
+		$grand_total_closing_balance = number_format($grand_total_closing_balance);
 		$grand_total_closing_balance = $grand_total_closing_balance.'Dr';
 		}
-		$grand_total_closing_balance = number_format($grand_total_closing_balance);
+		
 		echo $grand_total_closing_balance; ?></th>
 		</tr>
 		</table>
@@ -855,7 +877,7 @@ $ledger1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger
 				$ammount_type_id1 = (int)$collection['ledger']['amount_category_id'];
 				//$module_id = (int)@$collection['ledger']['module_id'];
 		        $receipt_id = (int)$collection['ledger']['receipt_id'];
-				$op_date = $collection['ledger']['op_date'];
+				$op_date = @$collection['ledger']['op_date'];
 				$table_name = $collection['ledger']['table_name'];
 				if($table_name == "cash_bank")
 				{
@@ -967,14 +989,16 @@ $total_closing_balance = $total_closing_balance + $amount1;
 		<td><?php 
 		if($total_opening_balance > 0)
 		{
+		$total_opening_balance = number_format($total_opening_balance);
 		$total_opening_balance = $total_opening_balance.'Cr';
 		}
 		else if($total_opening_balance < 0) 
 		{ 
 		$total_opening_balance = abs($total_opening_balance);
+		$total_opening_balance = number_format($total_opening_balance);
 		$total_opening_balance = $total_opening_balance.'Dr';
 		}
-		$total_opening_balance = number_format($total_opening_balance);
+		
 		echo $total_opening_balance; ?></td>
 		<td><?php 
 		$total_debit1 = number_format($total_debit1);
@@ -985,14 +1009,16 @@ $total_closing_balance = $total_closing_balance + $amount1;
 		<td><?php 
 		if($total_closing_balance > 0)
 		{
+		$total_closing_balance = number_format($total_closing_balance);
 		$total_closing_balance = $total_closing_balance.'Cr';
 		}
 		else if($total_closing_balance < 0)
 		{
 		$total_closing_balance = abs($total_closing_balance);
+		$total_closing_balance = number_format($total_closing_balance);
 		$total_closing_balance = $total_closing_balance.'Dr';
 		}
-		$total_closing_balance = number_format($total_closing_balance);
+		
 		echo $total_closing_balance; ?></td>
 		</tr>
 		
@@ -1034,7 +1060,7 @@ $total_closing_balance = $total_closing_balance + $amount1;
 		$ammount_type_id = (int)$collection['ledger']['amount_category_id'];
 		//$module_id = (int)@$collection['ledger']['module_id'];
 		$receipt_id_s = (int)$collection['ledger']['receipt_id'];
-		$op_date2 = $collection['ledger']['op_date'];
+		$op_date2 = @$collection['ledger']['op_date'];
 		$table_name = $collection['ledger']['table_name'];
 		if($table_name == "cash_bank")
 		{
@@ -1148,14 +1174,16 @@ $closing_balance_sub = $closing_balance_sub + $amount;
 		<td><?php 
 		if($opening_balance_sub > 0)
 		{
+		$opening_balance_sub = number_format($opening_balance_sub);
 		$opening_balance_sub = $opening_balance_sub.'Cr';
 		}
 		else if($opening_balance_sub < 0)
 		{
 		$opening_balance_sub = abs($opening_balance_sub);
+		$opening_balance_sub = number_format($opening_balance_sub);
 		$opening_balance_sub = $opening_balance_sub.'Dr';
 		}
-		$opening_balance_sub = number_format($opening_balance_sub);
+		
 		echo $opening_balance_sub; ?></td>
 		<td><?php
 		$debit_sub = number_format($debit_sub);
@@ -1166,14 +1194,15 @@ $closing_balance_sub = $closing_balance_sub + $amount;
 		<td><?php 
 		if($closing_balance_sub > 0)
 		{
+		$closing_balance_sub = number_format($closing_balance_sub);
 		$closing_balance_sub = $closing_balance_sub.'Cr';
 		}
 		else if($closing_balance_sub < 0)
 		{
 		$closing_balance_sub = abs($closing_balance_sub);
+		$closing_balance_sub = number_format($closing_balance_sub);
 		$closing_balance_sub = $closing_balance_sub.'Dr';
 		}
-		$closing_balance_sub = number_format($closing_balance_sub);
 		echo $closing_balance_sub; ?></td>
 		</tr>
 		<?php }} ?>
@@ -1183,14 +1212,16 @@ $closing_balance_sub = $closing_balance_sub + $amount;
 		<th><?php 
 		if($total_sub_opening_balance > 0)
 		{
+		$total_sub_opening_balance = number_format($total_sub_opening_balance);
 		$total_sub_opening_balance = $total_sub_opening_balance.'Cr';
 		}
 		else if($total_sub_opening_balance < 0)
 		{
 		$total_sub_opening_balance = abs($total_sub_opening_balance);
+		$total_sub_opening_balance = number_format($total_sub_opening_balance);
 		$total_sub_opening_balance = $total_sub_opening_balance.'Dr';
 		}
-		$total_sub_opening_balance = number_format($total_sub_opening_balance);
+		
 		echo $total_sub_opening_balance; ?></th>
 		<th><?php 
 		$total_sub_debit = number_format($total_sub_debit);
@@ -1201,14 +1232,16 @@ $closing_balance_sub = $closing_balance_sub + $amount;
 		<th><?php 
 		if($total_sub_closing_balance > 0)
 		{
+		$total_sub_closing_balance = number_format($total_sub_closing_balance);
 		$total_sub_closing_balance = $total_sub_closing_balance.'Cr';
 		}
 		else if($total_sub_closing_balance < 0)
 		{
 		$total_sub_closing_balance = abs($total_sub_closing_balance);
+		$total_sub_closing_balance = number_format($total_sub_closing_balance);
 		$total_sub_closing_balance = $total_sub_closing_balance.'Dr';
 		}
-		$total_sub_closing_balance = number_format($total_sub_closing_balance);
+		
 		echo $total_sub_closing_balance; ?></th>
 		</tr>
 		</table>
@@ -1236,7 +1269,7 @@ else
 			$amount_type_id = (int)$collection['ledger']['amount_category_id'];
 			//$module_id = (int)@$collection['ledger']['module_id'];
 			$receipt_id2 = (int)$collection['ledger']['receipt_id'];
-			$op_date3 = $collection['ledger']['op_date'];
+			$op_date3 = @$collection['ledger']['op_date'];
             $table_name = $collection['ledger']['table_name'];
 			if($table_name == "cash_bank")
 			{
@@ -1354,14 +1387,16 @@ $total_closing_balance2 = $total_closing_balance2 + $amount;
 			<td><?php 
 			if($total_opening_balance2 > 0)
 			{
+			$total_opening_balance2 = number_format($total_opening_balance2);
 			$total_opening_balance2 = $total_opening_balance2.'Cr';
 			}
 			else if($total_opening_balance2 < 0)
 			{
 			$total_opening_balance2 = abs($total_opening_balance2);
+			$total_opening_balance2 = number_format($total_opening_balance2);
 			$total_opening_balance2 = $total_opening_balance2.'Dr';
 			}
-			$total_opening_balance2 = number_format($total_opening_balance2);
+			
 			echo $total_opening_balance2; ?></th>
 			<td><?php 
 			$total_debit = number_format($total_debit);
@@ -1372,14 +1407,16 @@ $total_closing_balance2 = $total_closing_balance2 + $amount;
 			<td><?php 
 			if($total_closing_balance2 > 0)
 			{
+			$total_closing_balance2 = number_format($total_closing_balance2);
 			$total_closing_balance2 = $total_closing_balance2.'Cr';
 			}
 			else if($total_closing_balance2 < 0)
 			{
 			$total_closing_balance2 = abs($total_closing_balance2);
+			$total_closing_balance2 = number_format($total_closing_balance2);
 			$total_closing_balance2 = $total_closing_balance2.'Dr';
 			}
-			$total_closing_balance2 = number_format($total_closing_balance2);
+			
 			echo $total_closing_balance2; ?></td>
 			</tr>  
 			
@@ -1391,14 +1428,16 @@ $total_closing_balance2 = $total_closing_balance2 + $amount;
     <th><?php 
 	if($grand_total_opening_balance > 0)
 	{
+	$grand_total_opening_balance = number_format($grand_total_opening_balance);
 	$grand_total_opening_balance = $grand_total_opening_balance.'Cr';
 	}
 	else if($grand_total_opening_balance < 0)
 	{
 	$grand_total_opening_balance = abs($grand_total_opening_balance);
+	$grand_total_opening_balance = number_format($grand_total_opening_balance);
 	$grand_total_opening_balance = $grand_total_opening_balance.'Dr';
 	}
-	$grand_total_opening_balance = number_format($grand_total_opening_balance);
+	
 	echo $grand_total_opening_balance; ?></th>   
 	<th><?php
 	$grand_total_debit = number_format($grand_total_debit);
@@ -1409,14 +1448,16 @@ $total_closing_balance2 = $total_closing_balance2 + $amount;
 	<th><?php 
 	if($grand_total_closing_balance > 0)
 	{
+	$grand_total_closing_balance = number_format($grand_total_closing_balance);
 	$grand_total_closing_balance = $grand_total_closing_balance.'Cr';
 	}
 	else if($grand_total_closing_balance < 0)
 	{
 	$grand_total_closing_balance = abs($grand_total_closing_balance);
+	$grand_total_closing_balance = number_format($grand_total_closing_balance);
 	$grand_total_closing_balance = $grand_total_closing_balance.'Dr';
 	}
-	$grand_total_closing_balance = number_format($grand_total_closing_balance);
+	
 	echo $grand_total_closing_balance; ?></th>
 	</tr>
 

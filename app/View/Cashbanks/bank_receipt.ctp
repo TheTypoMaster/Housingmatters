@@ -96,8 +96,191 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </center>	
 <?php /////////////////////////////////////////////////////////////////////////////////////////?>
      
-	 <br>	
-              <div class="portlet box grey" style="width:98%; margin-left:1%; margin-right:1%;">
+<br />	          
+<div class="portlet box grey" style="width:60%; margin-left:20%; margin-right:20%;">
+<div class="portlet-title">
+<h4><i class="icon-reorder"></i>Bank Receipt</h4>
+</div>
+<div class="portlet-body form">
+<form id="contact-form" method="POST" class="form-horizontal" enctype="multipart/form-data">
+<center>             
+<table  style="width:80%;">                   
+<tr>
+<td align="left">
+<br />
+<label  style="font-size:14px;">Transaction date</label>
+</td>
+<td>
+<br />
+<input type="text" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="date" placeholder="Transaction Date" style="background-color:white !important;" id="date">
+<label id="date"></label>
+<div id="result11"></div>
+</td>
+</tr>
+<tr>
+<td align="left">
+<br />
+<label  style="font-size:14px;">Receipt Mode</label>
+</td>
+<td>
+<br />
+<label class="radio">
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" value="Cheque" style="opacity: 0;" id="mode"></span></div>
+Cheque
+</label>
+<label class="radio">
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" value="NEFT" style="opacity: 0;" id="mode"></span></div>
+NEFT
+</label>
+<label class="radio">
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" value="PG" style="opacity: 0;" id="mode"></span></div>
+PG
+</label> 
+<label id="mode"></label>
+</td>
+</tr>
+<tr>
+<td align="left">
+<br />
+<label style="font-size:14px;">Instrument/UTR</label>
+</td>
+<td>
+<br />
+<input type="text"  name="instruction" class="m-wrap medium" placeholder="Instrument/UTR" style="background-color:white !important;" id="ins">
+</td>
+</tr>
+<tr>
+<td align="left">
+<br />
+<label style="font-size:14px;">Deposited In</label>
+</td>
+<td>
+<br />
+<select name="bank_account" class="medium m-wrap chosen" id="bank">
+<option value="" style="display:none;">Deposited In</option>    
+<?php
+foreach ($cursor3 as $db) 
+{
+$bank_id = (int)$db['ledger_sub_account']["auto_id"];
+$bank_ac = $db['ledger_sub_account']["name"];
+?>
+<option value="<?php echo $bank_id; ?>"><?php echo $bank_ac; ?></option>
+<?php } ?>
+</select>
+<label id="bank"></label>
+</td>
+</tr>
+
+
+<tr>
+<td align="left">
+<br />
+<label style="font-size:14px;">Received from</label>
+</td>
+<td>
+<br />
+<label class="radio">
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="member" class="go5" value="1" style="opacity: 0;" id="mem"></span></div>
+Member
+</label>
+<label class="radio">
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="member" class="go6" value="2" style="opacity: 0;" onclick="hidediv('div12')" id="mem"></span></div>
+Non-Member
+</label>
+<label id="mem"></label>
+</td>
+</tr>
+
+
+<tr>
+
+<td align="left">
+<br />
+<label style="font-size:14px;">Party Name</label>
+</td>
+<td>
+<br />
+<span id="div11"></span> 
+
+<label id="go"></label>
+<label id="re"></label>        
+</td>
+</tr>
+
+
+<tr>
+<td align="left">
+<br />
+<label style="font-size:14px;">Narration</label>
+</td>
+<td>
+<br />
+<textarea   rows="4" name="description" class="medium m-wrap" placeholder="Narration" style="background-color:white !important; resize:none; margin-right:70%;"  id="nar"></textarea>
+</td>
+</tr>
+</table>              
+<div id="div13" class="hide">
+<table border="0" style="width:80%;">
+<tr>
+<td align="left">
+<br />
+<label style="font-size:14px;">Bill Reference</label>
+</td>
+<td>
+<br />
+<span style="margin-left:6%;">
+<input type="text" class="m-wrap medium" name="refn" placeholder="Bill Reference" style="background-color:white !important;" id="refn"/>
+</span>
+<label id="refn" style="margin-left:6%;"></label>
+</td>
+</tr>
+<tr>
+<td align="left">
+<br />
+<label style="font-size:14px;">Amount</label>
+</td>
+<td>
+<br />
+<span style="margin-left:6%;">
+<input type="text" name="amountn" class="m-wrap medium" placeholder="Amount" style="background-color:white !important;" id="amt"/>
+</span>
+<label id="amt" style="margin-left:6%;"></label>
+</td>
+</tr>
+</table>
+</div>
+<br />
+<div id="div12">
+<div id="result" style="width:94%;" >
+</div>
+</div>
+
+</center>
+<div class="form-actions" style="background-color:#CCC;">
+<button type="submit" class="btn green" name="bank_receipt_add" value="xyz" id="vali">Submit</button>
+<a href="bank_receipt" class="btn">Reset</a>
+</div>
+</form>
+</div>
+</div>
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+<?php /////////////////////////////////////////////////////////////////////////////////////////////// ?>              
+              
+<?php /*              
+              <br>	
+              <div class="portlet box grey" style="width:60%; margin-left:20%; margin-right:20%;">
               <div class="portlet-title">
               <h4><i class="icon-reorder"></i>Bank Receipt</h4>
               </div>
@@ -249,7 +432,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
                           </div>          
                         
 
-<?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php
+*/
+ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 		<script>
 		$(document).ready(function() {
@@ -286,6 +471,7 @@ function hidediv(id)
 }
 $(document).ready(function() {
 	$(".go5").live('click',function(){
+		
 		document.getElementById('div12').style.display='block';
 		document.getElementById('div13').style.display='none';
 		$("#div1").show();
@@ -342,6 +528,11 @@ $(document).ready(function() {
 
 <script>
 $(document).ready(function(){
+	
+	 jQuery.validator.addMethod("notEqual", function(value, element, param) {
+  return this.optional(element) || value !== param;
+}, "Please choose Other value!");
+	
 		$.validator.setDefaults({ ignore: ":hidden:not(select)" });
 		
 		$('#contact-form').validate({
@@ -395,14 +586,15 @@ $(document).ready(function(){
 	      },
 		 
 		 amountn: {
-	       
 	        required: true,
-			number: true
+			number: true,
+			notEqual: "0"
 	      },
 		amount : {
 			required: true,
-			number: true
-			
+			number: true,
+			notEqual: "0"
+		
 		},
 		
 		},
