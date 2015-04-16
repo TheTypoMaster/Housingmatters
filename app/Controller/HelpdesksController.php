@@ -1455,9 +1455,9 @@ function save_reply_resident()
 	$hd_id=(int)$this->request->query('con2');
   $reply=nl2br($reply);
 
-$rep=explode(' ',$reply);
+//$rep=explode(' ',$reply);
 
-$r=$this->content_moderation_society($rep);
+$r=$this->content_moderation_society($reply);
 
 
 
