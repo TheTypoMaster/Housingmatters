@@ -1,5 +1,6 @@
-
-
+<?php
+echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
+?>
 <script>
 $(document).ready(function() {
 $("#fix<?php echo $id_current_page; ?>").removeClass("blue");
@@ -8,9 +9,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </script>
 
 
-<?php
-echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
-?>
+
 
 <div align="center">
 <a href='notice_publish' <?php if(empty($blue_cat)){ ?> class="btn red " <?php } else { ?> class="btn blue "  <?php } ?>>All</a>
@@ -74,6 +73,7 @@ if($visible==2)
 	$visible_show="Role wise";
 	foreach ($sub_visible as $role_id) 
 	{
+	$role_id=(int)$role_id;
 	$role_name1=$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_rolename_via_roleid'), array('pass' => array($role_id)));
 		if(!empty($role_name1))
 		{
