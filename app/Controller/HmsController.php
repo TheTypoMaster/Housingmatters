@@ -4349,7 +4349,8 @@ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingk
 
 function sign_up_next()
 {
-$this->layout='without_session';	
+$this->layout='without_session';
+$this->set('webroot_path',$this->webroot_path());	
 $user=$this->request->query['user'];
 $this->set('user', $user);
 }
