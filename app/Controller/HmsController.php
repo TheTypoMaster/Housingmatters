@@ -195,7 +195,7 @@ $this->redirect(array('action' => 'index'));
 
 function beforeFilter()
 {
-Configure::write('debug', 0);
+//Configure::write('debug', 0);
 }
 
 function menus_from_role_privileges()
@@ -11972,13 +11972,13 @@ exit;
 
 function count_comment_of_topic($id)
 {
-$this->layout='blank';
+	$this->layout='blank';
+	$id=(int)$this->decode($id,'housingmatters');
+	$this->loadmodel('discussion_comment');
+	$conditions =array( '$or' => array( 
+	array('discussion_post_id' =>$id,'delete_id' =>0),array('discussion_post_id' =>$id,'delete_id' =>2)));
+	return $this->discussion_comment->find('count',array('conditions'=>$conditions)); 
 
-$this->loadmodel('discussion_comment');
-//$conditions=array("discussion_post_id"=>$id,"delete_id" => 0);
-$conditions =array( '$or' => array( 
-array('discussion_post_id' =>$id,'delete_id' =>0),array('discussion_post_id' =>$id,'delete_id' =>2)));
-return $this->discussion_comment->find('count',array('conditions'=>$conditions)); 
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

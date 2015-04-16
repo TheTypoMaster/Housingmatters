@@ -246,8 +246,8 @@ $topic=$collection["discussion_post"]["topic"];
 $d_user_id=(int)$collection["discussion_post"]["user_id"];
 $date=$collection["discussion_post"]["date"];
 $time=$collection["discussion_post"]["time"];
+  $n_comments=$this->requestAction(array('controller' => 'hms', 'action' => 'count_comment_of_topic'), array('pass' => array($discussion_post_id)));
 
-$n_comments=$this->requestAction(array('controller' => 'hms', 'action' => 'count_comment_of_topic'), array('pass' => array($discussion_post_id)));
 ?>
 <?php if($list==0) { ?>
 <a href="<?php echo $webroot_path;?>Discussions/index/<?php echo $discussion_post_id; ?>/0" role='button' rel="tab" style="text-decoration:none;">
