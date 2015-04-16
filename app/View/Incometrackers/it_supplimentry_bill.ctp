@@ -202,7 +202,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
             <tr>
             <td>
 <label class="checkbox">
-<div class="checker" id="uniform-undefined"><span><input type="checkbox" value="<?php echo $income_heads_id; ?>" style="opacity: 0;" id="ih<?php echo $income_heads_id; ?>" name="ih<?php echo $income_heads_id; ?>" onclick="show(<?php echo $income_heads_id; ?>)"></span></div><?php echo $income_heads_name; ?>
+<div class="checker" id="uniform-undefined"><span><input type="checkbox" value="<?php echo $income_heads_id; ?>" style="opacity: 0;" id="ih<?php echo $income_heads_id; ?>" name="ih<?php echo $income_heads_id; ?>" onclick="show(<?php echo $income_heads_id; ?>)" class="ignr"></span></div><?php echo $income_heads_name; ?>
 </label>
 </td>
 <td>
@@ -213,14 +213,16 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
             <tr>
             <td>
 <label class="checkbox">
-<div class="checker" id="uniform-undefined"><span><input type="checkbox" value="43" style="opacity: 0;" name="ih43" id="ih43" onclick="show(43)"></span></div>Non Occupancy Charges
+<div class="checker" id="uniform-undefined"><span><input type="checkbox" value="43" style="opacity: 0;" name="ih43" id="ih43" onclick="show(43)" class="ignr"></span></div>Non Occupancy Charges
 </label>
             </td>
             <td>
-            <input type="text" class="m-wrap small" id="amt43" name="amt43" style="display:none;"/>
+            <input type="text" class="m-wrap small" id="amt43" name="amt43" style="display:none;" />
             </td>
             </tr>
             </table>
+            <label id="chk_vali"></label>
+            <label id="chk_vali2"></label>
            	</div>
 			</div>
 		    </div>
@@ -457,8 +459,23 @@ $(document).ready(function(){
 		
 	<script>
 		$(document).ready(function() {
-		$("#go5").live('click',function(){
-        
+		$("#go5").bind('click',function(){
+
+var bb = $('input[type=radio]:checked').val();
+
+if(bb == 2)
+{
+if($('input[type=checkbox]:checked').length == 0)
+{
+$('#chk_vali').html('<p style="color:red;">Select at list One income head</p>'); return false;
+}
+else
+{
+$('#chk_vali').html('<p style="color:red;"></p>');	
+}
+			
+
+}
 		var fi = document.getElementById("fi").value;
 		var ti = document.getElementById("ti").value;
 		var cn = document.getElementById("cn").value;

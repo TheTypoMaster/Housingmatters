@@ -10,8 +10,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 
 
-<input type="hidden" name="fd1" value="<?php echo $fd1; ?>" id="fd1"/>
-<input type="hidden" name="td1" value="<?php echo $td1; ?>" id="td1" />
+<input type="hidden" name="fd1" value="<?php echo @$fd1; ?>" id="fd1"/>
+<input type="hidden" name="td1" value="<?php echo @$td1; ?>" id="td1" />
 <center>
 <h3><b>Master Financial Year</b></h3>
 </center>
@@ -53,7 +53,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <td colspan="4" id="result5" style="padding:0px; margin:0px; text-align:center;"></td>
 </tr>
 </table>
-
+<label id="result5"></label>
 <br>
 <br>
 
@@ -62,7 +62,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 
 		<div class="form-actions" style="background-color:#D7DACD;">
-        <a href="#myModal3" role="button" class="btn green" data-toggle="modal">Submit</a>
+        <button type="submit" class="btn blue" name="sub1" value="xyz" id="go">Submit</button>
 		<!--<button type="submit" class="btn green" name="sub1" value="xyz" id="go">Submit</button> -->
 		<button type="reset" class="btn">Cancel</button>
 		</div>
@@ -73,7 +73,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
         
         
         
-        
+  </form>      
         
         
 
@@ -85,7 +85,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
-
+<!--
 <div id="myModal3" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="false" style="display: block;">
 <div class="modal-header">
 <center>
@@ -99,10 +99,10 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </div>
 <div class="modal-footer">
 <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-<button type="submit" class="btn blue" name="sub1" value="xyz" id="go">Confirm</button>
+
 </div>
-</div>
-</form>
+</div>-->
+
 
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <script>

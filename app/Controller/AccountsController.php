@@ -1882,7 +1882,7 @@ $amount1 = $collection['ledger']['amount'];
 $ammount_type_id1 = (int)$collection['ledger']['amount_category_id'];
 //$module_id = (int)@$collection['ledger']['module_id'];
 $receipt_id = (int)$collection['ledger']['receipt_id'];
-$op_date = $collection['ledger']['op_date'];
+$op_date = @$collection['ledger']['op_date'];
 $table_name = $collection['ledger']['table_name'];
 if($table_name == "cash_bank")
 {
@@ -2087,7 +2087,7 @@ $amount1 = $collection['ledger']['amount'];
 $ammount_type_id1 = (int)$collection['ledger']['amount_category_id'];
 //$module_id = (int)@$collection['ledger']['module_id'];
 $receipt_id = (int)$collection['ledger']['receipt_id'];
-$op_date = $collection['ledger']['op_date']; 
+$op_date = @$collection['ledger']['op_date']; 
 $table_name = $collection['ledger']['table_name']; 
 if($table_name == "cash_bank")
 { 
@@ -2293,7 +2293,7 @@ $amount1 = $collection['ledger']['amount'];
 $ammount_type_id1 = (int)$collection['ledger']['amount_category_id'];
 //$module_id = (int)@$collection['ledger']['module_id'];
 $receipt_id = (int)$collection['ledger']['receipt_id'];
-$op_date = $collection['ledger']['op_date'];
+$op_date = @$collection['ledger']['op_date'];
 $table_name = $collection['ledger']['table_name']; 
 if($table_name == "cash_bank")
 {
@@ -2520,7 +2520,7 @@ $amount1 = $collection['ledger']['amount'];
 $ammount_type_id1 = (int)$collection['ledger']['amount_category_id'];
 //$module_id = (int)@$collection['ledger']['module_id'];
 $receipt_id = (int)$collection['ledger']['receipt_id'];
-$op_date = $collection['ledger']['op_date'];
+$op_date = @$collection['ledger']['op_date'];
 $table_name = $collection['ledger']['table_name'];
 if($table_name == "cash_bank")
 {
@@ -2678,7 +2678,7 @@ $amount = $collection['ledger']['amount'];
 $ammount_type_id = (int)$collection['ledger']['amount_category_id'];
 //$module_id = (int)@$collection['ledger']['module_id'];
 $receipt_id_s = (int)$collection['ledger']['receipt_id'];
-$op_date2 = $collection['ledger']['op_date'];
+$op_date2 = @$collection['ledger']['op_date'];
 $table_name = $collection['ledger']['table_name'];
 if($table_name == "cash_bank")
 {
@@ -2860,7 +2860,7 @@ $amount = $collection['ledger']['amount'];
 $amount_type_id = (int)$collection['ledger']['amount_category_id'];
 //$module_id = (int)@$collection['ledger']['module_id'];
 $receipt_id2 = (int)$collection['ledger']['receipt_id'];
-$op_date3 = $collection['ledger']['op_date'];
+$op_date3 = @$collection['ledger']['op_date'];
 $table_name = $collection['ledger']['table_name'];
 if($table_name == "cash_bank")
 {
