@@ -41,7 +41,7 @@
 		  {
 		    if(xobj)
 			 {			
-				
+			
 				var query="?con=" + c1;
 			 xobj.open("GET","profile_check_private" +query,true);
 			 xobj.onreadystatechange=function()
@@ -151,8 +151,8 @@ $flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat
 									<!--BEGIN TABS-->
 									<div class="tabbable tabbable-custom">
 										<ul class="nav nav-tabs">
-											<li class="active"><a href="profile" >Basic</a></li>
-											<li class=""><a href="family_member_view" >Family Member</a></li>
+											<li class="active"><a href="profile" rel='tab' >Basic</a></li>
+											<li class=""><a href="family_member_view" rel='tab' >Family Member</a></li>
 										</ul>
 										<div class="tab-content">
 										 
@@ -602,9 +602,6 @@ email: {
 	  });
 
 });
-
-
-
 
 
 </script>					

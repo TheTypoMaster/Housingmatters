@@ -35,8 +35,8 @@ $('#hid').val(c);
 
 <div class="tabbable tabbable-custom">
 										<ul class="nav nav-tabs">
-											<li class=""><a href="profile" >Basic</a></li>
-											<li class="active"><a href="family_member_view" >Family Member</a></li>
+											<li class=""><a href="profile" rel='tab' >Basic</a></li>
+											<li class="active"><a href="family_member_view" rel='tab' >Family Member</a></li>
 										</ul>
 										<div class="tab-content">
 										<br>

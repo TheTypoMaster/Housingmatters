@@ -13760,10 +13760,11 @@ $this->set('result3',$result);
 
 function profile_check_private()
 {
-$this->layout='without_session';
+$this->layout='blank';
 $s_user_id=$this->Session->read('user_id');
 $pub=$this->request->query('con');
 $t= explode(',',$pub);
+
 $field=$t[0];
 $private_pubice=$t[1];
 if($private_pubice==1)
