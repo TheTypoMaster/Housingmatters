@@ -528,6 +528,11 @@ $(document).ready(function() {
 
 <script>
 $(document).ready(function(){
+	
+	 jQuery.validator.addMethod("notEqual", function(value, element, param) {
+  return this.optional(element) || value !== param;
+}, "Please choose Other value!");
+	
 		$.validator.setDefaults({ ignore: ":hidden:not(select)" });
 		
 		$('#contact-form').validate({
@@ -581,14 +586,15 @@ $(document).ready(function(){
 	      },
 		 
 		 amountn: {
-	       
 	        required: true,
-			number: true
+			number: true,
+			notEqual: "0"
 	      },
 		amount : {
 			required: true,
-			number: true
-			
+			number: true,
+			notEqual: "0"
+		
 		},
 		
 		},
