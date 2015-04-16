@@ -15,6 +15,7 @@ $('.text-toggle-button').toggleButtons({
 		disabled: "Deactive"
 	}
 });
+$('.basic-toggle-button').toggleButtons();
 if (App.isTouchDevice()) { // if touch device, some tooltips can be skipped in order to not conflict with click events
 	jQuery('.tooltips:not(.no-tooltip-on-touch-device)').tooltip();
 } else {
