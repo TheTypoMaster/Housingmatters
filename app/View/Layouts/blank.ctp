@@ -17,3 +17,4 @@ $('.text-toggle-button').toggleButtons({
         });
 	
 </script>
+<script src="<?php echo $this->webroot ; ?>/as/charts/Chart.js"></script>
