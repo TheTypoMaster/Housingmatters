@@ -1374,14 +1374,156 @@ function new_notice(){
 	$wing_result=$this->wing->find('all');
 	$this->set('wing_result',$wing_result);
 	
-	
 }
 
-
 function submit_notice(){
-	$this->layout=Null;
-		$output = json_encode(array('type'=>'error', 'text' => 'Enter only digits in phone number'));
-        die($output);
+	$this->layout=null;
+	$post_data=$this->request->data;
+	$this->ath();
+	$s_society_id=$this->Session->read('society_id');
+	$s_role_id=$this->Session->read('role_id'); 
+	$s_user_id=$this->Session->read('user_id');
+	$date=date('d-m-Y');
+	$time = date(' h:i a', time());
+	$result_society=$this->society_name($s_society_id);
+	foreach($result_society as $child)	{
+		@$notice=$child['society']['notice'];
+	}
+	
+	if(empty($post_data['notice_subject'])){
+		$output = json_encode(array('type'=>'error', 'text' => 'Please fill subject.'));
+		die($output);
+	}
+	if($post_data['notice_category']==0){
+		$output = json_encode(array('type'=>'error', 'text' => 'Please select category for notice.'));
+		die($output);
+	}
+	if(empty($post_data['notice_expire_date'])){
+		$output = json_encode(array('type'=>'error', 'text' => 'Please select expire date for notice.'));
+		die($output);
+	}
+	if(empty($post_data['code'])){
+		$output = json_encode(array('type'=>'error', 'text' => 'Please create notice.'));
+		die($output);
+	}
+	if($post_data['visible']==0){
+		$output = json_encode(array('type'=>'error', 'text' => 'Please select visible.'));
+		die($output);
+	}elseif($post_data['visible']==2 and $post_data['sub_visible']==0){
+		$output = json_encode(array('type'=>'error', 'text' => 'Please select role.'));
+		die($output);
+	}elseif($post_data['visible']==3 and $post_data['sub_visible']==0){
+		$output = json_encode(array('type'=>'error', 'text' => 'Please select wing.'));
+		die($output);
+	}
+	
+	$category_id=(int)$post_data['notice_category'];
+	$notice_subject=htmlentities($post_data['notice_subject']);
+	$notice_subject = wordwrap($notice_subject, 25, " ", true);
+	$notice_expire_date = new MongoDate(strtotime(date("Y-m-d", strtotime($post_data['notice_expire_date']))));
+	$code=$post_data['code'];
+	$visible=(int)$post_data['visible'];
+	$sub_visible=$post_data['sub_visible'];
+	$sub_visible=explode(",",$sub_visible);
+		
+	if($notice==1 && $s_role_id!=3){
+		$notice_id=$this->autoincrement('notice','notice_id');
+		$this->loadmodel('notice');
+		$this->notice->save(array('notice_id' => $notice_id, 'user_id' => $s_user_id, 'society_id' => $s_society_id, 'n_category_id' => $category_id ,'n_subject' => $notice_subject , 'n_expire_date' => $notice_expire_date, 'n_attachment' => "" , 'n_message' => $code,'n_date' => $date, 'n_time' => $time, 'n_delete_id' => 0,'n_draft_id' => 4,'visible' => $visible,'sub_visible' => $sub_visible));
+		
+		$output = json_encode(array('type'=>'approve', 'text' =>'Your notice has created and sent for approval to your society Admin/Committee.'));
+		die($output);
+	}else{
+		@$ip=$this->hms_email_ip();
+		
+		
+		$recieve_info=$this->visible_subvisible($visible,$sub_visible);
+
+		$notice_id=$this->autoincrement('notice','notice_id');
+		$this->loadmodel('notice');
+		$this->notice->save(array('notice_id' => $notice_id, 'user_id' => $s_user_id, 'society_id' => $s_society_id, 'n_category_id' => $category_id ,'n_subject' => $notice_subject , 'n_expire_date' => $notice_expire_date, 'n_attachment' => "" , 'n_message' => $code,'n_date' => $date, 'n_time' => $time, 'n_delete_id' => 0,'n_draft_id' => 0,'visible' => $visible,'sub_visible' => $sub_visible,'visible_user_id' => $recieve_info[2] ));
+		
+		
+		
+		
+		$this->loadmodel('email');
+		$conditions=array('auto_id'=>2);
+		$result_email=$this->email->find('all',array('conditions'=>$conditions));
+		foreach ($result_email as $collection) 
+		{
+		$from=$collection['email']['from'];
+		}
+		$from_name="HousingMatters";
+		$reply="donotreply@housingmatters.in";
+		$category_name=$this->notice_category_name($category_id);
+		$society_result=$this->society_name($s_society_id);
+		foreach($society_result as $data)
+		{
+		$society_name=$data['society']['society_name'];
+		}
+
+		
+		foreach($recieve_info[0] as $user_id=>$email)
+		{
+		$to = @$email;
+		$d_user_id = @$user_id;	 
+		$result_user=$this->profile_picture($user_id);
+		$user_name=$result_user[0]['user']['user_name'];
+
+		 $message_web="<div>
+		<img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+		<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
+		<a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+
+		</br><p>Dear  $user_name,</p>
+		<p>A new notice has been posted on your society Notice Board.</p>
+		<table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
+		<tr class='tr_heading' style='background-color:#00A0E3;color:white;'>
+		<td>Date</td>
+		<td>Subject</td>
+		<td>Category</td>
+		<td>Sent to</td>
+		</tr>
+		<tr class='tr_content' style=background-color:#E9E9E9;'>
+		<td>$date</td>
+		<td>$notice_subject</td>
+		<td>$category_name</td>
+		<td>".$recieve_info[3]."</td>
+		</tr>
+		</table>
+		<div>
+		<p style='font-size:16px;'> <strong>Notice Description:</strong></p>
+		<p style='font-size:15px;'>$code</p><br/><br/>
+		<center><p>To view / respond
+		<a href='$ip".$this->webroot."hms'><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
+		<br/>
+		<p>For any software related queries, please contact <span style='color:#00A0E3;'> support@housingmatters.in </span></p>
+		www.housingmatters.co.in
+		</div>
+		</div>";
+		$this->loadmodel('notification_email');
+		$conditions7=array("module_id" =>1,"user_id"=>$d_user_id,'chk_status'=>0);
+		$result5=$this->notification_email->find('all',array('conditions'=>$conditions7));
+		$n=sizeof($result5);
+		if($n>0)
+		{
+		@$subject.= ''. $society_name . '' .' New Notice '.'     '.''.$sub.'';
+		$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
+		$subject="";
+		}	
+		}
+
+
+		$da_user_id[]=$d_user_id;
+		$this->send_notification('<span class="label label-info" ><i class="icon-bullhorn"></i></span>','New Notice published - <b>'.$notice_subject.'</b> by',2,$notice_id,'notice_publish_view?con='.$notice_id,$s_user_id,$da_user_id);
+
+		$output = json_encode(array('type'=>'created', 'text' =>'Your notice has created and sent updates via emais to all user who were selected by you.'));
+		die($output);
+	}
+		
+	
+	
+	
 }
 
 

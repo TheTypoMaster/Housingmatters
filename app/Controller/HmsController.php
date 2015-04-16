@@ -9,6 +9,82 @@ public $components = array(
 
 var $name = 'Hms';
 
+
+function visible_subvisible($visible,$sub_visible) {
+	$s_user_id=$this->Session->read('user_id');
+	if($visible==1){	
+		$result_user=$this->all_user_deactive();
+		
+		foreach($result_user as $data){
+			$da_to[$data['user']['user_id']]=$data['user']['email'];
+			$da_user_name[]=$data['user']['user_name'];
+			$da_user_id[]=$data['user']['user_id'];
+		}
+		
+	}
+	if($visible==4){	
+		$result_user=$this->all_owner_deactive();
+		foreach($result_user as $data){
+			$da_to[$data['user']['user_id']]=$data['user']['email'];
+			$da_user_name[]=$data['user']['user_name'];
+			$da_user_id[]=$data['user']['user_id'];
+		}
+	}
+	if($visible==5){
+		$result_user=$this->all_tenant_deactive();
+		foreach($result_user as $data){
+			$da_to[$data['user']['user_id']]=$data['user']['email'];
+			$da_user_name[]=$data['user']['user_name'];
+			$da_user_id[]=$data['user']['user_id'];
+		}
+	}
+	if($visible==2){	
+		foreach ($sub_visible as $role_id){
+			$role_id=(int)$role_id;
+			$result_user=$this->all_role_wise_deactive($role_id);
+			foreach($result_user as $data){
+				$da_to[$data['user']['user_id']]=$data['user']['email'];
+				$da_user_name[]=$data['user']['user_name'];
+				$da_user_id[]=$data['user']['user_id'];
+			}
+		}
+	}
+	if($visible==3){	
+		foreach ($sub_visible as $wing_id){
+			$wing_id=(int)$wing_id;
+			$result_user=$this->all_wing_wise_deactive($wing_id);
+			foreach($result_user as $data){
+				$da_to[$data['user']['user_id']]=$data['user']['email'];
+				$da_user_name[]=$data['user']['user_name'];
+				$da_user_id[]=$data['user']['user_id'];
+			}
+		}
+	}
+
+	///////// creator send email code //////////////////
+	$result_user=$this->profile_picture($s_user_id);
+	foreach($result_user as $data){
+			 $da_to[]=$data['user']['email'];
+			 $da_user_name[]=$data['user']['user_name'];
+			 $da_user_id[]=$data['user']['user_id'];
+		}
+	////////////end code ///////////////////////////////
+	$da_to=array_unique(array_filter($da_to));
+	$da_user_name=array_unique(array_filter($da_user_name));
+	$da_user_id=array_unique(array_filter($da_user_id));
+	
+	
+	if($visible==1){ $send='All Users'; }
+	if($visible==2){ $send='Roll Wise'; }
+	if($visible==3){ $send='Wing Wise'; }
+	if($visible==4){ $send='All Owners'; }
+	if($visible==5){ $send='All Tenants'; }
+		
+		
+	return $send_info=array($da_to,$da_user_name,$da_user_id,$send);
+}
+
+
 function encode($string,$key) {
 $key = sha1($key);
 $strLen = strlen($string);
@@ -195,7 +271,7 @@ $this->redirect(array('action' => 'index'));
 
 function beforeFilter()
 {
-Configure::write('debug', 0);
+//Configure::write('debug', 0);
 }
 
 function menus_from_role_privileges()

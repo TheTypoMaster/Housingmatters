@@ -7,13 +7,15 @@ $("#fix<?php echo $id_current_page; ?>").removeClass("blue");
 $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
+
+<div id="output"></div>	
 <div class="portlet box" style="background-color:#4B77BE;">
 <div class="portlet-title" >
 <h4 class="block"><i class="icon-bullhorn"></i> Create New Notice</h4>
 </div>
 <div class="portlet-body form" style=" border: solid 1px #4B77BE; ">
 <!-- BEGIN FORM-->
-<form action="#" class="form-horizontal">
+<form method="POST" class="form-horizontal">
    <div class="row-fluid">
 		<div class="span6">
 			<label class="" style="font-size:14px;">Subject<span style="color:red;">*</span><span style="font-size:12px; color:#999;">(Maximum 100 characters.)</span> </label>
@@ -40,7 +42,26 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 	<br/>
 	<label class="" style="font-size:14px;">Notice<span style="color:red;">*</span></label>
 	<div id="summernote"></div>
-	
+	<div class="control-group">
+	  <label class="control-label">Attachment</label>
+	  <div class="controls">
+		 <div class="fileupload fileupload-new" data-provides="fileupload">
+			<div class="input-append">
+			   <div class="uneditable-input">
+				  <i class="icon-file fileupload-exists"></i> 
+				  <span class="fileupload-preview"></span>
+			   </div>
+			   <span class="btn btn-file">
+			   <span class="fileupload-new">Select file</span>
+			   <span class="fileupload-exists">Change</span>
+			   <input type="file" class="default">
+			   </span>
+			   <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+			</div>
+		 </div>
+	  </div>
+	</div>
+						   
 	<br/>
 	<!---------------start visible-------------------------------->
 			<div class="controls">
@@ -114,14 +135,22 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 		<!---------------end visible-------------------------------->
 	
 	<div class="form-actions">
-	  <button type="submit" class="btn blue" name="post_notice">Save</button>
+	  <button type="submit" class="btn blue" name="publish">Publish Notice</button>
 	  <button type="button" class="btn">Cancel</button>
 	</div>
 </form>
 <!-- END FORM-->
 </div>
 </div>
-<div id="output"></div>				  
+
+
+
+<div class="alert alert-block alert-success fade in" style="display:none;">
+	<h4 class="alert-heading">Success!</h4>
+</div>
+								
+								
+			  
 
 
 <script>
@@ -163,21 +192,74 @@ $('#summernote').summernote({
 <script>
 $(document).ready(function() { 
 	$('form').submit( function(ev){
-		ev.preventDefault();
-		$("#submit").addClass("disabled").text("submiting...");
-		alert();
-		$("#output").html("sadasdsa");
-		$.ajax({
-		url: "submit_notice",
-		type: 'POST',
-		dataType:'json',
-		}).done(function(response) {
-			$("#output").html(response.text);
-		});
+	ev.preventDefault();
+		var m_data = new FormData();    
+		m_data.append( 'notice_subject', $('input[name=notice_subject]').val());
+		m_data.append( 'notice_category', $('select[name=notice_category]').val());
+		m_data.append( 'notice_expire_date', $('input[name=notice_expire_date]').val());
+		m_data.append( 'code', $('#summernote').code());
+		var visible=$('input:radio[name=visible]:checked').val();
+		m_data.append( 'visible', visible);
+		if(visible==2){
+			var allVals = [];
+			$('.v2:checked').each(function() {
+			allVals.push($(this).val());
+			});
+			if(allVals.length==0){
+				m_data.append( 'sub_visible', 0);
+			}else{
+				m_data.append( 'sub_visible', allVals);
+			}
+		}
+		if(visible==3){
+			var allVals = [];
+			$('.v3:checked').each(function() {
+			allVals.push($(this).val());
+			});
+			if(allVals.length==0){
+				m_data.append( 'sub_visible', 0);
+			}else{
+				m_data.append( 'sub_visible', allVals);
+			}
+		}
+		if(visible==1 || visible==4 || visible==5){
+			m_data.append( 'sub_visible', 0);
+		}
+		
+		$("button[name=publish]").text("Creating...");
+			$.ajax({
+			url: "submit_notice",
+			data: m_data,
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			dataType:'json',
+			
+			}).done(function(response) {
+			
+			if(response.type=='approve'){
+				$(".portlet").remove();
+				$(".alert-success").show().append("<p>"+response.text+"</p><p><a class='btn green' href='<?php echo $webroot_path; ?>Notices/new_notice' rel='tab' >ok</a></p>");
+				$("#output").remove();
+			}
+			if(response.type=='created'){
+				$(".portlet").remove();
+				$(".alert-success").show().append("<p>"+response.text+"</p><p><a class='btn green' href='<?php echo $webroot_path; ?>Notices/notice_publish' rel='tab' >ok</a></p>");
+				$("#output").remove();
+			}
+			if(response.type=='error'){
+				$("#output").html('<div class="alert alert-error">'+response.text+'</div>');
+			}
+			$("html, body").animate({
+			scrollTop:0
+			},"slow");
+			$("button[name=publish]").text("Publish Notice");
+			});
 
 	 
 	});
 });
 
 </script>
+
 
