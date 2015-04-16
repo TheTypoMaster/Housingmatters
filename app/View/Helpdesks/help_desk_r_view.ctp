@@ -127,7 +127,7 @@ $(document).ready(function() {
 			{
 			//$("#reply_post").append('<div class="outt"><div><span class="pull-right" style="font-size:12px; color:#A5A5A5;">Few minutes ago</span><br>'+ r +'</div></div>');
 			r=encodeURIComponent(r);
-			$("#reply_post").load('<?php echo $this->webroot;?>Helpdesks/save_reply_resident/' + r + '/' + a);
+			$("#reply_post").load('<?php echo $webroot_path;?>/Helpdesks/save_reply_resident?con1=' + r + '&con2=' + a);
 			$("#msg_reply").val('');
 			}
 			

@@ -1446,18 +1446,20 @@ $this->response->header('Location:help_desk_sm_open_ticket');
 
 
 
-function save_reply_resident($reply=null,$id=null)
+function save_reply_resident()
 {
 	$this->layout='blank';
-	$reply=htmlentities($reply);
-
- $reply=nl2br($reply);
+	//$this->ath();
+	
+	$reply=htmlentities($this->request->query('con1'));
+	$hd_id=(int)$this->request->query('con2');
+  $reply=nl2br($reply);
 
 $rep=explode(' ',$reply);
 
 $r=$this->content_moderation_society($rep);
 
- $hd_id=(int)$id;
+
 
 $s_user_id=$this->Session->read('user_id');
 
