@@ -338,7 +338,11 @@ Your SMS has been Sent.
 
 function message_view()
 {
-$this->layout='session';
+if($this->RequestHandler->isAjax()){
+	$this->layout='blank';
+}else{
+	$this->layout='session';
+}
 $this->ath();
 $this->check_user_privilages();
 $s_user_id=$this->Session->read('user_id'); 

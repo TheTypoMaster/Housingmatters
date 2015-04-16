@@ -3,10 +3,17 @@
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 ?>
 </div>
+<script>
+$(document).ready(function() {
+$("#fix<?php echo $id_current_page; ?>").removeClass("blue");
+$("#fix<?php echo $id_current_page; ?>").addClass("red");
+});
+</script>
+
 
 <div style="padding:5px;" align="center" class="hide_at_print">
-<a href="message_view" class="btn red">SMS History</a>
-<a href="message" class="btn blue">Send SMS</a>
+<a href="message_view" class="btn red" rel='tab'>SMS History</a>
+<a href="message" class="btn blue" rel='tab'>Send SMS</a>
 </div>
 
 
