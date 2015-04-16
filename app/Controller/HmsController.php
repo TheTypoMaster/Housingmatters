@@ -8313,6 +8313,7 @@ function set_new_password()
 
 
 $this->layout='without_session';
+$this->set('webroot_path',$this->webroot_path());
  $q=$this->request->query['q'];
 
 $q_new=explode('/',$q);
