@@ -4522,7 +4522,8 @@ function society_signup()
 {
 App::import('', 'sendsms.php');
 App::import('phpmailer', 'mail.php');
-$this->layout='without_session';	
+$this->layout='without_session';
+$this->set('webroot_path',$this->webroot_path());	
 $user=(int)$this->request->query['user'];
 $this->set('user_id', $user);
 if($this->request->is('post')) 
