@@ -42,7 +42,7 @@
 		    if(xobj)
 			 {			
 			
-				var query="?con=" + c1;
+			 var query="?con=" + c1;
 			 xobj.open("GET","profile_check_private" +query,true);
 			 xobj.onreadystatechange=function()
 			  {
