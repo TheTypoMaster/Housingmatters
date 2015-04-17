@@ -1,4 +1,4 @@
-<?php
+ <?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 ?>				   
 <script>

@@ -4,7 +4,7 @@ if($value == 34 || $value == 15 || $value == 33 || $value == 35)
 ?>
 <div class="control-group">
 <div class="controls">
-<select class="span12 m-wrap" name="l_type_name<?php echo $t; ?>" id="sul<?php echo $t; ?>">
+<select class="span12 m-wrap chosen" name="l_type_name<?php echo $t; ?>" id="sul<?php echo $t; ?>">
 <option value="">--SELECT--</option>
 <?php
 

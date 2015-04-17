@@ -1416,19 +1416,321 @@ $this->set('society_name',$society_name);
 
 
 }
-/////////////////////////////////////////////// End Ledger Show Ajax (Accounts)////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////// End Ledger Show Ajax (Accounts)//////////////////////////////////////////////
+
+//////////////////////////////// Start Jounal add new /////////////////////////////////////////////////////////////
+function journal_add_new()
+{
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
+
+
+//$this->ath();
+//$this->check_user_privilages();	
+
+$this->loadmodel('ledger_account');
+$cursor2=$this->ledger_account->find('all');
+$this->set('cursor2',$cursor2);
 
 
 
 
 
+}
+//////////////////////////////// End Jounal add new /////////////////////////////////////////////////////////////
+
+///////////////////////////////// Start journal validation///////////////////////////////////////////////////////////
+
+function journal_validation()
+{
+$this->layout='blank';
+$q=$this->request->query('q');
+$q = html_entity_decode($q);
+$date2 = $this->request->query('b');
+
+
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id  = (int)$this->Session->read('user_id');
+
+$res_society=$this->society_name($s_society_id);
+foreach($res_society as $data)
+{
+$society_name=$data['society']['society_name'];
+}
+
+$s_n='';
+$sco_na=$society_name;
+$dd=explode(' ',$sco_na);
+$first=$dd[0];
+@$two=$dd[1];
+@$three=$dd[2];
+$s_n.=" $first $two $three ";
+
+date_default_timezone_set('Asia/kolkata');
+$date=date("d-m-Y");
+$time=date('h:i:a',time());
+
+$date3 = json_decode($date2, true);
+if(empty($date3))
+{
+$output = json_encode(array('type'=>'error', 'text' => 'Please Select Transaction Date'));
+die($output);
+}
+
+$date4 = date("Y-m-d", strtotime($date3));
+$date4 = new MongoDate(strtotime($date4));
+
+$this->loadmodel('financial_year');
+$conditions=array("society_id" => $s_society_id);
+$cursor=$this->financial_year->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$from = $collection['financial_year']['from'];
+$to = $collection['financial_year']['to'];
+
+
+if($from <= $date4 && $to >= $date4)
+{
+$abc = 55;
+break;
+}
+else
+{
+$abc = 555; 
+}
+}
+if($abc == 555)
+{
+$output = json_encode(array('type'=>'error', 'text' => 'Transaction Date is not in Financial Year'));
+die($output);
+}
+$myArray = json_decode($q, true);
+$c=0;
+$total_debit = 0;
+$total_credit = 0;
+foreach($myArray as $child)
+{
+$c++;
+
+if(empty($child[0])){
+$output = json_encode(array('type'=>'error', 'text' => 'Please Select Ledger Account in rows'.$c));
+die($output);
+}	
+if($child[0] == 15 || $child[0] == 33 || $child[0] == 34 || $child[0] == 35)
+{	
+	
+if(empty($child[1])){
+$output = json_encode(array('type'=>'error', 'text' => 'Please Select Ledger Sub Account in rows'.$c));
+die($output);
+}	
+if(empty($child[2]) and empty($child[3])){
+$output = json_encode(array('type'=>'error', 'text' => 'Please Fill Debit or Credit in rows'.$c));
+die($output);
+}
+if(is_numeric($child[2]) || is_numeric($child[3]))
+{
+}	
+else
+{
+$output = json_encode(array('type'=>'error', 'text' => 'Please Fill Numeric value in Debit or Credit'.$c));
+die($output);
+}
+$total_debit = $total_debit + $child[2];
+$total_credit = $total_credit + $child[3];
+}	
+else
+{
+if(empty($child[1]) and empty($child[2])){
+$output = json_encode(array('type'=>'error', 'text' => 'Please Fill Debit or Credit in rows'.$c));
+die($output);
+}	
+if(is_numeric($child[1]) || is_numeric($child[2]))
+{
+}	
+else
+{
+$output = json_encode(array('type'=>'error', 'text' => 'Please Fill Numeric value in Debit or Credit'.$c));
+die($output);
+}
+$total_debit = $total_debit + $child[1];
+$total_credit = $total_credit + $child[2];
+}	
+
+
+}	
+if($total_debit != $total_credit)
+{
+$output = json_encode(array('type'=>'error', 'text' => 'Debit and Credit not Match '));
+die($output);
+}	
+	
+////////////////////////////////////////////////////////
+foreach($myArray as $child)
+{
+
+
+$this->loadmodel('journal');
+$conditions=array("society_id" => $s_society_id);
+$order=array('journal.receipt_id'=>'DESC');
+$cursor=$this->journal->find('all',array('conditions'=>$conditions,'order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$receipt_no = $collection['journal']['receipt_id']; 
+}
+if(!empty($receipt_no))
+{
+$receipt_no++;
+}	
+else
+{	
+$receipt_no = 1001;
+}
+
+$current_date = date("Y-m-d", strtotime($current_date));
+$current_date = new MongoDate(strtotime($current_date));
 
 
 
 
 
+$ledger = (int)$child[0];
+if($ledger == 15 || $ledger == 33 || $ledger == 34 || $ledger == 35)
+{
+$ledger_sub = (int)$child[1];
+$debit = $child[2];
+$credit = $child[3];
+$desc = $child[4];
+if(empty($debit) && !empty($credit))
+{ 
+$amount_category_id = 2;
+$amount = $credit;
+}
+if(empty($credit) && !empty($debit))
+{
+$amount_category_id = 1;
+$amount = $debit;	
+}
+$this->loadmodel('journal');
+$order=array('journal.auto_id'=> 'DESC');
+$cursor=$this->journal->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last=$collection['journal']["auto_id"];
+}
+if(empty($last))
+{
+$ii=0;
+}	
+else
+{	
+$ii=$last;
+}
+$ii++;
+$this->loadmodel('journal');
+$multipleRowData = Array( Array("auto_id" => $ii, "receipt_id" => $receipt_no, "account_type" => 1, 
+"ledger_type_id" => $ledger,"user_id" => $ledger_sub, "transaction_date" => $date4, 
+"current_date" => $current_date, "amount" => $amount, "amount_category_id" => $amount_category_id, "remark" => $desc ,
+"society_id" => $s_society_id,"approver" => $s_user_id));
+$this->journal->saveAll($multipleRowData);
 
 
+$this->loadmodel('ledger');
+$order=array('ledger.auto_id'=> 'DESC');
+$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last=$collection['ledger']["auto_id"];
+}
+if(empty($last))
+{
+$k=0;
+}	
+else
+{	
+$k=$last;
+}
+$k++;
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $receipt_no, 
+"amount" => $amount, "amount_category_id" => $amount_category_id, "table_name" => "journal", "account_type" => 1, "account_id" => $ledger_sub,
+"current_date" => $current_date, "society_id" => $s_society_id,"module_name"=>"Journal"));
+$this->ledger->saveAll($multipleRowData);	
+
+}
+else
+{
+$debit = $child[1];
+$credit = $child[2];
+$desc = $child[3];
+if(empty($debit) && !empty($credit))
+{ 
+$amount_category_id = 2;
+$amount = $credit;
+}
+if(empty($credit) && !empty($debit))
+{
+$amount_category_id = 1;
+$amount = $debit;	
+}
+
+$this->loadmodel('journal');
+$order=array('journal.auto_id'=> 'DESC');
+$cursor=$this->journal->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last=$collection['journal']["auto_id"];
+}
+if(empty($last))
+{
+$ii=0;
+}	
+else
+{	
+$ii=$last;
+}
+$ii++;
+$this->loadmodel('journal');
+$multipleRowData = Array( Array("auto_id" => $ii, "receipt_id" => $receipt_no, "account_type" => 2, "ledger_type_id" => $ledger,
+"user_id" => $ledger, "transaction_date" => $date4, "current_date" => $current_date, "amount" => $amount, 
+"amount_category_id" => $amount_category_id, "remark" => $desc , "society_id" => $s_society_id,"approver" => $s_user_id));
+$this->journal->saveAll($multipleRowData);
+
+$this->loadmodel('ledger');
+$order=array('ledger.auto_id'=> 'DESC');
+$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last=$collection['ledger']["auto_id"];
+}
+if(empty($last))
+{
+$k=0;
+}	
+else
+{	
+$k=$last;
+}
+$k++;
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $receipt_no, 
+"amount" => $amount, "amount_category_id" => $amount_category_id, "table_name" => "journal",  "account_type" => 2, 
+"account_id" => $ledger, "current_date" => $current_date, "society_id" => $s_society_id,"module_name"=>"Journal"));
+$this->ledger->saveAll($multipleRowData);
+
+
+
+}
+
+
+}
+////////////////////////////////////////////////////////////////
+
+}
+
+///////////////////////////////// Start journal validation///////////////////////////////////////////////////////////
 
 }
 ?>
