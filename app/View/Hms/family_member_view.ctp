@@ -1,14 +1,16 @@
 <script>
 $(document).ready(function(){
-$(".add").live("click",function(){
+$(".add").bind("click",function(){
+
 var c=$('#hid').val();
+
 c++;
 
  $("table.table_1").append("<tr id=tab"+c+"><td width='20%'><input type='text'  class='span12 m-wrap ' name='name"+c+"' id='name"+c+"'  style='font-size:16px;' placeholder='Name*'></td><td width='20%'><input type='text'  class='span12 m-wrap' name='email"+c+"' id='email"+c+"' style='font-size:16px;' placeholder='Email Address'></td><td width='10%'><input type='text'  class='span12 m-wrap' name='mobile"+c+"' id='mobile"+c+"' style='font-size:16px;' placeholder='Mobile No' maxlength='10'></td><td width='5%'><input type='text'  class='span12 m-wrap' name='dob"+c+"' id='dob"+c+"' style='font-size:16px;' maxlength='2' placeholder='Age'></td><td width='10%'><select class=' span12 m-wrap '  name='blood_group"+c+"'  id='blood_group"+c+"'><option value='' style='display:none;'>Blood Group</option><option value='1'>  A+ </option><option value='2'>  B+</option><option value='3'>  AB+  </option><option value='4'>  O+  </option></option><option value='5'>  A- </option><option value='6'>  B-</option><option value='7'>  AB-  </option><option value='8'>  O-  </option></select></td><td width='25%'><input type='text'  class='span8 m-wrap' name='relation"+c+"' id='relation"+c+"' style='font-size:16px;' placeholder='Relationship'></td></tr>");
 $('#hid').val(c);
 
 });
-$(".rem").live("click",function(){
+$(".rem").bind("click",function(){
 var c=$('#hid').val();
 if(c!=1)
 {
