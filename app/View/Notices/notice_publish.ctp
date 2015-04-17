@@ -12,7 +12,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 
 <div align="center">
-<a href='notice_publish' <?php if(empty($blue_cat)){ ?> class="btn red " <?php } else { ?> class="btn blue "  <?php } ?>>All</a>
+<a href='<?php echo $webroot_path; ?>Notices/notice_publish' rel='tab' <?php if(empty($blue_cat)){ ?> class="btn yellow " <?php } else { ?> class="btn"  <?php } ?>>All</a>
 <?php
 foreach($result1 as $data)
 {
@@ -20,7 +20,7 @@ $category_id=$data['master_notice_category']['category_id'];
  $cat=$this->requestAction(array('controller' => 'hms', 'action' => 'encode'), array('pass' => array($category_id,'housingmatters')));
 $category_name=$data['master_notice_category']['category_name'];
 ?>
-<a href='notice_publish?con=<?php echo $cat; ?>' <?php if(@$red_cat==$category_id) {  ?> class="btn red "<?php } else { ?> class="btn blue " <?php } ?>><?php echo $category_name; ?></a>
+<a href='<?php echo $webroot_path; ?>Notices/notice_publish?con=<?php echo $cat; ?>' rel='tab' <?php if(@$red_cat==$category_id) {  ?> class="btn yellow "<?php } else { ?> class="btn" <?php } ?>><?php echo $category_name; ?></a>
 <?php } ?>
 </div>
 <br/><br/>
@@ -38,6 +38,7 @@ $category_name=$data['master_notice_category']['category_name'];
 </thead>
 <tbody>
 <?php
+
 $i=0;
 $current_date=date("d-m-Y");
 foreach($result_notice_publish as $data)
@@ -122,6 +123,7 @@ $i++;
 <?php } }  ?> 
 </tbody>
 </table> 
+<?php if(sizeof($result_notice_publish)==0){ echo '<div align="center">No any Notice Published</div>'; } ?>
 </div>
 
 
