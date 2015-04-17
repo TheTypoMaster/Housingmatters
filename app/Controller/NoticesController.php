@@ -1434,11 +1434,13 @@ function submit_notice(){
 		$output = json_encode(array('type'=>'approve', 'text' =>'Your notice has created and sent for approval to your society Admin/Committee.'));
 		die($output);
 	}else{
+		
+		 
 		@$ip=$this->hms_email_ip();
 		
 		
 		$recieve_info=$this->visible_subvisible($visible,$sub_visible);
-
+		
 		$notice_id=$this->autoincrement('notice','notice_id');
 		$this->loadmodel('notice');
 		$this->notice->save(array('notice_id' => $notice_id, 'user_id' => $s_user_id, 'society_id' => $s_society_id, 'n_category_id' => $category_id ,'n_subject' => $notice_subject , 'n_expire_date' => $notice_expire_date, 'n_attachment' => "" , 'n_message' => $code,'n_date' => $date, 'n_time' => $time, 'n_delete_id' => 0,'n_draft_id' => 0,'visible' => $visible,'sub_visible' => $sub_visible,'visible_user_id' => $recieve_info[2] ));

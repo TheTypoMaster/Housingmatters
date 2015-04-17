@@ -1,20 +1,13 @@
 <?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 ?>
-
 <script>
-$( document ).ready( function() {
-   jQuery('.tooltips').tooltip();
-   
-   
-    var test = $("input[type=checkbox]:not(.toggle), input[type=radio]:not(.toggle)");
-        if (test) {
-            test.uniform();
-        }
-
-   
+$(document).ready(function() {
+$("#fix<?php echo $id_current_page; ?>").removeClass("blue");
+$("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
+
 <a href="<?php echo $this->webroot; ?>Broadcasts/groups" rel="tab" class="btn  blue"><i class="icon-caret-left"></i> All Groups</a><br/><br/>
 <div class="span9">
 	<!-- BEGIN BORDERED TABLE PORTLET-->
