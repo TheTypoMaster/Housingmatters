@@ -929,7 +929,8 @@ $this->loadmodel('master_notice_category');
 $this->set('result1', $this->master_notice_category->find('all'));
 $this->loadmodel('notice');
 $conditions=array("n_draft_id" => 1, "n_delete_id" => 0,"society_id"=> $s_society_id);
-$this->set('result_notice_draft',$this->notice->find('all',array('conditions'=>$conditions)));
+$order=array('n_draft_id'=>'DESC');
+$this->set('result_notice_draft',$this->notice->find('all',array('conditions'=>$conditions,'order'=>$order)));
 	if(!empty($cat))
 	{
 		$this->set('red_cat',$cat);	
@@ -1425,7 +1426,9 @@ function submit_notice(){
 	$visible=(int)$post_data['visible'];
 	$sub_visible=$post_data['sub_visible'];
 	$sub_visible=explode(",",$sub_visible);
-		
+
+
+if($post_data['post_type']==1){
 	if($notice==1 && $s_role_id!=3){
 		$notice_id=$this->autoincrement('notice','notice_id');
 		$this->loadmodel('notice');
@@ -1522,6 +1525,16 @@ function submit_notice(){
 		$output = json_encode(array('type'=>'created', 'text' =>'Your notice has created and sent updates via emais to all user who were selected by you.'));
 		die($output);
 	}
+}
+if($post_data['post_type']==2){
+	$notice_id=$this->autoincrement('notice','notice_id');	
+	$this->loadmodel('notice');
+	$this->notice->save(array('notice_id' => $notice_id, 'user_id' => $s_user_id, 'society_id' => $s_society_id, 'n_category_id' => $category_id ,'n_subject' => $notice_subject , 'n_expire_date' => $notice_expire_date, 'n_attachment' => "" , 'n_message' => $code,'n_date' => $date, 'n_time' => $time, 'n_delete_id' => 0,'n_draft_id' => 1,'visible' => $visible,'sub_visible' => $sub_visible ));
+
+	$output = json_encode(array('type'=>'draft', 'text' =>'Your notice has been saved in Draft box. You can edit/post later.'));
+	die($output);
+}	
+	
 		
 	
 	

@@ -135,8 +135,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 		<!---------------end visible-------------------------------->
 	
 	<div class="form-actions">
-	  <button type="submit" class="btn blue" name="publish">Publish Notice</button>
-	  <button type="button" class="btn">Cancel</button>
+	  <button type="submit" class="btn blue form_post" name="publish" submit_type="post">Publish Notice</button>
+	  <button type="submit" class="btn blue form_post" name="draft" submit_type="draft">Save as Draft</button>
+	  <div style="display:none;" id='wait'><img src="<?php echo $webroot_path; ?>as/fb_loading.gif" /> Please Wait...</div>
 	</div>
 </form>
 <!-- END FORM-->
@@ -190,9 +191,22 @@ $('#summernote').summernote({
 </script>
 
 <script>
-$(document).ready(function() { 
+$(document).ready(function() {
+	$(".form_post").bind('click', function(e){
+		$(".form_post").removeClass("clicked");
+		$(this).addClass("clicked");
+	});
+
+			
 	$('form').submit( function(ev){
 	ev.preventDefault();
+		if( $(this).find(".clicked").attr("submit_type") === "post" ){
+			var post_type=1;
+		}
+		if( $(this).find(".clicked").attr("submit_type") === "draft" ){
+			var post_type=2;
+		}
+		
 		var m_data = new FormData();    
 		m_data.append( 'notice_subject', $('input[name=notice_subject]').val());
 		m_data.append( 'notice_category', $('select[name=notice_category]').val());
@@ -225,8 +239,11 @@ $(document).ready(function() {
 		if(visible==1 || visible==4 || visible==5){
 			m_data.append( 'sub_visible', 0);
 		}
+		m_data.append( 'post_type', post_type);
 		
-		$("button[name=publish]").text("Creating...");
+		$(".form_post").addClass("disabled");
+		$("#wait").show();
+			
 			$.ajax({
 			url: "submit_notice",
 			data: m_data,
@@ -234,9 +251,7 @@ $(document).ready(function() {
 			contentType: false,
 			type: 'POST',
 			dataType:'json',
-			
 			}).done(function(response) {
-			
 			if(response.type=='approve'){
 				$(".portlet").remove();
 				$(".alert-success").show().append("<p>"+response.text+"</p><p><a class='btn green' href='<?php echo $webroot_path; ?>Notices/new_notice' rel='tab' >ok</a></p>");
@@ -247,13 +262,19 @@ $(document).ready(function() {
 				$(".alert-success").show().append("<p>"+response.text+"</p><p><a class='btn green' href='<?php echo $webroot_path; ?>Notices/notice_publish' rel='tab' >ok</a></p>");
 				$("#output").remove();
 			}
+			if(response.type=='draft'){
+				$(".portlet").remove();
+				$(".alert-success").show().append("<p>"+response.text+"</p><p><a class='btn green' href='<?php echo $webroot_path; ?>Notices/notice_draft' rel='tab' >ok</a></p>");
+				$("#output").remove();
+			}
 			if(response.type=='error'){
 				$("#output").html('<div class="alert alert-error">'+response.text+'</div>');
 			}
 			$("html, body").animate({
 			scrollTop:0
 			},"slow");
-			$("button[name=publish]").text("Publish Notice");
+			$(".form_post").removeClass("disabled");
+			$("#wait").hide();
 			});
 
 	 
