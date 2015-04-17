@@ -168,7 +168,7 @@ $flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat
                             <div class="controls" style="width:100%;">
                                  <div class="fileupload fileupload-new" data-provides="fileupload">
                                     <div class="fileupload-new thumbnail" style="width: 80%; height: 150px;">
-                                       <img src="<?php echo $this->webroot ; ?>/profile/<?php echo $profile_pic; ?>" style="width:100%; height:200px;" alt="">
+                                       <img src="<?php echo $webroot_path; ?>profile/<?php echo $profile_pic; ?>" style="width:100%; height:200px;" alt="">
                                     </div>
                                     <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
                                     <div>
