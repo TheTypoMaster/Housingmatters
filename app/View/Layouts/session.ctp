@@ -457,7 +457,7 @@ $(document).ready(function() {
 						</a>
 						<ul class="dropdown-menu">
 							<li><a href="<?php echo $this->webroot; ?>Hms/profile" rel='tab'><i class="icon-user"></i> My Profile</a></li>
-							<li><a href="<?php echo $this->webroot; ?>Hms/notification_email"><i class="icon-calendar"></i> User Settings</a></li>
+							<li><a href="<?php echo $this->webroot; ?>Hms/notification_email" rel='tab'><i class="icon-calendar"></i> User Settings</a></li>
 							<li class="divider"></li>
 							<li><a href="<?php echo $this->webroot; ?>Hms/logout"><i class="icon-key"></i> Log Out</a></li>
 						</ul>

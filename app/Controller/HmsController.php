@@ -9489,7 +9489,11 @@ return $n=sizeof($result);
 function notification_email()
 {
 
-$this->layout='session';
+if($this->RequestHandler->isAjax()){
+	$this->layout='blank';
+	}else{
+	$this->layout='session';
+	}
 $user_id=$this->Session->read('user_id');	
 $this->set('s_user_id',$user_id);
 $s_society_id=$this->Session->read('society_id'); 
@@ -13836,10 +13840,11 @@ $this->set('result3',$result);
 
 function profile_check_private()
 {
-$this->layout='without_session';
+$this->layout='blank';
 $s_user_id=$this->Session->read('user_id');
 $pub=$this->request->query('con');
 $t= explode(',',$pub);
+
 $field=$t[0];
 $private_pubice=$t[1];
 if($private_pubice==1)
