@@ -345,7 +345,6 @@ $m =$time_m+$add;
 
 
 
-</div>
 
 <div class="form-actions" style="margin-bottom:0px !important;">
 	<button type="submit" name="send" class="btn blue"><i class=" icon-share-alt"></i> Send</button>
@@ -353,6 +352,7 @@ $m =$time_m+$add;
 </form>
 </div>
 
+</div>
 
 
 

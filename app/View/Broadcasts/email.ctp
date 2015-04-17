@@ -14,11 +14,13 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <a href="email" rel='tab' class="btn red">Send Email</a>
 </div>
 
-<div style="border:solid 2px #4cae4c; width:80%; margin-left:10%;">
+
+
+<div style="border:solid 2px #4cae4c; width:90%; margin:auto;">
 <div style="border-bottom:solid 2px #4cae4c; color:white; background-color: #5cb85c; padding:4px; font-size:20px;" ><i class="icon-envelope-alt"></i> Send Email</div>
 <div style="padding:10px;background-color:#FFF;">
-<!----------------------------------------------->
 <form method="post" id="contact-form" name="myform" enctype="multipart/form-data" >
+
 <div class="controls">
  <label class="radio">
  <div class="radio" id="uniform-undefined"><input type="radio"  id="r1" checked name="radio" value="1" style="opacity: 0;"></div>
@@ -34,6 +36,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
  </label>  
 </div>
 <label style="font-size:14px; font-weight:bold;">To <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="email will be sent to only those users whose valid emails are registered with HousingMatters"> </i></label>
+
 <!------------------------->
 <div class="control-group" id="d1" >
   <div class="controls">
@@ -148,7 +151,6 @@ $group_id=$collection["group"]["group_id"];
 			<!---------------end visible-------------------------------->
 </div>
 <!--------------------------->
-
 <!-------------------------->
 <label style="font-size:14px; font-weight:bold;">Subject</label>
 <div class="controls">
@@ -166,9 +168,45 @@ $group_id=$collection["group"]["group_id"];
 </div>
 <label id="email"></label>
 <!-------------------------->
-
 <a href="#myModal3" role="button" class="btn blue pull-right" data-toggle="modal" style="">  Templates</a>
- <div id="myModal3" style="margin-top:-5%;" class="modal hide " tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
+
+
+<div class="control-group">
+  <label class="control-label">Attachment <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Limit 2MB"> </i> </label>
+  <div class="controls">
+	 <div class="fileupload fileupload-new" data-provides="fileupload"><input type="hidden" value="" name="">
+		<div class="input-append">
+		   <div class="uneditable-input">
+			  <i class="icon-file fileupload-exists"></i> 
+			  <span class="fileupload-preview"></span>
+		   </div>
+		   <span class="btn btn-file">
+		   <span class="fileupload-new">Select file</span>
+		   <span class="fileupload-exists">Change</span>
+		   <input type="file" name="file" id="file" class="default" >
+		   </span>
+		   <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+		</div>
+	 </div>
+  </div>
+</div>
+<label style="color: #696969;font-size: 12px;">
+Note: File size must be less than 1 MB and only jpg,png extension are allowed.
+</label>
+<label id="file"></label>				   
+
+
+
+	<button type="submit" name="send" class="btn blue"><i class=" icon-envelope-alt"></i> Send</button>
+</form>
+
+</div>
+</div>
+
+
+
+
+<div id="myModal3" style="margin-top:-5%;" class="modal hide " tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 		<h3 id="myModalLabel3">Select Template</h3>
@@ -278,50 +316,6 @@ $group_id=$collection["group"]["group_id"];
 		<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 	</div>
 </div>
-
-
-
-
-
-<div class="control-group">
-  <label class="control-label">Attachment <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Limit 2MB"> </i> </label>
-  <div class="controls">
-	 <div class="fileupload fileupload-new" data-provides="fileupload"><input type="hidden" value="" name="">
-		<div class="input-append">
-		   <div class="uneditable-input">
-			  <i class="icon-file fileupload-exists"></i> 
-			  <span class="fileupload-preview"></span>
-		   </div>
-		   <span class="btn btn-file">
-		   <span class="fileupload-new">Select file</span>
-		   <span class="fileupload-exists">Change</span>
-		   <input type="file" name="file" id="file" class="default" >
-		   </span>
-		   <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
-		</div>
-	 </div>
-  </div>
-</div>
-<label style="color: #696969;font-size: 12px;">
-Note: File size must be less than 1 MB and only jpg,png extension are allowed.
-</label>
-<label id="file"></label>				   
-						   
-
-</div>
-
-<div class="form-actions" style="margin-bottom:0px !important;">
-	<button type="submit" name="send" class="btn blue"><i class=" icon-envelope-alt"></i> Send</button>
-</div>
-</form>
-</div>
-
-
-
-
-
-<!------------------------------------------->
-
 <script>
 
 

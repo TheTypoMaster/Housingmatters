@@ -20,5 +20,17 @@ if (App.isTouchDevice()) { // if touch device, some tooltips can be skipped in o
 	jQuery('.tooltips:not(.no-tooltip-on-touch-device)').tooltip();
 } else {
 	jQuery('.tooltips').tooltip();
-}	
+}
+$('.wysihtml5').wysihtml5();
+$('.scroller').each(function () {
+	$(this).slimScroll({
+		//start: $('.blah:eq(1)'),
+		size: '7px',
+		color: '#a1b2bd',
+		height: $(this).attr("data-height"),
+		alwaysVisible: ($(this).attr("data-always-visible") == "1" ? true : false),
+		railVisible: ($(this).attr("data-rail-visible") == "1" ? true : false),
+		disableFadeOut: true
+	});
+});
 </script>
