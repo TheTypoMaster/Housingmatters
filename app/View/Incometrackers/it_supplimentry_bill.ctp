@@ -223,6 +223,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
             </table>
             <label id="chk_vali"></label>
             <label id="chk_vali2"></label>
+           <label id="vali_amt"></label>
            	</div>
 			</div>
 		    </div>
@@ -461,7 +462,11 @@ $(document).ready(function(){
 		$(document).ready(function() {
 					
 		$("#go5").bind('click',function(){
-
+			
+			
+		//var d = $('.ignr:checked').val();	
+		//var d = $('.ignr').val();
+		
 var bb = $('input[type=radio]:checked').val();
 
 if(bb == 2)
@@ -475,7 +480,35 @@ else
 $('#chk_vali').html('<p style="color:red;"></p>');	
 }
 }
-
+var allVals = [];
+		$('.ignr:checked').each(function() {
+			allVals.push($(this).val());
+			});	
+	var ggg=allVals.length;
+			
+	for(var w=0; w<ggg; w++)
+	{
+		var aa=allVals[w];
+		
+		var z=$("#amt" + aa).val();
+		if(z=='')
+		{
+	$('#vali_amt').html('<p style="color:red;">Please fill amount</p>'); return false;	
+		}
+		else
+		{
+		$('#vali_amt').html('<p style="color:red;"></p>'); 	
+		}
+		if($.isNumeric(z))
+		{
+		$('#vali_amt').html('');	
+		}
+		else
+		{
+			$('#vali_amt').html('<p style="color:red;">Please fill numeric value</p>'); return false;
+		}
+		
+	}
 
 
 
