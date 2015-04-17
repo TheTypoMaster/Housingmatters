@@ -9413,7 +9413,11 @@ return $n=sizeof($result);
 function notification_email()
 {
 
-$this->layout='session';
+if($this->RequestHandler->isAjax()){
+	$this->layout='blank';
+	}else{
+	$this->layout='session';
+	}
 $user_id=$this->Session->read('user_id');	
 $this->set('s_user_id',$user_id);
 $s_society_id=$this->Session->read('society_id'); 
