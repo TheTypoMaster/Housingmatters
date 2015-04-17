@@ -47,7 +47,7 @@ if($type==1)
 foreach($user_id as $user)
 {
 
-	echo $user=(int)$user;
+	$user=(int)$user;
 	$result_user = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user)));
 	foreach($result_user as $data2)
 	{
