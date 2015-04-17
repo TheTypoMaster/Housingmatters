@@ -154,7 +154,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			$auto_id = (int)$collection['ledger_sub_account']['auto_id'];
 			$user_name=$collection['ledger_sub_account']["name"];
 			?>
-			<option value="<?php echo $auto_id; ?>" /><?php echo $user_name; ?></option>
+			<option value="<?php echo $auto_id; ?>"><?php echo $user_name; ?></option>
 			<?php } ?>
 			</select>
 			<label id = "hide1"></label>
@@ -459,6 +459,7 @@ $(document).ready(function(){
 		
 	<script>
 		$(document).ready(function() {
+					
 		$("#go5").bind('click',function(){
 
 var bb = $('input[type=radio]:checked').val();
@@ -473,9 +474,12 @@ else
 {
 $('#chk_vali').html('<p style="color:red;"></p>');	
 }
-			
-
 }
+
+
+
+
+
 		var fi = document.getElementById("fi").value;
 		var ti = document.getElementById("ti").value;
 		var cn = document.getElementById("cn").value;

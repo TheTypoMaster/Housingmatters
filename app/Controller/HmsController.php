@@ -271,7 +271,7 @@ $this->redirect(array('action' => 'index'));
 
 function beforeFilter()
 {
-//Configure::write('debug', 0);
+Configure::write('debug', 0);
 }
 
 function menus_from_role_privileges()
@@ -2670,7 +2670,11 @@ return ++$auto2;
 function society_settings()
 {
 	
-	$this->layout='session';
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
 	$this->ath();
 	$s_society_id=$this->Session->read('society_id');
 	
@@ -13896,7 +13900,11 @@ $this->user->updateAll(array('private'=>$row),array('user_id'=>$s_user_id));
 
 function society_details()
 {
-	$this->layout='session';
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
 	$s_society_id=$this->Session->read('society_id'); 
 	if($this->request->is('post'))
 	{
@@ -15825,7 +15833,11 @@ $this->set('user_wing',$result);
 
 function master_sm_flat()
 {
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
 $this->layout='session';
+}
 $s_society_id= (int)$this->Session->read('society_id');
 $nnn = 0;
 if(isset($this->request->data['flat_add']))
@@ -18178,7 +18190,11 @@ return $this->terms_condition->find('all',array('conditions'=>$conditions));
 
 function flat_type()
 {
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
 $this->layout='session';
+}
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
@@ -18854,7 +18870,11 @@ echo $excel;
 //////////////////////// Start Flat Nu Import ///////////////////////////////////////////////////////
 function flat_nu_import()
 {
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
 $this->layout='session';
+}
 $s_society_id=(int)$this->Session->read('society_id');
 
 if($this->request->is('post')) 

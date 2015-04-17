@@ -18,12 +18,12 @@ foreach($result_society as $data)
 ?>				 
 <div class="tabbable tabbable-custom">
 <ul class="nav nav-tabs">
-<li  ><a href="master_sm_wing" > Wing</a></li>
-<li><a href="flat_type" >Flat Type</a></li>
-<li ><a href="master_sm_flat" >Flat Number</a></li>
-<li ><a href="flat_nu_import" >Flat Number Import</a></li>
-<li class="active" ><a href="society_details" >Society Details</a></li>
-<li><a href="society_settings" >Society Settings</a></li>
+<li  ><a href="<?php echo $webroot_path; ?>Hms/master_sm_wing" rel='tab'> Wing</a></li>
+<li><a href="<?php echo $webroot_path; ?>Hms/flat_type" rel='tab' >Flat Type</a></li>
+<li ><a href="<?php echo $webroot_path; ?>Hms/master_sm_flat" rel='tab' >Flat Number</a></li>
+<li ><a href="<?php echo $webroot_path; ?>Hms/flat_nu_import" rel='tab' >Flat Number Import</a></li>
+<li class="active" ><a href="<?php echo $webroot_path; ?>Hms/society_details" rel='tab' >Society Details</a></li>
+<li><a href="<?php echo $webroot_path; ?>Hms/society_settings" rel='tab' >Society Settings</a></li>
 </ul>
 <div class="tab-content" style="min-height:300px;">
 <div class="tab-pane active" id="tab_1_1">
