@@ -8,11 +8,26 @@ echo '<div style="min-height: 85%;margin-top: 60px; " align="center">
 	</div>';
 }
 ?>
-
+<style>
+.event_tab{
+color: rgb(68, 182, 174);
+font-size: 15px;
+font-weight: bold;
+margin-right: 10px;
+text-decoration: none !important;
+}
+.event_tab:hover{
+color: rgb(68, 182, 174);
+border-bottom:solid 2px rgb(68, 182, 174);
+}
+.tab_active{
+border-bottom:solid 2px rgb(68, 182, 174);
+}
+</style>
 <?php
 if(sizeof($result_event_detail)>0)
 { 
-echo '<a href='.$this->webroot.'Events/events rel="tab" style="font-size: 22px; color: #44b6ae;"><i class="icon-circle-arrow-left"></i> All Events</a>';
+echo '<a href='.$this->webroot.'Events/events rel="tab" style="font-size: 18px; color: #44b6ae;"><i class="icon-circle-arrow-left"></i> All Events</a>';
 foreach($result_event_detail as $data)
 {
 $event_id=$data["event"]["event_id"];
@@ -54,9 +69,14 @@ $flat=$collection2["user"]["flat"];
 
 $flat_info=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing,$flat)));
 ?>
+
+
 <div style="width:80%; margin-left:10%;margin-top:4px;">
+<a href="<?php echo $webroot_path; ?>Events/event_info/<?php echo $e_id; ?>" class="event_tab tab_active" rel='tab'> Event Details</a>
+<a href="<?php echo $webroot_path; ?>Events/updates/<?php echo $e_id; ?>" class="event_tab" rel='tab'> Updates</a>
+<a href="<?php echo $webroot_path; ?>Events/gallery/<?php echo $e_id; ?>" class="event_tab" rel='tab'> Gallery</a> 
 <!-- BEGIN BORDERED TABLE PORTLET-->
-<div class="portlet box" style="background-color:#44b6ae;border-top: solid 2px #44b6ae;">
+<div class="portlet box" style="background-color:#44b6ae;">
 	
 	<div class="portlet-body" >
 		<table width="100%" >
@@ -149,141 +169,12 @@ $flat_info=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_f
 			<!-------content----------->
 			</div><?php } ?>
 		</div>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		<hr>
-		<h5 style="font-weight: bold;">Updates</h5>
-		<?php 
-		$updts=@$result_event_detail[0]['event']['updates'];
-		if(sizeof($updts)==0) { $updts=array(); echo '<h5>There is no any update for this event.</h5>';} 
-		foreach($updts as $up)
-		{?>
-		<div style="padding:5px;border-left:solid 2px <?php echo $up['color']; ?>;background-color:#EEE;margin-bottom: 10px;">
-		<h4><i class=" icon-exclamation-sign" style="color: <?php echo $up['color']; ?>;"></i> <?php echo $up['title']; ?></h4>
-		<p><?php echo $up['des']; ?></p>
-		</div>
-		<?php } ?>
-		
-		
-		
-		
-	<?php if($d_user_id==$s_user_id) { ?>
-		<div style="border: solid 1px #C9C2C2;padding: 5px;background-color: rgb(245, 243, 243);">
-		<h5 style="font-weight: bold;">create Update </h5>
-		<form method="post" id="contact-form" name="myform" enctype="multipart/form-data" >
-		<table width="100%">
-		<tr>
-		<td width="70%">
-		<input type="text" name="title" class="span12 m-wrap" style="background-color: #fff !important;font-size:18px;" placeholder="Type Update Title">
-		</td>
-		<td width="30%">
-		<select class="span12 m-wrap" name="title_cat" placeholder="Choose Update Category" tabindex="1" style="background-color: #fff !important;">
-			<option value="" style="display:none;">Choose Update Category</option>
-			<option value="#398439">Green</option>
-			<option value="#eea236">Yellow</option>
-			<option value="#d43f3a">Red</option>
-			<option value="#357ebd">Blue</option>
-		</select>
-		</td>
-		</tr>
-		</table>
-		
-		<div class="controls">
-		<textarea class="m-wrap" name="description" style="resize:none; width:98%; height:80px;background-color: #fff !important;font-size:14px;" placeholder="Type Update Description..."></textarea>
-		</div>
-		
-		<div class="modal-footer">
-		<button type="submit" name="sub_update" class="btn blue"><i class=" icon-share"></i> Send Update</button>
-		</div>
-		
-		</div>
-	<?php } ?>
 	
 	</div>
 </div>
 <!-- END BORDERED TABLE PORTLET-->
 </div>
 <?php } ?>
-
-
-
-
-<?php $phts=@$result_event_detail[0]['event']['photos']; ?>
-<!-- BEGIN GALLERY MANAGER PORTLET-->
-<div class="portlet box " style="width:80%;margin-left:10%;">
-	<div class="portlet-title">
-		
-	</div>
-	<div class="portlet-body">
-		<!-- BEGIN GALLERY MANAGER PANEL-->
-		<div class="row-fluid">
-			<div class="span4">
-				<h4 style="font-weight:bold;">Photo Gallery</h4>
-			</div>
-		</div>
-		<!-- END GALLERY MANAGER PANEL-->
-		<hr class="clearfix" />
-		<!-- BEGIN GALLERY MANAGER LISTING-->
-		<!--upload photo---------->
-		<?php if($d_user_id==$s_user_id) { ?>
-		<div align="right">
-			<div class="controls">
-			 <div class="fileupload fileupload-new" data-provides="fileupload">
-				<div class="input-append">
-				   <div class="uneditable-input">
-					  <i class="icon-file fileupload-exists"></i> 
-					  <span class="fileupload-preview"></span>
-				   </div>
-				   <span class="btn btn-file">
-				   <span class="fileupload-new">Select file</span>
-				   <span class="fileupload-exists">Change</span>
-				   <input type="file" name="file" class="default">
-				   </span>
-				   <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
-				</div>
-				<button type="submit" name="up_photo" class="btn green"><i class="icon-upload-alt"></i> Upload</button>
-			 </div>
-			</div>
-		</form>	
-		</div>
-		<?php } ?>
-		<!--upload photo---------->
-		
-		
-		
-		<?php 
-		$a=3;
-		if(sizeof($phts)==0) {$phts=array(); echo '<h5>There is no photo for this event.</h5>';}
-		foreach($phts as $ph) { $a++;
-			if(($a%4)==0) { echo '<div class="row-fluid">'; } 
-			 ?>
-		
-			<div class="span3 responsive" data-tablet="span6" data-desktop="span3">
-				<div class="item">
-					<a class="fancybox-button" data-rel="fancybox-button" title="Photo" href="<?php echo $this->webroot ; ?>/event_file/event<?php echo $e_id; ?>/<?php echo $ph; ?>">
-						<div class="zoom">
-							<img src="<?php echo $this->webroot ; ?>/event_file/event<?php echo $e_id; ?>/<?php echo $ph; ?>" style="height:100px;width:100%;">							
-							<div class="zoom-icon"></div>
-						</div>
-					</a>
-				</div>
-			</div>
-		<?php if(($a%4)==3) { echo "</div>"; } if(sizeof($phts)==($a-3)) { echo "</div>"; } } ?>
-		<!-- END GALLERY MANAGER LISTING-->
-	</div>
-</div>
-<!-- END GALLERY MANAGER PORTLET-->
-
-
 
 
 
@@ -298,44 +189,4 @@ $(document).ready(function() {
 		$(".alert-block").html('Please wait...').load('<?php echo $this->webroot; ?>Events/save_rsvp?e='+e+'&type=2');
 	 });
 });
-</script>
-<script>
-$(document).ready(function(){
-		$('#contact-form').validate({
-	    rules: {
-	      question: {
-	       
-	        //required: true
-	      },
-		description:
-        {
-           //required: true,
-            remote: "<?php echo $this->webroot; ?>Hms/content_check_des"
-        },
-		  password: {
-	        required: true,
-	      },
-
-	    },
-		messages: {
-	                email: {
-	                    remote: "Login-Id is Already Exist."
-	                },
-					 description: {
-	                    remote: "You have enter wrong word."
-	                }
-	            },
-		
-			highlight: function(element) {
-				$(element).closest('.control-group').removeClass('success').addClass('error');
-			},
-			success: function(element) {
-				element
-				.text('OK!').addClass('valid')
-				.closest('.control-group').removeClass('error').addClass('success');
-			}
-	  });
-	  
-}); 
-
 </script>
