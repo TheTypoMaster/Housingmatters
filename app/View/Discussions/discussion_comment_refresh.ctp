@@ -36,8 +36,8 @@ $flat_info_c=$this->requestAction(array('controller' => 'hms', 'action' => 'wing
 { ?>
 <div class="btn-group " style="float:right;">
 
-				<button class="  dropdown-toggle" data-toggle="dropdown"> <i class="icon-angle-down"></i>
-				</button>
+	<a  class="badge ok_t  dropdown-toggle" data-toggle="dropdown" ><i class="icon-angle-down" style='font-size: 16px;
+  color: rgb(175, 173, 173);'></i></a>
 				
 				<ul class="dropdown-menu">
 <?php if($s_user_id==$comment_user_id) { ?>	<li><a href="#" role='button' onclick="delete_comment(<?php echo $discussion_comment_id; ?>)">

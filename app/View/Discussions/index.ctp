@@ -21,6 +21,9 @@ display:none;
 .showhim:hover .showme{
 display:block;
 }
+.ok_t{
+background-color:#fafafa !important;
+}
 </style>  
 
 <div style="border-bottom:solid 1px #ccc; overflow:auto; background-color: rgba(250, 250, 250, 0.59);" class="hide_at_print">
@@ -188,11 +191,11 @@ $flat_info=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_f
 <!---   Delete and offensive  code  -------->
 <?php if(!@in_array($s_user_id,$offensive_user))
 { ?>
-<div class="btn-group " style="float:right;">
+<div class="btn-group  " style="float:right;">
 
-				<button class="  dropdown-toggle" data-toggle="dropdown"> <i class="icon-angle-down"></i>
-				</button>
 				
+				<a  class="badge ok_t  dropdown-toggle" data-toggle="dropdown" ><i class="icon-angle-down" style='font-size: 16px;
+  color: rgb(175, 173, 173);'></i></a>
 				<ul class="dropdown-menu">
 <?php if($s_user_id==$comment_user_id) { ?>	<li><a href="#" role='button' onclick="delete_comment(<?php echo $discussion_comment_id; ?>)">
 <i class="icon-trash"></i> Delete</a></li>

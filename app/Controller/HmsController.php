@@ -838,7 +838,7 @@ $conditions4=array("wing_id"=>$wing);
 $result_wing=$this->wing->find('all',array('conditions'=>$conditions4));
 foreach ($result_wing as $collection) 
 {
-$wing_name=$collection['wing']["wing_name"];
+  $wing_name=$collection['wing']["wing_name"];
 }
 $this->loadmodel('flat');
 $conditions5=array("flat_id"=>$flat);
