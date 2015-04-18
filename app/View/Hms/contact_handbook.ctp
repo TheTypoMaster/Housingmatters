@@ -2,15 +2,15 @@
      
                 <table width="100%">
                 <tbody><tr>
-                <td width="60%" style="color:#A96363; font-size:24px; padding-left:10px;">Contact Handbook 
+                <td width="58%" style="color:#A96363; font-size:24px; padding-left:10px;">Contact Handbook 
 				<span class=" tooltips" data-placement="right" data-original-title="This list is maintained by your society members"><i class=" icon-info-sign"></i></span>
-				 <span style="float:right;"><a href='contact_handbook_export'class=' green mini btn' download='download'>Export</a></span>
+				 <span style="float:right;"><a href='contact_handbook_export'class=' green  btn' download='download'><i class='icon-download-alt'></i> Export</a></span>
 				</td>
              
              <td width="" valign="bottom" style="padding-top:10px;padding-right: 2%;" align="right">
 			 <div class="controls">
 		
-			 <a  onclick="blank_value();" href="javascript:ShowContactForm()" class=" btn blue" style="margin-bottom: 2%;" >Add New Contact </a>
+			 <a  onclick="blank_value();" href="javascript:ShowContactForm()" class=" btn blue" style="margin-bottom: 2%;" ><i class='icon-plus-sign'></i> Add New Contact </a>
 			 <input type="text" placeholder="Search " class="span8" style="" id="get_search" onkeyup="search_record()"></div></td>
                 </tr>
                 </tbody></table>
@@ -35,7 +35,7 @@ width:100%; float:left; padding:5px;
 }
 }
 
-.hv_b:hover{
+.hv_b{
 background-color:rgb(218, 236, 240);
 }
 </style>
@@ -116,19 +116,19 @@ background-color:rgb(218, 236, 240);
 <i class="icon-phone-sign"></i> <span style="font-size:14px;"><?php echo $mobile ; ?></span><br/>
 <i class="icon-envelope-alt"></i> <span style="font-size:14px;"><?php echo $email ; ?></span><br/>
 <i class="icon-sitemap"></i> <span style="font-size:14px;"><a href='<?php echo $web ; ?>' target="_blank"> <?php echo $web ; ?></a></span><br/>
-<i class=" icon-wrench"></i> <span style="font-size:14px;"><?php echo $service ; ?></span><br/>
+<i class=" icon-wrench"></i> <span style="font-size:14px;">Services : <?php echo $service ; ?></span><br/>
 <i class="icon-user"></i> <span class=" tooltips" data-placement="right" data-original-title="<?php echo $user_name ; ?>">Updated by:</span><br/> 
 <div style="">
 <?php
 if($s_user_id==$user_id || $role_id==3)
 {
 ?>
-<span class="btn mini " onclick="contact_add(<?php echo $c_h_id ; ?>,'<?php echo $mobile ; ?>','<?php echo $name ; ?>','<?php echo $email; ?>','<?php echo $web; ?>','<?php echo $service ; ?>');"><i class=' icon-edit'></i> edit </span> 
+<span class="btn mini yellow " onclick="contact_add(<?php echo $c_h_id ; ?>,'<?php echo $mobile ; ?>','<?php echo $name ; ?>','<?php echo $email; ?>','<?php echo $web; ?>','<?php echo $service ; ?>');"><i class=' icon-edit'></i> edit </span> 
 <?php } ?>
 <?php
 if($role_id==3)
 { ?>
-<span ><a role='button' element_id='<?php echo $c_h_id ; ?>' class="btn mini con_delete" > <i class="icon-trash"></i> Delete </a></span>
+<span ><a role='button' element_id='<?php echo $c_h_id ; ?>' class="btn mini con_delete red" > <i class="icon-trash"></i> Delete </a></span>
 <?php } ?>
 </div>
 </div>
