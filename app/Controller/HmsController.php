@@ -7085,7 +7085,7 @@ $type=(int)$this->request->query('type');
 		
 		$this->event->updateAll(array('rsvp'=>$rsvp),array('event.event_id'=>$e));
 	}
-	echo "Thank you";
+	echo "Thanks for voting.";
 	}
 	
 	if($type==2)
@@ -7115,7 +7115,7 @@ $type=(int)$this->request->query('type');
 		$this->event->updateAll(array('not_in_rsvp'=>$not_in_rsvp),array('event.event_id'=>$e));
 	}
 	
-	echo "Thank you";
+	echo "Thanks for voting.";
 	}
 }
 

@@ -98,6 +98,7 @@ $flat_info=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_f
 		<hr>
 		
 		<div class="row-fluid">
+		<?php if(sizeof($rsvp)>0) { ?>
 			<div class="span6">
 			<h5 style="font-weight: bold;">users who accept invitation </h5>
 			<!-------content----------->
@@ -121,7 +122,8 @@ $flat_info=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_f
 			?>
 			
 			<!-------content----------->
-			</div>
+			</div> <?php } ?>
+			<?php if(sizeof($not_in_rsvp)>0) { ?>
 			<div class="span6">
 			<h5 style="font-weight: bold;">users who decile invitation </h5>
 			<!-------content----------->
@@ -145,7 +147,7 @@ $flat_info=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_f
 			?>
 			
 			<!-------content----------->
-			</div>
+			</div><?php } ?>
 		</div>
 		
 		

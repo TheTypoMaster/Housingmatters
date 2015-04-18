@@ -286,15 +286,13 @@ $this->event->saveAll(array('event_id' => $event_id,'e_name' => $e_name, 'user_i
 $this->send_notification('<span class="label" style="background-color:#44b6ae;"><i class="icon-gift"></i></span>','New Event <b>'.$e_name.'</b> submitted by',6,$event_id,$this->webroot.'Events/event_info/'.$event_id,$s_user_id,$visible_user_id_new);
 ?>
 <!----alert-------------->
-<div id="submit_success">
 <div class="modal-backdrop fade in"></div>
 <div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
 <div class="modal-body" style="font-size:16px;">
 Your Event has been created.
 </div> 
 <div class="modal-footer">
-<a href="<?php echo $this->webroot; ?>Events/events" rel='tab' class="btn green" role="hide_submit_success">OK</a>
-</div>
+<a href="<?php echo $this->webroot; ?>Events/events"  class="btn green" >OK</a>
 </div>
 </div>
 <!----alert-------------->
@@ -530,7 +528,7 @@ $type=(int)$this->request->query('type');
 		
 		$this->event->updateAll(array('rsvp'=>$rsvp),array('event.event_id'=>$e));
 	}
-	echo "Thank you";
+	echo "Thanks for voting.";
 	}
 	
 	if($type==2)
@@ -560,7 +558,7 @@ $type=(int)$this->request->query('type');
 		$this->event->updateAll(array('not_in_rsvp'=>$not_in_rsvp),array('event.event_id'=>$e));
 	}
 	
-	echo "Thank you";
+	echo "Thanks for voting.";
 	}
 }
 

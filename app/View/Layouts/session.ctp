@@ -204,10 +204,7 @@ $(document).ready(function() {
 		e.preventDefault();
 	});
 	
-	$('a[role="hide_submit_success"]').live('click',function(e){
-		$("#submit_success").html('');
-		$(".modal-backdrop").hide();
-	});
+	
 	
 	
 	window.onpopstate = function(s) {
