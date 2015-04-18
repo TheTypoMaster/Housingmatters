@@ -13998,6 +13998,7 @@ function content_moderation()
 
 function content_moderation_delete()
 {
+	
 	 $id=(int)$this->request->query('con');
 	 $this->loadmodel('moderation');
 	 $this->moderation->updateAll(array('c_m_delete'=>1),array('auto_id'=>$id));
