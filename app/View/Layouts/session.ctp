@@ -189,7 +189,7 @@ $(document).ready(function() {
 			$("html, body").animate({
 				scrollTop:0
 			},"slow");
-			 
+			 $('#submit_success').hide();
 			});
 		
 		window.history.pushState({path:pageurl},'',pageurl);
@@ -210,6 +210,7 @@ $(document).ready(function() {
 	window.onpopstate = function(s) {
 		pageurl = location.pathname;
 		$('.page-content').load(pageurl+'?rel=tab');
+		
 	};
 	
 	
