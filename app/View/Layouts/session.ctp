@@ -8,7 +8,106 @@
 echo $this->fetch('meta');
 $webroot_path=$this->requestAction(array('controller' => 'Hms', 'action' => 'webroot_path'));
 ?>
+<style>
+#loading{
+	background-color: rgba(0, 0, 0, 0.21);
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	z-index: 1;
+	margin-top: 0px;
+	top: 0px;
+	display:none;
+}
+#loading-center{
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+#loading-center-absolute {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	height: 150px;
+	width: 150px;
+	margin-top: -75px;
+	margin-left: -75px;
+}
+.object{
+	width: 20px;
+	height: 20px;
+	background-color: #008DD2;
+	float: left;
+	margin-right: 20px;
+	margin-top: 65px;
+	-moz-border-radius: 50% 50% 50% 50% !important;
+	-webkit-border-radius: 50% 50% 50% 50% !important;
+	border-radius: 50% 50% 50% 50% !important;
+}
 
+#object_one {	
+	-webkit-animation: object_one 1.5s infinite;
+	animation: object_one 1.5s infinite;
+	}
+#object_two {
+	-webkit-animation: object_two 1.5s infinite;
+	animation: object_two 1.5s infinite;
+	-webkit-animation-delay: 0.25s; 
+    animation-delay: 0.25s;
+	}
+#object_three {
+    -webkit-animation: object_three 1.5s infinite;
+	animation: object_three 1.5s infinite;
+	-webkit-animation-delay: 0.5s;
+    animation-delay: 0.5s;
+	
+	}
+@-webkit-keyframes object_one {
+75% { -webkit-transform: scale(0); }
+}
+
+@keyframes object_one {
+
+  75% { 
+    transform: scale(0);
+    -webkit-transform: scale(0);
+  }
+
+}
+@-webkit-keyframes object_two {
+  75% { -webkit-transform: scale(0); }
+}
+
+@keyframes object_two {
+  75% { 
+    transform: scale(0);
+    -webkit-transform:  scale(0);
+  }
+
+}
+
+@-webkit-keyframes object_three {
+  75% { -webkit-transform: scale(0); }
+}
+
+@keyframes object_three {
+
+  75% { 
+    transform: scale(0);
+    -webkit-transform: scale(0);
+  }
+  
+}
+</style>
+<div id="loading">
+<div id="loading-center">
+<div id="loading-center-absolute">
+<div class="object" id="object_one"></div>
+<div class="object" id="object_two"></div>
+<div class="object" id="object_three"></div>
+</div>
+</div>
+</div>
 <link href="<?php echo $webroot_path; ?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 	<link href="<?php echo $webroot_path; ?>assets/css/metro.css" rel="stylesheet" />
 	<link href="<?php echo $webroot_path; ?>assets/bootstrap/css/bootstrap-responsive.min.1.css" rel="stylesheet" />
@@ -158,25 +257,8 @@ type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
 $(document).ready(function() {
 	$("a[rel='tab']").live('click',function(e){
 		e.preventDefault();
-		//$("#loading_ajax").html('<div id="progress-bar" style="position: fixed; top: 42px; z-index: 9999;  text-align: center;background-color:rgb(0, 141, 210);height: 4px;"></div>');
-		
-		
-		//var progressBar = $('#progress-bar'),
-		//width = 0;
-		//progressBar.width(width);
-
-		//var interval = setInterval(function() {
-
-		//width += 1;
-
-		//progressBar.css('width', width + '%');
-
-		//if (width >= 100) {
-		//	clearInterval(interval);
-		//}
-		//}, 10);
-		
-		
+		$("#loading").show();
+				
 		pageurl = $(this).attr('href');
 		$.ajax({
 			url: pageurl,
@@ -185,7 +267,7 @@ $(document).ready(function() {
 			$("#loading_ajax").html('');
 			
 			$(".page-content").html(response);
-			
+			$("#loading").hide();
 			$("html, body").animate({
 				scrollTop:0
 			},"slow");

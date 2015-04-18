@@ -1,11 +1,3 @@
-<div id="oa_social_login_container"></div>
-
-<script type="text/javascript">
- var _oneall = _oneall || [];
- _oneall.push(['social_login', 'set_callback_uri', window.location.href]);
- _oneall.push(['social_login', 'set_providers', ['amazon', 'blogger', 'disqus', 'draugiem', 'facebook', 'foursquare', 'github', 'google', 'instagram', 'linkedin', 'livejournal', 'mailru', 'odnoklassniki', 'openid', 'paypal', 'reddit', 'skyrock', 'stackexchange', 'steam', 'twitch', 'twitter', 'vimeo', 'vkontakte', 'windowslive', 'wordpress', 'yahoo', 'youtube']]);
- _oneall.push(['social_login', 'do_render_ui', 'oa_social_login_container']);
-</script>
 <?php 
 foreach ($result_user as $collection)   
               	 {
