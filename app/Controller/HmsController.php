@@ -13905,6 +13905,7 @@ $this->layout='blank';
 }else{
 $this->layout='session';
 }
+$this->ath();
 	$s_society_id=$this->Session->read('society_id'); 
 	if($this->request->is('post'))
 	{
@@ -15793,6 +15794,7 @@ $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 function master_sm_wing_ajax()
 {
 $this->layout='blank';
+
 $s_society_id=(int)$this->Session->read('society_id');
 $wing=$this->request->query['wing_name'];
 $this->loadmodel('wing');
@@ -15813,6 +15815,7 @@ if($this->RequestHandler->isAjax()){
 	}else{
 		$this->layout='session';
 	}
+	$this->ath();
 $s_society_id=$this->Session->read('society_id');
 if(isset($this->request->data['sub'])) 
 {
@@ -15843,6 +15846,7 @@ $this->layout='blank';
 }else{
 $this->layout='session';
 }
+$this->ath();
 $s_society_id= (int)$this->Session->read('society_id');
 $nnn = 0;
 if(isset($this->request->data['flat_add']))
@@ -18200,6 +18204,7 @@ $this->layout='blank';
 }else{
 $this->layout='session';
 }
+$this->ath();
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
@@ -18348,7 +18353,7 @@ foreach($cursor as $collection)
 {
 $m++;
 $wing = (int)$collection['flat']['wing_id'];
-$fl = $collection['flat']['flat_number'];
+$fl = @$collection['flat']['flat_number'];
 
 $wing_arr[] = $wing;
 $flat_arr[] = $fl;
@@ -18880,6 +18885,7 @@ $this->layout='blank';
 }else{
 $this->layout='session';
 }
+$this->ath();
 $s_society_id=(int)$this->Session->read('society_id');
 
 if($this->request->is('post')) 
