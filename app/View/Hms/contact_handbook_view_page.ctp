@@ -23,6 +23,7 @@ foreach($result_contact_handbook as $collection)
 <div class="r_d fadeleftsome" style="width:45%" onmouseover="show_tooltips();" >
 <div class="hv_b" style="overflow: auto;padding: 5px;cursor: pointer;" title="">
 <div style="float:left;margin-left:3%;"  >
+ <i class=" icon-wrench"></i> <span style="font-size:14px;">Services : <?php echo $service ; ?></span><br/>
 <i class="icon-user"></i> <span style="font-size:16px;"><?php echo $name; ?></span><br/>
 <i class="icon-phone-sign"></i> <span style="font-size:14px;"><?php echo $mobile ; ?></span><br/>
 <i class="icon-envelope-alt"></i> <span style="font-size:14px;"><?php echo $email ; ?></span><br/>
