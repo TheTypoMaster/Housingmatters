@@ -15367,7 +15367,11 @@ return $category_name=$data['feedback_category']['feedback_cat_name'];
 
 function feedback()
 {
-$this->layout='session';
+if($this->RequestHandler->isAjax()){
+		$this->layout='blank';
+	}else{
+		$this->layout='session';
+	}
 $s_society_id=$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
 $this->loadmodel('user');

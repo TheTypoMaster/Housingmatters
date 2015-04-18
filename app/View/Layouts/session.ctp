@@ -622,7 +622,7 @@ if(@$complaints==1)
 {
 ?>
 <li>
-	<a href="feedback">
+	<a href="<?php echo $webroot_path; ?>Hms/feedback" rel='tab'>
 	<i class="icon-phone"></i> Contact Us
 	</a>					
 </li>
