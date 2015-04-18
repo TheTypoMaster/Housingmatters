@@ -12,7 +12,6 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 .datepicker { 
   z-index: 9999;
 }
-
 </style>
 
 <?php
@@ -211,7 +210,6 @@ $(document).ready(function() {
 	 });
 	 
 	 $(".delete_poll_btn").live('click',function(){
-	 
 		var p_id=$(this).attr("poll_id");
 		$("#poll_edit_content").load('<?php echo $this->webroot; ?>Polls/poll_delete?p_id='+p_id+'&delete=1', function() {
 			$("#poll"+p_id).remove();

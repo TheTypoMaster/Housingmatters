@@ -99,10 +99,10 @@ $e_date = strtotime($e_date);
 	echo '<td>
 	<div class="btn-group" style="width:100%;">
 		<a style="height: 70px;background-color: #44b6ae;color: #fff;font-size: 24px;" class="btn btn-block dropdown-toggle" data-toggle="dropdown">'.$i.'</a>
-		<ul class="dropdown-menu animated zoomIn">';
+		<ul class="dropdown-menu">';
 	 foreach($carry_event[$i] as $event) {
 	
-		echo '<li><a href=event_info?e='.$event[0].'>'.$event[1].'</a></li>';
+		echo '<li><a href=event_info/'.$event[0].'>'.$event[1].'</a></li>';
 	 } 
 	echo '</ul>
 	</div>
@@ -110,7 +110,7 @@ $e_date = strtotime($e_date);
 	}
 	if(sizeof($carry_event)==0)
 	{
-	echo '<td><a  style="height: 70px;background-color: #44b6ae;color: #fff;font-size: 24px;" class="btn btn-block disabled">'.$i.'</a></td>';
+	echo '<td><a  style="height: 70px;background-color: #F5FFFE;color: #44b6ae;font-size: 24px;" class="btn btn-block disabled">'.$i.'</a></td>';
 	}
 	$carry_event=array();
 	

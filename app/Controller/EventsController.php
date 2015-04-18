@@ -492,6 +492,64 @@ $this->set('result_event_detail',$result_event_detail);
 }
 
 
+function updates($e_id=null){
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
+$this->ath();
+//$this->check_user_privilages();
+$s_society_id=$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
+$this->set('s_user_id',$s_user_id);
+
+	
+
+
+$e_id=(int)$e_id;
+$this->set('e_id',$e_id);
+
+$this->seen_notification(6,$e_id);
+$this->seen_alert(6,$e_id);
+
+$this->loadmodel('event');
+$conditions=array("event_id" => $e_id,"visible_user_id" => array('$in' => array($s_user_id)));
+$result_event_detail=$this->event->find('all', array('conditions' => $conditions));
+$this->set('result_event_detail',$result_event_detail);
+}
+
+function save_data(){
+	echo "hello";
+	
+}
+
+function gallery($e_id=null)
+{
+if($this->RequestHandler->isAjax()){
+	$this->layout='blank';
+	}else{
+	$this->layout='session';
+	}
+	
+$this->ath();
+//$this->check_user_privilages();
+$s_society_id=$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
+$this->set('s_user_id',$s_user_id);
+
+$e_id=(int)$e_id;
+$this->set('e_id',$e_id);
+
+$this->seen_notification(6,$e_id);
+$this->seen_alert(6,$e_id);
+
+$this->loadmodel('event');
+$conditions=array("event_id" => $e_id,"visible_user_id" => array('$in' => array($s_user_id)));
+$result_event_detail=$this->event->find('all', array('conditions' => $conditions));
+$this->set('result_event_detail',$result_event_detail);
+}
+
 
 function save_rsvp()
 {
