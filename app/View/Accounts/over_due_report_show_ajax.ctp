@@ -6,7 +6,7 @@ $from1 = new MongoDate(strtotime($from1));
 $to1 = date("Y-m-d", strtotime($to));
 $to1 = new MongoDate(strtotime($to1));
 
-$result1 = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch2'),array('pass'=>array($flat)));
+$result1 = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch2'),array('pass'=>array(@$user_id)));
 foreach($result1 as $collection)
 {
 $user_id = $collection['user']['user_id'];
@@ -115,7 +115,7 @@ $bill_amt = number_format($bill_amt);
 <td style="text-align:center;"><?php echo $total_amount; ?></td>
 <td style="text-align:center;"><?php echo $due_amt; ?></td>
 <td style="text-align:center;"><?php echo $bill_amt; ?></td>
-<td style="text-align:center;" class="hide_at_print"><a href="regular_bill_view?bill=<?php echo $bill_no; ?>" class="btn mini yellow" target="_blank">Bill View</a></td>
+<td style="text-align:center;" class="hide_at_print"><a href="regular_bill_view/<?php echo $bill_no; ?>" class="btn mini yellow" target="_blank">Bill View</a></td>
 </tr>
 
 <?php
@@ -150,7 +150,7 @@ $bill_amt = number_format($bill_amt);
 <td style="text-align:center;"><?php echo $total_amount; ?></td>
 <td style="text-align:center;"><?php echo $due_amt; ?></td>
 <td style="text-align:center;"><?php echo $bill_amt; ?></td>
-<td style="text-align:center;" class="hide_at_print"><a href="regular_bill_view?bill=<?php echo $bill_no; ?>" class="btn mini yellow" target="_blank">Bill View</a></td>
+<td style="text-align:center;" class="hide_at_print"><a href="regular_bill_view/<?php echo $bill_no; ?>" class="btn mini yellow" target="_blank">Bill View</a></td>
 </tr>
 
 <?php

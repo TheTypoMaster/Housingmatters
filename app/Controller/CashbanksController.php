@@ -2478,14 +2478,24 @@ $tds = (int)$this->request->query('tds');
 $amount = (int)$this->request->query('amount');
 
 
-$this->loadmodel('master_tds');
-$conditions=array("auto_id" => $tds);
-$cursor1=$this->master_tds->find('all',array('conditions'=>$conditions));
+$this->loadmodel('reference');
+$conditions=array("auto_id" => 3);
+$cursor1=$this->reference->find('all',array('conditions'=>$conditions));
 foreach ($cursor1 as $collection) 
 {
-$charge = (int)$collection['master_tds']['charge'];
+$tds_arr = $collection['reference']['reference'];
 }
-$tds_charge = (float)(($charge/100)*$amount);
+for($t=0; $t<sizeof($tds_arr); $t++)
+{
+$tds_arr2 = $tds_arr[$t];
+$tds_id = (int)$tds_arr2[1];
+if($tds_id == $tds)
+{
+$charge = $tds_arr2[0];
+break;
+}
+}
+$tds_charge = (float)((@$charge/100)*$amount);
 $total_amount = round($amount - $tds_charge); 
 $this->set('total_amount',$total_amount);
 }

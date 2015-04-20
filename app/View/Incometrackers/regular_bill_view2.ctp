@@ -233,11 +233,11 @@ $noc_amt = $amount;
 }
 $noc_tt_amt = $noc_tt_amt + $noc_amt;
 $total_amt = $total_amt + $noc_amt;
-$gt_amt = $gt_amt + $due_taxamt + $total_amt + $due_amount;
+$gt_amt = $gt_amt + @$due_taxamt + $total_amt + @$due_amount;
 $gt_tt_amt = $gt_tt_amt + $total_amt;
-$gt_penalty_amt = $gt_penalty_amt + $due_taxamt;
+$gt_penalty_amt = $gt_penalty_amt + @$due_taxamt;
 $gt_gt_amt = $gt_gt_amt + $gt_amt;
-$over_due_tt = $over_due_tt + $due_amount;
+$over_due_tt = $over_due_tt + @$due_amount;
 ?>
 <td style="text-align:center;"><?php if(!empty($noc_amt)) { 
 $noc_amt = number_format($noc_amt);
@@ -246,7 +246,7 @@ echo $noc_amt; } else { echo "0"; } ?></td>
 $total_amt = number_format($total_amt);
 echo $total_amt; ?></td>
 <td style="text-align:center;"><?php if(!empty($due_amount)) { 
-$due_amount = number_format($due_amount);
+$due_amount = number_format(@$due_amount);
 echo $due_amount; } else { echo "0"; } ?></td>
 <td style="text-align:center;"><?php if(!empty($due_taxamt)) { 
 $due_taxamt = number_format($due_taxamt);

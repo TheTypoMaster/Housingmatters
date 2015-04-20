@@ -176,9 +176,11 @@ $wing_name = $collection['wing']['wing_name'];
 ?>
 <label class="checkbox">
 <div class="checker" id="uniform-undefined"><span>
-<input type="checkbox" value="<?php echo $wing_id; ?>" style="opacity: 0;" name="wing<?php echo $wing_id; ?>"></span></div><?php echo $wing_name; ?> 
+<input type="checkbox" value="<?php echo $wing_id; ?>" style="opacity: 0;" name="wing<?php echo $wing_id; ?>" id="win"></span></div><?php echo $wing_name; ?> 
 </label>
+
 <?php } ?>
+<label id="chk_vali"></label>
 </div>
 </div>        
 <br />        
@@ -258,7 +260,7 @@ No
 <script>
 $.validator.addMethod('requirecheck1', function (value, element) {
 	 return $('.requirecheck1:checked').size() > 0;
-}, 'Please check at least one role.');
+}, 'Please select at list one wing.');
 
 $.validator.addMethod('requirecheck2', function (value, element) {
 	 return $('.requirecheck2:checked').size() > 0;
@@ -316,20 +318,16 @@ $(document).ready(function(){
 	        required: true
 	      },
 		 
-		   "terms[]": {
-	        required: true
-	      },
 		 
-		  "i_head[]": {
-			 required: true
-	      },
+		 
+		 
 		   
 		   bill_for: {
 			 required: true
 	      },
 		  
 		  
-		 bill_for
+		
 	    },
 		messages: {
 	                from: {
@@ -364,7 +362,26 @@ $(document).ready(function(){
 <script>
 		$(document).ready(function() {
 		$("#go").live('click',function(){
-        
+ 
+ var bb = $('input[type=radio]:checked').val();
+ 
+ if(bb == 1)
+ {       
+if($('input[type=checkbox]:checked').length == 0)
+{
+$('#chk_vali').html('<p style="color:red;">Select at list One wing</p>'); return false;
+}		
+else
+{
+$('#chk_vali').html('<p style="color:red;"></p>');	
+}
+ }
+		
+		
+		
+		
+		
+		
 		var from1 = document.getElementById("from").value;
 		var per_tp = document.getElementById("bp").value;
 		var date = from1.split("-"); 

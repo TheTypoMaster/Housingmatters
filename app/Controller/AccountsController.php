@@ -930,7 +930,7 @@ $to = $this->request->query('t');
 $wise = (int)$this->request->query('w');
 if($wise == 1)
 {
-$wing = (int)$this->request->query('wi');
+ $wing = (int)$this->request->query('wi');
 }
 else if($wise == 2)
 {
@@ -970,7 +970,7 @@ Over Due Report  ($society_name)</th>
 <th>Due Amount</th>
 <th>Bill Amount</th>
 </tr>";
-
+$c = 0;
 $this->loadmodel('regular_bill');
 $conditions=array("society_id"=> $s_society_id,"status"=>0);
 $cursor = $this->regular_bill->find('all',array('conditions'=>$conditions));
@@ -981,10 +981,13 @@ $date_from = $collection['regular_bill']['bill_daterange_from'];
 $date_to = $collection['regular_bill']['bill_daterange_to'];	
 $due_date = $collection['regular_bill']['due_date'];	
 $total_amt = (int)$collection['regular_bill']['total_amount'];
-$tax_amt = (int)$collection['regular_bill']['tax_amount'];	
+$tax_amt = (int)$collection['regular_bill']['due_amount_tax'];	
 $due_amt = (int)$collection['regular_bill']['total_due_amount'];	
 $bill_amt = (int)$collection['regular_bill']['g_total'];	
 $bill_for_user = (int)$collection['regular_bill']['bill_for_user'];
+
+
+
 
 $result11 = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($bill_for_user)));				
 foreach ($result11 as $collection2) 
@@ -1019,7 +1022,10 @@ $excel.="<tr>
 <td>$bill_amt</td>
 </tr>";
 }}
-}}
+}
+}
+
+
 else if($wise == 1)
 {
 if($wing == $wing_id)
@@ -1048,6 +1054,8 @@ $excel.="<tr>
 }
 
 $excel.="</table>";
+
+
 echo $excel;
 }
 ////////////////////// End OverDue Excel///////////////////////////////////////////
@@ -3104,7 +3112,28 @@ $this->set('cursor5',$cursor5);
 
 ////////////////////////////////////////// End Trial Balance Ajax Show (Accounts) //////////////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////// Start Regular Bill View (Accounts)//////////////////////////////////////////////////////////////
+function regular_bill_view($auto_id=null)
+{
+$this->layout='session';
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
 
+$auto_id = (int)$auto_id;
+
+$this->loadmodel('regular_bill');
+$conditions=array("receipt_id"=>$auto_id,"society_id" => $s_society_id);
+$cursor=$this->regular_bill->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$bill_html = $collection['regular_bill']['bill_html'];	
+}
+
+$this->set('bill_html',@$bill_html);
+
+}
+////////////////////////////////// End Regular Bill View (Accounts)//////////////////////////////////////////
 
 
 

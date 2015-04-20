@@ -90,11 +90,11 @@ $cursor = $this->wing->find('all',array('conditions'=>$conditions));
 foreach($cursor as $collection)
 {
 $wing_id = (int)$collection['wing']['wing_id'];
-$wing_for_bill = $this->request->data['wing'.$wing_id];
+$wing_for_bill = @$this->request->data['wing'.$wing_id];
 $wing_arr[] = $wing_for_bill;
 }
 }
-$wing_imp = implode(",",$wing_arr);
+@$wing_imp = implode(",",@$wing_arr);
 
 if($period_id == 1)
 {
@@ -148,11 +148,7 @@ $bill_for_en = $this->encode($bill_for,'housingmatters');
 
 $this->response->header('Location','regular_bill_view2?f='.$f1.'&t='.$t1.'&due='.$due1.'&d='.$desc1.'&p='.$p_id.'&pen='.$pen.'&wi='.$wing_imp_en.'&bi='.$bill_for_en.' ');
 
-?>
-<script>
-//window.location.href="regular_bill_view2?f=<?php echo $f1; ?>&t=<?php echo $t1; ?>&due=<?php echo $due1; ?>&ih=<?php echo $ih3; ?>&tax=<?php echo $tax3; ?>&d=<?php echo $desc1; ?>&tem=<?php echo $terms3; ?>&p=<?php echo $p_id; ?>";
-</script>
-<?php
+
 }
 
 
@@ -325,7 +321,7 @@ $due_date = $this->request->data['due'];
 //$tax = (int)$this->request->data['tax'];
 $description = $this->request->data['desc'];
 //$terms = $this->request->data['tem'];
-$gtamt = $this->request->data['gt'];
+$gtamt = @$this->request->data['gt'];
 $penalty = (int)$this->request->data['penalty'];
 
 $sms_from = date('dM',strtotime($from));
@@ -609,7 +605,7 @@ $this->ledger->saveAll($multipleRowData);
 $total_due_amount = @$due_tax + @$due_amount11;
 $grand_total = $total_amt + $total_due_amount;
 
-if($due_amount11 > 0)
+if(@$due_amount11 > 0)
 {
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
@@ -628,7 +624,7 @@ $k=$last;
 }
 $k++;
 $this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" =>$due_amount11, "amount_category_id" => 2,"table_name" => "regular_bill", "account_type" => 2, "account_id" => 13, "current_date" => $current_date12,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" =>$due_amount11, "amount_category_id" => 2,"table_name" => "regular_bill", "account_type" => 2, "account_id" => 13, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
 $this->ledger->saveAll($multipleRowData);
 }
 
@@ -736,7 +732,6 @@ $multipleRowData = Array( Array("regular_bill_id" => $regular_bill_id,"receipt_i
 "bill_html"=>"","one_time_id"=>$one,"status" => 0,  
 "due_date" => $due_date, "total_due_amount"=> $total_due_amount, "due_amount_tax" => @$due_tax,"remaining_amount"=>$grand_total,"total_amount" => $total_amt,"pay_amount"=>"", "due_amount" => @$due_amount11,"period_id"=>$p_id,"ih_detail"=>$income_headd2));
 $this->regular_bill->saveAll($multipleRowData);	
-
 
 ///////////////////////////////////////
 
