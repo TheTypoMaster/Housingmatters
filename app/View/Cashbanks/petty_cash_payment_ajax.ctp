@@ -3,7 +3,7 @@ if($value1 == 1)
 {
 ?>
 <br>
-<select name="user_id" class="m-wrap medium">
+<select name="user_id" class="m-wrap medium chosen">
 <option value="" style="display:none;">Select</option>
 <?php
 
@@ -21,7 +21,7 @@ else if($value1 == 2)
 {
 ?>
 <br>
-<select name="user_id" class="m-wrap medium">
+<select name="user_id" class="m-wrap medium chosen">
 <option value="" style="display:none;">Select</option>
 <?php
 
@@ -49,7 +49,7 @@ else
 {
 ?>	
 <br>
-<select name="user_id" class="m-wrap medium">	
+<select name="user_id" class="m-wrap medium chosen">	
 <option value="">Select</option>	
 </select>	
 <?php	

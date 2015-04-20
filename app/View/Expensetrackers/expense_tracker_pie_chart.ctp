@@ -26,7 +26,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
  <center>
-            <div style="width:50%; background-color:#FAE7F4;" class="hide_at_print">
+            <div style="width:50%; background-color:white;" class="hide_at_print">
             <form method="post" id="contact-form">
             <br>
             <table>

@@ -125,18 +125,26 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <td>
 <br />
 <label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" value="Cheque" style="opacity: 0;" id="mode"></span></div>
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" value="Cheque" style="opacity: 0;" id="mode" class="chn"></span></div>
 Cheque
 </label>
 <label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" value="NEFT" style="opacity: 0;" id="mode"></span></div>
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" value="NEFT" style="opacity: 0;" id="mode" class="neft"></span></div>
 NEFT
 </label>
 <label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" value="PG" style="opacity: 0;" id="mode"></span></div>
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" value="PG" style="opacity: 0;" id="mode" class="pg"></span></div>
 PG
 </label> 
 <label id="mode"></label>
+</td>
+</tr>
+<tr>
+<td id="td1">
+</td>
+<td id="td2">
+
+
 </td>
 </tr>
 <tr>
@@ -277,164 +285,7 @@ Non-Member
               
               
 <?php /////////////////////////////////////////////////////////////////////////////////////////////// ?>              
-              
-<?php /*              
-              <br>	
-              <div class="portlet box grey" style="width:60%; margin-left:20%; margin-right:20%;">
-              <div class="portlet-title">
-              <h4><i class="icon-reorder"></i>Bank Receipt</h4>
-              </div>
-              <div class="portlet-body form" style="background-color:white;"> 
 
-			   <form id="contact-form" method="POST" class="form-horizontal" enctype="multipart/form-data">         
-               <center>
-			  
-<?php ////////////////////////////////////////////////////////////////////////////////////// ?>
-
-<div style="width:90%; background-color:white; border:solid 1px;">
-                          <br />
-                  <table class="table table-bordered" style="width:100%;">        
-                   <tr>
-				   <td style="text-align:center;">
-                   <label>Transaction date</label>
-				   <input type="text" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="date" placeholder="Transaction Date" style="background-color:white !important;" id="date">
-				   </td>
-				  
-                  
-                   <td style="text-align:center;">
-				  <label class="radio">
-					<div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" value="Cheque" style="opacity: 0;" id="mode"></span></div>
-					Cheque
-					</label>
-					<label class="radio">
-					<div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" value="NEFT" style="opacity: 0;" id="mode"></span></div>
-					NEFT
-					</label>
-					<label class="radio">
-					<div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" value="PG" style="opacity: 0;" id="mode"></span></div>
-					PG
-					</label> 
-				  
-				   </td>
-
-				  <td style="text-align:center;">
-                  <label>Instrument/UTR</label>
-				  <input type="text"  name="instruction" class="m-wrap medium" placeholder="Instrument/UTR" style="background-color:white !important;" id="ins">
-				   </td>
-				   
-				 <td style="text-align:center;">
-				 <label>Deposited In</label>
-                 <select name="bank_account" class="medium m-wrap chosen" id="bank">
-				<option value="" style="display:none;">Deposited In</option>    
-				<?php
-				foreach ($cursor3 as $db) 
-				{
-				$bank_id = (int)$db['ledger_sub_account']["auto_id"];
-				$bank_ac = $db['ledger_sub_account']["name"];
-				?>
-				<option value="<?php echo $bank_id; ?>"><?php echo $bank_ac; ?></option>
-				<?php } ?>
-				</select>
-				   </td>
-				   
-				  
-					</tr>
-					<tr>
-					<td style="text-align:center;"><label id="date"></label><div id="result11"></div></td>
-					<td style="text-align:center;"><label id="mode"></label></td>
-					<td style="text-align:center;"></td>
-					<td style="text-align:center;"><label id="bank"></label></td>
-					</tr>
-					</table>
-					
-				<table class="table table-bordered">
-				<tr style="height:60px; border:#000 !important;">
-                         
-                          
-                         
-                         
-					<td style="width:52.3%; text-align:center;">
-                    <label>Received from</label>
-					<label class="radio">
-					<div class="radio" id="uniform-undefined"><span><input type="radio" name="member" class="go5" value="1" style="opacity: 0;" id="mem"></span></div>
-					Member
-					</label>
-					<label class="radio">
-					<div class="radio" id="uniform-undefined"><span><input type="radio" name="member" class="go6" value="2" style="opacity: 0;" onclick="hidediv('div12')" id="mem"></span></div>
-					Non-Member
-					</label>
-					</td>
-
-					
-                          
-					<td id="div11" style="width:47.7%; text-align:center;">
-										  
-				    </td>
-                          
-						  
-						<!--<td id="div22" class="hide" style="width:50%; text-align:center;">
-						
-						</td>-->
-                          
-                          
-                          </tr>
-						  <tr>
-						  <td style="text-align:center;"> <label id="mem"></label></td>
-						  <td style="text-align:center;">
-						  <label id="go"></label>
-						  <label id="re"></label>
-						  </td>
-						  
-						  </tr>
-                          </table>
-                          <br />
-                          <br />
-                          <center>
-                          <div id="div12">
-                          <div id="result" style="width:80%;" >
-                         
-                          </div>
-                          </div>
-                          <div id="div13" class="hide">
-                          <table border="0">
-                          <tr>
-                          <td>
-                          <input type="text" class="m-wrap large" name="refn" placeholder="Bill Reference" style="background-color:white !important;" id="refn"/>
-                          </td>
-                          <td>
-                          <input type="text" name="amountn" class="m-wrap small" placeholder="Amount" style="background-color:white !important;" id="amt"/>
-                          </td>
-                          </tr>
-						  <tr>
-						  <td style="text-align:center;"><label id="refn"></label></td>
-						  <td style="text-align:center;"><label id="amt"></label></td>
-						  </tr>
-                          </table>
-                          </div>
-
- <label style="margin-right:70%;">Narration</label>
-<textarea   rows="4" name="description" class="medium m-wrap" placeholder="Narration" style="background-color:white !important; resize:none; margin-right:70%;"  id="nar"></textarea>       
- <label id="nar" style="margin-right:70%;"></label>                        
-                          
-<?php ///////////////////////////////////////////////////////////////?>                          
-				   
-							 
-                       <br><br>
-                        </div>
-                         
-                          </center>
-                           <div class="form-actions" style="background-color:#CCC;">
-                              <button type="submit" class="btn green" name="bank_receipt_add" value="xyz" id="vali">Submit</button>
-                             <a href="bank_receipt" class="btn">Reset</a>
-                              </div>
-</form>							  
-                          </div>
-                          </div>          
-                        
-
-<?php
-*/
- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 		<script>
 		$(document).ready(function() {
@@ -596,7 +447,10 @@ $(document).ready(function(){
 			notEqual: "0"
 		
 		},
-		
+		no: {
+			required: true,
+			number: true
+		},
 		},
 			highlight: function(element) {
 				$(element).closest('.control-group').removeClass('success').addClass('error');
@@ -673,7 +527,26 @@ $(document).ready(function(){
 		
 
 
-
+<script>
+$(document).ready(function() {
+	$(".chn").live('click',function(){
+	$('#td1').html('<br><label  style="font-size:14px;">Receipt/NEFT No.</label>');    
+	$('#td2').html('<br><input type="text" name="no" class="m-wrap medium" id="no2"><label id="no2"></label>');   
+	});
+	
+	$(".neft").live('click',function(){
+	$('#td1').html('<br><label  style="font-size:14px;">Receipt/NEFT No.</label>');    
+	$('#td2').html('<br><input type="text" name="no" class="m-wrap medium" id="no2"><label id="no2"></label>');   
+	
+		
+	});
+	$(".pg").live('click',function(){
+	$('#td1').html('');    
+	$('#td2').html('');   	
+	   
+	});
+});
+</script>	
 
 
 

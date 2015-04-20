@@ -19,7 +19,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <div style="border-bottom:solid 2px #4cae4c; color:white; background-color: #5cb85c; padding:4px; font-size:20px;" ><i class="icon-envelope-alt"></i> Send SMS</div>
 <div style="padding:10px;background-color:#FFF;">
 <!----------------------------------------------->
-<form method="post">
+<form method="post" id="contact-form">
 <div class="controls">
  <label class="radio">
  <div class="radio" id="uniform-undefined"><input type="radio"  id="r1" checked name="radio" value="1" style="opacity: 0;"></div>
@@ -56,6 +56,7 @@ $flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat')
 <?php } ?>           
 		  
 	 </select>
+	 <label id="multi"></label>
   </div>
 </div>
 <!------------------------->
@@ -70,9 +71,10 @@ $group_name=$collection["group"]["group_name"];
 $group_id=$collection["group"]["group_id"];
 ?>
 <label class="checkbox">
-<input type="checkbox" name="grp<?php echo $group_id; ?>" value="<?php echo $group_id; ?>"> <?php echo $group_name; ?>
+<input type="checkbox" name="grp<?php echo $group_id; ?>" value="<?php echo $group_id; ?>" class="requirecheck3" id="group_check"> <?php echo $group_name; ?>
 </label>
 <?php } ?> 
+<label id="group_check"></label>
 </div>
 <!--------------------------->
 
@@ -159,6 +161,7 @@ $group_id=$collection["group"]["group_id"];
 </tr>
 </table>
  <textarea  style="resize:none;font-size: 18px;" class="m-wrap span12"  onKeyUp="count_msg()" id="massage" name="massage" rows="7"></textarea>
+ <label id="massage"></label>
  <table width="100%">
  <tr>
  <td>
@@ -447,3 +450,108 @@ border-bottom:solid 2px #ccc; padding:15px; font-size:16px; cursor:pointer;
 background-color:rgba(207, 202, 255, 0.32);	
 }
 </style>
+
+
+
+<script>
+
+
+$.validator.addMethod('requirecheck1', function (value, element) {
+	 return $('.requirecheck1:checked').size() > 0;
+}, 'Please check at least one role.');
+
+$.validator.addMethod('requirecheck2', function (value, element) {
+	 return $('.requirecheck2:checked').size() > 0;
+}, 'Please check at least one wing.');
+
+$.validator.addMethod('requirecheck3', function (value, element) {
+	 return $('.requirecheck3:checked').size() > 0;
+}, 'Please check at least one group.');
+
+$.validator.addMethod('filesize', function(value, element, param) {
+    // param = size (en bytes) 
+    // element = element to validate (<input>)
+    // value = value of the element (file name)
+    return this.optional(element) || (element.files[0].size <= param) 
+});
+
+
+
+
+
+$(document).ready(function(){
+
+			var checkboxes = $('.requirecheck1');
+			var checkbox_names = $.map(checkboxes, function(e, i) {
+				return $(e).attr("name")
+			}).join(" ");
+			
+			
+			var checkboxes2 = $('.requirecheck2');
+			var checkbox_names2 = $.map(checkboxes2, function(e, i) {
+				return $(e).attr("name")
+			}).join(" ");
+			
+			var checkboxes3 = $('.requirecheck3');
+			var checkbox_names3 = $.map(checkboxes3, function(e, i) {
+				return $(e).attr("name")
+			}).join(" ");
+
+$.validator.setDefaults({ ignore: ":hidden:not(select)" });
+$('#contact-form').validate({
+
+			errorElement: "label",
+                    //place all errors in a <div id="errors"> element
+                    errorPlacement: function(error, element) {
+                        //error.appendTo("label#errors");
+						error.appendTo('label#' + element.attr('id'));
+                    }, 
+	    groups: {
+            asdfg: checkbox_names,
+			qwerty: checkbox_names2,
+			qwerty2: checkbox_names3
+        },
+	
+
+rules: {
+   "multi[]": {
+	required: true,
+  },
+   massage: {
+	required: true
+  },
+  notice_visible_to: {
+   
+	required: true
+  },
+ file: {
+		accept: "png,jpg",
+		filesize: 1048576
+	  },
+  
+  
+
+},
+
+messages: {
+			"multi[]": {
+				required: "Please select at-least one recipient."
+			},
+			file: {
+					accept: "File extension must be png or jpg",
+					filesize: "File size must be less than 1MB."
+				},
+		},
+	highlight: function(element) {
+		$(element).closest('.control-group').removeClass('success').addClass('error');
+	},
+	success: function(element) {
+		element
+		.text('OK!').addClass('valid')
+		.closest('.control-group').removeClass('error').addClass('success');
+	},
+	
+});
+
+}); 
+</script>

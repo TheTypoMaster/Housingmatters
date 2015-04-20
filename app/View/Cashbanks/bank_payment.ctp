@@ -132,7 +132,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 							</td>
 							<td valign="top">
 							<br>
-                            <select name="ac_type" class="m-wrap medium" id="type">
+                            <select name="ac_type" class="m-wrap medium chosen" id="type">
                             <option value="">--SELECT--</option>							 
                             <option value="1">Sundry Creditors Control A/c</option>
 							<option value="2">Liability</option>
