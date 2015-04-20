@@ -8,22 +8,6 @@ $("#fix<?php echo @$id_current_page; ?>").removeClass("blue");
 $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 });
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="row-fluid" style="padding:2px;">
 	<div class="span6">
 		
@@ -37,8 +21,8 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 		<table class="table table-bordered table-hover">
 			<thead>
 				<tr>
-					<th>Events Name</th>
-					<th>Time</th>
+					<th width="50%">Events Name</th>
+					<th width="45%">Time</th>
 					<th>Action</th>
 				</tr>
 			</thead>
@@ -57,8 +41,8 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 			$date_to=$data["event"]["date_to"];
 			$date_to = date('d-m-Y',$date_to->sec);
 			
-			if($day_type==1) { $date_string="on ".$date_from; }
-			if($day_type==2) { $date_string="from ".$date_from." to ".$date_to; }
+			if($day_type==1) { $date_string=$date_from; }
+			if($day_type==2) { $date_string=$date_from." - ".$date_to; }
 			
 			$location=$data["event"]["location"];
 			$description=$data["event"]["description"];
