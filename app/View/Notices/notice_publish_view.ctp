@@ -101,7 +101,7 @@ $("#msg_reply").val("");
 }
 </script>
 <!--------REPLY------------>
-<link href="<?php echo $this->webroot ; ?>/as/reply.css" rel="stylesheet" />
+<link href="<?php echo $webroot_path ; ?>/as/reply.css" rel="stylesheet" />
 <?php $a=1; ?>
 <script>
 	
