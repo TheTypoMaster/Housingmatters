@@ -33,6 +33,7 @@ $('#t_box').val(d);
 <br><br>
 
 <center>
+<div id="succ"></div>
 <div id="error_msg"></div>
 					
 					
