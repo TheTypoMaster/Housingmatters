@@ -11,7 +11,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </script>
 <div align="center">
 
-<a href='notice_archive' <?php if(empty($blue_cat)){ ?> class="btn red " <?php } else { ?> class="btn blue "  <?php } ?>>All</a>
+<a href='notice_archive' rel='tab' <?php if(empty($blue_cat)){ ?> class="btn yellow " <?php } else { ?> class="btn  "  <?php } ?>>All</a>
 
 <?php
 foreach($result1 as $data)
@@ -21,7 +21,7 @@ $cat=$this->requestAction(array('controller' => 'hms', 'action' => 'encode'), ar
 $category_name=$data['master_notice_category']['category_name'];
 ?>
 
-<a href='notice_archive?con=<?php echo @$cat; ?>' <?php if(@$red_cat==$category_id) {  ?> class="btn red "<?php } else { ?> class="btn blue " <?php } ?>><?php echo $category_name; ?></a>
+<a href='notice_archive?con=<?php echo @$cat; ?>' rel='tab' <?php if(@$red_cat==$category_id) {  ?> class="btn yellow "<?php } else { ?> class="btn  " <?php } ?>><?php echo $category_name; ?></a>
 <?php } ?>
 </div>
 <br/><br/>
