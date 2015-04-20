@@ -624,7 +624,6 @@ $date_fetch=$this->requestAction(array('controller'=>'hms','action'=>'module_mai
 else
 {
 $date_fetch=$this->requestAction(array('controller'=>'hms','action'=>'module_main_fetch3'),array('pass'=>array($table_name,$receipt_id)));
-
 }
 foreach ($date_fetch as $collection) 
 {
