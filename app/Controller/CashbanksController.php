@@ -177,6 +177,15 @@ $sub_account_id = (int)$this->request->data['bank_account'];
 $description = $this->request->data['description'];  
 $receipt_mode = @$this->request->data['mode'];
 $member_id = (int)@$this->request->data['member'];
+if($receipt_mode == 'Cheque' || $receipt_mode == 'NEFT')
+{
+$cheque_no = (int)$this->request->data['no'];
+}
+else
+{
+$cheque_no = "";
+}
+
 if($member_id == 1)
 {
 $received_from = (int)$this->request->data['recieved_from2'];
@@ -224,7 +233,7 @@ $multipleRowData = Array( Array("transaction_id" => $auto, "receipt_id" => $i, "
 "transaction_date" => $date, "prepaired_by" => $s_user_id, 
 "user_id" => $received_from, "bill_reference" => $bill_no,"narration" => $description, "receipt_mode" => $receipt_mode,
 "receipt_instruction" => $receipt_instruction, "account_head" => $sub_account_id,   
-"amount" => $amount, "amount_category_id" => 1, "society_id" => $s_society_id,"member" => $member_id,"module_id"=>1));
+"amount" => $amount, "amount_category_id" => 1, "society_id" => $s_society_id,"member" => $member_id,"module_id"=>1,"cheque_no"=>$cheque_no));
 $this->cash_bank->saveAll($multipleRowData);  
 
 
@@ -313,7 +322,7 @@ $i = 1000;
 }	
 else
 {	
-$wauto=$last11;
+$auto=$last11;
 $i = $last12;
 }
 $auto++; 
@@ -323,7 +332,7 @@ $multipleRowData = Array( Array("transaction_id" => $auto, "receipt_id" => $i, "
 "transaction_date" => $date, "prepaired_by" => $s_user_id, 
 "user_id" => 32, "bill_reference" => $reference,"narration" => $description, "receipt_mode" => $receipt_mode,
 "receipt_instruction" => $receipt_instruction, "account_head" => $sub_account_id,   
-"amount" => $amount, "amount_category_id" => 1, "society_id" => $s_society_id,"member" => $member_id,"receiver_name" => $received_from,"module_id"=>1));
+"amount" => $amount, "amount_category_id" => 1, "society_id" => $s_society_id,"member" => $member_id,"receiver_name" => $received_from,"module_id"=>1,"cheque_no"=>$cheque_no));
 $this->cash_bank->saveAll($multipleRowData);  
 
 
@@ -483,7 +492,7 @@ $member = (int)$collection['bank_receipt']['member'];
 $receipt_mode = $collection['bank_receipt']['receipt_mode'];
 $bank_id = (int)$collection['bank_receipt']['sub_account_id'];
 }
-if($member == 1)
+if(@$member == 1)
 {
 
 $resultlsa = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($bank_id)));

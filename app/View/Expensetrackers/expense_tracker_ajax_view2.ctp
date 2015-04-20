@@ -158,14 +158,5 @@ break;
 ?>
 </table>
 
-<?php
-for($l=0; $l<sizeof(@$abc); $l++)
-{
-$month1 = $abc[$l];
 
-echo $month2 = date("d-m-Y",strtotime);
-
-}
-
-?>
 

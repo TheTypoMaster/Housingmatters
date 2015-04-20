@@ -34,10 +34,10 @@ $this->set('cc',$cc);
 function expense_tracker_add()
 {
 if($this->RequestHandler->isAjax()){
-		$this->layout='blank';
-	}else{
-		$this->layout='session';
-	}
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
 	
 $this->ath();
 $this->check_user_privilages();	
@@ -106,7 +106,7 @@ if(isset($this->request->data['ext_add']))
 $posting_date = $this->request->data['posting_date'];
 $posting_date = date("Y-m-d", strtotime($posting_date));
 $posting_date = new MongoDate(strtotime($posting_date));
-//$file_name = $_FILES['uploaded']['name'];
+$file_name = $_FILES['uploaded']['name'];
 $expense_head = (int)$this->request->data['ex_head'];
 $invoice_date = $this->request->data['invoice_date'];
 $invoice_amount = (int)$this->request->data['invoice_amount']; 
@@ -125,6 +125,22 @@ $due_date = new MongoDate(strtotime($due_date));
 
 $current_date = date("Y-m-d", strtotime($current_date));
 $current_date = new MongoDate(strtotime($current_date));
+
+
+$target = "expenset/";
+$target = $target . basename( $_FILES['uploaded']['name']) ;
+$ok=1;
+move_uploaded_file($_FILES['uploaded']['tmp_name'], $target);
+
+
+
+
+
+
+
+
+
+
 
 ////////////////////////////////////////
 $p = 1;
@@ -159,7 +175,7 @@ $this->loadmodel('expense_tracker');
 $multipleRowData = Array( Array("auto_id" => $i, "receipt_id" => $r, "society_id" => $s_society_id, "current_date" => $current_date, 
 "approver" => $s_user_id, "expense_head" => $expense_head, "invoice_date" => $invoice_date, 
 "due_date" => $due_date, "party_head" => $party_head, "description" => $description, "posting_date" => $posting_date,
-"amount" => $invoice_amount, "amount_category_id" => 1 , "invoice_reference" => $invoice_reference));
+"amount" => $invoice_amount, "amount_category_id" => 1 , "invoice_reference" => $invoice_reference,"file_name"=>$file_name));
 $this->expense_tracker->saveAll($multipleRowData);   
 
 
