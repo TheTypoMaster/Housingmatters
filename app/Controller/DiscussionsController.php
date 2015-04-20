@@ -687,6 +687,7 @@ $this->discussion_comment->updateAll(array("delete_id" =>2,'offensive_user'=>$r)
 
 function discussion_search_topic(){
 $this->layout='blank';
+$this->ath();
 $s_user_id=$this->Session->read('user_id'); 
 $s_society_id=$this->Session->read('society_id');
 
