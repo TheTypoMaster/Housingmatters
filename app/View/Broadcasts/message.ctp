@@ -71,7 +71,7 @@ $group_name=$collection["group"]["group_name"];
 $group_id=$collection["group"]["group_id"];
 ?>
 <label class="checkbox">
-<input type="checkbox" name="grp<?php echo $group_id; ?>" value="<?php echo $group_id; ?>" class="requirecheck3" id="group_check"> <?php echo $group_name; ?>
+<input type="checkbox" name="grp<?php echo $group_id; ?>" value="<?php echo $group_id; ?>" class="requirecheck3 ignore" id="group_check"> <?php echo $group_name; ?>
 </label>
 <?php } ?> 
 <label id="group_check"></label>
@@ -117,7 +117,7 @@ $group_id=$collection["group"]["group_id"];
 			$role_name=$collection["role"]["role_name"];
 			?>
 			<label class="checkbox">
-			<div class="checker"><span><input type="checkbox"  value="<?php echo $role_id; ?>" name="role<?php echo $role_id; ?>" class="v2 requirecheck1" id="requirecheck1"></span></div> <?php echo $role_name; ?>
+			<div class="checker"><span><input type="checkbox"  value="<?php echo $role_id; ?>" name="role<?php echo $role_id; ?>" class="v2 requirecheck1 ignore" id="requirecheck1"></span></div> <?php echo $role_name; ?>
 			</label>
 			<?php } ?>
 			</div>
@@ -139,7 +139,7 @@ $group_id=$collection["group"]["group_id"];
 			?>
 			<div style="float:left; padding-left:15px;">
 			<label class="checkbox" >
-			<div class="checker"><span><input type="checkbox"  value="<?php echo $wing_id; ?>" name="wing<?php echo $wing_id; ?>" class="v3 requirecheck2" id="requirecheck2" ></span></div> <?php echo $wing_name; ?>
+			<div class="checker"><span><input type="checkbox"  value="<?php echo $wing_id; ?>" name="wing<?php echo $wing_id; ?>" class="v3 requirecheck2 ignore" id="requirecheck2" ></span></div> <?php echo $wing_name; ?>
 			</label>
 			</div>
 			<?php } ?>
@@ -395,17 +395,28 @@ $(document).ready(function(){
     $("#d2").hide();
     $("#d1").show();
 	$("#d3").hide();
-	
+	$(".chosen").removeClass("ignore");
+	$(".requirecheck2").addClass("ignore");
+	$(".requirecheck1").addClass("ignore");
+	$(".requirecheck3").addClass("ignore");
   });
   $("#r2").click(function(){
     $("#d1").hide();
     $("#d2").show();
 	$("#d3").hide();
+	$(".chosen").addClass("ignore");
+	$(".requirecheck2").addClass("ignore");
+	$(".requirecheck1").addClass("ignore");
+	$(".requirecheck3").removeClass("ignore");
   });
   $("#r3").click(function(){
     $("#d1").hide();
     $("#d3").show();
 	$("#d2").hide();
+	$(".chosen").addClass("ignore");
+	$(".requirecheck2").addClass("ignore");
+	$(".requirecheck1").addClass("ignore");
+	$(".requirecheck3").addClass("ignore");
   });
 });
 </script>
@@ -417,12 +428,16 @@ $(document).ready(function() {
 		$("#show_3").slideDown('fast');
 		$("#show_2").slideUp('fast');
 		$("#show_1").slideUp('fast');
+		$(".requirecheck2").removeClass("ignore");
+		$(".requirecheck1").addClass("ignore");
 	 });
 	 
 	 $("#v2").live('click',function(){
 		$("#show_2").slideDown('fast');
 		$("#show_3").slideUp('fast');
 		$("#show_1").slideUp('fast');
+		$(".requirecheck1").removeClass("ignore");
+		$(".requirecheck2").addClass("ignore");
 	 });
 	 
 	 $("#v1").live('click',function(){
@@ -499,7 +514,7 @@ $(document).ready(function(){
 
 $.validator.setDefaults({ ignore: ":hidden:not(select)" });
 $('#contact-form').validate({
-
+ignore: ".ignore",
 			errorElement: "label",
                     //place all errors in a <div id="errors"> element
                     errorPlacement: function(error, element) {
