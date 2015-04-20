@@ -877,8 +877,9 @@ function notice_save_reply()
 {
 		$this->layout='blank';
 		$reply=htmlentities($this->request->query('reply'));
-		$rep=explode(' ',$reply);
-		$r=$this->content_moderation_society($rep);
+		$reply=nl2br($reply);
+		//$rep=explode(' ',$reply);
+		$r=$this->content_moderation_society($reply);
 		
 		
 
