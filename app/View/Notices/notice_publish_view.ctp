@@ -52,7 +52,7 @@ $flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat')
 <div <?php if($d_user==$s_user_id) { ?> class="outt" <?php }  if($d_user!=$s_user_id) { ?> class="inn" <?php } ?>>
 <?php if($d_user!=$s_user_id) { ?>
 <div <?php if($d_user==$s_user_id) { ?> class="outt_im" <?php }  if($d_user!=$s_user_id) { ?> class="inn_im" <?php } ?>>
-<img  src="<?php echo $this->webroot ; ?>/profile/<?php echo $profile_pic; ?>">
+<img  src="<?php echo $webroot_path; ?>/profile/<?php echo $profile_pic; ?>">
 </div>
 <?php } ?>
 <div <?php if ($class=="in") { ?>style="padding-left: 60px;" <?php } ?>>
