@@ -844,7 +844,7 @@ $amount_category = @$collection['amount_category']['amount_category'];
 
 										<tr>
 										<th style="text-align:center;"><?php 
-										
+										$opening_balance2 ="0";
 										if($op_bal2 > 0) 
 										{ 
 										$opening_balance2 = number_format($op_bal2);
@@ -856,7 +856,7 @@ $amount_category = @$collection['amount_category']['amount_category'];
 										$opening_balance2 = number_format($opening_balance2);
 										$opening_balance2 = $opening_balance2.'Dr';
 										}
-										echo $opening_balance2; ?></th>
+										echo @$opening_balance2; ?></th>
 										<th colspan="" style="text-align:center;"><?php 
 										//$total_debit = number_format($total_debit);
 										echo $total_debit ?></th>
@@ -1262,6 +1262,7 @@ $module_date_fetch4 = $this->requestAction(array('controller' => 'hms', 'action'
 								<tr>
                                 <th style="text-align:center;">
 								<?php 
+								 $opening_balance2 = "0";
 								if($op_bal2 > 0)
 								{
 								$opening_balance2 = number_format($opening_balance2);

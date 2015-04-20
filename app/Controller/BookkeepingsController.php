@@ -1571,7 +1571,6 @@ die($output);
 foreach($myArray as $child)
 {
 
-
 $this->loadmodel('journal');
 $conditions=array("society_id" => $s_society_id);
 $order=array('journal.receipt_id'=>'DESC');
@@ -1589,7 +1588,7 @@ else
 $receipt_no = 1001;
 }
 
-$current_date = date("Y-m-d", strtotime($current_date));
+$current_date = date("Y-m-d");
 $current_date = new MongoDate(strtotime($current_date));
 
 
@@ -1720,12 +1719,12 @@ $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $receipt_no,
 "account_id" => $ledger, "current_date" => $current_date, "society_id" => $s_society_id,"module_name"=>"Journal"));
 $this->ledger->saveAll($multipleRowData);
 }
-$output = json_encode(array('type'=>'succ', 'text' => 'New Journal Entry Inserted in  society successfully.'));
-    die($output);
+
 
 }
 ////////////////////////////////////////////////////////////////
-
+$output = json_encode(array('type'=>'succ', 'text' => 'New Journal Entry Inserted in society successfully.'));
+    die($output);
 }
 
 ///////////////////////////////// Start journal validation///////////////////////////////////////////////////////////

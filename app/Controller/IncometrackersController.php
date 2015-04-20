@@ -2228,11 +2228,6 @@ $amt6=$this->encode($amt5,'housingmatters');
 
 $this->response->header('Location','supplimentry_bill_view2?f='.$f1.'&due='.$due1.'&d='.$desc3.'&tp='.$bill_type3.'&pn='.$person3.'&com='.$com3.'&amt='.$amt6.' ');
 
-?>
-<script>
-//window.location.href="supplimentry_bill_view2?f=<?php echo $f1; ?>&t=<?php echo $t1; ?>&due=<?php echo $due1; ?>&tax=<?php echo $tax3; ?>&d=<?php echo $desc3; ?>&tem=<?php echo $terms4; ?>&tp=<?php echo $bill_type3; ?>&pn=<?php echo $person3; ?>&com=<?php echo $com3; ?>&amt=<?php echo $amt6; ?>";
-</script>
-<?php
 }
 else
 {

@@ -59,7 +59,7 @@ $('#t_box').val(d);
 });
 </script>		
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>					
-<div id="succ">		
+	<div id="succ">	
 <div class="portlet box grey" style="width:100%;">
 <div class="portlet-title">
 <h4><i class="icon-reorder"></i>Journal</h4>
@@ -297,7 +297,7 @@ Total
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////// ?>
 </div>
 </div>
-</div>
+
 <br>
 
 <div class="form-actions" style="background-color:#CCC;">
@@ -416,11 +416,11 @@ $(document).ready(function() {
 					$("html, body").animate({
 					 scrollTop:0
 					 },"slow");
-				}else{
-				    output = '<div class="alert alert-success">'+response.text+'</div>';
-					$("form").html(output);
 				}
+				if(response.type=='succ'){
+				$("#succ").html("<p>"+response.text+"</p><p><a class='btn green' href='<?php echo $webroot_path; ?>Bookkeepings/journal_view' rel='tab' >ok</a></p>");
 				
+			}
 				
 				$("#error_msg").html(output);
 			});
