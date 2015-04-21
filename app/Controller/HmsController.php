@@ -18839,8 +18839,8 @@ foreach($cursor as $collection)
 $q++;						
 $wing_id = (int)$collection['flat']['wing_id'];
 $flat_name = $collection['flat']['flat_name'];
-$flat_type_id = (int)$collection['flat']['flat_type_id'];
-$flat_master_id = (int)$collection['flat']['flat_master_id'];
+$flat_type_id = (int)@$collection['flat']['flat_type_id'];
+$sqfeet = (int)@$collection['flat']['flat_area'];
 
 $wing_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_fetch'),array('pass'=>array($wing_id)));	
 foreach($wing_fetch as $collection)
@@ -18848,25 +18848,29 @@ foreach($wing_fetch as $collection)
 $wing_name = $collection['wing']['wing_name'];							
 }
 
-$fl_tp = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_name_fetch'),array('pass'=>array($flat_type_id)));		
+$fl_tp = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_fetch2'),array('pass'=>array($flat_type_id)));		
 foreach($fl_tp as $collection)
 {
-//$auto_id1 = (int)$collection['flat_type_name']['auto_id'];	
-$flat_type = $collection['flat_type_name']['flat_name'];
+$flat_type_id2 = (int)$collection['flat_type']['flat_type_id'];
 }
 
-$fmaster = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_master_fetch2'),array('pass'=>array($flat_master_id)));	
-foreach($fmaster as $collection)
-{							
-$sqfeet = $collection['flat_master']['flat_area'];							
+$fl_tp2 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_name_fetch'),array('pass'=>array($flat_type_id2)));		
+foreach($fl_tp2 as $collection)
+{
+$flat_type = (int)$collection['flat_type_name']['flat_name'];
 }
+
 
 $excel.="<tr>
 <td>$q</td>
 <td>$wing_name</td>
 <td>$flat_name</td>
-<td>$flat_type</td>
-<td>$sqfeet</td>
+<td>";
+if($sqfeet == 0) { $excel.="null"; } else { $excel.="$flat_type"; }
+$excel.="</td>
+<td>";
+if($sqfeet == 0) { $excel.="null"; } else { $excel.="$sqfeet"; }
+$excel.="</td>
 </tr>";
 }
 $excel.="</table>";

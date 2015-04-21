@@ -260,7 +260,8 @@ $flat_type_name = $collection['flat_type_name']['flat_name'];
 							$q=0;
 	                        foreach($cursor1 as $collection)
 	                        {
-								$q++;						
+								
+							$q++;						
 							$wing_id = (int)$collection['flat']['wing_id'];
 							$flat_name = $collection['flat']['flat_name'];
 							$flat_type_id = (int)@$collection['flat']['flat_type_id'];
@@ -292,8 +293,8 @@ $flat_type = (int)$collection['flat_type_name']['flat_name'];
 <td><?php echo $q; ?></td>
 <td><?php echo $wing_name; ?></td>
 <td><?php echo $flat_name; ?></td>
-<td><?php echo $flat_type; ?></td>
-<td><?php echo $sqfeet; ?></td>
+<td><?php if($sqfeet == 0) { echo "null"; } else { echo $flat_type; } ?></td>
+<td><?php if($sqfeet == 0) { echo "null"; } else { echo $sqfeet; } ?></td>
 </tr>
 <?php } ?>
 </tbody>
