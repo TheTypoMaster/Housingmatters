@@ -355,7 +355,6 @@ return $result=$this->main_module->find('all',array('conditions'=>$conditions));
 function fetch_rolename_via_roleid($s_role_id) 
 {
 $s_society_id=$this->Session->read('society_id');
-
 $this->loadmodel('role');
 $conditions=array("society_id"=>$s_society_id,"role_id"=>$s_role_id);
 $result=$this->role->find('all',array('conditions'=>$conditions));
