@@ -13911,8 +13911,7 @@ $this->ath();
 			 $s_number=$this->request->data['s_number'];
 			 $address=$this->request->data['address'];
 			 $this->loadmodel('society');
-			 $conditions=array('society_id'=>$s_society_id);
-			 $this->society->updateAll(array('pan'=>$pan,'tex_number'=>$s_tax,'society_address'=>$address,'society_reg_num'=>$s_number),array());
+			 $this->society->updateAll(array('pan'=>$pan,'tex_number'=>$s_tax,'society_address'=>$address,'society_reg_num'=>$s_number),array('society_id'=>$s_society_id));
 	?>
 
 <!----alert-------------->
