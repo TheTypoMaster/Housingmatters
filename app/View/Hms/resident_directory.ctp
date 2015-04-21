@@ -1,4 +1,27 @@
-
+<?php 
+function substrwords($text, $maxchar, $end='...') {
+    if (strlen($text) > $maxchar || $text == '') {
+        $words = preg_split('/\s/', $text);      
+        $output = '';
+        $i      = 0;
+        while (1) {
+            @$length = strlen($output)+strlen($words[$i]);
+            if ($length > $maxchar) {
+                break;
+            } 
+            else {
+                @$output .= " " . $words[$i];
+                ++$i;
+            }
+        }
+        $output .= $end;
+    } 
+    else {
+        $output = $text;
+    }
+    return $output;
+}
+?>
 <style>
 .r_d{
 width:32%; float:left; padding:5px;
@@ -128,6 +151,7 @@ background-color:rgb(218, 236, 240);
 				$medical_pro = @$collection['user']['medical_pro'];
 				$c_flat_id = $collection['user']['flat'];
 				$c_name = $collection['user']['user_name'];
+				$c_name=substrwords($c_name,20,'...');
 				@$profile_pic = $collection['user']['profile_pic'];
 				$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($c_wing_id,$c_flat_id)));			  
 				if(empty($profile_pic))
