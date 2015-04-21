@@ -6,10 +6,10 @@ Society Details
 
 foreach($result_society as $data)
 {
-	$society_pan=$data['society']['pan'];
-	$tex_number=$data['society']['tex_number'];
-	$society_address=$data['society']['society_address'];
-	$society_reg_num=$data['society']['society_reg_num'];
+	@$society_pan=$data['society']['pan'];
+	@$tex_number=$data['society']['tex_number'];
+	@$society_address=$data['society']['society_address'];
+	@$society_reg_num=$data['society']['society_reg_num'];
 
 }
 
