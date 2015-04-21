@@ -15805,8 +15805,9 @@ echo "false";
 echo "true";
 }
 }
+ /////////////////////////////////////////// Start Master Sm wing ////////////////////////////////////////////////// 
 
-function master_sm_wing()
+ function master_sm_wing()
 {
 if($this->RequestHandler->isAjax()){
 		$this->layout='blank';
@@ -15817,9 +15818,8 @@ if($this->RequestHandler->isAjax()){
 $s_society_id=$this->Session->read('society_id');
 if(isset($this->request->data['sub'])) 
 {
-$wing_name=$this->request->data['wi'];
+$wing_name=$this->request->data['wing_name'];
 //$no_of_flat = (int)$this->request->data['nu'];
-
 $this->loadmodel('wing');
 $i=$this->autoincrement('wing','wing_id');
 $this->wing->saveAll(array("wing_id" => $i,"society_id"=> $s_society_id,"wing_name"=>$wing_name));
@@ -15833,6 +15833,7 @@ $this->set('user_wing',$result);
 
 
 }
+ /////////////////////////////////////////// End Master Sm wing ////////////////////////////////////////////////// 
 
 
 /////////////////////////////// Start Master Sm Flat//////////////////////////////////////

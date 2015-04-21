@@ -92,132 +92,17 @@ Society Setup
 </form>
     
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////// ?>    
-<div style="width:100%;">       
-<table class="table table-bordered" style="width:100%; background-color:white;">    
-<tr>
-<th style="text-align:center;">Sr #</th>    
-<th style="text-align:center;">Flat Type</th>    
-<th style="text-align:center;">Number of Flat</th>    
-<th style="text-align:center;">Edit</th>    
-</tr>
-<?php
-$x=0;
-foreach($cursor1 as $collection)
-{
-$x++;
-$auto_id = (int)$collection['flat_type']['auto_id'];
-//$flat_type = $collection['flat_type']['flat_name'];
-$no_of_flat = $collection['flat_type']['number_of_flat'];
-$fl_tp_id = (int)$collection['flat_type']['flat_type_id'];
 
-$fl_tp = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_name_fetch'),array('pass'=>array($fl_tp_id)));		
-foreach($fl_tp as $collection)
-{
-//$auto_id1 = (int)$collection['flat_type_name']['auto_id'];	
-$flat_type = $collection['flat_type_name']['flat_name'];
-}
-
-?>
-<tr>
-<td style="text-align:center;"><?php echo $x; ?></td>
-<td style="text-align:center;"><?php echo $flat_type; ?></td>
-<td style="text-align:center;"><?php echo $no_of_flat; ?></td>
-<td style="text-align:center;">
-<!-- <a href="flat_type?d=<?php echo $fl_tp_id; ?>" class="btn mini black">Delete</a> -->
-<a class="btn mini purple" href="flat_type_edit?e=<?php echo $auto_id; ?>">Edit</a></td>
-</tr>
-<?php
-}
-?>    
-</table>   
-</div>    
+  
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>    
     
     <?php } ?>
-    <?php if($nnn == 55)
-	{
 
-$fl_tp = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_name_fetch'),array('pass'=>array($flat_type_id)));		
-foreach($fl_tp as $collection)
-{
-$flat_name = $collection['flat_type_name']['flat_name'];
-}
-?>
-<h4 style="color:red;"><b>You have <?php echo $nof; ?> Flats of <?php echo $flat_name; ?>,  Please Insert Area in square feet:</b></h4>
-<form method="post" id="contact-form2">
-<input type="hidden" name="nof" value="<?php echo $nof; ?>" id="cnt"/>
-<input type="hidden" name="auto_id" value="<?php echo $auto_id; ?>" />
-<table border="0" style="width:100%;">
-<?php
-for($k=1; $k<=$nof; $k++)
-	{
-	?>
-    <tr>
-    <td style="text-align:center;">
-    <input type="text" name="area<?php echo $k; ?>" class="m-wrap medium" id="ar<?php echo $k; ?>"/>       square feet
-    </td>	
-	</tr>	
-	<?php
-	}
-	?>
-    <tr>
-    <td style="text-align:center;">
-    <div id="validate_result">
-    <p style="color:red;"><?php echo @$vali; ?></p>
-    </div>
-    </td>
-    </tr>
-    <tr>
-    <td>
-    <button type="submit" class="btn green" name="sub_area" style="margin-left:53%;">Submit</button>
-    </td> 
-    </tr>
-   
-    </table>
-    </form>
-    <?php } ?>
     </div>
     </div>
     </div>
-   
-    <br>
-<div class="portlet box" style="width:80%;">
-<?php /////////////////////////////////////////////////////////////////////////////////////////// ?>
-                   <!-- <div class="portlet-body" style="float:right; width:70%;" align="center">
-					<table class="table table-striped table-bordered" id="sample_2" style="width:100%;">
-					<thead>
-					<tr>
-					<th style="text-align:center;">Sr No.</th>
-					<th style="text-align:center;">Flat Type</th>
-					<th style="text-align:center;">Number of Flat</th>
-					</tr>
-							</thead>
-							<tbody>
-							<?php
-							$q=0;
-							foreach ($cursor1 as $collection) 
-							{
-							$q++;
-     						$auto_id = (int)$collection['flat_type']['auto_id'];
-							$name = $collection['flat_type']['flat_name'];
-							$no = (int)$collection['flat_type']['number_of_flat'];
-							?>
-							<tr>
-							<td style="text-align:center;"><?php echo $q; ?></td>
-							<td style="text-align:center;"><?php echo $name; ?></td>
-							<td style="text-align:center;"><?php echo $no; ?></td>
-							<?php } ?>
-							</tbody>
-							</table>
-							</div> -->
-
-<?php //////////////////////////////////////////////////////////////////////////////////////////// ?>
-</div>
-    
-  
     </div>
-   
-    </div>
+   </div>
 	
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////// ?>	
   <script>

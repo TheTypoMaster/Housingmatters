@@ -220,45 +220,8 @@ $flat_type_name = $collection['flat_type_name']['flat_name'];
 <button type="button" id="button_remove" class="btn red"> <i class=" icon-remove"></i>Delete Row</button>
 </div>
 <?php ///////////////////////////////////////////////////////////////////////////// ?>   
-
 </form>               
                 
-                
-          <!--      
-                	<form  class="form-horizontal" method="post" id="contact-form" onSubmit="returen search_topic();">
-					<table >
-					<tr>
-					<td><label style="text-align:left;">Wing Name</label></td>
-					</tr>
-					<tr>
-					<td valign="top">
-					<select name="wing_name" class=" m-wrap" id="sel"  >
-					<option value="">Select Category</option>
-					<?php
-					
-					
-					foreach ($user_wing as $collection) 
-					{
-					$wing_id=$collection['wing']["wing_id"];
-					$wing_name=$collection['wing']["wing_name"];
-					?>
-					<option value="<?php echo $wing_id ?> "><?php echo $wing_name ?></option>
-					<?php } ?>
-					</select>
-					</td>
-					</tr>
-	
-					<tr>
-					<td><label style="text-align:left;">Flat Name <span style="font-size:12px; color:#999;">(Maximum 4 characters.)</span></label></td>
-					</tr>
-					<tr>
-					<td valign="top">
-					<input type="text" class="m-wrap" id="flat_id" name="flat_name" maxlength="4" onkeyup="search_topic();"></td>
-					<td valign="top">  <input type="submit" class="btn blue" value="Submit" name="sub" onMouseOver="search_topic();"></td>
-					</tr>
-					</table>
-					</form>
-                    -->
 <?php ////////////////////////////////////////////////////////////////////////////////// ?>                    
 </div>
 </div>                    
@@ -301,7 +264,7 @@ $flat_type_name = $collection['flat_type_name']['flat_name'];
 							$wing_id = (int)$collection['flat']['wing_id'];
 							$flat_name = $collection['flat']['flat_name'];
 							$flat_type_id = (int)$collection['flat']['flat_type_id'];
-							$flat_master_id = (int)$collection['flat']['flat_master_id'];
+							$sqfeet = (int)$collection['flat']['flat_area'];
 							
 $wing_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_fetch'),array('pass'=>array($wing_id)));	
 foreach($wing_fetch as $collection)
@@ -309,43 +272,41 @@ foreach($wing_fetch as $collection)
 $wing_name = $collection['wing']['wing_name'];							
 }
 
-$fl_tp = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_name_fetch'),array('pass'=>array($flat_type_id)));		
+$fl_tp = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_fetch2'),array('pass'=>array($flat_type_id)));		
 foreach($fl_tp as $collection)
 {
-//$auto_id1 = (int)$collection['flat_type_name']['auto_id'];	
-$flat_type = $collection['flat_type_name']['flat_name'];
+$flat_type_id2 = (int)$collection['flat_type']['flat_type_id'];
 }
 
-$fmaster = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_master_fetch2'),array('pass'=>array($flat_master_id)));	
-foreach($fmaster as $collection)
-{							
-$sqfeet = $collection['flat_master']['flat_area'];							
+$fl_tp2 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_name_fetch'),array('pass'=>array($flat_type_id2)));		
+foreach($fl_tp2 as $collection)
+{
+$flat_type = (int)$collection['flat_type_name']['flat_name'];
 }
 
-							
-			
 
-							?>
-							<tr>
-							<td><?php echo $q; ?></td>
-							<td><?php echo $wing_name; ?></td>
-							<td><?php echo $flat_name; ?></td>
-							<td><?php echo $flat_type; ?></td>
-                            <td><?php echo $sqfeet; ?></td>
-                            </tr>
-                            <?php } ?>
-							</tbody>
-							</table>
-							</div>
-							</div>
+
+
+?>
+<tr>
+<td><?php echo $q; ?></td>
+<td><?php echo $wing_name; ?></td>
+<td><?php echo $flat_name; ?></td>
+<td><?php echo $flat_type; ?></td>
+<td><?php echo $sqfeet; ?></td>
+</tr>
+<?php } ?>
+</tbody>
+</table>
+</div>
+</div>
     
   
-			</div>
-	   
-		</div>
+</div>
+</div>
 		
 		
-		
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
 		<script>
 $(document).ready(function(){
 	
