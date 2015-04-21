@@ -122,7 +122,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 $m=0;
 foreach($cursor3 as $collection)
 {
-$income_head_arr = $collection['society']['income_head'];
+$income_head_arr = @$collection['society']['income_head'];
 }
 $m=0;
 for($i=0; $i<sizeof($income_head_arr); $i++)

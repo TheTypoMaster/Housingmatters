@@ -162,7 +162,7 @@ $ih_name = $collection['income_head']['ih_name'];
 <?php
 foreach($cursor3 as $collection)
 {
-$income_head_arr = $collection['society']['income_head'];	
+$income_head_arr = @$collection['society']['income_head'];	
 }
 for($i=0; $i<sizeof($income_head_arr); $i++)
 {

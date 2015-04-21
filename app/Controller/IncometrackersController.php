@@ -3661,8 +3661,8 @@ $conditions=array("society_id" => $s_society_id);
 $cursor=$this->society->find('all',array('conditions'=>$conditions));
 foreach($cursor as $collection)
 {
-$tax = $collection['society']['tax'];
-$tax_type = $collection['society']['tax_type'];
+$tax = @$collection['society']['tax'];
+$tax_type = @$collection['society']['tax_type'];
 }
 $this->set("tax",$tax);
 $this->set("tax_type",$tax_type);

@@ -103,7 +103,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <?php
 foreach ($cursor2 as $collection) 
 {
-$terms_con = $collection['society']['terms_conditions'];
+$terms_con = @$collection['society']['terms_conditions'];
 }
 $w=0;
 for($i=0; $i<sizeof($terms_con); $i++)
