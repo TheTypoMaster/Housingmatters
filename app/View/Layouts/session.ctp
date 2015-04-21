@@ -644,8 +644,6 @@ if(sizeof(@$result)>0)
 	{
 	$module_name=$data5['main_module']['module_name'];
 	$icon=@$data5['main_module']['icon'];
-	$color=$data5['main_module']['color'];
-	$color=$this->requestAction(array('controller' => 'hms', 'action' => 'rendom_color_new'), array('pass' => array()));
 	?>
 	<li>
 		<a href="<?php echo $this->webroot.@$controller; ?>/<?php echo @$page_name; ?>" rel="tab" >
