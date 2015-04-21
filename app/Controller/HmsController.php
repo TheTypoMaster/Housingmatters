@@ -4950,7 +4950,6 @@ if($this->RequestHandler->isAjax()){
 	}else{
 	$this->layout='session';
 	}
-	$this->ath();
 	//$sms='You one Product is liked by some one. Kindly login into the portal for more details.';
 	//$sms1=str_replace(" ", '+', $sms);
 	//echo file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey=Ac47f5663efae985cc42d0081ef8e95b7&sender=NMINVT&to=9636653883&message='.$sms1);

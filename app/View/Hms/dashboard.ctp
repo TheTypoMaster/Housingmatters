@@ -372,8 +372,8 @@ function substrwords($text, $maxchar, $end='...') {
 					<tr >
 						<th style="background-color:#F3DDD8;font-weight: 500;">
 						<span class="label label-important"><i class="icon-bullhorn"></i></span> Notices
-						<a href="<?php echo $this->webroot; ?>Notices/<?php echo $url_see_all; ?>" rel='tab' class="pull-right" style="font-size: 12px;" ><i class="icon-search" style="text-decoration: none;font-size: 14px;"></i></a>
-						<a href="<?php echo $this->webroot; ?>Notices/new_notice" rel='tab' class="pull-right"><i class="icon-plus" style="text-decoration: none;font-size: 14px;padding: 0px 5px 0px 0px;"></i></a>
+						<a href="<?php echo $webroot_path; ?>Notices/<?php echo $url_see_all; ?>" rel='tab' class="pull-right" style="font-size: 12px;" ><i class="icon-search" style="text-decoration: none;font-size: 14px;"></i></a>
+						<a href="<?php echo $webroot_path; ?>Notices/new_notice" rel='tab' class="pull-right"><i class="icon-plus" style="text-decoration: none;font-size: 14px;padding: 0px 5px 0px 0px;"></i></a>
 					</tr>
 				</thead>
 				<tbody>
@@ -404,7 +404,7 @@ function substrwords($text, $maxchar, $end='...') {
 					
 					?>
 					<tr>
-						<td><a href="<?php $webroot_path; ?>Notices/<?php echo $url; ?>" rel='tab'> <?php echo $n_subject_cut; ?> </a></td>
+						<td><a href="<?php echo $webroot_path; ?>Notices/<?php echo $url; ?>" rel='tab'> <?php echo $n_subject_cut; ?> </a></td>
 					</tr>
 					<?php } 
 					
