@@ -111,7 +111,7 @@ $i++;
     <td><?php echo $n_date; ?></td>
 	 <td><?php echo $n_expire_date; ?></td>
 	 <td><a class="tooltips" style="cursor: default;" data-placement="bottom" data-original-title="<?php echo @$visible_detail; ?>"><?php echo $visible_show; ?></a></td>
-    <td><a href="notice_publish_view/<?php echo $notice_id; ?>" rel='tab' class="btn mini yellow tooltips" ><i class="icon-search"></i> View Notice</a>
+    <td><a href="<?php echo $webroot_path; ?>Notices/notice_publish_view/<?php echo $notice_id; ?>" rel='tab' class="btn mini yellow tooltips" ><i class="icon-search"></i> View Notice</a>
 	<?php if($s_role_id==3)
 	{ ?>
 	<a href='notice_move_archive/<?php echo $notice_id; ?>' class='btn mini tooltips' data-placement="bottom" data-original-title="Send to Archives " style='background-color:#FFA500;' > <i class=' icon-move'></i></a>
