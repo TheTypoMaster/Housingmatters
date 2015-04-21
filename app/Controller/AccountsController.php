@@ -1278,7 +1278,7 @@ foreach($cursor as $collection)
 {
 $ele_id = (int)$collection['regular_bill']['regular_bill_id'];
 }
-$this->seen_notification(10,$ele_id);
+//$this->seen_notification(10,$ele_id);
 
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
@@ -1337,9 +1337,9 @@ foreach($cursor as $collection)
 {
 $wing_name = $collection['wing']['wing_name'];
 }
-$this->set('flat_size',$flat_size);
-$this->set('flat_name',$flat_name);
-$this->set('wing_name',$wing_name);
+//$this->set('flat_size',$flat_size);
+//$this->set('flat_name',$flat_name);
+//$this->set('wing_name',$wing_name);
 }
 
 /////////////////////////// End My Flat Bill (Accounts) ////////////////////////////
