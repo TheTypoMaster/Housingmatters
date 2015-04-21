@@ -30,7 +30,7 @@ $society_name=$collection['society']['society_name'];
  <?php echo $society_name ; ?></div>
 <span class="label label-info pull-right" style="padding:10px; font-size:20px">Total Users : <?php echo $n ; ?></span>
 <br><br>
-<div><h5><b><span style="float:left;margin-left:20px;">Role</span> <span style="float:right;"><span><a href='society_member_excel'class='blue mini btn tooltips' download='download'  data-placement='bottom' data-original-title="Download Export"><i class=" icon-download-alt"></i> </a></span> &nbsp  Member</span></b></h5></div>
+<div><h5><b><span style="float:left;margin-left:20px;">Role</span> <span style="float:right;"><span><a href='society_member_excel'class='blue mini btn' download='download'  ><i class=" icon-download-alt"></i> Download in Excel</a></span> &nbsp  Member</span></b></h5></div>
 
 
 
