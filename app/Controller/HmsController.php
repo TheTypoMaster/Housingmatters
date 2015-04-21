@@ -15689,7 +15689,7 @@ www.housingmatters.co.in
 $this->loadmodel('invitation');
 $j= $this->autoincrement('invitation','invite_id');
 $this->invitation->saveAll(array('invite_id'=>$j,'name'=>$name_user,'email'=>$to,'user_id'=>$s_user_id,'society_id'=>$s_society_id,'date'=>$date,'time'=>$time,'subject'=>$subject));
-$this->smtpmailer($to,$from,$from_name,$subject,$message_web,$reply); 
+$this->send_email($to,$from,$from_name,$subject,$message_web,$reply); 
 }
 $sucess=1;
 $this->set('sm',$sucess);
