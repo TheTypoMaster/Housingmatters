@@ -399,12 +399,12 @@ function substrwords($text, $maxchar, $end='...') {
 					
 					$n_subject_cut=substrwords($n_subject,25,'...');
 					
-					$url='notice_publish_view?con='.$notice_id;
+					$url='notice_publish_view/'.$notice_id;
 
 					
 					?>
 					<tr>
-						<td><a href="<?php echo $url; ?>" rel='tab'> <?php echo $n_subject_cut; ?> </a></td>
+						<td><a href="<?php $webroot_path; ?>Notices/<?php echo $url; ?>" rel='tab'> <?php echo $n_subject_cut; ?> </a></td>
 					</tr>
 					<?php } 
 					
