@@ -1,33 +1,9 @@
 <?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 ?>
-<?php
-if(!empty($del_id))
-{
-?>
-<!----alert-------------->
-<div class="modal-backdrop fade in"></div>
-<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-<form method="post">
-<div class="modal-body" style="font-size:16px;">
-Are You Sure
-<input type="hidden" value="<?php echo $del_id; ?>" name="delete" />
-</div> 
-<div class="modal-footer">
-<a href="flat_type"   class="btn">Cancel</a>
-<button type="submit" name="del" class="btn green">Delete</button>
-</form>
-</div>
-</div>
-<!----alert-------------->
-<?php
-}
-?>
+
 
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<input type="hidden" value="<?php echo $wing_imp; ?>" id="wing_imp" />
-<input type="hidden" value="<?php echo $flat_imp; ?>" id="flat_imp" />
-<input type="hidden" value="<?php echo $m; ?>" id="m" />
 <div style="background-color:#EFEFEF; border-top:1px solid #e6e6e6; border-bottom:1px solid #e6e6e6; padding:10px; box-shadow:5px; font-size:16px; color:#006;">
 Society Setup
 </div>
@@ -78,7 +54,7 @@ Society Setup
 <label >Flat Number</span></label>
 <input type="text" class="m-wrap medium" name="number" maxlength="10" id="nu"></td>
 
-<td style="text-align:right;"> <input type="submit" class="btn blue" value="Submit"  name="sub" style="margin-top:25px;"></td>
+<td style="text-align:right;"> <input type="submit" class="btn blue" value="Submit"  name="subdgg" style="margin-top:25px;"></td>
 </tr>
 <tr>
 <td>
@@ -96,163 +72,86 @@ Society Setup
   
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>    
     
-    <?php } ?>
-
-    </div>
-    </div>
-    </div>
-    </div>
-   </div>
+<?php } ?>
+</div>
+</div>
+</div>
+</div>
+</div>
 	
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////// ?>	
-  <script>
-$(document).ready(function(){
-
-$.validator.setDefaults({ ignore: ":hidden:not(select)" });
-		$('#contact-form').validate({
-			
-		
-		errorElement: "label",
-                    //place all errors in a <div id="errors"> element
-                    errorPlacement: function(error, element) {
-                        //error.appendTo("label#errors");
-						error.appendTo('label#' + element.attr('id'));
-                    },
-		
-		
-		
-	    rules: {
-	     
-		 number: {
-			 required: true,
-			 number: true
-			 
-	      },
-
-            wing: {
-			 required: true
-			 
-			 
-	      },
-
-		},
-			highlight: function(element) {
-				$(element).closest('.control-group').removeClass('success').addClass('error');
-			},
-			success: function(element) {
-				element
-				.text('OK!').addClass('valid')
-				.closest('.control-group').removeClass('error').addClass('success');
-			}
-	  });
-
-}); 
-</script>	
+ 
 	
-    
- <script>
-$(document).ready(function(){
-
-$.validator.setDefaults({ ignore: ":hidden:not(select)" });
-
-
-		$('#contact-form2').validate({
-		
-		errorElement: "label",
-                    //place all errors in a <div id="errors"> element
-                    errorPlacement: function(error, element) {
-                        //error.appendTo("label#errors");
-						error.appendTo('label#' + element.attr('id'));
-                    },
-		
-		
-		
-	    rules: {
-	     
-		 number: {
-			 required: true,
-			 number: true
-			 
-	      },
-
-            flat_type: {
-			 required: true
-			 
-			 
-	      },
-
-		},
-			highlight: function(element) {
-				$(element).closest('.control-group').removeClass('success').addClass('error');
-			},
-			success: function(element) {
-				element
-				.text('OK!').addClass('valid')
-				.closest('.control-group').removeClass('error').addClass('success');
-			}
-	  });
-
-}); 
-</script>
-
-
 <script>
-function validate()
-{
-var wing_imp = document.getElementById("wing_imp").value;	
-var flat_imp = document.getElementById("flat_imp").value;
-var wing = document.getElementById("tp").value;
-var flat = document.getElementById("nu").value;
-var m =document.getElementById("m").value;
+$(document).ready(function() { 
+$('form').submit( function(ev){
+alert();	
 
-var wing_ex = wing_imp.split(",");
-var flat_ex = flat_imp.split(",");
-for(var i=0; i<m; i++)
+ev.preventDefault();
+$("#submit").addClass("disabled").text("submiting...");
+var hidden=$("#t_box").val();
+var date = $("#date").val();
+
+var ar = [];
+for(var i=1;i<=hidden;i++)
 {
-var wing_arr = wing_ex[i];
-var flat_arr = flat_ex[i];
-if(wing == wing_arr && flat == flat_arr)
+var ledger = $("#lac"+i).val();
+if(ledger == 15 || ledger == 33 || ledger == 35 || ledger == 34)
+{		
+var ledger_sub = $("#sul"+i).val();
+}
+var debit = $("#debit"+i).val();
+var credit = $("#credit"+i).val();
+var desc = $("#desc"+i).val();
+if(ledger == 15 || ledger == 33 || ledger == 35 || ledger == 34)
 {
-var n = 55;
-break;	
+ar.push([ledger,ledger_sub,debit,credit,desc]);
 }
 else
 {
-var n = 5;	
+ar.push([ledger,debit,credit,desc]);
 }
-}
-if(n == 55)
-{
-$('#valid').html('<div style="background-color:white; color:red; padding:5px;">With this wing the flat number is already Exist</div>');
-return false;
+var myJsonString = JSON.stringify(ar);
+var date2 = JSON.stringify(date)
 }
 
+$.ajax({
+url: "journal_validation?q="+myJsonString+"&b="+date2,
+dataType:'json',
+}).done(function(response) {
 
+if(response.type == 'error'){  
+output = '<div class="alert alert-error">'+response.text+'</div>';
+$("#submit").removeClass("disabled").text("submit");
+$("html, body").animate({
+scrollTop:0
+},"slow");
+}
+if(response.type=='succ'){
+$("#succ").html("<p>"+response.text+"</p><p><a class='btn green' href='<?php echo $webroot_path; ?>Bookkeepings/journal_view' rel='tab' >ok</a></p>");
 
 }
-</script>
+
+$("#error_msg").html(output);
+});
+
+
+});
+});
+
+</script>   
 
 
 
-<script>
-function validate2()
-{
-var fl_tpi = document.getElementById("fl_ti").value;
-var fl_tpe = fl_tpi.split(",");
-var flt = document.getElementById("tp").value;
-var b = document.getElementById("b").value;
-for(var x=0; x<b; x++)
-{
-var flt2 = fl_tpe[x];
 
-if(flt2 == flt)
-{
-$('#vali').html('<div style="color:red; padding:5px;">Flat Type Already Exist</div>'); return false;
-break;
-}
-}
 
-}
-</script>
+
+
+
+
+
+
+
+
 	    
         
