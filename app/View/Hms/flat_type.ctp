@@ -18,13 +18,14 @@ Society Setup
 <li><a href="<?php echo $webroot_path; ?>Hms/society_settings" rel='tab'>Society Settings</a></li>
 </ul>
 <div class="tab-content" style="min-height:300px;">
-<div class="tab-pane active" id="tab_1_1">
-    
+<div class="tab-pane active" id="succ">
+<div id="error_msg"></div>   
 <?php ////////////////////////////////////////////////////////////////////////////////////////////// ?>   
 	  <div align="center">
       <div id="ser_top" align="center" ><?php echo @$rr; ?></div>
      <br>
      <div>
+     <div id="succ"></div>
      <?php
 	if($nnn == 5)
 	{
@@ -54,7 +55,7 @@ Society Setup
 <label >Flat Number</span></label>
 <input type="text" class="m-wrap medium" name="number" maxlength="10" id="nu"></td>
 
-<td style="text-align:right;"> <input type="submit" class="btn blue" value="Submit"  name="subdgg" style="margin-top:25px;"></td>
+<td style="text-align:right;"><button type="submit" class="btn blue" name="journal_add" id="submit" style="margin-top:25px;">Submit</button></td>
 </tr>
 <tr>
 <td>
@@ -66,7 +67,7 @@ Society Setup
 </table>
 <div id="valid"></div>
 </form>
-    
+ </div>   
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////// ?>    
 
   
@@ -85,38 +86,21 @@ Society Setup
 <script>
 $(document).ready(function() { 
 $('form').submit( function(ev){
-alert();	
-
+	
 ev.preventDefault();
 $("#submit").addClass("disabled").text("submiting...");
-var hidden=$("#t_box").val();
-var date = $("#date").val();
 
 var ar = [];
-for(var i=1;i<=hidden;i++)
-{
-var ledger = $("#lac"+i).val();
-if(ledger == 15 || ledger == 33 || ledger == 35 || ledger == 34)
-{		
-var ledger_sub = $("#sul"+i).val();
-}
-var debit = $("#debit"+i).val();
-var credit = $("#credit"+i).val();
-var desc = $("#desc"+i).val();
-if(ledger == 15 || ledger == 33 || ledger == 35 || ledger == 34)
-{
-ar.push([ledger,ledger_sub,debit,credit,desc]);
-}
-else
-{
-ar.push([ledger,debit,credit,desc]);
-}
+var wing = $("#tp").val();
+var flat = $("#nu").val();
+
+ar.push([wing,flat]);
 var myJsonString = JSON.stringify(ar);
-var date2 = JSON.stringify(date)
-}
+
+
 
 $.ajax({
-url: "journal_validation?q="+myJsonString+"&b="+date2,
+url: "flat_type_validation?q="+myJsonString,
 dataType:'json',
 }).done(function(response) {
 
@@ -128,8 +112,7 @@ scrollTop:0
 },"slow");
 }
 if(response.type=='succ'){
-$("#succ").html("<p>"+response.text+"</p><p><a class='btn green' href='<?php echo $webroot_path; ?>Bookkeepings/journal_view' rel='tab' >ok</a></p>");
-
+$("#succ").html('<div class="alert alert-block alert-success fade in"><h4 class="alert-heading">Success!</h4><p>Record Inserted Successfully</p><p><a class="btn green" href="<?php echo $webroot_path; ?>Hms/flat_type" rel="tab">OK</a></p></div>');
 }
 
 $("#error_msg").html(output);

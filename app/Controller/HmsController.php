@@ -19981,8 +19981,99 @@ return $this->expense_tracker->find('all',array('conditions'=>$conditions));
 }
 ///////////////////////// End Expense Tracker View History Expense Head Fetch (Accounts) //////////////////////////////
 
+////////////////////////////// Start Flat type Validation //////////////////////////////////////////////////////////
+function flat_type_validation()
+{
+$this->layout='blank';
+$q=$this->request->query('q');
+$q = html_entity_decode($q);
+
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id  = (int)$this->Session->read('user_id');
+
+$res_society=$this->society_name($s_society_id);
+foreach($res_society as $data)
+{
+$society_name=$data['society']['society_name'];
+}
+
+$s_n='';
+$sco_na=$society_name;
+$dd=explode(' ',$sco_na);
+$first=$dd[0];
+@$two=$dd[1];
+@$three=$dd[2];
+$s_n.=" $first $two $three ";
+
+date_default_timezone_set('Asia/kolkata');
+$date=date("d-m-Y");
+$time=date('h:i:a',time());
+
+$myArray = json_decode($q, true);
+$c=0;
+foreach($myArray as $child)
+{
+$c++;
+
+if(empty($child[0])){
+$output = json_encode(array('type'=>'error', 'text' => 'Please Select Wing'));
+die($output);
+}	
+if(empty($child[1])){
+$output = json_encode(array('type'=>'error', 'text' => 'Please Fill Flat Number'));
+die($output);
+}	
+
+if(is_numeric($child[1]))
+{
+}
+else
+{
+$output = json_encode(array('type'=>'error', 'text' => 'Please Fill Numeric Value in Flat Number'));
+die($output);
+}
+
+$this->loadmodel('flat');
+$conditions=array("society_id" => $s_society_id);
+$cursor = $this->flat->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$wing2 = (int)$collection['flat']['wing_id'];
+$flat2 = (int)$collection['flat']['flat_name'];
+if($wing2 == $child[0] and $flat2 == $child[1])
+{
+$nnn = 55;
+break;
+}
+else
+{
+$nnn = 555;
+}
+}
+if($nnn == 55)
+{
+$output = json_encode(array('type'=>'error', 'text' => 'In this wing the flat is already exist'));
+die($output);
+}
+}
 
 
+foreach($myArray as $child)
+{
+$wing3 = (int)$child[0];
+$flat3 = $child[1];
+
+$k = (int)$this->autoincrement('flat','flat_id');
+$this->loadmodel('flat');
+$multipleRowData = Array( Array("flat_id"=>$k,"wing_id"=>$wing3,"flat_name"=>$flat3,"society_id"=>$s_society_id));
+$this->flat->saveAll($multipleRowData);
+}
+
+$output = json_encode(array('type'=>'succ', 'text' => 'Record Inserted Successfully.'));
+die($output);
+
+}
+////////////////////////////// End Flat type Validation //////////////////////////////////////////////////////////
 
 }
 ?>
