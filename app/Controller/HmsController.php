@@ -4229,7 +4229,7 @@ $i=$this->autoincrement('log','log_id');
 $this->log->save(array('log_id'=>$i,'user_id'=>$user_id,'society_id'=>$society_id,'date'=>$date,'time'=>$time,'status'=>0));
 $this->Session->write('user_id', $user_id);
 $this->Session->write('role_id', $role_id);
-//$this->Session->write('master_society', $multi_society_id);
+
 $this->Session->write('society_id', $society_id);
 $this->Session->write('user_name', $user_name);
 $this->Session->write('wing', $wing);
@@ -4277,7 +4277,7 @@ $this->set('webroot_path',$this->webroot_path());
 if ($this->request->is('POST')) 
 {
 
-//$code=mt_rand(10000,99999);
+
 date_default_timezone_set('Asia/kolkata');
 $date=date("d-m-Y");
 $time=date('h:i:a',time());
@@ -4287,8 +4287,6 @@ $mobile=htmlentities($this->request->data['mobile']);
 $i=$this->autoincrement('user_temp','user_temp_id');
 $this->loadmodel('user_temp');
 $this->user_temp->save(array('user_temp_id' => $i, 'user_name' => $name,'email' => $email, 'password' => '', 'mobile' => $mobile,  'society_id' => 0, 'role' => 0, 'committee' => 2 , 'tenant' => 2, 'wing' => 0, 'flat' => 0,'residing' => 1,'complete_signup' => 0 , 'reply_mail' => "", 'date' => $date, 'time' => $time,'reject' =>0 ));
-//$sms='Hello!+Please+enter+your+code+'.$code.'+on+the+signup+screen+to+continue+your+HousingMatters+registration+process.';
-//$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey=149981t853o14262m1119&sender=HSGMTR&to='.$mobile.'&message='.$sms.'');
 $this->response->header('Location', 'sign_up_next?user='.$i.' ');
 
 
