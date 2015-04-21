@@ -263,8 +263,8 @@ $flat_type_name = $collection['flat_type_name']['flat_name'];
 								$q++;						
 							$wing_id = (int)$collection['flat']['wing_id'];
 							$flat_name = $collection['flat']['flat_name'];
-							$flat_type_id = (int)$collection['flat']['flat_type_id'];
-							$sqfeet = (int)$collection['flat']['flat_area'];
+							$flat_type_id = (int)@$collection['flat']['flat_type_id'];
+							$sqfeet = (int)@$collection['flat']['flat_area'];
 							
 $wing_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_fetch'),array('pass'=>array($wing_id)));	
 foreach($wing_fetch as $collection)
