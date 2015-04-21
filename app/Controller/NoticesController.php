@@ -876,6 +876,7 @@ $this->set('result_reply',$this->notice_board_reply->find('all',array('condition
 function notice_save_reply()
 {
 		$this->layout='blank';
+		$this->ath();
 		$reply=htmlentities($this->request->query('reply'));
 		$reply=nl2br($reply);
 		//$rep=explode(' ',$reply);

@@ -1,4 +1,4 @@
-<link href="<?php echo $this->webroot ; ?>/as/reply.css" rel="stylesheet" />
+<link href="<?php echo $webroot_path ; ?>/as/reply.css" rel="stylesheet" />
 <?php
 $s_user_id=$this->Session->read('user_id');
 foreach ($result_reply as $collection) 
@@ -25,7 +25,7 @@ $flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat')
 <div <?php if($d_user==$s_user_id) { ?> class="outt" <?php }  if($d_user!=$s_user_id) { ?> class="inn" <?php } ?>>
 <?php if($d_user!=$s_user_id) { ?>
 <div <?php if($d_user==$s_user_id) { ?> class="outt_im" <?php }  if($d_user!=$s_user_id) { ?> class="inn_im" <?php } ?>>
-<img  src="<?php echo $this->webroot ; ?>/profile/<?php echo $profile_pic; ?>" height="50px">
+<img  src="<?php echo $webroot_path ; ?>/profile/<?php echo $profile_pic; ?>" height="50px">
 </div>
 <?php } ?>
 <div <?php if ($class=="in") { ?>style="padding-left: 60px;" <?php } ?>>
