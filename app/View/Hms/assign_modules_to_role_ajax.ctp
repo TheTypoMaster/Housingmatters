@@ -28,9 +28,10 @@ $i=0;
 foreach ($result_hm_modules_assign as $collection) 
 {
 	$i++;	
-	$module_id=(int)$collection["hm_modules_assign"]["module_id"];
+	echo $module_id=(int)$collection["hm_modules_assign"]["module_id"];
 	
 $result_data=$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_main_module_name'), array('pass' => array($module_id)));
+//pr($result_data);
 foreach ($result_data as $collection) 
 {	
 	$module_name=$collection["main_module"]["module_name"];
