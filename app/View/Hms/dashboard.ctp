@@ -1,5 +1,4 @@
 <?php 
-echo'hello';
 foreach ($result_user as $collection)   
               	 {
 					$c_email = $collection['user']['email'];
