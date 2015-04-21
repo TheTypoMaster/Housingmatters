@@ -1,4 +1,27 @@
-
+<?php 
+function substrwords($text, $maxchar, $end='...') {
+    if (strlen($text) > $maxchar || $text == '') {
+        $words = preg_split('/\s/', $text);      
+        $output = '';
+        $i      = 0;
+        while (1) {
+            @$length = strlen($output)+strlen($words[$i]);
+            if ($length > $maxchar) {
+                break;
+            } 
+            else {
+                @$output .= " " . $words[$i];
+                ++$i;
+            }
+        }
+        $output .= $end;
+    } 
+    else {
+        $output = $text;
+    }
+    return $output;
+}
+?>
 
 <div id="back" class="btn blue" >Back</div>
 <br>
@@ -15,6 +38,7 @@
 				$c_email = $collection['user']['email'];
 				$c_mobile = $collection['user']['mobile'];
 				$c_name = $collection['user']['user_name'];
+				$c_name=substrwords($c_name,20,'...');
 				$private_field = @$collection['user']['private'];
 				$da_dob=@$collection['user']['dob'];
 				$per_address=@$collection['user']['per_address'];
