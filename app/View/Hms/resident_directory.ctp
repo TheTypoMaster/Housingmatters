@@ -117,7 +117,7 @@ background-color:rgb(218, 236, 240);
 
 
 
-<div id="view_search" >
+<div id="view_search" style="overflow:auto;" >
 
  <?php
   
