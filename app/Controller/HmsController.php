@@ -18102,7 +18102,7 @@ $s_society_id = $this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
 
 $this->loadmodel('flat_master');
-$conditions=array("society_id" => $s_society_id, "auto_id" => $auto_id);
+$conditions=array("auto_id" => $auto_id);
 return $this->flat_master->find('all',array('conditions'=>$conditions));
 
 }
@@ -20074,6 +20074,53 @@ die($output);
 
 }
 ////////////////////////////// End Flat type Validation //////////////////////////////////////////////////////////
+
+/////////////////////////// Start Flat Query ////////////////////////////////////////////////////
+function flat_query()
+{
+$this->layout='blank';
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = $this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');	
+
+
+$this->loadmodel('flat');
+$cursor = $this->flat->find('all');
+foreach($cursor as $collection)
+{
+$auto_id = (int)$collection['flat']['flat_id'];
+$name = $collection['flat']['flat_name'];
+$fl_tp_id = (int)$collection['flat']['flat_type_id'];
+$noc_ch_tp = $collection['flat']['noc_ch_type'];
+$society_id = $collection['flat']['society_id'];
+$wing_id = $collection['flat']['wing_id'];
+$flat_master_id = (int)$collection['flat']['flat_master_id'];
+
+$result_amt = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_master_fetch'),array('pass'=>array($flat_master_id)));
+foreach($result_amt as $data)
+{
+$flat_area = $data['flat_master']['flat_area'];
+}
+
+$this->loadmodel('flat');
+$conditions=array('flat_id'=>$auto_id);
+$this->flat->deleteAll($conditions);
+
+
+$this->loadmodel('flat');
+$multipleRowData = Array( Array("flat_id"=>$auto_id,"wing_id"=>$wing_id,"flat_name"=>$name,"society_id"=>$society_id,"flat_type_id"=>$fl_tp_id,"noc_ch_tp"=>$noc_ch_tp,"flat_area"=>$flat_area));
+$this->flat->saveAll($multipleRowData);
+
+
+
+}
+
+}
+//////////////////////////////////// End Flat Query ///////////////////////////////////////////////
+
+
+
+
 
 }
 ?>
