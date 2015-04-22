@@ -37,18 +37,15 @@ $expense_month_arr[] = $expense_month;
 }
 
 ////////////////////////////////////////////////////////////////////////////
+?>
 
-
-
-
-
-
-
-
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
+<div style="width:100%;" class="hide_at_print">
+<span style="margin-left:80%;">
+<a href="expense_tracker_excel?f=<?php echo $from; ?>&t=<?php echo $to; ?>" class="btn blue">Export in Excel</a>
+<button type="button" class=" printt btn green" onclick="window.print()"><i class="icon-print"></i> Print</button></span>
+</div>
+<br />	
+<?php
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -125,12 +122,10 @@ if($exp_head2 == $ex_head)
 
 
 <?php
-
 for($m=0; $m<sizeof($abc); $m++)
 {
-	$total = 0;
+$total = 0;
 $month_name3 = $abc[$m];
-
 foreach($cursor3 as $collection6)
 {
 $exps_head = (int)$collection6['expense_tracker']['expense_head'];

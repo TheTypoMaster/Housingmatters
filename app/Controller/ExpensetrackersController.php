@@ -430,7 +430,7 @@ return $this->expense_tracker->find('all',array('conditions'=>$conditions));
 
 }
 
-///////////////////////////////////////////////////////////End Function Fetch expense Tracker View Fetch1 (Accounts)//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////End Function Fetch expense Tracker View Fetch1 (Accounts)//////////////////////////////////////////////////
 
 ////////////////// Start Expense Tracker Excel/////////////////////////////////////
 function expense_tracker_excel()
@@ -451,8 +451,12 @@ $to = $this->request->query('t');
 $m_from = date("Y-m-d", strtotime($from));
 $m_from = new MongoDate(strtotime($m_from));
 
+$m_to = date("Y-m-d", strtotime($to));
+$m_to = new MongoDate(strtotime($m_to));
+
+$s_role_id = (int)$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
-$s_role_id=$this->Session->read('role_id');
+$s_user_id = (int)$this->Session->read('user_id');	
 
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
@@ -462,96 +466,121 @@ foreach($cursor as $collection)
 $society_name = $collection['society']['society_name'];
 }
 
-$m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+$start    = (new DateTime($from));
+$end      = (new DateTime($to));
+$interval = DateInterval::createFromDateString('1 month');
+$period   = new DatePeriod($start, $interval, $end);
 
-$excel = "<table border='1'>";
-$excel.="<tr>
-<th colspan='8' style='text-align:center;'>
-Expense Tracker Report ($society_name)  
-</th>
-</tr>";
-$excel.="<tr>
-<th colspan='8' style='text-align:center;'>
-From: $from To: $to
-</th>
-</tr>
-<tr>
-<th>Posting Date</th>
-<th>Expense Head</th>
-<th>Vendor</th>
-<th>Invoice Reference</th>
-<th>Invoice Date</th>
-<th>Due Date</th>
-<th>Description</th>
-<th>Rs</th>
-</tr>";
 
-$total_amount = 0;
+foreach($period as $data)
+{
+$mon1 = $data->format("M-Y");
+
 $this->loadmodel('expense_tracker');
-$conditions=array("society_id" => $s_society_id);
-$cursor=$this->expense_tracker->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
+$conditions=array("society_id"=>$s_society_id);
+$cursor3 = $this->expense_tracker->find('all',array('conditions'=>$conditions));
+foreach($cursor3 as $collection)
 {
-$auto_id = (int)$collection['expense_tracker']['auto_id'];
-$receipt_id = (int)$collection['expense_tracker']['receipt_id'];
-$society_id_d = (int)$collection['expense_tracker']['society_id'];
-$current_date = $collection['expense_tracker']['current_date'];
-$approver_id = (int)$collection['expense_tracker']['approver'];
-$expense_head = (int)$collection['expense_tracker']['expense_head'];
-$invoice_date = $collection['expense_tracker']['invoice_date'];
-$due_date =  $collection['expense_tracker']['due_date'];
-$party_head = (int)$collection['expense_tracker']['party_head'];
-$description = $collection['expense_tracker']['description'];
-$posting_date = $collection['expense_tracker']['posting_date'];
-$amount = (int)$collection['expense_tracker']['amount'];
-$amount_cat_id = (int)$collection['expense_tracker']['amount_category_id'];
-$invoice_ref = $collection['expense_tracker']['invoice_reference'];
-
-if($posting_date >= $m_from && $posting_date <= $m_to)
+$auto_id = (int)$collection['expense_tracker']['auto_id'];	
+$expense_date_mongo = $collection['expense_tracker']['posting_date'];
+$expense_date = date('d-m-Y',$expense_date_mongo->sec);
+$expense_month = date("M-Y",strtotime($expense_date));
+if($expense_month == $mon1) 
 {
-$result23 = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($approver_id)));
-foreach($result23 as $collection)
+$expense_arr[] = array($auto_id,$expense_month); 
+}
+}
+}
+$this->loadmodel('expense_tracker');
+$conditions=array("society_id"=>$s_society_id);
+$cursor3 = $this->expense_tracker->find('all',array('conditions'=>$conditions));
+foreach($cursor3 as $collection)
 {
-$prepaired_by_name = $collection['user']['user_name'];
+$expense_date_mongo = $collection['expense_tracker']['posting_date'];
+$expense_date = date('d-m-Y',$expense_date_mongo->sec);
+$expense_month = date("M-Y",strtotime($expense_date));
+$expense_month_arr[] = $expense_month;
 }
 
-$current_date = date('d-m-Y',$current_date->sec);
-$invoice_date = date('d-m-Y',$invoice_date->sec);
-$due_date = date('d-m-Y',$due_date->sec);
-$posting_date = date('d-m-Y',$posting_date->sec);
-
-$result1 = $this->requestAction(array('controller' => 'hms', 'action' => 'expense_head'),array('pass'=>array($expense_head)));
-foreach($result1 as $collection)
-{
-$expense_name = $collection['ledger_account']['ledger_name'];
-}
-
-$result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($party_head)));
-foreach($result2 as $collection)
-{
-$vendor_name = $collection['ledger_sub_account']['name'];
-}
-$total_amount = $total_amount + $amount;
-$excel.="
+$excel="
+<table border='1'>
 <tr>
-<td>$posting_date</td>
-<td>$expense_name</td>
-<td>$vendor_name</td>
-<td>$invoice_ref</td>
-<td>$invoice_date</td>
-<td>$due_date</td>
-<td>$description</td>
-<td>$amount</td>
-</tr>";
-}}
-$excel.="
-<tr>
-<th colspan='7'>Total Amount</th>
-<th>$total_amount</th>
-</tr>
-</table>";
+<th>Expense Head</th>";
+
+foreach ($period as $dt){
+$month_name1 = $dt->format("M-Y");
+for($p=0; $p<sizeof($expense_month_arr); $p++)
+{
+$month_name2 = $expense_month_arr[$p];
+if($month_name1 == $month_name2)
+{
+$abc[] = $month_name1;
+
+$excel.="<th style='text-align:center;'>$month_name1</th>";
+break;
+}}}
+$excel.="</tr>";
+$total = 0;
+$this->loadmodel('accounts_group');
+$conditions=array("accounts_id"=>4);
+$cursor2 = $this->accounts_group->find('all',array('conditions'=>$conditions));
+foreach($cursor2 as $collection)
+{
+$group_id = (int)$collection['accounts_group']['auto_id'];	
+$result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch'),array('pass'=>array($group_id)));
+foreach($result2 as $collection2)
+{
+$ex_head = (int)$collection2['ledger_account']['auto_id'];	
+$expense_head = $collection2['ledger_account']['ledger_name'];
+for($k=0; $k<sizeof(@$expense_arr); $k++)
+{
+$exp_arr1 = $expense_arr[$k];
+$auto_id2 = (int)$exp_arr1[0];
+$month5 = $exp_arr1[1];
+$result5 = $this->requestAction(array('controller' => 'hms', 'action' => 'expense_tracker_fetch'),array('pass'=>array($auto_id2)));
+foreach($result5 as $collection3)
+{
+$exp_head2 = (int)$collection3['expense_tracker']['expense_head'];
+$amount = $collection3['expense_tracker']['amount'];
+}
+if($exp_head2 == $ex_head)
+{
+
+$excel.="<tr><td style='text-align:left;'>$expense_head</td>";
+
+for($m=0; $m<sizeof($abc); $m++)
+{
+$total = 0;
+$month_name3 = $abc[$m];
+$this->loadmodel('expense_tracker');
+$conditions=array("society_id"=>$s_society_id);
+$cursor3 = $this->expense_tracker->find('all',array('conditions'=>$conditions));
+foreach($cursor3 as $collection6)
+{
+$exps_head = (int)$collection6['expense_tracker']['expense_head'];
+$posting_date = $collection6['expense_tracker']['posting_date'];
+$amount = $collection6['expense_tracker']['amount'];
+$posting_date = date('M-Y',$posting_date->sec);
+if($posting_date == $month_name3 && $exp_head2 == $exps_head)
+{
+$total = $total + $amount;	
+}
+}
+
+$excel.="<td style='text-align:center;'>$total</td>";
+$total = 0;
+}
+$excel.="</tr>";
+break;
+}}}}
+$excel.="</table>";
+
 echo $excel;
+
+
+
+
+
 }
 ////////////////////// End Expense Tracker Excel/////////////////////////////////////
 
