@@ -4,7 +4,7 @@ $(document).ready(function() {
   
  
  
- $("#button_add").live('click',function(){
+ $("#button_add").bind('click',function(){
 
 	var c=$('#t_box').val();
   c++;
