@@ -22,7 +22,7 @@ if($wise == 1)
 <center>
 		<br />	<br /><br />
 <h4><b>Sundry Creditors Control A/c</b></h4>		
-		<table class="table table-bordered" style="width:100%; background-color:#FDFDEE;">
+		<table class="table table-bordered" style="width:100%; background-color:white;">
         <?php
 		foreach ($cursor1 as $collection) 
 		{
@@ -286,7 +286,7 @@ if($wise == 4)
 <center>
 		<br />	<br /><br />	
 		<h4><b>Bank Accounts</b></h4>	
-		<table class="table table-bordered" style="width:100%; background-color:#FDFDEE;">
+		<table class="table table-bordered" style="width:100%; background-color:white;">
         <?php
 		foreach ($cursor1 as $collection) 
 		{
@@ -541,7 +541,7 @@ if($wise == 2)
 <center>
 <br />	<br /><br />	
 <h4><b>Sundry Debtors Control A/c</b></h4>	
-<table class="table table-bordered" style="width:100%; background-color:#FDFDEE;">
+<table class="table table-bordered" style="width:100%; background-color:white;">
 <?php
 foreach ($cursor1 as $collection) 
 {
@@ -807,7 +807,7 @@ $total_closing_balance = $total_closing_balance + $amount1;
 		?>
 		<center>
 		<br />	<br /><br />	
-		<table class="table table-bordered" style="width:100%; background-color:#FDFDEE;">
+		<table class="table table-bordered" style="width:100%; background-color:white;">
         <?php
 		foreach ($cursor1 as $collection) 
 		{
