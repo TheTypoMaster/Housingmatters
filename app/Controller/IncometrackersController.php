@@ -3506,7 +3506,8 @@ $ch_arr[] = $ch;
 }
 $this->loadmodel('flat_type');
 $this->flat_type->updateAll(array('charge'=>$ch_arr),array('auto_id'=>$au));
-$this->response->header('Location','master_rate_card_view');
+//$this->response->header('Location','master_rate_card_view');
+$this->redirect(array('controller' => 'Incometrackers','action' => 'master_rate_card_view'));
 }
 
 $auto_id5 = (int)$auto_id5;
