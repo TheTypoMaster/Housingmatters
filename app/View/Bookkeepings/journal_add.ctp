@@ -376,9 +376,8 @@ document.getElementById('total').value = t_d;
 <script>
 $(document).ready(function() { 
 	$('form').submit( function(ev){
-		
 	ev.preventDefault();
-		$("#submit").addClass("disabled").text("submiting...");
+	$("#submit").addClass("disabled").text("submiting...");
 		var hidden=$("#t_box").val();
 		var date = $("#date").val();
 		
