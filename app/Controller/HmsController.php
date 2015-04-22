@@ -271,7 +271,7 @@ $this->redirect(array('action' => 'index'));
 
 function beforeFilter()
 {
-//Configure::write('debug', 0);
+Configure::write('debug', 0);
 }
 
 function menus_from_role_privileges()
@@ -614,7 +614,7 @@ $r_sms=$this->hms_sms_ip();
  $sms='New Helpdesk ticket '.$ticket_no.' - '.$category_name.' raised+by '.$user_name.' - '.$wing_flat.' Please log into HousingMatters for further action.';
 
 $sms1=str_replace(' ', '+', $sms);
-//sms//$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');		
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');		
   $message_web="<div>
 <img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 <span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
@@ -864,7 +864,7 @@ $ticket_no=$t;
 $category_name=$this->help_desk_category_name($category);
 $sms='New Helpdesk ticket '.$ticket_no.' - '.$category_name.' raised+by '.$user_name.' - '.$wing_flat.' Please log into HousingMatters for further action.';
 $sms1=str_replace(' ', '+', $sms);
-//sms//$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');		
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');		
 $message_web="<div>
 <img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 <span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
@@ -1768,7 +1768,7 @@ $result5=$this->notification_email->find('all',array('conditions'=>$conditions7)
 $n=sizeof($result5);
 if($n>0)
 {
-//sms//$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms.'');
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms.'');
 }
 /*  $message_web="<div style=' padding:25px;  font-size:14px; border:1px solid #BCE8F1; width:80%; background-color: #fcf8e3;'>
 <p style='background-color:#60F;  font-size:16px; padding:10px;'><b style='color: white; '> HousingMatters</b></p><br/>
@@ -4339,7 +4339,7 @@ $code=mt_rand(10000,99999);
 $this->loadmodel('user_temp');
 $this->user_temp->updateAll(array('captch_otp'=>$code),array('user_temp_id'=>$user));
 $sms='Hello!+Please+enter+your+code+'.$code.'+on+the+signup+screen+to+continue+your+HousingMatters+registration+process.';
-//sms//$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms.'');
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms.'');
 
 }
 
@@ -4484,7 +4484,7 @@ $tenant="Tenant";
 
 $sms='Hello!+New+User+request+:+'.$user_name1.'+'.$wing_flat.'+'.$tenant.'+Please+log+into+HousingMatters+for+further+action.';
 $sms1=str_replace(' ', '+', $sms);
-//sms//$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 $to=$email;
 
  $message_web="<div>
@@ -4642,7 +4642,7 @@ $sms_sender=$r->sms_sender;
 
 $sms='New Request for Society registration into HousingMatters. Kindly approve the request.';
 $sms1=str_replace(' ', '+', $sms);
-//sms//$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 
 ////////////////////////////////////////// ////////////////////////////////////////////////////// ///////////////////////////////////////////////////////////// ////		
 $to="admin@housingmatters.in";
@@ -8268,7 +8268,7 @@ $r_sms=$this->hms_sms_ip();
 $random=(string)mt_rand(1000,9999);
 $sms="".$user_name.", Your housing society ".$s_n." has enrolled you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
 $sms1=str_replace(" ", '+', $sms);
-//sms//$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 $this->loadmodel('user');
 $this->user->updateAll(array('password'=>$random,'signup_random'=>$random),array('user_id'=>$user_temp_id));
 $this->loadmodel('login');
@@ -8617,7 +8617,7 @@ $r_sms=$this->hms_sms_ip();
 	
 $sms='Dear '.$user_name.' Please enter your code '.$random_otp.' on the signup screen to continue your HousingMatters registration process. Thank you';
 $sms1=str_replace(' ', '+', $sms);
-@//sms//$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+@$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 $this->user->updateAll(array('password'=>$random_otp,'deactive'=>2),array('user.user_id'=>$user_id));
 
 }
@@ -8652,7 +8652,7 @@ $sms_sender=$r_sms->sms_sender;
 	 $random_otp=(string)mt_rand(1000,9999);
 $sms='Dear '.$user.' Please enter your code '.$random_otp.' on the signup screen to continue your HousingMatters registration process. Thank you';
 $sms1=str_replace(' ', '+', $sms);
-//sms//$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 $this->user->updateAll(array('password'=>$random_otp),array('user.user_id'=>$id));
 
 }
@@ -9360,7 +9360,7 @@ function hm_resident_approve_resend_sms()
 		$random=(string)mt_rand(1000,9999);
 		$sms="".$user_name.", Your housing society ".$s_n." has enrolled you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
 		$sms1=str_replace(" ", '+', $sms);
-		//sms//$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+		$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 		$this->loadmodel('user');
 		$this->user->updateAll(array('password'=>$random,'signup_random'=>$random),array('user_id'=>$user_temp_id));
 		$this->loadmodel('login');
@@ -9854,7 +9854,7 @@ $mobile_im=implode(",", $mobile);
 //$user=implode(",", $user); 
 
 $s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m;
-//sms//$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
 
 	
 
@@ -9899,7 +9899,7 @@ $r_sms=$this->hms_sms_ip();
  $sms_sender=$r_sms->sms_sender; 
 
 
-//sms//$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
 
 $sms_id=$this->autoincrement('sms','sms_id');
 $this->loadmodel('sms');
@@ -10035,7 +10035,7 @@ $r_sms=$this->hms_sms_ip();
   $working_key=$r_sms->working_key;
  $sms_sender=$r_sms->sms_sender; 
 	
-//sms//$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
 
 $sms_id=$this->autoincrement('sms','sms_id');
 $this->loadmodel('sms');
@@ -14876,7 +14876,7 @@ $r_sms=$this->hms_sms_ip();
 	
 $sms="".$name.", Your housing society  ".$s_n." has enrolled  you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
  $sms1=str_replace(" ", '+', $sms);
- //sms//$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 
 }
 }
@@ -15102,7 +15102,7 @@ if(empty($email))
 $random=(string)mt_rand(1000,9999);
  $sms="".$name.", Your housing society ".$s_n." has enrolled you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
 $sms1=str_replace(" ", '+', $sms);
-//sms//$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 }
 }
 
@@ -17556,6 +17556,170 @@ $this->set('cursor1',$cursor1);
 //////////////////////////////////////////// End Supplimentry Bill Pdf (Accounts)///////////////////////////////////////////////////////////////////////
 
 
+
+/////////////////////////////////////////// Start Function Convert Rupee ///////////////////////////////////////////////////////////////////////////////
+
+function convert_number_to_words($number) 
+{
+
+$hyphen      = '-';
+$conjunction = ' and ';
+$separator   = ', ';
+$negative    = 'negative ';
+$decimal     = ' point ';
+$dictionary  = array(
+
+
+01                   => 'One',
+02                   => 'Two',
+03                   => 'Three',
+04                   => 'Four',
+05                   => 'Five',
+06                   => 'Six',
+07                   => 'Seven',
+08                   => 'Eight',
+09                   => 'Nine',
+
+
+
+0                   => 'Zero',
+1                   => 'One',
+2                   => 'Two',
+3                   => 'Three',
+4                   => 'Four',
+5                   => 'Five',
+6                   => 'Six',
+7                   => 'Seven',
+8                   => 'Eight',
+9                   => 'Nine',
+10                  => 'Ten',
+11                  => 'Eleven',
+12                  => 'Twelve',
+13                  => 'Thirteen',
+14                  => 'Fourteen',
+15                  => 'Fifteen',
+16                  => 'Sixteen',
+17                  => 'Seventeen',
+18                  => 'Eighteen',
+19                  => 'Nineteen',
+20                  => 'Twenty',
+30                  => 'Thirty',
+40                  => 'Fourty',
+50                  => 'Fifty',
+60                  => 'Sixty',
+70                  => 'Seventy',
+80                  => 'Eighty',
+90                  => 'Ninety',
+100                 => 'Hundred',
+1000                => 'Thousand',
+1000000             => 'Million',
+1000000000          => 'Billion',
+1000000000000       => 'Trillion',
+1000000000000000    => 'Quadrillion',
+1000000000000000000 => 'Quintillion'
+);
+
+if (!is_numeric($number)) {
+return false;
+}
+
+if (($number >= 0 && (int) $number < 0) || (int) $number < 0 - PHP_INT_MAX) {
+// overflow
+trigger_error(
+'convert_number_to_words only accepts numbers between -' . PHP_INT_MAX . ' and ' . PHP_INT_MAX,
+E_USER_WARNING
+);
+return false;
+}
+
+if ($number < 0) {
+return $negative . convert_number_to_words(abs($number));
+}
+
+$string = $fraction = null;
+
+if (strpos($number, '.') !== false) {
+list($number, $fraction) = explode('.', $number);
+}
+
+switch (true) {
+case $number < 21:
+$string = $dictionary[$number];
+break;
+case $number < 100:
+$tens   = ((int) ($number / 10)) * 10;
+$units  = $number % 10;
+$string = $dictionary[$tens];
+if ($units) {
+$string .= $hyphen . $dictionary[$units];
+}
+break;
+case $number < 1000:
+$hundreds  = $number / 100;
+$remainder = $number % 100;
+$string = $dictionary[$hundreds] . ' ' . $dictionary[100];
+if ($remainder) {
+$string .= $conjunction . convert_number_to_words($remainder);
+}
+break;
+default:
+$baseUnit = pow(1000, floor(log($number, 1000)));
+$numBaseUnits = (int) ($number / $baseUnit);
+$remainder = $number % $baseUnit;
+$string = convert_number_to_words($numBaseUnits) . ' ' . $dictionary[$baseUnit];
+if ($remainder) {
+$string .= $remainder < 100 ? $conjunction : $separator;
+$string .= convert_number_to_words($remainder);
+}
+break;
+}
+
+if (null !== $fraction && is_numeric($fraction)) {
+$string .= $decimal;
+$words = array();
+foreach (str_split((string) $fraction) as $number) {
+$words[] = $dictionary[$number];
+}
+$string .= implode(' ', $words);
+}
+
+return $string;
+}
+
+function serial_no($number)
+{
+
+$str_lenth=strlen($number);
+if($str_lenth==1)
+{
+$number='000'.$number;
+}
+else if($str_lenth==2)
+{
+$number='00'.$number;
+}
+
+else if($str_lenth==3)
+{
+$number='0'.$number;
+}
+echo $number;
+
+
+}
+
+
+
+
+
+
+
+/////////////////////////////////////////// End Function Convert Rupee ///////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
 /////////////////////// Start Flat Fetch(Accounts)//////////////////////////////////////////
 
 function flat_fetch($flat_id) 
@@ -19360,7 +19524,7 @@ if($family_member==1 || $s_role_id==3 )
 					$random=(string)mt_rand(1000,9999);
 					$sms="".$name.", Your housing society ".$s_n." has enrolled you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
 					$sms1=str_replace(" ", '+', $sms);
-					//sms//$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+					$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 
 				}
 
@@ -19671,7 +19835,7 @@ foreach($myArray as $child)
 		$random=(string)mt_rand(1000,9999);
 		 $sms="".$name.", Your housing society ".$s_n." has enrolled you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
 		$sms1=str_replace(" ", '+', $sms);
-		//sms//$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+		$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 		
 		}
 
@@ -19911,121 +20075,6 @@ die($output);
 }
 ////////////////////////////// End Flat type Validation //////////////////////////////////////////////////////////
 
-///////////////////////////////////// Start Number in Words ///////////////////////////////////////////////////
-function convert_number_to_words($number) 
-{
-    $hyphen      = '-';
-    $conjunction = ' and ';
-    $separator   = ', ';
-    $negative    = 'negative ';
-    $decimal     = ' point ';
-    $dictionary  = array(
-        0                   => 'zero',
-        1                   => 'one',
-        2                   => 'two',
-        3                   => 'three',
-        4                   => 'four',
-        5                   => 'five',
-        6                   => 'six',
-        7                   => 'seven',
-        8                   => 'eight',
-        9                   => 'nine',
-        10                  => 'ten',
-        11                  => 'eleven',
-        12                  => 'twelve',
-        13                  => 'thirteen',
-        14                  => 'fourteen',
-        15                  => 'fifteen',
-        16                  => 'sixteen',
-        17                  => 'seventeen',
-        18                  => 'eighteen',
-        19                  => 'nineteen',
-        20                  => 'twenty',
-        30                  => 'thirty',
-        40                  => 'fourty',
-        50                  => 'fifty',
-        60                  => 'sixty',
-        70                  => 'seventy',
-        80                  => 'eighty',
-        90                  => 'ninety',
-        100                 => 'hundred',
-        1000                => 'thousand',
-        1000000             => 'million',
-        1000000000          => 'billion',
-        1000000000000       => 'trillion',
-        1000000000000000    => 'quadrillion',
-        1000000000000000000 => 'quintillion'
-    );
-
-    if (!is_numeric($number)) {
-        return false;
-    }
-
-    if (($number >= 0 && (int) $number < 0) || (int) $number < 0 - PHP_INT_MAX) {
-        // overflow
-        trigger_error(
-            'convert_number_to_words only accepts numbers between -' . PHP_INT_MAX . ' and ' . PHP_INT_MAX,
-            E_USER_WARNING
-        );
-        return false;
-    }
-
-    if ($number < 0) {
-        return $negative . convert_number_to_words(abs($number));
-    }
-
-    $string = $fraction = null;
-
-    if (strpos($number, '.') !== false) {
-        list($number, $fraction) = explode('.', $number);
-    }
-
-    switch (true) {
-        case $number < 21:
-            $string = $dictionary[$number];
-            break;
-        case $number < 100:
-            $tens   = ((int) ($number / 10)) * 10;
-            $units  = $number % 10;
-            $string = $dictionary[$tens];
-            if ($units) {
-                $string .= $hyphen . $dictionary[$units];
-            }
-            break;
-        case $number < 1000:
-            $hundreds  = $number / 100;
-            $remainder = $number % 100;
-            $string = $dictionary[$hundreds] . ' ' . $dictionary[100];
-            if ($remainder) {
-                $string .= $conjunction . convert_number_to_words($remainder);
-            }
-            break;
-        default:
-            $baseUnit = pow(1000, floor(log($number, 1000)));
-            $numBaseUnits = (int) ($number / $baseUnit);
-            $remainder = $number % $baseUnit;
-            $string = convert_number_to_words($numBaseUnits) . ' ' . $dictionary[$baseUnit];
-            if ($remainder) {
-                $string .= $remainder < 100 ? $conjunction : $separator;
-                $string .= convert_number_to_words($remainder);
-            }
-            break;
-    }
-
-    if (null !== $fraction && is_numeric($fraction)) {
-        $string .= $decimal;
-        $words = array();
-        foreach (str_split((string) $fraction) as $number) {
-            $words[] = $dictionary[$number];
-        }
-        $string .= implode(' ', $words);
-    }
-
-    return $string;
-}
-
-
-///////////////////////////////////// End Number in Words ///////////////////////////////////////////////////
 
 }
 ?>
