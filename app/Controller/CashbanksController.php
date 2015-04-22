@@ -628,8 +628,13 @@ $to = $this->request->query('t');
 $m_from = date("Y-m-d", strtotime($from));
 $m_from = new MongoDate(strtotime($m_from));
 
+$m_to = date("Y-m-d", strtotime($to));
+$m_to = new MongoDate(strtotime($m_to));
+
 $s_society_id = (int)$this->Session->read('society_id');
-$s_role_id=$this->Session->read('role_id');
+$s_role_id= (int)$this->Session->read('role_id');
+$s_user_id= (int)$this->Session->read('user_id');
+
 
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
@@ -639,8 +644,7 @@ foreach($cursor as $collection)
 $society_name = $collection['society']['society_name'];
 }
 
-$m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+
 
 $excel = "<table border='1'>
 <tr>
@@ -664,6 +668,9 @@ $excel = "<table border='1'>
 <th>Narration</th>
 <th>Amount</th>
 </tr>";
+
+
+$total_debit = 0;
 $this->loadmodel('cash_bank');
 $conditions=array("society_id" => $s_society_id,"module_id"=>1);
 $cursor=$this->cash_bank->find('all',array('conditions'=>$conditions));
@@ -681,6 +688,13 @@ $account_id = (int)$collection['cash_bank']['account_head'];
 $amount = $collection['cash_bank']['amount'];
 $amount_category_id = (int)$collection['cash_bank']['amount_category_id'];
 $current_date = $collection['cash_bank']['current_date'];
+
+
+if($receipt_mode == "Cheque" || $receipt_mode == "NEFT")
+{
+$cheque_no = $collection['cash_bank']['cheque_no'];	
+$receipt_mode = $receipt_mode."(".$cheque_no.")";
+}
 
 if($member == 1)
 {
@@ -724,31 +738,27 @@ $tenant = (int)$collection['user']['tenant'];
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));	
 			
 }			
-	$result_amt = $this->requestAction(array('controller' => 'hms', 'action' => 'amount_category'),array('pass'=>array($amount_category_id)));
-	foreach ($result_amt as $collection) 
-	{
-	$amount_category = $collection['amount_category']['amount_category'];  
-	}			
 
-	$result_lsa2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($account_id)));									
-	foreach ($result_lsa2 as $collection) 
-	{
-	$account_no = $collection['ledger_sub_account']['name'];  
-	}	
-									
-									
+		
+
+$result_lsa2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($account_id)));									
+foreach ($result_lsa2 as $collection) 
+{
+$account_no = $collection['ledger_sub_account']['name'];  
+}	
+								
 
 if($date >= $m_from && $date <= $m_to)
 {
 if(@$user_id == @$s_user_id)
 {
-$date = date('d-m-Y',$date->sec);	
+$date3 = date('d-m-Y',$date->sec);	
 $total_debit =  $total_debit + $amount; 
 
 
 $excel.="<tr>
 <td>$receipt_no</td>
-<td>$date</td>
+<td>$date3</td>
 <td>$narration</td>
 <td>$user_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$wing_flat</td>
 <td>$ref</td>
@@ -760,13 +770,13 @@ $excel.="<tr>
 }
 else if($s_role_id == 3)
 {
-$date = date('d-m-Y',$date->sec);
+$date2 = date('d-m-Y',$date->sec);
 $total_debit =  $total_debit + $amount; 
 
 $excel.="											
 <tr>
 <td>$receipt_no</td>
-<td>$date</td>
+<td>$date2</td>
 <td>$user_name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$wing_flat</td>
 <td>$ref</td>
 <td>$receipt_mode</td>
@@ -776,6 +786,7 @@ $excel.="
 <td>$amount</td>
 </tr>";
 }}}
+
 $excel.="
 <tr>
 <th colspan='8'> Total</th>

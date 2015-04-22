@@ -1,4 +1,27 @@
 <?php
+if($zz == 0)
+{
+?>
+<div class="alert">
+<button class="close" data-dismiss="alert"></button>
+<center>
+No Previous Receipt
+</center>
+</div> 
+<?php
+}
+else
+{
+?>
+<div class="alert">
+<button class="close" data-dismiss="alert"></button>
+<center>
+The Last Receipt Number is : <?php echo $zz; ?>
+</center>
+</div> 
+<?php } ?>
+
+<?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 ?>				   
 <script>
@@ -65,30 +88,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 		   
 		   */?>
 <?php //////////////////////////////////////////////////////////////////////////////////////// ?>
-<?php
 
-			if($zz == 0)
-			{
-			?>
-                    <div class="alert">
-				    <button class="close" data-dismiss="alert"></button>
-					<center>
-                    No Previous Receipt
-					</center>
-                    </div> 
-            <?php
-			}
-			else
-			{
-			?>
-                    <div class="alert">
-					<button class="close" data-dismiss="alert"></button>
-					<center>
-                    The Last Receipt Number is : <?php echo $zz; ?>
-					</center>
-                    </div> 
-
-            <?php } ?>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>			
 <center>
 <a href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt" class="btn red" rel='tab'>Create</a>

@@ -70,7 +70,11 @@ $m_to = new MongoDate(strtotime($m_to));
 			$amount = $collection['cash_bank']['amount'];
 			$amount_category_id = (int)$collection['cash_bank']['amount_category_id'];
 			$current_date = $collection['cash_bank']['current_date'];
-					 
+			if($receipt_mode == "Cheque" || $receipt_mode == "NEFT")
+			{
+			$cheque_no = $collection['cash_bank']['cheque_no'];	
+			$receipt_mode = $receipt_mode."(".$cheque_no.")";
+			}
 			if($member == 1)
 			{
 			
