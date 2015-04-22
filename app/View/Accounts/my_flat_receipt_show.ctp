@@ -55,29 +55,39 @@ $m_to = new MongoDate(strtotime($m_to));
 			$total_debit = 0;
 			foreach ($cursor1 as $collection) 
 			{
-			$receipt_no = $collection['bank_receipt']['receipt_id'];
-			$transaction_id = (int)$collection['bank_receipt']['transaction_id'];	
-			$date = $collection['bank_receipt']['transaction_date'];
-			$prepaired_by_id = (int)$collection['bank_receipt']['prepaired_by'];
-			$member = (int)$collection['bank_receipt']['member'];
-			$narration = $collection['bank_receipt']['narration'];
-			$receipt_mode = $collection['bank_receipt']['receipt_mode'];
-			$receipt_instruction = $collection['bank_receipt']['receipt_instruction'];
-			$account_id = (int)$collection['bank_receipt']['sub_account_id'];
-			$amount = $collection['bank_receipt']['amount'];
-			$amount_category_id = (int)$collection['bank_receipt']['amount_category_id'];
-			$current_date = $collection['bank_receipt']['current_date'];  
+			$receipt_no = $collection['cash_bank']['receipt_id'];
+			$transaction_id = (int)$collection['cash_bank']['transaction_id'];	
+			$date = $collection['cash_bank']['transaction_date'];
+			$prepaired_by_id = (int)$collection['cash_bank']['prepaired_by'];
+			$member = (int)$collection['cash_bank']['member'];
+			$narration = $collection['cash_bank']['narration'];
+			$receipt_mode = $collection['cash_bank']['receipt_mode'];
+			$receipt_instruction = $collection['cash_bank']['receipt_instruction'];
+			$account_id = (int)$collection['cash_bank']['account_head'];
+			$amount = $collection['cash_bank']['amount'];
+			$amount_category_id = (int)$collection['cash_bank']['amount_category_id'];
+			$current_date = $collection['cash_bank']['current_date'];  
                      
                      
              if($member == 1)
 			{
-			$received_from_id = (int)$collection['bank_receipt']['user_id'];
-			$ref = $collection['bank_receipt']['bill_reference'];
+			$received_from_id = (int)$collection['cash_bank']['user_id'];
+			$ref = $collection['cash_bank']['bill_reference'];
 			$ref = "Bill No:".$ref;
 			}        
-                     
+              
+			  
+$result1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($received_from_id)));	
+foreach($result1 as $collection)
+{	
+$user_id = (int)$collection['ledger_sub_account']['user_id'];
+}			  
+			  
+			  
+			  
+			         
             $creation_date = date('d-m-Y',$current_date->sec);	         
-            	$result_prb = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($prepaired_by_id)));
+            $result_prb = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($prepaired_by_id)));
 			foreach ($result_prb as $collection) 
 			{
 			$prepaired_by_name = $collection['user']['user_name'];
@@ -116,7 +126,7 @@ $m_to = new MongoDate(strtotime($m_to));
                                             <td><?php echo $amount; ?></td>
                                             
                                             <td class="hide_at_print"> <!--<a href="#" class="btn mini blue">Reverse</a> -->
-                                            <a href="bank_receipt_pdf?c=<?php echo $transaction_id; ?>" class="btn mini purple  tooltips" target="_blank" data-placement="bottom" data-original-title="Download Pdf">Pdf</a>
+                                            <a href="bank_receipt_pdf?c=<?php echo $transaction_id; ?>&m=1" class="btn mini purple  tooltips" target="_blank" data-placement="bottom" data-original-title="Download Pdf">Pdf</a>
                                              <a href="" class="btn mini black tooltips" data-placement="bottom" data-original-title="Created By:<?php echo $prepaired_by_name; ?>
 										     Creation Date : <?php echo $creation_date; ?>">!</a>
 											  <!-- <a href="bank_receipt_edit.php?a=<?php //echo $receipt_no; ?>" class="btn mini purple">Edit</a> -->

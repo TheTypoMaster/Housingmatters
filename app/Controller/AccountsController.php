@@ -1343,7 +1343,35 @@ $wing_name = $collection['wing']['wing_name'];
 }
 
 /////////////////////////// End My Flat Bill (Accounts) ////////////////////////////
+/////////////////////////// Start Bank Receipt Pdf (Accounts)//////////////////////////////////////
+function bank_receipt_pdf()
+{
+$this->layout = 'pdf'; //this will use the pdf.ctp layout 
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');	
 
+$module_id = (int)$this->request->query('m');
+$trns_id = (int)$this->request->query('c');
+$this->set('trns_id',$trns_id);
+$this->set('module_id',$module_id);
+
+$this->loadmodel('cash_bank');
+$conditions=array("transaction_id" => $trns_id,"module_id"=>$module_id);
+$cursor1=$this->cash_bank->find('all',array('conditions'=>$conditions));
+$this->set('cursor1',$cursor1);
+
+
+
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor2=$this->society->find('all',array('conditions'=>$conditions));
+$this->set('cursor2',$cursor2);
+
+
+
+}
+////////////////////////////////////////// End Bank Receipt Pdf (Accounts)////////////////////////////////////
 ///////////////// Start my flat bill Ajax(accounts)///////////////////////////////////
 function my_flat_bill_ajax()
 {
@@ -1679,30 +1707,36 @@ Bank Receipt Report</th>
 
 $total_credit = 0;
 $total_debit = 0;
-$this->loadmodel('bank_receipt');
-$conditions=array("user_id"=>$auto_id,"society_id"=>$s_society_id,"amount_category_id"=>1);
-$cursor1 = $this->bank_receipt->find('all',array('conditions'=>$conditions));
+$this->loadmodel('cash_bank');
+$conditions=array("user_id"=>$auto_id,"society_id"=>$s_society_id,"module_id"=>1);
+$cursor1 = $this->cash_bank->find('all',array('conditions'=>$conditions));
 foreach ($cursor1 as $collection) 
 {
-$receipt_no = $collection['bank_receipt']['receipt_id'];
-$transaction_id = (int)$collection['bank_receipt']['transaction_id'];	
-$date = $collection['bank_receipt']['transaction_date'];
-$prepaired_by_id = (int)$collection['bank_receipt']['prepaired_by'];
-$member = (int)$collection['bank_receipt']['member'];
-$narration = $collection['bank_receipt']['narration'];
-$receipt_mode = $collection['bank_receipt']['receipt_mode'];
-$receipt_instruction = $collection['bank_receipt']['receipt_instruction'];
-$account_id = (int)$collection['bank_receipt']['sub_account_id'];
-$amount = $collection['bank_receipt']['amount'];
-$amount_category_id = (int)$collection['bank_receipt']['amount_category_id'];
-$current_date = $collection['bank_receipt']['current_date'];  
+$receipt_no = $collection['cash_bank']['receipt_id'];
+$transaction_id = (int)$collection['cash_bank']['transaction_id'];	
+$date = $collection['cash_bank']['transaction_date'];
+$prepaired_by_id = (int)$collection['cash_bank']['prepaired_by'];
+$member = (int)$collection['cash_bank']['member'];
+$narration = $collection['cash_bank']['narration'];
+$receipt_mode = $collection['cash_bank']['receipt_mode'];
+$receipt_instruction = $collection['cash_bank']['receipt_instruction'];
+$account_id = (int)$collection['cash_bank']['account_head'];
+$amount = $collection['cash_bank']['amount'];
+$amount_category_id = (int)$collection['cash_bank']['amount_category_id'];
+$current_date = $collection['cash_bank']['current_date'];  
                      
 if($member == 1)
 {
-$received_from_id = (int)$collection['bank_receipt']['user_id'];
-$ref = $collection['bank_receipt']['bill_reference'];
+$received_from_id = (int)$collection['cash_bank']['user_id'];
+$ref = $collection['cash_bank']['bill_reference'];
 $ref = "Bill No:".$ref;
 }     
+
+$result1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($received_from_id)));	
+foreach($result1 as $collection)
+{	
+$user_id = (int)$collection['ledger_sub_account']['user_id'];
+}		
 
 $creation_date = date('d-m-Y',$current_date->sec);	         
 $result_prb = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($prepaired_by_id)));
@@ -1796,9 +1830,9 @@ $user_name = $collection['ledger_sub_account']['name'];
 $this->set('user_name',$user_name);
 
 
-$this->loadmodel('bank_receipt');
-$conditions=array("user_id"=>$auto_id,"society_id"=>$s_society_id,"amount_category_id"=>1);
-$cursor1 = $this->bank_receipt->find('all',array('conditions'=>$conditions));
+$this->loadmodel('cash_bank');
+$conditions=array("user_id"=>$auto_id,"society_id"=>$s_society_id,"module_id"=>1);
+$cursor1 = $this->cash_bank->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);
 
 

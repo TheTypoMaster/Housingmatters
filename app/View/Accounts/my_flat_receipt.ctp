@@ -24,7 +24,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </span>
 </div>-->
 <?php
-$b_date = date('1-d-Y');
+$b_date = date('1-m-Y');
 $c_date = date('d-m-Y');
 ?>
 <center>
@@ -44,9 +44,10 @@ $c_date = date('d-m-Y');
 </tr>
 </table>
 </center>
+</div>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <center>
-<div style="width:94%;" id="result">
+<div style="width:100%;" id="result">
 
 </div>
 </center>
