@@ -125,11 +125,13 @@ $terms_name = $terms_con[$i];
 <?php } ?>
 <?php ///////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
-for($j=0; $j<sizeof($terms_con); $j++)
-{
-$terms_edit_name = $terms_con[$j];	
+
 ?>
 <form method="post">
+<?php
+for($j=0; $j<sizeof($terms_con); $j++)
+{
+$terms_edit_name = $terms_con[$j];	?>
 <div id="myModal<?php echo $j; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="false" style="display: block;">
 <div class="modal-header">
 <center>
@@ -147,10 +149,15 @@ $terms_edit_name = $terms_con[$j];
 <button type="submit" class="btn blue" name="del">Confirm</button>
 </div>
 </div>
+<?php } ?>  
 </form>
 
 
 <form method="post">
+<?php
+for($j=0; $j<sizeof($terms_con); $j++)
+{
+$terms_edit_name = $terms_con[$j];	?>
 <div id="myModal2<?php echo $j; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="false" style="display: block;">
 <div class="modal-header">
 <center>
@@ -168,13 +175,14 @@ $terms_edit_name = $terms_con[$j];
 <button type="submit" class="btn blue" name="edit">Confirm</button>
 </div>
 </div>
+<?php } ?>
 </form>
 
 
 
 
 
- <?php } ?>                               
+                              
                                 
 <?php ///////////////////////////////////////////////////////////////////////////////////////////// ?>
 
@@ -229,69 +237,4 @@ $.validator.setDefaults({ ignore: ":hidden:not(select)" });
 
 }); 
 </script>	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
