@@ -1,3 +1,27 @@
+<?php			
+if($zz == 0)
+{
+?>
+<div class="alert">
+<button class="close" data-dismiss="alert"></button>
+<center>
+No Previous Voucher
+</center>
+</div> 
+<?php
+}
+else
+{
+?>
+<div class="alert">
+<button class="close" data-dismiss="alert"></button>
+<center>
+The Last Voucher Number is : <?php echo $zz; ?>
+</center>
+</div> 
+<?php } ?>
+
+
 <?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 ?>				   
@@ -67,28 +91,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
             </table>     
            <?php } */?> 
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>     
-	<?php			
-						if($zz == 0)
-						{
-						?>
-						<div class="alert">
-						<button class="close" data-dismiss="alert"></button>
-						<center>
-						No Previous Voucher
-						</center>
-						</div> 
-						<?php
-						}
-						else
-						{
-						?>
-						<div class="alert">
-						<button class="close" data-dismiss="alert"></button>
-						<center>
-						The Last Voucher Number is : <?php echo $zz; ?>
-						</center>
-						</div> 
-						<?php } ?>
+	
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <center>
 <a href="<?php echo $webroot_path; ?>Cashbanks/bank_payment" class="btn red" rel='tab'>Create</a>

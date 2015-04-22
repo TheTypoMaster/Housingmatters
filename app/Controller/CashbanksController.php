@@ -1833,7 +1833,7 @@ $excel.="<tr>
 <td>$receipt_no</td>
 <td>$date</td>
 <td>$narration</td>
-<td>$user_name &nbsp&nbsp&nbsp&nbsp$wing_flat</td>
+<td>$user_name &nbsp&nbsp&nbsp&nbsp $wing_flat</td>
 <td>$amount</td>
 </tr>";
  }}}

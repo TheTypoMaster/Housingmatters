@@ -1,4 +1,31 @@
 <?php
+if($zz == 0)
+{
+?>
+<div class="alert">
+<button class="close" data-dismiss="alert"></button>
+<center>
+No Previous receipt
+</center>
+</div> 
+<?php
+}
+else
+{
+?>
+<div class="alert">
+<button class="close" data-dismiss="alert"></button>
+<center>
+The Last Receipt Number is : <?php echo $zz; ?>
+</center>
+</div> 
+<?php } ?>
+
+
+
+
+
+<?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 ?>				   
 <script>
@@ -62,29 +89,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
             </table>   
 			<?php } */ ?>
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-	                    <?php
-	                    if($zz == 0)
-						{
-						?>
-						<div class="alert">
-						<button class="close" data-dismiss="alert"></button>
-						<center>
-						No Previous receipt
-						</center>
-						</div> 
-						<?php
-						}
-						else
-						{
-						?>
-
-						<div class="alert">
-						<button class="close" data-dismiss="alert"></button>
-						<center>
-						The Last Receipt Number is : <?php echo $zz; ?>
-						</center>
-						</div> 
-						<?php } ?>
+	                  
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
             
 <center>                
@@ -92,7 +97,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <a href="<?php echo $webroot_path; ?>Cashbanks/petty_cash_receipt_view" class="btn blue" rel='tab'>View</a>
 </center>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-
+<br />
 									<div class="portlet box grey" style="width:60%; margin-left:20%; margin-right:20%;">
 									<div class="portlet-title">
 									<h4><i class="icon-reorder"></i>Petty Cash Receipt</h4>

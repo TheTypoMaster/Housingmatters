@@ -1,4 +1,28 @@
 <?php
+if($zz == 0)
+{
+?>
+<div class="alert">
+<button class="close" data-dismiss="alert"></button>
+<center>
+No Previous Voucher
+</center>
+</div> 
+<?php
+}
+else
+{
+?>
+<div class="alert">
+<button class="close" data-dismiss="alert"></button>
+<center>
+The Last Voucher Number is : <?php echo $zz; ?>
+</center>
+</div> 
+<?php } ?>
+
+
+<?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 ?>				   
 <script>
@@ -64,31 +88,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 		   */
 		   ?>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-								<?php
-								if($zz == 0)
-								{
-								?>
-
-								<div class="alert">
-								<button class="close" data-dismiss="alert"></button>
-								<center>
-								No Previous Voucher
-								</center>
-								</div> 
-								<?php
-								}
-								else
-								{
-								?>
-
-								<div class="alert">
-								<button class="close" data-dismiss="alert"></button>
-								<center>
-								The Last Voucher Number is : <?php echo $zz; ?>
-								</center>
-								</div> 
-
-								<?php } ?>
+								
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 			<center>
 			<a href="<?php echo $webroot_path; ?>Cashbanks/petty_cash_payment" class="btn red" rel='tab'>Create</a>
@@ -97,7 +97,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		   
 		   
-		   
+<br />		   
 
 									<div class="portlet box grey" style="width:60%; margin-left:20%; margin-right:20%;">
 									<div class="portlet-title">
