@@ -17,7 +17,7 @@ $tcpdf->AddPage();
 // example:  
 $tcpdf->SetTextColor(0, 0, 0); 
 $tcpdf->SetFont($textfont,12); 
-$tcpdf->writeHTML($bill_html);
+//$tcpdf->writeHTML($bill_html);
 
 foreach($cursor1 as $collection)
 {
@@ -28,7 +28,7 @@ $date_from = $collection['adhoc_bill']['bill_daterange_from'];
 $bill_type = $collection['adhoc_bill']['residential'];
 //$date_to = $collection['regular_bill']['bill_daterange_to'];
 //$ih_id1 = $collection['regular_bill']["ih_id"];
-$ih_detail2 = $collection['adhoc_bill']['ih_detail'];
+$ih_detail2 = @$collection['adhoc_bill']['ih_detail'];
 //$tax_id=(int)$collection['regular_bill']["tax_id"]; 
 $date=$collection['adhoc_bill']["date"];
 //$terms_conditions_id=$collection['regular_bill']["terms_conditions_id"];
@@ -50,9 +50,16 @@ $company_name = $collection['adhoc_bill']['company_name'];
 $user_name = $collection['adhoc_bill']['person_name'];	
 }
 }
+
+$result11 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($user_id)));
+foreach($result11 as $collection)
+{
+$user_id2 = (int)$collection['ledger_sub_account']['user_id'];
+}
+
 if($bill_type == 'y')
 {
-$result1 = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));
+$result1 = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id2)));
 foreach($result1 as $collection)
 {
 $user_name=$collection['user']["user_name"];	

@@ -122,7 +122,7 @@ foreach($result2 as $collection)
 {
 $ih_name = $collection['ledger_account']['ledger_name'];	
 }
-$sub_total = $sub_total+
+
 $q.='
 <tr>
 <td>'.$ih_name.'</td>

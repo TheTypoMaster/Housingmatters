@@ -12,10 +12,11 @@ $ih3 = explode('/',$ih);
 <div style="width:90%; background-color:white; overflow:auto;">
 <br><Br><br>
 <div style="width:90%; border:solid 1px;;">
+<br />
 <table border="0">
 <tr>
 <th style="text-align:center;">
-<p style="font-size:22px;"><?php echo $society_name; ?></p>
+<p style="font-size:22px;"><?php echo $society_name; ?>  Society</p>
 </th>
 </tr>
 <td style="text-align:center;">
@@ -230,13 +231,27 @@ echo $gt; ?></th>
 <table border="0" style="width:100%;">
 <tr>
 <th style="text-align:left;">
+Description:
+</th>
+</tr>
+<tr>
+<td>
+<?php echo $desc; ?>
+</td>
+</tr>
+</table>
+</div>
+<div style="width:90%; border:solid 1px; border-top:none;">
+<table border="0" style="width:100%;">
+<tr>
+<th style="text-align:left;">
 Terms And Conditions:
 </th>
 </tr>
 <?php
-foreach($cursorr as $collection)
+for($r=0; $r<sizeof($terms_arr); $r++)
 {
-$tems_name = $collection['terms_condition']['terms_conditions'];
+$tems_name = $terms_arr[$r];
 ?>
 <tr>
 <td style="text-align:left;"><?php echo $tems_name; ?></td>
@@ -246,17 +261,25 @@ $tems_name = $collection['terms_condition']['terms_conditions'];
 ?>
 </table> 
 </div>
+<div style="width:90%; border:solid 1px; border-top:none;">
+<br /><br /><br />
+<table border="0" style="width:100%;">
+<tr>
+<td style="text-align:right;"><p style="font-size:16px; margin-right:10%;"><b><?php echo $society_name; ?> Society</b></p></td>
+</tr>
+</table>
+</div>
 <br><br><br><br>
 </div>
 
 <form method="post">
 <input type="hidden" name="from" value="<?php echo $from; ?>" />
-<input type="hidden" name="to" value="<?php echo $to; ?>" />
+<!--<input type="hidden" name="to" value="<?php echo $to; ?>" /> -->
 <input type="hidden" name="due_date" value="<?php echo $due_date; ?>" />
 
-<input type="hidden" name="tax1" value="<?php echo $tax1; ?>" />
+<!--<input type="hidden" name="tax1" value="<?php echo $tax1; ?>" /> -->
 <input type="hidden" name="desc" value="<?php echo $desc; ?>" />
-<input type="hidden" name="tem" value="<?php echo $tem; ?>" />
+<!--<input type="hidden" name="tem" value="<?php echo $tem; ?>" />-->
 <input type="hidden" name="type" value="<?php echo $type; ?>" />
 <?php
 if($type == 1)

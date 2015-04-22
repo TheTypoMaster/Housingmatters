@@ -394,7 +394,7 @@ foreach($cursor as $collection)
 {
 $flat_type_id = (int)$collection['flat']['flat_type_id'];
 //$flat_master_id = (int)$collection['flat']['flat_master_id'];
-$noc_ch_id = (int)$collection['flat']['noc_ch_type'];
+$noc_ch_id = (int)@$collection['flat']['noc_ch_type'];
 $sq_feet = (int)$collection['flat']['flat_area'];
 }
 /*
@@ -812,6 +812,7 @@ $html='<center>
 <div style="700px; background-color:white; overflow:auto;">
 <br><Br><br>
 <div style="width:80%; border:solid 1px; overflow:auto;">
+<br>
 <table border="0" style="width:100%;">
 <tr>
 <th style="text-align:center;">
@@ -862,7 +863,7 @@ Name :
 </tr>
 </table>
 </div>
-<div style="width:80.4%; overflow:auto;">
+<div style="width:80.2%; overflow:auto;">
 <table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="0">
 <tr>
 <td style="width:80%; text-align:center;">Particulars</td>
@@ -988,8 +989,7 @@ $html.='</table>
 <table border="0" style="width:100%;">
 <tr>
 <td style="text-align:right;">
-<b>
-<p style="font-size:18px;>'.$society_name.' Society</b></p>
+<p style="font-size:16px; margin-right:10%;"><b>'.$society_name.' Society </b></p>
 </td>
 </tr>
 </table>
@@ -1011,6 +1011,7 @@ $html_mail='<center>
 <div style="width:700px; background-color:white; overflow:auto;">
 <br><Br><br>
 <div style="width:96%; border:solid 1px; overflow:auto; border-bottom:none;">
+<br>
 <table border="0" style="width:100%;">
 <tr>
 <th style="text-align:center;">
@@ -1061,7 +1062,7 @@ Name :
 </tr>
 </table>
 </div>
-<div style="width:96.4%; overflow:auto;">
+<div style="width:96.2%; overflow:auto;">
 <table border="1" style="width:100%; border:black;  border-collapse:collapse; margine-left:2px;" cellpadding="0" cellspacing="0">
 <tr>
 <td style="width:80%; text-align:center;">Particulars</td>
@@ -1184,8 +1185,8 @@ $html_mail.='</table>
 <table border="0" style="width:100%;">
 <tr>
 <td style="text-align:right;">
-<b>
-<p style="font-size:18px;>'.$society_name.' Society</b></p>
+
+<p style="font-size:16px;  margin-right:10%;"><b>'.$society_name.' Society</b></p>
 </td>
 </tr>
 </table>
@@ -2246,11 +2247,7 @@ $resi3=$this->encode($resi_id,'housingmatters');
 $this->response->header('Location','supplimentry_bill_view2?f='.$f2.'&due='.$due3.'&ih='.$ih3.'&d='.$desc3.'&tp='.$bill_tp3.'&res='.$resi3.' ');
 
 
-?>
-<script>
-//window.location.href="supplimentry_bill_view2?f=<?php echo $f2; ?>&t=<?php echo $t2; ?>&due=<?php echo $due3; ?>&ih=<?php echo $ih3; ?>&tax=<?php echo $tax3; ?>&d=<?php echo $desc3; ?>&tem=<?php echo $tem3; ?>&tp=<?php echo $bill_tp3; ?>&res=<?php echo $resi3; ?>";
-</script>
-<?php
+
 }
 }
 
@@ -2296,11 +2293,6 @@ $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
 
 
-$this->loadmodel('terms_condition');
-$conditions=array("status"=>1,"society_id" => $s_society_id);
-$cursorr =$this->terms_condition->find('all',array('conditions'=>$conditions));
-$this->set('cursorr',$cursorr);
-
 
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
@@ -2310,11 +2302,12 @@ foreach($cursor as $collection)
 $society_name = $collection['society']['society_name'];
 $society_reg_no = $collection['society']['society_reg_num'];
 $society_address = $collection['society']['society_address'];
+$terms_arr = $collection['society']['terms_conditions'];
 }
 $this->set('society_name',$society_name);
 $this->set('society_reg_no',$society_reg_no);
 $this->set('society_address',$society_address);
-
+$this->set('terms_arr',$terms_arr);
 $from4 = $this->request->query('f');
 //$to4 = $this->request->query('t');
 $due_date4 = $this->request->query('due');
@@ -2428,7 +2421,7 @@ $flat1 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fet
 foreach($flat1 as $collection)
 {
 $flat_type_id = (int)$collection['flat']['flat_type_id'];
-$flat_master_id = (int)$collection['flat']['flat_master_id'];
+//$flat_master_id = (int)$collection['flat']['flat_master_id'];
 }
 /*
 $flat2 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_fetch'),array('pass'=>array($flat_type_id)));
@@ -2498,10 +2491,11 @@ $html='<center>
 <div style="width:90%; background-color:white; overflow:auto;">
 <br><Br><br>
 <div style="width:90%; border:solid 1px;">
+<br>
 <table border="0">
 <tr>
 <th style="text-align:center;">
-<p style="font-size:22px;">'.$society_name.'</p>
+<p style="font-size:22px;">'.$society_name.' Society</p>
 </th>
 </tr>
 <td style="text-align:center;">
@@ -2673,20 +2667,38 @@ $html.='
 <table border="0" style="width:100%;">
 <tr>
 <th style="text-align:left;">
+Description:
+</th>
+</tr>
+<tr>
+<td>'.$desc.'</td>
+</table>
+</div>
+<div style="width:90%; border:solid 1px; border-top:none;">
+<table border="0" style="width:100%;">
+<tr>
+<th style="text-align:left;">
 Terms And Conditions:
 </th>
 </tr>';
-$this->loadmodel('terms_condition');
-$conditions=array("status"=>1,"society_id" => $s_society_id);
-$cursor =$this->terms_condition->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
+for($r=0; $r<sizeof($terms_arr); $r++)
 {
-$tems_name = $collection['terms_condition']['terms_conditions'];
+$tems_name = $terms_arr[$r];
 $html.='<tr>
 <td style="text-align:left;">'.$tems_name.'</td>
 </tr>';
 }
 $html.='</table> 
+</div>
+<div style="width:90%; border:solid 1px; border-top:none;">
+<br><br><br>
+<table border="0" style="width:100%;">
+<tr>
+<td style="text-align:right;">
+<p style="font-size:16px; margin-right:10%;"><b>'.$society_name.' Society</b></p>
+</td>
+</tr>
+</table>
 </div>
 <br><br><br><br>
 </div>';

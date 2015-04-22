@@ -1,26 +1,9 @@
 <?php
-echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
-?>				   
-<script>
-$(document).ready(function() {
-$("#fix<?php echo $id_current_page; ?>").removeClass("blue");
-$("#fix<?php echo $id_current_page; ?>").addClass("red");
-});
-</script>
+//$word = $this->requestAction(array('controller' => 'hms', 'action' => 'convert_number_to_words'),array('pass'=>array(1000)));
 
-<input type="hidden" id="fi" value="<?php echo $datef1; ?>" />
-<input type="hidden" id="ti" value="<?php echo $datet1; ?>" />
-<input type="hidden" id="cn" value="<?php echo $count; ?>" />
+//echo $word;
+?>
 
-
-
-
-<?php //////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<center>
-<h3><b>Expense Tracker Add</b>
-</center>
-
-<?php //////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
 
 if($zz == 0)
@@ -44,6 +27,33 @@ The Last Receipt Number is : <?php echo $zz; ?>
 </center>
 </div> 
 <?php } ?>
+
+
+
+<?php
+echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
+?>				   
+<script>
+$(document).ready(function() {
+$("#fix<?php echo $id_current_page; ?>").removeClass("blue");
+$("#fix<?php echo $id_current_page; ?>").addClass("red");
+});
+</script>
+
+<input type="hidden" id="fi" value="<?php echo $datef1; ?>" />
+<input type="hidden" id="ti" value="<?php echo $datet1; ?>" />
+<input type="hidden" id="cn" value="<?php echo $count; ?>" />
+
+
+
+
+<?php //////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<center>
+<h3><b>Expense Tracker Add</b>
+</center>
+
+<?php //////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+
 
 
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>

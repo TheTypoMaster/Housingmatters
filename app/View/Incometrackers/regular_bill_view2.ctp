@@ -152,7 +152,7 @@ foreach($result3 as $collection3)
 $flat_type_id = (int)$collection3['flat']['flat_type_id'];
 //$flat_master_id = (int)$collection3['flat']['flat_master_id'];
 $sq_feet = (int)$collection3['flat']['flat_area'];
-$noc_ch_id = (int)$collection3['flat']['noc_ch_type'];
+$noc_ch_id = (int)@$collection3['flat']['noc_ch_type'];
 }
 /*
 $result4 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_master_fetch'),array('pass'=>array($flat_master_id)));
@@ -231,8 +231,8 @@ $amount = $noc_charge[1];
 $noc_amt = $amount;	
 }
 }
-$noc_tt_amt = $noc_tt_amt + $noc_amt;
-$total_amt = $total_amt + $noc_amt;
+$noc_tt_amt = $noc_tt_amt + @$noc_amt;
+$total_amt = $total_amt + @$noc_amt;
 $gt_amt = $gt_amt + @$due_taxamt + $total_amt + @$due_amount;
 $gt_tt_amt = $gt_tt_amt + $total_amt;
 $gt_penalty_amt = $gt_penalty_amt + @$due_taxamt;
