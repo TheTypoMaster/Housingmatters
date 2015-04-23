@@ -1,108 +1,70 @@
 <?php ////////////////////////////////////////////////////////////////////////////// ?>
 <script>
 $(document).ready(function() {
-  
- 
- 
- $("#button_add").bind('click',function(){
-
-	var c=$('#t_box').val();
-  c++;
-   
-  $('#add_div').append($('<div>').load('master_sm_flat_add_row?con=' + c));
- 
-  document.getElementById('t_box').value=c;
- 
+$("#button_add").bind('click',function(){
+var c=$('#t_box').val();
+c++;
+$('#add_div').append($('<div>').load('master_sm_flat_add_row?con=' + c));
+document.getElementById('t_box').value=c;
 });
-
 $("#button_remove").live('click',function(){
-	d=document.getElementById('t_box').value;
-	if(d>1) {
-	$('#tab' + d).remove();
-    d--; 
-    $('#t_box').val(d);
-  
-   }
-	
+d=document.getElementById('t_box').value;
+if(d>1) {
+$('#tab' + d).remove();
+d--; 
+$('#t_box').val(d);
+}
 });
 });
 </script>
-<script>
-function validate()
+
+
+
+<script type="text/javascript">
+var xobj;
+//modern browers
+if(window.XMLHttpRequest)
 {
-var count = document.getElementById("t_box").value;	
+xobj=new XMLHttpRequest();
+}
+else if(window.ActiveXObject)
+{
+xobj=new ActiveXObject("Microsoft.XMLHTTP");
+}
+else
+{
+alert("Your broweser doesnot support ajax");
+}
+function search_topic()
+{
+if(xobj)
+{
+var count = document.getElementById('t_box').value;		 
 for(var i=1; i<=count; i++)
 {
-var wing = document.getElementById("sel" + i).value;	
-if(wing=== '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Fill All     Fields</div>'); return false; }
-
-var flat = document.getElementById("fl" + i).value;
-if(flat=== '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Fill All     Fields</div>'); return false; }
-
-var fltp = document.getElementById("fltp" + i).value;
-if(fltp=== '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Fill All     Fields</div>'); return false; }	
-
-var area = document.getElementById("ar" + i).value;
-if(area=== '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Fill All     Fields</div>'); return false; }	
-
-var noc = document.getElementById("noc" + i).value;
-if(noc=== '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Fill All     Fields</div>'); return false; }		
+var c2=document.getElementById("flat_id"+ i).value;
+var c3=document.getElementById("sel"+ i).value;	
+var query="?con1=" + c2 + "&con2=" + c3;
+xobj.open("GET","master_sm_flat_ajax" +query,true);
+xobj.onreadystatechange=function()
+{
+if(xobj.readyState==4 && xobj.status==200)
+{	   
+document.getElementById("ser_top").innerHTML=xobj.responseText;
 }
-	
-	
+}
+}
+}
+xobj.send(null);
 }
 </script>
-<?php //////////////////////////////////////////////////////////////////////////// ?> 
-
-   <script type="text/javascript">
-	var xobj;
-   //modern browers
-   if(window.XMLHttpRequest)
-    {
-	  xobj=new XMLHttpRequest();
-	  }
-	  //for ie
-	  else if(window.ActiveXObject)
-	   {
-	    xobj=new ActiveXObject("Microsoft.XMLHTTP");
-		}
-		else
-		{
-		  alert("Your broweser doesnot support ajax");
-		  }
-     
-		    function search_topic()
-		  {
-			
-		    if(xobj)
-			 {
-		     var count = document.getElementById('t_box').value;		 
-			for(var i=1; i<=count; i++)
-			{
-				
-			var c2=document.getElementById("flat_id"+ i).value;
-			var c3=document.getElementById("sel"+ i).value;	
-			var query="?con1=" + c2 + "&con2=" + c3;
-			 xobj.open("GET","master_sm_flat_ajax" +query,true);
-			 xobj.onreadystatechange=function()
-			  {
-			  if(xobj.readyState==4 && xobj.status==200)
-			   {	   
-			   document.getElementById("ser_top").innerHTML=xobj.responseText;
-			   }
-			  }
-			}
-			 }
-			 xobj.send(null);
-		  }
-    
-    </script>
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////// ?> 
 <?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 ?>
-  <div style="background-color:#EFEFEF; border-top:1px solid #e6e6e6; border-bottom:1px solid #e6e6e6; padding:10px; box-shadow:5px; font-size:16px; color:#006;">
-             Society Setup
-                 </div>
+<div style="background-color:#EFEFEF; border-top:1px solid #e6e6e6; border-bottom:1px solid #e6e6e6; padding:10px; box-shadow:5px; font-size:16px; color:#006;">
+Society Setup
+</div>
 				 
 				 
 				 
@@ -118,8 +80,9 @@ echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), a
 				<div class="tab-content" style="min-height:300px;">
 					<div class="tab-pane active" id="tab_1_1">
 					<div>
-					<div id="ser_top" align="center" style="margin-right:7%;"></div>
-					<div><?php echo @$wrong; ?>
+					<!--<div id="ser_top" align="center" style="margin-right:7%;"></div>-->
+                    
+					<div id="succ">
 <?php /////////////////////////////////////////////////////////////////////////////// ?>				
         <div class="portlet box grey" style="width:100%;">
               <div class="portlet-title">
@@ -132,7 +95,7 @@ echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), a
      
      
 
-<div id="validate_result"></div>
+<div id="error_msg"></div>
                 	<input type="hidden" id="t_box" name="xyz" value="1">
 					
 					
@@ -308,60 +271,6 @@ $flat_type = (int)$collection['flat_type_name']['flat_name'];
 		
 		
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
-		<script>
-$(document).ready(function(){
-	
-
-		$('#contact-form').validate({
-	    
-		
-		rules: {
-			
-		
-			
-	      flat_name: {
-	       
-	        required: true,
-			maxlength: 4
-	      },
-		 
-		   wing_name: {
-	       
-	        required: true
-			
-	      }
-	    },
-		 messages: {
-	                flat_name: {
-	                    maxlength: "Please Maximum 4 characters."
-	                }
-		 },
-		
-			highlight: function(element) {
-				$(element).closest('.control-group').removeClass('success').addClass('error');
-			},
-			success: function(element) {
-				element
-				.text('OK!').addClass('valid')
-				.closest('.control-group').removeClass('error').addClass('success');
-			}
-	  });
-
-}); 
-</script>
-
-<script>
-function show_area(d,h)
-{
-var count = document.getElementById('t_box').value;
-
-$("#show"+ h).html('<div align="center" style="padding:10px;"><img src="as/loading.gif" />Loading....</div>').load("flat_no_ajax?con=" +d+ "&t2=" +h+ "");
-}
-</script>
-
-
-
-
 <script>
 function show_flat(e,y)
 {
@@ -371,4 +280,49 @@ $("#showflat"+ y).html('<div align="center" style="padding:10px;"><img src="as/l
 </script>
 
 
+<script>
+$(document).ready(function() { 
+$('form').submit( function(ev){
+ev.preventDefault();
+$("#submit").addClass("disabled").text("submiting...");
 
+var hidden = $("#t_box").val();
+var ar = [];
+for(var i=1;i<=hidden;i++)
+{
+var wing = $("#sel"+i).val();
+var flat_nu = $("#fl"+i).val();
+var flat_type_id = $("#fltp"+i).val();
+var flat_area = $("#ar"+i).val();
+var noc_type = $("#noc"+i).val();
+
+ar.push([wing,flat_nu,flat_type_id,flat_area,noc_type]);
+
+var myJsonString = JSON.stringify(ar);
+
+}
+$.ajax({
+url: "master_sm_flat_vali?q="+myJsonString,
+dataType:'json',
+}).done(function(response) {
+
+if(response.type == 'error'){  
+output = '<div class="alert alert-error">'+response.text+'</div>';
+$("#submit").removeClass("disabled").text("submit");
+$("html, body").animate({
+scrollTop:0
+},"slow");
+}
+if(response.type=='succ'){
+$("#succ").html('<div class="alert alert-block alert-success fade in"><h4 class="alert-heading">Success!</h4><p>Record Inserted Successfully</p><p><a class="btn green" href="<?php echo $webroot_path; ?>Hms/master_sm_flat" rel="tab">OK</a></p></div>');
+				
+}
+
+$("#error_msg").html(output);
+});
+
+
+});
+});
+
+</script>

@@ -20095,5 +20095,191 @@ $this->ledger_sub_account->saveAll($multipleRowData);
 }
 ///////////////////////////////// End Insert Query /////////////////////////////////////////////////////////////////
 
+//////////////////////////////// Start Master Sm Flat Vali //////////////////////////////////////////////////
+function master_sm_flat_vali()
+{
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id  = (int)$this->Session->read('user_id');
+$s_role_id = (int)$this->Session->read('role_id');
+
+$res_society=$this->society_name($s_society_id);
+foreach($res_society as $data)
+{
+$society_name=$data['society']['society_name'];
+}
+
+$q=$this->request->query('q');
+$q = html_entity_decode($q);
+
+$s_n='';
+$sco_na=$society_name;
+$dd=explode(' ',$sco_na);
+$first=$dd[0];
+@$two=$dd[1];
+@$three=$dd[2];
+$s_n.=" $first $two $three ";
+
+date_default_timezone_set('Asia/kolkata');
+$date=date("d-m-Y");
+$time=date('h:i:a',time());
+
+$myArray = json_decode($q, true);
+$c=0;
+foreach($myArray as $child)
+{
+$c++;
+
+if(empty($child[0])){
+$output = json_encode(array('type'=>'error', 'text' => 'Please Select Wing in row'.$c));
+die($output);
+}	
+
+if(empty($child[1])){
+$output = json_encode(array('type'=>'error', 'text' => 'Please Select Flat Number in row'.$c));
+die($output);
+}	
+
+$this->loadmodel('flat');
+$conditions=array("society_id"=>$s_society_id);
+$cursor3 = $this->flat->find('all',array('conditions'=>$conditions));
+foreach($cursor3 as $collection)
+{
+$wing_id = $collection['flat']['wing_id'];
+$flat_nu = $collection['flat']['flat_id'];
+$flat_area = $collection['flat']['flat_area'];
+
+if($wing_id == $child[0] and $flat_nu == $child[1] and !empty($flat_area))
+{
+$nnn = 55;
+break;
+}
+else
+{
+$nnn = 555;
+}
+}
+if($nnn == 55)
+{
+$output = json_encode(array('type'=>'error', 'text' => 'The Flat Number is Already Exist, Please Select Another Flat Number in row'.$c));
+die($output);
+}
+
+
+$wing_id1 = (int)$child[0];
+$flat_id = (int)$child[1];
+
+for($j=0; $j<sizeof($fl_arr); $j++)
+{
+$sub_arr2 = $fl_arr[$j];
+$wing_id2 = (int)$sub_arr2[0];
+$flat_id2 = (int)$sub_arr2[1];
+
+if($wing_id2 == $wing_id1 and $flat_id2 == $flat_id)
+{
+$mmm = 55;
+break;
+}
+else
+{
+$mmm = 555;
+}
+}
+
+if($mmm == 55)
+{
+$output = json_encode(array('type'=>'error', 'text' => 'Repeatation of Same Wing and Flat Number, Please Select Another Wing or Flat in row'.$c));
+die($output);
+}
+$sub_arr = array($wing_id1,$flat_id);
+$fl_arr[] = $sub_arr;
+
+if(empty($child[2])){
+$output = json_encode(array('type'=>'error', 'text' => 'Please Select Flat Type in row'.$c));
+die($output);
+}	
+
+if(empty($child[3])){
+$output = json_encode(array('type'=>'error', 'text' => 'Please Fill Area of the Flat in row'.$c));
+die($output);
+}	
+
+if(is_numeric($child[3]))
+{
+}
+else
+{
+$output = json_encode(array('type'=>'error', 'text' => 'Please Fill Numeric Area of the Flat in row'.$c));
+die($output);
+}
+
+if(empty($child[4])){
+$output = json_encode(array('type'=>'error', 'text' => 'Please Select NOC Type in row'.$c));
+die($output);
+}	
+}
+
+foreach($myArray as $child)
+{
+$wing_id5 = (int)$child[0];
+$flat_id5 = (int)$child[1];
+$flat_type5 = (int)$child[2];
+$flat_area5 = (int)$child[3];
+$noc_type5 = (int)$child[4];
+
+///////////////////////////
+$qqq = 5;
+$this->loadmodel('flat_type');
+$condition=array('society_id'=>$s_society_id,"flat_type_id"=>$flat_type5);
+$cursor = $this->flat_type->find('all',array('conditions'=>$condition)); 
+foreach($cursor as $collection)
+{
+$auto_id = (int)@$collection['flat_type']['auto_id'];
+$no_of_flat = (int)@$collection['flat_type']['number_of_flat'];
+$qqq = 55;
+}
+if($qqq == 5)
+{
+
+$no_of_flat = 1;
+$this->loadmodel('flat_type');
+$p=$this->autoincrement('flat_type','auto_id');
+$this->flat_type->saveAll(array("auto_id" => $p,"flat_type_id"=> $flat_type5,"number_of_flat"=>$no_of_flat,"status"=>0,"society_id"=>$s_society_id));
+
+
+$this->loadmodel('flat');
+$this->flat->updateAll(array("flat_area"=>$flat_area5,"noc_ch_tp"=>$noc_type5,"flat_type_id"=>$p),array("flat_id"=>$flat_id5));
+}
+else if($qqq == 55)
+{
+$no_of_flat++;
+$this->loadmodel('flat_type');
+$this->flat_type->updateAll(array("number_of_flat"=>$no_of_flat),array("auto_id"=>$auto_id));
+
+$this->loadmodel('flat');
+$this->flat->updateAll(array("flat_area"=>$flat_area5,"noc_ch_tp"=>$noc_type5,"flat_type_id"=>$auto_id),array("flat_id"=>$flat_id5));
+}
+
+
+//////////////////////////////
+}
+
+
+
+$output = json_encode(array('type'=>'succ', 'text' => 'New Journal Entry Inserted in society successfully.'));
+    die($output);
+
+
+
+
+
+
+
+
+
+}
+//////////////////////////////// End Master Sm Flat Vali //////////////////////////////////////////////////
+
+
+
 }
 ?>
