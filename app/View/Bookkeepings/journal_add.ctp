@@ -1,4 +1,4 @@
- <?php
+<?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 ?>				   
 <script>
@@ -417,7 +417,7 @@ $(document).ready(function() {
 					 },"slow");
 				}
 				if(response.type=='succ'){
-				$("#succ").html("<p>"+response.text+"</p><p><a class='btn green' href='<?php echo $webroot_path; ?>Bookkeepings/journal_view' rel='tab' >ok</a></p>");
+				$("#succ").html('<div class="alert alert-block alert-success fade in"><h4 class="alert-heading">Success!</h4><p>Record Inserted Successfully</p><p><a class="btn green" href="<?php echo $webroot_path; ?>Bookkeepings/journal_view" rel="tab">OK</a></p></div>');
 				
 			}
 				
