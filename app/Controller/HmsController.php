@@ -18802,17 +18802,6 @@ foreach($cursor as $collection)
 $society_name = $collection['society']['society_name'];
 }
 
-
-
-
-
-
-
-
-
-
-
-
 $excel="<table border='1'>
 <tr>
 <th colspan='5' style='text-align:center;'>$society_name</th></tr>
@@ -18835,7 +18824,7 @@ $q++;
 $wing_id = (int)$collection['flat']['wing_id'];
 $flat_name = $collection['flat']['flat_name'];
 $flat_type_id = (int)$collection['flat']['flat_type_id'];
-$flat_master_id = (int)$collection['flat']['flat_master_id'];
+$sqfeet = (int)$collection['flat']['flat_area'];
 
 $wing_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_fetch'),array('pass'=>array($wing_id)));	
 foreach($wing_fetch as $collection)
@@ -18850,18 +18839,18 @@ foreach($fl_tp as $collection)
 $flat_type = $collection['flat_type_name']['flat_name'];
 }
 
-$fmaster = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_master_fetch2'),array('pass'=>array($flat_master_id)));	
-foreach($fmaster as $collection)
-{							
-$sqfeet = $collection['flat_master']['flat_area'];							
-}
+
 
 $excel.="<tr>
 <td>$q</td>
 <td>$wing_name</td>
 <td>$flat_name</td>
-<td>$flat_type</td>
-<td>$sqfeet</td>
+<td>";
+if($sqfeet == 0) 
+{ 
+$excel.="null"; } else { $excel.="$flat_type"; } $excel.="</td>
+<td>";
+if($sqfeet == 0) { $excel.="null"; } else { $excel.="$sqfeet"; } $excel.="</td>
 </tr>";
 }
 $excel.="</table>";
