@@ -747,8 +747,13 @@ if(@$complaints==1)
 
 <?php } ?>
 <!---------housingmatters------------->
-				
-				
+			
+<li>
+	<a href="<?php echo $webroot_path; ?>Classifieds/post_ad" rel='tab'>
+	<i class="icon-phone"></i> Classifieds
+	</a>					
+</li>
+			
 			</ul>
 			<!-- END SIDEBAR MENU -->
 		</div>
