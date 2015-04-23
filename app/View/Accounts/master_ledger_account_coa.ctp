@@ -8,7 +8,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
 
-
 <center><h3><b>Master Ledger Accounts</b></h3></center>
 <br>
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////?>
@@ -16,72 +15,58 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <a href="<?php echo $webroot_path; ?>Accounts/master_ledger_sub_accounts_coa" class="btn yellow" rel='tab'>Ledger Sub Accounts</a>
 
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
- <center>
-               <form method="post" id="contact-form"> 
-                         <table>
-                         <tr>
-                         <td>
-                         <select class="medium m-wrap" name="main_id" id="go">
-                         <option value="">--SELECT CATEGORY--</option>
-                         <?php
-                         foreach ($cursor1 as $collection) 
-						 {
-                         $auto_id = (int)$collection['accounts_groups']['auto_id'];
-                         $name = $collection['accounts_groups']['group_name']; 
-                         ?>
-                         <option value="<?php echo $auto_id; ?>"><?php echo $name; ?></option>
-                         <?php } ?>
-                         </select>
-						 <label id="go"></label>
-                         </td>
-                         </tr>
-                        
-                        
-                        <tr>
-                        <td>
-			            <input type="text" name="cat_name" placeholder="Name" class="m-wrap medium" style="background-color:white !important;" id="cat">
-						<label id="cat"></label>
-			            </td>
-                        </tr>
+<center>
+<form method="post" id="contact-form"> 
+<table>
+<tr>
+<td>
+<select class="medium m-wrap" name="main_id" id="go">
+<option value="">--SELECT CATEGORY--</option>
+<?php
+foreach ($cursor1 as $collection) 
+{
+$auto_id = (int)$collection['accounts_groups']['auto_id'];
+$name = $collection['accounts_groups']['group_name']; 
+?>
+<option value="<?php echo $auto_id; ?>"><?php echo $name; ?></option>
+<?php } ?>
+</select>
+<label id="go"></label>
+</td>
+</tr>
+
+<tr>
+<td>
+<input type="text" name="cat_name" placeholder="Name" class="m-wrap medium" style="background-color:white !important;" id="cat">
+<label id="cat"></label>
+</td>
+</tr>
 
                        
-                        <tr>
-                        <td id="result">
-			            
-						
-						<label id="rate"></label><label id="amt"></label>
-			            </td>
-                        </tr>
+<tr>
+<td id="result">
+<label id="rate"></label><label id="amt"></label>
+</td>
+</tr>
+                    
                        
-                       
-                       
-                       
-                       
-                       <tr>
-                       <td>
-                       <button type="submit" name="sub" class="btn blue">Add</button>
-			           </td>
-                       </tr>
-                       </table>
-                       </form>
-    
-               </center>
-			   
-<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////////////////////////// ?>			   
-			<br>
-            <center>
-			
+<tr>
+<td>
+<button type="submit" name="sub" class="btn blue">Add</button>
+</td>
+</tr>
+</table>
+</form>
+</center>
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>			   
+<br>
+<center>
 <div class="portlet box grey" style="width:90%;">
 <div style="background-color:#B2B2B2; border-top:1px solid #e6e6e6; border-bottom:1px solid #e6e6e6; padding:10px; box-shadow:5px; font-size:16px; color:#006;">
 <b style="color:white;">  Ledger Accounts </b>
 </div>
 <div class="portlet-body">
-
-
-					
-					<div style="width:100%;">
+<div style="width:100%;">
 					<table style="width:100%; background-color:white;" class="table table-bordered" id="sample_2">
                     <thead>			
 					<tr>
@@ -124,21 +109,10 @@ $result_ac = $this->requestAction(array('controller' => 'hms', 'action' => 'acco
              <?php if($edit_id == $s_user_id)
 			 {
              ?>
-<a href="#myModal<?php echo $auto_id5; ?>" role="button" class="btn mini purple" data-toggle="modal">Edit</a>
-<!--<a href="#myModal2<?php echo $auto_id5; ?>" role="button" class="btn mini black" data-toggle="modal">Delete</a>-->
-<!--<a href="master_ledger_account_coa?con=<?php echo $auto_id5; ?>" class="btn mini black">Delete</a>-->
+<a href="#myModal5<?php echo $auto_id5; ?>" role="button" class="btn mini purple" data-toggle="modal">Edit</a>
             <?php  } ?>
             </td>
 			</tr>
-           
-           <!-- <tr>
-            <td colspan="5" style="margin:0px; padding:0px; text-align:center;" >
-             <div id="collapse<?php echo $auto_id5; ?>" class="accordion-body collapse" style="height: 0px;">
-    <input type="text" style="margin-top:10px; background-color:white !important;" class="m-wrap medium" value="<?php echo $name; ?>" name="cat<?php echo $auto_id5; ?>" >
-    <button type="submit" class="btn yellow" style="margin-top:10px;" name="sub<?php echo $auto_id5; ?>">Update</button>
-    </div>
-            </td>
-            </tr> --> 
             <?php $n++; } ?> 
              </tbody>  
 			</table>
@@ -150,6 +124,7 @@ $result_ac = $this->requestAction(array('controller' => 'hms', 'action' => 'acco
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>	
 <form method="post">
 <?php
+
 foreach ($cursor2 as $collection) 
 {
 $auto_id2 = (int)$collection['ledger_account']['auto_id'];
@@ -160,10 +135,9 @@ $result_ag = $this->requestAction(array('controller' => 'hms', 'action' => 'acco
 foreach ($result_ag as $collection) 
 {
 $group_id = (int)$collection['accounts_group']['auto_id'];	
-//$group_name = $collection['accounts_group']['group_name'];	
-}
+} 
 ?>
-<div id="myModal<?php echo $auto_id2; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="false" style="display: block;">
+<div id="myModal5<?php echo $auto_id2; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="false" style="display:block;" >
 <div class="modal-header">
 <center>
 <h3 id="myModalLabel3" style="color:#999;"><b>Ledger Accounts</b></h3>
@@ -181,18 +155,18 @@ foreach($cursor3 as $collection)
 $group_id2 = (int)$collection['accounts_group']['auto_id'];	
 $group_name2 = $collection['accounts_group']['group_name'];	
 ?>
-<option value="<?php echo $group_id2; ?>" <?php if($group_id2 == $group_id) { ?> selected="selected" <?php } ?>><?php echo $group_name2; ?></option>
+<option value="<?php echo $group_id2; ?>" <?php if($group_id2 == $group_id) { ?> selected="selected" <?php } ?> ><?php echo $group_name2; ?></option>
 <?php } ?>
 </select>
 </td>
 </tr>
 <tr>
 <td>
-<input type="text" style="margin-top:10px; background-color:white !important;" class="m-wrap medium" value="<?php echo $name2; ?>" name="cat">
+<input type="text" style="margin-top:10px; background-color:white !important;" class="m-wrap medium" value="<?php echo $name2; ?>" name="cat" >
 </td>
 </tr>
 </table>  
-  </center>
+</center>
 </div>
 <div class="modal-footer">
 <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
@@ -202,6 +176,9 @@ $group_name2 = $collection['accounts_group']['group_name'];
 <?php } ?>
 </form>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>   
+
+<?php /*
+
 <form method="post">
 <?php
 foreach ($cursor2 as $collection) 
@@ -212,7 +189,7 @@ $name3 = $collection['ledger_account']['ledger_name'];
 
 
 ?>
-<div id="myModal2<?php echo $auto_id3; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="false" style="display: block;">
+<div id="myModal2<?php echo $auto_id3; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="false" style="display:block;" >
 <div class="modal-header">
 <center>
 <h3 id="myModalLabel3" style="color:#999;"><b>Ledger Accounts</b></h3>
@@ -230,19 +207,7 @@ $name3 = $collection['ledger_account']['ledger_name'];
 </div>    
 <?php } ?>
 </form>
-
-
-
-
-
-
-
-
-
-
-
-
-
+*/ ?>
 
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
@@ -315,7 +280,7 @@ $(document).ready(function(){
 			   
 			   
 			   
-			   
+		   
 			   
 			   
 			   
