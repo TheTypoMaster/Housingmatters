@@ -2416,11 +2416,6 @@ function parking_slot($park)
 
 //////////////////////////////// End Parking system ////////////////////////////////
 
-
-
-
-
-
 function change_role() 
 {
 $this->layout='blank';
@@ -20075,6 +20070,41 @@ die($output);
 }
 ////////////////////////////// End Flat type Validation //////////////////////////////////////////////////////////
 
+//////////////////////////////////////// Start Insert query /////////////////////////////////////////////////////////
+function query_insert()
+{
+$this->layout='blank';
+$s_society_id=$this->Session->read('society_id'); 
+$s_role_id=$this->Session->read('role_id');
+$s_user_id=$this->Session->read('user_id');
+
+
+$this->loadmodel('user');
+$cursor = $this->user->find('all');
+foreach($cursor as $collection)
+{
+$user_id = (int)$collection['user']['user_id'];
+$deactive = (int)$collection['user']['deactive'];
+$society_id = (int)$collection['user']['society_id'];
+$name = $collection['user']['user_name'];
+$role = $collection['user']['role_id'];
+
+for($r=0; $r<sizeof($role); $r++)
+{
+$role_id = (int)$role[$r];
+if($role_id == 2)
+{
+$k = (int)$this->autoincrement('ledger_sub_account','auto_id');
+$this->loadmodel('ledger_sub_account');
+$multipleRowData = Array( Array("auto_id"=>$k,"ledger_id"=>34,"delete_id"=>0,"society_id"=>$society_id,"name"=>$name,"user_id"=>$user_id,"deactive"=>$deactive));
+$this->ledger_sub_account->saveAll($multipleRowData);
+}
+}
+
+
+}
+}
+///////////////////////////////// End Insert Query /////////////////////////////////////////////////////////////////
 
 }
 ?>
