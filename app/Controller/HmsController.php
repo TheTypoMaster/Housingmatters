@@ -13235,29 +13235,31 @@ $this->set('result_select_category',$this->master_classified_category->find('all
 }
 
 
-function main_classified_category_name($main_category)
+function classified_category_name($main_category)
 {	
 $this->loadmodel('master_classified_category');
 $conditions=array("category_id" => $main_category);
-$resut=$this->master_classified_category->find('all',array('conditions'=>$conditions));
-foreach ($resut as $collection)
-{
-return $main_category_name=$collection['master_classified_category']['category_name'];
-}	
-
+$resut_category=$this->master_classified_category->find('all',array('conditions'=>$conditions));
+	foreach ($resut_category as $collection)
+	{
+	return $collection['master_classified_category']['category_name'];
+	}	
 }
 
 
 
 
 
-function master_classified_subcategory($classified_category_id)
+function classified_subcategory_name($classified_category_id)
 {
 
-$this->loadmodel('master_classified_subcategory');
-$conditions=array('category_id' => $classified_category_id);
-return $this->master_classified_subcategory->find('all',array('conditions'=>$conditions));
-
+$this->loadmodel('master_classified_subcategories');
+$conditions=array('subcategory_id' => $classified_category_id);
+$resut_subcategory=$this->master_classified_subcategories->find('all',array('conditions'=>$conditions));
+	foreach ($resut_subcategory as $collection)
+	{
+	return $collection['master_classified_subcategories']['subcategory_name'];
+	}	
 }
 
 

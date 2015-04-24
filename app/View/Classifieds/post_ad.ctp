@@ -1,6 +1,6 @@
 <div align="center">
-<a href="/Housingmatters/Events/events" id="fix16" class="btn allsubmenu blue" style="margin-left: 2px;margin-bottom: 4px;" rel="tab">View Classified Ads</a>
-<a href="/Housingmatters/Events/event_add" id="fix17" class="btn red allsubmenu" style="margin-left: 2px;margin-bottom: 4px;" rel="tab">Post new Classified Ad</a></div>
+<a href="/Housingmatters/Classifieds/classified_ads" class="btn allsubmenu blue" style="margin-left: 2px;margin-bottom: 4px;" rel="tab">View Classified Ads</a>
+<a href="/Housingmatters/Classifieds/post_ad" class="btn red allsubmenu" style="margin-left: 2px;margin-bottom: 4px;" rel="tab">Post new Classified Ad</a></div>
 
 <div class='alert alert-block alert-success fade in success_report' style="display:none;"></div>
 <div style="background-color:#fff;padding:5px;width:96%;margin:auto;" class="form_div">
