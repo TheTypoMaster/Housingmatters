@@ -37,7 +37,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <input type="hidden" id="ti" value="<?php echo $datet1; ?>" />
 <input type="hidden" id="cn" value="<?php echo $count; ?>" />
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-
+<div class='alert alert-block alert-success fade in success_report' style="display:none;"></div>
 <div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">
 <h4 style="color: #F497BA;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Post Expense</h4>
 <form method="post">
@@ -236,7 +236,7 @@ $(document).ready(function() {
 					});
 				}
 				if(response.report_type=='publish'){
-					
+                $("#shwd").show()	
 				}
 			
 			$("html, body").animate({
@@ -255,4 +255,41 @@ $(document).ready(function() {
 
 
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+
+
+
+
+<div id="shwd" class="hide">
+<div class="modal-backdrop fade in"></div>
+<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+<div class="modal-header">
+<center>
+<h3 id="myModalLabel3" style="color:#999;"><b>Expense Tracker</b></h3>
+</center>
+</div>
+<div class="modal-body">
+<center>
+<h5><b>Expense Voucher is generated successfully</b></h5>
+</center>
+</div>
+<div class="modal-footer">
+<a href="<?php echo $webroot_path; ?>Expensetrackers/expense_tracker_view" class="btn blue" rel='tab'>OK</a>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

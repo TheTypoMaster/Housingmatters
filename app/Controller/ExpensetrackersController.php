@@ -100,7 +100,7 @@ $this->set('cursor2',$cursor2);
 
 
 
-if(isset($this->request->data['ext_add']))
+if(isset($this->request->data['ext_addxfdfg']))
 {
 
 $posting_date = $this->request->data['posting_date'];
@@ -603,7 +603,8 @@ $description = $post_data['desc'];
 $posting_date = $post_data['posting'];	
 $due_date = $post_data['due'];	
 $invoice_date = $post_data['inv_date'];		
-	
+
+$report = array();
 if(empty($expense_head)){
 		$report[]=array('label'=>'ex_head', 'text' => 'Please select Expense Head');
 	}	
@@ -628,7 +629,26 @@ $report[]=array('label'=>'du_dat', 'text' => 'Please Select Due Date');
 	
 if(empty($invoice_date)){
 $report[]=array('label'=>'inv_dat', 'text' => 'Please Select Invoice Date');
-}	
+}
+
+if(!empty($amount))
+{
+if(is_numeric($amount))
+{
+}
+else
+{
+$report[]=array('label'=>'amt', 'text' => 'Pleaes Fill Numeric Value');
+}
+}
+
+
+
+
+
+
+
+	
 $date4 = date("Y-m-d", strtotime($posting_date));
 $date4 = new MongoDate(strtotime($date4));
 
@@ -649,33 +669,117 @@ else
 $abc = 555; 
 }
 }
-
+if(!empty($posting_date))
+{
 if($abc == 555)
 {
 $report[]=array('label'=>'pos_dat', 'text' => 'The Date is not in Open Financial Year, Please Select another Date');
 }
-
-
-
-
-
-
-
-
-if(sizeof($report)>0){
+}
+if(sizeof($report)>0)
+{
 $output=json_encode(array('report_type'=>'error','report'=>$report));
 die($output);
 }
 
+$date = date('Y-m-d');
+$current_date = new MongoDate(strtotime($date));
+
+$posting_date2 = date("Y-m-d", strtotime($posting_date));
+$posting_date2 = new MongoDate(strtotime($posting_date2));
+
+$due_date2 = date("Y-m-d", strtotime($due_date));
+$due_date2 = new MongoDate(strtotime($due_date2));
+
+$invoice_date2 = date("Y-m-d", strtotime($invoice_date));
+$invoice_date2 = new MongoDate(strtotime($invoice_date2));
 
 
 
 
 
+$this->loadmodel('expense_tracker');
+$conditions=array("society_id" => $s_society_id);
+$order=array('expense_tracker.auto_id'=> 'DESC','expense_tracker.receipt_id'=>'DESC');
+$cursor=$this->expense_tracker->find('all',array('conditions'=>$conditions,'order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last=$collection['expense_tracker']["auto_id"];
+$r_last = $collection['expense_tracker']['receipt_id']; 
+}
+if(empty($last) && empty($r_last))
+{
+$i=0;
+$r = 1000;
+}	
+else
+{	
+$i=$last;
+$r = $r_last;
+}
+$i++;
+$r++;
+$this->loadmodel('expense_tracker');
+$multipleRowData = Array( Array("auto_id" => $i, "receipt_id" => $r, "society_id" => $s_society_id, "current_date" => $current_date, 
+"approver" => $s_user_id, "expense_head" => $expense_head, "invoice_date" => $invoice_date2, 
+"due_date" => $due_date2, "party_head" => $party_ac_head, "description" => $description, "posting_date" => $posting_date2,
+"amount" => $amount, "invoice_reference" => $invoice_ref));
+$this->expense_tracker->saveAll($multipleRowData); 
+
+
+	
+$sub_account_id_p = $party_ac_head;
+$this->loadmodel('ledger');
+$order=array('ledger.auto_id'=> 'DESC');
+$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last=$collection['ledger']["auto_id"]; 
+}
+if(empty($last))
+{
+$k=0;
+}	
+else
+{	
+$k=$last;
+}
+$k++;
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $r, 
+"amount" => $amount, "amount_category_id" => 2, "table_name" => "expense_tracker", "account_type" =>  1, "account_id" => $sub_account_id_p,"current_date" => $current_date, "society_id" => $s_society_id,"module_name"=>"Expense Tracker"));
+$this->ledger->saveAll($multipleRowData);   
 
 
 
 
+
+$sub_account_id_e = $expense_head;
+$this->loadmodel('ledger');
+$order=array('ledger.auto_id'=> 'DESC');
+$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last=$collection['ledger']["auto_id"]; 
+}
+if(empty($last))
+{
+$k=0;
+}	
+else
+{	
+$k=$last;
+}
+$k++;
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $r, 
+"amount" => $amount, "amount_category_id" => 1, "table_name" => "expense_tracker", "account_type" => 2,  
+"account_id" => $sub_account_id_e, "current_date" => $current_date, "society_id" => $s_society_id,"module_name"=>"Expense Tracker"));
+$this->ledger->saveAll($multipleRowData);  
+
+
+$output=json_encode(array('report_type'=>'publish','report'=>'Expense Tracker entry is inserted successfully'));
+die($output);
 
 	
 }
