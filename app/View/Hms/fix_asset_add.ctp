@@ -1,41 +1,33 @@
-<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>	
-			<?php
-			if($zz == 0)
-			{
-			?>
+<?php
+if($zz == 0)
+{
+?>
+<div class="alert">
+<button class="close" data-dismiss="alert"></button>
+<center>
+No Previous Receipt
+</center>
+</div> 
+<?php
+}
+else
+{
+?>
+<div class="alert">
+<button class="close" data-dismiss="alert"></button>
+<center>
+The Last Receipt Number is : <?php echo $zz; ?>
+</center>
+</div> 
+<?php } ?>
 			
-			<div class="alert">
-			<button class="close" data-dismiss="alert"></button>
-			<center>
-			No Previous Receipt
-			</center>
-			</div> 
-			
-			<?php
-			}
-			else
-			{
-			?>
-
-			<div class="alert">
-			<button class="close" data-dismiss="alert"></button>
-			<center>
-			The Last Receipt Number is : <?php echo $zz; ?>
-			</center>
-			</div> 
-
-			<?php } ?>
-			
-<?php //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>			
- 
-
- <center>
- <a href="fix_asset_add" class="btn red">Add</a>
- <a href="fix_asset_view" class="btn blue">View</a>
- </center>
- <br>     	
-			
-<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>			
+<?php //////////////////////////////////////////////////////////////////////////////////////////////////// ?>			
+<center>
+<a href="fix_asset_add" class="btn red">Add</a>
+<a href="fix_asset_view" class="btn blue">View</a>
+</center>
+<br>     	
+<?php ///////////////////////////////////////////////////////////////////////////////////////////////////// ?>			
 			
 				<div class="portlet box grey" style="width:60%; margin-left:20%; margin-right:20%;">
 				<div class="portlet-title">
