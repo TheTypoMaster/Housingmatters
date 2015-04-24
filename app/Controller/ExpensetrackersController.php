@@ -48,6 +48,19 @@ $s_user_id=$this->Session->read('user_id');
 
 $this->set('s_role_id',$s_role_id);
 
+
+
+$this->loadmodel('expense_tracker');
+$conditions=array("society_id" => $s_society_id);
+$cursor3=$this->expense_tracker->find('all',array('conditions'=>$conditions));
+foreach($cursor3 as $collection)
+{
+$d_receipt_id = (int)$collection['expense_tracker']['receipt_id'];	
+}
+$this->set('rr',$d_receipt_id);
+
+
+
 $this->loadmodel('financial_year');
 $conditions=array("society_id" => $s_society_id, "status"=>1);
 $cursor=$this->financial_year->find('all',array('conditions'=>$conditions));
@@ -778,7 +791,7 @@ $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $r,
 $this->ledger->saveAll($multipleRowData);  
 
 
-$output=json_encode(array('report_type'=>'publish','report'=>'Expense Tracker entry is inserted successfully'));
+$output=json_encode(array('report_type'=>'publish','report'=>'Expense Voucher #'.$r.' is generated successfully'));
 die($output);
 
 	
