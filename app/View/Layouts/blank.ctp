@@ -33,4 +33,5 @@ $('.scroller').each(function () {
 		disableFadeOut: true
 	});
 });
+jQuery('.popovers').popover();
 </script>
