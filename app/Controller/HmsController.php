@@ -13245,20 +13245,26 @@ $resut_category=$this->master_classified_category->find('all',array('conditions'
 	}	
 }
 
-
-
-
-
-function classified_subcategory_name($classified_category_id)
-{
-
+function classified_subcategory_name($subcategory)
+{	
 $this->loadmodel('master_classified_subcategories');
-$conditions=array('subcategory_id' => $classified_category_id);
-$resut_subcategory=$this->master_classified_subcategories->find('all',array('conditions'=>$conditions));
-	foreach ($resut_subcategory as $collection)
+$conditions=array("subcategory_id" => $subcategory);
+$resut_category=$this->master_classified_subcategories->find('all',array('conditions'=>$conditions));
+	foreach ($resut_category as $collection)
 	{
 	return $collection['master_classified_subcategories']['subcategory_name'];
 	}	
+}
+
+
+
+
+
+function master_classified_subcategory($classified_category_id)
+{
+$this->loadmodel('master_classified_subcategory');
+$conditions=array('category_id' => $classified_category_id);
+return $this->master_classified_subcategory->find('all',array('conditions'=>$conditions));
 }
 
 
