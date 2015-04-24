@@ -1,27 +1,3 @@
-<?php
-if($zz == 0)
-{
-?>
-<div class="alert">
-<button class="close" data-dismiss="alert"></button>
-<center>
-No Previous Receipt
-</center>
-</div> 
-<?php
-}
-else
-{
-?>
-<div class="alert">
-<button class="close" data-dismiss="alert"></button>
-<center>
-The Last Receipt Number is : <?php echo $zz; ?>
-</center>
-</div> 
-<?php } ?>
-
-
 
 <?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
@@ -40,8 +16,35 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 <div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">
 <h4 style="color: #F497BA;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Post Expense</h4>
+<?php
+if($zz == 0)
+{
+?>
+<div style="background-color:#FCEBF8;">
+<center>
+<p style="color:#A99185;">No Previous Voucher</p>
+</center>
+</div> 
+<?php
+}
+else
+{
+?>
+<div style="background-color:#FCEBF8;">
+<center>
+<p style="color:#A99185;">The Last Expense Voucher is : <?php echo $zz; ?></p>
+</center>
+</div> 
+<?php } ?>
+<br />
 <form method="post">
 <div class="row-fluid">
+
+
+
+
+
+
 <div class="span6">
 
 
