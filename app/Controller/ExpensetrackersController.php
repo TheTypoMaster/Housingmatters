@@ -582,12 +582,103 @@ echo $excel;
 
 
 }
-////////////////////// End Expense Tracker Excel/////////////////////////////////////
+////////////////////// End Expense Tracker Excel///////////////////////////////////////////////////////////////
+
+////////////////////////// Start Expense Tracker Json ///////////////////////////////////////////////////////////
+function expense_tracker_json()
+{
+$this->layout=null;
+$post_data=$this->request->data;
+$this->ath();
+$s_society_id=$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
+$date=date('d-m-Y');
+$time = date(' h:i a', time());
+
+$expense_head = (int)$post_data['expense_head'];	
+$invoice_ref = $post_data['invoice_ref'];	
+$party_ac_head = (int)$post_data['party'];		
+$amount = $post_data['amount'];	
+$description = $post_data['desc'];		
+$posting_date = $post_data['posting'];	
+$due_date = $post_data['due'];	
+$invoice_date = $post_data['inv_date'];		
+	
+if(empty($expense_head)){
+		$report[]=array('label'=>'ex_head', 'text' => 'Please select Expense Head');
+	}	
+	
+if(empty($invoice_ref)){
+		$report[]=array('label'=>'inv_ref', 'text' => 'Please Fill Invoice Reference');
+	}		
+	
+if(empty($party_ac_head)){
+		$report[]=array('label'=>'prt_head', 'text' => 'Please Select Party Account Head');
+	}		
+if(empty($amount)){
+		$report[]=array('label'=>'amt', 'text' => 'Pleaes Fill Invoice Amount');
+	}		
+if(empty($posting_date)){
+$report[]=array('label'=>'pos_dat', 'text' => 'Please Select Posting Date');
+}	
+
+if(empty($due_date)){
+$report[]=array('label'=>'du_dat', 'text' => 'Please Select Due Date');
+}
+	
+if(empty($invoice_date)){
+$report[]=array('label'=>'inv_dat', 'text' => 'Please Select Invoice Date');
+}	
+$date4 = date("Y-m-d", strtotime($posting_date));
+$date4 = new MongoDate(strtotime($date4));
+
+$this->loadmodel('financial_year');
+$conditions=array("society_id" => $s_society_id);
+$cursor=$this->financial_year->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$from = $collection['financial_year']['from'];
+$to = $collection['financial_year']['to'];
+if($from <= $date4 && $to >= $date4)
+{
+$abc = 55;
+break;
+}
+else
+{
+$abc = 555; 
+}
+}
+
+if($abc == 555)
+{
+$report[]=array('label'=>'pos_dat', 'text' => 'The Date is not in Open Financial Year, Please Select another Date');
+}
 
 
 
 
 
 
+
+
+if(sizeof($report)>0){
+$output=json_encode(array('report_type'=>'error','report'=>$report));
+die($output);
+}
+
+
+
+
+
+
+
+
+
+
+
+	
+}
+////////////////////////// End Expense Tracker Json ///////////////////////////////////////////////////////////
 }
 ?>
