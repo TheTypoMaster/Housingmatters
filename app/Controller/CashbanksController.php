@@ -3021,11 +3021,44 @@ $d_receipt_id = (int)$collection['cash_bank']['receipt_id'];
 $output=json_encode(array('report_type'=>'publish','report'=>'Bank Payment Voucher #'.$d_receipt_id.' is generated successfully'));
 die($output);
 
-
-
 }
 ///////////////////////////////////////// End Bank Payment Json /////////////////////////////////////////////////////
 
+////////////////////////////////////////// Start Petty Cash Receipt Json/////////////////////////////////////////////
+function petty_cash_receipt_json()
+{
+$this->layout=null;
+$post_data=$this->request->data;
+$this->ath();
+$s_society_id=$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
+$date=date('d-m-Y');
+$time = date(' h:i a', time());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+////////////////////////////////////////// End Petty Cash Receipt Json/////////////////////////////////////////////
 
 }
 ?>

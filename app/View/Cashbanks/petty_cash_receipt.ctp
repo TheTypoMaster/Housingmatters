@@ -70,14 +70,6 @@ else
 <br />
 
 
-
-
-
-
-
-
-
-
 <label style="font-size:14px;">Account Head<span style="color:red;">*</span></label>
 <div class="controls">
 <select   name="account_head" class="m-wrap span9 chosen" id="acn">
@@ -138,10 +130,57 @@ $("#show_user").load("petty_cash_receipt_ajax?value=" +value+ "");
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 
+	
+  <script>
+$(document).ready(function() { 
+	$('form').submit( function(ev){
+	ev.preventDefault();
 		
+		var m_data = new FormData();
+		m_data.append( 'ac_gr', $('#go').val());
+		m_data.append( 'prt_ac', $('#usr').val());
+		m_data.append( 'ac_head', $('#acn').val());
+		m_data.append( 'tra_dat', $('#date').val());
+		m_data.append( 'amt', $('#amt').val());
+		m_data.append( 'desc', $('#narr').val());
+				
+		$(".form_post").addClass("disabled");
+		$("#wait").show();
+			
+			$.ajax({
+			url: "bank_payment_json",
+			data: m_data,
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			dataType:'json',
+			}).done(function(response) {
+				if(response.report_type=='error'){
+					$(".remove_report").html('');
+						jQuery.each(response.report, function(i, val) {
+						$("label[report="+val.label+"]").html('<span style="color:red;">'+val.text+'</span>');
+					});
+				}
+				if(response.report_type=='publish'){
+                $("#shwd").show()
+				$(".success_report").show().html(response.report);	
+				}
+			
+			$("html, body").animate({
+			scrollTop:0
+			},"slow");
+			$(".form_post").removeClass("disabled");
+			$("#wait").hide();
+			});
+
+	 
+	});
+});
+
+</script>		
 
 
-
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 
 
