@@ -3,7 +3,7 @@ if($type == 1)
 {
 ?>
 <br>
-<select name="expense_ac" class="m-wrap medium chosen">
+<select name="expense_ac" class="m-wrap chosen span9" id="ex_prt_ac">
 <option value="">--SELECT--</option>
 <?php
 foreach($cursor1 as $collection)
@@ -20,7 +20,7 @@ else if($type == 2)
 {
 ?>
 <br>
-<select name="expense_ac" class="m-wrap medium chosen">
+<select name="expense_ac" class="m-wrap chosen span9" id="ex_prt_ac">
 <option value="">--SELECT--</option>
 <?php
 foreach($cursor2 as $collection)
@@ -44,7 +44,7 @@ else if($type == 3)
 {
 ?>
 <br>
-<select name="expense_ac" class="m-wrap medium chosen">
+<select name="expense_ac" class="m-wrap chosen span9" id="ex_prt_ac">
 <option value="">--SELECT--</option>
 <?php
 foreach($cursor3 as $collection)
@@ -66,7 +66,7 @@ else
 ?>
 
 <br>
-<select name="expense_ac" class="m-wrap medium chosen">
+<select name="expense_ac" class="m-wrap chosen span9" id="ex_prt_ac">
 <option value="">--SELECT--</option>
 </select>
 <?php } ?>

@@ -1,3 +1,3 @@
 
 
-<input type="text" value="<?php echo $total_amount; ?>"  style="height:25px;" readonly="readonly">
+<input type="text" value="<?php echo $total_amount; ?>"  class="m-wrap span9" readonly="readonly">
