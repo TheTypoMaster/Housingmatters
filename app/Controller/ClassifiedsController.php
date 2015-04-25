@@ -16,6 +16,7 @@ function post_ad(){
 	}else{
 		$this->layout='session';
 	}
+	$this->check_user_privilages();
 	$this->ath();
 	
 	$this->loadmodel('master_classified_category');
@@ -29,6 +30,7 @@ function classified_ads($id=null){
 	}else{
 		$this->layout='session';
 	}
+	$this->check_user_privilages();
 	$this->ath();
 	$this->set('id',$id);
 	

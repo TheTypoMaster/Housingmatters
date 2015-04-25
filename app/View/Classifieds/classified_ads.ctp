@@ -1,6 +1,12 @@
-<div align="center">
-<a href="/Housingmatters/Classifieds/classified_ads" class="btn allsubmenu red" style="margin-left: 2px;margin-bottom: 4px;" rel="tab">View Classified Ads</a>
-<a href="/Housingmatters/Classifieds/post_ad" class="btn blue allsubmenu" style="margin-left: 2px;margin-bottom: 4px;" rel="tab">Post new Classified Ad</a></div>
+<?php
+echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
+?>
+<script>
+$(document).ready(function() {
+$("#fix<?php echo $id_current_page; ?>").removeClass("blue");
+$("#fix<?php echo $id_current_page; ?>").addClass("red");
+});
+</script>
 
 <?php 
 function substrwords($text, $maxchar, $end='...') {

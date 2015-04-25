@@ -1,7 +1,12 @@
-
-<div align="center">
-<a href="/Housingmatters/Classifieds/classified_ads/1" class="btn allsubmenu blue" style="margin-left: 2px;margin-bottom: 4px;" rel="tab">View Classified Ads</a>
-<a href="/Housingmatters/Classifieds/post_ad" class="btn red allsubmenu" style="margin-left: 2px;margin-bottom: 4px;" rel="tab">Post new Classified Ad</a></div>
+<?php
+echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
+?>
+<script>
+$(document).ready(function() {
+$("#fix<?php echo $id_current_page; ?>").removeClass("blue");
+$("#fix<?php echo $id_current_page; ?>").addClass("red");
+});
+</script>
 
 <div class='alert alert-block alert-success fade in success_report' style="display:none;"></div>
 <div style="background-color:#fff;padding:5px;width:96%;margin:auto;" class="form_div">
