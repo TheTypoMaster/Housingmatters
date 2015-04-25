@@ -23,13 +23,14 @@ function post_ad(){
 
 }
 
-function classified_ads(){
+function classified_ads($id=null){
 	if($this->RequestHandler->isAjax()){
 		$this->layout='blank';
 	}else{
 		$this->layout='session';
 	}
 	$this->ath();
+	$this->set('id',$id);
 	
 	$this->loadmodel('classified');
 	$conditions=array('delete'=>0,'draft'=>0);
