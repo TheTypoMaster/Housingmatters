@@ -56,6 +56,7 @@ else
 <option value="1">Sundry Debtors Control A/c</option>
 <option value="2">Other Income</option>
 </select>
+<label report="ac_grp" class="remove_report"></label>
 </div>
 <br />
 
@@ -66,6 +67,7 @@ else
 <select name="user_id" class="m-wrap span9 chosen" id="usr">
 <option value="">Select</option>
 </select> 
+<label report="prt_ac" class="remove_report"></label>
 </div>
 <br />
 
@@ -76,6 +78,7 @@ else
 <option value="" style="display:none;">Select</option>
 <option value="32">Cash-in-hand</option>
 </select> 
+<label report="ac_head" class="remove_report"></label>
 </div>
 </div>
 
@@ -85,12 +88,14 @@ else
 <label style="font-size:14px;">Transaction Date<span style="color:red;">*</span></label>
 <div class="controls">
 <input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="date" id="date">
+<label report="tr_dat" class="remove_report"></label>
 </div>
 <br />
 
 <label style="font-size:14px;">Amount<span style="color:red;">*</span></label>
 <div class="controls">
 <input type="text" class="m-wrap span9"  name="ammount" id="amt">
+<label report="amt" class="remove_report"></label>
 </div>
 <br />
 
@@ -107,7 +112,7 @@ else
 
 <hr/>
 <button type="submit" class="btn form_post" style="background-color: #09F; color:#fff;" value="xyz">Submit</button>
-<a href="<?php echo $webroot_path; ?>Cashbanks/bank_payment" style="background-color: #09F;color:#fff;" class="btn" rel='tab'>Reset</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/petty_cash_receipt" style="background-color: #09F;color:#fff;" class="btn" rel='tab'>Reset</a>
 <div style="display:none;" id='wait'><img src="<?php echo $webroot_path; ?>as/fb_loading.gif" /> Please Wait...</div>
 <br /><br />
 </form>
@@ -148,7 +153,7 @@ $(document).ready(function() {
 		$("#wait").show();
 			
 			$.ajax({
-			url: "bank_payment_json",
+			url: "petty_cash_receipt_json",
 			data: m_data,
 			processData: false,
 			contentType: false,
@@ -183,7 +188,24 @@ $(document).ready(function() {
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 
-
+<div id="shwd" class="hide">
+<div class="modal-backdrop fade in"></div>
+<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+<div class="modal-header">
+<center>
+<h3 id="myModalLabel3" style="color:#999;"><b>Expense Tracker</b></h3>
+</center>
+</div>
+<div class="modal-body">
+<center>
+<h5><b class="success_report"></b></h5>
+</center>
+</div>
+<div class="modal-footer">
+<a href="<?php echo $webroot_path; ?>Cashbanks/petty_cash_receipt" class="btn blue" rel='tab'>OK</a>
+</div>
+</div>
+</div> 
 
 
 

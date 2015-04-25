@@ -50,14 +50,7 @@ $this->set('s_role_id',$s_role_id);
 
 
 
-$this->loadmodel('expense_tracker');
-$conditions=array("society_id" => $s_society_id);
-$cursor3=$this->expense_tracker->find('all',array('conditions'=>$conditions));
-foreach($cursor3 as $collection)
-{
-$d_receipt_id = (int)$collection['expense_tracker']['receipt_id'];	
-}
-$this->set('rr',$d_receipt_id);
+
 
 
 

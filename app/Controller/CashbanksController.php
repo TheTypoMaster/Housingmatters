@@ -1486,7 +1486,7 @@ $this->set('zz',$zz);
 
 ///////////////////////////////////////////
 //////////////////////////////////////////
-if(isset($this->request->data['ptr_add']))
+if(isset($this->request->data['ptr_sasdadd']))
 {
 $date = $this->request->data['date'];
 $date = date("Y-m-d", strtotime($date));
@@ -1694,7 +1694,7 @@ header ("Content-Disposition: attachment; filename=".$filename.".xls");
 header ("Content-Description: Generated Report" );
 
 $s_society_id = (int)$this->Session->read('society_id');
-$s_role_id=$this->Session->read('role_id');
+$s_role_id = (int)$this->Session->read('role_id');
 
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
@@ -1751,7 +1751,7 @@ $prepaired_by = (int)$collection['cash_bank']['prepaired_by'];
 $narration = $collection['cash_bank']['narration'];
 $account_head = $collection['cash_bank']['account_head'];
 $amount = $collection['cash_bank']['amount'];
-$amount_category_id = (int)$collection['cash_bank']['amount_category_id'];
+
 $prepaired_by = (int)$collection['cash_bank']['prepaired_by'];   
 $current_date = $collection['cash_bank']['current_date'];
 $creation_date = date('d-m-Y',$current_date->sec);					
@@ -1799,28 +1799,8 @@ $prepaired_by_name = $collection['user']['user_name'];
 $society_id = $collection['user']['society_id'];  	
 }	
 
-$amount_cat1 = $this->requestAction(array('controller' => 'hms', 'action' => 'amount_category'),array('pass'=>array($amount_category_id)));
-foreach ($amount_cat1 as $collection) 
-{
-$amount_category_name = $collection['amount_category']['amount_category'];	
-}	
-
-
 if($date >= $m_from && $date <= $m_to)
 {
-if($s_user_id == $d_user_id)  
-{
-$date = date('d-m-Y',$date->sec);
-$total_debit = $total_debit + $amount;
- $excel.="<tr>
-<td>$receipt_no</td>
-<td>$date</td>
-<td>$narration</td>
-<td>$user_name&nbsp&nbsp&nbsp&nbsp$wing_flat</td>
-<td>$amount</td>
-</tr>";
-}
-else
 if($s_role_id == 3)
 {
 $date = date('d-m-Y',$date->sec);  
@@ -1833,12 +1813,12 @@ $excel.="<tr>
 <td>$amount</td>
 </tr>";
  }}}
- 
 $excel.="<tr>
 <th colspan='4'>Total</th>
 <th>$total_debit</th>  
-</tr>
-</table>"; 
+</tr></table>";
+
+ 
 echo $excel;
 
 }
@@ -3035,14 +3015,185 @@ $s_user_id=$this->Session->read('user_id');
 $date=date('d-m-Y');
 $time = date(' h:i a', time());
 
+$account_group = (int)$post_data['ac_gr'];
+$party_account = (int)$post_data['prt_ac'];
+$account_head = (int)$post_data['ac_head'];
+$transaction_date = $post_data['tra_dat'];
+$amt = $post_data['amt'];
+$narration = $post_data['desc'];
+
+$report = array();
+
+if(empty($account_group)){
+$report[]=array('label'=>'ac_grp', 'text' => 'Please select Expense Head');
+}	
+	
+if(empty($party_account)){
+$report[]=array('label'=>'prt_ac', 'text' => 'Please select Expense Head');
+}	
+
+if(empty($account_head)){
+$report[]=array('label'=>'ac_head', 'text' => 'Please select Expense Head');
+}	
+
+if(empty($transaction_date)){
+$report[]=array('label'=>'tr_dat', 'text' => 'Please select Expense Head');
+}	
+
+if(empty($amt)){
+$report[]=array('label'=>'amt', 'text' => 'Please select Expense Head');
+}	
+
+if(!empty($amt))
+{
+if(is_numeric($amt))
+{
+}
+else
+{
+$report[]=array('label'=>'amt', 'text' => 'Pleaes Fill Numeric Value');
+}
+}
+
+$date4 = date("Y-m-d", strtotime($transaction_date));
+$date4 = new MongoDate(strtotime($date4));
+
+$this->loadmodel('financial_year');
+$conditions=array("society_id" => $s_society_id);
+$cursor=$this->financial_year->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$from = $collection['financial_year']['from'];
+$to = $collection['financial_year']['to'];
+if($from <= $date4 && $to >= $date4)
+{
+$abc = 55;
+break;
+}
+else
+{
+$abc = 555; 
+}
+}
+
+
+if(!empty($transaction_date))
+{
+if($abc == 555)
+{
+$report[]=array('label'=>'tr_dat', 'text' => 'The Date is not in Open Financial Year, Please Select another Date');
+}
+}
+
+if(sizeof($report)>0)
+{
+$output=json_encode(array('report_type'=>'error','report'=>$report));
+die($output);
+}
+
+
+$date = date('Y-m-d');
+$current_date = new MongoDate(strtotime($date));
+
+$transaction_date2 = date("Y-m-d", strtotime($transaction_date));
+$transaction_date2 = new MongoDate(strtotime($transaction_date2));
+
+
+
+$this->loadmodel('cash_bank');
+$conditions=array("society_id" => $s_society_id,"module_id"=>3);
+$order=array('cash_bank.transaction_id'=> 'DESC');
+$cursor=$this->cash_bank->find('all',array('conditions'=>$conditions,'order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last11 = $collection['cash_bank']['transaction_id'];
+$last22 = $collection['cash_bank']['receipt_id'];
+}
+if(empty($last11))
+{
+$auto=0;
+$i = 1000;
+}	
+else
+{	
+$auto = $last11;
+$i = $last22;
+}
+$auto++;
+$i++; 
+$this->loadmodel('cash_bank');
+$multipleRowData = Array( Array("transaction_id" => $auto, "receipt_id" => $i, "prepaired_by" => $s_user_id,
+"current_date" => $current_date, "account_type" => $account_group,"transaction_date" => $transaction_date2, "user_id" => $party_account, 
+"narration" => $narration, "account_head" => $account_head,  "amount" => $amt, "society_id" => $s_society_id,"module_id"=>3));
+$this->cash_bank->saveAll($multipleRowData);  
 
 
 
 
 
 
+$this->loadmodel('ledger');
+$order=array('ledger.auto_id'=> 'DESC');
+$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last21=$collection['ledger']['auto_id'];
+}
+if(empty($last21))
+{
+$k=0;
+}	
+else
+{	
+$k=$last21;
+}
+$k++; 
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $i, 
+"amount" => $amt, "amount_category_id" => 2, "module_id" => 3, "account_type" => $account_group, "account_id" => $party_account, "current_date" => $current_date, "society_id" => $s_society_id,"table_name"=>"cash_bank","module_name"=>"Petty Cash Receipt"));
+$this->ledger->saveAll($multipleRowData); 
 
 
+
+
+$sub_account_id_a = (int)$account_head;
+
+
+$this->loadmodel('ledger');
+$order=array('ledger.auto_id'=> 'DESC');
+$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last22=$collection['ledger']['auto_id'];
+}
+if(empty($last22))
+{
+$k=0;
+}	
+else
+{	
+$k=$last22;
+}
+$k++; 
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $i, 
+"amount" => $amt, "amount_category_id" => 1, "module_id" => 3, "account_type" => 2, "account_id" => $sub_account_id_a, "current_date" => $current_date, "society_id" => $s_society_id,"table_name"=>"cash_bank","module_name"=>"Petty Cash Receipt"));
+$this->ledger->saveAll($multipleRowData); 
+
+
+
+$this->loadmodel('cash_bank');
+$conditions=array("society_id" => $s_society_id,"module_id"=>3);
+$order=array('cash_bank.receipt_id'=> 'ASC');
+$cursor1=$this->cash_bank->find('all',array('conditions'=>$conditions));
+foreach ($cursor1 as $collection) 
+{
+$d_receipt_id = (int)$collection['cash_bank']['receipt_id'];	 
+}
+
+
+$output=json_encode(array('report_type'=>'publish','report'=>'Petty Cash Receipt #'.$d_receipt_id.' is generated successfully'));
+die($output);
 
 
 

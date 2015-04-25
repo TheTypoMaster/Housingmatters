@@ -2,7 +2,7 @@
 if($value == 1)
 {
 ?>
-<select name="user_id" class="m-wrap span9 chosen">
+<select name="user_id" class="m-wrap span9 chosen" id="usr">
 <option value="" style="display:none;">Select</option>
 <?php
 	
@@ -33,7 +33,7 @@ if($value == 1)
 <option value="<?php echo $auto_id; ?>"><?php echo $user_name; ?> &nbsp&nbsp&nbsp&nbsp(<?php echo $wing_flat; ?>) </option>
 <?php }} ?>
 </select>
-
+<label report="prt_ac" class="remove_report"></label>
 
 
 
@@ -53,7 +53,7 @@ if($value == 1)
 else if($value == 2)
 {
 ?>	
-<select name="user_id" class="m-wrap span9 chosen">
+<select name="user_id" class="m-wrap span9 chosen" id="usr">
 <option value="" style="display:none;">Select</option>
 <?php
 
@@ -65,6 +65,7 @@ $name = $collection['ledger_account']['ledger_name'];
 <option value="<?php echo $auto_id; ?>"><?php echo $name; ?></option>
 <?php } ?>
 </select>
+<label report="prt_ac" class="remove_report"></label>
 <?php
 
 }
@@ -72,9 +73,10 @@ else
 {
 ?>
 
-<select name="user_id" class="m-wrap span9 chosen">
+<select name="user_id" class="m-wrap span9 chosen" id="usr">
 <option value="">Select</option>
 </select>
+<label report="prt_ac" class="remove_report"></label>
 <?php
 }
 ?>

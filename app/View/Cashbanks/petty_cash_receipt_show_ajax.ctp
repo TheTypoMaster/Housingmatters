@@ -65,7 +65,7 @@ Petty Cash Receipt Report  (<?php echo $society_name; ?>) </p>
 			$narration = $collection['cash_bank']['narration'];
 			$account_head = $collection['cash_bank']['account_head'];
 			$amount = $collection['cash_bank']['amount'];
-			$amount_category_id = (int)$collection['cash_bank']['amount_category_id'];
+			//$amount_category_id = (int)$collection['cash_bank']['amount_category_id'];
 			$prepaired_by = (int)$collection['cash_bank']['prepaired_by'];   
 			$current_date = $collection['cash_bank']['current_date'];
 	
@@ -120,11 +120,7 @@ $user_name1 = $this->requestAction(array('controller' => 'hms', 'action' => 'fet
 				$society_id = $collection['user']['society_id'];  	
 				}	
 			
-	$amount_cat1 = $this->requestAction(array('controller' => 'hms', 'action' => 'amount_category'),array('pass'=>array($amount_category_id)));
-				foreach ($amount_cat1 as $collection) 
-				{
-				$amount_category_name = $collection['amount_category']['amount_category'];	
-				}			
+		
 			
 			
 			
