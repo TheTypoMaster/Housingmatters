@@ -45,6 +45,7 @@ foreach ($result_classifieds as $classified){
 	$title_cut=strtoupper(substrwords($title,35,'...'));
 	$file=$classified['classified']['file'];
 	$price=$classified['classified']['price'];
+	$price=substrwords($price,7,'..');
 	$price_type=$classified['classified']['price_type'];
 	if($price_type==1){
 		$price_type_text="Negotiable";
