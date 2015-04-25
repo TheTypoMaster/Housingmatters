@@ -32,8 +32,13 @@
 }
 ?>
 <div class="modal-body">
+		<?php if($ad_type==1){
+			echo '<span class="badge badge-success" style="position: absolute; top: 15px;">Sell</span>';
+		}elseif($ad_type==2){
+			echo '<span class="badge badge-important" style="position: absolute; top: 15px;">Buy</span>';
+		}?>
 	<div class="row-fluid">
-		<div class="span7" align="center">
+		<div class="span7" align="center" style="background-color: #F1F3FA;">
 		<?php if(!empty($file)) { ?>
 		<img src="<?php echo $webroot_path; ?>Classifieds/<?php echo $file; ?>" style="height:400px;" />
 		<?php } ?>
