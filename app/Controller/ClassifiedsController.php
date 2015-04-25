@@ -38,6 +38,16 @@ function classified_ads($id=null){
 	$this->set('result_classifieds',$result_classifieds);
 }
 
+function view_ad_ajax($id=null){
+	$this->layout=null;
+	$this->ath();
+	$id=(int)$id;
+	$this->loadmodel('classified');
+	$conditions=array('classified_id'=>$id);
+	$result_classified=$this->classified->find('all',array('conditions'=>$conditions));
+	$this->set('result_classified',$result_classified);
+}
+
 function submit_ad(){
 	$this->layout=null;
 	$post_data=$this->request->data;

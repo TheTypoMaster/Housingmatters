@@ -2,7 +2,30 @@
 <a href="/Housingmatters/Classifieds/classified_ads" class="btn allsubmenu red" style="margin-left: 2px;margin-bottom: 4px;" rel="tab">View Classified Ads</a>
 <a href="/Housingmatters/Classifieds/post_ad" class="btn blue allsubmenu" style="margin-left: 2px;margin-bottom: 4px;" rel="tab">Post new Classified Ad</a></div>
 
-
+<?php 
+function substrwords($text, $maxchar, $end='...') {
+    if (strlen($text) > $maxchar || $text == '') {
+        $words = preg_split('/\s/', $text);      
+        $output = '';
+        $i      = 0;
+        while (1) {
+            @$length = strlen($output)+strlen($words[$i]);
+            if ($length > $maxchar) {
+                break;
+            } 
+            else {
+                @$output .= " " . $words[$i];
+                ++$i;
+            }
+        }
+        $output .= $end;
+    } 
+    else {
+        $output = $text;
+    }
+    return $output;
+}
+?>
 
 <?php
 $c=0;
@@ -11,16 +34,47 @@ foreach ($result_classifieds as $classified){
 	if ($c % 2 != 0) {
 		echo '<div class="row-fluid">';
 	}
+	$classified_id=(int)$classified['classified']['classified_id'];
 	$title=$classified['classified']['title'];
+	$title_cut=strtoupper(substrwords($title,35,'...'));
 	$file=$classified['classified']['file'];
 	$price=$classified['classified']['price'];
+	$price_type=$classified['classified']['price_type'];
+	if($price_type==1){
+		$price_type_text="Negotiable";
+	}elseif($price_type==2){
+		$price_type_text="Fixed";
+	}
+	$ad_type=$classified['classified']['ad_type'];
+	$condition=$classified['classified']['condition'];
+	if($condition==1){
+		$condition_text="Used";
+	}elseif($condition==2){
+		$condition_text="New";
+	}
+	$offer=(int)$classified['classified']['offer'];
+	$created=date('Y-m-d',$classified['classified']['created']->sec);
+	$now = time();
+	$your_date = strtotime($created);
+	$datediff = $now - $your_date;
+	$days=floor($datediff/(60*60*24));
+	$offer_for=$offer-$days;
+	
+	$description=$classified['classified']['description'];
+	$description_cut=substrwords($description,100,'...');
 	$category=$classified['classified']['category'];
 	$category_name=$this->requestAction(array('controller' => 'Hms', 'action' => 'classified_category_name'), array('pass' => array($category)));
 	$sub_category=$classified['classified']['sub_category'];
-	$sub_category_name=$this->requestAction(array('controller' => 'Hms', 'action' => 'classified_subcategory_name'), array('pass' => array($sub_category)));?>
+	$sub_category_name=$this->requestAction(array('controller' => 'Hms', 'action' => 'classified_subcategory_name'), array('pass' => array($sub_category))); ?>
 	
 	<div class="span6" >
-		<div class="white">
+	<?php if($ad_type==1){
+		echo '<span class="badge badge-success" style="position: relative; top: 20px;">Sell</span>';
+	}elseif($ad_type==2){
+		echo '<span class="badge badge-important" style="position: relative; top: 20px;">Buy</span>';
+	}?>
+	
+		<div class="white_<?php echo $ad_type; ?>" onclick="view_classified(<?php echo $classified_id; ?>)">
 			<!--Ad content start-->
 			<table width="100%">
 				<tr>
@@ -33,15 +87,23 @@ foreach ($result_classifieds as $classified){
 					<td width="70%" valign="top">
 						<table width="100%">
 							<tr>
-								<td width="70%"><span class="title"><?php echo $title; ?></span></td>
-								<td width="30%" align="right"><span class="price">&#8377; <?php echo $price; ?></span></td>
+								<td colspan="2" width="100%">
+									<div class="title pull-left"><?php echo $title_cut; ?><br/><span class="category"><?php echo $category_name; ?> -> <?php echo $sub_category_name; ?></span></div>
+									<div class="price pull-right">&#8377; <?php echo $price; ?><br/><span class="category"><?php echo $price_type_text; ?></span></div>
+								</td>
 							</tr>
 							<tr>
-								<td width="30%" colspan="2"><span class="category"><?php echo $category_name; ?> -> <?php echo $sub_category_name; ?></span></td>
+								<td width="20%" class="tag">Condition:</td>
+								<td class="tag_val"><?php echo $condition_text; ?></td>
 							</tr>
-							<tr><td>sfdf</td><td>sdfsdfsd</td></tr>
-							<tr><td>sfdf</td><td>sdfsdfsd</td></tr>
-							<tr><td>sfdf</td><td>sdfsdfsd</td></tr>
+							<tr>
+								<td width="20%" class="tag">Offer for:</td>
+								<td class="tag_val"><?php echo $offer_for.'<span style="color:red;">*</span> Days'; ?></td>
+							</tr>
+							<tr>
+								<td width="20%" class="tag" valign="top">Description:</td>
+								<td class="tag_des"><?php echo $description_cut; ?></td>
+							</tr>
 						</table>
 					</td>
 				</tr>
@@ -61,63 +123,101 @@ foreach ($result_classifieds as $classified){
 
 <div class="view_div"  style="display:none;">
 	<div class="modal-backdrop fade in"></div>
-	<div id="myModal3" class="modal fade in" style="width: 96%; margin: auto; left: 2%;">
-		<div class="modal-body">
-			<div class="row-fluid">
-				<div class="span9" align="center">
-					<img src="<?php echo $webroot_path; ?>Classifieds/<?php echo $file; ?>" style="max-height: 400px;"/>
-				</div>
-				<div class="span3">
-					dasdasdas
-				</div>
-			</div>
-		</div>
-		<div class="modal-footer">
-			<button class="btn pull-left" data-dismiss="modal" aria-hidden="true">Close</button>
-			<button data-dismiss="modal" class="btn blue">Confirm</button>
-		</div>
+	<div id="myModal_ad123" class="modal fade in" style="width: 80%; margin: auto; left: 10%;">
+		<div class="modal-body"><div align="center"><img src="<?php echo $webroot_path; ?>as/fb_loading.gif" /> <br/> Please Wait...</div></div>
 	</div>
+	
 </div>
 
 <style>
-.white{
+.white_1{
 background-color: white;
 padding:2px;
-border: 1px solid #E7E7E7;
+border: 1px solid #DDDDDD;
 margin-bottom: 5px;
 }
-.white:hover{
-border: 1px solid rgba(27, 188, 158, 0.24);
-background-color: rgba(27, 188, 158, 0.1);
+.white_2{
+background-color: white;
+padding:2px;
+border: 1px solid #DDDDDD;
+margin-bottom: 5px;
+}
+.white_1:hover{
+border: 1px solid rgba(60, 192, 81, 1);
+background-color: rgba(60, 192, 81, 0.1);
 cursor: pointer;
 }
-.white:active{
-border: 2px solid rgba(27, 188, 158, 0.24);
+.white_2:hover{
+border: 1px solid rgba(237, 78, 42, 1);
+background-color: rgba(237, 78, 42, 0.06);
+cursor: pointer;
+}
+.white_1:active{
+border: 2px solid rgba(60, 192, 81, 1);
+}
+.white_2:active{
+border: 2px solid rgba(237, 78, 42, 1);
 }
 .title{
 font-size: 15px;
-color: #1BBC9B;
+color: #4B77BE;
+}
+.title_v{
+font-size: 16px;
+color: #4B77BE;
 }
 .price{
 font-size: 15px;
+}
+.price_v{
+font-size: 18px;
+color:#e84d1c;
 }
 .category{
 color: rgb(142, 142, 142);
 font-size: 12px;
 }
+.category_v{
+color: rgb(142, 142, 142);
+font-size: 13px;
+}
 body.modal-open {
     overflow: hidden;
 }
+.tag{
+color: #8C8C8C;
+}
+.tag_val{
+color: rgb(55, 55, 55);
+}
+.tag_des{
+color: rgb(55, 55, 55));
+font-size: 12px;
+}
 </style>
 <script>
-function view_classified(){
+function view_classified(id){
 	$(document).ready(function() {
+		$("#myModal_ad123").html('<div class="modal-body"><div align="center"><img src="<?php echo $webroot_path; ?>as/fb_loading.gif" /> <br/> Please Wait...</div></div>')
 		$(".view_div").show();
 		$("body").addClass("modal-open");
+		$.ajax({
+			url: "<?php echo $webroot_path; ?>Classifieds/view_ad_ajax/"+id,
+			}).done(function(response) {
+			$("#myModal_ad123").html(response);
+			});
 	});
 }
+
+$(document).ready(function() {
+	$(".model_close").live('click',function(){
+		$(".view_div").hide();
+		$("body").removeClass("modal-open");
+	});
+});
+
 </script>
 <?php if(!empty($id)){ ?>
-	<script>view_classified();</script>
+	<script>view_classified(<?php echo $id; ?>);</script>
 <?php } ?>
 
