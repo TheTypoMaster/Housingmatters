@@ -2743,6 +2743,151 @@ $this->set('cursor2',$cursor2);
 }
 //////////////////////////////////// End Fix Deposit Show Ajax ///////////////////////////////////////////////////////
 
+///////////////////////////////////////// Start Bank Payment Json //////////////////////////////////////////////////
+function bank_payment_json()
+{
+$this->layout=null;
+$post_data=$this->request->data;
+$this->ath();
+$s_society_id=$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
+$date=date('d-m-Y');
+$time = date(' h:i a', time());
+
+$transaction_date = $post_data['tra_dat'];
+$ac_group = (int)$post_data['ac_grp'];
+$exp_party = (int)$post_data['ex_prt_acn'];
+$invoice_ref = $post_data['inv_ref'];
+$narration = $post_data['desc'];
+$mode = $post_data['mode'];
+$inst_utr = $post_data['inst_utr'];
+$bank_ac = (int)$post_data['bank_acn'];
+$amt = $post_data['amt'];
+$tds = (int)$post_data['tds'];
+$tt_amt = $post_data['tt_amt'];
+
+$report = array();
+
+if(empty($transaction_date)){
+$report[]=array('label'=>'tr_dat', 'text' => 'Please select Transaction Date');
+}	
+
+if(empty($ac_group)){
+$report[]=array('label'=>'ac_gr', 'text' => 'Please select Account Group');
+}
+	
+if(empty($exp_party)){
+$report[]=array('label'=>'ex_prt', 'text' => 'Please select Expense Party Account');
+}	
+
+if(empty($invoice_ref)){
+$report[]=array('label'=>'inv_ref', 'text' => 'Please Fill Invoice Reference');
+}	
+
+
+if($mode == 'undefined'){
+$report[]=array('label'=>'mode', 'text' => 'Please select Mode of Payment');
+}	
+
+if(empty($inst_utr)){
+$report[]=array('label'=>'ins_utr', 'text' => 'Please Fill Instrument/UTR');
+}	
+
+if(empty($bank_ac)){
+$report[]=array('label'=>'bank_ac', 'text' => 'Please select Bank Account');
+}	
+
+if(empty($amt)){
+$report[]=array('label'=>'amt', 'text' => 'Please Fill Amount');
+}	
+
+
+
+if(empty($tds)){
+$report[]=array('label'=>'tds', 'text' => 'Please select Tds Charge Persentage');
+}	
+
+
+if(!empty($amt))
+{
+if(is_numeric($amt))
+{
+}
+else
+{
+$report[]=array('label'=>'amt', 'text' => 'Pleaes Fill Numeric Value');
+}
+}
+
+
+
+
+
+
+
+
+
+
+$date4 = date("Y-m-d", strtotime($transaction_date));
+$date4 = new MongoDate(strtotime($date4));
+
+
+
+$this->loadmodel('financial_year');
+$conditions=array("society_id" => $s_society_id);
+$cursor=$this->financial_year->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$from = $collection['financial_year']['from'];
+$to = $collection['financial_year']['to'];
+if($from <= $date4 && $to >= $date4)
+{
+$abc = 55;
+break;
+}
+else
+{
+$abc = 555; 
+}
+}
+
+
+if(!empty($transaction_date))
+{
+if($abc == 555)
+{
+$report[]=array('label'=>'tr_dat', 'text' => 'The Date is not in Open Financial Year, Please Select another Date');
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if(sizeof($report)>0)
+{
+$output=json_encode(array('report_type'=>'error','report'=>$report));
+die($output);
+}
+
+
+
+
+
+
+}
+///////////////////////////////////////// End Bank Payment Json /////////////////////////////////////////////////////
+
 
 }
 ?>

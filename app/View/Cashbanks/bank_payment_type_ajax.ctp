@@ -14,6 +14,7 @@ $name = $collection['ledger_sub_account']['name'];
 <option value="<?php echo $auto_id; ?>"><?php echo $name; ?></option>
 <?php } ?>
 </select>
+<label report="ex_prt" class="remove_report"></label>
 <?php 
 } 
 else if($type == 2)
@@ -38,6 +39,7 @@ continue;
 ?>
 <option value="<?php echo $auto_id; ?>"><?php echo $name; ?></option>
 <?php }} ?>
+<label report="ex_prt" class="remove_report"></label>
 </select>
 <?php }
 else if($type == 3)
@@ -60,6 +62,7 @@ $name = $collection['ledger_account']['ledger_name'];
 <option value="<?php echo $auto_id; ?>"><?php echo $name; ?></option>
 <?php }} ?>
 </select>
+<label report="ex_prt" class="remove_report"></label>
 <?php }
 else
 {
@@ -69,6 +72,7 @@ else
 <select name="expense_ac" class="m-wrap chosen span9" id="ex_prt_ac">
 <option value="">--SELECT--</option>
 </select>
+<label report="ex_prt" class="remove_report"></label>
 <?php } ?>
 
 

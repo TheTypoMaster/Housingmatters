@@ -51,6 +51,7 @@ else
 <label style="font-size:14px;">Transaction Date<span style="color:red;">*</span></label>
 <div class="controls">
 <input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="date" id="date">
+<label report="tr_dat" class="remove_report"></label>
 </div>
 <br />
 
@@ -63,6 +64,7 @@ else
 <option value="2">Liability</option>
 <option value="3">Expenditure</option>
 </select>
+<label report="ac_gr" class="remove_report"></label>
 </div>
 <br />
 
@@ -70,9 +72,10 @@ else
 
 <label style="font-size:14px;">Expense Party A/c<span style="color:red;">*</span></label></td>
 <div class="controls" id="result2">
-<select name="expense_ac" class="m-wrap chosen span9" id="exp">
+<select name="expense_ac" class="m-wrap chosen span9" id="ex_prt_ac">
 <option value="">--SELECT--</option>
 </select>
+<label report="ex_prt" class="remove_report"></label>
 </div>
 <br />
 
@@ -81,6 +84,7 @@ else
 <label style="font-size:14px;">Invoice Reference<span style="color:red;">*</span></label>
 <div class="controls">
 <input type="text"   name="invoice_reference" class="m-wrap span9" id="ref">
+<label report="inv_ref" class="remove_report"></label>
 </div>
 <br />						   
 
@@ -116,6 +120,7 @@ NEFT
 <div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" value="PG" style="opacity: 0;" id="mode"></span></div>
 PG
 </label>
+<label report="mode" class="remove_report"></label>
 </div>
 <br />                         
 
@@ -124,6 +129,7 @@ PG
 <label style="font-size:14px;">Instrument/UTR<span style="color:red;">*</span></label></td>
 <div class="controls">
 <input type="text"   name="instruction" class="m-wrap span9" id="inst">
+<label report="ins_utr" class="remove_report"></label>
 </div>
 <br />						  
 
@@ -143,6 +149,7 @@ $sub_account_name =$db['ledger_sub_account']['name'];
 <option value="<?php echo $sub_account_id; ?>"><?php echo $sub_account_name; ?></option>
 <?php } ?>
 </select>
+<label report="bank_ac" class="remove_report"></label>
 </div>
 <br />
 
@@ -150,6 +157,7 @@ $sub_account_name =$db['ledger_sub_account']['name'];
 <label style="font-size:14px;">Amount<span style="color:red;">*</span></label></td>
 <div class="controls">
 <input type="text"   name="ammount" class="m-wrap span9" id="amount">
+<label report="amt" class="remove_report"></label>
 </div>
 <br />
 
@@ -168,6 +176,7 @@ $tds_tax = $tds_sub_arr[0];
 <option value= "<?php echo $tds_id; ?>"><?php echo $tds_tax; ?></option>
 <?php } ?>                           
 </select>
+<label report="tds" class="remove_report"></label>
 </div>
 <br />
 
@@ -176,24 +185,9 @@ $tds_tax = $tds_sub_arr[0];
 <label style="font-size:14px;">Total Amount</label>
 <div class="controls" id="result">
 <span id="total_am">
-<input type="text" readonly class="m-wrap span9" id="amt">
+<input type="text" readonly class="m-wrap span9" id="amt" id="tt">
 </span>
 </div>
-
-						  
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 </div>
@@ -231,3 +225,81 @@ $("#result2").load('bank_payment_type_ajax?type='+type+'');
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 				
 	
+  <script>
+$(document).ready(function() { 
+	$('form').submit( function(ev){
+	ev.preventDefault();
+		
+		var m_data = new FormData();
+		m_data.append( 'tra_dat', $('#date').val());
+		m_data.append( 'ac_grp', $('#type').val());
+		m_data.append( 'ex_prt_acn', $('#ex_prt_ac').val());
+		m_data.append( 'inv_ref', $('#ref').val());
+		m_data.append( 'desc', $('#des').val());
+		m_data.append( 'mode', $('input:radio[name=mode]:checked').val());
+		m_data.append( 'inst_utr', $('#inst').val());
+		m_data.append( 'bank_acn', $('#acb').val());
+		m_data.append( 'amt', $('#amount').val());
+		m_data.append( 'tds', $('#go').val());
+		m_data.append( 'tt_amt', $('#tt').val());
+		
+		$(".form_post").addClass("disabled");
+		$("#wait").show();
+			
+			$.ajax({
+			url: "bank_payment_json",
+			data: m_data,
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			dataType:'json',
+			}).done(function(response) {
+				if(response.report_type=='error'){
+					$(".remove_report").html('');
+						jQuery.each(response.report, function(i, val) {
+						$("label[report="+val.label+"]").html('<span style="color:red;">'+val.text+'</span>');
+					});
+				}
+				if(response.report_type=='publish'){
+                $("#shwd").show()
+				$(".success_report").show().html(response.report);	
+				}
+			
+			$("html, body").animate({
+			scrollTop:0
+			},"slow");
+			$(".form_post").removeClass("disabled");
+			$("#wait").hide();
+			});
+
+	 
+	});
+});
+
+</script>
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
