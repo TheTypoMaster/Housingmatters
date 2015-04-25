@@ -2,8 +2,7 @@
 if($value == 1)
 {
 ?>
-<br />
-<select name="user_id" class="m-wrap medium chosen">
+<select name="user_id" class="m-wrap span9 chosen">
 <option value="" style="display:none;">Select</option>
 <?php
 	
@@ -54,8 +53,7 @@ if($value == 1)
 else if($value == 2)
 {
 ?>	
-	<br />
-<select name="user_id" class="m-wrap medium chosen">
+<select name="user_id" class="m-wrap span9 chosen">
 <option value="" style="display:none;">Select</option>
 <?php
 
@@ -73,8 +71,8 @@ $name = $collection['ledger_account']['ledger_name'];
 else
 {
 ?>
-<br />
-<select name="user_id" class="m-wrap medium chosen">
+
+<select name="user_id" class="m-wrap span9 chosen">
 <option value="">Select</option>
 </select>
 <?php

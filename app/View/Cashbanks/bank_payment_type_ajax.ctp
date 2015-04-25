@@ -2,7 +2,6 @@
 if($type == 1)
 {
 ?>
-<br>
 <select name="expense_ac" class="m-wrap chosen span9" id="ex_prt_ac">
 <option value="">--SELECT--</option>
 <?php
@@ -20,7 +19,6 @@ $name = $collection['ledger_sub_account']['name'];
 else if($type == 2)
 {
 ?>
-<br>
 <select name="expense_ac" class="m-wrap chosen span9" id="ex_prt_ac">
 <option value="">--SELECT--</option>
 <?php
@@ -45,7 +43,6 @@ continue;
 else if($type == 3)
 {
 ?>
-<br>
 <select name="expense_ac" class="m-wrap chosen span9" id="ex_prt_ac">
 <option value="">--SELECT--</option>
 <?php
@@ -67,8 +64,6 @@ $name = $collection['ledger_account']['ledger_name'];
 else
 {
 ?>
-
-<br>
 <select name="expense_ac" class="m-wrap chosen span9" id="ex_prt_ac">
 <option value="">--SELECT--</option>
 </select>
