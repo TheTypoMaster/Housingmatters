@@ -654,13 +654,6 @@ else
 $report[]=array('label'=>'amt', 'text' => 'Pleaes Fill Numeric Value');
 }
 }
-
-
-
-
-
-
-
 	
 $date4 = date("Y-m-d", strtotime($posting_date));
 $date4 = new MongoDate(strtotime($date4));

@@ -69,7 +69,7 @@ Bank Payment Report  (<?php echo $society_name; ?>)
 									   $receipt_instruction = $collection['cash_bank']['receipt_instruction'];
 									   $account_id = (int)$collection['cash_bank']['account_head'];
 									   $amount = $collection['cash_bank']['amount'];
-									   $amount_category_id = (int)$collection['cash_bank']['amount_category_id'];		
+									   //$amount_category_id = (int)$collection['cash_bank']['amount_category_id'];		
 									   $current_date = $collection['cash_bank']['current_date'];		
 										$ac_type = $collection['cash_bank']['account_type'];
 
@@ -102,11 +102,6 @@ $prepaired_by_name = $collection['user']['user_name'];
 
 }									 
 
-$result_amt = $this->requestAction(array('controller' => 'hms', 'action' => 'amount_category'),array('pass'=>array($amount_category_id))); 									  
-   								  foreach ($result_amt as $collection) 
-									   {
-									   $amount_category = $collection['amount_category']['amount_category'];  
-									   }  
 									   		
 									
 									

@@ -1213,7 +1213,7 @@ $receipt_mode = $collection['cash_bank']['receipt_mode'];
 $receipt_instruction = $collection['cash_bank']['receipt_instruction'];
 $account_id = (int)$collection['cash_bank']['account_head'];
 $amount = $collection['cash_bank']['amount'];
-$amount_category_id = (int)$collection['cash_bank']['amount_category_id'];		
+		
 $current_date = $collection['cash_bank']['current_date'];		
 $ac_type = $collection['cash_bank']['account_type'];
 
@@ -1236,11 +1236,7 @@ foreach ($result_lsa as $collection)
 $user_name = $collection['ledger_account']['ledger_name'];  
 }	
 }		
-$result_amt = $this->requestAction(array('controller' => 'hms', 'action' => 'amount_category'),array('pass'=>array($amount_category_id))); 									  
-foreach ($result_amt as $collection) 
-{
-$amount_category = $collection['amount_category']['amount_category'];  
-}  
+ 
 
 $result_lsa2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($account_id))); 					   
 foreach ($result_lsa2 as $collection) 
@@ -2860,28 +2856,170 @@ $report[]=array('label'=>'tr_dat', 'text' => 'The Date is not in Open Financial 
 }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 if(sizeof($report)>0)
 {
 $output=json_encode(array('report_type'=>'error','report'=>$report));
 die($output);
 }
 
+$transaction_date2 = date("Y-m-d", strtotime($transaction_date));
+$transaction_date2 = new MongoDate(strtotime($transaction_date2));
+
+$date = date('Y-m-d');
+$current_date = new MongoDate(strtotime($date));
 
 
+
+if($ac_group == 1)
+{
+$account_type = 1;
+}
+else if($ac_group == 2 || $ac_group == 3)
+{
+$account_type = 2;
+}
+
+
+$this->loadmodel('cash_bank');
+$conditions=array("society_id" => $s_society_id,"module_id"=>2);
+$order=array('cash_bank.transaction_id'=> 'DESC');
+$cursor=$this->cash_bank->find('all',array('conditions'=>$conditions,'order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last11 = $collection['cash_bank']['transaction_id'];
+$last12 = $collection['cash_bank']['receipt_id'];
+}
+if(empty($last11))
+{
+$i=0;
+$bbb = 1000;
+}	
+else
+{	
+$i=$last11;
+$bbb = $last12;
+}
+$i++; 
+$bbb++;
+$this->loadmodel('cash_bank');
+$multipleRowData = Array( Array("transaction_id" => $i, "receipt_id" => $bbb,  "current_date" => $current_date, 
+"transaction_date" => $transaction_date2, "prepaired_by" => $s_user_id, 
+"user_id" => $exp_party, "invoice_reference" => $invoice_ref,"narration" => $narration, "receipt_mode" => $mode,
+"receipt_instruction" => $inst_utr, "account_head" => $bank_ac,  
+"amount" => $amt,"society_id" => $s_society_id, "tds_id" => $tds,"account_type" => $account_type,"module_id"=>2));
+$this->cash_bank->saveAll($multipleRowData);  
+
+//////////////////// End Insert///////////////////////////////
+///////////// TDS CALCULATION /////////////////////
+$this->loadmodel('reference');
+$conditions=array("auto_id" => 3);
+$cursor4=$this->reference->find('all',array('conditions'=>$conditions));
+foreach($cursor4 as $collection)
+{
+$tds_arr = $collection['reference']['reference'];	
+}
+
+for($r=0; $r<sizeof($tds_arr); $r++)
+{
+$tds_sub_arr = $tds_arr[$r];
+$tds_id2 = (int)$tds_sub_arr[1];
+if($tds_id2 == $tds)
+{
+$tds_rate = $tds_sub_arr[0];
+break;
+}
+}
+
+$tds_amount = (round(($tds_rate/100)*$amt));
+$total_tds_amount = ($amt - $tds_amount);
+////////////END TDS CALCULATION //////////////////// 
+////////////////START LEDGER ENTRY///////////////////////
+
+$this->loadmodel('ledger');
+$order=array('ledger.auto_id'=> 'DESC');
+$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last21 =$collection['ledger']['auto_id'];
+}
+if(empty($last21))
+{
+$k=0;
+}	
+else
+{	
+$k=$last21;
+}
+$k++; 
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $bbb, 
+"amount" => $amt, "amount_category_id" => 1, "module_id" => 2, "account_type" => $account_type, "account_id" => $exp_party,
+"current_date" => $current_date, "society_id" => $s_society_id,"table_name"=>"cash_bank","module_name"=>"Bank Payment"));
+$this->ledger->saveAll($multipleRowData); 
+
+
+
+$sub_account_id_a = (int)$bank_ac;
+$this->loadmodel('ledger');
+$order=array('ledger.auto_id'=> 'DESC');
+$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last22=$collection['ledger']['auto_id'];
+}
+if(empty($last22))
+{
+$k=0;
+}	
+else
+{	
+$k=$last22;
+}
+$k++; 
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $bbb, 
+"amount" => $total_tds_amount, "amount_category_id" => 2, "module_id" => 2, "account_type" => 1, "account_id" => $sub_account_id_a, "current_date" => $current_date, "society_id" => $s_society_id,"table_name"=>"cash_bank","module_name"=>"Bank Payment"));
+$this->ledger->saveAll($multipleRowData); 
+
+if($tds_amount > 0)
+{
+$sub_account_id_t = 16;
+$this->loadmodel('ledger');
+$order=array('ledger.auto_id'=> 'DESC');
+$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last23=$collection['ledger']['auto_id'];
+}
+if(empty($last23))
+{
+$k=0;
+}	
+else
+{	
+$k=$last23;
+}
+$k++; 
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $bbb, 
+"amount" => $tds_amount, "amount_category_id" => 2, "module_id" => 2, "account_type" => 2, "account_id" => $sub_account_id_t,"current_date" => $current_date, "society_id" => $s_society_id,"table_name"=>"cash_bank","module_name"=>"Bank Payment"));
+$this->ledger->saveAll($multipleRowData);
+
+}
+
+$this->loadmodel('cash_bank');
+$conditions=array("society_id" => $s_society_id,"module_id"=>2);
+$order=array('cash_bank.receipt_id'=> 'ASC');
+$cursor1=$this->cash_bank->find('all',array('conditions'=>$conditions));
+foreach ($cursor1 as $collection) 
+{
+$d_receipt_id = (int)$collection['cash_bank']['receipt_id'];	
+}
+
+
+
+$output=json_encode(array('report_type'=>'publish','report'=>'Bank Payment Voucher #'.$d_receipt_id.' is generated successfully'));
+die($output);
 
 
 
