@@ -223,8 +223,8 @@ $(document).ready(function() {
 			processData: false,
 			contentType: false,
 			type: 'POST',
-			dataType:'json',
 			}).done(function(response) {
+			$(".success_report").show().html("<p>"+response+"</p><p><a class='btn green' href='<?php echo $webroot_path; ?>Classifieds/post_ad' rel='tab' >ok</a></p>");
 				if(response.report_type=='error'){
 					$(".remove_report").html('');
 						jQuery.each(response.report, function(i, val) {
