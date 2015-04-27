@@ -48,6 +48,26 @@ function view_ad_ajax($id=null){
 	$conditions=array('classified_id'=>$id);
 	$result_classified=$this->classified->find('all',array('conditions'=>$conditions));
 	$this->set('result_classified',$result_classified);
+	
+	$this->loadmodel('classified');
+	$conditions=array('classified_id' => array('$gt'=>$id),'delete'=>0,'draft'=>0);
+	$result_next=$this->classified->find('all',array('conditions'=>$conditions,'limit'=>1));
+	if(sizeof($result_next)==0){
+		$conditions=array('classified_id' => array('$gte'=>1),'delete'=>0,'draft'=>0);
+		$result_next=$this->classified->find('all',array('conditions'=>$conditions,'limit'=>1));
+	}
+	$this->set('result_next',$result_next[0]["classified"]["classified_id"]);
+	
+	$this->loadmodel('classified');
+	$conditions=array('classified_id' => array('$lt'=>$id),'delete'=>0,'draft'=>0);
+	$result_prv=$this->classified->find('all',array('conditions'=>$conditions,'limit'=>1));
+	if(sizeof($result_prv)==0){
+		$count_all=$this->classified->find('count');
+		
+		$conditions=array('classified_id' => array('$lte'=>$count_all),'delete'=>0,'draft'=>0);
+		$result_prv=$this->classified->find('all',array('conditions'=>$conditions,'limit'=>1));
+	}
+	$this->set('result_prv',$result_next[0]["classified"]["classified_id"]);
 }
 
 function submit_ad(){

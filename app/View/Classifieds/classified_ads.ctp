@@ -130,6 +130,7 @@ foreach ($result_classifieds as $classified){
 <div class="view_div"  style="display:none;">
 	<div class="modal-backdrop fade in"></div>
 	<div id="myModal_ad123" class="modal fade in" style="width: 80%; margin: auto; left: 10%;">
+		<span class="label" style="position: absolute;right: 0px;">close</span>
 		<div class="modal-body"><div align="center"><img src="<?php echo $webroot_path; ?>as/fb_loading.gif" /> <br/> Please Wait...</div></div>
 	</div>
 	

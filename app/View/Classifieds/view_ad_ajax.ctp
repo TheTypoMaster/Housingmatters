@@ -73,7 +73,7 @@
 	</div>
 </div>
 <div class="modal-footer">
-	<button class="btn blue pull-left" data-dismiss="modal" aria-hidden="true">Previous</button>
-	<a href="#" role="button" class="btn model_close">Close</a>
-	<button data-dismiss="modal" class="btn blue">Next</button>
+	<a href="#" role="button" class="btn purple pull-left" onclick="view_classified(<?php echo $result_prv; ?>)"><i class="icon-circle-arrow-left"></i> Previous</a>
+	<a href="#" role="button" class="btn model_close"><i class="icon-remove-sign"></i> Close</a>
+	<a href="#" role="button" class="btn purple" onclick="view_classified(<?php echo $result_next; ?>)">Next <i class="icon-circle-arrow-right"></i> </a>
 </div>
