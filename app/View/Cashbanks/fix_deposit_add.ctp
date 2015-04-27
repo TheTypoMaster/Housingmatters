@@ -7,361 +7,220 @@ $("#fix<?php echo $id_current_page; ?>").removeClass("blue");
 $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
-
-
-
-<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>          
-    		<!--<table width="100%" border="1" bordercolor="#FFFFFF" cellpadding="0">
-            <tr>
-            <td style="width:20%">
-            <a href="bank_receipt_view" class="btn blue btn-block"  style="font-size:16px;">Bank Receipt</a>
-            </td>
-            <td style="width:20%">
-            <a href="bank_payment_view" class="btn blue btn-block"   style="font-size:16px;">Bank Payment</a>
-            </td>
-            <td style="width:20%">
-            <a href="petty_cash_receipt_view" class="btn blue btn-block"  style="font-size:16px;">Petty Cash Receipt</a>
-            </td>
-            <td style="width:20%">
-            <a href="petty_cash_payment_view" class="btn blue btn-block"  style="font-size:16px;">Petty Cash Payment</a>
-            </td>
-            <td style="width:20%">
-            <a href="fix_deposit_view" class="btn red btn-block"  style="font-size:16px;">Fixed Deposit</a>
-            </td>
-            </tr>
-            </table>     --> 
-			
-<?php //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<br>
+<?php ///////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <center>
 <a href="<?php echo $webroot_path; ?>Cashbanks/fix_deposit_add" class="btn red" rel='tab'>Add</a>
 <a href="<?php echo $webroot_path; ?>Cashbanks/fix_deposit_view" class="btn blue" rel='tab'>Active Deposits</a>
 <a href="<?php echo $webroot_path; ?>Cashbanks/matured_deposit_view" class="btn blue" rel='tab'>Matured Deposits</a>
 </center>	
 
-<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<br>
-			<div class="portlet box grey" style="width:60%; margin-left:20%; margin-right:20%;">
-			<div class="portlet-title">
-			<h4><i class="icon-reorder"></i>Fixed Diposit</h4>
-			</div>
-			<div class="portlet-body form">
+<?php //////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">
+<h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Post Fix Deposit</h4>  
+   
+<form method="post">
+<div class="row-fluid">
+<div class="span6">
+   
 
-			<form id="contact-form" method="POST" class="form-horizontal" enctype="multipart/form-data">
-			<center>
-			<table  style="width:80%;">
+<label style="font-size:14px;">Bank Name<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text" name="bank_name" class="m-wrap span9" id="bkn">
+</div>
+<br />
 
+  
 
-			<tr>
-			<td><br>
-			<label class="" style="font-size:14px;">Bank Name</label>
-			</td>
-			<td><br>
-			<input type="text" name="bank_name" class="m-wrap medium" id="bkn">
-            <label id="bkn"></label>
-			</td>
-			</tr>
+<label style="font-size:14px;">Branch<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text"  name="branch" class="m-wrap span9" id="brc">
+</div>
+<br />
+  
+  
 
-
-			<tr>
-			<td><br>
-			<label class="" style="font-size:14px;">Branch</label>
-			</td>
-			<td><br>
-			<input type="text"  name="branch" class="m-wrap medium" id="brc">
-             <label id="brc"></label>
-			</td>
-			</tr>	
-
-
-			<tr>
-			<td><br>
-			<label class="" style="font-size:14px;">Account Reference</label>
-			</td>
-			<td><br>
-			<input type="text"  name="account_reference" class="m-wrap medium" id="arf"> 
-            <label id="arf"></label>
-			</td>
-			</tr>
+<label style="font-size:14px;">Account Reference<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text"  name="account_reference" class="m-wrap span9" id="arf"> 
+</div>
+<br />
+  
+  
+<label style="font-size:14px;">Principal Amount<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text"  name="principal_amount" class="m-wrap span9" id="prm">
+</div>
+<br />
 
 
-			<tr>
-			<td><br>
-			<label class="" style="font-size:14px;">Principal Amount</label>
-			</td>
-			<td><br>
-			<input type="text"  name="principal_amount" class="m-wrap medium" id="prm">
-             <label id="prm"></label> 
-			</td>
-			</tr>
+<label style="font-size:14px;">Reminder Days<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text" name="reminder" class="m-wrap span9" id="rmd">
+</div>
+<br />
 
 
-			<tr>
-			<td><br>
-			<label class="" style="font-size:14px;">Start Date</label>
-			</td>
-			<td><br>
-			<input type="text" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="start_date" id="std">
-             <label id="std"></label>
-			</td>
-			</tr>
+<label style="font-size:14px;">Remarks</label>
+<div class="controls">
+<textarea name="remark" class="m-wrap span9" id="rmk" rows="4"></textarea>
+</div>
+<br />
 
 
-			<tr>
-			<td><br>
-			<label class="" style="font-size:14px;">Maturity Date</label>
-			</td>
-			<td><br>
-			<input type="text" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="maturity_date" id="mtd">
-             <label id="mtd"></label>
-			</td>
-			</tr>
 
 
-			<tr>
-			<td><br>
-			<label class="" style="font-size:14px;">Interest Rate %</label>
-			</td>
-			<td><br>
-			<input type="text"  name="interest_rate" class="m-wrap medium" id="ir">
-             <label id="ir"></label>
-			</td>
-			</tr>
 
 
-			<tr>
-			<td><br>
-			<label class="" style="font-size:14px;">Remarks</label>
-			</td>
-			<td><br>
-			<input type="text" name="remark" class="m-wrap medium" id="rmk">
-             <label id="rmk"></label>
-			</td>
-			</tr>
 
 
-			<tr>
-			<td><br>
-			<label class="" style="font-size:14px;">Reminder Days</label>
-			</td>
-			<td><br>
-			<input type="text" name="reminder" class="m-wrap medium" id="rmd">
-             <label id="rmd"></label>
-			</td>
-			</tr>
 
 
-			<tr>
-			<td><br>
-			<label class="" style="font-size:14px;">TDS Amount</label>
-			</td>
-			<td><br>
-			<input type="text" name="tds" class="m-wrap medium" id="tda">
-             <label id="tda"></label>
-			</td>
-			</tr>
 
-
-			<tr>
-			<td><br>
-			<label class="" style="font-size:14px;">Attachment</label>
-			</td>
-			<td><br>
-			<div class="fileupload fileupload-new" data-provides="fileupload"><input type="hidden" value="" name="">
-			<span class="btn btn-file">
-			<span class="fileupload-new">Select file</span>
-			<span class="fileupload-exists">Change</span>
-			<input type="file" class="default" name="uploaded" id="upl">
-			</span>
-			<span class="fileupload-preview"></span>
-			<a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none"></a>
-			</div>
-            <label id="upl"></label>
-			</td>
-			</tr>
+</div> 
+<div class="span6">  
+  
+  
+ 
+<label style="font-size:14px;">Start Date<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="start_date" id="std">
+</div>
+<br />
 			
-			
-			<br> 
-			</table> 
-			<table border="0" style="width:80%;">
-			
-			 
-			<tr>
-			<td><h6><b><span style="margin-left:25%;"> Contact Detail  (optional)</span></b></h6></td>
-			</tr>
-			</table>
-			<table style="width:80%;">
-			<tr>
-			<td style="width:37%;"><br><label class="" style="font-size:14px;">Name</label></td>
-			<td><br><input type="text"  name="name" class="m-wrap medium" id="name">
-             <label id="name"></label>
-            </td>
-			</tr>
-			
-			
-			<tr>
-			<td><br><label class="" style="font-size:14px;">E-mail</label></td>
-			<td><br><input type="text" name="email" class="m-wrap medium" id="email">
-             <label id="email"></label>
-            </td>
-			</tr>
+  
 
-			
-			<tr>
-			<td><br><label class="" style="font-size:14px;">Mobile</label></td>
-			<td><br><input type="text" name="mobile" class="m-wrap medium" id="mobile">
-             <label id="mobile"></label>
-            </td>
-			</tr>
-			
-			</table>
-            </center>            
-			
-			
-			
-			
-			
-			
-			
-			<br><br>
-			<div class="form-actions" style="background-color:#CCC;">
-			<input type="submit" name="sub" class="btn green" value="Submit">
-			<button type="button" class="btn">Cancel</button>
-			</div>
-			
-			
-			
-			
-			
-			</span>
-			</form>
-			 
-			
-			</form>
-			
+<label style="font-size:14px;">Maturity Date<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="maturity_date" id="mtd">
+</div>
+<br />
+  
+  
 
-			</div>
-			</div>
-            
-<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>			
-			
-			
-<script>
-$(document).ready(function(){
+<label style="font-size:14px;">Interest Rate %<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text"  name="interest_rate" class="m-wrap span9" id="ir">
+</div>
+<br />
 
- jQuery.validator.addMethod("notEqual", function(value, element, param) {
-  return this.optional(element) || value !== param;
-}, "Please choose Other value!");	
+	
+<label style="font-size:14px;">TDS Amount<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text" name="tds" class="m-wrap span9" id="tda">
+</div>
+<br />
+			
+ 
+ 
+ 
+ 
+ 
+  
+  
+<label style="font-size:14px;">Attachment</label>
+<div class="controls">
+<div class="fileupload fileupload-new" data-provides="fileupload"><input type="hidden" value="" name="">
+<span class="btn btn-file">
+<span class="fileupload-new">Select file</span>
+<span class="fileupload-exists">Change</span>
+<input type="file" class="default" name="uploaded" id="upl">
+</span>
+<span class="fileupload-preview"></span>
+<a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none"></a>
+</div>
+</div>        
+<br />			
+</div>
+</div>
+<hr/>
+<div class="row-fluid">
+<div class="span6">  
+<label style="font-size:14px;"><b>Contact Detail</b>(Optional)</label>
+<br />
+
+
+<label style="font-size:14px;">Name</label>
+<div class="controls">
+<input type="text"  name="name" class="m-wrap span9" id="name">
+</div>          
+<br />            
+
+<label style="font-size:14px;">E-mail</label>
+<div class="controls">
+<input type="text" name="email" class="m-wrap span9" id="email">
+</div>
+<br />
+
+<label style="font-size:14px;">Mobile</label>
+<div class="controls">
+<input type="text" name="mobile" class="m-wrap span9" id="mobile">
+</div>
 
 
 
 
-$.validator.setDefaults({ ignore: ":hidden:not(select)" });
 
-
-		$('#contact-form').validate({
+</div>
+</div>
+<hr/>
+<button type="submit" class="btn form_post" style="background-color: #09F; color:#fff;" value="xyz">Submit</button>
+<a href="<?php echo $webroot_path; ?>Cashbanks/fix_deposit_add" style="background-color: #09F;color:#fff;" class="btn" rel='tab'>Reset</a>
+<div style="display:none;" id='wait'><img src="<?php echo $webroot_path; ?>as/fb_loading.gif" /> Please Wait...</div>
+<br /><br />
+</form>
+</div>
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>   
+              
+ <script>
+$(document).ready(function() { 
+	$('form').submit( function(ev){
+	ev.preventDefault();
 		
-		errorElement: "label",
-                    //place all errors in a <div id="errors"> element
-                    errorPlacement: function(error, element) {
-                        //error.appendTo("label#errors");
-						error.appendTo('label#' + element.attr('id'));
-                    },
-		
-		
-		
-	    rules: {
-	      bank_name: {
-	       
-	        required: true
-	      },
-		  
-		  
-		  mobile: {
-	       
-	        required: true,
-			number: true
-	      },
-		  
-		   email: {
-	       
-	        required: true
-	      },
-		  uploaded: {
-	       
-	        required: true
-	      },
-		  
-		  
-		   name: {
-	       
-	        required: true
-	      },
+		var m_data = new FormData();
+		m_data.append( 'ac_gr', $('#go').val());
+		m_data.append( 'prt_ac', $('#usr').val());
+		m_data.append( 'ac_head', $('#acn').val());
+		m_data.append( 'tra_dat', $('#date').val());
+		m_data.append( 'amt', $('#amt').val());
+		m_data.append( 'desc', $('#narr').val());
+				
+		$(".form_post").addClass("disabled");
+		$("#wait").show();
+			
+			$.ajax({
+			url: "petty_cash_receipt_json",
+			data: m_data,
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			dataType:'json',
+			}).done(function(response) {
+				if(response.report_type=='error'){
+					$(".remove_report").html('');
+						jQuery.each(response.report, function(i, val) {
+						$("label[report="+val.label+"]").html('<span style="color:red;">'+val.text+'</span>');
+					});
+				}
+				if(response.report_type=='publish'){
+                $("#shwd").show()
+				$(".success_report").show().html(response.report);	
+				}
+			
+			$("html, body").animate({
+			scrollTop:0
+			},"slow");
+			$(".form_post").removeClass("disabled");
+			$("#wait").hide();
+			});
+
 	 
-		  account_reference: {
-	            required: true
-	      },
+	});
+});
 
-	     branch: {
-	       required: true
-	      },
-		  
-		  
-		  
-		
-		 principal_amount: {
-	       
-	        required: true,
-			number: true,
-			notEqual: "0"
-	      },
-		  
-		   start_date: {
-	       
-	        required: true
-	      },
-		
-		 maturity_date: {
-	       
-	        required: true
-	      },
-		 
-		 interest_rate: {
-	        required: true,
-			number: true
-	      },
-		
-		
-		tds: {
-	        required: true,
-			number: true
-	      },
-		
-		remark: {
-	        required: true
-	      },
-		
-		reminder: {
-	        required: true,
-			number: true
-	      },
-		
-		
-		},
-			highlight: function(element) {
-				$(element).closest('.control-group').removeClass('success').addClass('error');
-			},
-			success: function(element) {
-				element
-				.text('OK!').addClass('valid')
-				.closest('.control-group').removeClass('error').addClass('success');
-			}
-	  });
+</script>		
 
-}); 
-</script>				
-			
-			
+<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////// ?>   
+		
 			
 			
 			
