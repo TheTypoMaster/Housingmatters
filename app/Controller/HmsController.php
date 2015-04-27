@@ -263,7 +263,6 @@ $this->email_request->saveAll(array('e_id' => $er, 'to' => $to, 'from' => $from,
 
 function logout() 
 {
-
 $this->layout='blank';
 $this->Session->destroy();
 $this->redirect(array('action' => 'index'));
@@ -20275,18 +20274,20 @@ $this->flat->updateAll(array("flat_area"=>$flat_area5,"noc_ch_tp"=>$noc_type5,"f
 $output = json_encode(array('type'=>'succ', 'text' => 'New Journal Entry Inserted in society successfully.'));
     die($output);
 
-
-
-
-
-
-
-
-
 }
 //////////////////////////////// End Master Sm Flat Vali //////////////////////////////////////////////////
 
+////////////////////////////////// Start Create Purchase Order//////////////////////////////////////////////////////
+function create_purchase_order()
+{
+$this->layout='session';
+$s_society_id=$this->Session->read('society_id'); 
+$s_role_id=$this->Session->read('role_id');
+$s_user_id=$this->Session->read('user_id');
 
+
+}
+////////////////////////////////// End Create Purchase Order//////////////////////////////////////////////////////
 
 }
 ?>
