@@ -232,7 +232,7 @@ $(document).ready(function() {
 					});
 				}
 				if(response.report_type=='publish'){
-					$(".success_report").show().html("<p>"+response.report+"</p><p><a class='btn green' href='<?php echo $webroot_path; ?>Classifieds/post_ad' rel='tab' >ok</a></p>");
+					$(".success_report").show().html("<p>"+response.report+"</p><p><a class='btn green' href='<?php echo $webroot_path; ?>Classifieds/classified_ads' rel='tab' >ok</a></p>");
 					$(".form_div").remove();
 				}
 			
