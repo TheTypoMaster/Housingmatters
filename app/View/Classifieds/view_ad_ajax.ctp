@@ -38,9 +38,11 @@
 			echo '<span class="badge badge-important" style="position: absolute; top: 15px;">Buy</span>';
 		}?>
 	<div class="row-fluid">
-		<div class="span7" align="center" style="background-color: #F1F3FA;">
+		<div class="span7" align="center" style="background-color: #F1F3FA;min-height: 400px;line-height: 390px;">
 		<?php if(!empty($file)) { ?>
 		<img src="<?php echo $webroot_path; ?>Classifieds/<?php echo $file; ?>" style="height:400px;" />
+		<?php }else{ ?>
+		<img src="<?php echo $webroot_path; ?>as/AAAAAA&text=no+image.gif" style="height:200px;" />
 		<?php } ?>
 		</div>
 		<div class="span5" >

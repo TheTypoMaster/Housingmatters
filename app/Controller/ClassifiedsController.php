@@ -36,7 +36,8 @@ function classified_ads($id=null){
 	
 	$this->loadmodel('classified');
 	$conditions=array('delete'=>0,'draft'=>0);
-	$result_classifieds=$this->classified->find('all',array('conditions'=>$conditions));
+	$order=array('classified.classified_id'=>'DESC');
+	$result_classifieds=$this->classified->find('all',array('conditions'=>$conditions,'order'=>$order));
 	$this->set('result_classifieds',$result_classifieds);
 }
 

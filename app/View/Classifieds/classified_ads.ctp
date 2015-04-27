@@ -87,6 +87,8 @@ foreach ($result_classifieds as $classified){
 					<td width="30%" align="center" style=" background-color: #F1F3FA; ">
 						<?php if(!empty($file)) { ?>
 						<img src="<?php echo $webroot_path; ?>Classifieds/<?php echo $file; ?>" style="height:120px;" />
+						<?php }else{ ?>
+						<img src="<?php echo $webroot_path; ?>as/AAAAAA&text=no+image.gif" style="height:120px;" />
 						<?php } ?>
 						
 					</td>
