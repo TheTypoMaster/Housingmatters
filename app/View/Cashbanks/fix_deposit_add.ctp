@@ -26,6 +26,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <label style="font-size:14px;">Bank Name<span style="color:red;">*</span></label>
 <div class="controls">
 <input type="text" name="bank_name" class="m-wrap span9" id="bkn">
+<label report="bnk" class="remove_report"></label>
 </div>
 <br />
 
@@ -34,6 +35,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <label style="font-size:14px;">Branch<span style="color:red;">*</span></label>
 <div class="controls">
 <input type="text"  name="branch" class="m-wrap span9" id="brc">
+<label report="brch" class="remove_report"></label>
 </div>
 <br />
   
@@ -42,6 +44,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <label style="font-size:14px;">Account Reference<span style="color:red;">*</span></label>
 <div class="controls">
 <input type="text"  name="account_reference" class="m-wrap span9" id="arf"> 
+<label report="acref" class="remove_report"></label>
 </div>
 <br />
   
@@ -49,6 +52,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <label style="font-size:14px;">Principal Amount<span style="color:red;">*</span></label>
 <div class="controls">
 <input type="text"  name="principal_amount" class="m-wrap span9" id="prm">
+<label report="pramt" class="remove_report"></label>
 </div>
 <br />
 
@@ -56,6 +60,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <label style="font-size:14px;">Reminder Days<span style="color:red;">*</span></label>
 <div class="controls">
 <input type="text" name="reminder" class="m-wrap span9" id="rmd">
+<label report="remday" class="remove_report"></label>
 </div>
 <br />
 
@@ -84,6 +89,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <label style="font-size:14px;">Start Date<span style="color:red;">*</span></label>
 <div class="controls">
 <input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="start_date" id="std">
+<label report="stdat" class="remove_report"></label>
 </div>
 <br />
 			
@@ -92,6 +98,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <label style="font-size:14px;">Maturity Date<span style="color:red;">*</span></label>
 <div class="controls">
 <input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="maturity_date" id="mtd">
+<label report="matdat" class="remove_report"></label>
 </div>
 <br />
   
@@ -100,6 +107,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <label style="font-size:14px;">Interest Rate %<span style="color:red;">*</span></label>
 <div class="controls">
 <input type="text"  name="interest_rate" class="m-wrap span9" id="ir">
+<label report="inrat" class="remove_report"></label>
 </div>
 <br />
 
@@ -107,6 +115,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <label style="font-size:14px;">TDS Amount<span style="color:red;">*</span></label>
 <div class="controls">
 <input type="text" name="tds" class="m-wrap span9" id="tda">
+<label report="tds" class="remove_report"></label>
 </div>
 <br />
 			
@@ -177,18 +186,25 @@ $(document).ready(function() {
 	ev.preventDefault();
 		
 		var m_data = new FormData();
-		m_data.append( 'ac_gr', $('#go').val());
-		m_data.append( 'prt_ac', $('#usr').val());
-		m_data.append( 'ac_head', $('#acn').val());
-		m_data.append( 'tra_dat', $('#date').val());
-		m_data.append( 'amt', $('#amt').val());
-		m_data.append( 'desc', $('#narr').val());
-				
+		m_data.append( 'bnk_name', $('#bkn').val());
+		m_data.append( 'branch', $('#brc').val());
+		m_data.append( 'ac_ref', $('#arf').val());
+		m_data.append( 'pr_amt', $('#prm').val());
+		m_data.append( 'rmd_day', $('#rmd').val());
+		m_data.append( 'remark', $('#rmk').val());
+		m_data.append( 'st_dat', $('#std').val());
+		m_data.append( 'mat_dat', $('#mtd').val());
+		m_data.append( 'int_rate', $('#ir').val());
+		m_data.append( 'tds_amt', $('#tda').val());
+		m_data.append( 'name', $('#name').val());
+		m_data.append( 'email', $('#email').val());
+		m_data.append( 'mobile', $('#mobile').val());
+		
 		$(".form_post").addClass("disabled");
 		$("#wait").show();
 			
 			$.ajax({
-			url: "petty_cash_receipt_json",
+			url: "fix_deposit_json",
 			data: m_data,
 			processData: false,
 			contentType: false,

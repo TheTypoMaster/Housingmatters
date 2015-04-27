@@ -3195,6 +3195,201 @@ $d_receipt_id = (int)$collection['cash_bank']['receipt_id'];
 $output=json_encode(array('report_type'=>'publish','report'=>'Petty Cash Receipt #'.$d_receipt_id.' is generated successfully'));
 die($output);
 
+}
+////////////////////////////////////////// End Petty Cash Receipt Json/////////////////////////////////////////////
+
+////////////////////////////////////////// Start Fix Deposit Jason ////////////////////////////////////////////////
+function fix_deposit_json()
+{
+$this->layout=null;
+$post_data=$this->request->data;
+$this->ath();
+$s_society_id=$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
+$date=date('d-m-Y');
+$time = date(' h:i a', time());
+
+$bank_name = $post_data['bnk_name'];
+$branch = $post_data['branch'];
+$account_ref = $post_data['ac_ref'];
+$principal_amt = $post_data['pr_amt'];
+$remind_day = $post_data['rmd_day'];
+$remarks = $post_data['remark'];
+$start_date = $post_data['st_dat'];
+$mat_date = $post_data['mat_dat'];
+$int_rate = $post_data['int_rate'];
+$tds_amt = $post_data['tds_amt'];
+$name = $post_data['name'];
+$email = $post_data['email'];
+$mobile = $post_data['mobile'];
+
+$report = array();
+
+if(empty($bank_name)){
+$report[]=array('label'=>'bnk', 'text' => 'Please Fill Bank Name');
+}	
+
+
+
+if(empty($branch)){
+$report[]=array('label'=>'brch', 'text' => 'Please Fill Branch of the Bank');
+}	
+
+
+
+if(empty($account_ref)){
+$report[]=array('label'=>'acref', 'text' => 'Please Fill Account Reference');
+}	
+
+
+
+if(empty($principal_amt)){
+$report[]=array('label'=>'pramt', 'text' => 'Please Fill Principal Amount');
+}	
+
+
+
+if(empty($remind_day)){
+$report[]=array('label'=>'remday', 'text' => 'Please Reminder Days');
+}	
+
+
+
+
+if(empty($start_date)){
+$report[]=array('label'=>'stdat', 'text' => 'Please select Start Date');
+}	
+
+
+
+if(empty($mat_date)){
+$report[]=array('label'=>'matdat', 'text' => 'Please select Maturity Date');
+}	
+
+
+
+if(empty($int_rate)){
+$report[]=array('label'=>'inrat', 'text' => 'Please Fill Interest Rate');
+}	
+
+
+
+if(empty($tds_amt)){
+$report[]=array('label'=>'tds', 'text' => 'Please Fill Tds Amount');
+}	
+
+
+
+
+if(!empty($principal_amt))
+{
+if(is_numeric($principal_amt))
+{
+}
+else
+{
+$report[]=array('label'=>'pramt', 'text' => 'Please Fill Numeric Value');
+}	
+}
+
+if(!empty($remind_day))
+{
+if(is_numeric($remind_day))
+{
+}
+else
+{
+$report[]=array('label'=>'remday', 'text' => 'Please Fill Numeric Value');
+}	
+}
+
+if(!empty($int_rate))
+{
+if(is_numeric($int_rate))
+{
+}
+else
+{
+$report[]=array('label'=>'inrat', 'text' => 'Please Fill Numeric Value');
+}	
+}
+
+if(!empty($tds_amt))
+{
+if(is_numeric($tds_amt))
+{
+}
+else
+{
+$report[]=array('label'=>'tds', 'text' => 'Please Fill Numeric Value');
+}	
+}
+
+$date4 = date("Y-m-d", strtotime($start_date));
+$date4 = new MongoDate(strtotime($date4));
+
+
+
+$this->loadmodel('financial_year');
+$conditions=array("society_id" => $s_society_id);
+$cursor=$this->financial_year->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$from = $collection['financial_year']['from'];
+$to = $collection['financial_year']['to'];
+if($from <= $date4 && $to >= $date4)
+{
+$abc = 55;
+break;
+}
+else
+{
+$abc = 555; 
+}
+}
+
+if(!empty($start_date))
+{
+if($abc == 555)
+{
+$report[]=array('label'=>'stdat', 'text' => 'The Date is not in Open Financial Year, Please Select another Date');
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if(sizeof($report)>0)
+{
+$output=json_encode(array('report_type'=>'error','report'=>$report));
+die($output);
+}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3209,7 +3404,8 @@ die($output);
 
 
 }
-////////////////////////////////////////// End Petty Cash Receipt Json/////////////////////////////////////////////
+////////////////////////////////////////// End Fix Deposit Jason ////////////////////////////////////////////////
+
 
 }
 ?>
