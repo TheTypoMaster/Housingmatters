@@ -2549,10 +2549,10 @@ $this->set('cursor2',$cursor2);
 function fix_deposit_add()
 {
 if($this->RequestHandler->isAjax()){
-		$this->layout='blank';
-	}else{
-		$this->layout='session';
-	}
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
 	
 $this->ath();
 $this->check_user_privilages();		
@@ -3223,8 +3223,24 @@ $name = $post_data['name'];
 $email = $post_data['email'];
 $mobile = $post_data['mobile'];
 
-$report = array();
+$file_name="";
+if(isset($_FILES['file'])){
+$file_name=$_FILES['file']['name'];
+$file_size=$_FILES['file']['size'];
+$file_tmp_name=$_FILES['file']['tmp_name'];
+$file_type=$_FILES['file']['type'];
+}
 
+
+
+
+
+
+
+
+
+
+$report = array();
 if(empty($bank_name)){
 $report[]=array('label'=>'bnk', 'text' => 'Please Fill Bank Name');
 }	
@@ -3356,52 +3372,51 @@ $report[]=array('label'=>'stdat', 'text' => 'The Date is not in Open Financial Y
 }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 if(sizeof($report)>0)
 {
 $output=json_encode(array('report_type'=>'error','report'=>$report));
 die($output);
 }
 
+$start_date2 = date("Y-m-d", strtotime($start_date));
+$start_date2 = new MongoDate(strtotime($start_date2));
 
+$mat_date2 = date("Y-m-d", strtotime($mat_date));
+$mat_date2 = new MongoDate(strtotime($mat_date2));
 
+$current_date = date("Y-m-d");
+$current_date = new MongoDate(strtotime($current_date));
 
+if(isset($_FILES['file'])){
+$target = "fix_deposit/";
+$target=@$target.basename($file_name);
+move_uploaded_file($file_tmp_name,@$target);
+}
 
+$this->loadmodel('fix_deposit');
+$conditions=array("society_id" => $s_society_id);
+$order=array('fix_deposit.auto_id'=> 'DESC');
+$cursor=$this->fix_deposit->find('all',array('conditions'=>$conditions,'order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last11 = $collection['fix_deposit']['auto_id'];
+}
+if(empty($last11))
+{
+$i=1000;
+}	
+else
+{	
+$i=$last11;
+}
+$i++; 
+$this->loadmodel('fix_deposit');
+$multipleRowData = Array( Array("auto_id" => $i, "bank_name" => $bank_name,  "branch" => $branch, "account_reference" => $account_ref, "prepaired_by" => $s_user_id, 
+"principal_amount" => $principal_amt, "start_date" => $start_date2,"maturity_date" => $mat_date2, "interest_rate" => $int_rate,"remark" => $remarks, "reminder" => $remind_day,"tds" => $tds_amt, "name" => $name, "society_id" => $s_society_id, "email" => $email,"mobile" => $mobile, "current_date"=>$current_date,"file_name"=>$file_name));
+$this->fix_deposit->saveAll($multipleRowData);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+$output=json_encode(array('report_type'=>'publish','report'=>'Record Inserted Successfully'));
+die($output);
 
 }
 ////////////////////////////////////////// End Fix Deposit Jason ////////////////////////////////////////////////

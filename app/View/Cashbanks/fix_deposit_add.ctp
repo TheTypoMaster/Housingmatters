@@ -132,7 +132,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <span class="btn btn-file">
 <span class="fileupload-new">Select file</span>
 <span class="fileupload-exists">Change</span>
-<input type="file" class="default" name="uploaded" id="upl">
+<input type="file" class="default" name="file" id="upl">
 </span>
 <span class="fileupload-preview"></span>
 <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none"></a>
@@ -199,7 +199,7 @@ $(document).ready(function() {
 		m_data.append( 'name', $('#name').val());
 		m_data.append( 'email', $('#email').val());
 		m_data.append( 'mobile', $('#mobile').val());
-		
+		m_data.append( 'file', $('input[name=file]')[0].files[0]);
 		$(".form_post").addClass("disabled");
 		$("#wait").show();
 			
@@ -238,6 +238,24 @@ $(document).ready(function() {
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////// ?>   
 		
 			
+<div id="shwd" class="hide">
+<div class="modal-backdrop fade in"></div>
+<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+<div class="modal-header">
+<center>
+<h3 id="myModalLabel3" style="color:#999;"><b>Fix Deposit</b></h3>
+</center>
+</div>
+<div class="modal-body">
+<center>
+<h5><b class="success_report"></b></h5>
+</center>
+</div>
+<div class="modal-footer">
+<a href="<?php echo $webroot_path; ?>Cashbanks/fix_deposit_add" class="btn blue" rel='tab'>OK</a>
+</div>
+</div>
+</div> 
 			
 			
 			
