@@ -34,7 +34,7 @@ else
 
 <label style="font-size:14px;">Asset Category<span style="color:red;">*</span></label>
 <div class="controls">
-<select name="asset_category" class="m-wrap span9 chosen">
+<select name="asset_category" class="m-wrap span9 chosen" id="as_cat">
 <option value="">Select category</option>
 <?php
 foreach ($cursor1 as $collection) 
@@ -47,13 +47,14 @@ if($auto_id != 18)
 <option value="<?php echo $auto_id; ?>"><?php echo $category; ?></option>
 <?php }} ?>
 </select>
+<label report="cat" class="remove_report"></label>
 </div>
 <br />				
 
 
 <label class="" style="font-size:14px;">Name of Supplier/Vendor<span style="color:red;">*</span></label>
 <div class="controls">
-<select name="vendor" class="m-wrap span9 chosen">
+<select name="vendor" class="m-wrap span9 chosen" id="supp">
 <option value="">Select</option>
 <?php
 foreach ($cursor2 as $db) 
@@ -64,6 +65,7 @@ $vendor_name=$db['ledger_sub_account']["name"];
 <option value="<?php echo $g_id; ?>"><?php echo $vendor_name; ?></option>
 <?php } ?>
 </select>
+<label report="sup" class="remove_report"></label>
 </div>
 <br />	
 
@@ -75,14 +77,15 @@ $vendor_name=$db['ledger_sub_account']["name"];
 
 <label style="font-size:14px;">Asset Name<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" class="m-wrap span9" name="name">
+<input type="text" class="m-wrap span9" name="name" id="name">
+<label report="nam" class="remove_report"></label>
 </div>
 <br />
 
 
 <label style="font-size:14px;">Asset Description</label>
 <div class="controls">
-<textarea  rows="4" name="description" class="m-wrap span9" style="resize:none;"></textarea>
+<textarea  rows="4" name="description" class="m-wrap span9" style="resize:none;" id="desc"></textarea>
 </div>
 <br />
 
@@ -92,23 +95,25 @@ $vendor_name=$db['ledger_sub_account']["name"];
 
 <label style="font-size:14px;">Date of Purchase<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="purchase_date">
+<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="purchase_date" id="pur_dat">
+<label report="dat" class="remove_report"></label>
 </div>
 <br />				
 
 
 <label style="font-size:14px;">Cost of Purchase<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" class="m-wrap span9"  name="cost">
+<input type="text" class="m-wrap span9"  name="cost" id="cost">
+<label report="cos" class="remove_report"></label>
 </div>
 <br />
 
 
 <label style="font-size:14px;">Warranty Period</label>
 <div class="controls">
-<input type="text" class="span4 m-ctrl-medium date-picker" data-date-format="dd-mm-yyyy" placeholder="From*" name="from">
+<input type="text" class="span4 m-ctrl-medium date-picker" data-date-format="dd-mm-yyyy" placeholder="From*" name="from" id="fr">
 <span> - </span>
-<input type="text" class="span4  m-ctrl-medium date-picker" data-date-format="dd-mm-yyyy" placeholder="to*" name="to">
+<input type="text" class="span4  m-ctrl-medium date-picker" data-date-format="dd-mm-yyyy" placeholder="to*" name="to" id="to">
 </div>
 <br />				
 
@@ -116,7 +121,8 @@ $vendor_name=$db['ledger_sub_account']["name"];
 
 <label style="font-size:14px;">Maintanance Schedule<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" name="schedule" class="m-wrap span9">
+<input type="text" name="schedule" class="m-wrap span9" id="main">
+<label report="man" class="remove_report"></label>
 </div>
 <br />
 
@@ -139,18 +145,21 @@ $(document).ready(function() {
 	ev.preventDefault();
 		
 		var m_data = new FormData();
-		m_data.append( 'ac_gr', $('#go').val());
-		m_data.append( 'prt_ac', $('#usr').val());
-		m_data.append( 'ac_head', $('#acn').val());
-		m_data.append( 'tra_dat', $('#date').val());
-		m_data.append( 'amt', $('#amt').val());
-		m_data.append( 'desc', $('#narr').val());
+		m_data.append( 'as_cat', $('#as_cat').val());
+		m_data.append( 'supp', $('#supp').val());
+		m_data.append( 'name', $('#name').val());
+		m_data.append( 'desc', $('#desc').val());
+		m_data.append( 'pur_dat', $('#pur_dat').val());
+		m_data.append( 'cost', $('#cost').val());
+		m_data.append( 'from', $('#fr').val());
+		m_data.append( 'to', $('#to').val());
+		m_data.append( 'main', $('#main').val());		
 				
 		$(".form_post").addClass("disabled");
 		$("#wait").show();
 			
 			$.ajax({
-			url: "petty_cash_receipt_json",
+			url: "fix_asset_json",
 			data: m_data,
 			processData: false,
 			contentType: false,

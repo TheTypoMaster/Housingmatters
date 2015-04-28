@@ -20312,15 +20312,94 @@ $s_user_id=$this->Session->read('user_id');
 $date=date('d-m-Y');
 $time = date(' h:i a', time());
 
+$asset_cat = (int)$post_data['as_cat'];
+$supplier = (int)$post_data['supp'];
+$asset_name = $post_data['name'];
+$desc = $post_data['desc'];
+$purchase_date = $post_data['pur_dat'];
+$cost = $post_data['cost'];
+$warr_from = $post_data['from'];
+$warr_to = $post_data['to'];
+$maintanance = $post_data['main'];
 
 
+$report = array();
 
+if(empty($asset_cat))
+{
+$report[]=array('label'=>'cat', 'text' => 'Please select Asset Category');
+}
 
+if(empty($supplier))
+{
+$report[]=array('label'=>'sup', 'text' => 'Please select Supplier/Vendor');
+}
 
+if(empty($asset_name))
+{
+$report[]=array('label'=>'nam', 'text' => 'Please Fill Asset Name');
+}
 
+if(empty($purchase_date))
+{
+$report[]=array('label'=>'dat', 'text' => 'Please select Purchase Date');
+}
 
+if(empty($cost))
+{
+$report[]=array('label'=>'cos', 'text' => 'Please Fill Cost of Asset');
+}
 
+if(empty($maintanance))
+{
+$report[]=array('label'=>'man', 'text' => 'Please Fill Maintanance Schedule');
+}
 
+if(!empty($cost))
+{
+if(is_numeric($cost))
+{
+}
+else
+{
+$report[]=array('label'=>'cos', 'text' => 'Pleaes Fill Numeric Value');
+}
+}
+
+$date4 = date("Y-m-d", strtotime($purchase_date));
+$date4 = new MongoDate(strtotime($date4));
+
+$this->loadmodel('financial_year');
+$conditions=array("society_id" => $s_society_id);
+$cursor=$this->financial_year->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$from = $collection['financial_year']['from'];
+$to = $collection['financial_year']['to'];
+if($from <= $date4 && $to >= $date4)
+{
+$abc = 55;
+break;
+}
+else
+{
+$abc = 555; 
+}
+}
+
+if(!empty($purchase_date))
+{
+if($abc == 555)
+{
+$report[]=array('label'=>'dat', 'text' => 'The Date is not in Open Financial Year, Please Select another Date');
+}
+}
+
+if(sizeof($report)>0)
+{
+$output=json_encode(array('report_type'=>'error','report'=>$report));
+die($output);
+}
 
 
 
