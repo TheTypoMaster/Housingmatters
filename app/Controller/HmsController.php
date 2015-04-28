@@ -20499,6 +20499,29 @@ $this->ledger->saveAll($multipleRowData);
 $output=json_encode(array('report_type'=>'publish','report'=>'Fixed Asset Receipt No. #'.$r.' is generated successfully'));
 die($output);
 
+}
+/////////////////////////////////// End Fix asset Json //////////////////////////////////////////////////////
+
+//////////////////////////// Start purchase order json ////////////////////////////////////////////////////////////
+function purchase_order_json()
+{
+$this->layout=null;
+$post_data=$this->request->data;
+$this->ath();
+$s_society_id=$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
+$date=date('d-m-Y');
+$time = date(' h:i a', time());
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -20512,7 +20535,7 @@ die($output);
 
 
 }
-/////////////////////////////////// End Fix asset Json //////////////////////////////////////////////////////
+//////////////////////////// End purchase order json ////////////////////////////////////////////////////////////
 
 }
 ?>

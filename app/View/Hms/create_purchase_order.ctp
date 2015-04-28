@@ -44,40 +44,76 @@
 <br />
 
 
-<label style="font-size:14px;">PO<span style="color:red;">*</span></label>
+<label style="font-size:14px;">PO Issue<span style="color:red;">*</span></label>
 <div class="controls">
 <input type="text" class="m-wrap span9" name="unt" id="unt">
 </div>
 <br />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </div>
 </div>
 
 <hr/>
 <button type="submit" class="btn form_post" style="background-color: #09F; color:#fff;" value="xyz">Submit</button>
-
 <div style="display:none;" id='wait'><img src="<?php echo $webroot_path; ?>as/fb_loading.gif" /> Please Wait...</div>
 <br /><br />
 </form>
 </div>
 
-
-
-
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+
+  <script>
+$(document).ready(function() { 
+	$('form').submit( function(ev){
+	ev.preventDefault();
+		
+		var m_data = new FormData();
+		m_data.append( 'ac_gr', $('#go').val());
+		m_data.append( 'prt_ac', $('#usr').val());
+		m_data.append( 'ac_head', $('#acn').val());
+		m_data.append( 'tra_dat', $('#date').val());
+		m_data.append( 'amt', $('#amt').val());
+		m_data.append( 'desc', $('#narr').val());
+				
+		$(".form_post").addClass("disabled");
+		$("#wait").show();
+			
+			$.ajax({
+			url: "purchase_order_json",
+			data: m_data,
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			dataType:'json',
+			}).done(function(response) {
+				if(response.report_type=='error'){
+					$(".remove_report").html('');
+						jQuery.each(response.report, function(i, val) {
+						$("label[report="+val.label+"]").html('<span style="color:red;">'+val.text+'</span>');
+					});
+				}
+				if(response.report_type=='publish'){
+                $("#shwd").show()
+				$(".success_report").show().html(response.report);	
+				}
+			
+			$("html, body").animate({
+			scrollTop:0
+			},"slow");
+			$(".form_post").removeClass("disabled");
+			$("#wait").hide();
+			});
+
+	 
+	});
+});
+
+</script>	
+
+
+
+
+
+
+
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////  ?>
