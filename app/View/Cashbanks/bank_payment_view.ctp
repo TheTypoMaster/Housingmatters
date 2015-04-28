@@ -9,69 +9,18 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
 </div>
-
-
-<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-            
-			<div class="hide_at_print">
-			<?php
-			/*
-			 if($s_role_id == 2) { ?> 
-            <table width="100%" border="1" bordercolor="#FFFFFF" cellpadding="0">
-            <tr>
-            <td style="width:25%">
-            <a href="bank_receipt_view" class="btn blue btn-block"  style="font-size:16px;">Bank Receipt</a>
-            </td>
-            <td style="width:25%">
-            <a href="bank_payment_view" class="btn red btn-block"   style="font-size:16px;">Bank Payment</a>
-            </td>
-            <td style="width:25%">
-            <a href="petty_cash_receipt_view" class="btn blue btn-block"  style="font-size:16px;">Petty Cash Receipt</a>
-            </td>
-            <td style="width:25%">
-            <a href="petty_cash_payment_view" class="btn blue btn-block"  style="font-size:16px;">Petty Cash Payment</a>
-            </td>
-            </tr>
-            </table>     
-           <?php } if($s_role_id == 3) { ?>
-           
-           <table width="100%" border="1" bordercolor="#FFFFFF" cellpadding="0">
-            <tr>
-            <td style="width:20%">
-            <a href="bank_receipt_view" class="btn blue btn-block"  style="font-size:16px;">Bank Receipt</a>
-            </td>
-            <td style="width:20%">
-            <a href="bank_payment_view" class="btn red btn-block"   style="font-size:16px;">Bank Payment</a>
-            </td>
-            <td style="width:20%">
-            <a href="petty_cash_receipt_view" class="btn blue btn-block"  style="font-size:16px;">Petty Cash Receipt</a>
-            </td>
-            <td style="width:20%">
-            <a href="petty_cash_payment_view" class="btn blue btn-block"  style="font-size:16px;">Petty Cash Payment</a>
-            </td>
-            <td style="width:20%">
-            <a href="fix_deposit_view" class="btn blue btn-block"  style="font-size:16px;">Fixed Deposit</a>
-            </td>
-            </tr>
-            </table>     
-           
-           
-           <?php }  */ ?> 
-		   </div>
 		   
-<?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////?>                                
-					<br>
-					<center>
-					<div class="hide_at_print">
-					<?php
-					if($s_role_id == 3)
-					{
-					?>
-					<a href="<?php echo $webroot_path; ?>Cashbanks/bank_payment" class="btn blue" rel='tab'>Create</a>
-					<a href="<?php echo $webroot_path; ?>Cashbanks/bank_payment_view" class="btn red" rel='tab'>View</a>
-					<!-- <a href="bank_payment_list" class="btn blue">List</a> -->
-					<?php } ?>
-                    </div>
+<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////?>   
+<center>
+<div class="hide_at_print">
+<?php
+if($s_role_id == 3)
+{
+?>
+<a href="<?php echo $webroot_path; ?>Cashbanks/bank_payment" class="btn blue" rel='tab'>Create</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/bank_payment_view" class="btn red" rel='tab'>View</a>
+<?php } ?>
+</div>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
   
 <?php
