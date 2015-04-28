@@ -8,7 +8,7 @@ $m_to = new MongoDate(strtotime($m_to));
 
 ?>
 
-<table class="table table-bordered" style="width:100%; background-color:#FDFDEE;">
+<table class="table table-bordered" style="width:100%; background-color:white;">
 <tr>
 <th>From : <?php echo $from; ?></th>
 <th>To : <?php echo $to; ?></th>
@@ -47,10 +47,16 @@ $m_to = new MongoDate(strtotime($m_to));
 									$warranty_period_to = $collection['fix_asset']['warranty_period_to'];
 									$schedule = $collection['fix_asset']['schedule'];
 
-
+                                    if(!empty($warranty_period_from) and !empty($warranty_period_to)) 
+									{
                                     $warranty_period_from= date('d-m-Y', $warranty_period_from->sec);
 									$warranty_period_to= date('d-m-Y', $warranty_period_to->sec);
-
+									}
+									else
+									{
+									$warranty_period_from = "";
+									$warranty_period_to = "";	
+									}
                                     
 $asset_category_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_amount'),array('pass'=>array($asset_category_id)));										
 									

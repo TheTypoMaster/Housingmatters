@@ -20323,6 +20323,7 @@ $warr_to = $post_data['to'];
 $maintanance = $post_data['main'];
 
 
+
 $report = array();
 
 if(empty($asset_cat))
@@ -20400,6 +20401,108 @@ if(sizeof($report)>0)
 $output=json_encode(array('report_type'=>'error','report'=>$report));
 die($output);
 }
+
+$purchase_date2 = date("Y-m-d", strtotime($purchase_date));
+$purchase_date2 = new MongoDate(strtotime($purchase_date2));
+
+$current_date = date("Y-m-d");
+$current_date = new MongoDate(strtotime($current_date));
+
+if(!empty($warr_from) and !empty($warr_to))
+{
+$warr_from2 = date("Y-m-d", strtotime($warr_from));
+$warr_from2 = new MongoDate(strtotime($warr_from2));
+
+$warr_to2 = date("Y-m-d", strtotime($warr_to));
+$warr_to2 = new MongoDate(strtotime($warr_to2));
+}
+else
+{
+$warr_from2 ="";
+$warr_to2 = "";
+}
+$this->loadmodel('fix_asset');
+$order=array('fix_asset.auto_id'=> 'DESC');
+$cursor=$this->fix_asset->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last1 = $collection['fix_asset']["auto_id"];
+$last2 = $collection['fix_asset']["receipt_id"];
+}
+if(empty($last1))
+{
+$i=0;
+$r = 1000;
+}	
+else
+{	
+$i=$last1;
+$r = $last2;
+}
+$i++;
+$r++;
+$this->loadmodel('fix_asset');
+$multipleRowData = Array( Array("auto_id" => $i, "receipt_id" => $r, "asset_category_id" => $asset_cat, 
+"asset_name" => $asset_name, "narration" => $desc, 
+"purchase_date" => $purchase_date2, "purchase_cost" => $cost, "supplier" => $supplier, 
+"warranty_period_from" => $warr_from2,
+"warranty_period_to" => $warr_to2, "schedule" => $maintanance, "society_id" => $s_society_id));
+$this->fix_asset->saveAll($multipleRowData);   
+
+
+$this->loadmodel('ledger');
+$order=array('ledger.auto_id'=> 'DESC');
+$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last= (int)$collection['ledger']["auto_id"]; 
+}
+if(empty($last))
+{
+$k=0;
+}	
+else
+{	
+$k=$last;
+}
+$k++;
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $r, 
+"amount" => $cost, "amount_category_id" => 2, "account_type" => 1,"account_id" => $supplier,
+"current_date" => $current_date, "society_id" => $s_society_id,"table_name"=>"fix_asset","module_name"=>"Fixed Assets"));
+$this->ledger->saveAll($multipleRowData);   
+
+
+$this->loadmodel('ledger');
+$order=array('ledger.auto_id'=> 'DESC');
+$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last= (int)$collection['ledger']["auto_id"]; 
+}
+if(empty($last))
+{
+$k=0;
+}	
+else
+{	
+$k=$last;
+}
+$k++;
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $r, 
+"amount" => $cost, "amount_category_id" => 1,"account_type" => 2, 
+"account_id" => $asset_cat, "current_date" => $current_date, "society_id" => $s_society_id,"table_name"=>"fix_asset","module_name"=>"Fixed Assets"));
+$this->ledger->saveAll($multipleRowData);   
+
+
+$output=json_encode(array('report_type'=>'publish','report'=>'Fixed Asset Receipt No. #'.$r.' is generated successfully'));
+die($output);
+
+
+
+
+
 
 
 
