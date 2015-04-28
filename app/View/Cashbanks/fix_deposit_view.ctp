@@ -39,14 +39,10 @@ $c_date = date('d-m-Y');
 
 <script>
 $(document).ready(function() {
-	$("#go").bind('click',function(){
-		var date1=document.getElementById('date1').value;
-		var date2=document.getElementById('date2').value;
-		
-		$("#result").html('<div align="center" style="padding:10px;"><img src="as/loding.gif" />Loading....</div>').load("fixed_diposit_show_ajax?date1=" +date1+ "&date2=" +date2+ "");
-		
-		
-	});
-	
+$("#go").bind('click',function(){
+var date1=document.getElementById('date1').value;
+var date2=document.getElementById('date2').value;
+$("#result").html('<div align="center" style="padding:10px;"><img src="as/loding.gif" />Loading....</div>').load("fixed_diposit_show_ajax?date1=" +date1+ "&date2=" +date2+ "");
+});
 });
 </script>
