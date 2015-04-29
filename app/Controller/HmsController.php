@@ -20648,29 +20648,27 @@ $this->purchase_order->saveAll($multipleRowData);
 $output=json_encode(array('report_type'=>'publish','report'=>'Purchase Order Created Successfully'));
 die($output);
 
+}
+//////////////////////////// End purchase order json ////////////////////////////////////////////////////////////
 
+///////////////////////////// Start purchase order view ///////////////////////////////////////////////////////////
+function purchase_order_view()
+{
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+$this->ath();
+$this->check_user_privilages();	
 
 
 
 
 }
-//////////////////////////// End purchase order json ////////////////////////////////////////////////////////////
+///////////////////////////// End purchase order view ///////////////////////////////////////////////////////////
+
 
 }
 ?>
