@@ -20573,11 +20573,89 @@ if(empty($sent))
 $report[]=array('label'=>'sen', 'text' => 'Please Fill Sent To');
 }
 
+$date4 = date("Y-m-d", strtotime($date));
+$date4 = new MongoDate(strtotime($date4));
+
+$this->loadmodel('financial_year');
+$conditions=array("society_id" => $s_society_id);
+$cursor=$this->financial_year->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$from = $collection['financial_year']['from'];
+$to = $collection['financial_year']['to'];
+if($from <= $date4 && $to >= $date4)
+{
+$abc = 55;
+break;
+}
+else
+{
+$abc = 555; 
+}
+}
+
+if(!empty($date))
+{
+if($abc == 555)
+{
+$report[]=array('label'=>'dat', 'text' => 'The Date is not in Open Financial Year, Please Select another Date');
+}
+}
+
+if(!empty($item_qty))
+{
+if(is_numeric($item_qty))
+{
+}
+else
+{
+$report[]=array('label'=>'qty', 'text' => 'Pleaes Fill Numeric Value');
+}
+}
+
+
+
+
+
+
+
 if(sizeof($report)>0)
 {
 $output=json_encode(array('report_type'=>'error','report'=>$report));
 die($output);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
