@@ -1,5 +1,3 @@
-
-
 <?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 ?>				   
@@ -183,7 +181,6 @@ $(document).ready(function() {
 });
 
 </script>		
-
 
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 

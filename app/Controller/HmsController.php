@@ -20298,6 +20298,8 @@ $this->layout='blank';
 $this->layout='session';
 }
 
+$this->ath();
+$this->check_user_privilages();	
 
 $s_society_id=$this->Session->read('society_id'); 
 $s_role_id=$this->Session->read('role_id');
@@ -20520,11 +20522,62 @@ $date=date('d-m-Y');
 $time = date(' h:i a', time());
 
 
+$date = $post_data['date'];
+$item = $post_data['item'];
+$sub_item = $post_data['subitm'];
+$item_qty = $post_data['qty'];
+$sdesc = $post_data['sdesc'];
+$unit = $post_data['unt'];
+$po_issue = $post_data['poiss'];
+$po_desc = $post_data['pdesc'];
+$sent = $post_data['sent'];
 
+$report = array();
 
+if(empty($date)){
+$report[]=array('label'=>'dat', 'text' => 'Please select R&Q Date');
+}	
 
+if(empty($item)){
+$report[]=array('label'=>'itm', 'text' => 'Please select Item Category');
+}	
 
+if(empty($sub_item)){
+$report[]=array('label'=>'sitm', 'text' => 'Please Select sub Item');
+}	
 
+if(empty($item_qty)){
+$report[]=array('label'=>'qty', 'text' => 'Please Fill Iem Quantity');
+}	
+
+if(empty($sdesc)){
+$report[]=array('label'=>'desc', 'text' => 'Please Fill Description of Item');
+}	
+
+if(empty($unit)){
+$report[]=array('label'=>'unt', 'text' => 'Please Fill Unit of Measurement');
+}	
+
+if($po_issue == "undefined"){
+$report[]=array('label'=>'poiss', 'text' => 'Please PO Issue');
+}	
+if($po_issue == 1)
+{
+if(empty($po_desc)){
+$report[]=array('label'=>'pdes', 'text' => 'Please select Expense Head');
+}	
+}
+
+if(empty($sent))
+{
+$report[]=array('label'=>'sen', 'text' => 'Please Fill Sent To');
+}
+
+if(sizeof($report)>0)
+{
+$output=json_encode(array('report_type'=>'error','report'=>$report));
+die($output);
+}
 
 
 }
