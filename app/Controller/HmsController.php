@@ -20559,7 +20559,7 @@ $report[]=array('label'=>'unt', 'text' => 'Please Fill Unit of Measurement');
 }	
 
 if($po_issue == "undefined"){
-$report[]=array('label'=>'poiss', 'text' => 'Please PO Issue');
+$report[]=array('label'=>'poiss', 'text' => 'Please Select PO Issue');
 }	
 if($po_issue == 1)
 {
@@ -20613,29 +20613,40 @@ $report[]=array('label'=>'qty', 'text' => 'Pleaes Fill Numeric Value');
 }
 }
 
-
-
-
-
-
-
 if(sizeof($report)>0)
 {
 $output=json_encode(array('report_type'=>'error','report'=>$report));
 die($output);
 }
 
+$date2 = date("Y-m-d", strtotime($date));
+$date2 = new MongoDate(strtotime($date2));
+
+
+$this->loadmodel('purchase_order');
+$order=array('purchase_order.auto_id'=> 'DESC');
+$cursor=$this->purchase_order->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last=$collection['purchase_order']["auto_id"]; 
+}
+if(empty($last))
+{
+$k=1000;
+}	
+else
+{	
+$k=$last;
+}
+$k++;
+$this->loadmodel('purchase_order');
+$multipleRowData = Array( Array("auto_id" => $k,"date" => $date2, "item_category" => $item, "item" => $sub_item, "quantity" => $item_qty, "service_description" => $sdesc,"unit_of_measurment" => $unit, "sent_to" => $sent,"po_issue"=>$po_issue,"po_description"=>$po_desc,"society_id"=>$s_society_id,"prepaired_by"=>$s_user_id));
+$this->purchase_order->saveAll($multipleRowData);   
 
 
 
-
-
-
-
-
-
-
-
+$output=json_encode(array('report_type'=>'publish','report'=>'Purchase Order Created Successfully'));
+die($output);
 
 
 
