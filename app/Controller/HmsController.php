@@ -20292,7 +20292,13 @@ $output = json_encode(array('type'=>'succ', 'text' => 'New Journal Entry Inserte
 ////////////////////////////////// Start Create Purchase Order//////////////////////////////////////////////////////
 function create_purchase_order()
 {
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
 $this->layout='session';
+}
+
+
 $s_society_id=$this->Session->read('society_id'); 
 $s_role_id=$this->Session->read('role_id');
 $s_user_id=$this->Session->read('user_id');
@@ -20512,19 +20518,6 @@ $s_society_id=$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
 $date=date('d-m-Y');
 $time = date(' h:i a', time());
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
