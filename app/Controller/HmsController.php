@@ -20693,7 +20693,10 @@ $to = $this->request->query('date2');
 $this->set('from',$from);
 $this->set('to',$to);
 
-
+$this->loadmodel('purchase_order');
+$conditions=array("society_id" => $s_society_id);
+$cursor1 = $this->purchase_order->find('all',array('conditions'=>$conditions));
+$this->set('cursor1',$cursor1);
 
 
 
