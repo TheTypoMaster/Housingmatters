@@ -20556,7 +20556,7 @@ $report[]=array('label'=>'unt', 'text' => 'Please Select Unit of Measurement');
 }	
 
 if(empty($qty)){
-$report[]=array('label'=>'qty', 'text' => 'Please Fill Quantity');
+$report[]=array('label'=>'qty', 'text' => 'Please Fill Price');
 }	
 
 
@@ -20652,7 +20652,7 @@ $k=$last;
 }
 $k++;
 $this->loadmodel('purchase_order');
-$multipleRowData = Array( Array("auto_id" => $k,"purchase_order_date" => $date11, "required_date" => $date12, "quatation_id" => $quat, "item_id" => $item, "unit_of_measurement" => $unit,"quantity" => $qty, "description" => $desc,"po_issue"=>$po_issue,"po_description"=>$po_desc,"society_id"=>$s_society_id,"prepaired_by"=>$s_user_id,"sent_to"=>$sent));
+$multipleRowData = Array( Array("auto_id" => $k,"purchase_order_date" => $date11, "required_date" => $date12, "quatation_id" => $quat, "item_id" => $item, "unit_of_measurement" => $unit,"price" => $qty, "description" => $desc,"po_issue"=>$po_issue,"po_description"=>$po_desc,"society_id"=>$s_society_id,"prepaired_by"=>$s_user_id,"sent_to"=>$sent));
 $this->purchase_order->saveAll($multipleRowData);   
 
 

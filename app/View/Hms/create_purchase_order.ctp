@@ -23,7 +23,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <br />
 
 
-<label style="font-size:14px;">Required Date<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Delevery Date<span style="color:red;">*</span></label>
 <div class="controls">
 <input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="date" id="date2">
 <label report="dat2" class="remove_report"></label>
@@ -32,7 +32,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 
 
-<label style="font-size:14px;">Quation<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Quatation<span style="color:red;">*</span></label>
 <div class="controls">
 <select id="qut" class="m-wrap span9">
 <option value="">Select</option>
@@ -80,7 +80,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 <div class="span6">
 
-<label style="font-size:14px;">Quantity<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Price<span style="color:red;">*</span></label>
 <div class="controls">
 <input type="text" class="m-wrap span9" name="qty" id="qty">
 <label report="qty" class="remove_report"></label>
