@@ -20625,8 +20625,14 @@ $output=json_encode(array('report_type'=>'error','report'=>$report));
 die($output);
 }
 
-$date2 = date("Y-m-d", strtotime($date));
-$date2 = new MongoDate(strtotime($date2));
+$date11 = date("Y-m-d", strtotime($date));
+$date11 = new MongoDate(strtotime($date11));
+
+$date12 = date("Y-m-d", strtotime($date2));
+$date12 = new MongoDate(strtotime($date12));
+
+$current_date = date('Y-m-d');
+$current_date = new MongoDate(strtotime($current_date));
 
 
 $this->loadmodel('purchase_order');
@@ -20646,9 +20652,8 @@ $k=$last;
 }
 $k++;
 $this->loadmodel('purchase_order');
-$multipleRowData = Array( Array("auto_id" => $k,"date" => $date2, "item_category" => $item, "item" => $sub_item, "quantity" => $item_qty, "service_description" => $sdesc,"unit_of_measurment" => $unit, "sent_to" => $sent,"po_issue"=>$po_issue,"po_description"=>$po_desc,"society_id"=>$s_society_id,"prepaired_by"=>$s_user_id));
+$multipleRowData = Array( Array("auto_id" => $k,"purchase_order_date" => $date11, "required_date" => $date12, "quatation_id" => $quat, "item_id" => $item, "unit_of_measurement" => $unit,"quantity" => $qty, "description" => $desc,"po_issue"=>$po_issue,"po_description"=>$po_desc,"society_id"=>$s_society_id,"prepaired_by"=>$s_user_id,"sent_to"=>$sent));
 $this->purchase_order->saveAll($multipleRowData);   
-
 
 
 $output=json_encode(array('report_type'=>'publish','report'=>'Purchase Order Created Successfully'));
@@ -20674,6 +20679,27 @@ $this->check_user_privilages();
 
 }
 ///////////////////////////// End purchase order view ///////////////////////////////////////////////////////////
+
+/////////////////////////////// Start Purchase Order Show Ajax //////////////////////////////////////////////////////
+function purchase_order_show_ajax()
+{
+$this->layout='blank';
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = $this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
+
+$from = $this->request->query('date1');
+$to = $this->request->query('date2');
+$this->set('from',$from);
+$this->set('to',$to);
+
+
+
+
+
+
+}
+/////////////////////////////// End Purchase Order Show Ajax //////////////////////////////////////////////////////
 
 
 }
