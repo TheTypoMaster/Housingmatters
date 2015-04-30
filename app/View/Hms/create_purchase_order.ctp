@@ -15,7 +15,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <div class="row-fluid">
 <div class="span6">
 
-<label style="font-size:14px;">R&Q Date<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Purchase Order Date<span style="color:red;">*</span></label>
 <div class="controls">
 <input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="date" id="date">
 <label report="dat" class="remove_report"></label>
@@ -23,59 +23,91 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <br />
 
 
+<label style="font-size:14px;">Required Date<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="date" id="date2">
+<label report="dat2" class="remove_report"></label>
+</div>
+<br />
+
+
+
+<label style="font-size:14px;">Quation<span style="color:red;">*</span></label>
+<div class="controls">
+<select id="qut" class="m-wrap span9">
+<option value="">Select</option>
+<option value="1">Quatation 1</option>
+<option value="2">Quatation 2</option>
+<option value="3">Quatation 3</option>
+<option value="4">Quatation 4</option>
+</select>
+<label report="qut" class="remove_report"></label>
+</div>
+<br />
+
+
 <label style="font-size:14px;">Item<span style="color:red;">*</span></label>
 <div class="controls">
-<select class="m-wrap span9" id="itm">
-<option value=""></option>
-<option value="1">Main Item1</option>
-<option value="2">Main Item2</option>
+<select id="itm" class="m-wrap span9">
+<option value="">Select</option>
+<option value="1">item 1</option>
+<option value="2">item 2</option>
+<option value="3">item 3</option>
+<option value="4">item 4</option>
 </select>
 <label report="itm" class="remove_report"></label>
 </div>
 <br />
 
 
-
-<label style="font-size:14px;">Sub Item<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Unit of Measurement<span style="color:red;">*</span></label>
 <div class="controls">
-<select class="m-wrap span9" id="sitm">
-<option value=""></option>
-<option value="1">sub Item1</option>
-<option value="2">sub Item2</option>
+<select id="unt" class="m-wrap span9">
+<option value="">Select</option>
+<option value="1">unit 1</option>
+<option value="2">unit 2</option>
+<option value="3">unit 3</option>
+<option value="4">unit 4</option>
 </select>
-<label report="sitm" class="remove_report"></label>
+<label report="unt" class="remove_report"></label>
 </div>
 <br />
 
 
-<label style="font-size:14px;">Item Quantity<span style="color:red;">*</span></label>
+
+
+</div>
+
+<div class="span6">
+
+<label style="font-size:14px;">Quantity<span style="color:red;">*</span></label>
 <div class="controls">
 <input type="text" class="m-wrap span9" name="qty" id="qty">
 <label report="qty" class="remove_report"></label>
 </div>
 <br />
 
-<label style="font-size:14px;">Servece Description<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Description<span style="color:red;">*</span></label>
 <div class="controls">
 <textarea   rows="4" name="desc" class="m-wrap span9" style="resize:none;" id="desc"></textarea>
-<label report="desc" class="remove_report"></label>
+<label report="des" class="remove_report"></label>
 </div>
 <br />
-</div>
 
-<div class="span6">
 
-<label style="font-size:14px;">Unit of Measurement<span style="color:red;">*</span></label>
-<div class="controls">
-<input type="text" class="m-wrap span9" name="unt" id="unt">
-<label report="unt" class="remove_report"></label>
-</div>
-<br />
+
+
 
 
 <label style="font-size:14px;">Sent To<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" class="m-wrap span9" name="unt" id="sent">
+<select id="sent" class="m-wrap span9">
+<option value="">Select</option>
+<option value="1">Vendor 1</option>
+<option value="2">Vendor 2</option>
+<option value="3">Vendor 3</option>
+<option value="4">Vendor 4</option>
+</select>
 <label report="sen" class="remove_report"></label>
 </div>
 <br />
@@ -126,11 +158,12 @@ $(document).ready(function() {
 	
 		var m_data = new FormData();
 		m_data.append( 'date', $('#date').val());
-		m_data.append( 'item', $('#itm').val());
-		m_data.append( 'subitm', $('#sitm').val());
-		m_data.append( 'qty', $('#qty').val());
-		m_data.append( 'sdesc', $('#desc').val());
+		m_data.append( 'date2', $('#date2').val());
+		m_data.append( 'quta', $('#qut').val());
+		m_data.append( 'itm', $('#itm').val());
 		m_data.append( 'unt', $('#unt').val());
+		m_data.append( 'qty', $('#qty').val());
+		m_data.append( 'desc', $('#desc').val());
 		m_data.append( 'sent', $('#sent').val());
 		m_data.append( 'poiss', $('input:radio[name=issue]:checked').val());
 		m_data.append( 'pdesc', $('#iss_des').val());

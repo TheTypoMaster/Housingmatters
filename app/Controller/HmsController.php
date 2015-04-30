@@ -20523,11 +20523,12 @@ $time = date(' h:i a', time());
 
 
 $date = $post_data['date'];
-$item = $post_data['item'];
-$sub_item = $post_data['subitm'];
-$item_qty = $post_data['qty'];
-$sdesc = $post_data['sdesc'];
+$date2 = $post_data['date2'];
+$quat = $post_data['quta'];
+$item = $post_data['itm'];
 $unit = $post_data['unt'];
+$qty = $post_data['qty'];
+$desc = $post_data['desc'];
 $po_issue = $post_data['poiss'];
 $po_desc = $post_data['pdesc'];
 $sent = $post_data['sent'];
@@ -20538,25 +20539,30 @@ if(empty($date)){
 $report[]=array('label'=>'dat', 'text' => 'Please select R&Q Date');
 }	
 
+if(empty($date2)){
+$report[]=array('label'=>'dat2', 'text' => 'Please select Required Date');
+}	
+
+if(empty($quat)){
+$report[]=array('label'=>'qut', 'text' => 'Please Select Quatation');
+}	
+
 if(empty($item)){
-$report[]=array('label'=>'itm', 'text' => 'Please select Item Category');
-}	
-
-if(empty($sub_item)){
-$report[]=array('label'=>'sitm', 'text' => 'Please Select sub Item');
-}	
-
-if(empty($item_qty)){
-$report[]=array('label'=>'qty', 'text' => 'Please Fill Iem Quantity');
-}	
-
-if(empty($sdesc)){
-$report[]=array('label'=>'desc', 'text' => 'Please Fill Description of Item');
+$report[]=array('label'=>'itm', 'text' => 'Please Select Item');
 }	
 
 if(empty($unit)){
-$report[]=array('label'=>'unt', 'text' => 'Please Fill Unit of Measurement');
+$report[]=array('label'=>'unt', 'text' => 'Please Select Unit of Measurement');
 }	
+
+if(empty($qty)){
+$report[]=array('label'=>'qty', 'text' => 'Please Fill Quantity');
+}	
+
+
+if(empty($desc)){
+$report[]=array('label'=>'des', 'text' => 'Please Fill Description');
+}
 
 if($po_issue == "undefined"){
 $report[]=array('label'=>'poiss', 'text' => 'Please Select PO Issue');
@@ -20602,9 +20608,9 @@ $report[]=array('label'=>'dat', 'text' => 'The Date is not in Open Financial Yea
 }
 }
 
-if(!empty($item_qty))
+if(!empty($qty))
 {
-if(is_numeric($item_qty))
+if(is_numeric($qty))
 {
 }
 else
