@@ -8,28 +8,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
 	
-<?php 
-if($zz == 0)
-{
-?>      
-<div class="alert">
-<button class="close" data-dismiss="alert"></button>
-<center>
-No Previous Receipt
-</center>
-</div> 
-<?php
-}
-else
-{
-?>
-<div class="alert">
-<button class="close" data-dismiss="alert"></button>
-<center>
-The Last Receipt Number is : <?php echo $zz; ?>
-</center>
-</div> 
-<?php } ?>
+
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
  <center>
 <a href="<?php echo $webroot_path; ?>Bookkeepings/journal_add" class="btn red" rel='tab'> Create</a>
@@ -65,6 +44,37 @@ $('#t_box').val(d);
 <h4><i class="icon-reorder"></i>Journal</h4>
 </div>
 <div class="portlet-body form">
+
+<?php 
+if($zz == 0)
+{
+?>      
+<div style="background-color:#FCEBF8;">
+<center>
+<p style="color:#A99185;">No Previous Receipt</p>
+</center>
+</div> 
+<?php
+}
+else
+{
+?>
+<div style="background-color:#FCEBF8;">
+<center>
+<p style="color:#A99185;">The Last Receipt Number is : <?php echo $zz; ?></p>
+</center>
+</div> 
+<?php } ?>
+
+
+
+
+
+
+
+
+
+
 
 	<form  method="POST" onSubmit="return balance()" >			  
 	 <br>
