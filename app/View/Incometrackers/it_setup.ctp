@@ -8,50 +8,26 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
 
-
-
-<?php //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>            
-		<!--	<table width="100%" border="1" bordercolor="#FFFFFF" cellpadding="0">
-            <tr>
-            <td style="width:25%">
-            <a href="it_regular_bill" class="btn blue btn-block"   style="font-size:16px;"> Regular Bill</a>
-            </td>
-            <td style="width:25%">
-             <a href="it_supplimentry_bill" class="btn blue btn-block"  style="font-size:16px;">Supplementary Bill</a>
-            </td>
-            <td style="width:25%">
-            <a href="in_head_report" class="btn blue btn-block"  style="font-size:16px;">Reports</a>
-            </td>
-            <td style="width:25%">
-            <a href="select_income_heads" class="btn red btn-block"  style="font-size:16px;">Accounting Setup</a>
-            </td>
-            </tr>
-            </table> -->
-            
-           <table  align="center" border="1" bordercolor="#FFFFFF" cellpadding="0">
-            <tr>
-			<td><a href="<?php echo $webroot_path; ?>Incometrackers/select_income_heads" class="btn" rel='tab'>Selection of Income Heads</a>
-			</td>
-			<!--<td>
-            <a href="it_due_tax" class="btn" style="font-size:16px;">Due tax</a>
-            </td> -->
-            <td>
-            <a href="<?php echo $webroot_path; ?>Incometrackers/it_setup" class="btn yellow" style="font-size:16px;"  rel='tab'>Terms & Condition</a>
-            </td>
-            <td>
-            <a href="<?php echo $webroot_path; ?>Incometrackers/master_rate_card" class="btn" style="font-size:16px;"  rel='tab'>Rate Card</a>
-            </td>
-			<td>
-            <a href="<?php echo $webroot_path; ?>Incometrackers/master_noc" class="btn" style="font-size:16px;"  rel='tab'>Non Occupancy Charges</a>
-            </td>
-			<td>
-            <a href="<?php echo $webroot_path; ?>Incometrackers/it_penalty" class="btn" style="font-size:16px;"  rel='tab'>Penalty Option</a>
-            </td>
-			</tr>
-			</table> 
-<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
- 
-		
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>     
+<table  align="center" border="1" bordercolor="#FFFFFF" cellpadding="0">
+<tr>
+<td><a href="<?php echo $webroot_path; ?>Incometrackers/select_income_heads" class="btn" rel='tab'>Selection of Income Heads</a>
+</td>
+<td>
+<a href="<?php echo $webroot_path; ?>Incometrackers/it_setup" class="btn yellow" style="font-size:16px;"  rel='tab'>Terms & Condition</a>
+</td>
+<td>
+<a href="<?php echo $webroot_path; ?>Incometrackers/master_rate_card" class="btn" style="font-size:16px;"  rel='tab'>Rate Card</a>
+</td>
+<td>
+<a href="<?php echo $webroot_path; ?>Incometrackers/master_noc" class="btn" style="font-size:16px;"  rel='tab'>Non Occupancy Charges</a>
+</td>
+<td>
+<a href="<?php echo $webroot_path; ?>Incometrackers/it_penalty" class="btn" style="font-size:16px;"  rel='tab'>Penalty Option</a>
+</td>
+</tr>
+</table> 
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 			<div style="width:70%; margin-left:15%;">
 			<div class="row-fluid"  >
@@ -127,11 +103,12 @@ $terms_name = $terms_con[$i];
 <?php
 
 ?>
-<form method="post">
+
 <?php
 for($j=0; $j<sizeof($terms_con); $j++)
 {
 $terms_edit_name = $terms_con[$j];	?>
+<form method="post">
 <div id="myModal<?php echo $j; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="false" style="display: block;">
 <div class="modal-header">
 <center>
@@ -149,15 +126,17 @@ $terms_edit_name = $terms_con[$j];	?>
 <button type="submit" class="btn blue" name="del">Confirm</button>
 </div>
 </div>
-<?php } ?>  
 </form>
+<?php } ?>  
 
 
-<form method="post">
+
+
 <?php
 for($j=0; $j<sizeof($terms_con); $j++)
 {
 $terms_edit_name = $terms_con[$j];	?>
+<form method="post">
 <div id="myModal2<?php echo $j; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="false" style="display: block;">
 <div class="modal-header">
 <center>
@@ -175,8 +154,9 @@ $terms_edit_name = $terms_con[$j];	?>
 <button type="submit" class="btn blue" name="edit">Confirm</button>
 </div>
 </div>
-<?php } ?>
 </form>
+<?php } ?>
+
 
 
 
@@ -203,38 +183,26 @@ $terms_edit_name = $terms_con[$j];	?>
 
 <script>
 $(document).ready(function(){
-
 $.validator.setDefaults({ ignore: ":hidden:not(select)" });
-
-
-		$('#contact-form').validate({
-		
-		errorElement: "label",
-                    //place all errors in a <div id="errors"> element
-                    errorPlacement: function(error, element) {
-                        //error.appendTo("label#errors");
-						error.appendTo('label#' + element.attr('id'));
-                    },
-		
-		
-		
-	    rules: {
-	     
-		 terms: {
-			 required: true
-	      },
-
-		},
-			highlight: function(element) {
-				$(element).closest('.control-group').removeClass('success').addClass('error');
-			},
-			success: function(element) {
-				element
-				.text('OK!').addClass('valid')
-				.closest('.control-group').removeClass('error').addClass('success');
-			}
-	  });
-
+$('#contact-form').validate({
+errorElement: "label",
+errorPlacement: function(error, element) {
+error.appendTo('label#' + element.attr('id'));
+},
+rules: {
+terms: {
+required: true
+},
+},
+highlight: function(element) {
+$(element).closest('.control-group').removeClass('success').addClass('error');
+},
+success: function(element) {
+element
+.text('OK!').addClass('valid')
+.closest('.control-group').removeClass('error').addClass('success');
+}
+});
 }); 
 </script>	
 
