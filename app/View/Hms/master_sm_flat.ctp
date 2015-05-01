@@ -314,9 +314,10 @@ scrollTop:0
 },"slow");
 }
 if(response.type=='succ'){
-$("#succ").html('<div class="alert alert-block alert-success fade in"><h4 class="alert-heading">Success!</h4><p>Record Inserted Successfully</p><p><a class="btn green" href="<?php echo $webroot_path; ?>Hms/master_sm_flat" rel="tab">OK</a></p></div>');
-				
+$("#shwd").show()
+$(".success_report").show().html(response.text);	
 }
+
 
 $("#error_msg").html(output);
 });
@@ -324,5 +325,31 @@ $("#error_msg").html(output);
 
 });
 });
-
 </script>
+
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+
+
+<div id="shwd" class="hide">
+<div class="modal-backdrop fade in"></div>
+<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+<div class="modal-header">
+<center>
+<h3 id="myModalLabel3" style="color:#999;"><b>Expense Tracker</b></h3>
+</center>
+</div>
+<div class="modal-body">
+<center>
+<h5><b class="success_report"></b></h5>
+</center>
+</div>
+<div class="modal-footer">
+<a href="<?php echo $webroot_path; ?>Hms/master_sm_flat" class="btn blue" rel='tab'>OK</a>
+</div>
+</div>
+</div> 
+
+
+
+
+

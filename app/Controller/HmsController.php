@@ -19977,7 +19977,7 @@ foreach($cursor3 as $collection)
 {
 $wing_id = $collection['flat']['wing_id'];
 $flat_nu = $collection['flat']['flat_id'];
-$flat_area = $collection['flat']['flat_area'];
+$flat_area = @$collection['flat']['flat_area'];
 
 if($wing_id == $child[0] and $flat_nu == $child[1] and !empty($flat_area))
 {
@@ -19999,7 +19999,7 @@ die($output);
 $wing_id1 = (int)$child[0];
 $flat_id = (int)$child[1];
 
-for($j=0; $j<sizeof($fl_arr); $j++)
+for($j=0; $j<sizeof(@$fl_arr); $j++)
 {
 $sub_arr2 = $fl_arr[$j];
 $wing_id2 = (int)$sub_arr2[0];
@@ -20016,7 +20016,7 @@ $mmm = 555;
 }
 }
 
-if($mmm == 55)
+if(@$mmm == 55)
 {
 $output = json_encode(array('type'=>'error', 'text' => 'Repeatation of Same Wing and Flat Number, Please Select Another Wing or Flat in row'.$c));
 die($output);
@@ -20096,8 +20096,8 @@ $this->flat->updateAll(array("flat_area"=>$flat_area5,"noc_ch_tp"=>$noc_type5,"f
 
 
 
-$output = json_encode(array('type'=>'succ', 'text' => 'New Journal Entry Inserted in society successfully.'));
-    die($output);
+$output = json_encode(array('type'=>'succ', 'text' => 'Record Inserted Successfully.'));
+die($output);
 
 }
 //////////////////////////////// End Master Sm Flat Vali //////////////////////////////////////////////////
