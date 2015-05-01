@@ -13,44 +13,27 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 
 <?php /////////////////////////////////////////////////////////////////////////////////////////////// ?>            
-			<!--<table width="100%" border="1" bordercolor="#FFFFFF" cellpadding="0">
-            <tr>
-            <td style="width:25%">
-            <a href="it_regular_bill" class="btn blue btn-block"   style="font-size:16px;"> Regular Bill</a>
-            </td>
-            <td style="width:25%">
-             <a href="it_supplimentry_bill" class="btn blue btn-block"  style="font-size:16px;">Supplementary Bill</a>
-            </td>
-            <td style="width:25%">
-            <a href="in_head_report" class="btn blue btn-block"  style="font-size:16px;">Reports</a>
-            </td>
-            <td style="width:25%">
-            <a href="select_income_heads" class="btn red btn-block"  style="font-size:16px;">Accounting Setup</a>
-            </td>
-            </tr>
-            </table> -->
-            
-           <table  align="center" border="1" bordercolor="#FFFFFF" cellpadding="0">
-            <tr>
-			<td><a href="<?php echo $webroot_path; ?>Incometrackers/select_income_heads" class="btn" rel='tab'>Selection of Income Heads</a>
-			</td>
-			<!--<td>
-            <a href="it_due_tax" class="btn" style="font-size:16px;">Due tax</a>
-            </td>-->
-            <td>
-            <a href="<?php echo $webroot_path; ?>Incometrackers/it_setup" class="btn " style="font-size:16px;" rel='tab'>Terms & Condition</a>
-            </td>
-            <td>
-            <a href="<?php echo $webroot_path; ?>Incometrackers/master_rate_card" class="btn" style="font-size:16px;" rel='tab'>Rate Card</a>
-            </td>
-            <td>
-            <a href="<?php echo $webroot_path; ?>Incometrackers/master_noc" class="btn" style="font-size:16px;" rel='tab'>Non Occupancy Charges</a>
-            </td>
-             <td>
-            <a href="<?php echo $webroot_path; ?>Incometrackers/it_penalty" class="btn yellow" style="font-size:16px;" rel='tab'>Penalty Option</a>
-            </td>
-			</tr>
-			</table> 
+<table  align="center" border="1" bordercolor="#FFFFFF" cellpadding="0">
+<tr>
+<td><a href="<?php echo $webroot_path; ?>Incometrackers/select_income_heads" class="btn" rel='tab'>Selection of Income Heads</a>
+</td>
+<!--<td>
+<a href="it_due_tax" class="btn" style="font-size:16px;">Due tax</a>
+</td>-->
+<td>
+<a href="<?php echo $webroot_path; ?>Incometrackers/it_setup" class="btn " style="font-size:16px;" rel='tab'>Terms & Condition</a>
+</td>
+<td>
+<a href="<?php echo $webroot_path; ?>Incometrackers/master_rate_card" class="btn" style="font-size:16px;" rel='tab'>Rate Card</a>
+</td>
+<td>
+<a href="<?php echo $webroot_path; ?>Incometrackers/master_noc" class="btn" style="font-size:16px;" rel='tab'>Non Occupancy Charges</a>
+</td>
+<td>
+<a href="<?php echo $webroot_path; ?>Incometrackers/it_penalty" class="btn yellow" style="font-size:16px;" rel='tab'>Penalty Option</a>
+</td>
+</tr>
+</table> 
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////?>
 <form method="post" id="contact-form">
 <center>
@@ -61,13 +44,13 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <tr>
 <td colspan="2">
 <label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="type" value="1" style="opacity: 0;" id="type"></span></div>
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="type" value="1" style="opacity: 0;" id="type" <?php if($tax_type == 1) { ?> checked="checked" <?php } ?>></span></div>
 From Due Date
 </label>
 
 
 <label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="type" value="2" style="opacity: 0;" id="type"></span></div>
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="type" value="2" style="opacity: 0;" id="type" <?php if($tax_type == 2) { ?> checked="checked" <?php } ?>></span></div>
 From First day
 </label>
 <label id="type"></label>
@@ -76,7 +59,7 @@ From First day
 </tr>
 <tr>
 <td>Persentage in Number:</td>
-<td><input type="text" name="tax" class="m-wrap small" style="background-color:white !important;" id="tax"/></td>
+<td><input type="text" name="tax" class="m-wrap small" style="background-color:white !important;" id="tax" value="<?php echo $tax; ?>"/></td>
 </tr>
 <tr>
 <td colspan="2">
@@ -93,33 +76,6 @@ From First day
 
 </form>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<center>
-<div style="width:60%; border:solid 1px #F00; background-color:white;">
-<?php
-if($tax_type == 1)
-{
-$tax_tp = "Due Date";	
-}
-else
-{
-$tax_tp = "First Day";	
-}
-?>
-<table border="0">
-<tr>
-<th style="text-align:center;">From</th>
-<th>:</th>
-<td style="text-align:center;"><?php echo $tax_tp; ?></td>
-</tr>
-<tr>
-<th style="text-align:center;">Tax (Percentage)</th>
-<th>:</th>
-<td style="text-align:center;"><?php echo $tax; ?>  %</td>
-</tr>
-</table>
-</div>
-</center>
-
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <script>
 $(document).ready(function(){

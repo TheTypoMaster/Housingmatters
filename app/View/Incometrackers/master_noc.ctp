@@ -11,51 +11,29 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////// ?>            
-            
-          <!--  <table width="100%" border="1" bordercolor="#FFFFFF" cellpadding="0">
-            <tr>
-            <td style="width:25%">
-            <a href="it_regular_bill" class="btn blue btn-block"   style="font-size:16px;"> Regular Bill</a>
-            </td>
-            <td style="width:25%">
-             <a href="it_supplimentry_bill" class="btn blue btn-block"  style="font-size:16px;">Supplementary Bill</a>
-            </td>
-            <td style="width:25%">
-            <a href="in_head_report" class="btn blue btn-block"  style="font-size:16px;">Reports</a>
-            </td>
-            <td style="width:25%">
-            <a href="select_income_heads" class="btn red btn-block"  style="font-size:16px;">Accounting Setup</a>
-            </td>
-            </tr>
-            </table> -->
-            
-           <table  align="center" border="1" bordercolor="#FFFFFF" cellpadding="0">
-            <tr>
-			<td><a href="<?php echo $webroot_path; ?>Incometrackers/select_income_heads" class="btn" rel='tab'>Selection of Income Heads</a>
-			</td>
-			<!--<td>
-            <a href="it_due_tax" class="btn" style="font-size:16px;">Due tax</a>
-            </td>-->
-            <td>
-            <a href="<?php echo $webroot_path; ?>Incometrackers/it_setup" class="btn" style="font-size:16px;" rel='tab'>Terms & Condition</a>
-            </td>
-            <td>
-            <a href="<?php echo $webroot_path; ?>Incometrackers/master_rate_card" class="btn" style="font-size:16px;" rel='tab'>Rate Card</a>
-            </td>
-            <td>
-            <a href="<?php echo $webroot_path; ?>Incometrackers/master_noc" class="btn yellow" style="font-size:16px;" rel='tab'>Non Occupancy Charges</a>
-            </td>
-            <td>
-            <a href="<?php echo $webroot_path; ?>Incometrackers/it_penalty" class="btn" style="font-size:16px;" rel='tab'>Penalty Option</a>
-            </td>
-			</tr>
-			</table> 
+<table  align="center" border="1" bordercolor="#FFFFFF" cellpadding="0">
+<tr>
+<td><a href="<?php echo $webroot_path; ?>Incometrackers/select_income_heads" class="btn" rel='tab'>Selection of Income Heads</a>
+</td>
+<!--<td>
+<a href="it_due_tax" class="btn" style="font-size:16px;">Due tax</a>
+</td>-->
+<td>
+<a href="<?php echo $webroot_path; ?>Incometrackers/it_setup" class="btn" style="font-size:16px;" rel='tab'>Terms & Condition</a>
+</td>
+<td>
+<a href="<?php echo $webroot_path; ?>Incometrackers/master_rate_card" class="btn" style="font-size:16px;" rel='tab'>Rate Card</a>
+</td>
+<td>
+<a href="<?php echo $webroot_path; ?>Incometrackers/master_noc" class="btn yellow" style="font-size:16px;" rel='tab'>Non Occupancy Charges</a>
+</td>
+<td>
+<a href="<?php echo $webroot_path; ?>Incometrackers/it_penalty" class="btn" style="font-size:16px;" rel='tab'>Penalty Option</a>
+</td>
+</tr>
+</table> 
 <br />            
-<center>         
-<a href="<?php echo $webroot_path; ?>Incometrackers/master_noc" class="btn purple" rel='tab'>Non Occupancy Charges Add</a>
-<a href="<?php echo $webroot_path; ?>Incometrackers/master_noc_view" class="btn yellow" rel='tab'>Non Occupancy Charges View / Update</a>
-</center>
-            <br />
+
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>  
 <br /><br />
 <center>

@@ -4639,7 +4639,7 @@ $arr = array($type_id,$amt);
 $this->loadmodel('flat_type');
 $this->flat_type->updateAll(array('noc_charge' => $arr),array('auto_id' => $auto_id1));
 }
-$this->response->header('Location', 'master_noc_view');
+$this->response->header('Location', 'master_noc');
 }
 
 $this->loadmodel('flat_type');
@@ -4672,15 +4672,7 @@ $this->set('bill_html',$bill_html);
 }
 //////////////////////////////End Supplimentry Bill show/////////////////////////////////////////
 
-/////////////////////////////////// Start Wing Json//////////////////////////////////////////////////////////////
-function wing_json()
-{
 
-
-
-
-}
-/////////////////////////////////// End Wing Json//////////////////////////////////////////////////////////////
 
 }
 ?>
