@@ -4,8 +4,6 @@ echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), a
 <div style="background-color:#EFEFEF; border-top:1px solid #e6e6e6; border-bottom:1px solid #e6e6e6; padding:10px; box-shadow:5px; font-size:16px; color:#006;">
 Society Setup
 </div>
-
-
 <div class="tabbable tabbable-custom">
 <ul class="nav nav-tabs">
 <li class="active" ><a href="<?php echo @$webroot_path; ?>Hms/master_sm_wing" rel='tab'> Wing</a></li>
@@ -17,39 +15,23 @@ Society Setup
 </ul>
 <div class="tab-content" style="min-height:300px;">
 <div class="tab-pane active" id="tab_1_1">
-<div align="center">
-<div id="ser_top" align="center" ><?php echo @$rr; ?></div>
-<br>
-<div>
-<form  class="form-horizontal" method="post" id="contact-form">
-<table>
-<tr>
-<td style="text-align:center;">
+<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">
+<h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Post Wing</h4>
+
+<div class="row-fluid">
+<div class="span5">
+<form method="post">
+
 <label >Wing Name <span style="font-size:12px; color:#999;">(Maximum 10 characters.)</span></label>
-<input type="text" class="m-wrap" name="wing_name" maxlength="10" id="wing"></td>
-<!--<td style="text-align:center;">
-<label>Number of Flat</label>
-<input type="text" name="flat_no" id="flat_no" class="m-wrap medium" style="margin-top:0.5%;" />
-</td>-->
-<td><button  type="submit" class="btn blue" value="Submit"  id="go5" style="margin-top:36%;" name="sub">Submit</button></td>
-</tr>
-<tr>
-<td><label id="wing"></label></td>
-<td></td>
-</tr>
-</table>
+<div class="controls">
+<input type="text" class="m-wrap span7" name="wing_name" maxlength="10" id="wing">
+<button type="submit" class="btn form_post" style="background-color: #09F; color:#fff;" value="xyz">Submit</button>
 </form>
 </div>
 </div>
-</div>
-<?php //////////////////////////////////////////////////////////////////////////////////////////////////// ?>   
-
-
-
-<?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>   
-<br>
-<div class="portlet box" style="width:80%;">
-<div class="portlet-body" style="float:right; width:70%;">
+<div class="span7">
+<div style="height:300px; overflow:Y-scroll;">
 <table class="table table-striped table-bordered" id="sample_2" style="width:100%;">
 <thead>
 <tr>
@@ -73,7 +55,49 @@ $wing_name=$collection['wing']['wing_name'];
 </tbody>
 </table>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+<?php //////////////////////////////////////////////////////////////////////////////////////////////////// ?>   
+
+
+
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>   
+
 </div>
 </div>
 	
