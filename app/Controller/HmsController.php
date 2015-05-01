@@ -15809,11 +15809,14 @@ echo "true";
  function master_sm_wing()
 {
 if($this->RequestHandler->isAjax()){
-		$this->layout='blank';
-	}else{
-		$this->layout='session';
-	}
-	$this->ath();
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
+$this->ath();
+	
+	
+	
 $s_society_id=$this->Session->read('society_id');
 if(isset($this->request->data['sub'])) 
 {
@@ -18218,187 +18221,17 @@ $this->ath();
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
-$nnn = 5;
-$this->set('nnn',$nnn);
-
-if(isset($this->request->data['sub']))
-{
-$wing_id = (int)$this->request->data['wing'];
-$flat_name = $this->request->data['number'];
-
-$k = (int)$this->autoincrement('flat','flat_id');
-$this->loadmodel('flat');
-$multipleRowData = Array( Array("flat_id"=>$k,"wing_id"=>$wing_id,"flat_name"=>$flat_name,"society_id"=>$s_society_id));
-$this->flat->saveAll($multipleRowData);
-?>
-<div class="modal-backdrop fade in"></div>
-<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-<div class="modal-header">
-<center>
-<h3 id="myModalLabel3" style="color:#999;"><b>Flat Type</b></h3>
-</center>
-</div>
-<div class="modal-body">
-<center>
-<h3><b>Record Inserted Successfully</b></h3>
-</center>
-</div>
-<div class="modal-footer">
-<a href="flat_type" class="btn blue">OK</a>
-</div>
-</div>
-<?php
-}
-
-if(isset($this->request->data['sub_area']))
-{
-$no_of_flat = (int)$this->request->data['nof'];
-$flat_type_id = (int)$this->request->data['auto_id'];
-$this->set('nof',$no_of_flat);
-$this->set('flat_type_id',$flat_type_id);
-$area_arr = array();
-for($q=1; $q<=$no_of_flat; $q++)
-{
-$area = (int)$this->request->data['area'.$q];
-$area1 = array($area,$q);
-$area_arr[] = $area1;
-}
-
-$auto_id=$this->autoincrement('flat_type','auto_id');
-$this->loadmodel('flat_type');
-$this->flat_type->saveAll(array('auto_id' => $auto_id, 'flat_type_id' => $flat_type_id,"number_of_flat"=>$no_of_flat,"status"=>0,'society_id'=>$s_society_id,"area"=>$area_arr));
-
-$this->set('nnn',$nnn);
-
-?>
-<div class="modal-backdrop fade in"></div>
-<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-<div class="modal-header">
-<center>
-<h3 id="myModalLabel3" style="color:#999;"><b>Flat Type</b></h3>
-</center>
-</div>
-<div class="modal-body">
-<center>
-<h3><b>Record Inserted Successfully</b></h3>
-</center>
-</div>
-<div class="modal-footer">
-<a href="flat_type" class="btn blue">OK</a>
-</div>
-</div>
-
-
-
-
-<?php
-}
-
-/////////////
-$this->loadmodel('flat_type');
-$conditions=array("society_id" => $s_society_id,"status"=>0);
-$cursor = $this->flat_type->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$auto_id = (int)$collection['flat_type']['auto_id'];
-
-if(isset($this->request->data['sub'.$auto_id]))
-{
-$this->loadmodel('flat_master');
-$conditions=array("society_id" => $s_society_id,"status"=>0);
-$cursor = $this->flat_master->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$mas_id = (int)$collection['flat_master']['auto_id'];
-
-$area = $this->request->data['area'.$mas_id];
-
-
-$this->loadmodel('flat_master');
-$this->flat_master->updateAll(array('flat_area' => $area),array('auto_id' => $mas_id,"society_id" => $s_society_id,"flat_type_id"=>$auto_id));
-
-}
-?>
-<!----alert-------------->
-<div class="modal-backdrop fade in"></div>
-<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-<div class="modal-body" style="font-size:16px;">
-Record Updated Successfully
-</div> 
-<div class="modal-footer">
-<a href="flat_type"   class="btn green">OK</a>
-</div>
-</div>
-<!----alert-------------->
-
-
-<?php
-}
-}
-//////////////
-
-//$del_id = (int)$this->request->query('d');
-//$this->set('del_id',$del_id);
-
-if(isset($this->request->data['del']))
-{
-$fl_tp_id = (int)$this->request->data['delete'];
-
-$this->loadmodel('flat_type');
-$this->flat_type->updateAll(array('status' => 2),array('flat_type_id' => $fl_tp_id,"society_id" => $s_society_id));
-$this->loadmodel('flat_master');
-$this->flat_master->updateAll(array('status' => 1),array('flat_type_id' => $fl_tp_id,"society_id" => $s_society_id));
-$this->response->header('Location','flat_type');
-}
-$this->loadmodel('flat_type');
-$conditions=array("society_id" => $s_society_id,"status"=>0);
-$cursor1 = $this->flat_type->find('all',array('conditions'=>$conditions));
-$this->set('cursor1',$cursor1);
 
 $this->loadmodel('flat');
 $conditions=array("society_id" => $s_society_id);
-$cursor = $this->flat->find('all',array('conditions'=>$conditions));
-$m=0;
-foreach($cursor as $collection)
-{
-$m++;
-$wing = (int)$collection['flat']['wing_id'];
-$fl = @$collection['flat']['flat_number'];
-
-$wing_arr[] = $wing;
-$flat_arr[] = $fl;
-}
-$wing_imp = implode(",",$wing_arr);
-$flat_imp = implode(",",$flat_arr);
-
-$this->set("wing_imp",$wing_imp);
-$this->set("flat_imp",$flat_imp);
-$this->set("m",$m);
+$cursor1 = $this->flat->find('all',array('conditions'=>$conditions));
+$this->set('cursor1',$cursor1);
 
 $this->loadmodel('wing');
 $conditions=array("society_id" => $s_society_id);
 $cursor2 = $this->wing->find('all',array('conditions'=>$conditions));
 $this->set('cursor2',$cursor2);
-
-$b=0;
-$this->loadmodel('flat_type');
-$conditions=array("society_id" => $s_society_id,"status"=>0);
-$cursor = $this->flat_type->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$b++;
-$flat_tp_id2 = (int)@$collection['flat_type']['flat_type_id'];
-$fl_t[] = $flat_tp_id2;
 }
-if(!empty($fl_t))
-{
-$fl_ti = implode(",",$fl_t);
-$this->set('fl_ti',$fl_ti);
-$this->set('b',$b);
-}
-}
-
-
 ///////////////////// End Flat Type ////////////////////////////////////////////////
 
 ///////////////////////// Start Flat No. Ajax (Accounts)////////////////////////////
@@ -19986,93 +19819,73 @@ return $this->expense_tracker->find('all',array('conditions'=>$conditions));
 ////////////////////////////// Start Flat type Validation //////////////////////////////////////////////////////////
 function flat_type_validation()
 {
-$this->layout='blank';
-$q=$this->request->query('q');
-$q = html_entity_decode($q);
+$this->layout=null;
+$post_data=$this->request->data;
+$this->ath();
+$s_society_id=$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
+$date=date('d-m-Y');
+$time = date(' h:i a', time());
 
-$s_society_id = (int)$this->Session->read('society_id');
-$s_user_id  = (int)$this->Session->read('user_id');
+$wing_id = (int)$post_data['wing'];
+$flat_nu = $post_data['number'];
 
-$res_society=$this->society_name($s_society_id);
-foreach($res_society as $data)
-{
-$society_name=$data['society']['society_name'];
-}
+$report = array();
+if(empty($wing_id)){
+		$report[]=array('label'=>'wing', 'text' => 'Please Select Wing');
+	}	
 
-$s_n='';
-$sco_na=$society_name;
-$dd=explode(' ',$sco_na);
-$first=$dd[0];
-@$two=$dd[1];
-@$three=$dd[2];
-$s_n.=" $first $two $three ";
+if(empty($flat_nu)){
+		$report[]=array('label'=>'num', 'text' => 'Please Fill Flat Number');
+	}	
 
-date_default_timezone_set('Asia/kolkata');
-$date=date("d-m-Y");
-$time=date('h:i:a',time());
-
-$myArray = json_decode($q, true);
-$c=0;
-foreach($myArray as $child)
-{
-$c++;
-
-if(empty($child[0])){
-$output = json_encode(array('type'=>'error', 'text' => 'Please Select Wing'));
-die($output);
-}	
-if(empty($child[1])){
-$output = json_encode(array('type'=>'error', 'text' => 'Please Fill Flat Number'));
-die($output);
-}	
-
-if(is_numeric($child[1]))
-{
-}
-else
-{
-$output = json_encode(array('type'=>'error', 'text' => 'Please Fill Numeric Value in Flat Number'));
-die($output);
-}
-
-$this->loadmodel('flat');
-$conditions=array("society_id" => $s_society_id);
-$cursor = $this->flat->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$wing2 = (int)$collection['flat']['wing_id'];
-$flat2 = (int)$collection['flat']['flat_name'];
-if($wing2 == $child[0] and $flat2 == $child[1])
-{
-$nnn = 55;
-break;
-}
-else
-{
 $nnn = 555;
-}
-}
-if($nnn == 55)
+$this->loadmodel('flat');
+$conditions=array("society_id"=>$s_society_id);
+$cursor3 = $this->flat->find('all',array('conditions'=>$conditions));
+foreach($cursor3 as $collection)
+{	
+$wing_id2 = (int)$collection['flat']['wing_id'];
+$flat_nu2 = $collection['flat']['flat_name'];	
+if($wing_id2 == $wing_id && $flat_nu2 == $flat_nu)
 {
-$output = json_encode(array('type'=>'error', 'text' => 'In this wing the flat is already exist'));
+$nnn = 55;	
+}	
+}	
+	
+if($nnn == 55)
+{	
+$report[]=array('label'=>'num', 'text' => 'In This Wing the Flat Number is Already Exist,Please Select Another');
+}	
+
+if(sizeof($report)>0)
+{
+$output=json_encode(array('report_type'=>'error','report'=>$report));
 die($output);
 }
-}
-
-
-foreach($myArray as $child)
-{
-$wing3 = (int)$child[0];
-$flat3 = $child[1];
 
 $k = (int)$this->autoincrement('flat','flat_id');
 $this->loadmodel('flat');
-$multipleRowData = Array( Array("flat_id"=>$k,"wing_id"=>$wing3,"flat_name"=>$flat3,"society_id"=>$s_society_id));
+$multipleRowData = Array( Array("flat_id"=>$k,"wing_id"=>$wing_id,"flat_name"=>$flat_nu,"society_id"=>$s_society_id));
 $this->flat->saveAll($multipleRowData);
-}
 
-$output = json_encode(array('type'=>'succ', 'text' => 'Record Inserted Successfully.'));
+
+$output=json_encode(array('report_type'=>'publish','report'=>'Record Inserted Successfully'));
 die($output);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 ////////////////////////////// End Flat type Validation //////////////////////////////////////////////////////////
