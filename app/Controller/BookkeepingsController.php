@@ -1568,8 +1568,6 @@ die($output);
 }	
 	
 ////////////////////////////////////////////////////////
-foreach($myArray as $child)
-{
 
 $this->loadmodel('journal');
 $conditions=array("society_id" => $s_society_id);
@@ -1587,6 +1585,11 @@ else
 {	
 $receipt_no = 1001;
 }
+
+foreach($myArray as $child)
+{
+
+
 
 $current_date = date("Y-m-d");
 $current_date = new MongoDate(strtotime($current_date));

@@ -15,9 +15,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <tr>
 <td><a href="<?php echo $webroot_path; ?>Incometrackers/select_income_heads" class="btn" rel='tab'>Selection of Income Heads</a>
 </td>
-<!--<td>
-<a href="it_due_tax" class="btn" style="font-size:16px;">Due tax</a>
-</td>-->
 <td>
 <a href="<?php echo $webroot_path; ?>Incometrackers/it_setup" class="btn" style="font-size:16px;" rel='tab'>Terms & Condition</a>
 </td>
@@ -37,8 +34,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>  
 <br /><br />
 <center>
-<form method="post" onsubmit="return vali()">
-<div id="validate_result" style="width:80%;"></div>
+<form method="post">
+<div id="error_msg" style="width:80%;"></div>
 <table class="table table-bordered" style="width:80%; background-color:white;">
 <tr>
 <th style="text-align:center;">Flat Type</th>
@@ -84,7 +81,7 @@ $amt = "";
 </select>
 
 <input type="text" name="amt<?php echo $auto_id; ?>" <?php if($type == 4) { ?> disabled="disabled" <?php } ?>  class="m-wrap medium" id="tx<?php echo $n; ?>" value="<?php echo $amt; ?>"/>
-
+<input type="hidden" value="<?php echo $auto_id; ?>" id="fltp<?php echo $n; ?>" />
 </td>
 </tr>
 <?php
@@ -94,9 +91,32 @@ $amt = "";
 </table>
 <br />
 <div style="width:100%">
-<button type="submit" class="btn green" name="sub">Submit</button>
+<button type="submit" class="btn green form_post" name="sub" submit_type="sub">Submit</button>
 </div>
 <input type="hidden" value="<?php echo $n; ?>" id="cnt" />
+
+<div id="shwd" class="hide">
+<div class="modal-backdrop fade in"></div>
+<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+<div class="modal-header">
+<center>
+<h3 id="myModalLabel3" style="color:#999;"><b>Expense Tracker</b></h3>
+</center>
+</div>
+<div class="modal-body">
+<center>
+<h5><b class="success_report"></b></h5>
+</center>
+</div>
+<div class="modal-footer">
+<a href="<?php echo $webroot_path; ?>Incometrackers/master_noc" class="btn blue" rel='tab'>No</a>
+<button type="submit" class="btn blue form_post" submit_type="con">Yes</button>
+</div>
+</div>
+</div> 
+
+
+
 </form>
 </center>
 
@@ -105,56 +125,96 @@ $amt = "";
 
 
 <script>
-		$(document).ready(function() {
-		$(".go").live('change',function(){
-
-   var count = document.getElementById("cnt").value;		
-   for(var i=1; i<=count; i++)
-   {
-	var tp = document.getElementById("tp" + i).value;
-	
-	   
-	if(tp == 4)
-	{
-	$("#tx" + i).value = "none";
-	$("#tx" + i).attr('disabled','disabled');
-		
-	}
-	else
-	{
-	$("#tx" + i).removeAttr('disabled');	
-	}
-	
-   }
-
-});
-});
-		</script>	
-
-
-
-<script>
-function vali()
-{
-var count = document.getElementById("count").value;	
+$(document).ready(function() {
+$(".go").live('change',function(){
+var count = document.getElementById("cnt").value;		
 for(var i=1; i<=count; i++)
 {
-	
 var tp = document.getElementById("tp" + i).value;
-if(tp=== '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Fill All Fields</div>'); return false; }	
 if(tp == 4)
 {
-
+$("#tx" + i).value = "none";
+$("#tx" + i).attr('disabled','disabled');
 }
 else
 {
-amt = document.getElementById("tx" + i).value;
-if(amt=== '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Fill All Fields</div>'); return false; }		
+$("#tx" + i).removeAttr('disabled');	
 }
+}
+});
+});
+</script>	
 
-}
+<?php //////////////////////////////////////////////////////////////////////////////////////////// ?>
 
-}
+<script>
+$(document).ready(function() {
+	$(".form_post").bind('click', function(e){
+		$(".form_post").removeClass("clicked");
+		$(this).addClass("clicked");
+	});
+	
+	
+	 
+	$('form').submit( function(ev){
+	ev.preventDefault();
+	if( $(this).find(".clicked").attr("submit_type") === "sub" ){
+			var post_type=1;
+		}
+		if( $(this).find(".clicked").attr("submit_type") === "con" ){
+			var post_type=2;
+		}
+		
+		var hidden=$("#cnt").val();
+		var ar = [];
+		for(var i=1;i<=hidden;i++)
+		{
+		var fltp = $("#fltp"+i).val();
+		var type = $("#tp"+i).val();
+		if(type != 4)
+		{
+		var amt = $("#tx"+i).val();
+		}
+		if(type != 4)
+		{
+		ar.push([type,amt,fltp]);
+		}
+		else
+		{
+		ar.push([type,fltp]);	
+		}
+		var myJsonString = JSON.stringify(ar);
+		}
+		var abc = JSON.stringify(post_type);
+			
+			$.ajax({
+			url: "noc_json?q="+myJsonString+"&b="+abc,
+			dataType:'json',
+			}).done(function(response) {
+			
+				if(response.type == 'error'){  
+					output = '<div class="alert alert-error">'+response.text+'</div>';
+					$("#submit").removeClass("disabled").text("submit");
+					$("html, body").animate({
+					 scrollTop:0
+					 },"slow");
+				}
+				if(response.type=='succ'){
+				$("#shwd").show();
+				$(".success_report").show().html(response.text);
+			    }
+				
+				if(response.type=='okk'){
+				$("#shwd").hide();
+				}
+				
+				$("#error_msg").html(output);
+			});
+
+	 
+	});
+});
+
 </script>
 
 
