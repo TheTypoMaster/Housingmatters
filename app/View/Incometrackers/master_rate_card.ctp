@@ -26,131 +26,27 @@ if(rs1=== '') { $('#validate_result').html('<div style="background-color:white; 
 }
 }
 </script>
-<?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>            
-		<!--	<table width="100%" border="1" bordercolor="#FFFFFF" cellpadding="0">
-            <tr>
-            <td style="width:25%">
-            <a href="it_regular_bill" class="btn blue btn-block"   style="font-size:16px;"> Regular Bill</a>
-            </td>
-            <td style="width:25%">
-             <a href="it_supplimentry_bill" class="btn blue btn-block"  style="font-size:16px;">Supplementary Bill</a>
-            </td>
-            <td style="width:25%">
-            <a href="in_head_report" class="btn blue btn-block"  style="font-size:16px;">Reports</a>
-            </td>
-            <td style="width:25%">
-            <a href="select_income_heads" class="btn red btn-block"  style="font-size:16px;">Accounting Setup</a>
-            </td>
-            </tr>
-            </table> -->
-            
-           <table  align="center" border="1" bordercolor="#FFFFFF" cellpadding="0">
-            <tr>
-            <td><a href="<?php echo $webroot_path; ?>Incometrackers/select_income_heads" class="btn" rel='tab'>Selection of Income Heads</a>
-			<!--<td>
-            <a href="it_due_tax" class="btn" style="font-size:16px;">Due tax</a>
-            </td>-->
-            <td>
-            <a href="<?php echo $webroot_path; ?>Incometrackers/it_setup" class="btn " style="font-size:16px;" rel='tab'>Terms & Condition</a>
-            </td>
-            <td>
-            <a href="<?php echo $webroot_path; ?>Incometrackers/master_rate_card" class="btn yellow" style="font-size:16px;" rel='tab'>Rate Card</a>
-            </td>
-			<td>
-            <a href="<?php echo $webroot_path; ?>Incometrackers/master_noc" class="btn" style="font-size:16px;" rel='tab'>Non Occupancy Charges</a>
-            </td>
-			<td>
-            <a href="<?php echo $webroot_path; ?>Incometrackers/it_penalty" class="btn" style="font-size:16px;" rel='tab'>Penalty Option</a>
-            </td>
-			</tr>
-			</table> 
-            
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?><table  align="center" border="1" bordercolor="#FFFFFF" cellpadding="0">
+<tr>
+<td><a href="<?php echo $webroot_path; ?>Incometrackers/select_income_heads" class="btn" rel='tab'>Selection of Income Heads</a>
+<!--<td>
+<a href="it_due_tax" class="btn" style="font-size:16px;">Due tax</a>
+</td>-->
+<td>
+<a href="<?php echo $webroot_path; ?>Incometrackers/it_setup" class="btn " style="font-size:16px;" rel='tab'>Terms & Condition</a>
+</td>
+<td>
+<a href="<?php echo $webroot_path; ?>Incometrackers/master_rate_card" class="btn yellow" style="font-size:16px;" rel='tab'>Rate Card</a>
+</td>
+<td>
+<a href="<?php echo $webroot_path; ?>Incometrackers/master_noc" class="btn" style="font-size:16px;" rel='tab'>Non Occupancy Charges</a>
+</td>
+<td>
+<a href="<?php echo $webroot_path; ?>Incometrackers/it_penalty" class="btn" style="font-size:16px;" rel='tab'>Penalty Option</a>
+</td>
+</tr>
+</table> 
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<br />
-<center>
-       <a href="<?php echo $webroot_path; ?>Incometrackers/master_rate_card" class="btn purple" rel='tab'>Rate Card Add</a>     
-       <a href="<?php echo $webroot_path; ?>Incometrackers/master_rate_card_view" class="btn yellow" rel='tab'>Rate Card View / Update</a> 
-       </center>    
-<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////// ?>            
-   <!-- <form method="post">
-    <div style="width:100%; background-color:white; overflow-x:scroll;">
-    <table class="table table-bordered" style="background-color:white; width:100%;"> 
-    <tr>
-    <th style="text-align:center;">Flat Type</th>
-    <?php
-	foreach($cursor1 as $collection)
-	{
-	$charge = @$collection['flat_type']['charge'];
-	}
-	for($j=0; $j<sizeof($charge); $j++)
-	{
-	$charge2 = $charge[$j];
-	$ih_id1 = (int)$charge2[0];
-	
-$result1 = $this->requestAction(array('controller' => 'hms', 'action' => 'income_head_fetch'),array('pass'=>array(        $ih_id1)));		
-foreach($result1 as $collection)
-{
-$ih_name = $collection['income_head']['ih_name'];	
-}
-		
-	
-	?>
-    <th style="text-align:center;"><?php echo $ih_name; ?></th>
-	<?php
-	}
-    ?>
-   <th style="text-align:center;">Edit</th>
-   </tr>
-   
-    <?php
-	foreach($cursor1 as $collection)
-	{
-	$flat_type = $collection['flat_type']['flat_name'];
-	$charge3 = @$collection['flat_type']['charge'];
-	$flat_type_id = $collection['flat_type']['auto_id'];	
-	?>
-    <tr id="result<?php echo $flat_type_id; ?>">
-    <th style="text-align:center;"><?php echo $flat_type ?></th>
-	<?php
-    for($k=0; $k<sizeof($charge3); $k++)
-	{
-    $charge4 = $charge3[$k];
-	$chtp = (int)$charge4[1];
-	$amt = $charge4[2];
-	if($chtp == 1)
-	{
-	$type="Lump Sum";	
-	}
-	else if($chtp == 2)
-	{
-	$type="Per Square Feet";	
-	}
-	else
-	{
-	$type="Flat Type";	
-	}
-    ?>
-    <td style="text-align:center;">
-    Charge Type: <?php echo $type; ?><br />
-    Charge Amount: <?php echo $amt; ?>
-    </td>
-    <?php } ?>
-    <td style="text-align:center;">
-    
-    <a class="btn mini purple" onclick="edit(<?php echo $flat_type_id; ?>)">Edit</a> 
-    </td>
-    </tr>
-	<?php
-	}
-	?>
-   
-    
-    </table>
-   </div>
-   </form> -->
-     
-<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////?>
-
 <form method="post" onSubmit="return validat()">
 <center>
 <br /><Br />
