@@ -20703,7 +20703,40 @@ $this->set('cursor1',$cursor1);
 
 }
 /////////////////////////////// End Purchase Order Show Ajax //////////////////////////////////////////////////////
+/////////////////////////////////// Start Wing Json//////////////////////////////////////////////////////////////
+function wing_json()
+{
+$this->layout=null;
+$post_data=$this->request->data;
+$this->ath();
+$s_society_id=$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
+$date=date('d-m-Y');
+$time = date(' h:i a', time());
 
+$wing = $post_data['wing'];
+
+$report = array();
+if(empty($wing)){
+$report[]=array('label'=>'win', 'text' => 'Please Fill Wing Name');
+}
+
+if(sizeof($report)>0)
+{
+$output=json_encode(array('report_type'=>'error','report'=>$report));
+die($output);
+}
+
+
+$this->loadmodel('wing');
+$i=$this->autoincrement('wing','wing_id');
+$this->wing->saveAll(array("wing_id" => $i,"society_id"=> $s_society_id,"wing_name"=>$wing));
+
+$output=json_encode(array('report_type'=>'publish','report'=>'Wing Inserted Successfully'));
+die($output);
+
+}
+/////////////////////////////////// End Wing Json//////////////////////////////////////////////////////////////
 
 }
 ?>

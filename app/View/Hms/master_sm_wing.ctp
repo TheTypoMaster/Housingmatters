@@ -17,7 +17,7 @@ Society Setup
 <div class="tab-pane active" id="tab_1_1">
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">
-<h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Post Wing</h4>
+
 
 <div class="row-fluid">
 <div class="span5">
@@ -26,12 +26,15 @@ Society Setup
 <label >Wing Name <span style="font-size:12px; color:#999;">(Maximum 10 characters.)</span></label>
 <div class="controls">
 <input type="text" class="m-wrap span7" name="wing_name" maxlength="10" id="wing">
-<button type="submit" class="btn form_post" style="background-color: #09F; color:#fff;" value="xyz">Submit</button>
+<button type="submit" class="btn form_post" style="background-color: #09F; color:#fff;" value="xyz">Add Wing</button>
+<label report="win" class="remove_report"></label>
+</div>
 </form>
 </div>
-</div>
 <div class="span7">
-<div style="height:300px; overflow:Y-scroll;">
+
+<div style="height:300px;">
+<div  style="overflow:Y-scroll;">
 <table class="table table-striped table-bordered" id="sample_2" style="width:100%;">
 <thead>
 <tr>
@@ -55,156 +58,88 @@ $wing_name=$collection['wing']['wing_name'];
 </tbody>
 </table>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 </div>
 </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</div>
 </div>
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////// ?>   
-
-
-
-<?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>   
-
 </div>
 </div>
-	
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>	
 
-<script>
-$(document).ready(function() {
-$("#go").live('click',function(){
+  <script>
+$(document).ready(function() { 
+	$('form').submit( function(ev){
+	ev.preventDefault();
+		var m_data = new FormData();
+		m_data.append( 'wing', $('#wing').val());
+					
+		$(".form_post").addClass("disabled");
+		$("#wait").show();
+			
+			$.ajax({
+			url: "wing_json",
+			data: m_data,
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			dataType:'json',
+			}).done(function(response) {
+				if(response.report_type=='error'){
+					$(".remove_report").html('');
+						jQuery.each(response.report, function(i, val) {
+						$("label[report="+val.label+"]").html('<span style="color:red;">'+val.text+'</span>');
+					});
+				}
+				if(response.report_type=='publish'){
+                $("#shwd").show()
+				$(".success_report").show().html(response.report);	
+				}
+			
+			$("html, body").animate({
+			scrollTop:0
+			},"slow");
+			$(".form_post").removeClass("disabled");
+			$("#wait").hide();
+			});
 
-var wing = document.getElementById("wing").value;
-var no_flat = document.getElementById("flat_no").value;
-
-if(wing=== '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Fill All     Fields</div>'); return false; }
-
-
-
-document.getElementById("nu").value= no_flat;
-document.getElementById("wi").value= wing;
-$(".edit_div").show();
-$("#show").empty();
-for(var h=1; h<=no_flat; h++)
-{
-$("#show").append('<tr><td><input type="text" class="m-wrap small" name="no' + h + '"></td></tr>');
-}
-
-});
+	});
 });
 </script>	
 
-<script>
-$(document).ready(function() {
-	$("#close_edit").live('click',function(){
-$(".edit_div").hide();
-});
-});
-</script>	
+
+	
 
 
 
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<form method="post">
-<div class="edit_div" style="display:none;">
+<div id="shwd" class="hide">
 <div class="modal-backdrop fade in"></div>
-<div class="modal" id="poll_edit_content">
-
+<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
 <div class="modal-header">
 <center>
-	<h4 id="myModalLabel1"><b>Flat Number</b></h4>
+<h3 id="myModalLabel3" style="color:#999;"><b>Wing</b></h3>
 </center>
 </div>
 <div class="modal-body">
 <center>
-<input type="hidden" value="" name="nu" id="nu"/>
-<input type="hidden" value="" name="wi" id="wi"/>
-<table id="show">	
-</table>		   
-</center>					   
+<h5><b class="success_report"></b></h5>
+</center>
 </div>
 <div class="modal-footer">
-<button class="btn" id="close_edit">Close</button>
-<button type="submit" name="suxasdS" class="btn blue">Save</button>
+<a href="<?php echo $webroot_path; ?>Hms/master_sm_wing" class="btn blue" rel='tab'>OK</a>
 </div>
 </div>
-</div>
-</form>
+</div> 		   
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
- <script>
-$(document).ready(function(){
-
-$.validator.setDefaults({ ignore: ":hidden:not(select)" });
 
 
-		$('#contact-form').validate({
-		
-		errorElement: "label",
-                    //place all errors in a <div id="errors"> element
-                    errorPlacement: function(error, element) {
-                        //error.appendTo("label#errors");
-						error.appendTo('label#' + element.attr('id'));
-                    },
 		
 		
 		
-	    rules: {
-	     
-		 wing_name: {
-			 required: true
-			
-			 
-	      },
 
-           
-
-		},
-			highlight: function(element) {
-				$(element).closest('.control-group').removeClass('success').addClass('error');
-			},
-			success: function(element) {
-				element
-				.text('OK!').addClass('valid')
-				.closest('.control-group').removeClass('error').addClass('success');
-			}
-	  });
-
-}); 
-</script>
 
 
 
