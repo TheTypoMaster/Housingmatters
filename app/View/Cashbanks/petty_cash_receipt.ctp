@@ -7,7 +7,6 @@ $("#fix<?php echo $id_current_page; ?>").removeClass("blue");
 $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
-
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////// ?> 
 <center>                
 <a href="<?php echo $webroot_path; ?>Cashbanks/petty_cash_receipt" class="btn red" rel='tab'>Create</a>

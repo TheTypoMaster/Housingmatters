@@ -1,18 +1,5 @@
-<?php
-echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
-?>				   
-<script>
-$(document).ready(function() {
-$("#fix<?php echo $id_current_page; ?>").removeClass("blue");
-$("#fix<?php echo $id_current_page; ?>").addClass("red");
-});
-</script>
-
-
-
-
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<!-- <table width="100%" border="1" bordercolor="#FFFFFF" cellpadding="0">
+<table width="100%" border="1" bordercolor="#FFFFFF" cellpadding="0">
 <tr>
 <td style="width:25%">
 <a href="it_regular_bill" class="btn blue btn-block"   style="font-size:16px;"> Regular Bill</a>
@@ -28,27 +15,27 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </td>
 </tr>
 </table>
--->
+
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
     <table  align="center" border="1" bordercolor="#FFFFFF" cellpadding="0">
     <tr>
-    <td><a href="<?php echo $webroot_path; ?>Incometrackers/select_income_heads" class="btn yellow" rel='tab'>Selection of Income Heads</a>
+    <td><a href="select_income_heads" class="btn yellow">Selection of Income Heads</a>
     </td>
    <!-- <td>
     <a href="it_due_tax" class="btn" style="font-size:16px;">Due tax</a>
     </td> -->
     <td>
-    <a href="<?php echo $webroot_path; ?>Incometrackers/it_setup" class="btn" style="font-size:16px;" rel='tab'>Terms & Condition</a>
+    <a href="it_setup" class="btn" style="font-size:16px;">Terms & Condition</a>
     </td>
     <td>
-    <a href="<?php echo $webroot_path; ?>Incometrackers/master_rate_card" class="btn" style="font-size:16px;" rel='tab'>Rate Card</a>
+    <a href="master_rate_card" class="btn" style="font-size:16px;">Rate Card</a>
     </td>
     <td>
-    <a href="<?php echo $webroot_path; ?>Incometrackers/master_noc" class="btn" style="font-size:16px;" rel='tab'>Non Occupancy Charges</a>
+    <a href="master_noc" class="btn" style="font-size:16px;">Non Occupancy Charges</a>
     </td>
     <td>
-    <a href="<?php echo $webroot_path; ?>Incometrackers/it_penalty" class="btn" style="font-size:16px;" rel='tab'>Penalty Option</a>
+    <a href="it_penalty" class="btn" style="font-size:16px;">Penalty Option</a>
     </td>
     </tr>
     </table> 
@@ -122,7 +109,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 $m=0;
 foreach($cursor3 as $collection)
 {
-$income_head_arr = @$collection['society']['income_head'];
+$income_head_arr = $collection['society']['income_head'];
 }
 $m=0;
 for($i=0; $i<sizeof($income_head_arr); $i++)

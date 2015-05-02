@@ -4816,7 +4816,58 @@ die($output);
 }
 ////////////////////////////////////// End Rate Card Json //////////////////////////////////////////////////////////
 
+/////////////////////////////////////// Start Select Income Head Json //////////////////////////////////////////////////
+function select_income_head_json()
+{
+$this->layout=null;
+
+$post_data=$this->request->data;
+$this->ath();
+$s_society_id=$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
+$date=date('d-m-Y');
+$time = date(' h:i a', time());
+
+$arrr = $post_data['head'];	
+
+$report = array();
+if($arrr == 'null')
+{
+$report[]=array('label'=>'head', 'text' => 'Please select Income Heads');
+}	
+
+if(sizeof($report)>0)
+{
+$output=json_encode(array('report_type'=>'error','report'=>$report));
+die($output);
+}
+
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor=$this->society->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+
+$arrr1 = $collection['society']['income_head'];
+}
+for($j=0; $j<sizeof($arrr); $j++)
+{
+$head_id = (int)$arrr[$j];
+$arrr1[] = $head_id;
+}
+
+$this->loadmodel('society');
+$this->society->updateAll(array('income_head'=> $arrr1),array('society_id'=>$s_society_id));
 
 
+$output=json_encode(array('report_type'=>'publish','report'=>'Income Head Inserted Successfully'));
+die($output);
+
+
+
+
+
+}
+/////////////////////////////////////// Start Select Income Head Json //////////////////////////////////////////////////
 }
 ?>
