@@ -30,7 +30,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </tr>
 </table> 
 <br />            
-
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>  
 <br /><br />
 <center>
@@ -100,7 +99,7 @@ $amt = "";
 <div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
 <div class="modal-header">
 <center>
-<h3 id="myModalLabel3" style="color:#999;"><b>Expense Tracker</b></h3>
+<h3 id="myModalLabel3" style="color:#999;"><b>NOC Charges</b></h3>
 </center>
 </div>
 <div class="modal-body">
@@ -153,9 +152,7 @@ $(document).ready(function() {
 		$(".form_post").removeClass("clicked");
 		$(this).addClass("clicked");
 	});
-	
-	
-	 
+ 
 	$('form').submit( function(ev){
 	ev.preventDefault();
 	if( $(this).find(".clicked").attr("submit_type") === "sub" ){
@@ -164,7 +161,6 @@ $(document).ready(function() {
 		if( $(this).find(".clicked").attr("submit_type") === "con" ){
 			var post_type=2;
 		}
-		
 		var hidden=$("#cnt").val();
 		var ar = [];
 		for(var i=1;i<=hidden;i++)
@@ -185,6 +181,7 @@ $(document).ready(function() {
 		}
 		var myJsonString = JSON.stringify(ar);
 		}
+		
 		var abc = JSON.stringify(post_type);
 			
 			$.ajax({

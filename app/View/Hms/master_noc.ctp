@@ -17,14 +17,11 @@
             </tr>
             </table>
             
-           <table  align="center" border="1" bordercolor="#FFFFFF" cellpadding="0">
+            <table  align="center" border="1" bordercolor="#FFFFFF" cellpadding="0">
             <tr>
 			<td><a href="select_income_heads" class="btn">Selection of Income Heads</a>
 			</td>
-			<!--<td>
-            <a href="it_due_tax" class="btn" style="font-size:16px;">Due tax</a>
-            </td>-->
-            <td>
+			<td>
             <a href="it_setup" class="btn" style="font-size:16px;">Terms & Condition</a>
             </td>
             <td>

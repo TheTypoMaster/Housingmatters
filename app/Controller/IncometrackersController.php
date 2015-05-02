@@ -4724,17 +4724,16 @@ if($typ2 == 2)
 {
 foreach($myArray as $child)
 {
-$ch_type = $child[0];
+$ch_type = (int)$child[0];
 if($ch_type != 4)
 {
 $amt = $child[1];
-$fltp = $child[2];
-
+$fltp = (int)$child[2];
 $arr = array($ch_type,$amt);
 }
 else
 {
-$fltp = $child[1];
+$fltp = (int)$child[1];
 $arr = array($ch_type);
 }
 
@@ -4748,6 +4747,76 @@ die($output);
 }
 }
 //////////////////////////////// End Noc Json ////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////// Start Rate Card Json //////////////////////////////////////////////////////////
+function rate_card_json()
+{
+$this->layout='blank';
+$q=$this->request->query('q');
+$q = html_entity_decode($q);
+$typ = $this->request->query('b');
+$typ2 = json_decode($typ, true);
+
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id  = (int)$this->Session->read('user_id');
+
+$myArray = json_decode($q, true);
+
+if($typ2 == 1)
+{
+foreach($myArray as $child)
+{
+
+if(empty($child[0])){
+$output = json_encode(array('type'=>'error', 'text' => 'Please Fill All Fields'));
+die($output);
+}	
+
+if(empty($child[1])){
+$output = json_encode(array('type'=>'error', 'text' => 'Please Fill All Fields'));
+die($output);
+}
+
+if(is_numeric($child[1]))
+{
+}	
+else
+{
+$output = json_encode(array('type'=>'error', 'text' => 'Please Fill Numeric value'));
+die($output);
+}
+}
+$output = json_encode(array('type'=>'succ', 'text' => 'Are You Sure'));
+die($output);
+}
+if($typ2 == 2)
+{
+$c=0;
+foreach($myArray as $child)
+{
+$c++;
+$type = (int)$child[0];
+$amt = $child[1];
+$flat_type_id = (int)$child[2];
+$income_head = (int)$child[3];
+$mm = (int)$child[4];
+$arr = array($income_head,$type,$amt);
+$arrr[] = $arr;
+if($c == $mm)
+{
+$this->loadmodel('flat_type');
+$this->flat_type->updateAll(array('charge' => $arrr),array('auto_id' => $flat_type_id));
+$arrr = array();
+$c=0;
+}
+}
+$output = json_encode(array('type'=>'okk', 'text' => 'Are You Sure'));
+die($output);
+}
+}
+////////////////////////////////////// End Rate Card Json //////////////////////////////////////////////////////////
+
+
 
 }
 ?>

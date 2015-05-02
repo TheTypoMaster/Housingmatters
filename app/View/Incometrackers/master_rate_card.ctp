@@ -29,9 +29,6 @@ if(rs1=== '') { $('#validate_result').html('<div style="background-color:white; 
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?><table  align="center" border="1" bordercolor="#FFFFFF" cellpadding="0">
 <tr>
 <td><a href="<?php echo $webroot_path; ?>Incometrackers/select_income_heads" class="btn" rel='tab'>Selection of Income Heads</a>
-<!--<td>
-<a href="it_due_tax" class="btn" style="font-size:16px;">Due tax</a>
-</td>-->
 <td>
 <a href="<?php echo $webroot_path; ?>Incometrackers/it_setup" class="btn " style="font-size:16px;" rel='tab'>Terms & Condition</a>
 </td>
@@ -47,10 +44,10 @@ if(rs1=== '') { $('#validate_result').html('<div style="background-color:white; 
 </tr>
 </table> 
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<form method="post" onSubmit="return validat()">
+<form method="post">
 <center>
 <br /><Br />
-<div id="validate_result" style="background-color:white; width:100%;"></div>
+<div id="error_msg" style="background-color:white; width:100%;"></div>
 <div style="overflow-x:scroll;">
 <table class="table table-bordered" style="width:100%; background-color:white;">
 <tr>
@@ -121,11 +118,12 @@ $b = 55;
 <option value="3" <?php if($type_id == 3) { ?> selected="selected" <?php } ?>>Flat Type</option>
 </select>
 <input type="text" name="charge<?php echo $auto_id1; ?><?php echo $auto_id2; ?>" class="m-wrap small" id="rs<?php echo $nn; ?><?php echo $mm; ?>" value="<?php echo $amount; ?>"/>
-
+<input type="hidden" value="<?php echo $auto_id1; ?>" id="flat_type_auto_id<?php echo $nn; ?><?php echo $mm; ?>" />
+<input type="hidden" value="<?php echo $auto_id2; ?>" id="income_head_id<?php echo $nn; ?><?php echo $mm; ?>" />
 <?php }}}
 else
 {
-	$b = 50;
+$b = 50;
 ?>
 <select name="charge_type<?php echo $auto_id1; ?><?php echo $auto_id2; ?>" class="m-wrap small" id="tp<?php echo $nn; ?><?php echo $mm; ?>">
 <option value="">Select</option>
@@ -134,7 +132,8 @@ else
 <option value="3">Flat Type</option>
 </select>
 <input type="text" name="charge<?php echo $auto_id1; ?><?php echo $auto_id2; ?>" class="m-wrap small" id="rs<?php echo $nn; ?><?php echo $mm; ?>"/>
-
+<input type="hidden" value="<?php echo $auto_id1; ?>" id="flat_type_auto_id<?php echo $nn; ?><?php echo $mm; ?>" />
+<input type="hidden" value="<?php echo $auto_id2; ?>" id="income_head_id<?php echo $nn; ?><?php echo $mm; ?>" />
 <?php } 
 if($b == 5)
 {
@@ -146,79 +145,114 @@ if($b == 5)
 <option value="3">Flat Type</option>
 </select>
 <input type="text" name="charge<?php echo $auto_id1; ?><?php echo $auto_id2; ?>" class="m-wrap small" id="rs<?php echo $nn; ?><?php echo $mm; ?>"/>
+<input type="hidden" value="<?php echo $auto_id1; ?>" id="flat_type_auto_id<?php echo $nn; ?><?php echo $mm; ?>" />
+<input type="hidden" value="<?php echo $auto_id2; ?>" id="income_head_id<?php echo $nn; ?><?php echo $mm; ?>" />
 <?php	
 }
 ?>
-
-
-
-
 </td>
 <?php } ?>
 </tr>
 <?php } ?>
 
 </table>
+
+<div id="shwd" class="hide">
+<div class="modal-backdrop fade in"></div>
+<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+<div class="modal-header">
+<center>
+<h3 id="myModalLabel3" style="color:#999;"><b>Rate Card</b></h3>
+</center>
+</div>
+<div class="modal-body">
+<center>
+<h5><b class="success_report"></b></h5>
+</center>
+</div>
+<div class="modal-footer">
+<a href="<?php echo $webroot_path; ?>Incometrackers/master_rate_card" class="btn blue" rel='tab'>No</a>
+<button type="submit" class="btn blue form_post" submit_type="con">Yes</button>
+</div>
+</div>
+</div> 
+
 <?php
 //$imih = implode(",",$ih);
 
 ?>
 <input type="hidden" value="<?php echo $nn; ?>" id="typ" />
 <input type="hidden" value="<?php echo $mm; ?>" id="rss" />
-<!-- <input type="hidden" name="inhd" value="<?php //echo $imih; ?>" /> -->
-<button type="submit" name="sub" class="btn green">Submit</button>
+<button type="submit" name="suxgxbb" class="btn green form_post" submit_type="sub">Submit</button>
 </div>
 </center>
 </form>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-
 <script>
-$(document).ready(function(){
-
-$.validator.setDefaults({ ignore: ":hidden:not(select)" });
-
-
-		$('#contact-form').validate({
+$(document).ready(function() {
+	$(".form_post").bind('click', function(e){
+		$(".form_post").removeClass("clicked");
+		$(this).addClass("clicked");
+	});
+ 
+	$('form').submit( function(ev){
+	ev.preventDefault();
+	if( $(this).find(".clicked").attr("submit_type") === "sub" ){
+			var post_type=1;
+		}
+		if( $(this).find(".clicked").attr("submit_type") === "con" ){
+			var post_type=2;
+		}
+		var nn = document.getElementById("typ").value;
+		var mm = document.getElementById("rss").value;
 		
-		errorElement: "label",
-                    //place all errors in a <div id="errors"> element
-                    errorPlacement: function(error, element) {
-                        //error.appendTo("label#errors");
-						error.appendTo('label#' + element.attr('id'));
-                    },
+		var ar = [];
+		for(var p=1; p<=nn; p++)
+		{
+		for(var q=1; q<=mm; q++)
+		{
+		var type = $("#tp"+ p + q).val();	
+        var amt = $("#rs"+ p + q).val(); 
+        var flat_type_id = $("#flat_type_auto_id"+ p + q).val();
+        var income_head = $("#income_head_id"+ p + q).val();
+		ar.push([type,amt,flat_type_id,income_head,mm]);
 		
+		var myJsonString = JSON.stringify(ar);
+		}
+		}
+		var abc = JSON.stringify(post_type);
+			
+			$.ajax({
+			url: "rate_card_json?q="+myJsonString+"&b="+abc,
+			dataType:'json',
+			}).done(function(response) {
+			
+				if(response.type == 'error'){  
+					output = '<div class="alert alert-error">'+response.text+'</div>';
+					$("#submit").removeClass("disabled").text("submit");
+					$("html, body").animate({
+					 scrollTop:0
+					 },"slow");
+				}
+				if(response.type=='succ'){
+				$("#shwd").show();
+				$(".success_report").show().html(response.text);
+			    }
+				
+				if(response.type=='okk'){
+				$("#shwd").hide();
+				}
+				
+				$("#error_msg").html(output);
+			});
+
+	 
+	});
+});
+
+</script>
+
 		
-		
-	    rules: {
-	     
-		 "i_head[]": {
-			 required: true
-	      },
-
-		},
-			highlight: function(element) {
-				$(element).closest('.control-group').removeClass('success').addClass('error');
-			},
-			success: function(element) {
-				element
-				.text('OK!').addClass('valid')
-				.closest('.control-group').removeClass('error').addClass('success');
-			}
-	  });
-
-}); 
-</script>	
-	
-
-
-
-<script>
-function edit(auto_id)
-{
-	
-$("#result" + auto_id).load("master_rate_card_edit?ss=" + auto_id + "");	
-}
-		</script>		
 
 
 
