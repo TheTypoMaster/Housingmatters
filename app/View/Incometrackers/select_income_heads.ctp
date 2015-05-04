@@ -55,10 +55,7 @@ foreach($income_head_arr2 as $data)
 {
 $income_arrr[] = $data;
 }
-for($r=0; $r<sizeof($income_arrr); $r++)
-{
-echo $f = (int)$income_arrr[$r];
-}
+
 ?>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
@@ -123,6 +120,9 @@ $income_head_name = $collection['ledger_account']['ledger_name'];
 <tr>
 <td><?php echo $m; ?></td>
 <td><?php echo $income_head_name; ?></td>
+<td>
+<a href="#myModal3" role="button" class="btn mini black" data-toggle="modal">Delete</a>
+</td>
 </tr>
 <?php } ?>
 </table>
@@ -130,6 +130,24 @@ $income_head_name = $collection['ledger_account']['ledger_name'];
 </center>
 </div>
 </div>
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<div id="myModal3" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true" style="display: none;">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+<h3 id="myModalLabel3">Selection of Income Head</h3>
+</div>
+<div class="modal-body">
+<p style="">Are You Sure</p>
+</div>
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+<button class="btn blue" type="submit">Confirm</button>
+</div>
+</div>
+
+
+
+<?php //////////////////////////////////////////////////////////////////////////////////////////////////////////?>
 </form> 
 </div>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>

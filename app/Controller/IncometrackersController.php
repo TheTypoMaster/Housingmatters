@@ -4830,6 +4830,7 @@ $time = date(' h:i a', time());
 
 $arrr = $post_data['head'];	
 $ar = explode(",",$arrr);
+
 $report = array();
 if($arrr == 'null')
 {
