@@ -2983,7 +2983,8 @@ foreach($cursor2 as $collection)
 {
 $total = 0;	
 $date_from = $collection['regular_bill']['bill_daterange_from'];
-$date_to = $collection['regular_bill']['bill_daterange_to'];	
+$date_to = $collection['regular_bill']['bill_daterange_to'];
+$date = $collection['regular_bill']['date'];	
 $bill_id = $collection['regular_bill']['receipt_id'];
 $user_id = (int)$collection['regular_bill']['bill_for_user'];
 $ih_detail2 = $collection['regular_bill']['ih_detail'];
@@ -2997,7 +2998,7 @@ $user_name = $collection['user']['user_name'];
 }	
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action'=>'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
 
-if($date_from >= $m_from && $date_to <= $m_to)
+if($date >= $m_from && $date <= $m_to)
 {
 
 $excel.="<tr>
@@ -4007,7 +4008,7 @@ if($wise == 2)
 {
 if($user_id == $bill_for_user)
 {
-if($m_from <= $bill_daterange_from && $m_to >= $bill_daterange_to)
+if($m_from <= $date && $m_to >= $date)
 {
 $date = date('d-m-Y', $date->sec);						
 $total_amt = $total_amt + $g_total;									
@@ -4026,7 +4027,7 @@ else if($wise == 1)
 {
 if($wing_id == $wing)
 {
-if($m_from <= $bill_daterange_from && $m_to >= $bill_daterange_to)
+if($m_from <= $date && $m_to >= $date)
 {
 $date = date('d-m-Y', $date->sec);						
 $total_amt = $total_amt + $g_total;									
@@ -4207,7 +4208,7 @@ $bill_type = "Non-residential";
 $wing_flat = "";
 }
 
-if($m_from <= $bill_date_from && $m_to >= $bill_date_from)
+if($m_from <= $date && $m_to >= $date)
 {
 $i++;
 $date = date('d-m-Y',$date->sec);
@@ -4284,7 +4285,7 @@ $bill_for = $wing_flat;
 
 $bill_type = "Residential";
 
-if($m_from <= $bill_date_from && $m_to >= $bill_date_from)
+if($m_from <= $date && $m_to >= $date)
 {
 	$i++;
 $date = date('d-m-Y',$date->sec);
@@ -4346,7 +4347,7 @@ $user_name=$collection['adhoc_bill']["person_name"];
 $bill_type = "Non-residential";
 $wing_flat = "";
 
-if($m_from <= $bill_date_from && $m_to >= $bill_date_from)
+if($m_from <= $date && $m_to >= $date)
 {
 $i++;
 $date = date('d-m-Y',$date->sec);

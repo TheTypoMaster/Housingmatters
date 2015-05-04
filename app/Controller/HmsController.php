@@ -18148,7 +18148,7 @@ $s_user_id = (int)$this->Session->read('user_id');
 
 $this->loadmodel('regular_bill');
 $order=array('regular_bill.regular_bill_id'=>'ASC');
-$conditions=array("bill_daterange_from" => array('$gt' => $date1),"bill_daterange_to" => array('$lte' => $date2),"society_id"=>$s_society_id);
+$conditions=array("date" => array('$gt' => $date1),"bill_daterange_to" => array('$lte' => $date2),"society_id"=>$s_society_id);
 return $this->regular_bill->find('all',array('conditions'=>$conditions,'order'=>$order));
 }
 //////////////////// End regular Bill Fetch(Accounts)/////////////////////////////

@@ -86,7 +86,7 @@ $bill_type = "Non-residential";
 $wing_flat = "";
 }
 
-if($m_from <= $bill_date_from && $m_to >= $bill_date_from)
+if($m_from <= $date && $m_to >= $date)
 {
 $i++;
 $date = date('d-m-Y',$date->sec);
@@ -183,7 +183,7 @@ $bill_for = $wing_flat;
 
 $bill_type = "Residential";
 
-if($m_from <= $bill_date_from && $m_to >= $bill_date_from)
+if($m_from <= $date && $m_to >= $date)
 {
 	$i++;
 $date = date('d-m-Y',$date->sec);
@@ -266,7 +266,7 @@ $user_name=$collection['adhoc_bill']["person_name"];
 $bill_type = "Non-residential";
 $wing_flat = "";
 
-if($m_from <= $bill_date_from && $m_to >= $bill_date_from)
+if($m_from <= $date && $m_to >= $date)
 {
 $i++;
 $date = date('d-m-Y',$date->sec);

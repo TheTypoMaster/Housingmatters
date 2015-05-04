@@ -12,7 +12,6 @@ $c++;
 $cols = 5 + $c;
 ?>
 
-
 <div style="width:100%;" class="hide_at_print">
 <span style="margin-left:80%;">
 <a href="income_head_report_excel?f=<?php echo $from; ?>&t=<?php echo $to; ?>" class="btn blue">Export in Excel</a>
