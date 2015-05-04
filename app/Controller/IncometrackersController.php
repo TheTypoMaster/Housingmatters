@@ -4828,9 +4828,14 @@ $s_user_id=$this->Session->read('user_id');
 $date=date('d-m-Y');
 $time = date(' h:i a', time());
 
-$arrr = $post_data['head'];	
+$arrr = $post_data['head'];
+$type = (int)$post_data['type'];	
 $ar = explode(",",$arrr);
 
+
+
+if($type == 1)
+{
 $report = array();
 if($arrr == 'null')
 {
@@ -4860,15 +4865,48 @@ $arrr1[] = $head_id;
 $this->loadmodel('society');
 $this->society->updateAll(array('income_head'=> $arrr1),array('society_id'=>$s_society_id));
 
-
 $output=json_encode(array('report_type'=>'publish','report'=>'Income Head Inserted Successfully'));
 die($output);
-
-
-
+}
 
 
 }
 /////////////////////////////////////// Start Select Income Head Json //////////////////////////////////////////////////
+/////////////////////////////////// Start delete_select_income ////////////////////////////////////////////////////////
+function delete_select_income()
+{
+$this->layout='blank';
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
+
+$inid = (int)$this->request->query('con');
+
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor=$this->society->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$arr = $collection['society']['income_head'];
+}
+for($k=0; $k<sizeof($arr); $k++)
+{
+$incid = (int)$arr[$k];
+if($incid != $inid)
+{
+$arrr[] = $incid;
+}
+}
+$this->loadmodel('society');
+$this->society->updateAll(array('income_head'=> $arrr),array('society_id'=>$s_society_id));
+
+$this->redirect(array('controller' => 'Incometrackers','action' => 'select_income_heads'));
+}
+/////////////////////////////////// End delete_select_income ////////////////////////////////////////////////////////
+
+
+
+
+
 }
 ?>

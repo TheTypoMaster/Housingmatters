@@ -89,7 +89,7 @@ $ac_id = (int)$collection2['ledger_account']['auto_id'];
 </div>
 <br />        
 <a href="<?php echo $webroot_path; ?>Incometrackers/select_income_heads" class="btn" rel='tab'>Cancel</a>
-<button type="submit" class="btn green" name="sub">Submit</button>
+<button type="submit" class="btn green form_post" name="sub" submit_type="sub">Submit</button>
 </div>
 <div class="span6">
 <br />
@@ -119,9 +119,11 @@ $income_head_name = $collection['ledger_account']['ledger_name'];
 ?>
 <tr>
 <td><?php echo $m; ?></td>
-<td><?php echo $income_head_name; ?></td>
+<td><?php echo $income_head_name; ?>
+<input type="hidden" id="delinc" value="<?php echo $income_head_id; ?>" />
+</td>
 <td>
-<a href="#myModal3" role="button" class="btn mini black" data-toggle="modal">Delete</a>
+<a onclick="delt(<?php echo $income_head_id; ?>)" class="btn mini black">Delete</a>
 </td>
 </tr>
 <?php } ?>
@@ -131,22 +133,6 @@ $income_head_name = $collection['ledger_account']['ledger_name'];
 </div>
 </div>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<div id="myModal3" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true" style="display: none;">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-<h3 id="myModalLabel3">Selection of Income Head</h3>
-</div>
-<div class="modal-body">
-<p style="">Are You Sure</p>
-</div>
-<div class="modal-footer">
-<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-<button class="btn blue" type="submit">Confirm</button>
-</div>
-</div>
-
-
-
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////?>
 </form> 
 </div>
@@ -154,15 +140,28 @@ $income_head_name = $collection['ledger_account']['ledger_name'];
 
   <script>
 $(document).ready(function() { 
+		$(".form_post").bind('click', function(e){
+		$(".form_post").removeClass("clicked");
+		$(this).addClass("clicked");
+		});
+
 	$('form').submit( function(ev){
 	ev.preventDefault();
-		
+			if( $(this).find(".clicked").attr("submit_type") === "sub" ){
+			var post_type=1;
+			}
+			if( $(this).find(".clicked").attr("submit_type") === "del" ){
+			var post_type=2;
+			}
+			if( $(this).find(".clicked").attr("submit_type") === "delete" ){
+			var post_type=3;
+			}
+		var delid = $("#delinc").val();	
 		var abc = $("#i_head").val();
-		
-		
 		var m_data = new FormData();
 		m_data.append( 'head',abc);
-		
+		m_data.append( 'type',post_type);
+			
 		$(".form_post").addClass("disabled");
 		$("#wait").show();
 			
@@ -184,6 +183,12 @@ $(document).ready(function() {
                 $("#shwd").show()
 				$(".success_report").show().html(response.report);	
 				}
+				if(response.report_type=='delt'){
+                $("#shwd2").show()
+				$(".success_report2").show().html(response.report);	
+				}
+				
+				
 			
 			$("html, body").animate({
 			scrollTop:0
@@ -217,10 +222,13 @@ $(document).ready(function() {
 </div>
 </div>
 </div> 
+<div id="delete_topic_result"></div>
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
+<script>
+function delt(y)
+{
+$('#delete_topic_result').html('<div id="pp"><div class="modal-backdrop fade in"></div><div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true"><div class="modal-body" style="font-size:14px;"><i class="icon-warning-sign" style="color:#d84a38;"></i> Are you sure you want to delete this income head ? </div><div class="modal-footer"><a href="<?php echo $webroot_path; ?>incometrackers/delete_select_income?con='+y+'" class="btn blue" id="yes">Yes</a><a href="<?php echo $webroot_path; ?>incometrackers/select_income_heads" id="can" class="btn" rel="tab">No</a></div></div></div>');
 
-
-
-
-
-
+}
+</script>
