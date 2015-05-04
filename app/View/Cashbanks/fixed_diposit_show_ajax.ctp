@@ -4,17 +4,46 @@ $from = new MongoDate(strtotime($from));
 
 $to = date("Y-m-d", strtotime($to));
 $to = new MongoDate(strtotime($to));
+?>
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php
+$nnn = 55;
+foreach($cursor1 as $collection)
+{
+$auto_id = (int)$collection['fix_deposit']['auto_id'];	
+$bank_name = $collection['fix_deposit']['bank_name'];	
+$branch = $collection['fix_deposit']['branch'];	
+$account_ref = $collection['fix_deposit']['account_reference'];	
+$prepaired_by = $collection['fix_deposit']['prepaired_by'];	
+$principal_amt = $collection['fix_deposit']['principal_amount'];
+$start_date = $collection['fix_deposit']['start_date'];
+$maturity_date = $collection['fix_deposit']['maturity_date'];
+$interest_rate = $collection['fix_deposit']['interest_rate'];
+$remark = $collection['fix_deposit']['remark'];
+$reminder = $collection['fix_deposit']['reminder'];
+$tds = $collection['fix_deposit']['tds'];
+$name = $collection['fix_deposit']['name'];
+$email = $collection['fix_deposit']['email'];
+$mobile = $collection['fix_deposit']['mobile'];
+$file_name = $collection['fix_deposit']['file_name'];
+
+if($start_date >= $from && $start_date <= $to)
+{
+$nnn = 555;
+}
+}
 
 
+?>
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php
+if($nnn == 555)
+{
 foreach($cursor2 as $collection)
 {
 $society_name = $collection['society']['society_name'];	
 }
-
-
-
 ?>
-
 <table class="table table-bordered" style="width:180%;">
 <tr>
 <th style="text-align:center;">Sr #</th>
@@ -59,16 +88,6 @@ $name = $collection['fix_deposit']['name'];
 $email = $collection['fix_deposit']['email'];
 $mobile = $collection['fix_deposit']['mobile'];
 $file_name = $collection['fix_deposit']['file_name'];
-
-
-
-
-
-
-
-
-
-
 
 if($start_date >= $from && $start_date <= $to)
 {
@@ -125,3 +144,16 @@ $mat_tt = $mat_tt + $mat_amt;
 
 </tr>
 </table>
+
+
+<?php }
+if($nnn == 55)
+{
+?>
+<br /><br />
+<center>
+<h3 style="color:red;"><b>No Record Found in Selected Period</b></h3>
+</center>
+<br /><br />
+
+<?php } ?>
