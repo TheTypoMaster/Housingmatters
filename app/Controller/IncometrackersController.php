@@ -4829,7 +4829,7 @@ $date=date('d-m-Y');
 $time = date(' h:i a', time());
 
 $arrr = $post_data['head'];	
-
+$ar = explode(",",$arrr);
 $report = array();
 if($arrr == 'null')
 {
@@ -4850,9 +4850,9 @@ foreach($cursor as $collection)
 
 $arrr1 = $collection['society']['income_head'];
 }
-for($j=0; $j<sizeof($arrr); $j++)
+for($j=0; $j<sizeof($ar); $j++)
 {
-$head_id = (int)$arrr[$j];
+$head_id = (int)$ar[$j];
 $arrr1[] = $head_id;
 }
 
