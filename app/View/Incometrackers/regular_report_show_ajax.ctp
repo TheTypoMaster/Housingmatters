@@ -74,7 +74,7 @@ if($wise == 2)
 {									
 if($bill_for_user == $user_id)
 {
-if($m_from <= $bill_daterange_from && $m_to >= $bill_daterange_to)
+if($m_from <= $date && $m_to >= $date)
 {
 $date = date('d-m-Y', $date->sec);						
 $grand_total = $grand_total + $g_total;
@@ -100,7 +100,7 @@ else if($wise == 1)
 {
 if($wing_id == $wing)
 {	
-if($m_from <= $bill_daterange_from && $m_to >= $bill_daterange_to)
+if($m_from <= $date && $m_to >= $date)
 {
 $date = date('d-m-Y', $date->sec);						
 $grand_total = $grand_total + $g_total;	

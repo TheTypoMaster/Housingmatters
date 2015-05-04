@@ -6,7 +6,6 @@ $m_to = date("Y-m-d", strtotime($to));
 $m_to = new MongoDate(strtotime($m_to));
 ?>
 
-
 <div style="width:100%;" class="hide_at_print">
 <span style="margin-left:80%;">
 <a href="supplimentry_bill_excel?f=<?php echo $from; ?>&t=<?php echo $to; ?>&tp=<?php echo $tp; ?>" class="btn blue">Export in Excel</a>
@@ -33,7 +32,6 @@ Supplimentry Bill Report (<?php echo $society_name; ?>)
 <th>Bill Type</th>
 <th>Member Name</th>
 <th>Bill Date</th>
-<!--<th>Period To</th> -->
 <th>Bill Amount</th>
 <th class="hide_at_print">View</th>
 </tr>
@@ -86,7 +84,7 @@ $bill_type = "Non-residential";
 $wing_flat = "";
 }
 
-if($m_from <= $bill_date_from && $m_to >= $bill_date_from)
+if($m_from <= $date && $m_to >= $date)
 {
 $i++;
 $date = date('d-m-Y',$date->sec);
@@ -183,7 +181,7 @@ $bill_for = $wing_flat;
 
 $bill_type = "Residential";
 
-if($m_from <= $bill_date_from && $m_to >= $bill_date_from)
+if($m_from <= $date && $m_to >= $date)
 {
 	$i++;
 $date = date('d-m-Y',$date->sec);
@@ -266,7 +264,7 @@ $user_name=$collection['adhoc_bill']["person_name"];
 $bill_type = "Non-residential";
 $wing_flat = "";
 
-if($m_from <= $bill_date_from && $m_to >= $bill_date_from)
+if($m_from <= $date && $m_to >= $date)
 {
 $i++;
 $date = date('d-m-Y',$date->sec);

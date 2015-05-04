@@ -11,26 +11,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </div>
 
 
-<?php //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
-<!--<div class="hide_at_print">
-		<table width="100%" border="1" bordercolor="#FFFFFF" cellpadding="0">
-		<tr>
-		<td style="width:25%">
-		<a href="it_regular_bill" class="btn blue btn-block"   style="font-size:16px;"> Regular Bill</a>
-		</td>
-		<td style="width:25%">
-		<a href="it_supplimentry_bill" class="btn blue btn-block"  style="font-size:16px;">Supplementary Bill</a>
-		</td>
-		<td style="width:25%">
-		<a href="in_head_report" class="btn red btn-block"  style="font-size:16px;">Reports</a>
-		</td>
-		<td style="width:25%">
-		<a href="select_income_heads" class="btn blue btn-block"  style="font-size:16px;">Accounting Setup</a>
-		</td>
-		</tr>
-		</table>
-</div>  -->
-<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
+
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
 
 <div style="text-align:center;" class="hide_at_print">
 <a href="<?php echo $webroot_path; ?>Incometrackers/in_head_report" class="btn" rel='tab'>bill Report</a>

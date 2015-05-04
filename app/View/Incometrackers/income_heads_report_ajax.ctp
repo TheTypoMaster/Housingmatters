@@ -63,7 +63,8 @@ foreach($cursor2 as $collection)
 {
 $total = 0;	
 $date_from = $collection['regular_bill']['bill_daterange_from'];
-$date_to = $collection['regular_bill']['bill_daterange_to'];	
+$date_to = $collection['regular_bill']['bill_daterange_to'];
+$date = $collection['regular_bill']['date'];	
 $bill_id = $collection['regular_bill']['receipt_id'];
 $user_id = (int)$collection['regular_bill']['bill_for_user'];
 $ih_detail2 = $collection['regular_bill']['ih_detail'];
@@ -77,9 +78,8 @@ $user_name = $collection['user']['user_name'];
 }	
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action'=>'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
 
-if($date_from >= $date1 && $date_to <= $date2)
+if($date >= $date1 && $date <= $date2)
 {
-	
 ?>
 <tr>
 <td style="text-align:center;"><?php echo $bill_id; ?></td>
