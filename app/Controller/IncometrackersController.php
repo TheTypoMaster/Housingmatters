@@ -8,7 +8,9 @@ public $components = array(
 );
 var $name = 'Incometrackers';
 
-/////////////////////////Start It Regular Bill (Accounts) /////////////////////////////
+/////////////////////////Start It Regular Bill (Accounts) //////////////////////////////////////
+
+
 function it_regular_bill()
 {
 if($this->RequestHandler->isAjax()){
@@ -802,11 +804,7 @@ $society_name=$collection['society']["society_name"];
 $so_reg_no = $collection['society']['society_reg_num'];
 $so_address = $collection['society']['society_address'];	
 }
-
- $date = date('d-M-Y',$date->sec);
-
-
-
+$date = date('d-M-Y',$date->sec);
 
 $html='<center>
 <div style="700px; background-color:white; overflow:auto;">

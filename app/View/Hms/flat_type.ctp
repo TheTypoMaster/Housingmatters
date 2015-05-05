@@ -83,7 +83,6 @@ $wing_name = $collection['wing']['wing_name'];
 <td style="text-align:center;"><?php echo $wing_name; ?></td>
 <td style="text-align:center;"><?php echo $flat_number; ?></td>
 </tr>
-
 <?php } ?>
 </table>
 </div>

@@ -3,7 +3,6 @@ $(document).ready(function(){
 jQuery('.tooltips').tooltip();
 });
 </script>
-
 <?php
 $m_from = date("Y-m-d", strtotime($from));
 $m_from = new MongoDate(strtotime($m_from));

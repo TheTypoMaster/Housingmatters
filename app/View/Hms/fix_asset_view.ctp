@@ -6,35 +6,35 @@
 
 
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-  <center>
-            <div style="width:50%;">
-            <form method="post" id="contact-form">
-            <br>
-            <table>
-            <tbody><tr>
-           
-            <td><input type="text" class="date-picker m-wrap medium" id="date1" data-date-format="dd-mm-yyyy" name="from" placeholder="From" style="background-color:white !important;"></td>
-            <td><input type="text" class="date-picker m-wrap medium" id="date2" data-date-format="dd-mm-yyyy" name="to" placeholder="To" style="background-color:white !important;"></td>
-            <td valign="top"><button type="button" name="sub" class="btn yellow" id="go">Search</button></td>
-            </tr>
-            </tbody></table>
-            <br>
-            </form>
-            </div>
- </center>
-<?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<center>
+<div style="width:50%;">
+<form method="post" id="contact-form">
+<br>
+<table>
+<tbody><tr>
+<td><input type="text" class="date-picker m-wrap medium" id="date1" data-date-format="dd-mm-yyyy" name="from" placeholder="From" style="background-color:white !important;"></td>
+<td><input type="text" class="date-picker m-wrap medium" id="date2" data-date-format="dd-mm-yyyy" name="to" placeholder="To" style="background-color:white !important;"></td>
+<td valign="top"><button type="button" name="sub" class="btn yellow" id="go">Search</button></td>
+</tr>
+</tbody></table>
+<br>
+</form>
+</div>
+</center>
+<?php ////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 <center>
 <div id="result" style="width:100%;">
 </div>
 </center>
 
-<?php //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php /////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
     
   <script>
 $(document).ready(function() {
-	$("#go").live('click',function(){
+	$("#go").bind('click',function(){
+
 		var date1=document.getElementById('date1').value;
 		var date2=document.getElementById('date2').value;
 		
