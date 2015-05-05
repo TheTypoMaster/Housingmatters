@@ -9,11 +9,56 @@ $m_from = date("Y-m-d", strtotime($from));
 $m_from = new MongoDate(strtotime($m_from));
 $m_to = date("Y-m-d", strtotime($to));
 $m_to = new MongoDate(strtotime($m_to));
-
 ?>
-
-       
-
+<?php //////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php 
+$nnn = 55;
+foreach ($cursor1 as $collection) 
+{
+$auto_id = (int)$collection['journal']['auto_id'];
+$receipt_no = $collection['journal']['receipt_id']; 
+$user_id = (int)$collection['journal']['user_id'];
+$date = $collection['journal']['transaction_date'];
+$amount = $collection['journal']['amount'];
+$amount_category_id = (int)$collection['journal']['amount_category_id'];
+$remark = $collection['journal']['remark'];                                     
+$account_type = (int)$collection['journal']['account_type']; 
+$ledger_type_id = (int)$collection['journal']['ledger_type_id'];
+$approver = (int)$collection['journal']['approver'];
+$current_date = $collection['journal']['current_date'];
+$creation_date = date('d-m-Y',$current_date->sec);
+$resultacc = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($approver)));
+foreach($resultacc as $collection)
+{
+$prepaired_by_name = $collection['user']['user_name'];
+}
+if($account_type == 1)
+{ 
+$result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($user_id)));
+foreach ($result_lsa as $collection) 
+{
+$user_name = $collection['ledger_sub_account']['name']; 
+}								 
+}	
+if($account_type == 2)
+{
+$result_la = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_amount'),array('pass'=>array($ledger_type_id)));
+foreach ($result_la as $collection) 
+{
+$user_name = $collection['ledger_account']['ledger_name']; 
+}
+}																		
+if($date >= $m_from && $date <= $m_to)
+{
+$nnn = 555;
+}
+}
+?>       
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php 
+if($nnn == 555)
+{
+?>
 <div style="width:100%;" class="hide_at_print">
 <span style="margin-left:80%;">
 <a href="journal_excel?f=<?php echo $from; ?>&t=<?php echo $to; ?>" class="btn blue">Export In Excel</a>
@@ -28,50 +73,42 @@ Journal Report  (<?php echo $society_name; ?>)
 </p>
 </th>
 </tr>
-
 <tr>
 <th>From : <?php echo $from; ?></th>
 <th>To : <?php echo $to; ?></th>
 <th colspan="5"></th>
 </tr>
-
-                                        <tr>
-                                            <th>Journal #</th>
-											<th>Transaction Date</th>
-                                            <th>Ledger A/c</th>
-                                            <th>Remarks</th>
-                                            <th>Debit</th>
-                                            <th>Credit</th>
-											<th class="hide_at_print">Action</th>
-                                        </tr>
-										
-										
-										   <?php
-									$total_debit = 0;
-									$total_credit = 0;
-				
-				foreach ($cursor1 as $collection) 
-				{
-			    $auto_id = (int)$collection['journal']['auto_id'];
-				$receipt_no = $collection['journal']['receipt_id']; 
-				$user_id = (int)$collection['journal']['user_id'];
-				$date = $collection['journal']['transaction_date'];
-				$amount = $collection['journal']['amount'];
-				$amount_category_id = (int)$collection['journal']['amount_category_id'];
-				$remark = $collection['journal']['remark'];                                     
-				$account_type = (int)$collection['journal']['account_type']; 
-				$ledger_type_id = (int)$collection['journal']['ledger_type_id'];
-                $approver = (int)$collection['journal']['approver'];
-				$current_date = $collection['journal']['current_date'];
-				
-				$creation_date = date('d-m-Y',$current_date->sec);
-
+<tr>
+<th>Journal #</th>
+<th>Transaction Date</th>
+<th>Ledger A/c</th>
+<th>Remarks</th>
+<th>Debit</th>
+<th>Credit</th>
+<th class="hide_at_print">Action</th>
+</tr>
+<?php
+$total_debit = 0;
+$total_credit = 0;
+foreach ($cursor1 as $collection) 
+{
+$auto_id = (int)$collection['journal']['auto_id'];
+$receipt_no = $collection['journal']['receipt_id']; 
+$user_id = (int)$collection['journal']['user_id'];
+$date = $collection['journal']['transaction_date'];
+$amount = $collection['journal']['amount'];
+$amount_category_id = (int)$collection['journal']['amount_category_id'];
+$remark = $collection['journal']['remark'];                                     
+$account_type = (int)$collection['journal']['account_type']; 
+$ledger_type_id = (int)$collection['journal']['ledger_type_id'];
+$approver = (int)$collection['journal']['approver'];
+$current_date = $collection['journal']['current_date'];
+$creation_date = date('d-m-Y',$current_date->sec);
 $resultacc = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($approver)));
 foreach($resultacc as $collection)
 {
 $prepaired_by_name = $collection['user']['user_name'];
 }
-				
 if($account_type == 1)
 { 
 $result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($user_id)));
@@ -80,7 +117,6 @@ foreach ($result_lsa as $collection)
 $user_name = $collection['ledger_sub_account']['name']; 
 }								 
 }	
-				  
 if($account_type == 2)
 {
 $result_la = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_amount'),array('pass'=>array($ledger_type_id)));
@@ -89,7 +125,6 @@ foreach ($result_la as $collection)
 $user_name = $collection['ledger_account']['ledger_name']; 
 }
 }																		
-									  
 if($date >= $m_from && $date <= $m_to)
 {
 $date2 = date('d-m-Y',$date->sec);  
@@ -140,13 +175,19 @@ $date2 = date('d-m-Y',$date->sec);
 			</table>							
 
 									  
-									  
-									  
-									  
-									  
-									  
-									  
-									  
+<?php
+}
+if($nnn == 55)
+{
+?>
+<br /><br />									  
+<center>									  
+<h3 style="color:red;"><b>No Record Found in Selected Period</b></h3>									  
+</center>									  
+<br /><br />									  
+<?php
+}
+?>
 									  
 									  
 									  

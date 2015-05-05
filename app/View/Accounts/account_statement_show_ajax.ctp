@@ -5,7 +5,45 @@ $m_from = new MongoDate(strtotime($m_from));
 $m_to = date("Y-m-d", strtotime($to));
 $m_to = new MongoDate(strtotime($m_to));
 ?>
-
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php 
+$nnn = 55;
+$result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'regular_bill_fetch2'),array('pass'=>array($value)));	
+foreach($result2 as $collection)
+{
+$bill_no = (int)$collection['regular_bill']['receipt_id'];
+$date_from = $collection['regular_bill']['bill_daterange_from'];
+$date_to = $collection['regular_bill']['bill_daterange_to'];
+$last_date = $collection['regular_bill']['due_date'];
+$total_amount = (int)$collection['regular_bill']['g_total'];
+$due_amount = (int)$collection['regular_bill']['remaining_amount'];
+$user_id = (int)$collection['regular_bill']['bill_for_user'];
+$date = $collection['regular_bill']['date'];
+$date_from1 = date('d-M-Y',$date_from->sec);
+$date_to1 = date('d-M-Y',$date_to->sec);
+$due_date = date('d-M-Y',$last_date->sec); 
+      	
+$bill_html = $collection['regular_bill']['bill_html'];
+$receipt_id = (int)$collection['regular_bill']['receipt_id']; 
+$result3 = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));	
+foreach($result3 as $collection)
+{
+$user_name = $collection['user']['user_name'];
+$wing = (int)$collection['user']['wing'];
+$flat =(int)$collection['user']['flat'];
+}
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array(@$wing,@$flat)));	
+if($m_from <= $date && $m_to >= $date)
+{
+$nnn = 555;
+}
+}
+?>
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php 
+if($nnn == 555)
+{
+?>
 <div style="width:100%;" class="hide_at_print">
 <span style="margin-left:80%;">
 <a href="account_statement_excel?u=<?php echo $value; ?>&f=<?php echo $from; ?>&t=<?php echo $to; ?>" class="btn blue">Export in Excel</a>
@@ -98,5 +136,18 @@ $total_due_amount = number_format($total_due_amount);
 <th style="text-align:center;"><?php echo $total_due_amount; ?></th>
 <th style="text-align:center;" class="hide_at_print"></th>
 </tr>
-
 </table>
+<?php 
+}
+if($nnn == 55)
+{
+?>
+<br /><br />
+<center>
+<h3 style="color:red;"><b>No Records Found in Selected Period</b></h3>
+
+</center>
+<br /><br />
+<?php 
+} 
+?>

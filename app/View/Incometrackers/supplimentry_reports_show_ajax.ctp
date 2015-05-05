@@ -5,7 +5,118 @@ $m_from = new MongoDate(strtotime($m_from));
 $m_to = date("Y-m-d", strtotime($to));
 $m_to = new MongoDate(strtotime($m_to));
 ?>
+<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php 
+$nnn = 55;
+if($tp == 1)
+{
+foreach ($cursor1 as $collection) 
+{
+$adhoc_bill= (int)$collection['adhoc_bill']["adhoc_bill_id"];
+$pay_status=$collection['adhoc_bill']["pay_status"];
+$date=$collection['adhoc_bill']["date"];
+$residential=$collection['adhoc_bill']["residential"];
+$g_total=$collection['adhoc_bill']["g_total"];
+$html_bill = $collection['adhoc_bill']['bill_html'];
+$bill_date_from = $collection['adhoc_bill']['bill_daterange_from'];
+$bill_date_from2 = date('d-m-Y',$bill_date_from->sec);
+if($residential=="y")
+{
+$d_user_id=(int)$collection['adhoc_bill']["person_name"];
+$result_user55 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($d_user_id)));
+foreach($result_user55 as $collection)
+{
+$d_user_id2 = (int)$collection['ledger_sub_account']['user_id'];	
+}
+$result_user = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($d_user_id2)));
+foreach ($result_user as $collection) 
+{
+$wing_id = (int)$collection['user']['wing'];  
+$flat_id = (int)$collection['user']['flat'];
+$user_name = $collection['user']['user_name'];
+}	
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));									
+$bill_for = $wing_flat;
 
+$bill_type = "Residential";
+}
+if($residential=="n")
+{
+$user_name=$collection['adhoc_bill']["person_name"];
+$bill_type = "Non-residential";
+$wing_flat = "";
+}
+if($m_from <= $date && $m_to >= $date)
+{
+$nnn = 555;
+}
+}
+}
+if($tp == 2)
+{
+foreach ($cursor1 as $collection) 
+{
+$adhoc_bill= (int)$collection['adhoc_bill']["adhoc_bill_id"];
+$pay_status=$collection['adhoc_bill']["pay_status"];
+$date=$collection['adhoc_bill']["date"];
+$residential=$collection['adhoc_bill']["residential"];
+$g_total=$collection['adhoc_bill']["g_total"];
+$html_bill = $collection['adhoc_bill']['bill_html'];
+$bill_date_from = $collection['adhoc_bill']['bill_daterange_from'];
+$bill_date_from2 = date('d-m-Y',$bill_date_from->sec);
+if($residential=="y")
+{
+$d_user_id=(int)$collection['adhoc_bill']["person_name"];
+$result_user55 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($d_user_id)));
+foreach($result_user55 as $collection)
+{
+$d_user_id2 = (int)$collection['ledger_sub_account']['user_id'];	
+}
+$result_user = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($d_user_id2)));
+foreach ($result_user as $collection) 
+{
+$wing_id = (int)$collection['user']['wing'];  
+$flat_id = (int)$collection['user']['flat'];
+$user_name = $collection['user']['user_name'];
+}	
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));									
+$bill_for = $wing_flat;
+$bill_type = "Residential";
+if($m_from <= $date && $m_to >= $date)
+{
+$nnn = 555;
+}
+}
+}
+}
+if($tp == 3)
+{
+foreach ($cursor1 as $collection) 
+{
+$adhoc_bill= (int)$collection['adhoc_bill']["adhoc_bill_id"];
+$pay_status=$collection['adhoc_bill']["pay_status"];
+$date=$collection['adhoc_bill']["date"];
+$residential=$collection['adhoc_bill']["residential"];
+$g_total=$collection['adhoc_bill']["g_total"];
+$html_bill = $collection['adhoc_bill']['bill_html'];
+$bill_date_from = $collection['adhoc_bill']['bill_daterange_from'];
+$bill_date_from2 = date('d-m-Y',$bill_date_from->sec);
+if($residential=="n")
+{
+$user_name=$collection['adhoc_bill']["person_name"];
+$bill_type = "Non-residential";
+$wing_flat = "";
+if($m_from <= $date && $m_to >= $date)
+{	
+$nnn = 555;	
+}}}
+}
+?>
+<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php
+if($nnn == 555)
+{
+?>
 <div style="width:100%;" class="hide_at_print">
 <span style="margin-left:80%;">
 <a href="supplimentry_bill_excel?f=<?php echo $from; ?>&t=<?php echo $to; ?>&tp=<?php echo $tp; ?>" class="btn blue">Export in Excel</a>
@@ -41,7 +152,6 @@ $grand_total = 0;
 $i=0;
 foreach ($cursor1 as $collection) 
 {
-
 $adhoc_bill= (int)$collection['adhoc_bill']["adhoc_bill_id"];
 $pay_status=$collection['adhoc_bill']["pay_status"];
 $date=$collection['adhoc_bill']["date"];
@@ -124,7 +234,6 @@ if($tp == 2)
 {
 ?>
 <table class="table table-bordered" style="background-color:white;">
-
 <tr>
 <th colspan="8" style="text-align:center;">
 <p style="font-size:16px;">
@@ -148,7 +257,6 @@ $grand_total = 0;
 $i=0;
 foreach ($cursor1 as $collection) 
 {
-
 $adhoc_bill= (int)$collection['adhoc_bill']["adhoc_bill_id"];
 $pay_status=$collection['adhoc_bill']["pay_status"];
 $date=$collection['adhoc_bill']["date"];
@@ -246,7 +354,6 @@ $grand_total = 0;
 $i=0;
 foreach ($cursor1 as $collection) 
 {
-
 $adhoc_bill= (int)$collection['adhoc_bill']["adhoc_bill_id"];
 $pay_status=$collection['adhoc_bill']["pay_status"];
 $date=$collection['adhoc_bill']["date"];
@@ -254,16 +361,12 @@ $residential=$collection['adhoc_bill']["residential"];
 $g_total=$collection['adhoc_bill']["g_total"];
 $html_bill = $collection['adhoc_bill']['bill_html'];
 $bill_date_from = $collection['adhoc_bill']['bill_daterange_from'];
-//$bill_date_to = $collection['adhoc_bill']['bill_daterange_to'];
 $bill_date_from2 = date('d-m-Y',$bill_date_from->sec);
-//$bill_date_to2 = date('d-m-Y',$bill_date_to->sec);	
 if($residential=="n")
 {
 $user_name=$collection['adhoc_bill']["person_name"];
-//$bill_for="Non-residential";
 $bill_type = "Non-residential";
 $wing_flat = "";
-
 if($m_from <= $date && $m_to >= $date)
 {
 $i++;
@@ -295,5 +398,16 @@ echo $grand_total; ?></th>
 </tr>
 </table>
 <?php
+}
+}
+if($nnn == 55)
+{
+?>
+<br /><br />
+<center>
+<h3 style="color:red;"><b>No Record Found in Selected Period</b></h3>
+</center>
+<br /><br />
+<?php 
 }
 ?>

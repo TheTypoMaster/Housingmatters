@@ -4,7 +4,40 @@ $date1 = new MongoDate(strtotime($date1));
 
 $date2 = date("Y-m-d", strtotime($to));
 $date2 = new MongoDate(strtotime($date2)); 
+?>
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php 
+$nnn = 55;
+foreach($cursor2 as $collection)
+{
+$total = 0;	
+$date_from = $collection['regular_bill']['bill_daterange_from'];
+$date_to = $collection['regular_bill']['bill_daterange_to'];
+$date = $collection['regular_bill']['date'];	
+$bill_id = $collection['regular_bill']['receipt_id'];
+$user_id = (int)$collection['regular_bill']['bill_for_user'];
+$ih_detail2 = $collection['regular_bill']['ih_detail'];
+$result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
+foreach ($result as $collection) 
+{
+$wing_id = $collection['user']['wing'];  
+$flat_id = (int)$collection['user']['flat'];
+$user_name = $collection['user']['user_name'];
+}	
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action'=>'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
+if($date >= $date1 && $date <= $date2)
+{
+$nnn = 555;
+}
+}
 
+
+
+?>
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php
+if($nnn == 555)
+{
 $c=0;
 $ledgerac2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch'),array('pass'=>array(7)));			
 foreach($ledgerac2 as $collection2)
@@ -16,28 +49,22 @@ if($ac_id != 43 && $ac_id != 39 && $ac_id != 40)
 $c++;
 }}
 $cnt = $c+5;
-
-
 ?>
-
-
 <div style="width:100%;" class="hide_at_print">
 <span style="margin-left:80%;">
 <a href="income_head_report_excel?f=<?php echo $from; ?>&t=<?php echo $to; ?>" class="btn blue">Export in Excel</a>
 <button type="button" class=" printt btn green" onclick="window.print()"><i class="icon-print"></i> Print</button></span>
 </div>
 <br />
-
-           
-		    <table class="table table-bordered" style="background-color:white; width:190%;">
-            <thead>
-            <tr>
-            <th colspan="<?php echo $cnt; ?>" style="text-align:center;"><?php echo $society_name; ?> Society</th>
-            <tr>
-            <th>Bill No.</th>
-            <th style="width:6%;">Flat No.</th>
-            <th style="width:10%;">Name of Resident</th>
-		    <?php 	
+<table class="table table-bordered" style="background-color:white; width:190%;">
+<thead>
+<tr>
+<th colspan="<?php echo $cnt; ?>" style="text-align:center;"><?php echo $society_name; ?> Society</th>
+<tr>
+<th>Bill No.</th>
+<th style="width:6%;">Flat No.</th>
+<th style="width:10%;">Name of Resident</th>
+<?php 	
 $ledgerac = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch'),array('pass'=>array(7)));			
 foreach($ledgerac as $collection2)
 {
@@ -68,7 +95,6 @@ $date = $collection['regular_bill']['date'];
 $bill_id = $collection['regular_bill']['receipt_id'];
 $user_id = (int)$collection['regular_bill']['bill_for_user'];
 $ih_detail2 = $collection['regular_bill']['ih_detail'];
-
 $result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
 foreach ($result as $collection) 
 {
@@ -77,7 +103,6 @@ $flat_id = (int)$collection['user']['flat'];
 $user_name = $collection['user']['user_name'];
 }	
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action'=>'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
-
 if($date >= $date1 && $date <= $date2)
 {
 ?>
@@ -157,11 +182,19 @@ $gt_amt2 = $gt_amt[$o];
 </tr>
 </table>
 
-			
-			
-			
-			
-			
+<?php
+}
+else
+{
+?>	
+<br /><br />			
+<center>
+<h3 style="color:red;"><b>No Record Found in Selected Period</b></h3>
+</center>			
+<br /><br />			
+<?php
+}
+?>
 			
 			
 			

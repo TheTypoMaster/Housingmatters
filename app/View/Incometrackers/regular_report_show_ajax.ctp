@@ -5,7 +5,60 @@ $m_from = new MongoDate(strtotime($m_from));
 $m_to = date("Y-m-d", strtotime($to));
 $m_to = new MongoDate(strtotime($m_to));
 ?>
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php
+$bbb = 55;
+foreach ($cursor1 as $collection) 
+{
 
+$one_time_id =(int)$collection['regular_bill']["one_time_id"];
+$regular_bill_id=(int)$collection['regular_bill']["regular_bill_id"];
+$bill_daterange_from=$collection['regular_bill']["bill_daterange_from"];
+$bill_daterange_from2= date('d-m-Y', $bill_daterange_from->sec);
+$bill_daterange_to=$collection['regular_bill']["bill_daterange_to"];
+$bill_daterange_to2= date('d-m-Y', $bill_daterange_to->sec);
+$bill_for_user=(int)$collection['regular_bill']["bill_for_user"];
+$bill_html=$collection['regular_bill']["bill_html"];
+$g_total=$collection['regular_bill']["g_total"];
+$date=$collection['regular_bill']["date"]; 
+$pay_status=(int)@$collection['regular_bill']["pay_status"];
+
+$result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($bill_for_user)));				
+foreach ($result as $collection) 
+{
+$user_name = $collection['user']['user_name'];
+$wing_id = $collection['user']['wing'];  
+$flat_id = (int)$collection['user']['flat'];
+$tenant = (int)$collection['user']['tenant'];
+}	
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
+if($wise == 2)
+{									
+if($bill_for_user == $user_id)
+{
+if($m_from <= $date && $m_to >= $date)
+{
+$bbb = 555;
+}
+}
+}
+else if($wise == 1)
+{
+if($wing_id == $wing)
+{	
+if($m_from <= $date && $m_to >= $date)
+{
+$bbb = 555;
+}
+}
+}
+}
+?>
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php 
+if($bbb == 555)
+{
+?>
 <div style="width:100%;" class="hide_at_print">
 <span style="margin-left:80%;">
 <?php
@@ -94,8 +147,10 @@ echo $g_total; ?></td>
 <a href="regular_bill_pdf?p=<?php echo $regular_bill_id; ?>" class="btn mini purple" target="_blank">Pdf</a>
 </td>			
 </tr>
-									
-<?php }}}
+<?php 
+}
+}
+}
 else if($wise == 1)
 {
 if($wing_id == $wing)
@@ -136,13 +191,19 @@ echo $grand_total; ?></th>
 </table>
 
 
-
-
-
-
-
-
-
+<?php 
+}
+if($bbb = 55)
+{
+?>
+<br /><br />
+<center>
+<h3 style="color:red;"><b>No Record Found in Selected Period</b></h3>
+</center>
+<br /><br />
+<?php 
+}
+?>
 
 
 

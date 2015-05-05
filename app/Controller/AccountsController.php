@@ -6,15 +6,11 @@ public $components = array(
 'Paginator',
 'Session','Cookie','RequestHandler'
 );
-
 var $name = 'Accounts';
-
-
-
 
 //////////////////////////////////////////START SETTINGS MODULE///////////////////////////////////////////////////
 
-/////////////////////////////////////////Start Master Ledger Sub Account Ajax  (Accounts)////////////////////////////////////////////////////////////////
+//////////////////Start Master Ledger Sub Account Ajax  (Accounts)///////////////////////////////////////////////
 function master_ledger_sub_account_ajax()
 {
 $this->layout='blank';
@@ -1120,7 +1116,7 @@ $this->set('to',$to);
 ////////////////// End account statement show ajax(Accounts)////////////////////////
 
 /////////////////////// Start Account Statement Excel////////////////////////////////
-//////////Done//////////////////////////////
+//////////Done/////////////
 function account_statement_excel()
 {
 $this->layout="";
@@ -1181,6 +1177,7 @@ $date_to = $collection['regular_bill']['bill_daterange_to'];
 $last_date = $collection['regular_bill']['due_date'];
 $total_amount = (int)$collection['regular_bill']['g_total'];
 $due_amount = (int)$collection['regular_bill']['remaining_amount'];
+$date = $collection['regular_bill']['date'];
 $user_id = (int)$collection['regular_bill']['bill_for_user'];
 //$bill_no = (int)$collection[''][''];
 //$bill_no = (int)$collection[''][''];
@@ -1199,7 +1196,7 @@ $flat =(int)$collection['user']['flat'];
 }
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array(@$wing,@$flat)));
 
-if($m_from <= $date_from && $m_to >= $date_to)
+if($m_from <= $date && $m_to >= $date)
 {
 $grand_total_amount = $grand_total_amount + $total_amount;
 $total_due_amount = $total_due_amount + $due_amount;	

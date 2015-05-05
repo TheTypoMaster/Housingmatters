@@ -4,14 +4,11 @@
 <center>
 <h3><b>Account Statement</b></h3>
 </center>
-
-
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
 $b_date = date('1-m-Y');
 $c_date = date('d-m-Y');
 ?>
-
 <center>
 <div class="hide_at_print">
 <div id="validate_result"></div>
@@ -33,10 +30,10 @@ $user_name1 = $collection['user']['user_name'];
 </select>
 </td>
 <td>
-<input type="text" class="medium m-wrap date-picker" name="from" id="from" style="background-color:white !important; margin-top:8px;"  value="<?php echo $b_date; ?>"/>
+<input type="text" class="medium m-wrap date-picker" name="from" id="from" style="background-color:white !important; margin-top:8px;"  value="<?php echo $b_date; ?>" data-date-format="dd-mm-yyyy"/>
 </td>
 <td>
-<input type="text" class="medium m-wrap date-picker" name="to" id="to" style="background-color:white !important; margin-top:8px;"  value="<?php echo $c_date; ?>"/>
+<input type="text" class="medium m-wrap date-picker" name="to" id="to" style="background-color:white !important; margin-top:8px;"  value="<?php echo $c_date; ?>" data-date-format="dd-mm-yyyy"/>
 </td>
 <td>
 <button type="button" name="" id="go" class="btn yellow" style="">Go</button>
