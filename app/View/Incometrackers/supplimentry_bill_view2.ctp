@@ -1,7 +1,5 @@
-<a href="it_supplimentry_bill" class="btn green"><i class="icon-arrow-left"></i>  Back</a>
 <?php
 $date = date('d-M-Y');
-//$tem2 = explode(',',$tem);
 if($type == 2)
 {
 $ih3 = explode('/',$ih);
@@ -300,7 +298,8 @@ else
 ?>
 <br />
 <div style="width:100%;">
-<button type="submit" name="sub_sup" class="btn green" style="margin-left:68%;" value="sada">Submit</button>
+<a href="it_supplimentry_bill" class="btn green" style="margin-left:68%;"><i class="icon-arrow-left"></i>  Back</a>
+<button type="submit" name="sub_sup" class="btn red"  value="sada">Submit</button>
 </div>
 </form>
 

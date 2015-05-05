@@ -1,4 +1,3 @@
-<a href="it_regular_bill" class="btn green"><i class="icon-arrow-left"></i>Back</a>
 <?php
 $wing_arr = explode(',',$wing_arr_im);
 foreach($cursor12 as $collection)
@@ -480,7 +479,8 @@ echo $gt_gt_amt; ?></th>
 <br />
 
 <div style="width:100%;">
-<button type="submit" name="sub" style="margin-left:80%;" class="btn red">Submit</button>
+<a href="it_regular_bill" class="btn green"  style="margin-left:70%;"><i class="icon-arrow-left"></i>Back</a>
+<button type="submit" name="sub" class="btn red">Submit</button>
 </div>
 </form>
 
