@@ -1,4 +1,3 @@
-
 <div class="hide_at_print">	
 <?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
@@ -103,35 +102,6 @@ $user_name = $collection['user']['user_name'];
    <div id="result" style="width:94%;">
    </div>
    </center>
-    
-    
-<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>    
-    	<!--<div align="right">
-		<a href="report_excel" class="btn " target="_new" style="margin-right:5%" > <img src="as/Download-icon.png"></a>
-		</div>
-		<div class="controls" style="padding-left:10px;">
-		<label class="radio">Short By</label>
-		<label class="radio">
-		<div class="radio" id="uniform-undefined">
-		<span><input type="radio" onClick="show_record(1)" checked name="optionsRadios1" value="option1" style="opacity: 0;"></span>
-		</div>All
-		</label>
-		<label class="radio">
-		<div class="radio" id="uniform-undefined">
-		<span><input type="radio" onClick="show_record(2)" name="optionsRadios1" value="option1" style="opacity: 0;"></span>
-		</div>Residential
-		</label>
-		<label class="radio">
-		<div class="radio" id="uniform-undefined">
-		<span><input type="radio" onClick="show_record(3)" name="optionsRadios1" value="option1" style="opacity: 0;"></span>
-		</div>Non-residential
-		</label>
-		</div>  -->
-		
-<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
-
-		
-							
 
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 

@@ -1386,12 +1386,11 @@ $society_name = $collection['society']['society_name'];
 }
 $this->set('society_name',$society_name);
 
-$value = (int)$this->request->query('tp');
 $from = $this->request->query('date1');
 $to = $this->request->query('date2');
 $this->set('to',$to);
 $this->set('from',$from);
-$this->set('value',$value);
+
 
 $this->loadmodel('regular_bill');
 $conditions=array("bill_for_user" => $s_user_id,"society_id"=>$s_society_id);
