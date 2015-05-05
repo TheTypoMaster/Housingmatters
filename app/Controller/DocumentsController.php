@@ -397,7 +397,7 @@ $subject="";
 
 
 
-$this->send_notification('<span class="label label-warning" ><i class="icon-folder-open"></i></span>','New document <b>'.$resource_title.'</b> submitted by',4,$i,'resource_view',$s_user_id,$da_user_id);
+$this->send_notification('<span class="label label-warning" ><i class="icon-folder-open"></i></span>','New document <b>'.$resource_title.'</b> submitted by',4,$i,$this->webroot.'Documents/resource_view',$s_user_id,$da_user_id);
 ?>
 <!----alert-------------->
 <div class="modal-backdrop fade in"></div>
@@ -659,7 +659,7 @@ $subject="";
 }	
 }
 
-$this->send_notification('<span class="label label-warning" ><i class="icon-folder-open"></i></span>','New document <b>'.$title.'</b> submitted by',4,$id,'resource_view',$user_id,$da_user_id);
+$this->send_notification('<span class="label label-warning" ><i class="icon-folder-open"></i></span>','New document <b>'.$title.'</b> submitted by',4,$id,$this->webroot.'Documents/resource_view',$user_id,$da_user_id);
 
 
 $this->loadmodel('resource');

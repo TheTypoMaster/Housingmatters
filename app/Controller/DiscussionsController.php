@@ -419,9 +419,9 @@ if($this->request->is('post'))
 	$multipleRowData = Array( Array("discussion_post_id" => $discussion_post_id, "user_id" => $s_user_id , "society_id" => $s_society_id, "topic" => $topic,"description" => $description, "file" =>$file,"delete_id" =>0, "date" =>$date, "time" => $time, "visible" => $visible, "sub_visible" => $sub_visible,"users"=>$da_user_id));
 	
 	$this->discussion_post->saveAll($multipleRowData); 
-	
+	$disc_id=(int)$this->encode($discussion_post_id,'housingmatters');
 
-	$this->send_notification('<span class="label" style="background-color:#269abc;"><i class="icon-comment"></i></span>','New Discussion <b>'.$topic.'</b> created by',3,$discussion_post_id,$this->webroot.'Discussions/index/'.$discussion_post_id.'/0',$s_user_id,$da_user_id);
+	$this->send_notification('<span class="label" style="background-color:#269abc;"><i class="icon-comment"></i></span>','New Discussion <b>'.$topic.'</b> created by',3,$discussion_post_id,$this->webroot.'Discussions/index/'.$disc_id.'/0',$s_user_id,$da_user_id);
 
 
 	////////////////////////////////////////////// Email Code Start ////////////////////////////////////////////////

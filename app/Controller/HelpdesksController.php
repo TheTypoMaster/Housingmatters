@@ -305,7 +305,7 @@ $help_desk_category_name=$collection2['help_desk_category']['help_desk_category_
 }
 
 $user_d[]=$user;
-$this->send_notification('<span class="label" style="background-color:#d43f3a;"><i class="icon-plus"></i></span>','New Help-desk ticket# <b>'.$t.'-'.$help_desk_category_name.'</b> lodged by',1,$i,'help_desk_sm_view?id='.$i.'&status=0',$s_user_id,$user_d);
+$this->send_notification('<span class="label" style="background-color:#d43f3a;"><i class="icon-plus"></i></span>','New Help-desk ticket# <b>'.$t.'-'.$help_desk_category_name.'</b> lodged by',1,$i,$this->webroot.'HelpDesks/help_desk_sm_view/'.$i.'/0',$s_user_id,$user_d);
 
 
 $user_mail=2;
@@ -557,7 +557,7 @@ $help_desk_category_name=$collection2['help_desk_category']['help_desk_category_
 }
 
 $user_d[]=$user;
-$this->send_notification('<span class="label" style="background-color:#d43f3a;"><i class="icon-plus"></i></span>','New Help-desk ticket# <b>'.$t.'-'.$help_desk_category_name.'</b> lodged by',1,$i,'help_desk_sm_view?id='.$i.'&status=0',$s_user_id,$user_d);
+$this->send_notification('<span class="label" style="background-color:#d43f3a;"><i class="icon-plus"></i></span>','New Help-desk ticket# <b>'.$t.'-'.$help_desk_category_name.'</b> lodged by',1,$i,$this->webroot.'HelpDesks/help_desk_sm_view/'.$i.'/0',$s_user_id,$user_d);
 
 
 $user_mail=2;
@@ -1168,7 +1168,7 @@ $this->loadmodel('help_desk');
 $this->help_desk->updateAll(array("help_desk_close_comment" => $massage_close,"help_desk_close_date"=>$close_date,"help_desk_status" => 1),array("help_desk_id" => $hd_id));
 
 $da_user_id[]=$d_user_id;
-$this->send_notification('<span class="label" style="background-color:#4cae4c;"><i class="icon-ok"></i></span>','Your help-desk ticket#<b>'.$ticket_id.'</b> closed by ',1,$hd_id,'help_desk_r_view?id='.$hd_id.'&status=1',$s_user_id,$da_user_id);
+$this->send_notification('<span class="label" style="background-color:#4cae4c;"><i class="icon-ok"></i></span>','Your help-desk ticket#<b>'.$ticket_id.'</b> closed by ',1,$hd_id,$this->webroot.'HelpDesks/help_desk_r_view/'.$hd_id.'/1',$s_user_id,$da_user_id);
 
 
 $this->redirect(array('controller' => 'Helpdesks','action' => 'help_desk_sm_close_ticket'));
@@ -1379,8 +1379,8 @@ $society_user_id=(int)$collection3['society']['user_id'];
 $ip=$this->hms_email_ip();
 
 $r_sms=$this->hms_sms_ip();
-  $working_key=$r_sms->working_key;
- $sms_sender=$r_sms->sms_sender; 
+$working_key=$r_sms->working_key;
+$sms_sender=$r_sms->sms_sender; 
 $this->loadmodel('user');
 $conditions=array("user_id"=>$society_user_id);
 $result_user=$this->user->find('all',array('conditions'=>$conditions));
@@ -1400,7 +1400,7 @@ if($n>0)
 $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms.'');
 }
 
-echo $message_web="<div>
+$message_web="<div>
 <img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 <span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
 <a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
@@ -1435,7 +1435,7 @@ $this->loadmodel('help_desk');
 $this->help_desk->updateAll(array("help_desk_service_provider_id" => $sp_id,"help_desk_assign_date" => $date),array("help_desk_id" => $hd_id));
 
 $da_user_id[]=$d_user_id;
-$this->send_notification('<span class="label" style="background-color:#eea236;"><i class="icon-share"></i></span>','Your help-desk ticket#<b>'.$ticket_id.'</b> assigned to '.$sp_name,1,$hd_id,'help_desk_r_view?id='.$hd_id.'&status=0',$s_user_id,$da_user_id);
+$this->send_notification('<span class="label" style="background-color:#eea236;"><i class="icon-share"></i></span>','Your help-desk ticket#<b>'.$ticket_id.'</b> assigned to '.$sp_name,1,$hd_id,$this->webroot.'HelpDesks/help_desk_r_view/'.$hd_id.'/0',$s_user_id,$da_user_id);
 
 $this->response->header('Location:help_desk_sm_open_ticket');
 }

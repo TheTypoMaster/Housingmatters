@@ -661,7 +661,7 @@ $subject="";
 
 
 $da_user_id[]=$d_user_id;
-$this->send_notification('<span class="label label-info" ><i class="icon-bullhorn"></i></span>','New Notice published - <b>'.$sub.'</b> by',2,$notice_id,'notice_publish_view?con='.$notice_id,$s_user_id,$da_user_id);
+$this->send_notification('<span class="label label-info" ><i class="icon-bullhorn"></i></span>','New Notice published - <b>'.$sub.'</b> by',2,$notice_id,$this->webroot.'notice_publish_view?con='.$notice_id,$s_user_id,$da_user_id);
 
 ?>
 <!----alert-------------->
@@ -1504,7 +1504,8 @@ if($post_data['post_type']==1){
 		foreach($recieve_info[0] as $user_id=>$email)
 		{
 		$to = @$email;
-		$d_user_id = @$user_id;	 
+		$d_user_id = @$user_id;	
+		$da_user_id[]=$d_user_id;		
 		$result_user=$this->profile_picture($user_id);
 		$user_name=$result_user[0]['user']['user_name'];
 
@@ -1552,8 +1553,8 @@ if($post_data['post_type']==1){
 		}
 
 
-		$da_user_id[]=$d_user_id;
-		$this->send_notification('<span class="label label-info" ><i class="icon-bullhorn"></i></span>','New Notice published - <b>'.$notice_subject.'</b> by',2,$notice_id,'notice_publish_view?con='.$notice_id,$s_user_id,$da_user_id);
+		//$da_user_id[]=$d_user_id;
+		$this->send_notification('<span class="label label-info" ><i class="icon-bullhorn"></i></span>','New Notice published - <b>'.$notice_subject.'</b> by',2,$notice_id,$this->webroot.'Notices/notice_publish_view/'.$notice_id,$s_user_id,$da_user_id);
 
 		$output = json_encode(array('type'=>'created', 'text' =>'Your notice has created and sent updates via emais to all user who were selected by you.'));
 		die($output);
