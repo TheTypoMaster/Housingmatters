@@ -3732,8 +3732,8 @@ $this->set('result_alerts_count',$this->alert->find('count',array('conditions'=>
 function alerts()
 {
 $this->layout=null;
-$s_society_id=$this->Session->read('society_id');
-$s_user_id=$this->Session->read('user_id');
+ $s_society_id=$this->Session->read('society_id');
+  $s_user_id=$this->Session->read('user_id');
 
 date_default_timezone_set('Asia/Kolkata');	
 $now=date('d-m-Y');
@@ -3772,7 +3772,7 @@ $remening_days=floor($datediff/(60*60*24));
 	
 		if($alert_result_count==0)
 		{
-		$this->send_alert('<span class="label label-info" ><i class="icon-bullhorn"></i></span>','Notice - <b>'.$n_subject.'</b> will expire on <b>'.$n_expire_date.'</b>',2,$notice_id,'notice_publish_view?con='.$notice_id,$visible_user_id);
+		$this->send_alert('<span class="label label-info" ><i class="icon-bullhorn"></i></span>','Notice - <b>'.$n_subject.'</b> will expire on <b>'.$n_expire_date.'</b>',2,$notice_id,$this->webroot.'Notices/notice_publish_view/'.$notice_id,$visible_user_id);
 		}
 	
 	}
@@ -3836,10 +3836,10 @@ $conditions=array("society_id"=> $s_society_id);
 $result_poll=$this->poll->find('all',array('conditions'=>$conditions));
 foreach($result_poll as $data1)
 {
-$poll_id=$data1['poll']['poll_id'];
-$question=$data1['poll']['question'];
+  $poll_id=$data1['poll']['poll_id'];
+  $question=$data1['poll']['question'];
 
-$visible_user_id=$data1['poll']['visible_user_id'];
+@$visible_user_id=$data1['poll']['visible_user_id'];
 
 
 $close_date=$data1['poll']['close_date'];
