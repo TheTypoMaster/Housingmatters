@@ -15,24 +15,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <input type="hidden" id="tb" value="<?php echo $datetb; ?>" />
 
 <?php ///////////////////////////////////////////////////////////////////////////////////////// ?>		
-<!--		
-<table width="100%" border="1" bordercolor="#FFFFFF" cellpadding="0">
-<tr>
-<td style="width:25%">
-<a href="it_regular_bill" class="btn red btn-block"   style="font-size:16px;"> Regular Bill</a>
-</td>
-<td style="width:25%">
-<a href="it_supplimentry_bill" class="btn blue btn-block"  style="font-size:16px;">Supplementary Bill</a>
-</td>
-<td style="width:25%">
-<a href="in_head_report" class="btn blue btn-block"  style="font-size:16px;">Reports</a>
-</td>
-<td style="width:25%">
-<a href="select_income_heads" class="btn blue btn-block"  style="font-size:16px;">Accounting Setup</a>
-</td>
-</tr>
-</table>
-	-->
+
 <?php ////////////////////////////////////////////////////////////////////////////////////////// ?>		
 		
 		<div style="width:70%; margin-left:15%;">
@@ -68,7 +51,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 
 <div class="controls">
-<label class="" style="font-size:14px;">Bill Date</label>
+<label class="" style="font-size:14px;">Billing Date</label>
 <input type="text" name="from" class="m-wrap medium date-picker" data-date-format="dd-mm-yyyy" placeholder="Bill Date" id="from" />
 <label id="from"></label>
 <div id="result11"></div>
