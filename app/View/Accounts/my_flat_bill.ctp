@@ -13,7 +13,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 -->
 <div class="hide_at_print">
 <center>
-<h3><b>Account Statement</b></h3>
+<h3><b>My Flat</b></h3>
 </center>
 </div>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
@@ -41,7 +41,7 @@ $b_date = date('1-m-Y');
 
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <center>
-<div style="width:94%;" id="result">
+<div style="width:100%;" id="result">
 </div>
 </center>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
@@ -55,13 +55,8 @@ $(document).ready(function() {
 $("#go").bind('click',function(){
 var date1=document.getElementById('date1').value;
 var date2=document.getElementById('date2').value;
-var tp=document.getElementById('tp').value; 
-if(tp=== '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Select an Option</div>'); return false; }
-else
-{
 $('#validate_result').html('<div></div>');	
-$("#result").html('<div align="center" style="padding:10px;"><img src="as/loding.gif" />Loading....</div>').load("my_flat_bill_ajax?date1=" +date1+ "&date2=" +date2+ "&tp=" +tp+ "");
-}
+$("#result").html('<div align="center" style="padding:10px;"><img src="as/loding.gif" />Loading....</div>').load("my_flat_bill_ajax?date1=" +date1+ "&date2=" +date2+ "");
 });
 });
 </script>	

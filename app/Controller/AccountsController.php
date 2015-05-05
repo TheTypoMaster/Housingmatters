@@ -1407,6 +1407,23 @@ $this->loadmodel('regular_bill');
 $conditions=array("bill_for_user" => $s_user_id,"society_id"=>$s_society_id,"status"=>1);
 $cursor3 = $this->regular_bill->find('all',array('conditions'=>$conditions));
 $this->set('cursor3',$cursor3);
+
+
+$this->loadmodel('ledger_sub_account');
+$conditions=array("user_id"=>$s_user_id,"society_id"=>$s_society_id);
+$cursor = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$auto_id = (int)$collection['ledger_sub_account']['auto_id'];
+$user_name = $collection['ledger_sub_account']['name'];
+}
+$this->set('user_name',$user_name);
+
+$this->loadmodel('cash_bank');
+$conditions=array("user_id"=>$auto_id,"society_id"=>$s_society_id,"module_id"=>1);
+$cursor4 = $this->cash_bank->find('all',array('conditions'=>$conditions));
+$this->set('cursor4',$cursor4);
+
 }
 ///////////////// End my flat bill Ajax(accounts)//////////////////////////////////
 
@@ -1793,7 +1810,6 @@ $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id = (int)$this->Session->read('user_id');	
 
-
 $this->loadmodel('society');
 $conditions=array("society_id"=>$s_society_id);
 $cursor = $this->society->find('all',array('conditions'=>$conditions));
@@ -1802,7 +1818,6 @@ foreach($cursor as $collection)
 $society_name = $collection['society']['society_name'];
 }
 $this->set('society_name',$society_name);
-
 
 
 $from = $this->request->query('date1');
