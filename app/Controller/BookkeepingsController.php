@@ -6,9 +6,7 @@ public $components = array(
 'Paginator',
 'Session','Cookie','RequestHandler'
 );
-
 var $name = 'Bookkeepings';
-
 /////////////////// Start Cash Bank Vali (Accounts) ////////////////////////////////////
 function cash_bank_vali()
 {
@@ -653,19 +651,18 @@ if($main_id == 34 || $main_id == 15 || $main_id == 33 || $main_id == 35)
 {
 
 $excel = "<table border='1'>";
-
 $cursor1 = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_amount'),array('pass'=>array($main_id)));
-                                    foreach ($cursor1 as $collection) 
-									{
-								    $ledger_type_name = $collection['ledger_account']['ledger_name'];	
-									}
+foreach ($cursor1 as $collection) 
+{
+$ledger_type_name = $collection['ledger_account']['ledger_name'];	
+}
 $cursor2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($sub_id)));	
-                                    foreach ($cursor2 as $collection) 
-									{
-								    $user_name = $collection['ledger_sub_account']['name'];	
-									}
-
-$excel.="									<tr>
+foreach ($cursor2 as $collection) 
+{
+$user_name = $collection['ledger_sub_account']['name'];	
+}
+$excel.="									
+<tr>
 <th colspan = '6' style='text-align:center;'>
 $society_name
 </th>
@@ -680,7 +677,7 @@ Transaction for The Period $from to $to
 <th>Grouping : $ledger_type_name</th>
 <th colspan='4'></th>
 </tr>";
-				
+$close = 0;	
 $opening_balance = 0;
 $this->loadmodel('ledger');
 $conditions=array("society_id" => $s_society_id);
@@ -692,7 +689,6 @@ $account_type = (int)@$collection['ledger']['account_type'];
 $receipt_id = @$collection['ledger']['receipt_id']; 
 $amount_o = @$collection['ledger']['amount'];
 $amount_category_id = (int)@$collection['ledger']['amount_category_id'];
-//$module_id = (int)@$collection['ledger']['module_id'];
 $sub_account_id = (int)@$collection['ledger']['account_id']; 
 $current_date = @$collection['ledger']['current_date'];
 $society_id = (int)@$collection['ledger']['society_id'];
@@ -702,7 +698,6 @@ if($table_name == "cash_bank")
 {
 $module_id = (int)$collection['ledger']['module_id'];
 }
-
 $op_im_deb = 0;
 $op_im_cre = 0;
 
@@ -724,13 +719,6 @@ $op_im_cre = $amount_o;
 }}
 if($receipt_id != 'O_B')
 {
-/*
-$module_fetch=$this->requestAction(array('controller'=>'hms','action'=>'module_fetch'),array('pass'=>array($module_id)));	
-foreach ($module_fetch as $collection) 
-{
-$module_name = @$collection['account_category']['ac_category'];
-}
-*/
 if($table_name == "cash_bank")
 {
 $module_date_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id)));
@@ -759,11 +747,7 @@ $narration = @$collection[$table_name]['narration'];
 $remark = @$collection[$table_name]['remark'];
 }
 
-$amount_category_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'amount_category'),array('pass'=>array($amount_category_id)));						
-foreach ($amount_category_fetch as $collection) 
-{
-$amount_category = @$collection['amount_category']['amount_category'];
-}
+
 if($sub_account_id == $sub_id)
 {
 if(@$date1 < $m_from)
@@ -798,7 +782,7 @@ $excel.="
 <th colspan='3'></th>
 <th colspan='2'>Opening Balance:</th>
 <th>";
-//$opening_balance = $opening_balance + ($open_bal_import);
+
 $op_bal2 = $opening_balance;
 if($opening_balance > 0)
 {
@@ -821,8 +805,6 @@ $excel.="<tr>
 <th>Debit</th>
 <th>Credit</th>
 </tr>";
-
-
 $total_debit = 0;
 $total_credit = 0;
 $this->loadmodel('ledger');
@@ -835,7 +817,6 @@ $account_type = (int)@$collection['ledger']['account_type'];
 $receipt_id = @$collection['ledger']['receipt_id']; 
 $amount = @$collection['ledger']['amount'];
 $amount_category_id = (int)@$collection['ledger']['amount_category_id'];
-//$module_id = (int)@$collection['ledger']['module_id'];
 $sub_account_id = (int)@$collection['ledger']['account_id']; 
 $current_date = @$collection['ledger']['current_date'];
 $society_id = (int)@$collection['ledger']['society_id'];
@@ -845,17 +826,9 @@ if($table_name == "cash_bank")
 {
 $module_id = (int)$collection['ledger']['module_id'];
 }
- if($receipt_id == 'O_B')
- continue;
+if($receipt_id == 'O_B')
+continue;
 
-/*
-$module_fetch2 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_fetch'),array('pass'=>array($module_id)));
-foreach ($module_fetch2 as $collection) 
-{
-$module_name = @$collection['account_category']['ac_category'];
-$module_name2 = @$collection['account_category']['module_name'];
-}
-*/
 if($table_name == "cash_bank")
 {
 $module_date_fetch2 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id)));
@@ -891,11 +864,6 @@ $narration = @$collection[$table_name]['description'];
 $remark = @$collection[$table_name]['remark'];
 }
 
-$amount_category_fetch2 = $this->requestAction(array('controller' => 'hms', 'action' =>'amount_category'),array('pass'=>array($amount_category_id)));
-foreach ($amount_category_fetch2 as $collection) 
-{
-$amount_category = @$collection['amount_category']['amount_category'];
-}
 
 if($sub_account_id == $sub_id)
 {
@@ -936,7 +904,6 @@ $total_credit = $total_credit + $amount;
 }
 $closing_balance = $op_bal2 - $total_debit + $total_credit + ($close);
 }}}}
-
 $excel.="
 <tr>
 <th colspan='4' style='text-align:right;'><b> Total </b></th>
@@ -1014,7 +981,7 @@ Transaction for The Period $from to $to
 <th>Grouping : $ledger_type_name </th>
 <th colspan='4'></th>
 </tr>";
-
+$close = 0;
 $opening_balance = 0;
 $this->loadmodel('ledger');
 $conditions=array("society_id" => $s_society_id);
@@ -1026,7 +993,6 @@ $account_type = (int)@$collection['ledger']['account_type'];
 $receipt_id = @$collection['ledger']['receipt_id']; 
 $amount_o = @$collection['ledger']['amount'];
 $amount_category_id = (int)@$collection['ledger']['amount_category_id'];
-//$module_id = (int)@$collection['ledger']['module_id'];
 $sub_account_id = (int)@$collection['ledger']['account_id']; 
 $current_date = @$collection['ledger']['current_date'];
 $society_id = (int)@$collection['ledger']['society_id'];
@@ -1060,13 +1026,6 @@ $op_im_cre =  $amount_o;
 
 if($receipt_id != 'O_B')
 {
-/*
-$account_category_fetch = $this->requestAction(array('controller' => 'hms', 'action' =>'module_fetch'),array('pass'=>array($module_id)));									
-foreach ($account_category_fetch as $collection) 
-{
-$module_name = @$collection['account_category']['ac_category'];
-}
-*/
 if($table_name == "cash_bank")
 {
 $module_date_fetch3 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id)));
@@ -1132,7 +1091,7 @@ $excel.="<tr>
 <th colspan='3'></th>
 <th colspan='2'>Opening Balance:</th>
 <th>";
-//$opening_balance = $opening_balance + ($open_bal_import);
+
 $op_bal2 = $opening_balance;
 if($opening_balance > 0)
 {
@@ -1170,7 +1129,6 @@ $account_type = (int)@$collection['ledger']['account_type'];
 $receipt_id = @$collection['ledger']['receipt_id']; 
 $amount = @$collection['ledger']['amount'];
 $amount_category_id = (int)@$collection['ledger']['amount_category_id'];
-//$module_id = (int)@$collection['ledger']['module_id'];
 $sub_account_id = (int)@$collection['ledger']['account_id']; 
 $current_date = @$collection['ledger']['current_date'];
 $society_id = (int)@$collection['ledger']['society_id'];
@@ -1183,14 +1141,6 @@ $module_id = (int)$collection['ledger']['module_id'];
 
  if($receipt_id == 'O_B')
  continue;
- /*
-$account_category_fetch2 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_fetch'),array('pass'=>array($module_id)));									
-foreach ($account_category_fetch2 as $collection) 
-{
-$module_name = @$collection['account_category']['ac_category'];
-$module_name2 = @$collection['account_category']['module_name'];
-}
-*/
 
 if($table_name == "cash_bank")
 {
@@ -1313,6 +1263,7 @@ $excel.="$closing_balance</th>
 </tr></table>";
 
 }
+
 echo $excel;
 }
 //////////////////////////// End Ledger Excel (Accounts)/////////////////////////////
