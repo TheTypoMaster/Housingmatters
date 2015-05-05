@@ -17,7 +17,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
                   <!-- BEGIN VALIDATION STATES-->
                  		 <div class="portlet box green">
                      <div class="portlet-title">
-                        <h4><i class="icon-reorder"></i> Generate Help Desk Ticket</h4>
+                        <h4><i class="icon-reorder"></i> Generate Help Desk Ticket </h4>
                         
                      </div>
                      <div class="portlet-body form">
@@ -31,7 +31,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
                            
                            <div class="control-group ">
                               <div class="controls">
-                               <label class="" style="font-size:14px;">Category</label>
+                               <label class="" style="font-size:14px;">Category <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Select the category for which you want to create ticket"> </i>  </label>
                                  <select name="category" class="span6 m-wrap" >
                             <option value="" style="display:none;">Select Category</option>
                             <?php 
@@ -54,7 +54,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
                               <div class="controls">
                                <label class="" style="font-size:14px;">Description</label>
                                   <textarea name=description wrap=physical rows=7 cols=40 id="textarea" style="resize:none; width:63%" maxlength="500"></textarea>
-								  <label id="textarea" ></label>
+								  <label id="textarea"></label>
                               </div>
                            </div>
 

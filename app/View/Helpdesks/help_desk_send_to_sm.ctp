@@ -43,7 +43,7 @@ $ticket_priority=$data['help_desk']['ticket_priority'];
                            
                            <div class="control-group ">
                               <div class="controls">
-                               <label class="" style="font-size:14px;">Category</label>
+                               <label class="" style="font-size:14px;">Category <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Select the category for which you want to create ticket"> </i> </label>
                                  <select name="category" class="span6 m-wrap" >
                             <option value="" style="display:none;">Select Category</option>
                             <?php 

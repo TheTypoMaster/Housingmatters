@@ -58,7 +58,7 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 					
 					
 		<div class="control-group">
-		  <label class="control-label">Is this secret poll?</label>
+		  <label class="control-label">Is this secret poll?    <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="visible only to selected users"> </i> </label>
 		  
 			 <label class="checkbox">
 			 <div class="checker" ><span><input type="checkbox" value="1" name="private" style="opacity: 0;"></span></div>
