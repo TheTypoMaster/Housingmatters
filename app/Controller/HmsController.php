@@ -13905,6 +13905,12 @@ $this->layout='session';
 }
 $this->ath();
 	$s_society_id=$this->Session->read('society_id'); 
+	$sco_n=$this->society_name($s_society_id);
+	foreach($sco_n as $data)
+	{
+	$sco= $data['society']['society_name'];
+	}
+	$this->set('society_name',$sco);
 	if($this->request->is('post'))
 	{
 			 $pan=$this->request->data['pan'];

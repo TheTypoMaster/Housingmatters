@@ -30,7 +30,10 @@ foreach($result_society as $data)
 			
 <div class="portlet-body">
 <form method="post" id='contact-form'>
-<center>
+
+
+
+<center><span class="" style="padding:10px; font-size:20px"><?php echo $society_name; ?> </span><br><br>
 <table>
 <tr>
 <td>
