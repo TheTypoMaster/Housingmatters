@@ -68,21 +68,19 @@ Society Setup
 				 
 				 
 				 
-	<div class="tabbable tabbable-custom">
-			<ul class="nav nav-tabs">
-			<li ><a href="<?php echo $webroot_path; ?>Hms/master_sm_wing" rel='tab'> Wing</a></li>
-            <li><a href="<?php echo $webroot_path; ?>Hms/flat_type" rel='tab'>Flat Type</a></li>
-            <li class="active"><a href="<?php echo $webroot_path; ?>Hms/master_sm_flat" rel='tab'>Flat Number</a></li>
-            <li ><a href="<?php echo $webroot_path; ?>Hms/flat_nu_import" rel='tab'>Flat Number Import</a></li>
-			<li><a href="<?php echo $webroot_path; ?>Hms/society_details" rel='tab' >Society Details</a></li>
-			<li><a href="<?php echo $webroot_path; ?>Hms/society_settings" rel='tab'>Society Settings</a></li>
-			</ul>
-				<div class="tab-content" style="min-height:300px;">
-					<div class="tab-pane active" id="tab_1_1">
-					<div>
-					<!--<div id="ser_top" align="center" style="margin-right:7%;"></div>-->
-                    
-					<div id="succ">
+<div class="tabbable tabbable-custom">
+<ul class="nav nav-tabs">
+<li ><a href="<?php echo $webroot_path; ?>Hms/master_sm_wing" rel='tab'> Wing</a></li>
+<li><a href="<?php echo $webroot_path; ?>Hms/flat_type" rel='tab'>Flat Type</a></li>
+<li class="active"><a href="<?php echo $webroot_path; ?>Hms/master_sm_flat" rel='tab'>Flat Configuration</a></li>
+<li ><a href="<?php echo $webroot_path; ?>Hms/flat_nu_import" rel='tab'>Flat Number Import</a></li>
+<li><a href="<?php echo $webroot_path; ?>Hms/society_details" rel='tab' >Society Details</a></li>
+<li><a href="<?php echo $webroot_path; ?>Hms/society_settings" rel='tab'>Society Settings</a></li>
+</ul>
+<div class="tab-content" style="min-height:300px;">
+<div class="tab-pane active" id="tab_1_1">
+<div>
+<div id="succ">
 <?php /////////////////////////////////////////////////////////////////////////////// ?>				
         <div class="portlet box grey" style="width:100%;">
               <div class="portlet-title">
@@ -107,7 +105,7 @@ Society Setup
 					<th style="text-align:center;" width="21%">Wing</th>
 					<th style="text-align:center;" width="21%">Flat Number</th>
 					<th style="text-align:center;" width="21%">Flat Type</th>
-					<th style="text-align:center;" width="21%">Flat Area</th>
+					<th style="text-align:center;" width="21%">Flat Area (Sq.Ft.)</th>
 					<th style="text-align:center;" width="16%">Noc Type</th>
 					</tr>
 					</table>
@@ -212,10 +210,10 @@ $flat_type_name = $collection['flat_type_name']['flat_name'];
 					<thead>
 					<tr>
 					<th>Sr No.</th>
-					<th>Wing-Name</th>
-					<th>Flat-Name</th>
+					<th>Wing</th>
+					<th>Flat-Number</th>
                     <th>Flat Type</th>
-                    <th>Flat Area</th>
+                    <th>Flat Area (Sq. Ft.)</th>
 					</tr>
 							</thead>
 							<tbody>
@@ -235,7 +233,6 @@ foreach($wing_fetch as $collection)
 {							
 $wing_name = $collection['wing']['wing_name'];							
 }
-
 $fl_tp = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_fetch2'),array('pass'=>array($flat_type_id)));		
 foreach($fl_tp as $collection)
 {
@@ -245,7 +242,7 @@ $flat_type_id2 = (int)$collection['flat_type']['flat_type_id'];
 $fl_tp2 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_name_fetch'),array('pass'=>array($flat_type_id2)));		
 foreach($fl_tp2 as $collection)
 {
-$flat_type = (int)$collection['flat_type_name']['flat_name'];
+$flat_type = $collection['flat_type_name']['flat_name'];
 }
 
 

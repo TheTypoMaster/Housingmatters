@@ -18670,7 +18670,7 @@ $excel="<table border='1'>
 <th>Wing</th>
 <th>Flat Number</th>
 <th>Flat Type</th>
-<th>Flat Area(square feet)</th>
+<th>Flat Area(Sq. Ft.)</th>
 </tr>";
 
 $q = 0;
