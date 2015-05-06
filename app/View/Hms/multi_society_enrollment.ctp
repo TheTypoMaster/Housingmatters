@@ -114,7 +114,6 @@ foreach ($result_wing as $db)
 </div>
 </div>
 </td></tr>
-
 <tr><td> 
 <div class="control-group" id="echo_flat">
 <div class="controls">
@@ -138,13 +137,9 @@ foreach ($result_wing as $db)
 </label>  
 </div>
 </div>
-
 </td></tr> 
 <tr>
 <td>
-
-
-
 <div class="control-group" id="resident_show" style="display:none;">
 <label class="control-label" style="font-size:16px;">Committee Member</label>
 <div class="controls">
