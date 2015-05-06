@@ -8040,6 +8040,7 @@ $this->ath();
 $this->check_user_privilages();
 $society_id=(int)$this->Session->read('society_id');
 $user_id=(int)$this->Session->read('user_id');
+$this->seen_notification(100,$user_id);
 $this->loadmodel('user_temp');
 $conditions=array("society_id"=>$society_id,"complete_signup"=>1,"reject"=>0,"role"=>2);
 $result=$this->user_temp->find('all',array('conditions'=>$conditions));
@@ -14783,6 +14784,7 @@ $from=$collection['email']['from'];
 }
 $subject="New User Request for approval";
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);	
+$this->send_notification('<span class="label label-success" ><i class="icon-user"></i></span>','New User <b>'.$user_name.' '.$wing_flat.'</b> awaiting your approval/action',100,$da_user_id,'resident_approve',0,$da_user_id);
 	
 ?>
 <!----alert-------------->
