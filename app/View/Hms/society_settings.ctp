@@ -30,7 +30,7 @@ foreach($result_society as $data)
 			@$account_sms=$data['society']['account_sms'];
 			@$account_zero_ammount=$data['society']['account_zero_ammount'];
 			@$banned_word=$data['society']['content_moderation'];
-			$banned_word=implode(',',$banned_word);
+			@$banned_word=implode(',',$banned_word);
 			@$user_id=$data['society']['user_id'];
 			@$society_pan=$data['society']['pan'];
 			@$society_tax=$data['society']['tex_number'];

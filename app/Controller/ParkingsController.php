@@ -99,12 +99,12 @@ function parking_system_view()
 	$result1=$this->parking->find('all',array('conditions'=>$conditions1));
 	$this->set('result_parking',$result1);
 	$this->loadmodel('parking');
-	$conditions2=array('society_id'=>$s_society_id,'type'=>2);
+	$conditions2=array('society_id'=>$s_society_id,'type'=>2,'status'=>0);
 	$result2=$this->parking->find('all',array('conditions'=>$conditions2));
 	$n=sizeof($result2);
 	$this->set('two_n',$n);
 	$this->loadmodel('parking');
-	$conditions3=array('society_id'=>$s_society_id,'type'=>4);
+	$conditions3=array('society_id'=>$s_society_id,'type'=>4,'status'=>0);
 	$result3=$this->parking->find('all',array('conditions'=>$conditions3));
 	$n2=sizeof($result3);
 	$this->set('four_n',$n2);

@@ -9,38 +9,40 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </script>
 
 
+<style>
+.r_d{
+width:14%; float:left; padding:5px;
+}
+
+@media (min-width: 650px) and (max-width: 1200px){
+.r_d{
+width:46%;float:left; padding:5px;
+}
+}
+
+@media (max-width: 650px) {
+.r_d{
+width:100%; float:left; padding:5px;
+}
+}
+
+.hv_b{
+background-color:rgba(218, 221, 240, 0.58);
+}
+</style>
 
 
 
-<!--<div style="background-color:#EFEFEF; border-top:1px solid #e6e6e6; border-bottom:1px solid #e6e6e6; padding:10px; box-shadow:5px; font-size:16px; color:#006;">
-Parking Managment System 
-</div>-->
+
 
 <div>
-<div><span class="label label-info " style="padding:10px; font-size:20px;float:left;" >Total two wheeler slot: <?php echo $two_n;?></span></div>
-<div><span class="label label-info"style="padding:10px;font-size:20px;float:right;">Total four wheeler slot: <?php echo $four_n;?></span></div>
+
+<div><span class="label label-info"style="padding:10px;font-size:16px;float:right;">Total empty four wheeler slot: <?php echo $four_n;?></span></div></br><br>
+<div><span class="label label-info"style="padding:10px;font-size:16px;float:right;">Total empty two wheeler slot: <?php echo $two_n;?></span></div>
 </div>
-<br><br><br><br>
-<div class="tab-content" >
-
-<div class="tab-pane active" id="tab_1_2">
-
-
-<div class="portlet box ">
-
-<div class="portlet-body">
-<table class="table table-striped table-bordered" id="sample_2">
-<thead>
-<tr>
-<th style="">Sr No.</th>
-<th>Slot no </th>
-<th>Type</th>
-<th>Stiker Number</th>
-
-</tr>
-</thead>
-<tbody>
-
+<!--<div><button type="button" class=" printt btn green" onclick="window.print()"><i class="icon-print"></i> Print</button></div>-->
+<br><br>
+<div style="overflow:auto;">
 <?php
 $i=0;
 foreach($result_parking as $data)
@@ -51,26 +53,17 @@ $i++;
 @$stiker_number=@$data['parking']['stiker_number'];
 
 ?>
-<tr class="odd gradeX" >
-<td><?php echo $i ; ?></td>
-<td>
-<?php echo $slot_no ; ?>
- </td>
-<td>
-<?php echo $type ; ?>
 
+<div class="r_d fadeleftsome">
+<div class="hv_b" style="overflow: auto;padding: 5px;cursor: pointer;" title="">
+<div style="float:left;margin-left:3%;">
 
-  </td>
-  <td>
-<?php echo $stiker_number ; ?>
-
-
-  </td>
-</tr>
+<span style="font-size:14px; float:left;">Stiker Number : &nbsp; </span><span style="font-size:14px; float:right;"><?php echo $stiker_number; ?> &nbsp; </span>  
+ <br/>
+<span style="font-size:14px; float:left;">Type : &nbsp; </span><span style="font-size:14px; float:right;"><?php echo $type ; ?>-wheeler </span><br>
+<span style="font-size:14px; float:left;">Slot number : &nbsp; </span><span style="font-size:14px; float:right;"><?php echo $slot_no ; ?></span><br>
+</div>
+</div>
+</div>
 <?php  } ?>
-</tbody>
-</table>
-</div>
-</div>
-</div>
 </div>
