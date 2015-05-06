@@ -9,8 +9,6 @@ public $components = array(
 var $name = 'Incometrackers';
 
 /////////////////////////Start It Regular Bill (Accounts) //////////////////////////////////////
-
-
 function it_regular_bill()
 {
 if($this->RequestHandler->isAjax()){
@@ -18,7 +16,6 @@ $this->layout='blank';
 }else{
 $this->layout='session';
 }
-
 $this->ath();
 $this->check_user_privilages();
 
@@ -73,13 +70,9 @@ $this->set('datetb',$datetb);
 if(isset($this->request->data['sub1']))
 {
 $from = $this->request->data['from'];
-//$to = $this->request->data['to'];
 @$penalty = $this->request->data['pen'];
 $due_date = $this->request->data['due_date'];
-//$i_head = $this->request->data['i_head'];
-//$tax = (int)$this->request->data['tax'];
 $description = $this->request->data['description'];
-//$terms = $this->request->data['terms'];
 $period_id = (int)$this->request->data['bill_p'];
 $fromm = date("Y-m-d", strtotime($from));
 $fromm = new MongoDate(strtotime($fromm));
@@ -97,13 +90,11 @@ $wing_arr[] = $wing_for_bill;
 }
 }
 @$wing_imp = implode(",",@$wing_arr);
-
 if($period_id == 1)
 {
 $to = date('Y-m-d', strtotime("+1 months", strtotime($from)));
 $to = date('Y-m-d', strtotime("-1 days", strtotime($to)));
 }
-
 else if($period_id == 3)
 {
 $to = date('Y-m-d', strtotime("+4 months", strtotime($from)));
@@ -131,17 +122,10 @@ $tom = new MongoDate(strtotime($tom));
 $due_date55 = date("Y-m-d", strtotime($due_date));
 $due_date55 = new MongoDate(strtotime($due_date55));
 
-//$regular[] = array($from,$to,$due_date,$i_head,$tax,$description,$terms);
-//$ih2 = implode(',',$i_head);
-//$terms2 = implode(',',$terms);
-
 $f1=$this->encode($from,'housingmatters');
 $t1=$this->encode($to,'housingmatters');
 $due1=$this->encode($due_date,'housingmatters');
-//$ih3=$this->encode($ih2,'housingmatters');
-//$tax3=$this->encode($tax,'housingmatters');
 $desc1=$this->encode($description,'housingmatters');
-//$terms3=$this->encode($terms2,'housingmatters');
 $p_id = $this->encode($period_id,'housingmatters');
 $pen = $this->encode($penalty,'housingmatters');
 $wing_imp_en = $this->encode($wing_imp,'housingmatters');
@@ -149,10 +133,7 @@ $bill_for_en = $this->encode($bill_for,'housingmatters');
 
 
 $this->response->header('Location','regular_bill_view2?f='.$f1.'&t='.$t1.'&due='.$due1.'&d='.$desc1.'&p='.$p_id.'&pen='.$pen.'&wi='.$wing_imp_en.'&bi='.$bill_for_en.' ');
-
-
 }
-
 
 $this->loadmodel('income_head');
 $conditions=array("society_id" => $s_society_id,"delete_id"=>0);
@@ -201,7 +182,6 @@ $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
 
-
 $this->loadmodel('penalty');
 $condition=array('society_id'=>$s_society_id);
 $result5=$this->penalty->find('all',array('conditions'=>$condition)); 
@@ -210,10 +190,7 @@ $this->set('cursor5',$result5);
 $from3 = $this->request->query('f');
 $to3 = $this->request->query('t');
 $due_date3 = $this->request->query('due');
-//$ih3 = $this->request->query('ih');
-//$tax3 = $this->request->query('tax');
 $desc3 = $this->request->query('d');
-//$tem3 = $this->request->query('tem');
 $p_id = $this->request->query('p');
 $pen = $this->request->query('pen');
 $wing_arr_en = $this->request->query('wi');
@@ -222,10 +199,7 @@ $bill_for_en = $this->request->query('bi');
 $from = $this->decode($from3,'housingmatters');
 $to = $this->decode($to3,'housingmatters');
 $due_date = $this->decode($due_date3,'housingmatters');
-//$ih = $this->decode($ih3,'housingmatters');
-//$tax = (int)$this->decode($tax3,'housingmatters');
 $desc = $this->decode($desc3,'housingmatters');
-//$tem = $this->decode($tem3,'housingmatters');
 $p_id = (int)$this->decode($p_id,'housingmatters');
 $penalty = (int)$this->decode($pen,'housingmatters');
 $wing_arr_im = $this->decode($wing_arr_en,'housingmatters');
@@ -237,10 +211,7 @@ $this->set('p_id',$p_id);
 $this->set('from',$from);
 $this->set('to',$to);
 $this->set('due_date',$due_date);
-//$this->set('ih',$ih);
-//$this->set('tax',$tax);
 $this->set('desc',$desc);
-//$this->set('tem',$tem);
 $this->set('penalty',$penalty);
 
 $this->loadmodel('income_head');
@@ -255,22 +226,6 @@ $conditions=array("society_id" => $s_society_id);
 $cursor12 = $this->society->find('all',array('conditions'=>$conditions));
 $this->set('cursor12',$cursor12);
 
-
-
-
-
-/*
-$this->loadmodel('penalty');
-$conditions=array("society_id" => $s_society_id);
-$cursor = $this->penalty->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$pen_per = (int)$collection['penalty']['tax'];
-$per_type = (int)$collection['penalty']['tax_type'];
-}
-$this->set('pen_per',$pen_per);
-$this->set('per_type',$per_type);
-*/
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
 $cursor = $this->society->find('all',array('conditions'=>$conditions));
@@ -313,22 +268,39 @@ $terms_arr = $collection['society']['terms_conditions'];
 $pen_per2 = (int)$collection['society']['tax'];
 $per_type2 = (int)$collection['society']['tax_type'];
 }
-
 $bill_for = (int)$this->request->data['bill_for'];
 $wing_arr_imp = $this->request->data['wing_ar'];
 $from = $this->request->data['from'];
 $to = $this->request->data['to'];
 $due_date = $this->request->data['due'];
-//$ih = $this->request->data['ih'];
-//$tax = (int)$this->request->data['tax'];
 $description = $this->request->data['desc'];
-//$terms = $this->request->data['tem'];
 $gtamt = @$this->request->data['gt'];
 $penalty = (int)$this->request->data['penalty'];
+$p_id = (int)$this->request->data['p_type'];
+
+if($p_id == 1)
+{
+$multi = 1;
+}
+if($p_id == 2)
+{
+$multi = 2;
+}
+if($p_id == 3)
+{
+$multi = 4;
+}
+if($p_id == 4)
+{
+$multi = 6;
+}
+if($p_id == 5)
+{
+$multi = 12;
+}
 
 $sms_from = date('dM',strtotime($from));
 $sms_to = date('dMy',strtotime($to));
-
 $sms_due = date('dMy',strtotime($due_date));
 
 $dueeed = $due_date;
@@ -362,13 +334,6 @@ $one=$last10;
 }
 $one++;
 
-//$bill_period = $this->requestAction(array('controller' => 'hms', 'action' => 'bill_period_fetch'),array('pass'=>array($p_id)));
-//foreach($bill_period as $collection)
-//{
-//$over_due_tax = $collection['bill_period']['tax']; 	
-//$period_name = $collection['bill_period']['period_name'];
-//}
-
 if($bill_for == 2)
 {
 $this->loadmodel('user');
@@ -383,8 +348,6 @@ $flat_id = (int)$collection['user']['flat'];
 $wing_id = (int)$collection['user']['wing'];
 $mobile = $collection['user']['mobile'];
 $to_mail = $collection['user']['email'];
-//$residing = (int)$collection['user']['residing'];
-//$mobile = '9799463210';
 $wing_flat = $this->wing_flat($wing_id,$flat_id);
 $maint_ch = 0;
 
@@ -395,19 +358,10 @@ $cursor = $this->flat->find('all',array('conditions'=>$conditions));
 foreach($cursor as $collection)
 {
 $flat_type_id = (int)$collection['flat']['flat_type_id'];
-//$flat_master_id = (int)$collection['flat']['flat_master_id'];
 $noc_ch_id = (int)@$collection['flat']['noc_ch_type'];
 $sq_feet = (int)$collection['flat']['flat_area'];
 }
-/*
-$this->loadmodel('flat_master');
-$conditions=array("society_id" => $s_society_id, "auto_id" => $flat_master_id);
-$cursor = $this->flat_master->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$sq_feet = (int)$collection['flat_master']['flat_area'];
-}
-*/
+
 $this->loadmodel('flat_type');
 $conditions=array("society_id" => $s_society_id, "auto_id" => $flat_type_id);
 $cursor = $this->flat_type->find('all',array('conditions'=>$conditions));
@@ -434,11 +388,8 @@ $regular_bill_id11=$last111;
 }
 $regular_bill_id11++;
 
-
-//$regular_bill_id11 = (int)$this->autoincrement('regular_bill','regular_bill_id');
 $current_date11 = date('Y-m-d');
 $current_date11 = new MongoDate(strtotime($current_date11));
-
 /////////////////////////////////////
 $total_amt = 0;
 $income_headd2 = array();
@@ -458,14 +409,17 @@ if($auto_id_in == $auto_ih)
 if($type == 2)
 {
 $ch_amt = $ch_amt1 * $sq_feet;
+$ch_amt = $ch_amt*$multi;
 }
 else
 {
 $ch_amt = $ch_amt1;
+$ch_amt = $ch_amt*$multi;
 }
 if($auto_id_in == 42)
 {
 $maint_ch = $ch_amt;
+$maint_ch = $maint_ch*$multi;
 }
 $income_headd = array($auto_ih,$ch_amt);
 $income_headd2[] = $income_headd;
@@ -502,15 +456,18 @@ if($tp_id == 2)
 {
 $noc_amt = $noc_charge[1];
 $noc_amt2 = $noc_amt*$sq_feet;
+$noc_amt2 = $noc_amt2*$multi;
 }
 else if($tp_id == 4)
 {
-echo $noc_amt2 = round((10/100)*$maint_ch);
+$noc_amt2 = round((10/100)*$maint_ch);
+$noc_amt2 = $noc_amt2*$multi;
 }
 else
 {
 $noc_amt = $noc_charge[1];
 $noc_amt2 = $noc_amt;
+$noc_amt2 = $noc_amt2*$multi;
 }
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'ASC');
@@ -541,9 +498,7 @@ $total_amt = $total_amt + $noc_amt2;
 
 
 ////////////////////////////////////
-//$tax_amount = round(($tax_per/100)*$total_amount);
 $current_date = new MongoDate(strtotime(date("Y-m-d")));
-
 $this->loadmodel('regular_bill');
 $conditions=array("society_id" => $s_society_id,"bill_for_user"=>$user_id,"status"=>0);
 $cursor = $this->regular_bill->find('all',array('conditions'=>$conditions));
@@ -574,9 +529,7 @@ $date2 = date_create($cur_date);
 $interval = date_diff($date1, $date2);
 $days = $interval->format('%a');
 
-
 $due_tax = round((@$due_amount11 * $days * $pen_per2)/365);
-
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
 $cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
@@ -691,7 +644,6 @@ foreach($cursor as $collection)
 {
 $sms_id = (int)$collection['society']['account_sms'];
 }
-
 if($sms_id == 1)
 {
 	
@@ -749,31 +701,43 @@ $this->regular_bill->saveAll($multipleRowData);
 	$bill_no = (int)$collection['regular_bill']['regular_bill_id'];
 	$date_from = $collection['regular_bill']['bill_daterange_from'];
 	$date_to = $collection['regular_bill']['bill_daterange_to'];
-	//$ih_id1 = $collection['regular_bill']["ih_id"];
 	$ih_detail2 = $collection['regular_bill']['ih_detail'];
-	//$tax_id=(int)$collection['regular_bill']["tax_id"]; 
 	$date=$collection['regular_bill']["date"];
-	//$terms_conditions_id=$collection['regular_bill']["terms_conditions_id"];
 	$regular_bill_id=$collection['regular_bill']["regular_bill_id"];
-	//$rent2 = (int)$collection['regular_bill']['rent'];	
-	//$tax_amount = (int)$collection['regular_bill']['tax_amount'];
 	$grand_total = (int)$collection['regular_bill']['g_total'];
 	$late_amt2 = (int)$collection['regular_bill']['due_amount_tax'];
 	$due_amt2 = (int)$collection['regular_bill']['total_due_amount'];
 	$due_date2 = @$collection['regular_bill']['due_date'];
 	$narration = $collection['regular_bill']['description'];
+	$billing_cycle_id = (int)$collection['regular_bill']['period_id'];
 	}
-	
+$date_frm = date('M',$date_from->sec);	
+if($billing_cycle_id == 1)
+{
+$multi_ch = 1;
+}
+if($billing_cycle_id == 2)
+{
+$multi_ch = 2;
+}
+if($billing_cycle_id == 3)
+{
+$multi_ch = 4;
+}
+if($billing_cycle_id == 4)
+{
+$multi_ch = 6;
+}
+if($billing_cycle_id == 5)
+{
+$multi_ch = 12;
+}	
 
 $date_from = date("d-M-Y", $date_from->sec);
 $date_to = date("d-M-Y", $date_to->sec);
 $date_to2 = date('Y-m-d',strtotime($date_to));
-
-//$due_date = date('Y-m-d', strtotime($date_to2 .'+'. $due_days2.'day'));
 $due_date21 = date('d-M-Y',@$due_date2->sec);
-
 $newDate = date("d-M-Y", $date->sec);	
-
 
 $this->loadmodel('user');
 $conditions=array("user_id"=>$user_id,"society_id" => $s_society_id);
@@ -1234,8 +1198,6 @@ $flat_id = (int)$collection['user']['flat'];
 $wing_id = (int)$collection['user']['wing'];
 $mobile = $collection['user']['mobile'];
 $to_mail = $collection['user']['email'];
-//$residing = (int)$collection['user']['residing'];
-//$mobile = '9799463210';
 $wing_flat = $this->wing_flat($wing_id,$flat_id);
 $maint_ch = 0;
 
@@ -1246,19 +1208,10 @@ $cursor = $this->flat->find('all',array('conditions'=>$conditions));
 foreach($cursor as $collection)
 {
 $flat_type_id = (int)$collection['flat']['flat_type_id'];
-//$flat_master_id = (int)$collection['flat']['flat_master_id'];
-$noc_ch_id = (int)$collection['flat']['noc_ch_type'];
+$noc_ch_id = (int)@$collection['flat']['noc_ch_type'];
 $sq_feet = (int)$collection['flat']['flat_area'];
 }
-/*
-$this->loadmodel('flat_master');
-$conditions=array("society_id" => $s_society_id, "auto_id" => $flat_master_id);
-$cursor = $this->flat_master->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$sq_feet = (int)$collection['flat_master']['flat_area'];
-}
-*/
+
 $this->loadmodel('flat_type');
 $conditions=array("society_id" => $s_society_id, "auto_id" => $flat_type_id);
 $cursor = $this->flat_type->find('all',array('conditions'=>$conditions));
@@ -1285,11 +1238,8 @@ $regular_bill_id11=$last111;
 }
 $regular_bill_id11++;
 
-//$regular_bill_id11 = (int)$this->autoincrement('regular_bill','regular_bill_id');
-
 $current_date11 = date('Y-m-d');
 $current_date11 = new MongoDate(strtotime($current_date11));
-
 /////////////////////////////////////
 $total_amt = 0;
 $income_headd2 = array();
@@ -1309,14 +1259,17 @@ if($auto_id_in == $auto_ih)
 if($type == 2)
 {
 $ch_amt = $ch_amt1 * $sq_feet;
+$ch_amt = $ch_amt*$multi;
 }
 else
 {
 $ch_amt = $ch_amt1;
+$ch_amt = $ch_amt*$multi;
 }
 if($auto_id_in == 42)
 {
 $maint_ch = $ch_amt;
+$maint_ch = $maint_ch*$multi;
 }
 $income_headd = array($auto_ih,$ch_amt);
 $income_headd2[] = $income_headd;
@@ -1353,15 +1306,18 @@ if($tp_id == 2)
 {
 $noc_amt = $noc_charge[1];
 $noc_amt2 = $noc_amt*$sq_feet;
+$noc_amt2 = $noc_amt2*$multi;
 }
 else if($tp_id == 4)
 {
-echo $noc_amt2 = round((10/100)*$maint_ch);
+$noc_amt2 = round((10/100)*$maint_ch);
+$noc_amt2 = $noc_amt2*$multi;
 }
 else
 {
 $noc_amt = $noc_charge[1];
 $noc_amt2 = $noc_amt;
+$noc_amt2 = $noc_amt2*$multi;
 }
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'ASC');
@@ -1394,7 +1350,6 @@ $total_amt = $total_amt + $noc_amt2;
 ////////////////////////////////////
 //$tax_amount = round(($tax_per/100)*$total_amount);
 $current_date = new MongoDate(strtotime(date("Y-m-d")));
-
 $this->loadmodel('regular_bill');
 $conditions=array("society_id" => $s_society_id,"bill_for_user"=>$user_id,"status"=>0);
 $cursor = $this->regular_bill->find('all',array('conditions'=>$conditions));
@@ -1477,7 +1432,7 @@ $k=$last;
 }
 $k++;
 $this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" =>$due_amount11, "amount_category_id" => 2,"table_name" => "regular_bill", "account_type" => 2, "account_id" => 13, "current_date" => $current_date12,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" =>$due_amount11, "amount_category_id" => 2,"table_name" => "regular_bill", "account_type" => 2, "account_id" => 13, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
 $this->ledger->saveAll($multipleRowData);
 }
 
@@ -1726,7 +1681,6 @@ Name :
 <tr>
 <td valign="top" style="height:200px;">
 <table border="0" style="width:100%;">';
-
 for($x=0; $x<sizeof($ih_detail2); $x++)
 {
 $ih_det = $ih_detail2[$x];

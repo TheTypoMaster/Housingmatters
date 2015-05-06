@@ -1,13 +1,36 @@
 <?php
+if($p_id == 1)
+{
+$multi = 1;
+}
+if($p_id == 2)
+{
+$multi = 2;
+}
+if($p_id == 3)
+{
+$multi = 4;
+}
+if($p_id == 4)
+{
+$multi = 6;
+}
+if($p_id == 5)
+{
+$multi = 12;
+}
+?>
+<?php /////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php
 $wing_arr = explode(',',$wing_arr_im);
 foreach($cursor12 as $collection)
 {
 $income_head_arr = $collection['society']['income_head'];	
 }
-
 $cur_date11 = date('d-M-Y');
 $due_date11 = date('d-M-Y',strtotime($due_date));
 ?>
+<?php //////////////////////////////////////////////////////////////////////////////////////////// ?>
 <center>
 <br />
 <div style="width:100%; overflow:auto; background-color:white;">
@@ -49,6 +72,7 @@ Bill for date From :<?php echo $from; ?> To : <?php echo $to; ?>
 </tr>
 </table>
 <br /><br />
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <table border="2" style="width:100%;">
 <tr>
 <th>Sr.No.</th>
@@ -87,6 +111,7 @@ $gt_tt_amt = 0;
 $gt_penalty_amt = 0;
 $gt_gt_amt = 0;
 $over_due_tt = 0;
+
 if($bill_for == 2)
 {
 foreach($cursor1 as $collection)
@@ -97,7 +122,6 @@ $user_id = (int)$collection['user']['user_id'];
 $user_name = $collection['user']['user_name'];
 $wing_id = (int)$collection['user']['wing'];
 $flat_id = (int)$collection['user']['flat'];
-//$residing = (int)$collection['user']['residing'];
 
 $maint_ch = 0;
 $result = $this->requestAction(array('controller' => 'hms', 'action' => 'regular_bill_fetch'),array('pass'=>array($user_id)));
@@ -132,16 +156,13 @@ if($penalty == 1)
 {
 if($current_date > @$from5)
 {
-	
 $current_date = date('Y-m-d',$current_date->sec);
 $date_from = date('Y-m-d',@$from5->sec);
 $date1 = date_create($date_from);
 $date2 = date_create($current_date);
 $interval = date_diff($date1, $date2);
 $days = $interval->format('%a');	
-
 $due_taxamt = round(($due_amount*$days*$pen_per)/365);
-	
 }
 }
 }
@@ -149,17 +170,10 @@ $result3 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_f
 foreach($result3 as $collection3)
 {
 $flat_type_id = (int)$collection3['flat']['flat_type_id'];
-//$flat_master_id = (int)$collection3['flat']['flat_master_id'];
 $sq_feet = (int)$collection3['flat']['flat_area'];
 $noc_ch_id = (int)@$collection3['flat']['noc_ch_type'];
 }
-/*
-$result4 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_master_fetch'),array('pass'=>array($flat_master_id)));
-foreach($result4 as $collection4)
-{
-$sq_feet = (int)$collection4['flat_master']['flat_area'];	
-}
-*/
+
 $result5 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_fetch'),array('pass'=>array($flat_type_id)));
 foreach($result5 as $collection5)
 {
@@ -179,7 +193,6 @@ $n=0;
 for($q=0; $q<sizeof($income_head_arr); $q++)
 {
 $ih_id2 = (int)$income_head_arr[$q];	
-
 for($y=0; $y<sizeof($charge); $y++)
 {
 $charge3 = $charge[$y];	
@@ -203,10 +216,21 @@ if($ih_id2 == 42)
 $maint_ch = $ih_amt;
 }
 ?>
-
-<td style="text-align:center;"><?php 
-$ih_amt = number_format($ih_amt);
-echo $ih_amt; ?></td>
+<?php /////////////////////////////////////////////////////////////////////////////////////// ?>
+<td style="text-align:center;">
+<?php 
+if(!empty($ih_amt))
+{
+$ih_amt5 = $ih_amt*$multi;
+$ih_amt5 = number_format($ih_amt5);
+echo $ih_amt5; 
+}
+else
+{
+echo "0";	
+}
+?></td>
+<?php //////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
 $n++;
 }
@@ -238,23 +262,40 @@ $gt_penalty_amt = $gt_penalty_amt + @$due_taxamt;
 $gt_gt_amt = $gt_gt_amt + $gt_amt;
 $over_due_tt = $over_due_tt + @$due_amount;
 ?>
+
 <td style="text-align:center;"><?php if(!empty($noc_amt)) { 
-$noc_amt = number_format($noc_amt);
-echo $noc_amt; } else { echo "0"; } ?></td>
+$noc_amt5 = $noc_amt*$multi;
+$noc_amt5 = number_format($noc_amt5);
+echo $noc_amt5; } else { echo "0"; } ?></td>
+
+
 <td style="text-align:center;"><?php 
-$total_amt = number_format($total_amt);
-echo $total_amt; ?></td>
+$total_amt5 = $total_amt*$multi;
+$total_amt5 = number_format($total_amt5);
+echo $total_amt5; ?></td>
+
+
 <td style="text-align:center;"><?php if(!empty($due_amount)) { 
-$due_amount = number_format(@$due_amount);
-echo $due_amount; } else { echo "0"; } ?></td>
-<td style="text-align:center;"><?php if(!empty($due_taxamt)) { 
-$due_taxamt = number_format($due_taxamt);
-echo $due_taxamt; } else { echo "0"; }?></td>
-<td style="text-align:center;"><?php 
-$gt_amt = number_format($gt_amt);
-echo $gt_amt; ?></td>
+$due_amount5 = $due_amount*$multi;
+$due_amount5 = number_format(@$due_amount5);
+echo $due_amount5; } else { echo "0"; } ?></td>
+
+
+<td style="text-align:center;"><?php if(!empty($due_taxamt)) {
+$due_taxamt5 = $due_taxamt*$multi;	 
+$due_taxamt5 = number_format($due_taxamt5);
+echo $due_taxamt5; } else { echo "0"; }?></td>
+
+
+<td style="text-align:center;"><?php
+$gt_amt5 = $gt_amt + $multi; 
+$gt_amt5 = number_format($gt_amt5);
+echo $gt_amt5; ?></td>
 </tr>
-<?php } 
+<?php 
+}
+?>
+<?php ///////////////////////////////////////////////////////////////////////////////////////////////////  
 }
 else if($bill_for == 1)
 {
@@ -323,17 +364,10 @@ $result3 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_f
 foreach($result3 as $collection3)
 {
 $flat_type_id = (int)$collection3['flat']['flat_type_id'];
-$flat_master_id = (int)$collection3['flat']['flat_master_id'];
 $sq_feet = (int)$collection3['flat']['flat_area'];
-$noc_ch_id = (int)$collection3['flat']['noc_ch_type'];
+$noc_ch_id = (int)$collection3['flat']['noc_ch_tp'];
 }
-/*
-$result4 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_master_fetch'),array('pass'=>array($flat_master_id)));
-foreach($result4 as $collection4)
-{
-$sq_feet = (int)$collection4['flat_master']['flat_area'];	
-}
-*/
+
 $result5 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_fetch'),array('pass'=>array($flat_type_id)));
 foreach($result5 as $collection5)
 {
@@ -377,10 +411,20 @@ if($ih_id2 == 42)
 $maint_ch = $ih_amt;
 }
 ?>
-
-<td style="text-align:center;"><?php 
-$ih_amt2 = number_format($ih_amt);
-echo $ih_amt2; ?></td>
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<td style="text-align:center;"><?php
+if(!empty($ih_amt))
+{
+$ih_amt2 = $ih_amt*$multi; 
+$ih_amt2 = number_format($ih_amt2);
+echo $ih_amt2; 
+}
+else
+{
+echo "0";	
+}
+?></td>
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
 $n++;
 }
@@ -406,27 +450,41 @@ $noc_amt = $amount;
 }
 $noc_tt_amt = $noc_tt_amt + $noc_amt;
 $total_amt = $total_amt + $noc_amt;
-$gt_amt = $gt_amt + $due_taxamt + $total_amt + $due_amount;
+$gt_amt = $gt_amt + @$due_taxamt + $total_amt + @$due_amount;
 $gt_tt_amt = $gt_tt_amt + $total_amt;
-$gt_penalty_amt = $gt_penalty_amt + $due_taxamt;
+$gt_penalty_amt = $gt_penalty_amt + @$due_taxamt;
 $gt_gt_amt = $gt_gt_amt + $gt_amt;
-$over_due_tt = $over_due_tt + $due_amount;
+$over_due_tt = $over_due_tt + @$due_amount;
 ?>
-<td style="text-align:center;"><?php if(!empty($noc_amt)) { 
-$noc_amt = number_format($noc_amt);
-echo $noc_amt; } else { echo "0"; } ?></td>
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<td style="text-align:center;"><?php if(!empty($noc_amt)) {
+$noc_amt2 = $noc_amt*$multi;	 
+$noc_amt2 = number_format($noc_amt2);
+echo $noc_amt2; } else { echo "0"; } ?></td>
+
+
 <td style="text-align:center;"><?php 
-$total_amt = number_format($total_amt);
-echo $total_amt; ?></td>
+$total_amt2 = $total_amt*$multi;
+$total_amt2 = number_format($total_amt2);
+echo $total_amt2; ?></td>
+
+
 <td style="text-align:center;"><?php if(!empty($due_amount)) { 
-$due_amount = number_format($due_amount);
-echo $due_amount; } else { echo "0"; } ?></td>
+$due_amount2 = $due_amount*$multi;
+$due_amount2 = number_format($due_amount2);
+echo $due_amount2; } else { echo "0"; } ?></td>
+
+
 <td style="text-align:center;"><?php if(!empty($due_taxamt)) { 
-$due_taxamt = number_format($due_taxamt);
-echo $due_taxamt; } else { echo "0"; }?></td>
-<td style="text-align:center;"><?php 
-$gt_amt = number_format($gt_amt);
-echo $gt_amt; ?></td>
+$due_taxamt2 = $due_taxamt*$multi;
+$due_taxamt2 = number_format($due_taxamt2);
+echo $due_taxamt2; } else { echo "0"; }?></td>
+
+
+<td style="text-align:center;"><?php
+$gt_amt2 = $gt_amt*$multi; 
+$gt_amt2 = number_format($gt_amt2);
+echo $gt_amt2; ?></td>
 </tr>
 <?php
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -441,26 +499,32 @@ for($k=0; $k<sizeof($total_ih); $k++)
 $tt_amt = $total_ih[$k];
 ?>
 <th><?php 
-$tt_amt = number_format($tt_amt);
-echo $tt_amt; ?></th>
+$tt_amt2 = $tt_amt*$multi;
+$tt_amt2 = number_format($tt_amt2);
+echo $tt_amt2; ?></th>
 <?php
 }
 ?>
 <th><?php 
-$noc_tt_amt = number_format($noc_tt_amt);
-echo $noc_tt_amt; ?></th>
+$noc_tt_amt2 = $noc_tt_amt*$multi;
+$noc_tt_amt2 = number_format($noc_tt_amt2);
+echo $noc_tt_amt2; ?></th>
 <th><?php 
-$gt_tt_amt = number_format($gt_tt_amt);
-echo $gt_tt_amt; ?></th>
+$gt_tt_amt2 = $gt_tt_amt*$multi;
+$gt_tt_amt2 = number_format($gt_tt_amt2);
+echo $gt_tt_amt2; ?></th>
 <th><?php 
-$over_due_tt = number_format($over_due_tt);
-echo $over_due_tt; ?></th>
+$over_due_tt2 = $over_due_tt*$multi;
+$over_due_tt2 = number_format($over_due_tt2);
+echo $over_due_tt2; ?></th>
 <th><?php 
-$gt_penalty_amt = number_format($gt_penalty_amt);
-echo $gt_penalty_amt; ?></th>
+$gt_penalty_amt2 = $gt_penalty_amt*$multi;
+$gt_penalty_amt2 = number_format($gt_penalty_amt2);
+echo $gt_penalty_amt2; ?></th>
 <th><?php 
-$gt_gt_amt = number_format($gt_gt_amt);
-echo $gt_gt_amt; ?></th>
+$gt_gt_amt2 = $gt_gt_amt*$multi;
+$gt_gt_amt2 = number_format($gt_gt_amt2);
+echo $gt_gt_amt2; ?></th>
 </tr>
 </table>
 </div>
@@ -476,6 +540,7 @@ echo $gt_gt_amt; ?></th>
 <input type="hidden" name="to" value="<?php echo $to; ?>" />
 <input type="hidden" name="bill_for" value="<?php echo $bill_for; ?>" />
 <input type="hidden" name="wing_ar" value="<?php echo $wing_arr_im; ?>" />
+
 <br />
 
 <div style="width:100%;">

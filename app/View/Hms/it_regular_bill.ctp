@@ -5,7 +5,6 @@
 <input type="hidden" id="tb" value="<?php echo $datetb; ?>" />
 
 <?php ///////////////////////////////////////////////////////////////////////////////////////// ?>		
-		
 <table width="100%" border="1" bordercolor="#FFFFFF" cellpadding="0">
 <tr>
 <td style="width:25%">
@@ -22,9 +21,8 @@
 </td>
 </tr>
 </table>
-	
 <?php ////////////////////////////////////////////////////////////////////////////////////////// ?>		
-		
+       
 		<div style="width:70%; margin-left:15%;">
 		<div class="row-fluid">
 		<div class="span12">

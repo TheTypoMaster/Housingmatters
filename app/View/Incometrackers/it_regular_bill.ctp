@@ -16,16 +16,15 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 <?php ///////////////////////////////////////////////////////////////////////////////////////// ?>		
 
-<?php ////////////////////////////////////////////////////////////////////////////////////////// ?>		
-		
+<?php //////////////////////////////////////////////////////////////////////////////////////////////// ?>		
+
 		<div style="width:70%; margin-left:15%;">
 		<div class="row-fluid">
 		<div class="span12">
 		<div class="portlet box green" style="border:solid 1px #ffb848;">
 		<div class="portlet-body form">
 		<h3 class="block"></h3>		
-  
-<form class="form-horizontal" method="post" id="contact-form" novalidate>		
+        <form class="form-horizontal" method="post" id="contact-form" novalidate>		
         <div class="control-group">
         <div class="controls">
         <label class="" style="font-size:14px;">Billing Cycle</label>
