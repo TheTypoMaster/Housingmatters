@@ -68,8 +68,6 @@ Multi Society Enrollment
 <!--BEGIN TABS-->
 <div class="tabbable tabbable-custom">
 <ul class="nav nav-tabs">
-
-
 	 <li class="active" ><a href="multi_society_enrollment" >Multi Society Enrollment </a></li>
 </ul> 
 <div class="tab-content" style="min-height:300px;">
