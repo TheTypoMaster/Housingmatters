@@ -18,8 +18,6 @@ $('#t_box').val(d);
 });
 </script>
 
-
-
 <script type="text/javascript">
 var xobj;
 //modern browers
@@ -87,28 +85,20 @@ Society Setup
         <div class="portlet-body form">               
 <?php /////////////////////////////////////////////////////////////////////////////////// ?>                
               
-	<form  class="form-horizontal" method="post" id="contact-form" onSubmit="return validate()">     
-     
-     
-
+<form  class="form-horizontal" method="post" id="contact-form" onSubmit="return validate()">     
 <div id="error_msg"></div>
-                	<input type="hidden" id="t_box" name="xyz" value="1">
-					
-					
-					
-					
-					<table width="100%" style="background-color:#CDD5ED;">
-					<tr class="table table-bordered table-hover" style="font-size:16px;">
+<input type="hidden" id="t_box" name="xyz" value="1">
 				
-					<th style="text-align:center;" width="25%">Wing</th>
-					<th style="text-align:center;" width="25%">Flat Number</th>
-					<th style="text-align:center;" width="25%">Flat Type</th>
-					<th style="text-align:center;" width="25%">Flat Area (Sq.Ft.)</th>
-					</tr>
-					</table>
-					
-     
+<table width="100%" style="background-color:#CDD5ED;">
+<tr class="table table-bordered table-hover" style="font-size:16px;">
+<th style="text-align:center;" width="25%">Wing</th>
+<th style="text-align:center;" width="25%">Flat Number</th>
+<th style="text-align:center;" width="25%">Flat Type</th>
+<th style="text-align:center;" width="25%">Flat Area (Sq.Ft.)</th>
+</tr>
+</table>
 <?php //////////////////////////////////////////////////////////////////////////////////////////////// ?>     
+
 <div id="add_div" >
 <table width="100%"  >
 <tr class="table table-bordered table-hover">
