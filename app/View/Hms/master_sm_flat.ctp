@@ -66,8 +66,6 @@ echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), a
 Society Setup
 </div>
 				 
-				 
-				 
 <div class="tabbable tabbable-custom">
 <ul class="nav nav-tabs">
 <li ><a href="<?php echo $webroot_path; ?>Hms/master_sm_wing" rel='tab'> Wing</a></li>
@@ -83,10 +81,10 @@ Society Setup
 <div id="succ">
 <?php /////////////////////////////////////////////////////////////////////////////// ?>				
         <div class="portlet box grey" style="width:100%;">
-              <div class="portlet-title">
-              <h4><i class="icon-reorder"></i>Flat Setup</h4>
-              </div>
-              <div class="portlet-body form">               
+        <div class="portlet-title">
+        <h4><i class="icon-reorder"></i>Flat Setup</h4>
+        </div>
+        <div class="portlet-body form">               
 <?php /////////////////////////////////////////////////////////////////////////////////// ?>                
               
 	<form  class="form-horizontal" method="post" id="contact-form" onSubmit="return validate()">     
@@ -102,11 +100,10 @@ Society Setup
 					<table width="100%" style="background-color:#CDD5ED;">
 					<tr class="table table-bordered table-hover" style="font-size:16px;">
 				
-					<th style="text-align:center;" width="21%">Wing</th>
-					<th style="text-align:center;" width="21%">Flat Number</th>
-					<th style="text-align:center;" width="21%">Flat Type</th>
-					<th style="text-align:center;" width="21%">Flat Area (Sq.Ft.)</th>
-					<th style="text-align:center;" width="16%">Noc Type</th>
+					<th style="text-align:center;" width="25%">Wing</th>
+					<th style="text-align:center;" width="25%">Flat Number</th>
+					<th style="text-align:center;" width="25%">Flat Type</th>
+					<th style="text-align:center;" width="25%">Flat Area (Sq.Ft.)</th>
 					</tr>
 					</table>
 					
@@ -115,8 +112,7 @@ Society Setup
 <div id="add_div" >
 <table width="100%"  >
 <tr class="table table-bordered table-hover">
-
-<td width="21%" style="text-align:center;">
+<td width="25%" style="text-align:center;">
 <select name="wing_name1" class=" m-wrap medium" id="sel1" onchange="show_flat(this.value,1)">
 <option value="">Select Category</option>
 <?php
@@ -133,12 +129,11 @@ $wing_name=$collection['wing']["wing_name"];
 					
 					
 					
-<td width="21%" style="text-align:center;" id="showflat1">
-<!--<input type="text" class="m-wrap medium" id="flat_id1" name="flat_name1" maxlength="4" onkeyup="search_topic();">-->
+<td width="25%" style="text-align:center;" id="showflat1">
 </td>					
 					
 					
-<td width="21%" style="text-align:center;">
+<td width="25%" style="text-align:center;">
 <select name="flat_type1" class="m-wrap medium" id="fltp1">
 <option value="">--SELECT FLAT TYPE--</option>
 <?php
@@ -153,18 +148,10 @@ $flat_type_name = $collection['flat_type_name']['flat_name'];
 </select>
 </td>
 
-<td width="21%" style="text-align:center;">
+<td width="25%" style="text-align:center;">
 <input type="text" name="area1" class="m-wrap medium" id="ar1" />
 </td>
-<td style="text-align:center;" width="16%;">
-<select name="noctp1" class="m-wrap small" id="noc1">
-<option value="">Select</option>
-
-<option value="1">Self Occupied</option>
-<option value="2">Leased</option>
-</select>
-</td>
-					
+				
 </tr>
 </table>
 	   
@@ -214,6 +201,7 @@ $flat_type_name = $collection['flat_type_name']['flat_name'];
 					<th>Flat-Number</th>
                     <th>Flat Type</th>
                     <th>Flat Area (Sq. Ft.)</th>
+                    <th>NOC Type</th>
 					</tr>
 							</thead>
 							<tbody>
@@ -221,12 +209,13 @@ $flat_type_name = $collection['flat_type_name']['flat_name'];
 							$q=0;
 	                        foreach($cursor1 as $collection)
 	                        {
-								
 							$q++;						
 							$wing_id = (int)$collection['flat']['wing_id'];
 							$flat_name = $collection['flat']['flat_name'];
 							$flat_type_id = (int)@$collection['flat']['flat_type_id'];
 							$sqfeet = (int)@$collection['flat']['flat_area'];
+							$noc_type = (int)@$collection['flat']['noc_ch_type'];
+							
 							
 $wing_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_fetch'),array('pass'=>array($wing_id)));	
 foreach($wing_fetch as $collection)
@@ -239,14 +228,19 @@ foreach($fl_tp as $collection)
 $flat_type_id2 = (int)$collection['flat_type']['flat_type_id'];
 }
 
-$fl_tp2 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_name_fetch'),array('pass'=>array($flat_type_id2)));		
+$fl_tp2 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_name_fetch'),array('pass'=>array(@$flat_type_id2)));		
 foreach($fl_tp2 as $collection)
 {
 $flat_type = $collection['flat_type_name']['flat_name'];
 }
-
-
-
+if($noc_type == 1)
+{
+$noc_type_name = "Self Occupied";	
+}
+else if($noc_type == 2)
+{
+$noc_type_name = "Leased";
+}
 
 ?>
 <tr>
@@ -255,6 +249,7 @@ $flat_type = $collection['flat_type_name']['flat_name'];
 <td><?php echo $flat_name; ?></td>
 <td><?php if($sqfeet == 0) { echo "null"; } else { echo $flat_type; } ?></td>
 <td><?php if($sqfeet == 0) { echo "null"; } else { echo $sqfeet; } ?></td>
+<td><?php if($noc_type == 0) { echo "not defined"; } else { echo $noc_type_name;  } ?> </td>
 </tr>
 <?php } ?>
 </tbody>
@@ -291,9 +286,8 @@ var wing = $("#sel"+i).val();
 var flat_nu = $("#fl"+i).val();
 var flat_type_id = $("#fltp"+i).val();
 var flat_area = $("#ar"+i).val();
-var noc_type = $("#noc"+i).val();
 
-ar.push([wing,flat_nu,flat_type_id,flat_area,noc_type]);
+ar.push([wing,flat_nu,flat_type_id,flat_area]);
 
 var myJsonString = JSON.stringify(ar);
 
@@ -314,8 +308,6 @@ if(response.type=='succ'){
 $("#shwd").show()
 $(".success_report").show().html(response.text);	
 }
-
-
 $("#error_msg").html(output);
 });
 
@@ -325,7 +317,6 @@ $("#error_msg").html(output);
 </script>
 
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-
 
 <div id="shwd" class="hide">
 <div class="modal-backdrop fade in"></div>

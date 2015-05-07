@@ -18663,16 +18663,15 @@ $society_name = $collection['society']['society_name'];
 
 $excel="<table border='1'>
 <tr>
-<th colspan='5' style='text-align:center;'>$society_name</th></tr>
-
+<th colspan='6' style='text-align:center;'>$society_name</th></tr>
 <tr>
 <th>Sr No.</th>
 <th>Wing</th>
 <th>Flat Number</th>
 <th>Flat Type</th>
 <th>Flat Area(Sq. Ft.)</th>
+<th>Status</th>
 </tr>";
-
 $q = 0;
 $this->loadmodel('flat');
 $condition=array('society_id'=>$s_society_id);
@@ -18682,8 +18681,10 @@ foreach($cursor as $collection)
 $q++;						
 $wing_id = (int)$collection['flat']['wing_id'];
 $flat_name = $collection['flat']['flat_name'];
-$flat_type_id = (int)$collection['flat']['flat_type_id'];
-$sqfeet = (int)$collection['flat']['flat_area'];
+$flat_type_id = (int)@$collection['flat']['flat_type_id'];
+$sqfeet = (int)@$collection['flat']['flat_area'];
+$noc_type = (int)@$collection['flat']['noc_ch_tp'];
+
 
 $wing_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_fetch'),array('pass'=>array($wing_id)));	
 foreach($wing_fetch as $collection)
@@ -18694,25 +18695,32 @@ $wing_name = $collection['wing']['wing_name'];
 $fl_tp = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_name_fetch'),array('pass'=>array($flat_type_id)));		
 foreach($fl_tp as $collection)
 {
-//$auto_id1 = (int)$collection['flat_type_name']['auto_id'];	
 $flat_type = $collection['flat_type_name']['flat_name'];
 }
 
-
+if($noc_type == 1)
+{
+$noc_type_name="Self Occupied";
+}
+else if($noc_type == 2)
+{
+$noc_type_name="Leased";
+}
 
 $excel.="<tr>
 <td>$q</td>
 <td>$wing_name</td>
 <td>$flat_name</td>
 <td>";
-if($sqfeet == 0) 
-{ 
-$excel.="null"; } else { $excel.="$flat_type"; } $excel.="</td>
+if($sqfeet == 0) { $excel.="null"; } else { $excel.="$flat_type"; } $excel.="</td>
 <td>";
-if($sqfeet == 0) { $excel.="null"; } else { $excel.="$sqfeet"; } $excel.="</td>
-</tr>";
+if($sqfeet == 0) { $excel.="null"; } else { $excel.="$sqfeet"; } $excel.="</td><td>";
+if($noc_type == 0) { $excel.="not defined"; } else { $excel.="$noc_type_name"; } $excel.="</td>";
+$excel.="</tr>";
 }
 $excel.="</table>";
+
+
 echo $excel;
 }
 /////////////////////////// End Flat Excel/////////////////////////////////////////////////////////
@@ -19829,7 +19837,6 @@ $report = array();
 if(empty($wing_id)){
 		$report[]=array('label'=>'wing', 'text' => 'Please Select Wing');
 	}	
-
 if(empty($flat_nu)){
 		$report[]=array('label'=>'num', 'text' => 'Please Fill Flat Number');
 	}	
@@ -19861,26 +19868,12 @@ die($output);
 
 $k = (int)$this->autoincrement('flat','flat_id');
 $this->loadmodel('flat');
-$multipleRowData = Array( Array("flat_id"=>$k,"wing_id"=>$wing_id,"flat_name"=>$flat_nu,"society_id"=>$s_society_id));
+$multipleRowData = Array( Array("flat_id"=>$k,"wing_id"=>$wing_id,"flat_name"=>$flat_nu,"society_id"=>$s_society_id,"flat_ch_tp"=>0));
 $this->flat->saveAll($multipleRowData);
 
 
 $output=json_encode(array('report_type'=>'publish','report'=>'Record Inserted Successfully'));
 die($output);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 ////////////////////////////// End Flat type Validation //////////////////////////////////////////////////////////
@@ -20037,11 +20030,6 @@ else
 $output = json_encode(array('type'=>'error', 'text' => 'Please Fill Numeric Area of the Flat in row'.$c));
 die($output);
 }
-
-if(empty($child[4])){
-$output = json_encode(array('type'=>'error', 'text' => 'Please Select NOC Type in row'.$c));
-die($output);
-}	
 }
 
 foreach($myArray as $child)
@@ -20050,7 +20038,6 @@ $wing_id5 = (int)$child[0];
 $flat_id5 = (int)$child[1];
 $flat_type5 = (int)$child[2];
 $flat_area5 = (int)$child[3];
-$noc_type5 = (int)$child[4];
 
 ///////////////////////////
 $qqq = 5;
@@ -20071,9 +20058,8 @@ $this->loadmodel('flat_type');
 $p=$this->autoincrement('flat_type','auto_id');
 $this->flat_type->saveAll(array("auto_id" => $p,"flat_type_id"=> $flat_type5,"number_of_flat"=>$no_of_flat,"status"=>0,"society_id"=>$s_society_id));
 
-
 $this->loadmodel('flat');
-$this->flat->updateAll(array("flat_area"=>$flat_area5,"noc_ch_tp"=>$noc_type5,"flat_type_id"=>$p),array("flat_id"=>$flat_id5));
+$this->flat->updateAll(array("flat_area"=>$flat_area5,"flat_type_id"=>$p),array("flat_id"=>$flat_id5));
 }
 else if($qqq == 55)
 {
@@ -20082,14 +20068,10 @@ $this->loadmodel('flat_type');
 $this->flat_type->updateAll(array("number_of_flat"=>$no_of_flat),array("auto_id"=>$auto_id));
 
 $this->loadmodel('flat');
-$this->flat->updateAll(array("flat_area"=>$flat_area5,"noc_ch_tp"=>$noc_type5,"flat_type_id"=>$auto_id),array("flat_id"=>$flat_id5));
+$this->flat->updateAll(array("flat_area"=>$flat_area5,"flat_type_id"=>$auto_id),array("flat_id"=>$flat_id5));
 }
 
-
-//////////////////////////////
 }
-
-
 
 $output = json_encode(array('type'=>'succ', 'text' => 'Record Inserted Successfully.'));
 die($output);
