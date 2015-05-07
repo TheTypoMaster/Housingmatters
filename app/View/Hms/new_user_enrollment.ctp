@@ -97,7 +97,7 @@ $(document).ready(function() {
 		});
 	 });
 	 
-	 $("#remove_row").live('click',function(){
+	 $("#remove_row").bind('click',function(){
 		var h=$('#hidden').val();
 		if(h>1){
 			$("#tr"+h).remove();
