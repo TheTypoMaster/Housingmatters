@@ -19499,7 +19499,7 @@ else
 
 
 }
-
+///////////////////////////////// Start Check Email Already Exist /////////////////////////////////////////////
 function check_email_already_exist()
 {
 $this->layout='blank';
@@ -19594,7 +19594,7 @@ foreach($myArray as $child){
 			}
 	}
 	if (empty($child[7])) {
-	  $output = json_encode(array('type'=>'error', 'text' => 'Please Select residing in row '.$c));
+	  $output = json_encode(array('type'=>'error', 'text' => 'Please Select NOC Type in row '.$c));
         die($output);
 	}
 	
@@ -19684,23 +19684,17 @@ foreach($myArray as $child)
 
 		/////////// insert code user table ///////////////////////
 		
-		$this->user->saveAll(array('user_id' => $i, 'user_name' => $name,'email' => $email, 'password' => @$random, 'mobile' => $mobile,  'society_id' => $s_society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'residing' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$log_i,'s_default'=>1));
-
-	
+		$this->user->saveAll(array('user_id' => $i, 'user_name' => $name,'email' => $email, 'password' => @$random, 'mobile' => $mobile,  'society_id' => $s_society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'noc_type' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$log_i,'s_default'=>1));
 	   ///////////  code end insert //////////////////////////////////
-	   
-	   
-	   
-		  
-		///////////////  Insert code ledger Sub Accounts //////////////////////
+$this->loadmodel('flat');
+$this->flat->updateAll(array("noc_ch_tp" =>$residing),array("flat_id" =>$flat));
+	  ///////////////  Insert code ledger Sub Accounts //////////////////////
 
 		$this->loadmodel('ledger_sub_account');
 		$j=$this->autoincrement('ledger_sub_account','auto_id');
 		$this->ledger_sub_account->saveAll(array('auto_id'=>$j,'ledger_id'=>34,'name'=>$name,'society_id' => $s_society_id,'user_id'=>$i,'deactive'=>0));
 
 		/////////////  End code ledger sub accounts //////////////////////////
-
-	
 		
 		if(!empty($email) && !empty($mobile))
 		{
@@ -19791,20 +19785,13 @@ foreach($myArray as $child)
 			$this->login->saveAll(array('login_id'=>$log_i,'user_name'=>$login_user,'password'=>$random,'signup_random'=>$random,'mobile'=>$mobile));
 
 			//////////////////////////////////////////////////////////////////
-
-			
-			
-			
-  unset($role_id);
-	
+		
+unset($role_id);
 }
-
-
-
-	$output = json_encode(array('type'=>'success', 'text' => 'New members registered into your society successfully.'));
-    die($output);
+$output = json_encode(array('type'=>'success', 'text' => 'New members registered into your society successfully.'));
+die($output);
 }
-
+///////////////////////////////// End Check Email Already Exist ////////////////////////////////////////////// 
 
 /////////////////////Start Function expense Tracker Add Fetch2 (Accounts)//////////////
 function expense_tracker_fetch2($auto_id) 

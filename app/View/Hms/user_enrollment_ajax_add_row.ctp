@@ -34,8 +34,8 @@ $wing_name=$data["wing"]["wing_name"];
 </td>
 <td>
 <div class="controls">
-    <label class="radio line"><input type="radio" name="residing<?php echo $h; ?>" value="1">Yes</label>
-    <label class="radio line"><input type="radio" name="residing<?php echo $h; ?>" value="2">No</label>
+    <label class="radio line"><input type="radio" name="residing<?php echo $h; ?>" value="1">Self Occupied</label>
+    <label class="radio line"><input type="radio" name="residing<?php echo $h; ?>" value="2">Leased</label>
 </div>
 </td>
 </tr>

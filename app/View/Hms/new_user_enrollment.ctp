@@ -14,7 +14,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <form method="post" id="contact-form">
 <input type="hidden" name="hidden" id="hidden" value="1">
 <div id="error_msg"></div>
-<table class="table table-bordered table-hover" valign="middle" cellpadding="0" id="myTable">
+<table class="table table-bordered table-hover" valign="middle" cellpadding="0" id="myTable" style="background-color:white;">
 <thead>
 	<tr>
 		<th >Name</th>
@@ -24,7 +24,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 		<th >Mobile</th>
 		<th width="10%">Owner</th>
 		<th width="10%">Committee</th>
-		<th width="10%">Residing</th>
+		<th width="10%">NOC Type</th>
 	</tr>
 </thead>
 <tbody>
@@ -66,8 +66,8 @@ $wing_name=$data["wing"]["wing_name"];
 </td>
 <td>
 <div class="controls">
-<label class="radio"><input type="radio" name="residing1"  value="1">Yes</label>
-<label class="radio"><input type="radio" name="residing1"  value="2">No</label>
+<label class="radio"><input type="radio" name="residing1"  value="1">Self Occupied</label>
+<label class="radio"><input type="radio" name="residing1"  value="2">Leased</label>
 </div>
 </td>
 </tr>
