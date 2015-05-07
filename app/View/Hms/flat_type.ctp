@@ -24,7 +24,9 @@ Society Setup
 <div class="row-fluid">
 <div class="span5">    
 <form  method="post">
-   
+<br />
+<div id="error_msg"></div>
+<br />   
 <label style="font-size:14px;">Select Wing</label>   
 <div class="controls">
 <select name="wing" id="tp" class="m-wrap span7">
@@ -41,7 +43,6 @@ $wing_name = $collection['wing']['wing_name'];
 <label report="wing" class="remove_report"></label>  
 </div>
 <br />   
-
 
 <label style="font-size:14px;">Flat Number</label>
 <div id="url_main">
@@ -99,10 +100,8 @@ $(document).ready(function(){
 	 $("#add_row").bind('click',function(){
 		var count = $("#url_main div").length;
 		count++;
-		
-		$("#url_main").append('<div class="content_'+count+'"><input type="text" class="m-wrap span7" maxlength="10" id="nu"><a href="#" role="button" id='+count+' class="btn black mini delete"><i class="icon-remove-sign"></i></a></div>');
-	 });
-	 
+$("#url_main").append('<div class="content_'+count+'"><input type="text" class="m-wrap span7" maxlength="10" id="nu"><a href="#" role="button" id='+count+' class="btn black mini delete"><i class="icon-remove-sign"></i></a></div>');
+});
 $(".delete").live('click',function(){
 var id = $(this).attr("id");
 $('.content_'+id).remove();
@@ -111,22 +110,49 @@ $('.content_'+id).remove();
 </script> 
  
  
+<script>
+$(document).ready(function() { 
+	$('form').submit( function(ev){
+	ev.preventDefault();
+	$("#submit").addClass("disabled").text("submiting...");
+		var count = $("#url_main div").length;
+		var wing = $("#tp").val();
+		var ar = [];
+			for(var i=1;i<=count;i++)
+			{
+			var s=$("#url_main div:nth-child("+i+") input").val();
+			ar.push([s]);
+			}
+			var myJsonString = JSON.stringify(ar);
+			var wi = JSON.stringify(wing);
+			
+			$.ajax({
+			url: "flat_type_validation?q="+myJsonString+"&b="+wi,
+			dataType:'json',
+			}).done(function(response) {
+			
+				if(response.type == 'error'){  
+					output = '<div class="alert alert-error">'+response.text+'</div>';
+					$("#submit").removeClass("disabled").text("submit");
+					$("html, body").animate({
+					 scrollTop:0
+					 },"slow");
+				     }
+				if(response.type=='succ'){
+				$("#succ").html('<div class="alert alert-block alert-success fade in"><h4 class="alert-heading">Success!</h4><p>Record Inserted Successfully</p><p><a class="btn green" href="<?php echo $webroot_path; ?>Hms/flat_type" rel="tab">OK</a></p></div>');
+				
+			}
+				
+				$("#error_msg").html(output);
+	});
+	});
+});
+</script>
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- <script>
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////// ?> 
+
+<script>
+/*
 $(document).ready(function() { 
 	$('form').submit( function(ev){
 	ev.preventDefault();
@@ -167,8 +193,8 @@ $(document).ready(function() {
 
 	});
 });
+*/
 </script>		
-
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 
