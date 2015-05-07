@@ -13915,13 +13915,16 @@ $this->ath();
 	$this->set('society_name',$sco);
 	if($this->request->is('post'))
 	{
-			 $pan=$this->request->data['pan'];
-			 $s_tax=$this->request->data['s_tax'];
-			 $s_number=$this->request->data['s_number'];
-			 $address=$this->request->data['address'];
-			 $this->loadmodel('society');
-			 $this->society->updateAll(array('pan'=>$pan,'tex_number'=>$s_tax,'society_address'=>$address,'society_reg_num'=>$s_number),array('society_id'=>$s_society_id));
-	?>
+	$pan=$this->request->data['pan'];
+	$s_tax=$this->request->data['s_tax'];
+	$s_number=$this->request->data['s_number'];
+	$address=$this->request->data['address'];
+	$society_phone = @$this->request->data['society_phone'];
+    $society_email = @$this->request->data['society_email'];	
+
+$this->loadmodel('society');
+$this->society->updateAll(array('pan'=>$pan,'tex_number'=>$s_tax,'society_address'=>$address,'society_reg_num'=>$s_number,"society_phone"=>$society_phone,"society_email"=>$society_email),array('society_id'=>$s_society_id));
+?>
 
 <!----alert-------------->
 <div class="modal-backdrop fade in"></div>
@@ -13934,17 +13937,12 @@ Society details updated successfully.
 </div>
 </div>
 <!----alert-------------->
-
-
-
 <?php		
-	}
-	
-	$this->loadmodel('society');
-	$conditions=array('society_id'=>$s_society_id);
-	$result=$this->society->find('all',array('conditions'=>$conditions));
-	$this->set('result_society',$result);
-	
+}
+$this->loadmodel('society');
+$conditions=array('society_id'=>$s_society_id);
+$result=$this->society->find('all',array('conditions'=>$conditions));
+$this->set('result_society',$result);
 }
 
 function content_moderation()
@@ -18282,18 +18280,8 @@ $conditions=array("society_id" => $s_society_id, "wing_id"=>$wing_id);
 $cursor1 = $this->flat->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);
 
-
 }
 /////////////// End Flat Show Ajax ///////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
 
 ////////////////// Start Regular Bill Fetch2(Accounts)///////////////////////////
 function regular_bill_fetch2($user_id) 

@@ -14,5 +14,5 @@ if($flat_area == 0)
 <?php 
 }
 }
- ?>
+?>
 </select>

@@ -6,11 +6,12 @@ Society Details
 
 foreach($result_society as $data)
 {
-	@$society_pan=$data['society']['pan'];
-	@$tex_number=$data['society']['tex_number'];
-	@$society_address=$data['society']['society_address'];
-	@$society_reg_num=$data['society']['society_reg_num'];
-
+@$society_pan=$data['society']['pan'];
+@$tex_number=$data['society']['tex_number'];
+@$society_address=$data['society']['society_address'];
+@$society_reg_num=$data['society']['society_reg_num'];
+@$society_phone = $data['society']['society_phone'];
+@$society_email = $data['society']['society_email'];
 }
 
 
@@ -27,72 +28,67 @@ foreach($result_society as $data)
 </ul>
 <div class="tab-content" style="min-height:300px;">
 <div class="tab-pane active" id="tab_1_1">
-			
 <div class="portlet-body">
-<form method="post" id='contact-form'>
+<?php ///////////////////////////////////////////////////////////////////////////////////////// ?>
+<br />
+<div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">
+<form method="post" id="contact-form">
+<div class="row-fluid">
+<div class="span6">
 
 
 
-<center><span class="" style="padding:10px; font-size:20px"><?php echo $society_name; ?> </span><br><br>
-<table>
-<tr>
-<td>
-<div class="control-group">
-<label> Society PAN #  </label>
-	  	<div class="controls">
-        	<div>
-			<input type="text" maxlength="10"   class="m-wrap" style="font-size:16px;"  name="pan" value='<?php echo $society_pan ; ?>'>
-           </div>
-		</div>
-	  </div>
-</td>
-</tr>
-<tr>
-<td>
-<div class="control-group">
-<label> Society Service Tax Number </label>
-	  	<div class="controls">
-        	<div>
-			<input type="text" class="m-wrap" style="font-size:16px;"  name="s_tax" value='<?php echo $tex_number ; ?>'>
-           </div>
-		</div>
-	  </div>
-</td>
-</tr>
-<tr>
-<td>
-<div class="control-group">
-<label> Society Registrations Number </label>
-	  	<div class="controls">
-        	<div>
-			<input type="text"   class="m-wrap" style="font-size:16px;"  name="s_number" value='<?php echo $society_reg_num ; ?>'>
-           </div>
-		</div>
-	  </div>
-</td>
-</tr>
+<label style="font-size:14px;">Society PAN #<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text" maxlength="10"   class="m-wrap span9" style="font-size:16px;"  name="pan" value='<?php echo $society_pan ; ?>'>
+</div>
+<br />
 
-<tr>
-<td>
-<div class="control-group">
-<label> Registered Address of Society </label>
-	  	<div class="controls">
-        	<div>
-			<textarea rows='5' cols='5' style='resize:none;' name='address'><?php echo $society_address ; ?></textarea>
-           </div>
-		</div>
-	  </div>
-</td>
-</tr>
-<tr>
-<td>
+
+<label style="font-size:14px;">Society Registrations Number<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text"   class="m-wrap span9" style="font-size:16px;"  name="s_number" value='<?php echo $society_reg_num ; ?>'>
+</div>
+<br />
+
+<label style="font-size:14px;">Registered Address of Society<span style="color:red;">*</span></label>
+<div class="controls">
+<textarea rows='5' cols='5' style='resize:none;' name='address' class="m-wrap span9"><?php echo $society_address ; ?></textarea>
+</div>
+<br />
+</div>
+<div class="span6">
+<h4 style="color:#999;">Optional Field</h4>
+<br />
+
+<label style="font-size:14px;">Society Service Tax Number</label>
+<div class="controls">
+<input type="text" class="m-wrap span9" style="font-size:16px;"  name="s_tax" value='<?php echo $tex_number ; ?>'>
+</div>
+<br />
+
+<label style="font-size:14px;">Society Phone Number</label>
+<div class="controls">
+<input type="text" class="m-wrap span9" name="society_phone" value="<?php echo $society_phone; ?>" />
+</div>
+<br />
+
+
+<label style="font-size:14px;">Society E-mail</label>
+<div class="controls">
+<input type="text" class="m-wrap span9" name="society_email" value="<?php echo $society_email; ?>" />
+</div>
+<br />
+
+</div>
+</div>
+<hr/>
 <button type="submit" class="btn blue" >Update </button>
-</td>
-</tr>
-</table>
-</center>
-
+<br /><br />
 </form>
+</div>
+
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 </div>
 </div>
 </div>
@@ -110,33 +106,29 @@ $(document).ready(function(){
 
 		$('#contact-form').validate({
 	    rules: {
-	      pan: {
-	       
-	        required: true,
-			loginRegex : true 
-	      },
-		 
-		 
-		  
-		  s_tax:
-        {
-            required: true,
+				pan: {
+				required: true,
+				loginRegex : true 
+				},
 
-        },
-		  
-	      s_number: {
-	        required: true,
-	      },
-		  mobile: {
-	       
-	        required: true,
-			number: true,
-			minlength: 10,
-			maxlength: 10,
-			remote: "signup_mobileexit"
-	      }
+					  
+				s_number: {
+				required: true,
+				},
+		
+		       address: {
+				  required: true, 
+			      },
+		 
+				mobile: {
+				required: true,
+				number: true,
+				minlength: 10,
+				maxlength: 10,
+				remote: "signup_mobileexit"
+				}
 	    },
-		messages: {
+		            messages: {
 	                email: {
 	                    remote: "Login-Id is Already Exist."
 	                },

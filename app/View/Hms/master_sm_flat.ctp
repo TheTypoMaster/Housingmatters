@@ -261,7 +261,6 @@ $("#showflat"+ y).html('<div align="center" style="padding:10px;"><img src="as/l
 }
 </script>
 
-
 <script>
 $(document).ready(function() { 
 $('form').submit( function(ev){
@@ -276,11 +275,8 @@ var wing = $("#sel"+i).val();
 var flat_nu = $("#fl"+i).val();
 var flat_type_id = $("#fltp"+i).val();
 var flat_area = $("#ar"+i).val();
-
 ar.push([wing,flat_nu,flat_type_id,flat_area]);
-
 var myJsonString = JSON.stringify(ar);
-
 }
 $.ajax({
 url: "master_sm_flat_vali?q="+myJsonString,
@@ -300,14 +296,11 @@ $(".success_report").show().html(response.text);
 }
 $("#error_msg").html(output);
 });
-
-
 });
 });
 </script>
 
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-
 <div id="shwd" class="hide">
 <div class="modal-backdrop fade in"></div>
 <div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
