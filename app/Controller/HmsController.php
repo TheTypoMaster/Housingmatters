@@ -19868,7 +19868,7 @@ die($output);
 
 $k = (int)$this->autoincrement('flat','flat_id');
 $this->loadmodel('flat');
-$multipleRowData = Array( Array("flat_id"=>$k,"wing_id"=>$wing_id,"flat_name"=>$flat_nu,"society_id"=>$s_society_id,"flat_ch_tp"=>0));
+$multipleRowData = Array( Array("flat_id"=>$k,"wing_id"=>$wing_id,"flat_name"=>$flat_nu,"society_id"=>$s_society_id,"noc_ch_tp"=>0));
 $this->flat->saveAll($multipleRowData);
 
 
