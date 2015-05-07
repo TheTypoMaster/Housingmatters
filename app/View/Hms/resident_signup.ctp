@@ -164,17 +164,16 @@ $society_name=$db['society']["society_name"];
 
 
 <div class="control-group">
-<label class="control-label" style="font-size:16px;">Residing </label>
+<label class="control-label" style="font-size:16px;">NOC Type </label>
 <div class="controls">
 <label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="residing" value="1" style="opacity: 0;"  ></span></div>
-<span style="font-size:16px;">  Yes </span>
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="residing" value="1" style="opacity: 0;"></span></div>
+<span style="font-size:16px;">Self Occupied</span>
 </label>
 <label class="radio">
-<div class="radio" id="uniform-undefined"><span class="checked"><input type="radio" checked name="residing" value="2"  style="opacity: 0;"   ></span></div>
-<span style="font-size:16px;"> No</span>
+<div class="radio" id="uniform-undefined"><span class="checked"><input type="radio" name="residing" value="2" style="opacity: 0;"   ></span></div>
+<span style="font-size:16px;">Leased</span>
 </label>  
-
 </div>
 </div>
 

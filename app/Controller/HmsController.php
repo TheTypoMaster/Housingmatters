@@ -4349,7 +4349,7 @@ $user=$this->request->query['user'];
 $this->set('user', $user);
 }
 
-
+/////////////////////////////////////////// Start Resident Signup //////////////////////////////////////////////////
 
 function resident_signup()
 {
@@ -4377,7 +4377,7 @@ $flat=(int)$this->request->data['flat'];
 $residing=(int)$this->request->data['residing'];
 $this->loadmodel('user_temp');
 $this->user_temp->updateAll(array("society_id" => $society_id,"committee" => $committe, 
-'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'residing' => $residing,"role"=>2,"complete_signup"=>1,'multiple_society'=>0),array("user_temp.user_temp_id" => $user));
+'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'residing'=> $residing,"role"=>2,"complete_signup"=>1,'multiple_society'=>0),array("user_temp.user_temp_id" => $user));
 
 
 $this->loadmodel('user_temp');
@@ -8144,9 +8144,10 @@ if($multiple_society==1)
 }
 
 
-$this->user->save(array('user_id' => $i, 'user_name' => $user_name,'email' => $email, 'password' => $password, 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'residing' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$login_id,'profile_status'=>1,'s_default'=>$s_default));
+$this->user->save(array('user_id' => $i, 'user_name' => $user_name,'email' => $email, 'password' => $password, 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'noc_type' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$login_id,'profile_status'=>1,'s_default'=>$s_default));
 
-
+$this->loadmodel('flat');
+$this->flat->updateAll(array("noc_ch_tp" =>$residing),array("flat_id" =>$flat));	
 
 
 
