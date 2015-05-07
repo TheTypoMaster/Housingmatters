@@ -1,8 +1,6 @@
 <?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 ?>
-
-
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <div style="background-color:#EFEFEF; border-top:1px solid #e6e6e6; border-bottom:1px solid #e6e6e6; padding:10px; box-shadow:5px; font-size:16px; color:#006;">
 Society Setup
@@ -46,9 +44,11 @@ $wing_name = $collection['wing']['wing_name'];
 
 
 <label style="font-size:14px;">Flat Number</label>
-<div class="controls">
+<div id="url_main">
+<div>
 <input type="text" class="m-wrap span7" maxlength="10" id="nu">
-<label report="num" class="remove_report"></label>
+<a href="#" role="button" id="add_row" class="btn black mini"><i class="icon-plus-sign"></i> Add row</a>
+</div>
 </div>
 <br />
 <button type="submit" class="btn form_post" style="background-color: #09F; color:#fff;" value="xyz">Submit</button>
@@ -94,6 +94,37 @@ $wing_name = $collection['wing']['wing_name'];
 </div>
 </div>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////// ?>	
+<script>
+$(document).ready(function(){
+	 $("#add_row").bind('click',function(){
+		var count = $("#url_main div").length;
+		count++;
+		
+		$("#url_main").append('<div class="content_'+count+'"><input type="text" class="m-wrap span7" maxlength="10" id="nu"><a href="#" role="button" id='+count+' class="btn black mini delete"><i class="icon-remove-sign"></i></a></div>');
+	 });
+	 
+$(".delete").live('click',function(){
+var id = $(this).attr("id");
+$('.content_'+id).remove();
+});
+});
+</script> 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
  <script>
 $(document).ready(function() { 
