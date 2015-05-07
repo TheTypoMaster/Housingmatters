@@ -19811,24 +19811,34 @@ return $this->expense_tracker->find('all',array('conditions'=>$conditions));
 ////////////////////////////// Start Flat type Validation //////////////////////////////////////////////////////////
 function flat_type_validation()
 {
-$this->layout=null;
-$post_data=$this->request->data;
-$this->ath();
-$s_society_id=$this->Session->read('society_id');
-$s_user_id=$this->Session->read('user_id');
-$date=date('d-m-Y');
-$time = date(' h:i a', time());
+$this->layout='blank';
+$q=$this->request->query('q');
+$q = html_entity_decode($q);
+$wing = $this->request->query('b');
+$wing = html_entity_decode($wing);
 
-$wing_id = (int)$post_data['wing'];
-$flat_nu = $post_data['number'];
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id  = (int)$this->Session->read('user_id');
 
-$report = array();
-if(empty($wing_id)){
-		$report[]=array('label'=>'wing', 'text' => 'Please Select Wing');
-	}	
-if(empty($flat_nu)){
-		$report[]=array('label'=>'num', 'text' => 'Please Fill Flat Number');
-	}	
+$wing = json_decode($wing, true);
+$myArray = json_decode($q, true);
+
+if(empty($wing))
+{
+$output = json_encode(array('type'=>'error', 'text' => 'Select Wing'));
+die($output);
+}
+$c=0;
+$array1 = array();
+foreach($myArray as $data)
+{
+$c++;
+if(empty($data[0]))
+{
+$output = json_encode(array('type'=>'error', 'text' => 'Insert Flat Number in textbox'.$c.''));
+die($output);
+}
+
 
 $nnn = 555;
 $this->loadmodel('flat');
@@ -19838,30 +19848,54 @@ foreach($cursor3 as $collection)
 {	
 $wing_id2 = (int)$collection['flat']['wing_id'];
 $flat_nu2 = $collection['flat']['flat_name'];	
-if($wing_id2 == $wing_id && $flat_nu2 == $flat_nu)
+if($wing_id2 == $wing && $flat_nu2 == $data[0])
 {
 $nnn = 55;	
 }	
 }	
-	
 if($nnn == 55)
 {	
-$report[]=array('label'=>'num', 'text' => 'In This Wing the Flat Number is Already Exist,Please Select Another');
+$output = json_encode(array('type'=>'error', 'text' => 'The Flat Number is Already Exist in textbox'.$c.''));
+die($output);
 }	
 
-if(sizeof($report)>0)
+foreach($array1 as $child)
 {
-$output=json_encode(array('report_type'=>'error','report'=>$report));
+if($child == $data[0])
+{
+$output = json_encode(array('type'=>'error', 'text' => 'Repeatation of Flat Number in textbox'.$c.''));
 die($output);
 }
+}
+$array1[] = $data[0];
+}
 
-$k = (int)$this->autoincrement('flat','flat_id');
+foreach($myArray as $data)
+{
+$flat_number = $data[0];
+$wing = (int)$wing;
 $this->loadmodel('flat');
-$multipleRowData = Array( Array("flat_id"=>$k,"wing_id"=>$wing_id,"flat_name"=>$flat_nu,"society_id"=>$s_society_id,"noc_ch_tp"=>0));
+$order=array('flat.flat_id'=> 'DESC');
+$cursor=$this->flat->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last=$collection['flat']["flat_id"];
+}
+if(empty($last))
+{
+$k=0;
+}	
+else
+{	
+$k=$last;
+}
+$k++;
+$this->loadmodel('flat');
+$multipleRowData = Array( Array("flat_id"=>$k, "wing_id"=>$wing, "flat_name"=>$flat_number, "society_id"=>$s_society_id));
 $this->flat->saveAll($multipleRowData);
 
-
-$output=json_encode(array('report_type'=>'publish','report'=>'Record Inserted Successfully'));
+}
+$output = json_encode(array('type'=>'succ', 'text' => 'Record Inserted Successfully'));
 die($output);
 
 }

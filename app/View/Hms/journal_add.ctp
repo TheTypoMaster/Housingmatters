@@ -19,14 +19,6 @@ if(subled=== '') { $('#validate_result').html('<div style="background-color:#f2d
 }
 
 
-
-
-
-
-
-
-
-
 var b_debit = document.getElementById('debit' + nn).value;
 var b_credit = document.getElementById('credit' + nn).value;
 if(b_debit == "" && b_credit == "")

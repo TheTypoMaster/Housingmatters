@@ -7,8 +7,6 @@ $("#fix<?php echo $id_current_page; ?>").removeClass("blue");
 $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
-	
-
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
  <center>
 <a href="<?php echo $webroot_path; ?>Bookkeepings/journal_add" class="btn red" rel='tab'> Create</a>
@@ -425,19 +423,16 @@ $(document).ready(function() {
 					$("html, body").animate({
 					 scrollTop:0
 					 },"slow");
-				}
+				     }
 				if(response.type=='succ'){
 				$("#succ").html('<div class="alert alert-block alert-success fade in"><h4 class="alert-heading">Success!</h4><p>Record Inserted Successfully</p><p><a class="btn green" href="<?php echo $webroot_path; ?>Bookkeepings/journal_view" rel="tab">OK</a></p></div>');
 				
 			}
 				
 				$("#error_msg").html(output);
-			});
-
-	 
+	});
 	});
 });
-
 </script>
 
 

@@ -2657,7 +2657,7 @@ $html.='</table>
 $this->loadmodel('adhoc_bill');
 $this->adhoc_bill->updateAll(array("bill_html" =>$html),array("adhoc_bill_id" =>$l));	
 
-////////////////END HTML BILL//////////////////
+////////////////END HTML BILL/////////////////////////////////////////
 ?>
 <div class="modal-backdrop fade in"></div>
 <div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
