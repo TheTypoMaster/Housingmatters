@@ -87,7 +87,7 @@
       <div> <label> <?php echo @$error ; ?></label></div>
 	  <label><b>Enter Code</b> </label>
       <div class="input-icon left"><i class="icon-user"></i>
-			<input type="password" maxlength='5'  class="m-wrap" name="name" id="nam" style="font-size:16px;" placeholder="Please  enter the code *" >
+			<input type="text" maxlength='5'  class="m-wrap" name="name" id="nam" style="font-size:16px;" placeholder="Please  enter the code *" >
              </div>
 		</div>
 	  </div>

@@ -15349,6 +15349,7 @@ $s_society_id=$this->Session->read('society_id');
 $this->loadmodel('tenant');
 $condition=array('society_id'=>$s_society_id);
 $result=$this->tenant->find('all',array('condtions'=>$condition)); 
+pr($result);
 $this->set('user_tenant',$result);
 
 }
