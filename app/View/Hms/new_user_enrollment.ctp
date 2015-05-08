@@ -49,8 +49,8 @@ $wing_name=$data["wing"]["wing_name"];
 <option value="">Flat</option>
 </select>
 </td>
-<td><input type="text" class="span12 m-wrap textbox" name="email1" id="email1" style="font-size:16px;  background-color: white !important;" placeholder="Email*" value=""></td>
-<td><input type="text" class="span12 m-wrap textbox" name="mobile1" id="mobile1" style="font-size:16px;  background-color: white !important;" placeholder="Mobile*" value=""></td>
+<td><input type="text" class="span12 m-wrap textbox" name="email1" id="email1" style="font-size:16px;  background-color: white !important;" placeholder="Email" value=""></td>
+<td><input type="text" class="span12 m-wrap textbox" name="mobile1" id="mobile1" style="font-size:16px;  background-color: white !important;" placeholder="Mobile" value=""></td>
 <td>
 <div class="controls">
 <label class="radio"><input type="radio" class="owner" name="owner1"  value="1" inc_id="1">Yes</label>

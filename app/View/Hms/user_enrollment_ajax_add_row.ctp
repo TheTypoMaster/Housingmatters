@@ -17,8 +17,8 @@ $wing_name=$data["wing"]["wing_name"];
 <select class="span12 m-wrap" name="flat<?php echo $h; ?>" id="flat<?php echo $h; ?>">
 <option value="">-Flat-</option>
 </td>
-<td><input type="text" class="span12 m-wrap" name="email<?php echo $h; ?>" id="email<?php echo $h; ?>" style="font-size:16px;  background-color: white !important;" placeholder="Email*" value=""></td>
-<td><input type="text" class="span12 m-wrap" name="mobile<?php echo $h; ?>" id="mobile<?php echo $h; ?>" style="font-size:16px;  background-color: white !important;" placeholder="Mobile*" value=""></td>
+<td><input type="text" class="span12 m-wrap" name="email<?php echo $h; ?>" id="email<?php echo $h; ?>" style="font-size:16px;  background-color: white !important;" placeholder="Email" value=""></td>
+<td><input type="text" class="span12 m-wrap" name="mobile<?php echo $h; ?>" id="mobile<?php echo $h; ?>" style="font-size:16px;  background-color: white !important;" placeholder="Mobile" value=""></td>
 <td>
 <div class="controls">
     <label class="radio line"><input type="radio" class="owner" name="owner<?php echo $h; ?>" value="1" inc_id="<?php echo $h; ?>">Yes</label>
