@@ -15345,13 +15345,11 @@ if($this->RequestHandler->isAjax()){
 	}
 $this->ath();
 $this->check_user_privilages();
- $s_society_id=(int)$this->Session->read('society_id');
+$s_society_id=(int)$this->Session->read('society_id');
 $this->loadmodel('tenant');
 $condition=array('society_id'=>$s_society_id);
-$result=$this->tenant->find('all',array('condtions'=>$condition)); 
-pr($result);
+$result=$this->tenant->find('all',array('conditions'=>$condition)); 
 $this->set('user_tenant',$result);
-
 }
 
 
