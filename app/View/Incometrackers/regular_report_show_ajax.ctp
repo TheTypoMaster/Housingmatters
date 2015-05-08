@@ -10,7 +10,6 @@ $m_to = new MongoDate(strtotime($m_to));
 $bbb = 55;
 foreach ($cursor1 as $collection) 
 {
-
 $one_time_id =(int)$collection['regular_bill']["one_time_id"];
 $regular_bill_id=(int)$collection['regular_bill']["regular_bill_id"];
 $bill_daterange_from=$collection['regular_bill']["bill_daterange_from"];
@@ -159,7 +158,6 @@ if($m_from <= $date && $m_to >= $date)
 {
 $date = date('d-m-Y', $date->sec);						
 $grand_total = $grand_total + $g_total;	
-	
 ?>	
 <tr>
 <td><?php echo $i; ?></td>
@@ -180,7 +178,7 @@ echo $g_total; ?></td>
 }
 }
 }
- ?>
+?>
 <tr>
 <th colspan="6">Grand Total</th>
 <th><?php 
@@ -193,7 +191,7 @@ echo $grand_total; ?></th>
 
 <?php 
 }
-if($bbb = 55)
+if($bbb == 55)
 {
 ?>
 <br /><br />
@@ -201,23 +199,10 @@ if($bbb = 55)
 <h3 style="color:red;"><b>No Record Found in Selected Period</b></h3>
 </center>
 <br /><br />
-<?php 
+<?php
+ 
 }
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

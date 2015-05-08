@@ -21,7 +21,6 @@ var typ1 = document.getElementById("tp"+ p + q).value;
 if(typ1=== '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Fill All     Fields</div>'); return false; }	
 var rs1 = document.getElementById("rs"+ p + q).value;
 if(rs1=== '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Fill All Fields</div>'); return false; }	
-
 }
 }
 }
@@ -242,7 +241,6 @@ $(document).ready(function() {
 				if(response.type=='okk'){
 				$("#shwd").hide();
 				}
-				
 				$("#error_msg").html(output);
 			});
 

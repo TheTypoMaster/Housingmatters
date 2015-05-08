@@ -44,7 +44,7 @@ $user_id = (int)$collection['ledger_sub_account']['user_id'];
 $result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));	
 foreach($result2 as $collection)
 {
-$residing = (int)$collection['user']['residing'];
+//$residing = (int)$collection['user']['residing'];
 $user_name = $collection['user']['user_name'];
 $wing = (int)$collection['user']['wing'];
 $flat =(int)$collection['user']['flat'];

@@ -634,7 +634,7 @@ $wing_flat = $this->wing_flat($wing_id,$flat_id);
 
 
 $this->send_notification('<span class="label label-success" ><i class="icon-user"></i></span>','New Bill for <b>'.$user_name.' '.$wing_flat.'</b> is generated',10,$regular_bill_id,$this->webroot.'Accounts/my_flat_bill',$s_user_id,$admin_user_id);
-///////////////////////////
+
 
 //////////////////////////////////////////////////////////////
 $this->loadmodel('society');
@@ -876,41 +876,70 @@ $html.='</table>
 </tr>
 <tr>
 <td valign="top">
-<table border="0" style="width:100%;">
-<tr>
+<table border="0" style="width:100%;">';
+if($total_amount2 != 0)
+{
+$html.='<tr>
 <td rowspan="4"></td>
 <td style="text-align:right;">Sub-Total:</td>
-</tr>
-<tr>
+</tr>';
+}
+if($due_amt3 != 0)
+{
+$html.='<tr>
 <td style="text-align:right;">Over Due Amount:</td>
-</tr>
-<tr>
+</tr>';
+}
+if($late_amt2 != 0)
+{
+$html.='<tr>
 <td style="text-align:right;">Over Due Interest:</td>
-</tr>
+</tr>';
+}
+if($grand_total != 0)
+{
+$html.='
 <tr>
 <th style="text-align:right;">Grand Total:</th>
-</tr>
-</table>
+</tr>';
+}
+$html.='</table>
 </td>
-<td valign="top">
-<table border="0" style="width:100%;">
-<tr>';
+<td valign="top">';
+
 $total_amount3 = number_format($total_amount2);
 $due_amt4 = number_format($due_amt3);
 $late_amt3 = number_format($late_amt2);
 $grand_total2 = number_format($grand_total);
+
+$html.='<table border="0" style="width:100%;">
+<tr>';
+if($total_amount2 != 0)
+{
 $html.='
 <td style="text-align:center;">'.$total_amount3.'</td>
-</tr>
-<tr>
+</tr>';
+}
+if($due_amt3 != 0)
+{
+$html.='<tr>
 <td style="text-align:center;">'.@$due_amt4.'</td>
-</tr>
+</tr>';
+}
+if($late_amt2 != 0)
+{
+$html.='
 <tr>
 <td style="text-align:center;">'.@$late_amt3.'</td>
-</tr>
-<tr>
+</tr>';
+}
+if($grand_total != 0)
+{
+$html.='<tr>
 <th style="text-align:center;">'.$grand_total2.'</th>
-</tr>
+</tr>';
+}
+$html.='
 </table>
 </td>
 </tr>
@@ -938,7 +967,6 @@ Terms And Conditions:
 for($r=0; $r<sizeof($terms_arr); $r++)
 {
 $tems_name = $terms_arr[$r];
-
 $html.='
 <tr>
 <td style="text-align:left;">'.$tems_name.'</td>
@@ -959,8 +987,6 @@ $html.='</table>
 <br><br><br><br>
 </div>
 ';
-
-
 
 $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array("bill_html" =>$html),array("regular_bill_id" =>$regular_bill_id));	
@@ -2244,8 +2270,6 @@ $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
 
-
-
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
 $cursor = $this->society->find('all',array('conditions'=>$conditions));
@@ -2364,7 +2388,7 @@ $user_id = (int)$collection['ledger_sub_account']['user_id'];
 $result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));	
 foreach($result2 as $collection)
 {
-$residing = (int)$collection['user']['residing'];
+//$residing = (int)$collection['user']['residing'];
 $user_name = $collection['user']['user_name'];
 $wing = (int)$collection['user']['wing'];
 $flat =(int)$collection['user']['flat'];
@@ -2476,7 +2500,7 @@ $user_id = (int)$collection['ledger_sub_account']['user_id'];
 $result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));	
 foreach($result2 as $collection)
 {
-$residing = (int)$collection['user']['residing'];
+//$residing = (int)$collection['user']['residing'];
 $user_name = $collection['user']['user_name'];
 $wing = (int)$collection['user']['wing'];
 $flat =(int)$collection['user']['flat'];
@@ -2657,7 +2681,7 @@ $html.='</table>
 $this->loadmodel('adhoc_bill');
 $this->adhoc_bill->updateAll(array("bill_html" =>$html),array("adhoc_bill_id" =>$l));	
 
-////////////////END HTML BILL/////////////////////////////////////////
+/////////////////////////////////END HTML BILL/////////////////////////////////////////
 ?>
 <div class="modal-backdrop fade in"></div>
 <div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
