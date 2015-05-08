@@ -107,12 +107,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 <script>
 $(document).ready(function(){
-
-
-
-
 $(".chk_input").live('click',function(){
-
 var c=$(this).val();
 value = +$('#'+c).is( ':checked' );
 if(value==0)
@@ -125,7 +120,6 @@ else
 $(".all_chk" +c).parent('span').addClass('checked');
 $(".all_chk" +c).attr('checked','checked');
 }
-
 });
 });
 

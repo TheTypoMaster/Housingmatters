@@ -14586,7 +14586,6 @@ $this->set('result_role',$this->role->find('all',array('conditions'=>$conditions
 
 }
 
-
 function society_member_excel()
 {
 $this->layout="";
@@ -15350,6 +15349,90 @@ $result=$this->tenant->find('all',array('conditions'=>$condition));
 $this->set('user_tenant',$result);
 }
 
+function tenant_excel()
+{
+$this->layout="";
+$s_society_id=$this->Session->read('society_id');
+$filename='user_list';
+@header("Expires: 0");
+@header("border: 1");
+@header("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+@header("Cache-Control: no-cache, must-revalidate");
+@header("Pragma: no-cache");
+@header("Content-type: application/vnd.ms-excel");
+@header("Content-Disposition: attachment; filename=".$filename.".xls");
+@header("Content-Description: Generated Report");
+
+
+$excel="<table border='1'>
+<tr>
+<td><strong>Name</strong></td>
+<td><strong>Flat</strong></td>
+<td><strong>Mobile</strong></td>
+<td><strong>Start date</strong></td>
+<td><strong>End date</strong></td>
+<td><strong>Agreement Copy</strong></td>
+<td><strong>Police NOC</strong></td>
+<td><strong>Remarks</strong></td>
+<td><strong>Permanent Address</strong></td>
+</tr>";
+
+$s_society_id=(int)$this->Session->read('society_id');
+$this->loadmodel('tenant');
+$condition=array('society_id'=>$s_society_id);
+$user_tenant=$this->tenant->find('all',array('conditions'=>$condition)); 
+
+ foreach($user_tenant as $collection) 
+            {
+			$name=$collection['tenant']['name'];
+			$d_user_id=(int)$collection['tenant']['user_id'];
+            $mobile=$collection['tenant']['t_mobile'];
+            $t_address=$collection['tenant']['t_address'];
+            $t_agreement=$collection['tenant']['t_agreement'];
+			$t_police=$collection['tenant']['t_police'];
+            $verification=$collection['tenant']['verification'];
+            $t_start_date=$collection['tenant']['t_start_date'];
+            $t_end_date=$collection['tenant']['t_end_date'];
+			if($t_agreement==1)
+			{
+				$t_agreement='Yes';
+			}
+			else
+			{
+			$t_agreement='No';
+			
+			}
+			if($t_police==1)
+			{
+				$t_police='Yes';
+			}
+			else
+			{
+			$t_police='No';
+			
+			}
+$result_user = $this->profile_picture($d_user_id);
+foreach($result_user as $data)
+{
+$wing=$data['user']['wing'];
+$flat=$data['user']['flat'];
+}
+
+$wing_flat = $this->wing_flat($wing,$flat);
+$excel.="<tr>
+<td>$name</td>
+<td>$wing_flat</td>
+<td>$mobile</td><td>$t_start_date</td>
+<td>$t_end_date</td>
+<td>$t_agreement</td>
+<td>$t_police</td>
+<td>$verification</td>
+<td>$t_address</td>
+</tr>";
+}
+$excel.="</table>";
+echo $excel ;
+}
 
 
 ////////////////////////////////////////////////////////////////End new Tenant enrollment //////////////////////////////////////
