@@ -2915,24 +2915,26 @@ function multiple_flat()
 	}
 	$this->ath();
 	$this->check_user_privilages();	
-	$s_society_id=$this->Session->read('society_id');
+	 $s_society_id=$this->Session->read('society_id');
 	$s_user_id=$this->Session->read('user_id');
 	$result=$this->all_user_deactive();
 	$this->set('result_user',$result);
 	if($this->request->is('post'))
 	{
 		
-		$user_sel=(int)$this->request->data['user_sel'];
-		$wing=(int)$this->request->data['sel_wing_id'];
-		$flat=(int)$this->request->data['sel_flat_id'];
+		  $user_sel=(int)$this->request->data['user_sel'];
+		   $wing=(int)$this->request->data['sel_wing_id'];
+		   $flat=(int)$this->request->data['sel_flat_id'];
 		
 		$this->loadmodel('user');
 		$conditions =array( '$or' => array( 
 		array("wing" => $wing, "flat" => $flat,'society_id'=>$s_society_id),
-		array("multiple_flat" => array('$in' => array($wing)), "multiple_flat" => array('$in' => array($flat)),'society_id'=>$s_society_id),
+		array("multiple_flat" => array($wing,$flat),'society_id'=>$s_society_id),
 		));
+		
 		 $result_count=$this->user->find('all',array('conditions'=>$conditions));
-		$n= sizeof($result_count);
+		   $n= sizeof($result_count);
+		  	
 		if($n==0)
 		{
 		$this->loadmodel('user');
@@ -2992,6 +2994,7 @@ function multiple_flat()
 		else
 		{
 			$this->set('wrong','<span style="color:red; font-size:14px;">Wing-Flat is already exits</span>');
+			
 		}	
 	}
 	
