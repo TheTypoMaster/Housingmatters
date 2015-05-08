@@ -37,11 +37,13 @@ foreach ($result_main_module as $collection)
 	<table width="100%" style="font-size: 15px;">
 		<tr>
 		<td width="30%"><i class="<?php echo $icon ; ?>"></i> <?php echo $module_type_name; ?></td>
-		<td width="5%">
+		<td width="10%">Select all <input type="checkbox" name="" value="<?php echo $module_type_id ; ?>" class='chk_input' id='<?php echo $module_type_id ; ?>'></td>
+		<td width="10%">
 		<a class="btn mini   accordion-toggle collapsed"  data-toggle="collapse" data-parent="#accordion1" href="#collapse<?php echo $i; ?>" style="">
 		<i class="icon-search"></i> sub-modules
 		</a>
 		</td>
+		
 		</tr>
 	</table>
 	</div>
@@ -61,7 +63,8 @@ foreach ($result_main_module as $collection)
 				
 				<div style="padding:5px; font-size:14px;border-bottom:solid 1px #ccc;">
 				<label >
-				<input type="checkbox" name="<?php echo $module_id; ?>" value="1" <?php if($c>0) { ?> checked <?php }  ?> <?php if($module_id==18) { ?> checked <?php } ?>>
+				
+				<input type="checkbox" name="<?php echo $module_id; ?>" value="1" <?php if($c>0) { ?> checked <?php }  ?> <?php if($module_id==18) { ?> checked <?php } ?> class='all_chk<?php echo $module_type_id ;?>'>
 				<span class=""  data-placement="right" data-original-title=""><?php echo $module_name; 			
  ?></span>
 				

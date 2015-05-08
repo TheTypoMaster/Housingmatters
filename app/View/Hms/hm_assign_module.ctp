@@ -105,3 +105,28 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </div>
 </div>
 
+<script>
+$(document).ready(function(){
+
+
+
+
+$(".chk_input").live('click',function(){
+
+var c=$(this).val();
+value = +$('#'+c).is( ':checked' );
+if(value==0)
+{
+$(".all_chk" +c).parent('span').removeClass('checked');
+$(".all_chk" +c).removeAttr('checked','checked');
+}
+else
+{
+$(".all_chk" +c).parent('span').addClass('checked');
+$(".all_chk" +c).attr('checked','checked');
+}
+
+});
+});
+
+</script>
