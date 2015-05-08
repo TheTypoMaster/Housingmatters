@@ -8654,7 +8654,7 @@ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingk
 $this->user->updateAll(array('password'=>$random_otp),array('user.user_id'=>$id));
 
 }
-
+///////////////////////////////// Start Society Approve ///////////////////////////////////////////
 function society_approve()
 {
 
@@ -8948,23 +8948,21 @@ $this->role->saveAll(array("auto_id" => $k, "role_name" => $d, 'role_id'=>$p, "s
 
 
 //////////////////  Ledger account table entry //////////////////////////
-
+/*
 $this->loadmodel('ledger_account');
 $conditions=array('edit_user_id'=>1);
 $result=$this->ledger_account->find('all',array('conditions'=>$conditions));
 foreach($result as $data)
 {
+$group_id=$data['ledger_account']['group_id'];
+$ledger_name=$data['ledger_account']['ledger_name'];
+$h=$this->autoincrement('ledger_account','auto_id');
 	
-	$group_id=$data['ledger_account']['group_id'];
-	$ledger_name=$data['ledger_account']['ledger_name'];
-	$h=$this->autoincrement('ledger_account','auto_id');
-		
-	$this->loadmodel('ledger_account');
-	$this->ledger_account->saveAll(array('auto_id'=>$h,'ledger_name'=>$ledger_name,'group_id'=>$group_id,'edit_user_id'=>1,'society_id'=>$society_id,'delete_id'=>0));
+$this->loadmodel('ledger_account');
+$this->ledger_account->saveAll(array('auto_id'=>$h,'ledger_name'=>$ledger_name,'group_id'=>$group_id,'edit_user_id'=>1,'society_id'=>$society_id,'delete_id'=>0));
 	
 }
-
-
+*/
 //////////////////////////  End account ledger table entry  ///////////////////////////////////////////
 
 }
