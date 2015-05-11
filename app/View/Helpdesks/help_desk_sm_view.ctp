@@ -98,9 +98,9 @@ Ticket has been closed on <?php echo @$help_desk_close_date ;?><br>
 		{
 		 echo $sp_id=(int)$collection2['service_provider']['sp_id'];
 		 $sp_name=$collection2['service_provider']['sp_name'];
-		 $sp_email=$collection2['service_provider']['sp_email'];
+		 echo $sp_email=$collection2['service_provider']['sp_email'];
 		 $mobile=$collection2['service_provider']['sp_mobile'];
-		 $sp_society_id=(int)$collection2['service_provider']['society_id'];
+		 echo $sp_society_id=(int)$collection2['service_provider']['society_id'];
 		}
 		
 		?>
