@@ -1103,37 +1103,6 @@ else
 $ticket_priority="Normal";
 }
 
-/* $message_web="<div style=' padding:25px;  font-size:14px; border:1px solid #BCE8F1; width:80%; background-color: #fcf8e3;'>
-<p style='background-color:#60F;  font-size:16px; padding:10px;'><b style='color: white; '> HousingMatters</b></p><br/>
-<p>Dear $user_name,</p><br/>
-<p>Your helpdesk ticket has been resolved & closed.</p>
-<table border='1' cellpadding='10' width='100%;'  style='margin-bottom:2px; ' >
-<tr bgcolor='#717BD7'>
-<td ><b style='color: white; '>HelpDesk Ticket</b></td>
-<td><b style='color: white; '>Priority </b></td>
-<td><b style='color: white; '>Ticket Date</b></td>
-<td><b style='color: white; '>Closure Date</b></td>
-</tr>
-<tr bgcolor='#717BD7'>
-<td ><b style=' '>$ticket_id</b></td>
-<td><b style=' '>$ticket_priority</b></td>
-<td><b style=' '>$help_generate_date</b></td>
-<td><b style=' '>$close_date</b></td>
-</tr>
-</table>
-<div style=' padding:5px;  font-size:14px; border:1px solid #BCE8F1; background-color:#B6AFF3;'>
-<p style='font-size:16px;'> <strong>Ticket Description:</strong></p>
-<p style='font-size:15px;'>$help_desk_description</p>
-</div ><br/>
-<div style=' padding:5px;  font-size:14px; border:1px solid #BCE8F1; background-color:#B6AFF3;'>
-<p style='font-size:16px;'> <strong>Ticket Description by user:</strong></p>
-<p style='font-size:15px;'>$massage_close</p>
-</div ><br/>
-</div>"; 
-
-*/
-
-
 $message_web="<div>
 <img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 <span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
@@ -1157,7 +1126,7 @@ $message_web="<div>
 <div>
 <p style='font-size:16px;'> <strong>Ticket Description:</strong></p>
 <p style='font-size:15px;'>$help_desk_description</p> <br/>
-<p style='font-size:16px;'> <strong>Ticket Description by user:</strong></p>
+<p style='font-size:16px;'> <strong>Closure Comments:</strong></p>
 <p style='font-size:15px;'>$massage_close</p>
 <br/>
 Thank you.<br/>
@@ -1317,7 +1286,7 @@ $message_web="<div>
 <div>
 <p style='font-size:16px;'> <strong>Ticket Description:</strong></p>
 <p style='font-size:15px;'>$help_desk_description</p> <br/>
-<p style='font-size:16px;'> <strong>Ticket Description by user:</strong></p>
+<p style='font-size:16px;'> <strong>Closure Comments:</strong></p>
 <p style='font-size:15px;'>$massage_close</p>
 <br/>
 Thank you.<br/>
