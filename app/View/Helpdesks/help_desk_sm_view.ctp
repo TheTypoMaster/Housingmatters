@@ -106,11 +106,11 @@ Ticket has been closed on <?php echo @$help_desk_close_date ;?><br>
 		?>
 			<div class="accordion-group">
 				<div class="accordion-heading">
-					<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#myModal<?php echo $sp_id; ?>">
+					<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#myModal<?php echo @$sp_id; ?>">
 					<?php echo $sp_name; ?>
 					</a>
 				</div>
-				<div id="myModal<?php echo $sp_id; ?>" class="accordion-body collapse">
+				<div id="myModal<?php echo @$sp_id; ?>" class="accordion-body collapse">
 					<div class="accordion-inner">
 						<form method="post" >
 						<input type="hidden" value="<?php echo $hd_id; ?>" id="hd_id" name="hd_id">
