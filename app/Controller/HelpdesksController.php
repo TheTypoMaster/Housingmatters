@@ -1217,9 +1217,9 @@ $result_vendor=$this->vendor->find('all',array('conditions'=>$conditions));
 $this->set('result_vendor',$result_vendor);
 foreach ($result_vendor as $collection)
 {
- echo $vendor_id = (int)$collection['vendor']['vendor_id'];
+ $vendor_id = (int)$collection['vendor']['vendor_id'];
 }
-exit;
+
 $result_sp2=$this->fetch_service_provider_info_via_vendor_id(@$vendor_id);
 foreach ($result_sp2 as $collection3)
 {
