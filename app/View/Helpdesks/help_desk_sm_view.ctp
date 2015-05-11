@@ -118,7 +118,7 @@ Ticket has been closed on <?php echo @$help_desk_close_date ;?><br>
 						<table style="font-size:14px;" width="100%">
 						<tbody><tr>
 						<td valign="top">To:</td>
-						<td>abhilashlohar01@gmail.com</td>
+						<td><?php echo $sp_email; ?></td>
 						</tr>
 						<tr>
 						<td valign="top">Subject:</td>
