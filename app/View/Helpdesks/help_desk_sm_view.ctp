@@ -66,11 +66,10 @@ $flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat')
 <div class="pull-left" style="font-size:20px;"><i class="icon-ban-circle"></i></div>
 
 <div style="padding-left:20px;">
-Ticket has been closed on <?php echo @$help_desk_close_date ;?><br>
-<span><?php echo $help_desk_close_comment;?></span>
-		
-</div>
-		
+Ticket has been closed on <?php echo @$help_desk_close_date ;?>
+</div><br/>
+	<div><span style='color:black;font-size:14px;'><b>Closure Comments:-</b><br></span>
+<span style='color:black;font-size:12px;'><?php echo $help_desk_close_comment;?></span></div>	
 </div>
 <?php } ?>
 						  
