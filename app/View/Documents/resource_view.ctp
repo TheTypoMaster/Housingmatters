@@ -10,7 +10,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 <div class="portlet box light-grey">
     <div style="background-color:#EFEFEF; border-top:1px solid #e6e6e6; border-bottom:1px solid #e6e6e6; padding:10px; box-shadow:5px; font-size:16px; color:#006;">
-            View  &nbsp; <span><i class=" icon-info-sign tooltips " data-placement="right" data-original-title="You could post frequently needed content like Society Rules & Regulations, Associations Policies, Standard Operating Procedures, Guidelines, News Letters etc. " ></i>
+            Documents   &nbsp; <span><i class=" icon-info-sign tooltips " data-placement="right" data-original-title="You could post frequently needed content like Society Rules & Regulations, Associations Policies, Standard Operating Procedures, Guidelines, News Letters etc. " ></i>
         </div>
 						
 							<div class="portlet-body">
