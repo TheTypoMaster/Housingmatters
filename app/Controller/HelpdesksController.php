@@ -150,6 +150,7 @@ if(isset($this->request->data['sub']))
 	
  $category=(int)$this->request->data['category'];
  $textarea=htmlentities($this->request->data['comment']);
+ $textarea=nl2br($textarea);
   $ticket_priority=(int)$this->request->data['priority'];
  $t=$this->autoincrement_with_society_ticket('help_desk','ticket_id');
  date_default_timezone_set('Asia/kolkata');
@@ -404,6 +405,7 @@ if(isset($this->request->data['sub']))
 	
 $category=(int)$this->request->data['category'];
 $textarea=htmlentities($this->request->data['description']);
+$textarea=nl2br($textarea);
 $ticket_priority=(int)$this->request->data['priority'];
 $i=$this->autoincrement('help_desk','help_desk_id');
 $t=$this->autoincrement_with_society_ticket('help_desk','ticket_id');
@@ -638,6 +640,7 @@ if(isset($this->request->data['draft']))
 $category=(int)$this->request->data['category'];
 //@$file= $this->response->data['file_up']['name'];
 $textarea=htmlentities($this->request->data['description']);
+$textarea=nl2br($textarea);
 $ticket_priority=(int)$this->request->data['priority'];
 date_default_timezone_set('Asia/kolkata');
 $date=date("d-m-y");
