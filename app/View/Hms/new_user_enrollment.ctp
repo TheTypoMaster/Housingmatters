@@ -15,7 +15,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <div style='float:right;  margin-right: 2px;'><a href="new_user_enrollment" role='button' class='btn yellow' rel='tab'>Manuly Enrollment </a></div>
 <form method="post" id="contact-form">
 <input type="hidden" name="hidden" id="hidden" value="1">
-<div id="error_msg"></div>
+<div id="error_msg" class='span6'></div>
 <table class="table table-bordered table-hover" valign="middle" cellpadding="0" id="myTable" style="background-color:white;">
 <thead>
 	<tr>
