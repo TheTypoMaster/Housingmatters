@@ -2,8 +2,6 @@
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 ?>
 
-
-
 <?php
 if($nnn == 5)
 {
@@ -96,15 +94,15 @@ $total = $total + $opening_balance;
  <td><?php echo $amount_type; ?></td>
  <td><?php echo $opening_balance; ?></td>
  </tr>   
- <?php
+<?php
 }
- ?>  
- <tr>
- <th colspan="4">Total</th>
- <th><?php echo $total; ?></th>
- </tr> 
- </table>   
-    
+?>  
+<tr>
+<th colspan="4">Total</th>
+<th><?php echo $total; ?></th>
+</tr> 
+</table>   
+  
 <div style="width:100%;">
 <a href="opening_balance_import" class="btn green">Ok</a>
 </div>   

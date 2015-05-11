@@ -15,8 +15,8 @@ Society Setup
 <div class="tab-pane active" id="tab_1_1">
 
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<?php
 
+<?php
 if(@$ok==2)
 {
 echo '<div class="alert alert-success">'.$sucess.'</div>';
