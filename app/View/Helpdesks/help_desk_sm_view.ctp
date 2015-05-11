@@ -96,12 +96,13 @@ Ticket has been closed on <?php echo @$help_desk_close_date ;?><br>
 		$result_sp=$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_service_provider_info_via_vendor_id'), array('pass' => array($vendor_id)));
 		foreach ($result_sp as $collection2)
 		{
-		 $sp_id=(int)$collection2['service_provider']['sp_id'];
+		 echo $sp_id=(int)$collection2['service_provider']['sp_id'];
 		 $sp_name=$collection2['service_provider']['sp_name'];
 		 $sp_email=$collection2['service_provider']['sp_email'];
-		echo $mobile=$collection2['service_provider']['sp_mobile'];
+		 $mobile=$collection2['service_provider']['sp_mobile'];
 		 $sp_society_id=(int)$collection2['service_provider']['society_id'];
 		}
+		
 		?>
 			<div class="accordion-group">
 				<div class="accordion-heading">
@@ -133,7 +134,7 @@ Ticket has been closed on <?php echo @$help_desk_close_date ;?><br>
 					</div>
 				</div>
 			</div>
-	<?php } ?>
+	<?php } exit;?>
 		</div>
 	</div>
 	<!---------------------->
