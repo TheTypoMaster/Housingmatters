@@ -8,9 +8,9 @@ $("#fix<?php echo $id_current_page; ?>").removeClass("blue");
 $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
-<div style='float:right;  margin-right: 2px;'><a href="csv_import_signup" role='button' class='btn yellow' rel='tab'>Import enrollment </a></div>
+<div style='float:right;  margin-right: 2px;'><a href="csv_import_signup" role='button' class='btn yellow' rel='tab'>Import User </a></div>
 
-<div style='float:right;  margin-right: 2px;'><a href="new_user_enrollment" role='button' class='btn  ' rel='tab'>Manuly enrollment </a></div>
+<div style='float:right;  margin-right: 2px;'><a href="new_user_enrollment" role='button' class='btn  ' rel='tab'>Manuly Enrollment </a></div>
 <br>
 
 <?php 

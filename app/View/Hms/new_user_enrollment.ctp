@@ -10,9 +10,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </script>
 
 
-<div style='float:right;  margin-right: 2px;'><a href="csv_import_signup" role='button' class='btn ' rel='tab'>Import enrollment </a></div>
+<div style='float:right;  margin-right: 2px;'><a href="csv_import_signup" role='button' class='btn ' rel='tab'>Import User </a></div>
 
-<div style='float:right;  margin-right: 2px;'><a href="new_user_enrollment" role='button' class='btn yellow' rel='tab'>Manuly enrollment </a></div>
+<div style='float:right;  margin-right: 2px;'><a href="new_user_enrollment" role='button' class='btn yellow' rel='tab'>Manuly Enrollment </a></div>
 <form method="post" id="contact-form">
 <input type="hidden" name="hidden" id="hidden" value="1">
 <div id="error_msg"></div>
