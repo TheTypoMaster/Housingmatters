@@ -516,14 +516,7 @@ $('#topics_list').html('<div style="border:solid 2px #F4F8FF; padding:5px;" alig
 </script>
 
 
-<script>
-$(document).ready(function() {
-	$(".sel").live('click',function(){
-			$(".topic").removeClass("blue");
-			 $(this).addClass("blue");
-			 });
-	 });
-</script>
+
 
 
 
