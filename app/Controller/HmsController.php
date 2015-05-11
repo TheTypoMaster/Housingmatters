@@ -3208,6 +3208,8 @@ if($this->RequestHandler->isAjax()){
 	}else{
 		$this->layout='session';
 	}
+	$this->ath();
+$this->check_user_privilages();
 $s_society_id=$this->Session->read('society_id');
 $soc_result=$this->society_name($s_society_id);
 foreach($soc_result as $data)

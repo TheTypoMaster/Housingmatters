@@ -1,3 +1,18 @@
+<?php
+echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
+?>
+
+<script>
+$(document).ready(function() {
+$("#fix<?php echo $id_current_page; ?>").removeClass("blue");
+$("#fix<?php echo $id_current_page; ?>").addClass("red");
+});
+</script>
+<div style='float:right;  margin-right: 2px;'><a href="csv_import_signup" role='button' class='btn yellow' rel='tab'>Import enrollment </a></div>
+
+<div style='float:right;  margin-right: 2px;'><a href="new_user_enrollment" role='button' class='btn  ' rel='tab'>Manuly enrollment </a></div>
+<br>
+
 <?php 
 if(@$ok==2)
 {
