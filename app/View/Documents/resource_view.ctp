@@ -23,7 +23,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
                                             <th>Uploaded on</th>
                                             <th>Uploaded By</th>
 											<th>Recipients</th>
-											<th class="hidden-phone">File Name</th>
+											<th class="hidden-phone">Attachments</th>
                                           <?php if($role_id==3) {?> <th class="hidden-phone">Action</th> <?php } ?>
                          					</tr>
 									</thead>
