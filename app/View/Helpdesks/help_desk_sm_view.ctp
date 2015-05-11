@@ -134,7 +134,7 @@ Ticket has been closed on <?php echo @$help_desk_close_date ;?><br>
 					</div>
 				</div>
 			</div>
-	<?php } exit;?>
+	<?php } ?>
 		</div>
 	</div>
 	<!---------------------->
