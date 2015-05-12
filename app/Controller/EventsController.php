@@ -586,7 +586,7 @@ $type=(int)$this->request->query('type');
 		
 		$this->event->updateAll(array('rsvp'=>$rsvp),array('event.event_id'=>$e));
 	}
-	echo "Thanks for voting.";
+	  echo "Thanks for participation.";
 	}
 	
 	if($type==2)

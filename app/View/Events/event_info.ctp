@@ -120,7 +120,8 @@ $flat_info=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_f
 		<div class="row-fluid">
 		<?php if(sizeof($rsvp)>0) { ?>
 			<div class="span6">
-			<h5 style="font-weight: bold;">users who accept invitation </h5>
+			<h5 style="font-weight: bold;">
+			users who accept invitation wing flat</h5>
 			<!-------content----------->
 			<?php foreach($rsvp as $data1)
 			{
