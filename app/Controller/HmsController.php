@@ -679,10 +679,8 @@ foreach ($cursor as $collection2)
 {
 $help_desk_category_name=$collection2['help_desk_category']['help_desk_category_name'];
 }
-
 $user_d[]=$user;
 $this->send_notification('<span class="label" style="background-color:#d43f3a;"><i class="icon-plus"></i></span>','New Help-desk ticket# <b>'.$t.'-'.$help_desk_category_name.'</b> lodged by',1,$i,$this->webroot.Helpdesks/'help_desk_sm_view/'.$i.'&/0',$s_user_id,$user_d);
-
 
 $user_mail=2;
 if($user_mail==2)	
@@ -2515,7 +2513,7 @@ $this->set('id_current_page',$sub_module_id);
 }
 
 $this->loadmodel('role_privilege');
-$conditions=array("module_id" => $module_id,"sub_module_id" => $sub_module_id,"society_id" => $s_society_id,"role_id" => $s_role_id);
+$conditions=array("module_id" => @$module_id,"sub_module_id" => @$sub_module_id,"society_id" => $s_society_id,"role_id" => $s_role_id);
 $num=$this->role_privilege->find('count',array('conditions'=>$conditions));
 if($num==0)
 {
@@ -20589,7 +20587,6 @@ $report = array();
 if(empty($wing)){
 $report[]=array('label'=>'win', 'text' => 'Please Fill Wing Name');
 }
-
 if(sizeof($report)>0)
 {
 $output=json_encode(array('report_type'=>'error','report'=>$report));

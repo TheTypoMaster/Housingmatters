@@ -3157,7 +3157,7 @@ $this->set('cursor5',$cursor5);
 
 ////////////////////////////////////////// End Trial Balance Ajax Show (Accounts) //////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////// Start Regular Bill View (Accounts)//////////////////////////////////////////////////////////////
+///////////////////// Start Regular Bill View (Accounts)//////////////////////////////////////////////////////////////
 function regular_bill_view($auto_id=null)
 {
 $this->layout='session';
@@ -3174,20 +3174,67 @@ foreach($cursor as $collection)
 {
 $bill_html = $collection['regular_bill']['bill_html'];	
 }
-
 $this->set('bill_html',@$bill_html);
-
 }
 ////////////////////////////////// End Regular Bill View (Accounts)//////////////////////////////////////////
 
-
-
-
-
-
 /////////////////////////////////////////////////// END FINANCIAL REPORT MODULE /////////////////////////////////////
 
+///////////////////////////////////// Start Master Ledger Sub Account View/////////////////////////////////////////////
+function master_ledger_sub_account_view()
+{
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
+$this->ath();
+$this->check_user_privilages();
+
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');	
+
+$this->loadmodel('ledger_account');
+$cursor1=$this->ledger_account->find('all');
+$this->set('cursor1',$cursor1);	
+
+$this->loadmodel('ledger_sub_account');
+$conditions=array("society_id" => $s_society_id,"delete_id"=>0);
+$cursor2=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+$this->set('cursor2',$cursor2);	
+
+}
+///////////////////////////////////// End Master Ledger Sub Account View/////////////////////////////////////////////
+
+//////////////////////// Start Master Ledger Accounts View ////////////////////////////////////////////////////////////
+function master_ledger_accounts_view()
+{
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
+
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');	
+$this->set('s_user_id',$s_user_id);
+
+$this->ath();
+$this->check_user_privilages();
+
+$this->loadmodel('ledger_account');
+$cursor2=$this->ledger_account->find('all');
+$this->set('cursor2',$cursor2);	
 
 
+$this->loadmodel('accounts_group');
+$conditions=array("delete_id" => 0);
+$cursor3=$this->accounts_group->find('all',array('conditions'=>$conditions));
+$this->set('cursor3',$cursor3);
+
+}
+/////////////////////// End Master Ledger Accounts View ////////////////////////////////////////////////////////////////
 }
 ?>
