@@ -22,6 +22,7 @@ if($value == 33)
 <label id="ba"></label>
 <?php 
 }
+/*
 if($value == 35)
 {
 ?>

@@ -765,7 +765,7 @@ $this->ledger_sub_account->saveAll($multipleRowData);
 }
 else if($main_id == 35)
 {
-$tax = (int)$this->request->data['tax'];	
+//$tax = (int)$this->request->data['tax'];	
 
 
 $this->loadmodel('ledger_sub_account');
@@ -785,7 +785,7 @@ $i=$last;
 }
 $i++;
 $this->loadmodel('ledger_sub_account');
-$multipleRowData = Array( Array("auto_id" => $i, "ledger_id" => $main_id, "name" => $name, "society_id" => $s_society_id, "tax" => $tax,"delete_id"=>0));
+$multipleRowData = Array( Array("auto_id" => $i, "ledger_id" => $main_id, "name" => $name, "society_id" => $s_society_id,"delete_id"=>0));
 $this->ledger_sub_account->saveAll($multipleRowData);
 }
 else

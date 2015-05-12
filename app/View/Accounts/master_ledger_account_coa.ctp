@@ -20,8 +20,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <table>
 <tr>
 <td>
-<select class="medium m-wrap" name="main_id" id="go">
-<option value="">--SELECT CATEGORY--</option>
+<select class="medium m-wrap chosen" name="main_id" id="go">
+<option value="" style="display:none;">Select Group Account</option>
 <?php
 foreach ($cursor1 as $collection) 
 {
@@ -71,9 +71,9 @@ $name = $collection['accounts_groups']['group_name'];
                     <thead>			
 					<tr>
 					<th>Sr.No.</th>
-					<th>Account Category Name</th>
-					<th>Accounts Group Name</th>
-					<th>Ledger Name</th>
+					<th>Account Category</th>
+					<th>Accounts Group</th>
+					<th>Ledger</th>
                     <th>Edit/Delete</th>
 					</tr>        
                     </thead>

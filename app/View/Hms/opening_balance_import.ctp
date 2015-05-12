@@ -76,7 +76,7 @@ $n=0;
 $total = 0;
 for($i=1;$i<sizeof($test);$i++)
 {
-	$n++;
+$n++;
 $row_no=$i+1;
 $r=explode(',',$test[$i][0]);
 $date2=trim($r[0]);

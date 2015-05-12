@@ -13,12 +13,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <center>
 <h3><b>Master Ledger Sub Accounts</b></h3>
 </center>
-
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-
 <a href="<?php echo $webroot_path; ?>Accounts/master_ledger_account_coa" class="btn yellow" rel='tab'>Ledger Accounts</a>
 <a href="<?php echo $webroot_path; ?>Accounts/master_ledger_sub_accounts_coa" class="btn purple" rel='tab'>Ledger Sub Accounts</a>
-
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <center>
                          <form method="post" id="contact-form"> 
@@ -26,7 +23,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
                          <tr>
                          <td>
                          <select class="medium m-wrap chosen" name="main_id" id="go">
-                         <option value="">--SELECT CATEGORY--</option>
+                         <option value="" style="display:none;">Select Ledger Account</option>
                          <?php
                          foreach ($cursor1 as $collection) 
 						 {
@@ -51,16 +48,10 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
                        
                         <tr>
                         <td id="result">
-			            
-						
-						<label id="ui"></label><label id="si"></label><label id="ba"></label><label id="tx"></label>
+			            <label id="ui"></label><label id="si"></label><label id="ba"></label><label id="tx"></label>
 			            </td>
                         </tr>
-                       
-                       
-                       
-                       
-                       
+          
                        <tr>
                        <td>
                        <button type="submit" name="sub" class="btn blue">Add</button>
@@ -92,10 +83,10 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 					<thead>
                     <tr>
 					<th>Sr.No.</th>
-					<th>Account Category Name</th>
-					<th>Accounts Group Name</th>
+					<th>Account Category</th>
+					<th>Accounts Group</th>
 					<th>Ledger Name</th>
-					<th>Ledger Sub Account Name</th>
+					<th>Ledger Sub Account</th>
                     <th>Edit</th>
 					</tr>        
                     </thead>
