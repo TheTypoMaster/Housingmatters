@@ -22,7 +22,7 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 			<thead>
 				<tr>
 					<th width="50%">Events Name</th>
-					<th width="45%">Time</th>
+					<th width="45%">Date</th>
 					<th>Action</th>
 				</tr>
 			</thead>
