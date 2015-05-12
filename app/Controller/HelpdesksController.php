@@ -1465,9 +1465,9 @@ $r=$this->content_moderation_society($reply);
 
 
 $s_user_id=$this->Session->read('user_id');
-
+date_default_timezone_set('Asia/Kolkata');
 $date=date("d-m-y");
-$time=date('h:i:a',time());
+ $time=date('h:i:a',time());
 
 $t=$this->autoincrement('help_desk_reply','hd_reply_id');
 $this->loadmodel('help_desk_reply');
