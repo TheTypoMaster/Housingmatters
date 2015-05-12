@@ -1,7 +1,7 @@
 <?php
 App::import('Vendor','xtcpdf');  
 $tcpdf = new XTCPDF(); 
-$textfont = 'freesans'; // looks better, finer, and more condensed than 'dejavusans' 
+$textfont = 'times'; // looks better, finer, and more condensed than 'dejavusans' 
 
 $tcpdf->SetAuthor("KBS Homes & Properties at http://kbs-properties.com"); 
 $tcpdf->SetAutoPageBreak( true ); 
