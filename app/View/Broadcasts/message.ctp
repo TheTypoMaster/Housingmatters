@@ -291,7 +291,7 @@ $group_id=$collection["group"]["group_id"];
 date_default_timezone_set('Asia/Kolkata');
 $date=date("d-m-Y");
 $time=time();
-$time=strtotime('+30 minutes');
+$time=strtotime('+15 minutes');
 $time_h = date('H', $time); 
 $time_m = date('i', $time);
 $r=$time_m%15;
