@@ -5052,8 +5052,10 @@ $this->set('result_notice_visible_last',$result_notice_visible_last);
 
 
 //////////////polls  last 3///////////////// 
+$current_date3=date("Y-m-d");
+$current_date3 = new MongoDate(strtotime($current_date3));
 $this->loadmodel('poll');
-$conditions=array("society_id" => $s_society_id,"visible_user_id" =>array('$in' => array($s_user_id)),"approved" => 1,"deleted" => 0);
+$conditions=array("society_id" => $s_society_id,"visible_user_id" =>array('$in' => array($s_user_id)),"deleted" => 0,'close_date' => array('$gt' => $current_date3));
 $order=array('poll.poll_id'=>'DESC');
 $this->set('result_poll_last',$this->poll->find('all', array('conditions' => $conditions,'order' => $order,'limit' =>3)));
 
