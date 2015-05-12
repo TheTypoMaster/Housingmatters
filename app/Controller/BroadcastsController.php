@@ -99,6 +99,7 @@ $name=$collection2["user"]["user_name"];
 $wing=$collection2["user"]["wing"];
 $flat=$collection2["user"]["flat"];
 $sender_email=$collection2["user"]["email"];
+$sender_mobile=$collection2["user"]["mobile"];
 }
 
 
@@ -110,7 +111,10 @@ $r_sms=$this->hms_sms_ip();
 if($radio==1)
 {
 $multi=$this->request->data['multi'];
-$multi[]=$sender_email;
+$multi[]="$s_user_id,$sender_mobile";
+
+$multi=array_unique($multi);
+
 for($i=0; $i<sizeof($multi); $i++)
 {
 $multi_new=$multi[$i];
@@ -434,7 +438,7 @@ $this->set('result_template7',$this->template->find('all',array('conditions'=>$c
 if (isset($this->request->data['send'])) 
 {
 	$ip=$this->hms_email_ip();
-$radio=$this->request->data['radio'];
+ $radio=$this->request->data['radio'];
 $message_db=$this->request->data['email'];
 $file=$this->request->form['file']['name'];
 
@@ -455,6 +459,7 @@ $name=$collection2["user"]["user_name"];
 $wing=$collection2["user"]["wing"];
 $flat=$collection2["user"]["flat"];
 $sender_email=$collection2["user"]["email"];
+
 }
 $wing_flat=$this->wing_flat($wing,$flat);
 $result_society_info= $this->society_name($s_society_id);
@@ -499,25 +504,21 @@ $time=date('h:i:a',time());
 if($radio==1)
 {
 $multi=$this->request->data['multi'];
-$multi[]=$sender_email;
-
+$multi[]="$s_user_id,$sender_email";
+$multi=array_unique($multi);
 foreach($multi as $data)
 {
-
 $ex = explode(",", $data);
 $user[]=$ex[0];
 $to=$ex[1];
 //echo $email[$i];
 $this->send_email($to,'support@housingmatters.in','HousingMatters',$subject,$message_web,'support@housingmatters.in');
 }
-
-
-
-
 $email_id=$this->autoincrement('email_communication','email_id');
 $this->loadmodel('email_communication');
 $multipleRowData = Array( Array("email_id" => $email_id,"message_web"=>$message_web,"user_id"=>$user,"date"=>$date,"time"=>$time,"society_id"=>$s_society_id,"subject"=>$subject,"type"=>1,"file"=>$file,"deleted"=>0));
 $this->email_communication->saveAll($multipleRowData); 
+
 }
 
 if($radio==2)
