@@ -20,6 +20,13 @@ foreach ($result_society as $collection){
 		<a href="<?php echo $webroot_path; ?>Hms/society_member_view" class="btn yellow" rel="tab">All Active Users</a>
 		<a href="<?php echo $webroot_path; ?>Hms/user_deactive" class="btn" rel="tab">All De-active Users</a>
 	</div>
+	<div class="pull-left"> 
+		<a class="btn mini green"></a> <span>Owner &nbsp; 
+		</span> <a class="btn mini purple"></a> <span> &nbsp; Tenant &nbsp; 
+		&nbsp; 
+		<span style="color:red; font-size:14px;"> <i class=' icon-star'></i> </span> 
+		<span> Awaiting User Validation  </span>
+	</div>
 </div>
 
 <div class="portlet-body" style="background-color:#fff;">
@@ -90,6 +97,7 @@ foreach ($result_society as $collection){
 		<?php } ?>	
 		</tbody>
 	</table>
+	
 </div>
 
 <script>
