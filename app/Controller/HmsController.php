@@ -13675,17 +13675,17 @@ foreach($result_user as $data)
 if(isset($this->request->data['sub']))
 {
 	
- $name=htmlentities($this->request->data['name']);	
- $medical=htmlentities($this->request->data['medical']);	
+ @$name=htmlentities($this->request->data['name']);	
+ @$medical=htmlentities($this->request->data['medical']);	
  $mobile=htmlentities($this->request->data['mobile']);
  $email=htmlentities($this->request->data['email']);
- $sex=(int)htmlentities($this->request->data['sex']);
- $dob=htmlentities($this->request->data['dob']);
- $per_address=htmlentities($this->request->data['per_address']);
- $com_address=htmlentities($this->request->data['com_address']);
- $hob=htmlentities($this->request->data['hob']);
- $photo_name =$this->request->form['profile_photo']['name'];
- $blood_group=htmlentities($this->request->data['blood_group']);
+ @$sex=(int)htmlentities($this->request->data['sex']);
+ @$dob=htmlentities($this->request->data['dob']);
+ @$per_address=htmlentities($this->request->data['per_address']);
+ @$com_address=htmlentities($this->request->data['com_address']);
+ @$hob=htmlentities($this->request->data['hob']);
+ @$photo_name =$this->request->form['profile_photo']['name'];
+ @$blood_group=htmlentities($this->request->data['blood_group']);
 
 if($blood_group==1)
 {
@@ -13740,6 +13740,7 @@ if(empty($photo_name))
 	$photo_name=$profile;
 	
 }
+
 	$target = "profile/";
 	$target=@$target.basename( @$this->request->form['profile_photo']['name']);
 	$ok=1;
@@ -13759,7 +13760,7 @@ $from=$collection['email']['from'];
 }
 $reply=$from;
 
- $message_web="<div>
+ @$message_web="<div>
 <img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 <span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
 <a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
