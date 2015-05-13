@@ -38,6 +38,7 @@ $this->set('result_poll',$result_poll);
 
 	foreach($result_poll as $poll)
 	{
+		$this->seen_notification(7,$poll["poll"]["poll_id"]);
 		$this->seen_alert(7,$poll["poll"]["poll_id"]);
 	}
 }
@@ -452,7 +453,7 @@ function poll_add(){
 		$this->loadmodel('poll');
 		$this->poll->saveAll(array('poll_id' => $poll_id,'question' => $question , 'des' => $description, 'type' => $type, 'choice' => $choice,'visible' => $visible,'sub_visible' => $sub_visible,'visible_user_id' => $visible_user_id_new,'date' => $current_date,'close_date' => $close_date,'file' => $file,'society_id' => $s_society_id,'user_id' => $s_user_id,"deleted" => 0,"private" => $private));
 
-		
+	
 		$poll_id=$this->send_notification('<span class="label" style="background-color:#46b8da;"><i class="icon-question-sign"></i></span>','New Poll <b>'.$question.'</b> started by',7,$poll_id,$this->webroot.'Polls/polls',$s_user_id,$visible_user_id_new);
 
 		$this->loadmodel('society');

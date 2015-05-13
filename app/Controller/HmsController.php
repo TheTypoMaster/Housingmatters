@@ -14062,6 +14062,10 @@ $this->set('s_user_id',$s_user_id);
 $this->loadmodel('contact_handbook');
 $conditions=array('society_id'=>$s_society_id,'c_h_delete'=>0);
 $result=$this->contact_handbook->find('all',array('conditions'=>$conditions));
+foreach($result as $data){
+	$c_h_id=$data["contact_handbook"]["c_h_id"];
+	$this->seen_notification(21,$c_h_id);
+}
 $this->set('result_contact_handbook',$result);	
 if($this->request->is('post'))
 {
