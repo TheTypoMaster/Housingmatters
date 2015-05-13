@@ -223,7 +223,7 @@ function notice_approval_ajax($id=null)
 			$n=sizeof($result5);
 			if($n>0)
 			{
-			@$subject.= ''. $society_name . '' .' New Notice '.'     '.''.$sub.'';
+			@$subject.= '['. $society_name . '] - ' .' New Notice '.'     '.''.$sub.'';
 			$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 			$subject="";
 			}	
@@ -653,7 +653,7 @@ $result5=$this->notification_email->find('all',array('conditions'=>$conditions7)
 $n=sizeof($result5);
 if($n>0)
 {
-@$subject.= ''. $society_name . '' .' New Notice '.'     '.''.$sub.'';
+@$subject.= '['. $society_name . '] - ' .' New Notice '.'     '.''.$sub.'';
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 $subject="";
 }	
@@ -1178,7 +1178,7 @@ $result5=$this->notification_email->find('all',array('conditions'=>$conditions7)
 $n=sizeof($result5);
 if($n>0)
 {
-@$subject.= ''. $society_name . '' .' New Notice '.'     '.''.$sub.'';
+@$subject.= '['. $society_name . '] - ' .' New Notice '.'     '.''.$sub.'';
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 $subject="";
 }
@@ -1454,6 +1454,7 @@ function submit_notice(){
 	$category_id=(int)$post_data['notice_category'];
 	$notice_subject=htmlentities($post_data['notice_subject']);
 	$notice_subject = wordwrap($notice_subject, 25, " ", true);
+	$sub=$notice_subject;
 	$notice_expire_date = new MongoDate(strtotime(date("Y-m-d", strtotime($post_data['notice_expire_date']))));
 	$code=$post_data['code'];
 	$visible=(int)$post_data['visible'];
@@ -1546,7 +1547,7 @@ if($post_data['post_type']==1){
 		$n=sizeof($result5);
 		if($n>0)
 		{
-		@$subject.= ''. $society_name . '' .' New Notice '.'     '.''.$sub.'';
+		@$subject.= '['. $society_name . ']  - '.' New Notice '.'     '.''.$sub.'';
 		$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 		$subject="";
 		}	
@@ -1621,6 +1622,7 @@ function submit_notice_edit($id=null){
 	$category_id=(int)$post_data['notice_category'];
 	$notice_subject=htmlentities($post_data['notice_subject']);
 	$notice_subject = wordwrap($notice_subject, 25, " ", true);
+	$sub=$notice_subject;
 	$notice_expire_date = new MongoDate(strtotime(date("Y-m-d", strtotime($post_data['notice_expire_date']))));
 	$code=$post_data['code'];
 	$visible=(int)$result5[0]['notice']['visible'];
@@ -1712,7 +1714,7 @@ function submit_notice_edit($id=null){
 		$n=sizeof($result5);
 		if($n>0)
 		{
-		@$subject.= ''. $society_name . '' .' New Notice '.'     '.''.$sub.'';
+		@$subject.= '['. $society_name . '] - '  .' New Notice '.'     '.''.$sub.'';
 		$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 		$subject="";
 		}	
