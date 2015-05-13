@@ -17,6 +17,7 @@ foreach ($result_society as $collection){
 <div align="center">
 	<h3 class="page-title"><?php echo $society_name; ?></h3>
 	<div class="pull-right">
+	<a href='society_member_excel'class='blue mini btn' download='download'  ><i class=" icon-download-alt"></i> Download in Excel</a>
 		<a href="<?php echo $webroot_path; ?>Hms/society_member_view" class="btn yellow" rel="tab">All Active Users</a>
 		<a href="<?php echo $webroot_path; ?>Hms/user_deactive" class="btn" rel="tab">All De-active Users</a>
 	</div>
