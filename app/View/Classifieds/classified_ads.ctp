@@ -218,10 +218,38 @@ function view_classified(id){
 	});
 }
 
+
+
+function intrested_in_classified(id){
+	$(document).ready(function() {
+		$("#myModal_ad123").html('<div class="modal-body"><div align="center"><img src="<?php echo $webroot_path; ?>as/fb_loading.gif" /> <br/> Please Wait...</div></div>')
+		$(".view_div").show();
+		$("body").addClass("modal-open");
+		$.ajax({
+			url: "<?php echo $webroot_path; ?>Classifieds/intrested_in_classified_ajax/"+id,
+			}).done(function(response) {
+			$("#myModal_ad123").html(response);
+			});
+	});
+}
+
 $(document).ready(function() {
 	$(".model_close").live('click',function(){
 		$(".view_div").hide();
 		$("body").removeClass("modal-open");
+	});
+});
+
+$(document).ready(function() {
+	$("#send_message").live('click',function(){
+		var m=$(".type_message").val();
+		var id=$(this).attr("c_id");
+		alert(m);
+		$.ajax({
+			url: "<?php echo $webroot_path; ?>Classifieds/send_message_ajax/"+id+"/"+m,
+			}).done(function(response) {
+			$("#myModal_ad123").html(response);
+			});
 	});
 });
 

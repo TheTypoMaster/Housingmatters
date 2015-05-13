@@ -71,6 +71,40 @@ function view_ad_ajax($id=null){
 	$this->set('result_prv',$result_next[0]["classified"]["classified_id"]);
 }
 
+function intrested_in_classified_ajax($id=null){
+	$this->layout=null;
+	$this->ath();
+	$id=(int)$id;
+	$this->loadmodel('classified');
+	$conditions=array('classified_id'=>$id);
+	$result_classified=$this->classified->find('all',array('conditions'=>$conditions));
+	$this->set('result_classified',$result_classified);
+	
+	$user_id=$result_classified[0]["classified"]["user_id"];
+	$result_user=$this->profile_picture($user_id);
+	$this->set('result_user',$result_user);
+}
+
+function send_message_ajax($id=null,$m=null){
+	$this->layout=null;
+	$this->ath();
+	$id=(int)$id;
+	$this->loadmodel('classified');
+	$conditions=array('classified_id'=>$id);
+	$result_classified=$this->classified->find('all',array('conditions'=>$conditions));
+	
+	$user_id=$result_classified[0]["classified"]["user_id"];
+	$result_user=$this->profile_picture($user_id);
+	$mobile=$result_user[0]["user"]["mobile"];
+	$email=$result_user[0]["user"]["email"];
+	
+	if(!empty($email)){
+		
+	}else{
+		
+	}
+}
+
 function submit_ad(){
 	$this->layout=null;
 	$post_data=$this->request->data;
