@@ -1,5 +1,4 @@
-
-	<?php
+<?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 ?>
 <script>
@@ -9,212 +8,107 @@ $("#fix<?php echo $id_current_page; ?>").removeClass("blue");
 $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
-<div class="portlet-body" style="padding:10px;";>
-									<!--BEGIN TABS-->
-									<div class="tabbable tabbable-custom">
-										<ul class="nav nav-tabs">
-											
-										</ul>
-										<div class="tab-content" style="min-height:500px;">
-											<div class="tab-pane active" id="tab_1_1">
 
-                    
 <?php 
-
-foreach ($result_society as $collection) 
-{ 
-$society_name=$collection['society']['society_name'];
+foreach ($result_society as $collection){ 
+	$society_name=$collection['society']['society_name'];
 }
 ?>
-<div style="text-align:center; font-size:24px">
- <?php echo $society_name ; ?></div>
-<span class="label label-info pull-right" style="padding:10px; font-size:20px">Total Users : <?php echo $n ; ?></span>
-<br><br>
-<div><h5><b><span style="float:left;margin-left:20px;">Role</span> <span style="float:right;"><span><a href='society_member_excel'class='blue mini btn' download='download'  ><i class=" icon-download-alt"></i> Download in Excel</a></span> &nbsp  Member</span></b></h5></div>
+<div align="center">
+	<h3 class="page-title"><?php echo $society_name; ?></h3>
+	<div class="pull-right">
+		<a href="<?php echo $webroot_path; ?>Hms/society_member_view" class="btn yellow" rel="tab">All Active Users</a>
+		<a href="<?php echo $webroot_path; ?>Hms/user_deactive" class="btn" rel="tab">All De-active Users</a>
+	</div>
+</div>
 
-
-
-
-
-	
-							<div class="portlet-body">
-								<div class="accordion in collapse" id="accordion1" style="height: auto;">
-									<div class="accordion-group">
-									
-									<?php
-									$r=0; $j=0;
-
-									foreach ($result_role as $collection) 
-									{ 
-									$j++;
-									$designation_id=$collection['role']['role_id'];
-									$designation_name=$collection['role']['role_name'];
-									foreach ($result_user as $collection) 
-									{ 
-									$role_id=$collection['user']['role_id'];
-									$da_user_id=$collection['user']['user_id'];
-									$user_name=$collection['user']['user_name']; 
-									$date=$collection['user']['date'];
-									if(@in_array($designation_id,$role_id))
-									{
-									$r++;
-									$u_name[]=$user_name; 
-									$dad_user_id[]=$da_user_id;
-									$u_date[]=$date;
-									}
-									}
-									
-									?>
-									
-										<div class="accordion-heading">
-										<div style="float:right; padding:5px; "><span class="label label-info pull" style=" font-size:14px"><?php echo $r; ?></span> </div>
-											<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse_1<?php echo $j ; ?>" style="text-decoration:none;">
-											
-											<b><?php echo $designation_name; ?> </b>
-											</a>
-										</div>
-										
-										
-										
-										
-										
-										<div id="collapse_1<?php echo $j ; ?>" class="accordion-body collapse" style="height: 0px;">
-											<div class="accordion-inner">
-<table class="table">
-<tr>
-<td><b>Name</b></td>
-<td><b>Unit</b></td>
-<td><b>Mobile</b></td>
-<td><b>Email</b></td>
-<td><b>Validation Pending</b></td>
-<td><b>Portal joining date</b></td>
-</tr>						
-						
-<?php 
-for($ii=0;$ii<sizeof(@$u_name);$ii++)
-{
-  $user= $dad_user_id[$ii];
-  $d_date=$u_date[$ii];
-  $result_user1 = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user)));
-	 foreach ($result_user1 as $collection) 
+<div class="portlet-body" style="background-color:#fff;">
+	<table class="table table-bordered table-hover">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Unit</th>
+				<th>Mobile</th>
+				<th>Email</th>
+				<th>Validation Pending</th>
+				<th>Portal joining date</th>
+				<th>Role</th>
+				<th>De-active</th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php
+		foreach ($result_user as $data) { 
+		$user_id=$data['user']['user_id'];
+		$user_name=$data['user']['user_name'];
+		$result_user1 = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
+		foreach ($result_user1 as $collection) 
 		{	
-		
-		 $wing=$collection['user']['wing'];
-		 $email=$collection['user']['email'];
-		 $mobile=$collection['user']['mobile'];
-		 $flat=$collection['user']['flat'];
-		 $tenant=$collection['user']['tenant'];
-		 @$profile_status=$collection['user']['profile_status'];
+			$role_ids=$collection['user']['role_id'];
+			$wing=$collection['user']['wing'];
+			$email=$collection['user']['email'];
+			$mobile=$collection['user']['mobile'];
+			$flat=$collection['user']['flat'];
+			$tenant=$collection['user']['tenant'];
+			$date=$collection['user']['date'];
+			@$profile_status=$collection['user']['profile_status'];
 		}
-$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing,$flat)));
+		$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing,$flat)));
+		if($tenant==1){ $color="#13D17E"; }else{ $color="#C709F0"; }
 		
-if($tenant==1)
-	{ ?>
-	
-<tr style="color:#13D17E;">
-<td>
-<?php echo $u_name[$ii]; ?>  
-<?php if($profile_status!=2) { ?>  
-<span style="color:red; font-size:10px;"> <i class=' icon-star'></i> </span> 
-<?php } ?>
-</td>
-<td>
- <?php echo $wing_flat; if(empty($wing_flat)){ echo" -- "; }?>
-</td>
-<td>
- <?php echo $mobile; if(empty($mobile)){ echo" -- "; } ?>
-</td>
-<td>
- <?php echo $email; if(empty($email)){ echo" -- "; } ?>
-</td>
-<td>
-<?php if($profile_status!=2) { ?>  
-<?php if(!empty($email)) { ?> 
-<a href="#" role='button' class="btn green mini resend" id="<?php echo $user; ?>">Send Reminder</a> <?php } elseif(!empty($mobile)) { ?>
-<a href="#" role='button' class="btn green mini resend_sms" id="<?php echo $user; ?>">Send Reminder</a> <?php } ?>
-<?php } ?> 
-</td>
-<td>
-<span> <?php echo $d_date; ?></span>
-</td>
-</tr>	
+		$role_name=array();
+		if(sizeof($role_ids)>0){
+			foreach($role_ids as $role_id){
+				$role_name[] = $this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_rolename_via_roleid'),array('pass'=>array($role_id)));
+			}
+		}
 		
-<?php	}
-	else
-	{ ?>
-<tr style="color:#C709F0;">
-<td>
-<?php echo $u_name[$ii]; ?> 
-<?php if($profile_status!=2) { ?>  
-<span style="color:red; font-size:10px;"> <i class=' icon-star'></i> </span> 
-<?php } ?> 
-</td>
-<td>
- <?php echo $wing_flat; if(empty($wing_flat)){ echo" -- "; } ?>
-</td>
-<td>
- <?php echo $mobile; if(empty($mobile)){ echo" -- "; } ?>
-</td>
-<td>
- <?php echo $email; if(empty($email)){ echo" -- "; } ?>
-</td>
-
-<td>
-<?php if($profile_status!=2) { ?> 
-<?php if(!empty($email)) { ?> 
-<a href="#" role='button' class="btn green mini resend" id="<?php echo $user; ?>">Send Reminder</a> <?php } elseif(!empty($mobile)) { ?>
-<a href="#" role='button' class="btn green mini resend_sms" id="<?php echo $user; ?>">Send Reminder</a> <?php } ?>
-<?php } ?> 
-</td>
-<td><span> <?php echo $d_date; ?></span></td>
-</tr>
-
-				
-	
-<?php	}
-
-}
-
-unset($u_name);
-unset($dad_user_id);
-unset($u_date);
-
-?>
-</table>	
-<br>
-			<br>
-		<div style="float:left;"> <a class="btn mini green"></a> <span>Owner &nbsp; 
-		</span> <a class="btn mini purple"></a> <span> &nbsp; Tenant &nbsp; 
-		 &nbsp; 
-		<span style="color:red; font-size:14px;"> <i class=' icon-star'></i> </span> 
-		<span> Awaiting User Validation  </span>
-		<hr>
-		</div>
-	
-						
-											
-											</div>
-										</div>
-										
-										<?php $r=0; } ?>
-										
-									</div>
-									
-									
-									
-								</div>
-							</div>
-						
-						
-						
-						
-						
-		</div>
+		$role_name_des=implode(",",$role_name);
+		unset($role_name);
+		?>
+			<tr id="tr<?php echo $user_id; ?>">
+				<td style="color:<?php echo $color; ?>">
+					<?php echo $user_name; ?>
+					<?php if($profile_status!=2) { ?>  
+					<span style="color:red; font-size:10px;"> <i class=' icon-star'></i> </span> 
+					<?php } ?> 
+				</td>
+				<td><?php echo $wing_flat; ?></td>
+				<td><?php echo $mobile; ?></td>
+				<td><?php echo $email; ?></td>
+				<td>
+					<?php if($profile_status!=2) { ?>  
+					<?php if(!empty($email)) { ?> 
+					<a href="#" role='button' class="btn green mini resend" id="<?php echo $user_id; ?>">Send Reminder</a> <?php } elseif(!empty($mobile)) { ?>
+					<a href="#" role='button' class="btn green mini resend_sms" id="<?php echo $user_id; ?>">Send Reminder</a> <?php } ?>
+					<?php } ?>
+				</td>
+				<td><?php echo $date; ?></td>
+				<td><?php echo $role_name_des; ?></td>
+				<td><a href="#" class="btn red mini deactive" id="<?php echo $user_id; ?>" role="button">De-active</a></td>
+			</tr>
+		<?php } ?>	
+		</tbody>
+	</table>
 </div>
-</div>
-</div>		
-				
 
+<script>
+$(document).ready(function() {
+	$(".deactive").bind('click', function(e){
+		$(this).text("Wait...");
+		var id=$(this).attr("id");
+		$.ajax({
+			url: "<?php echo $webroot_path; ?>/Hms/user_deactive_ajax?t="+id+"&d=0",
+			}).done(function(response) {
+				$("tr#tr"+id).html('<td colspan="8"><div style="margin-bottom: 0px;" class="alert alert-success"><strong>Success!</strong> User de-activated successfully.</div></td>');
+				
+				setTimeout(function() {
+					$("tr#tr"+id).remove();
+				}, 2000);
+			});
+	});
+});
+</script>
 <script>
 $(document).ready(function() { 
 	 $(".resend").live('click',function(){
@@ -226,20 +120,4 @@ $(document).ready(function() {
 	 });
 	 
 });
-</script>	
-
-<script>
-$(document).ready(function() { 
-	 $(".resend_sms").live('click',function(){
-		var id=$(this).attr('id');
-		$(this).html('Sending Sms...').load( 'resident_approve_resend_sms?con=' + id, function() {
-		$(this).removeClass( "resend_sms green" ).addClass( "red" );
-		});
-	 });
-	 
-});
-</script>	
-
-
-
-			
+</script>
