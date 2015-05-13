@@ -121,7 +121,7 @@ $flat_info=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_f
 		<?php if(sizeof($rsvp)>0) { ?>
 			<div class="span6">
 			<h5 style="font-weight: bold;">
-			users who accept invitation wing flat</h5>
+			users who accept invitation </h5>
 			<!-------content----------->
 			<?php foreach($rsvp as $data1)
 			{
@@ -137,7 +137,7 @@ $flat_info=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_f
 
 				$flat_info=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing,$flat)));
 				?>
-				<span><?php echo $user_name.' '.$flat_info; ?></span>
+				<span><?php echo $user_name.' '.$flat_info; ?><br/></span>
 				<?php
 			}
 			?>
