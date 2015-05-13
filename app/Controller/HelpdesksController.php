@@ -283,7 +283,7 @@ $result5=$this->notification_email->find('all',array('conditions'=>$conditions7)
 $n=sizeof($result5);
 if(1==1)
 {
-@$subject.= ''. $society_name . '' . '- New Helpdesk Ticket ' . '  #   ' .$ticket_no .'';
+@$subject.= '['. $society_name . ']' . '- New Helpdesk Ticket ' . '  #   ' .$ticket_no .'';
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 $subject="";
 }
@@ -352,7 +352,7 @@ $result6=$this->notification_email->find('all',array('conditions'=>$conditions8)
 $s=sizeof($result6);
 if($s>0)
 {
-@$subject.= ''. $society_name . '' . '- New Helpdesk Ticket ' . '  #  ' .$ticket_no .'';
+@$subject.= '['. $society_name . ']' . '- New Helpdesk Ticket ' . '  #  ' .$ticket_no .'';
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 $subject="";
 }	
@@ -539,7 +539,7 @@ $result5=$this->notification_email->find('all',array('conditions'=>$conditions7)
 $n=sizeof($result5);
 if(1==1)
 {
-@$subject.= ''. $society_name . '' . '- New Helpdesk Ticket ' . '  #   ' .$ticket_no .'';
+@$subject.= '['. $society_name . ']' . '- New Helpdesk Ticket ' . '  #   ' .$ticket_no .'';
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 $subject="";
 }
@@ -609,7 +609,7 @@ $result6=$this->notification_email->find('all',array('conditions'=>$conditions8)
 $s=sizeof($result6);
 if($s>0)
 {
-@$subject.= ''. $society_name . '' . '- New Helpdesk Ticket ' . '  #  ' .$ticket_no .'';
+@$subject.= '['. $society_name . ']' . '- New Helpdesk Ticket ' . '  #  ' .$ticket_no .'';
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 $subject="";
 }	
@@ -820,7 +820,7 @@ $conditions=array("module_id" =>1,"user_id"=>$d_user_id,'chk_status'=>0);
 $n=$this->notification_email->find('count',array('conditions'=>$conditions));
 if($n>0)
 {
-@$subject.= ''. $society_name . '' . ' Closure of Helpdesk Ticket #'. '' .$ticket_id.'';
+@$subject.= '['. $society_name . '] -' . ' Closure of Helpdesk Ticket #'. '' .$ticket_id.'';
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 $subject="";
 }
@@ -980,7 +980,7 @@ $conditions=array("module_id" =>1,"user_id"=>$d_user_id,'chk_status'=>0);
 $n=$this->notification_email->find('count',array('conditions'=>$conditions));
 if($n>0)
 {
-@$subject.= ''. $society_name . '' . ' Closure of Helpdesk Ticket #'. '' .$ticket_id.'';
+@$subject.= '['. $society_name . '] -' . ' Closure of Helpdesk Ticket #'. '' .$ticket_id.'';
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 $subject="";
 }
@@ -1161,7 +1161,7 @@ $conditions=array("module_id" =>1,"user_id"=>$d_user_id,'chk_status'=>0);
 $n=$this->notification_email->find('count',array('conditions'=>$conditions));
 if($n>0)
 {
-@$subject.= ''. $society_name . '' . ' Closure of Helpdesk Ticket #'. '' .$ticket_id.'';
+@$subject.= '['. $society_name . '] -' . ' Closure of Helpdesk Ticket #'. '' .$ticket_id.'';
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 $subject="";
 }
@@ -1393,7 +1393,7 @@ $adm_user_name=$collection4['user']['user_name'];
 $adm_mobile=$collection4['user']['mobile'];
 $reply=$collection4['user']['email'];
 }
-@$subject.= ''. $society_name . '' . ' New Helpdesk Ticket #'. '' .$ticket_id.'';
+@$subject.= '['. $society_name . '] - ' . ' New Helpdesk Ticket #'. '' .$ticket_id.'';
 $this->loadmodel('notification_email');
 $conditions7=array("module_id" =>1,"user_id"=>$sp_user_id,'chk_status'=>1);
 $result5=$this->notification_email->find('all',array('conditions'=>$conditions7));
@@ -1624,7 +1624,7 @@ foreach($society_result as $data)
 {
 	$society_name=$data['society']['society_name'];
 }
-$subject=$society_name;
+$subject="[$society_name]";
 $text=htmlentities($this->request->query('con2'));
 $message_web = wordwrap($text, 25, " ", true);
 $to=$this->request->query('con3');
