@@ -5390,7 +5390,7 @@ function notice_approval_ajax()
 			$n=sizeof($result5);
 			if($n>0)
 			{
-			@$subject.= ''. $society_name . '' .' New Notice '.'     '.''.$sub.'';
+			@$subject.= '['. $society_name . '] - ' .' New Notice '.'     '.''.$sub.'';
 			$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 			$subject="";
 			}	
@@ -10822,7 +10822,7 @@ $result5=$this->notification_email->find('all',array('conditions'=>$conditions7)
 $n=sizeof($result5);
 	if($n>0)
 	{
-	@$subject.= ''. $society_name . '  ' .'     '.' '.$sub.'';
+	@$subject.= '['. $society_name . ']' .'  -   '.' '.$sub.'';
 	$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 	$subject="";
 	
@@ -12904,7 +12904,7 @@ $result5=$this->notification_email->find('all',array('conditions'=>$conditions7)
 $n=sizeof($result5);
 if($n>0)
 {
-@$subject.= ''. $society_name . ''.'-' . 'New Document upload'.  '    ' .$title;
+@$subject.= '['. $society_name . ']'.'-' . 'New Document upload'.  '    ' .$title;
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 $subject="";
 }	
