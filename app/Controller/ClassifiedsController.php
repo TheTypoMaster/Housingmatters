@@ -184,6 +184,62 @@ function submit_ad(){
 		$this->loadmodel('classified');
 		$this->classified->save(array('classified_id' => $classified_id, 'category' => $category, 'sub_category' => $sub_category, 'title' => $title ,'price' => $price , 'price_type' => $price_type, 'ad_type' => $ad_type, 'condition' => $condition,'offer' => $offer, 'description' => $description, 'delete' => 0,'draft' => 0,'user_id' => $s_user_id,'society_id' => $s_society_id,'file' => $file_name));
 		
+		
+		
+		@$ip=$this->hms_email_ip();
+		
+		$this->loadmodel('notification_email');
+		$conditions=array('module_id'=>3,'chk_status'=>0);
+		$result_users=$this->notification_email->find('all',array('conditions'=>$conditions));
+		
+		
+		$this->loadmodel('email');
+		$conditions=array('auto_id'=>3);
+		$result_email=$this->email->find('all',array('conditions'=>$conditions));
+		foreach ($result_email as $collection) 
+		{
+		$from=$collection['email']['from'];
+		}
+		$from_name="HousingMatters";
+		$reply="donotreply@housingmatters.in";
+		$society_result=$this->society_name($s_society_id);
+		foreach($society_result as $data)
+		{
+		$society_name=$data['society']['society_name'];
+		}
+		
+		foreach($result_users as $data){
+			$user_id=$data["notification_email"]["user_id"];
+			$result_user=$this->profile_picture($user_id);
+			$user_name=$result_user[0]['user']['user_name'];
+			$to=$result_user[0]['user']['email'];
+			
+			$message_web="<div>
+			<img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+			<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
+			<a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+
+			</br><p>Dear  $user_name,</p>
+			<p>A new Classified ad has been posted.</p>
+			
+			<div>
+			
+			<center><p>To view / respond
+			<a href='$ip".$this->webroot."hms'><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
+			<br/>
+			<p>For any software related queries, please contact <span style='color:#00A0E3;'> support@housingmatters.in </span></p>
+			www.housingmatters.co.in
+			</div>
+			</div>";
+			
+		@$subject.= '['. $society_name . ']' .' New Classified ad created';
+		$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
+		$subject="";
+		}
+		
+		
+		
+		
 		$output=json_encode(array('report_type'=>'publish','report'=>'Your Classified ad has been published successfully.'));
 		die($output);
 	}
