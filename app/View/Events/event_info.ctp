@@ -32,6 +32,7 @@ foreach($result_event_detail as $data)
 {
 $event_id=$data["event"]["event_id"];
 $e_name=$data["event"]["e_name"];
+$e_time=@$data["event"]["time"];
 $day_type=$data["event"]["day_type"];
 $d_user_id=(int)$data["event"]["user_id"];
 $rsvp=@$data["event"]["rsvp"];
@@ -83,7 +84,8 @@ $flat_info=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_f
 			<tr >
 				<td width="60%" valign="top" align="left" >
 				<span style="font-size:22px;"><?php echo $e_name; ?></span><br/>
-				<span><?php echo $date_string; ?></span>
+				<span><?php echo $date_string; ?></span><br/>
+				<span>Time:- <?php echo @$e_time; ?></span>
 				</td>
 				<td width="30%" valign="top" align="right"  >
 				<span style="font-weight: 100;">Created on: </span><span><?php echo $date_created; ?></span><br/>

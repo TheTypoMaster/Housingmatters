@@ -51,6 +51,8 @@ $this->set('result_users',$this->user->find('all',array('conditions'=>$condition
 if (isset($this->request->data['create_event'])) 
 {
 $e_name=htmlentities($this->request->data['e_name']);
+ $e_time=htmlentities($this->request->data['e_time']);
+
 $day_type=(int)$this->request->data['day_type'];
 $ip=$this->hms_email_ip();
 if($day_type==2)
@@ -280,7 +282,7 @@ $visible_user_id_new[]=$x_value;
 
 $event_id=$this->autoincrement('event','event_id');
 $this->loadmodel('event');
-$this->event->saveAll(array('event_id' => $event_id,'e_name' => $e_name, 'user_id' => $s_user_id, 'society_id' => $s_society_id, 'date_from' => $date_from , 'date_to' => $date_to, 'day_type' => $day_type, 'location' => $location,'description' => $description,'visible' => $visible,'sub_visible' => $sub_visible,'visible_user_id' => $visible_user_id_new,'date' => $date));
+$this->event->saveAll(array('event_id' => $event_id,'e_name' => $e_name, 'user_id' => $s_user_id, 'society_id' => $s_society_id, 'date_from' => $date_from , 'date_to' => $date_to, 'day_type' => $day_type, 'location' => $location,'description' => $description,'visible' => $visible,'sub_visible' => $sub_visible,'visible_user_id' => $visible_user_id_new,'date' => $date,'time'=>$e_time));
 
 
 $this->send_notification('<span class="label" style="background-color:#44b6ae;"><i class="icon-gift"></i></span>','New Event <b>'.$e_name.'</b> submitted by',6,$event_id,$this->webroot.'Events/event_info/'.$event_id,$s_user_id,$visible_user_id_new);

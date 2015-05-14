@@ -61,8 +61,23 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 		
 		
 		
+		
 	</div>
 	<div class="span6">
+		
+			<div class="control-group">
+			  <label class="control-label">Time</label>
+			  <div class="controls">
+				 <div class="input-append bootstrap-timepicker-component">
+					<input class="m-wrap m-ctrl-small timepicker-default " type="text" name='e_time'>
+					<span class="add-on"><i class="icon-time"></i></span>
+				 </div>
+			  </div>
+			</div>
+
+		
+		
+		
 		
 		
 		<div class="control-group">

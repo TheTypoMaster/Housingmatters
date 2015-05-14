@@ -7,6 +7,7 @@ if (test) {
 $('.date-picker').datepicker().on('changeDate', function(){
  $(this).blur();
 }); 
+ $('.timepicker-default').timepicker();
 $(".chosen").chosen(); 
 $('.text-toggle-button').toggleButtons({
 	width: 200,
