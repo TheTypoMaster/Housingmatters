@@ -324,7 +324,8 @@ function substrwords($text, $maxchar, $end='...') {
 										<td width="20%">
                                         </td>	
                                         <td>
-										<p style=" font-size:14px; color:#666;">Medical Professional</p>
+										<p style=" font-size:14px; color:#666;">Profession</p>
+										
 										</td>
 										<td width="20%">
                                         </td>
