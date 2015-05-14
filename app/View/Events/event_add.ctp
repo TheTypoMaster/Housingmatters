@@ -29,7 +29,7 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 		<div class="control-group ">
 		  <div class="controls">
 		   <label class="" style="font-size:14px;">Description</label>
-			  <textarea name="description" rows="2"  id="textarea" maxlength="500" class="span9 m-wrap" style="resize:none;" placeholder="More info about enent"></textarea>
+			  <textarea name="description" rows="2"  id="textarea" maxlength="500" class="span9 m-wrap" style="resize:none;" placeholder="More info about event"></textarea>
 		  </div>
 		</div>
 
