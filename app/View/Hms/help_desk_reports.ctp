@@ -1,28 +1,30 @@
+<style><link href="<?php echo $webroot_path; ?>as/bootstrap.icon-large.css" rel="stylesheet" />
+<link href="<?php echo $webroot_path; ?>as/bootstrap.icon-large.min.css" rel="stylesheet" /></style>
 
 <table width="100%" >
 <tr >
 <td width="30%" valign="top" >
-<b>Help-Desk Reports</b>
+<b><i class="icon-headphones" style=''></i> Help-Desk Reports</b>
 
 <div> <a href="#" role='button' id="report1">Tickets received in time period.</a></div>
 <div> <a href="#" role='button' id="report2">Average duration of ticket resolution.</a></div>
 <div> <a href="#" role='button' id="report3">Maximum and minimum Tickets received from which members.</a></div>
-<b> Monthwise Graph </b>
+<b>  <i class="icon-bar-chart"></i>  Monthwise Graph </b>
 <div> <a href="#" role='button' id="report4">Graphical representation of ticket.</a></div>
 
-<b> Type of Complaints </b>
+<b><i class="icon-sitemap"></i>  Type of Complaints </b>
 <div>  <a href="complaint_closed_report" target="_blank">All Closed Complaints </a> </div>
 <div><a href="complaint_open_report" target="_blank"> All Open Complaints </a> </div>
-<b> Vendor Performance </b>
+<b><i class="icon-cloud"></i>  Vendor Performance </b>
 
 <div><a href="sp_performance_report" target="_blank">Vendor Performance Report</a></div>
-<b>Contact Reports </b>
+<b> <i class="icon-group"></i> Contact Reports </b>
 <div>  <a href="contact_report" target="_blank"> Contact Report </a> </div>
 </div>
 
 <div style="padding:2px;">
 
-<b>Login Reports </b>
+<b> <i class="icon-user-md"></i> Login Reports </b>
 <div>  <a href="login_report_user" target="_blank">Login reports for users </a> </div>
 </div>
 
