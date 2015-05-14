@@ -244,7 +244,6 @@ $(document).ready(function() {
 	$("#send_message").live('click',function(){
 		var m=$(".type_message").val();
 		var id=$(this).attr("c_id");
-		alert(m);
 		$.ajax({
 			url: "<?php echo $webroot_path; ?>Classifieds/send_message_ajax/"+id+"/"+m,
 			}).done(function(response) {
