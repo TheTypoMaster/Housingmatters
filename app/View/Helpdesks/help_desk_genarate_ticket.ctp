@@ -17,7 +17,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
                   <!-- BEGIN VALIDATION STATES-->
                  		 <div class="portlet box green">
                      <div class="portlet-title">
-                        <h4><i class="icon-reorder"></i> Generate Help Desk Ticket </h4>
+                        <h4><i class="icon-headphones"></i> Generate Help Desk Ticket </h4>
                         
                      </div>
                      <div class="portlet-body form">
