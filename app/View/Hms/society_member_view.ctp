@@ -36,12 +36,12 @@ foreach ($result_society as $collection){
 			<tr>
 				<th>Name</th>
 				<th>Unit</th>
+				<th>Role</th>
 				<th>Mobile</th>
 				<th>Email</th>
 				<th>Validation Pending</th>
 				<th>Portal joining date</th>
-				<th>Role</th>
-				<th>De-active</th>
+				<th>Deactivate?</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -82,6 +82,7 @@ foreach ($result_society as $collection){
 					<?php } ?> 
 				</td>
 				<td><?php echo $wing_flat; ?></td>
+				<td><?php echo $role_name_des; ?></td>
 				<td><?php echo $mobile; ?></td>
 				<td><?php echo $email; ?></td>
 				<td>
@@ -92,8 +93,7 @@ foreach ($result_society as $collection){
 					<?php } ?>
 				</td>
 				<td><?php echo $date; ?></td>
-				<td><?php echo $role_name_des; ?></td>
-				<td><a href="#" class="btn red mini deactive" id="<?php echo $user_id; ?>" role="button">De-active</a></td>
+				<td><a href="#" class="btn red mini deactive tooltips" id="<?php echo $user_id; ?>" data-placement="bottom" data-original-title="Deactivate?" role="button"><i class=" icon-remove-sign"></i></a></td>
 			</tr>
 		<?php } ?>	
 		</tbody>

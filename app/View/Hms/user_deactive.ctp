@@ -31,7 +31,7 @@ foreach ($result_society as $collection){
 				<th>Owner/Tenant</th>
 				<th>Mobile</th>
 				<th>Email</th>
-				<th>Active</th>
+				<th>Activate?</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -62,7 +62,7 @@ foreach ($result_society as $collection){
 				<td><?php echo $status; ?></td>
 				<td><?php echo $mobile; ?></td>
 				<td><?php echo $email; ?></td>
-				<td><a href="#" class="btn green mini deactive" id="<?php echo $user_id; ?>" role="button">Active</a></td>
+				<td><a href="#" class="btn green mini deactive tooltips" data-placement="bottom" data-original-title="Activate?" id="<?php echo $user_id; ?>" role="button"><i class=" icon-ok-sign"></i></a></td>
 			</tr>
 		<?php } ?>	
 		</tbody>

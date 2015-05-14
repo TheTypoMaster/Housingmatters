@@ -39,6 +39,9 @@ function classified_ads($id=null){
 	$order=array('classified.classified_id'=>'DESC');
 	$result_classifieds=$this->classified->find('all',array('conditions'=>$conditions,'order'=>$order));
 	$this->set('result_classifieds',$result_classifieds);
+	foreach($result_classifieds as $data){
+		$this->seen_notification(21,$data["classified"]["classified_id"]);
+	}
 }
 
 function view_ad_ajax($id=null){
@@ -238,6 +241,15 @@ function submit_ad(){
 		}
 		
 		
+		
+		$this->loadmodel('user');
+		$conditions=array('deactive'=>0);
+		$result_users=$this->user->find('all',array('conditions'=>$conditions));
+		foreach($result_users as $data){
+			$users[]=$data["user"]["user_id"];
+		}
+		
+		$this->send_notification('<span class="label" style="background-color:#1BBC9B;"><i class="icon-shopping-cart"></i></span>','New Classified Ad <b>'.$title.'</b> posted ',21,$classified_id,$this->webroot.'Classifieds/classified_ads/',0,$users);
 		
 		
 		$output=json_encode(array('report_type'=>'publish','report'=>'Your Classified ad has been published successfully.'));
