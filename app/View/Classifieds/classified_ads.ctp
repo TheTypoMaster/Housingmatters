@@ -243,6 +243,7 @@ $(document).ready(function() {
 $(document).ready(function() {
 	$("#send_message").live('click',function(){
 		var m=$(".type_message").val();
+		m=encodeURIComponent(m);
 		var id=$(this).attr("c_id");
 		$.ajax({
 			url: "<?php echo $webroot_path; ?>Classifieds/send_message_ajax/"+id+"/"+m,

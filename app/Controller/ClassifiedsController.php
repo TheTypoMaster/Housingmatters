@@ -92,6 +92,8 @@ function send_message_ajax($id=null,$m=null){
 	$this->layout=null;
 	$this->ath();
 	$id=(int)$id;
+
+	
 	$this->loadmodel('classified');
 	$conditions=array('classified_id'=>$id);
 	$result_classified=$this->classified->find('all',array('conditions'=>$conditions));
@@ -100,9 +102,31 @@ function send_message_ajax($id=null,$m=null){
 	$result_user=$this->profile_picture($user_id);
 	$mobile=$result_user[0]["user"]["mobile"];
 	$email=$result_user[0]["user"]["email"];
-	
+	@$ip=$this->hms_email_ip();
 	if(!empty($email)){
 		
+		$to=$email;
+		$this->loadmodel('email');
+		$conditions=array('auto_id'=>3);
+		$result_email=$this->email->find('all',array('conditions'=>$conditions));
+		foreach ($result_email as $collection) 
+		{
+		$from=$collection['email']['from'];
+		}
+		$from_name="HousingMatters";
+		$subject="Interested";
+		$reply="donotreply@housingmatters.in";
+		 echo $message_web="<div>
+			<img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+			<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
+			<a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+	
+			<p><b>Message:-</b>$m</p>
+			<br/>
+			<p> www.housingmatters.co.in </p>
+			</div>";
+		$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
+		exit;
 	}else{
 		
 	}
