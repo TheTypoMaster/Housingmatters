@@ -269,7 +269,7 @@ $this->redirect(array('action' => 'index'));
 }
 function beforeFilter()
 {
-//Configure::write('debug', 0);
+Configure::write('debug', 0);
 }
 
 function menus_from_role_privileges()
@@ -7522,6 +7522,7 @@ function poll_approve_ajax()
 	$this->layout="blank";	
 	$s_society_id=$this->Session->read('society_id');
 	 $poll_id=(int)$this->request->query('p_id');
+	
 	 $ip=$this->hms_email_ip();
 	 $this->loadmodel('poll');
 	$conditions=array('poll_id'=>$poll_id);
@@ -7691,7 +7692,7 @@ www.housingmatters.co.in
 	
 	
 	
-$this->send_notification('<span class="label" style="background-color:#46b8da;"><i class="icon-question-sign"></i></span>','New Poll <b>'.$question.'</b> started by',7,$poll_id,'Polls',$user_id,$visible_user_id_new);
+$this->send_notification('<span class="label" style="background-color:#46b8da;"><i class="icon-question-sign"></i></span>','New Poll <b>'.$question.'</b> started by',7,$poll_id,$this->webroot.'Polls/polls',$user_id,$visible_user_id_new);
 
 	
 	//////// end notification code //////////////////////////
@@ -12921,7 +12922,7 @@ $subject="";
 }	
 }
 
-$this->send_notification('<span class="label label-warning" ><i class="icon-folder-open"></i></span>','New document <b>'.$title.'</b> submitted by',4,$id,'resource_view',$user_id,$da_user_id);
+$this->send_notification('<span class="label label-warning" ><i class="icon-folder-open"></i></span>','New document <b>'.$title.'</b> submitted by',4,$id,$this->webroot.'Documents/resource_view',$user_id,$da_user_id);
 
 
 $this->loadmodel('resource');
