@@ -1,10 +1,18 @@
-<?php ////////////////////////////////////////////////////////////////////////////////?>
+<?php
+echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
+?>
 
 <?php //////////////////////////////////////////////////////////////////////////////////////?>
-<center>
-<h3><b>Account Statement</b></h3>
-</center>
+
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<div style="text-align:center;" class="hide_at_print">
+<a href="<?php echo $webroot_path; ?>Incometrackers/in_head_report" class="btn" rel='tab'>bill Report</a>
+<a href="<?php echo $webroot_path; ?>Incometrackers/it_reports_regular" class="btn " rel='tab'>Regular</a>
+<a href="<?php echo $webroot_path; ?>Incometrackers/it_reports_supplimentry" class="btn" rel='tab'>Supplementary</a>
+<a href="<?php echo $webroot_path; ?>Incometrackers/income_heads_report" class="btn" rel='tab'>Income head report</a>
+<a href="<?php echo $webroot_path; ?>Incometrackers/account_statement" class="btn yellow" rel='tab'>Account Statement</a>
+</div>
+<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
 $b_date = date('1-m-Y');
 $c_date = date('d-m-Y');

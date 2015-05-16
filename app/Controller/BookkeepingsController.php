@@ -1673,8 +1673,6 @@ $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $receipt_no,
 "account_id" => $ledger, "current_date" => $current_date, "society_id" => $s_society_id,"module_name"=>"Journal"));
 $this->ledger->saveAll($multipleRowData);
 }
-
-
 }
 ////////////////////////////////////////////////////////////////
 $output = json_encode(array('type'=>'succ', 'text' => 'New Journal Entry Inserted in society successfully.'));

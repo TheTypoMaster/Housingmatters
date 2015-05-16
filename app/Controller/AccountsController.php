@@ -22,11 +22,9 @@ $value = (int)$this->request->query('value');
 $this->set('value',$value);
 
 }
-///////////////////////////////////////End Master Ledger Sub Account Ajax (Accounts)/////////////////////////////////////////////////////////////////////
+/////////////////////////////End Master Ledger Sub Account Ajax (Accounts)///////////////////////////////////////////
 
-
-
-//////////////////// Start Opening Balance Import (Accounts)////////////////////////////
+//////////////////// Start Opening Balance Import (Accounts)//////////////////////////////////////////////////////////
 function opening_balance_import()
 {
 if($this->RequestHandler->isAjax()){
@@ -44,7 +42,7 @@ $nnn = 5;
 $this->set('nnn',$nnn);
 
 
-if ($this->request->is('post')) 
+if($this->request->is('post')) 
 {
 $file=$this->request->form['file']['name'];
 $dir='C:\xampp\htdocs\cakephp\app\webroot\csv_file';
@@ -88,13 +86,12 @@ $opening_balance=trim($r[3]);
 //$owner=trim($r[5]);
 //$committee=trim($r[6]);
 //$residing =trim($r[7]);
- $date1 = date("Y-m-d", strtotime($date));
+$date1 = date("Y-m-d", strtotime($date));
 $date1 = new MongoDate(strtotime($date1));
 
 if(!empty($date)) 
 {	
 //$ok=2; 
-
 $this->loadmodel('financial_year');
 $conditions=array("society_id" => $s_society_id,"status"=>1);
 $cursor = $this->financial_year->find('all',array('conditions'=>$conditions));
@@ -285,7 +282,6 @@ $u=$this->autoincrement('ledger','auto_id');
 $this->loadmodel('ledger');
 $this->ledger->saveAll(array("auto_id" => $u, "op_date" => $date1, 
 "receipt_id" => "O_B","amount" => $opening_balance, "amount_category_id" => $amount_type_id, "module_id" => "O_B", "account_type" => $account_type_id,"account_id" => $account_id,"current_date" => $cr_date,"society_id" => $s_society_id));
-
 $this->set('sucess','Csv Imported successfully.'); 
 }
 }

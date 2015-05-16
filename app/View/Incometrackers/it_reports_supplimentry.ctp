@@ -19,6 +19,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <a href="<?php echo $webroot_path; ?>Incometrackers/it_reports_regular" class="btn" rel='tab'>Regular</a>
 <a href="<?php echo $webroot_path; ?>Incometrackers/it_reports_supplimentry" class="btn yellow" rel='tab'>Supplementary</a>
 <a href="<?php echo $webroot_path; ?>Incometrackers/income_heads_report" class="btn" rel='tab'>Income head report</a>
+<a href="<?php echo $webroot_path; ?>Incometrackers/account_statement" class="btn" rel='tab'>Account Statement</a>
 </div>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////?>
  <?php
@@ -32,24 +33,7 @@ $b_date = date('1-m-Y');
 <br>
 <table>
 <tbody>
-<!--<tr>
-<td colspan="3" style="text-align:center;">
-<label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="wise" value="1" style="opacity: 0;" onclick="wing_wise()"></span></div>
-Wing Wise
-</label>
-<label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="wise" value="2" style="opacity: 0;" onclick="member()"></span></div>
-Member Wise
-</label>
-</td>
-</tr>
-<tr>
-<td colspan="3" style="text-align:center;">
-<br />
-<div id="one" class="hide">
-<select id="wing" class="m-wrap medium">
-<option value="">--SELECT WING--</option>
+
 <?php
 foreach($cursor2 as $collection)
 {

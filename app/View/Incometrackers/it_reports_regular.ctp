@@ -19,6 +19,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <a href="<?php echo $webroot_path; ?>Incometrackers/it_reports_regular" class="btn yellow" rel='tab'>Regular</a>
 <a href="<?php echo $webroot_path; ?>Incometrackers/it_reports_supplimentry" class="btn" rel='tab'>Supplementary</a>
 <a href="<?php echo $webroot_path; ?>Incometrackers/income_heads_report" class="btn" rel='tab'>Income head report</a>
+<a href="<?php echo $webroot_path; ?>Incometrackers/account_statement" class="btn" rel='tab'>Account Statement</a>
 </div>
 
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>

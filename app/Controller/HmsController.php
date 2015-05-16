@@ -18310,6 +18310,267 @@ $conditions=array("society_id" => $s_society_id);
 $cursor2 = $this->wing->find('all',array('conditions'=>$conditions));
 $this->set('cursor2',$cursor2);
 }
+
+///////// Flat Import ///////////////////////////
+/*
+if($this->request->is('post')) 
+{
+$file=$this->request->form['file']['name'];
+$dir='C:\xampp\htdocs\cakephp\app\webroot\csv_file';
+$target = "csv_file/";
+$target=@$target.basename(@$this->request->form['file']['name']);
+$ok=1;
+move_uploaded_file(@$this->request->form['file']['tmp_name'],@$target);
+
+$f = fopen('csv_file/'.$file, 'r') or die("ERROR OPENING DATA");
+$batchcount=0;
+$records=0;
+
+while (($line = fgetcsv($f, 4096, ';')) !== false) {
+// skip first record and empty ones
+$numcols = count($line);
+
+$test[]=$line;
+
+//echo $col = $line[0];
+//echo $batchcount++.". ".$col."\n";
+
+
+++$records;
+}
+
+fclose($f);
+$records;
+$total_debit = 0;
+$total_credit = 0;
+for($i=1;$i<sizeof($test);$i++)
+{
+$row_no=$i+1;
+$r=explode(',',$test[$i][0]);
+$date = trim($r[0]);
+//$acccount_type=trim($r[1]); 
+$account_name=trim($r[1]);
+$amount_type=trim($r[2]);
+$opening_balance=trim($r[3]);
+//if($i==1) { $email_current=array(); }
+//$society_name=trim($r[4]);
+//$owner=trim($r[5]);
+//$committee=trim($r[6]);
+//$residing =trim($r[7]);
+$date1 = date("Y-m-d", strtotime($date));
+$date1 = new MongoDate(strtotime($date1));
+
+if(!empty($date)) 
+{	
+//$ok=2; 
+$this->loadmodel('financial_year');
+$conditions=array("society_id" => $s_society_id,"status"=>1);
+$cursor = $this->financial_year->find('all',array('conditions'=>$conditions));
+$abc = 0;
+foreach($cursor as $collection)
+{
+$from = $collection['financial_year']['from'];
+$to = $collection['financial_year']['to'];
+if($date1 <= $to && $date1 >= $from)
+{
+$abc = 5;
+break;
+}
+}
+if($abc == 5)
+{
+$ok=2;
+}
+else
+{
+$ok=1; $error_msg[]="Date is not in Open Year ".$row_no.".";	
+break;
+}
+}
+else { $ok=1; $error_msg[]="Year should not be empty in row ".$row_no.".";	break;}
+
+
+if(!empty($amount_type)) 
+{
+$ok=2;
+ 
+if (strcasecmp($amount_type, 'debit') == 0) 
+{
+
+$amount_type_id = 1;
+$total_debit = $total_debit + $opening_balance;
+}	
+else if(strcasecmp($amount_type, 'credit') == 0)
+{
+$amount_type_id = 2;
+$total_credit = $total_credit + $opening_balance;
+}
+else
+{
+$ok = 1; $error_msg[]="Please Fill 'Debit' or 'Credit' ".$row_no."."; break;
+}
+}
+else { $ok=1; $error_msg[]="Amount Type should not be empty in row ".$row_no.".";	break;}
+
+
+
+
+if(!empty($opening_balance)) 
+{	
+$ok=2; 
+if(is_numeric($opening_balance))
+{
+
+}
+else
+{
+$ok = 1;
+$error_msg[]="Opening Balance should be numeric value ".$row_no.".";	break;
+}
+}
+else { $ok=1; $error_msg[]="Opening Balance should not be empty in row ".$row_no.".";	break;}
+
+
+if(!empty($account_name)) 
+{	$ok=2;
+
+$this->loadmodel('ledger_account'); 
+$conditions=array("ledger_name"=> new MongoRegex('/^' .  $account_name . '$/i'));
+$result_ac=$this->ledger_account->find('all',array('conditions'=>$conditions));
+$result_ac_count=sizeof($result_ac);
+
+
+$this->loadmodel('ledger_sub_account'); 
+$conditions=array("name"=> new MongoRegex('/^' .  $account_name . '$/i'));
+$result_sac=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+$result_sac_count=sizeof($result_sac);
+if($result_ac_count>0)
+{
+$account_type_id = 2;
+foreach($result_ac as $collection)
+{
+$account_id = (int)$collection['ledger_account']['auto_id'];
+}
+}
+else if($result_sac_count>0)
+{
+$account_type_id = 1;
+foreach($result_sac as $collection)
+{
+$account_id = (int)$collection['ledger_sub_account']['auto_id'];
+}
+}
+else
+{
+$ok=1; $error_msg[]="No Account Name Match ".$row_no.".";	break;
+}
+}
+else 
+{ 
+$ok=1; $error_msg[]="account name should not be empty in row ".$row_no.".";	break;
+}
+}
+if($ok == 2)
+{
+if($total_debit == $total_credit)
+{
+$ok = 2; 
+}
+else
+{
+$ok = 1; $error_msg[]="Total Credit is not equal to Total debit";
+}
+}
+
+$this->set('td',$total_debit);
+$this->set('tc',$total_credit);
+
+$this->set('error_msg',@$error_msg);
+$this->set('ok',$ok);
+
+
+if($ok == 2)
+{
+$this->Session->write('test2', $test);
+$nnn = 55;
+$this->set('nnn',$nnn);
+$this->set('test',$test);
+
+
+for($i=1;$i<sizeof($test);$i++)
+{
+$row_no=$i+1;
+$r=explode(',',$test[$i][0]);
+$date2=trim($r[0]);
+//$acccount_type=trim($r[1]); 
+$account_name=trim($r[1]);
+$amount_type=trim($r[2]);
+$opening_balance=trim($r[3]);
+
+$date1 = date("Y-m-d", strtotime($date2));
+$date1 = new MongoDate(strtotime($date1));
+
+
+if (strcasecmp($amount_type, 'debit') == 0) 
+{
+$amount_type_id = 1;
+}	
+else if(strcasecmp($amount_type, 'credit') == 0)
+{
+$amount_type_id = 2;
+}
+
+$this->loadmodel('ledger_account'); 
+$conditions=array("ledger_name"=> new MongoRegex('/^' .  $account_name . '$/i'));
+$result_ac=$this->ledger_account->find('all',array('conditions'=>$conditions));
+$result_ac_count=sizeof($result_ac);
+
+
+$this->loadmodel('ledger_sub_account'); 
+$conditions=array("name"=> new MongoRegex('/^' .  $account_name . '$/i'));
+$result_sac=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+$result_sac_count=sizeof($result_sac);
+if($result_ac_count>0)
+{
+$account_type_id = 2;
+foreach($result_ac as $collection)
+{
+$account_id = (int)$collection['ledger_account']['auto_id'];
+}
+}
+else if($result_sac_count>0)
+{
+$account_type_id = 1;
+foreach($result_sac as $collection)
+{
+$account_id = (int)$collection['ledger_sub_account']['auto_id'];
+}
+}
+$cr_date = date("Y-m-d");
+$cr_date = new MongoDate(strtotime($cr_date));
+
+$u=$this->autoincrement('ledger','auto_id');
+$this->loadmodel('ledger');
+$this->ledger->saveAll(array("auto_id" => $u, "op_date" => $date1, 
+"receipt_id" => "O_B","amount" => $opening_balance, "amount_category_id" => $amount_type_id, "module_id" => "O_B", "account_type" => $account_type_id,"account_id" => $account_id,"current_date" => $cr_date,"society_id" => $s_society_id));
+$this->set('sucess','Csv Imported successfully.'); 
+}
+}
+}
+}
+
+
+
+
+
+
+
+
+
+*/
+
+////////// End Flat Import/////////////
+
 ///////////////////// End Flat Type ////////////////////////////////////////////////
 
 ///////////////////////// Start Flat No. Ajax (Accounts)////////////////////////////

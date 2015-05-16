@@ -10,24 +10,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </script>
 </div>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
-      <!--  <div class="hide_at_print">
-		<table width="100%" border="1" bordercolor="#FFFFFF" cellpadding="0">
-		<tr>
-		<td style="width:25%">
-		<a href="it_regular_bill" class="btn blue btn-block"   style="font-size:16px;"> Regular Bill</a>
-		</td>
-		<td style="width:25%">
-		<a href="it_supplimentry_bill" class="btn blue btn-block"  style="font-size:16px;">Supplementary Bill</a>
-		</td>
-		<td style="width:25%">
-		<a href="in_head_report" class="btn red btn-block"  style="font-size:16px;">Reports</a>
-		</td>
-		<td style="width:25%">
-		<a href="select_income_heads" class="btn blue btn-block"  style="font-size:16px;">Accounting Setup</a>
-		</td>
-		</tr>
-		</table>
-        </div> -->
+ 
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
 
 <div style="text-align:center;" class="hide_at_print">
@@ -35,12 +18,11 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <a href="<?php echo $webroot_path; ?>Incometrackers/it_reports_regular" class="btn" rel='tab'>Regular</a>
 <a href="<?php echo $webroot_path; ?>Incometrackers/it_reports_supplimentry" class="btn" rel='tab'>Supplementary</a>
 <a href="<?php echo $webroot_path; ?>Incometrackers/income_heads_report" class="btn" rel='tab'>Income head report</a>
+<a href="<?php echo $webroot_path; ?>Incometrackers/account_statement" class="btn" rel='tab'>Account Statement</a>
 </div>
-
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<center>
-
-          <br />
+           <center>
+           <br />
            <div class="hide_at_print">
            <table border="0">
            <tr>

@@ -5,7 +5,6 @@ echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), a
 <div style="background-color:#EFEFEF; border-top:1px solid #e6e6e6; border-bottom:1px solid #e6e6e6; padding:10px; box-shadow:5px; font-size:16px; color:#006;">
 Society Setup
 </div>
-
 <div class="tabbable tabbable-custom">
 <ul class="nav nav-tabs">
 <li><a href="<?php echo $webroot_path; ?>Hms/master_sm_wing" rel='tab'> Wing</a></li>
@@ -128,7 +127,7 @@ echo '</div>';
 </div>
 </div>
 </form>	
-<strong><a href="/cakephp_test/csv_file/demo/flat_import.csv" download="">Click here for sample format</a></strong>
+<strong><a href="/housingmatters/csv_file/demo/flat_import.csv" download="">Click here for sample format</a></strong>
 <br>
 <h4>Instruction set to import users</h4>
 <ol>
@@ -185,7 +184,6 @@ $(document).ready(function() {
 				     }
 				if(response.type=='succ'){
 				$("#succ").html('<div class="alert alert-block alert-success fade in"><h4 class="alert-heading">Success!</h4><p>Record Inserted Successfully</p><p><a class="btn green" href="<?php echo $webroot_path; ?>Hms/flat_type" rel="tab">OK</a></p></div>');
-				
 			}
 				
 				$("#error_msg").html(output);
@@ -196,54 +194,8 @@ $(document).ready(function() {
  
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////// ?> 
 
-<script>
-/*
-$(document).ready(function() { 
-	$('form').submit( function(ev){
-	ev.preventDefault();
-		
-		
-		var m_data = new FormData();
-		m_data.append( 'wing', $('#tp').val());
-		m_data.append( 'number', $('#nu').val());	
-		
-		$(".form_post").addClass("disabled");
-		$("#wait").show();
-			
-			$.ajax({
-			url: "flat_type_validation",
-			data: m_data,
-			processData: false,
-			contentType: false,
-			type: 'POST',
-			dataType:'json',
-			}).done(function(response) {
-				if(response.report_type=='error'){
-					$(".remove_report").html('');
-						jQuery.each(response.report, function(i, val) {
-						$("label[report="+val.label+"]").html('<span style="color:red;">'+val.text+'</span>');
-					});
-				}
-				if(response.report_type=='publish'){
-                $("#shwd").show()
-				$(".success_report").show().html(response.report);	
-				}
-			
-			$("html, body").animate({
-			scrollTop:0
-			},"slow");
-			$(".form_post").removeClass("disabled");
-			$("#wait").hide();
-			});
 
-	});
-});
-*/
-</script>		
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-
-
-
 <div id="shwd" class="hide">
 <div class="modal-backdrop fade in"></div>
 <div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
@@ -263,12 +215,4 @@ $(document).ready(function() {
 </div>
 </div> 	
 
-
-
-
-
-
-
-
-	    
         

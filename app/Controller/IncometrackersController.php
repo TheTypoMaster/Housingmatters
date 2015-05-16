@@ -267,7 +267,10 @@ $income_head_arr = $collection['society']['income_head'];
 $terms_arr = $collection['society']['terms_conditions'];
 $pen_per2 = (int)$collection['society']['tax'];
 $per_type2 = (int)$collection['society']['tax_type'];
+$society_address = $collection['society']['society_address'];
 }
+if(!empty($society_address))
+{
 $bill_for = (int)$this->request->data['bill_for'];
 $wing_arr_imp = $this->request->data['wing_ar'];
 $from = $this->request->data['from'];
@@ -493,9 +496,7 @@ $this->ledger->saveAll($multipleRowData);
 $income_headd = array(43,$noc_amt2);
 $income_headd2[] = $income_headd;
 $total_amt = $total_amt + $noc_amt2;
-
 }
-
 
 ////////////////////////////////////
 $current_date = new MongoDate(strtotime(date("Y-m-d")));
@@ -2070,13 +2071,32 @@ $this->send_email($to_mail,$from,$from_name,$subject,$html_mail,$reply);
 </div>
 </div>
 <?php
-
 }
 }
-
-
-////////////////////////// End Regular Bill View2 ////////////////////////////////////
-///////////////// Start It Supplimentry Bill (Accounts)////////////////////////////////
+else
+{
+?>
+<div class="modal-backdrop fade in"></div>
+<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+<div class="modal-header">
+<center>
+<h3 id="myModalLabel3" style="color:#999;"><b>Regular Bill</b></h3>
+</center>
+</div>
+<div class="modal-body">
+<center>
+<h5><b>Please Fill Society Address</b></h5>
+</center>
+</div>
+<div class="modal-footer">
+<a href="regular_bill_view2" class="btn blue">OK</a>
+</div>
+</div>
+<?php 
+}
+}
+////////////////////////// End Regular Bill View2 /////////////////////////////////////////////////////////////
+///////////////// Start It Supplimentry Bill (Accounts)///////////////////////////////////////////////////////
 
 function it_supplimentry_bill()
 {
@@ -4880,6 +4900,37 @@ $this->society->updateAll(array('income_head'=> $arrr),array('society_id'=>$s_so
 $this->redirect(array('controller' => 'Incometrackers','action' => 'select_income_heads'));
 }
 /////////////////////////////////// End delete_select_income ////////////////////////////////////////////////////////
+//////////////////////// Start Account Statement (Accounts)//////////////////////////////
+function account_statement()
+{
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
+
+$this->ath();
+$this->check_user_privilages();
+
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');	
+
+$this->loadmodel('regular_bill');
+$conditions=array("society_id" => $s_society_id,"status"=>0);
+$cursor1 = $this->regular_bill->find('all',array('conditions'=>$conditions));
+$this->set('cursor1',$cursor1);
+
+$this->loadmodel('user');
+$conditions=array("society_id" => $s_society_id,"tenant"=>1,"deactive"=>0);
+$cursor2 = $this->user->find('all',array('conditions'=>$conditions));
+$this->set('cursor2',$cursor2);
+}
+////////////////End Account Statement (Accounts)/////////////////////////////////////
+
+
+
+
 
 
 

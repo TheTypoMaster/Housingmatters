@@ -9,26 +9,27 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
 </div>
-
-
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
+<?php
+$showing_from_date = date('1-m-Y');
+$showing_to_date = date('d-m-Y');
 
+?>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
-
 <div style="text-align:center;" class="hide_at_print">
 <a href="<?php echo $webroot_path; ?>Incometrackers/in_head_report" class="btn" rel='tab'>bill Report</a>
 <a href="<?php echo $webroot_path; ?>Incometrackers/it_reports_regular" class="btn" rel='tab'>Regular</a>
 <a href="<?php echo $webroot_path; ?>Incometrackers/it_reports_supplimentry" class="btn" rel='tab'>Supplementary</a>
 <a href="<?php echo $webroot_path; ?>Incometrackers/income_heads_report" class="btn yellow" rel='tab'>Income head report</a>
+<a href="<?php echo $webroot_path; ?>Incometrackers/account_statement" class="btn" rel='tab'>Account Statement</a>
 </div>
-
-<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 <div style=" margin-top:5px;" align="center" class="hide_at_print">
-<table  >
+<table>
 <tr>
-<td><input type="text" class="span12 m-wrap date-picker" style="background-color:#FFF !important;" placeholder="From" id="date1" data-date-format="dd-mm-yyyy"></td>
-<td><input type="text" class="span12 m-wrap date-picker" style="background-color:#FFF !important;" placeholder="To" id="date2" data-date-format="dd-mm-yyyy"></td>
+<td><input type="text" class="span12 m-wrap date-picker" style="background-color:#FFF !important;" placeholder="From" id="date1" data-date-format="dd-mm-yyyy" value="<?php echo $showing_from_date; ?>"></td>
+<td><input type="text" class="span12 m-wrap date-picker" style="background-color:#FFF !important;" placeholder="To" id="date2" data-date-format="dd-mm-yyyy" value="<?php echo $showing_to_date; ?>"></td>
 <td valign="top"><button type="button" class="btn yellow" id="go">Go</button></td>
 </tr>
 </table>
@@ -39,7 +40,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 		<div id="result" style="width:100%; overflow-x:scroll;">
 		</div>
         </center>   								
-<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php /////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 <script>
 $(document).ready(function() {
