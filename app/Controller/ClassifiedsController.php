@@ -129,6 +129,17 @@ function send_message_ajax($id=null,$m=null){
 		
 	}else{
 		
+
+			/*$r_sms=$this->hms_sms_ip();
+			$working_key=$r_sms->working_key;
+			$sms_sender=$r_sms->sms_sender; 	
+
+			$sms='Dear '.$user_name.' Please enter your code '.$random_otp.' on the signup screen to continue your HousingMatters registration process. Thank you';
+			$sms1=str_replace(' ', '+', $sms);
+			@$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+		
+		*/
+		
 	}
 }
 

@@ -9,7 +9,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
 <div style="background-color:#EFEFEF; border-top:1px solid #e6e6e6; border-bottom:1px solid #e6e6e6; padding:10px; box-shadow:5px; font-size:16px; color:#006;">
-Invite member View
+<i class="icon-credit-card"></i> Invite member View
 </div>
 
 

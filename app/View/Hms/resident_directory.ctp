@@ -116,7 +116,7 @@ background-color:rgb(218, 236, 240);
      
                 <table width="100%" >
                 <tr>
-  <td width="58%" style="color:#666666; font-size:24px; padding-left:10px;">Resident Directory  <span style='font-size:18px;'> (<?php echo sizeof($result_user); ?>)<span>  </td>
+  <td width="58%" style="color:#666666; font-size:24px; padding-left:10px;"><i class="icon-book"></i> Resident Directory  <span style='font-size:18px;'> (<?php echo sizeof($result_user); ?>)<span>  </td>
                 <td width="20%" valign="bottom"><select style="" id="wing_value" onchange="search_wing_record()"><option value="0">All Wing</option>
                 
                  <?php  
