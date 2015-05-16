@@ -3608,17 +3608,19 @@ $this->notification->saveAll(array('notification_id' => $notification_id,'icon' 
 
 function seen_notification($module_id,$element_id) 
 {
+	$module_id=(int)$module_id;
+	$element_id=(int)$element_id;
 $s_society_id=$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
 
 	$this->loadmodel('notification');
 	$conditions=array("module_id" => $module_id,"element_id" => $element_id);
 	$notification_result=$this->notification->find('all', array('conditions' => $conditions));
-	
 	foreach($notification_result as $notification_result_data)
 	{
 		$seen_users=@$notification_result_data['notification']['seen_users'];
-		
+	
+	if(is_array($seen_users))	{
 	if(sizeof($seen_users)==0)	{ $seen_users=array(); }
 	
 	if (!in_array($s_user_id, $seen_users))
@@ -3639,6 +3641,7 @@ $s_user_id=$this->Session->read('user_id');
 		$this->notification->updateAll(array('seen_users'=>$seen_users),array('notification.module_id'=>$module_id,'notification.element_id'=>$element_id));
 	}
 	
+	}
 	}
 	
 	
