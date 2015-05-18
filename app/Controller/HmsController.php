@@ -19011,8 +19011,12 @@ $this->layout='session';
 $this->ath();
 $s_society_id=(int)$this->Session->read('society_id');
 
+
 if($this->request->is('post')) 
 {
+$array1 = array();
+$array2 = array();
+
 $file=$this->request->form['file']['name'];
 $dir='C:\xampp\htdocs\cakephp\app\webroot\csv_file';
 $target = "csv_file/";
@@ -19120,10 +19124,22 @@ if($count2 == 5 and $count1 == 5)
 $ok=1; $error_msg[]="same wing and flat exist please select another wing or flat".$row_no.".";	break;
 }
 
+for($s=0; $s<sizeof(@$array2); $s++)
+{
+$arr_wing = $array2[$s];
+$arr_flat_num = $array1[$s];
+if($arr_wing == $wing_name and $flat_number == $arr_flat_num)
+{
+$ok=1; $error_msg[]="repeatation of same wing and flat".$row_no.".";	break;
 }
+}
+$array2[]= $wing_name;
+$array1[]= $flat_number;
+}
+
+
 $this->set('error_msg',@$error_msg);
 $this->set('ok',$ok);
-
 
 if($ok == 2)
 {
