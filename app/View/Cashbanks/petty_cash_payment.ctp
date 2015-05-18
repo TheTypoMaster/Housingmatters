@@ -87,72 +87,71 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
            <?php } 
 		   */
 		   ?>
-<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php ///////////////////////////////////////////////////////////////////////////////////// ?>
 								
-<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php ////////////////////////////////////////////////////////////////////////////////////////// ?>
 			<center>
 			<a href="<?php echo $webroot_path; ?>Cashbanks/petty_cash_payment" class="btn red" rel='tab'>Create</a>
 			<a href="<?php echo $webroot_path; ?>Cashbanks/petty_cash_payment_view" class="btn blue" rel='tab'>View</a>
 			</center>	   
-
-<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		   
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////// ?>		   
 		   
 <br />		   
 
-									<div class="portlet box grey" style="width:60%; margin-left:20%; margin-right:20%;">
-									<div class="portlet-title">
-									<h4><i class="icon-reorder"></i>Petty Cash Payment</h4>
-									</div>
-									<div class="portlet-body form">  
+<div class="portlet box grey" style="width:60%; margin-left:20%; margin-right:20%;">
+<div class="portlet-title">
+<h4><i class="icon-reorder"></i>Petty Cash Payment</h4>
+</div>
+<div class="portlet-body form">  
 
-									<form id="contact-form" method="POST" class="form-horizontal" enctype="multipart/form-data">
-									<center>
-									<table border="0" style="width:80%;">                  
+<form id="contact-form" method="POST" class="form-horizontal" enctype="multipart/form-data">
+<center>
+<table border="0" style="width:80%;">                  
 
-									<tr>
-									<td align="left" valign="top">
-									<br>
-									<label class="" style="font-size:14px;">Transaction Date</label></td>
-									<td valign="top">
-									<br>
-									<input type="text" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="date" id="date">
-									<label id="date"></label>
-                                    <div id="result11"></div>
-									</td>
-									</tr>
-
-
-
-
-									<tr>
-									<td valign="top">
-									<Br>
-									<label class="" style="font-size:14px;">A/c Group</label></td>
-									<td valign="top">
-									<br>
-									<select name="type" id="go" class="m-wrap medium chosen">
-									<option value="" style="display:none;">Select</option>
-									<option value="1">Sundry Creditors Control A/c</option>
-									<option value="2">All Expenditure A/cs</option>
-									</select>
-									<label id="go"></label>
-									</td>
-									</tr>
+<tr>
+<td align="left" valign="top">
+<br>
+<label class="" style="font-size:14px;">Transaction Date</label></td>
+<td valign="top">
+<br>
+<input type="text" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="date" id="date">
+<label id="date"></label>
+<div id="result11"></div>
+</td>
+</tr>
 
 
 
-									<tr>
-									<td valign="top">
-									<br>
-									<label class="" style="font-size:14px;">Expense/Party A/c</label></td>
-									<td id="show_user" valign="top">
-									<br>
-									<select   name="user_id" class="m-wrap medium chosen" id="usr">
-									<option value="" style="display:none;">Select</option>
-									</select>
-									<label id="usr"></label>
-									</td>
-									</tr>    
+
+<tr>
+<td valign="top">
+<Br>
+<label class="" style="font-size:14px;">A/c Group</label></td>
+<td valign="top">
+<br>
+<select name="type" id="go" class="m-wrap medium chosen">
+<option value="" style="display:none;">Select</option>
+<option value="1">Sundry Creditors Control A/c</option>
+<option value="2">All Expenditure A/cs</option>
+</select>
+<label id="go"></label>
+</td>
+</tr>
+
+
+
+<tr>
+<td valign="top">
+<br>
+<label class="" style="font-size:14px;">Expense/Party A/c</label></td>
+<td id="show_user" valign="top">
+<br>
+<select   name="user_id" class="m-wrap medium chosen" id="usr">
+<option value="" style="display:none;">Select</option>
+</select>
+<label id="usr"></label>
+</td>
+</tr>    
 
 
 

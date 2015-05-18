@@ -15,54 +15,152 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <input type="hidden" id="tb" value="<?php echo $datetb; ?>" />
 
 <?php ///////////////////////////////////////////////////////////////////////////////////////// ?>		
+<div style="background-color:#fff;padding:5px;width:100%;margin:auto; overflow:auto;" class="form_div">
+<h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Generate Bill (Income Tracker)</h4>
+
+<form method="post" id="contact-form">
+<div class="row-fluid">
+<div class="span6">
+
+<label style="font-size:14px;">Billing Cycle<span style="color:red;">*</span></label>
+<div class="controls">
+<select name="bill_p" id="bp" class="m-wrap span7 chosen">
+<option value="" style="display:none;">Select</option>
+<?php
+for($k=0; $k<sizeof($bill_period_arr); $k++)
+{
+$period_arr = $bill_period_arr[$k];
+$priod_name = $period_arr[0];
+$period_id = $period_arr[1];	
+?>
+<option value="<?php echo $period_id; ?>"><?php echo $priod_name; ?></option>
+<?php
+}
+?>
+</select>
+<label id="bp" ></label>
+</div>
+<br />
+
+
+
+<label style="font-size:14px;">Billing Date<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text" name="from" class="m-wrap span7 date-picker" data-date-format="dd-mm-yyyy" placeholder="Bill Date" id="from" />
+<label id="from"></label>
+<div id="result11"></div>
+</div>
+<br />
+
+
+<label style="font-size:14px; color:red;">Payment Due Date<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text" class="m-wrap span7 date-picker" data-date-format="dd-mm-yyyy" placeholder="Due Date" name="due_date" id="due" style="color:red; border-color:red;">
+<label id="due" ></label>
+<div id="result12"></div>
+</div>
+<br />
+
+
+
+<label class="" style="font-size:14px;">Bill For<span style="color:red;">*</span></label>
+<div class="controls">
+<label class="radio">
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="bill_for" value="1" style="opacity: 0;" id="bill_for"  onclick="wing()"></span></div>
+Wing Wise
+</label>
+<label class="radio">
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="bill_for" value="2" style="opacity: 0;" id="bill_for" onclick="flat()"></span></div>
+All Flats
+</label>
+<label id="bill_for"></label>
+</div>       
+<br />   
+
+
+<div id="show_bill_for" class="hide">
+<div class="controls">
+<label style="font-size:14px;">Select Wing<span style="color:red;">*</span></label>
+<?php
+foreach($cursor5 as $collection)
+{
+$wing_id = (int)$collection['wing']['wing_id'];	
+$wing_name = $collection['wing']['wing_name'];		
+?>
+<label class="checkbox">
+<div class="checker" id="uniform-undefined"><span>
+<input type="checkbox" value="<?php echo $wing_id; ?>" style="opacity: 0;" name="wing<?php echo $wing_id; ?>" id="win"></span></div><?php echo $wing_name; ?> 
+</label>
+<?php } ?>
+<label id="chk_vali"></label>
+</div>
+</div>        
+<br />    
+
+
+</div>
+<div class="span6">
+<div class="control-group">		
+<div class="controls">
+<label class="" style="font-size:14px;">Penalty</label>
+<label class="radio">
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="pen" value="1" style="opacity: 0;" id="pen"></span></div>
+Yes
+</label>
+<label class="radio">
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="pen" value="2" style="opacity: 0;" id="pen"></span></div>
+No
+</label>
+<label id="pen"></label>
+</div>        
+</div> 
+<br />
+
+
+
+<div class="control-group ">
+<div class="controls">
+<label style="font-size:14px;">Billing Description</label>
+<textarea class="span9 m-wrap" name="description" id="description" style="resize:none;" rows="3"></textarea>
+<label id="description"></label>
+</div>
+</div>
+
+
+
+</div>
+</div>
+<hr />
+<button type="submit" class="btn green" value="Generate Bill" name="sub1" id="go" onclick="vali()">Preview Bill</button>
+<a href="it_regular_bill" class="btn">Reset</a>
+</form>	
+<br /><br />
+</div>
 
 <?php //////////////////////////////////////////////////////////////////////////////////////////////// ?>		
-<?php 
-echo strcasecmp("Hello","hELLo");
-?>
+<?php
+
+/*
 
 
+<div style="width:70%; margin-left:15%;">
+<div class="row-fluid">
+<div class="span12">
+<div class="portlet box green" style="border:solid 1px #ffb848;">
+<div class="portlet-body form">
+<h3 class="block"></h3>		
+<form class="form-horizontal" method="post" id="contact-form" novalidate>		
+<div class="control-group">
+<div class="controls">
 
 
-		<div style="width:70%; margin-left:15%;">
-		<div class="row-fluid">
-		<div class="span12">
-		<div class="portlet box green" style="border:solid 1px #ffb848;">
-		<div class="portlet-body form">
-		<h3 class="block"></h3>		
-        <form class="form-horizontal" method="post" id="contact-form" novalidate>		
-        <div class="control-group">
-        <div class="controls">
-        <label class="" style="font-size:14px;">Billing Cycle</label>
-        <select name="bill_p" id="bp" class="m-wrap medium">
-        <option value="" style="display:none;">Select</option>
-        <?php
-		for($k=0; $k<sizeof($bill_period_arr); $k++)
-		{
-		$period_arr = $bill_period_arr[$k];
-		$priod_name = $period_arr[0];
-		$period_id = $period_arr[1];	
-		?>
-        <option value="<?php echo $period_id; ?>"><?php echo $priod_name; ?></option>
-        <?php
-		}
-		?>
-        </select>
-        <label id="bp" ></label>
         </div>
         </div>	
 
 
 
 
-<div class="controls">
-<label class="" style="font-size:14px;">Billing Date</label>
-<input type="text" name="from" class="m-wrap medium date-picker" data-date-format="dd-mm-yyyy" placeholder="Bill Date" id="from" />
-<label id="from"></label>
-<div id="result11"></div>
-</div>
- 
-<br />
+
 
 
 
@@ -72,14 +170,7 @@ echo strcasecmp("Hello","hELLo");
 	
 		
 
-<div class="control-group">
-<div class="controls">
-<label class="" style="font-size:14px; color:red;">Payment Due Date</label>
-<input type="text" class="span3 m-wrap  m-ctrl-medium date-picker" data-date-format="dd-mm-yyyy" placeholder="Due Date" name="due_date" id="due" style="color:red; border-color:red;">
-<label id="due" ></label>
-<div id="result12"></div>
-</div>
-</div>	
+
 
 
 
@@ -107,7 +198,6 @@ echo strcasecmp("Hello","hELLo");
 		<?php
 		foreach ($cursor2 as $collection) 
 		{
-		
 		$taxes_id=$collection['ledger_sub_account']["auto_id"];
 		$taxes_name=$collection['ledger_sub_account']["name"];
 		if($taxes_id != 33)
@@ -119,61 +209,17 @@ echo strcasecmp("Hello","hELLo");
 		</div>
 		<?php echo $taxes_name; ?>
 		</label>
-      
-		<?php }} ?>
+      	<?php }} ?>
 		<label id="tax"></label>
 		</div>
 		</div> -->
         
-<div class="controls">
-<label class="" style="font-size:14px;">Bill For</label>
-<label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="bill_for" value="1" style="opacity: 0;" id="bill_for"  onclick="wing()"></span></div>
-Wing Wise
-</label>
-<label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="bill_for" value="2" style="opacity: 0;" id="bill_for" onclick="flat()"></span></div>
-All Flats
-</label>
-<label id="bill_for"></label>
-</div>       
-<br />   
+
         
         
-<div id="show_bill_for" class="hide">
-<div class="controls">
-<label>Select Wing</label>
-<?php
-foreach($cursor5 as $collection)
-{
-$wing_id = (int)$collection['wing']['wing_id'];	
-$wing_name = $collection['wing']['wing_name'];		
-?>
-<label class="checkbox">
-<div class="checker" id="uniform-undefined"><span>
-<input type="checkbox" value="<?php echo $wing_id; ?>" style="opacity: 0;" name="wing<?php echo $wing_id; ?>" id="win"></span></div><?php echo $wing_name; ?> 
-</label>
+    
 
-<?php } ?>
-<label id="chk_vali"></label>
-</div>
-</div>        
-<br />        
-
-<div class="control-group">		
-<div class="controls">
-<label class="" style="font-size:14px;">Penalty</label>
-<label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="pen" value="1" style="opacity: 0;" id="pen"></span></div>
-Yes
-</label>
-<label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="pen" value="2" style="opacity: 0;" id="pen"></span></div>
-No
-</label>
-<label id="pen"></label>
-</div>        
-</div>        
+       
         
         
         
@@ -181,14 +227,7 @@ No
         
         
 		
-		<div class="control-group ">
-		<div class="controls">
-        
-		<label class="" style="font-size:14px;">Billing Description</label>
-		<textarea class="span8 m-wrap" name="description" id="description" style="resize:none;" rows="3"></textarea>
-		<label id="description"></label>
-		</div>
-		</div>
+		
 		
 		
 	
@@ -211,23 +250,18 @@ No
 		<button type="submit" class="btn green" value="Generate Bill" name="sub1" id="go" onclick="vali()">Preview Bill</button>
 		<a href="it_regular_bill" class="btn">Reset</a>
 		</div>
+        
+        */
+        
+        ?>
+        
+        
 <?php //////////////////////////////////////////////////////////////////////////////////////////////?>		
 		
 
 	
 	
 <?php ///////////////////////////////////////////////////////////////////////////////////////////?>		
-		
-		
-		
-		</form>	
-
-		</div>
-		</div>
-		</div>
-		</div>
-		</div>		
-
 		
 <script>
 $.validator.addMethod('requirecheck1', function (value, element) {
