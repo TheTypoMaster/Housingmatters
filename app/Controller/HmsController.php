@@ -256,8 +256,7 @@ function send_email($to,$from,$from_name,$subject,$message_web,$reply)
 //$this->layout='session';
 $this->loadmodel('email_request');
 $er=$this->autoincrement('email_request','e_id');
-$this->email_request->saveAll(array('e_id' => $er, 'to' => $to, 'from' => $from, 'from_name' => $from_name, 'subject' => $subject, 
-'message_web' => $message_web, 'reply' => $reply, 'flag' => 0));
+$this->email_request->saveAll(array('e_id' => $er, 'to' => $to, 'from' => $from, 'from_name' => $from_name, 'subject' => $subject,'message_web' => $message_web, 'reply' => $reply, 'flag' => 0));
 }
 
 
