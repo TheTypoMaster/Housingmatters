@@ -2,7 +2,7 @@
      
                 <table width="100%">
                 <tbody><tr>
-                <td width="58%" style="color:#A96363; font-size:24px; padding-left:10px;">Contact Handbook 
+                <td width="58%" style="color:#A96363; font-size:24px; padding-left:10px;"><i class="icon-th-list" style='font-size:20px;'></i> Contact Handbook 
 				<span class=" tooltips" data-placement="right" data-original-title="This list is maintained by your society members"><i class=" icon-info-sign"></i></span>
 				 <span style="float:right;"><a href='contact_handbook_export'class=' green  btn' download='download'><i class='icon-download-alt'></i> Export</a></span>
 				</td>
@@ -228,7 +228,7 @@ $(".con_delete").click(function(){
 				  
                  		 <div class="portlet box blue " style="">
                      <div class="portlet-title" style="background-color: #7490BE;" >
-                        <h4> Contact Handbook Registration</h4>
+                        <h4><i class="icon-th-list" style='font-size:16px;'></i>Contact Handbook Registration</h4>
                         
                      </div>
                      <div class="portlet-body form " >
