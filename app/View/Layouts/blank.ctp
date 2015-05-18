@@ -36,32 +36,3 @@ $('.scroller').each(function () {
 });
 jQuery('.popovers').popover();
 </script>
-<script src="<?php echo $this->webroot ; ?>/as/charts/Chart.js"></script>
-<script>
-	var pieData = [
-			{
-				value: <?php echo $open; ?>,
-				color:"#d43f3a",
-				highlight: "#d43f3a",
-				label: "Open Tickets"
-			},
-			{
-				value: <?php echo $open_and_assigned; ?>,
-				color: "#eea236",
-				highlight: "#eea236",
-				label: "Open & assigned Tickets"
-			},
-			{
-				value:<?php echo $closed; ?>,
-				color: "#4cae4c",
-				highlight: "#4cae4c",
-				label: "Closed Tickets"
-			}
-
-		];
-
-		
-			var ctx = document.getElementById("chart-area").getContext("2d");
-			window.myPie = new Chart(ctx).Pie(pieData);
-		
-</script>

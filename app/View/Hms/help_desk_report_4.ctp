@@ -51,6 +51,7 @@ if($data['help_desk_status']==1) { $closed++;}
 
 <script src="<?php echo $this->webroot ; ?>/as/charts/Chart.js"></script>
 <script>
+alert();
 	var pieData = [
 			{
 				value: <?php echo $open; ?>,
