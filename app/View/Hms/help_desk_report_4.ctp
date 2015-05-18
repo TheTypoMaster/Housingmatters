@@ -48,10 +48,10 @@ if($data['help_desk_status']==1) { $closed++;}
 <span class="label" style="background-color:#4cae4c"><?php echo $closed; ?></span> Closed Tickets<br/>
 </div>-->
 </div>
- <?php echo $webroot_path ; ?>
+
 <script src="<?php echo $webroot_path ; ?>/as/charts/Chart.js"></script>
 <script>
-alert();
+
 	var pieData = [
 			{
 				value: <?php echo $open; ?>,
