@@ -1,5 +1,5 @@
 <div style="float:right;">
-<a class="btn blue"  onclick="window.print();" >Print </a>
+<a class="btn blue hide_at_print"  onclick="window.print();" >Print </a>
 </div>
 <br/>
 <br/>
@@ -16,7 +16,7 @@
 <div class="portlet box ">
 
 <div class="portlet-body">
-<table class="table table-striped table-bordered" id="sample_1" >
+<table class="table table-striped table-bordered" id="" >
 <thead>
 <tr>
 <th>Sr No.</th>

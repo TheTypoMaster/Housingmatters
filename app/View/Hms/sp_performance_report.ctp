@@ -1,6 +1,6 @@
 
 
- <div style=" "align="center">
+ <div style=" "align="center" class='hide_at_print'>
             <form method="post" id="contact-form">
             <br>
             <table>
@@ -17,9 +17,9 @@
 <div style="" id="result_id">
 <div>
 <div style="float:right;">
-<a class="btn blue" onclick="window.print();">Print </a>
+<a class="btn blue hide_at_print" onclick="window.print();">Print </a>
 
-<a href="sp_performance_report_pdf?con=<?php echo@$date1;?>&con2=<?php echo@$date2;?>" class="btn blue" >Pdf </a>
+<a href="sp_performance_report_pdf?con=<?php echo@$date1;?>&con2=<?php echo@$date2;?>" class="btn blue hide_at_print" >Pdf </a>
 
 </div>
 <br/><br/>
@@ -35,7 +35,7 @@ Service Provider Performance Report
 <div class="portlet box ">
 
 <div class="portlet-body">
-<table class="table table-striped table-bordered" id="sample_2">
+<table class="table table-striped table-bordered" id="">
 <thead>
 <tr>
 <th>Sr No.</th>
