@@ -18309,9 +18309,9 @@ $conditions=array("society_id" => $s_society_id);
 $cursor2 = $this->wing->find('all',array('conditions'=>$conditions));
 $this->set('cursor2',$cursor2);
 
-
+}
 ///////// Flat Import ///////////////////////////
-
+/*
 if($this->request->is('post')) 
 {
 $file=$this->request->form['file']['name'];
@@ -18513,7 +18513,7 @@ $this->set('sucess','Csv Imported successfully.');
 }
 }
 }
-
+*/
 
 
 
@@ -19024,17 +19024,9 @@ move_uploaded_file(@$this->request->form['file']['tmp_name'],@$target);
 $f = fopen('csv_file/'.$file, 'r') or die("ERROR OPENING DATA");
 $batchcount=0;
 $records=0;
-
 while (($line = fgetcsv($f, 4096, ';')) !== false) {
-// skip first record and empty ones
 $numcols = count($line);
-
 $test[]=$line;
-
-//echo $col = $line[0];
-//echo $batchcount++.". ".$col."\n";
-
-
 ++$records;
 }
 
@@ -19047,118 +19039,77 @@ for($i=1;$i<sizeof($test);$i++)
 {
 $row_no=$i+1;
 $r=explode(',',$test[$i][0]);
-$wing_name2 = trim($r[0]);
-//$acccount_type=trim($r[1]); 
-$flat_num2 = trim($r[1]);
-$flat_type2 = trim($r[2]);
-$flat_area2 = trim($r[3]);
-//if($i==1) { $email_current=array(); }
-//$society_name=trim($r[4]);
-//$owner=trim($r[5]);
-//$committee=trim($r[6]);
-//$residing =trim($r[7]);
-$date1 = date("Y-m-d", strtotime($date));
-$date1 = new MongoDate(strtotime($date1));
+$wing_name = trim($r[0]);
+$flat_number = trim($r[1]);
+$flat_type = trim($r[2]);
+$flat_area = trim($r[3]);
 
-
-if(!empty($wing_name2)) 
+if(!empty($wing_name)) 
 {	
 $ok=2; 
-
-$this->loadmodel('wing');
-$condition=array('society_id'=>$s_society_id);
-$cursor = $this->wing->find('all',array('conditions'=>$condition)); 
-foreach($cursor as $collection)
-{
-$wing_id2 = (int)$collection['wing']['wing_id'];
-$str2 = $collection['wing']['wing_name'];
-if(strcasecmp($str2, $wing_name2) == 0) 
-{
-$wing2 = (int)$wing_id2;
 }
+else 
+{ 
+$ok=1; $error_msg[]="Wing should not be empty in row ".$row_no.".";	break;
 }
-}
-else { $ok=1; $error_msg[]="Wing should not be empty in row ".$row_no.".";	break;}
-
-if(!empty($flat_num2))
+if(!empty($flat_number))
 {
 $ok=2; 
-$abc = 5;
-$this->loadmodel('flat');
-$condition=array('society_id'=>$s_society_id,"wing_id"=>$wing2);
-$cursor = $this->flat->find('all',array('conditions'=>$condition)); 
-foreach($cursor as $collection)
+if(is_numeric($flat_number))
 {
-$flat_name2 = $collection['flat']['flat_name'];
-if(strcasecmp($flat_num2, $flat_name2) == 0) 
-{
-$abc = 55;
-}
-}
-if($abc == 55)
-{
-$ok=1; $error_msg[]="Wing and Flat Number Already Exist".$row_no.".";	break;
-}
-}
-else { $ok=1; $error_msg[]="Flat Number should not be empty in row ".$row_no.".";	break;}
 
-if(!empty($flat_type2))
-{
-$ok=2; 
 }
-else { $ok=1; $error_msg[]="Flat Type should not be empty in row ".$row_no.".";	break;}
-
-if(!empty($flat_area2))
+else
 {
-$ok=2; 
+$ok = 1;
+$error_msg[]="flat number should be numeric in row".$row_no.".";	break;
 }
-else { $ok=1; $error_msg[]="Flat Area should not be empty in row ".$row_no.".";	break;}
-
-
-$mat = 5;
-$sub_arr = array($wing_name2,$flat_num2);
-for($i=0; $i<sizeof($arr); $i++)
-{
-$arr2 = $arr[$i];
-$w = $arr2[0];
-$f = $arr2[1];
-if($w == $wing_name2 && $f == $flat_num2)
-{
-$mat = 55;
+}
+else 
+{ 
+$ok=1; $error_msg[]="Flat Number should not be empty in row ".$row_no.".";	
 break;
 }
-}
-if($mat == 55)
+
+if(!empty($flat_type))
 {
-$ok=1; $error_msg[]="Wing and Flat Name Same in Excel file ".$row_no.".";	break;
+$ok=2; 
 }
-$arr[] = $sub_arr;
-
+else{ $ok=1; $error_msg[]="Flat Type should not be empty in row ".$row_no.".";	break;}
+if(!empty($flat_area))
+{
+$ok=2; 
+if(is_numeric($flat_area))
+{
 
 }
-
-
+else
+{
+$ok = 1;
+$error_msg[]="flat area should be numeric".$row_no.".";	break;
+}
+}
+else 
+{ 
+$ok=1; $error_msg[]="Flat Area should not be empty in row ".$row_no.".";	break;
+}
+}
 $this->set('error_msg',@$error_msg);
 $this->set('ok',$ok);
 
 
-
 if($ok == 2)
 {
-
 for($i=1;$i<sizeof($test);$i++)
 {
 $nnn = 5;
 $row_no=$i+1;
 $r=explode(',',$test[$i][0]);
 $wing_name = trim($r[0]);
-//$acccount_type=trim($r[1]); 
-$flat_nu = trim($r[1]);
+$flat_number = trim($r[1]);
 $flat_type = trim($r[2]);
 $flat_area = trim($r[3]);
-$noc_type = 2;
-$date1 = date("Y-m-d", strtotime($date2));
-$date1 = new MongoDate(strtotime($date1));
+//$noc_type = 2;
 
 $this->loadmodel('wing');
 $condition=array('society_id'=>$s_society_id);
@@ -19206,21 +19157,14 @@ $x=$this->autoincrement('flat_type','auto_id');
 $this->loadmodel('flat_type');
 $this->flat_type->saveAll(array("auto_id" => $x,"flat_type_id"=>$flat_type_id,"society_id"=>$s_society_id,"number_of_flat"=>1,"status"=>1));
 }
-$y = $this->autoincrement('flat_master','auto_id');
-$this->loadmodel('flat_master');
-$this->flat_master->saveAll(array("auto_id" => $y,"flat_type_id"=>$flat_type_id,"society_id"=>$s_society_id,"flat_area"=>$flat_area,"status"=>0));
 
 $z = $this->autoincrement('flat','flat_id');
 $this->loadmodel('flat');
-$this->flat->saveAll(array("flat_id" => $z,"wing_id"=>$wing,"flat_name"=>$flat_nu,"society_id"=>$s_society_id,"flat_type_id"=>$flat_type_id,"flat_master_id"=>$y,"noc_ch_type"=>$noc_type));
-
+$this->flat->saveAll(array("flat_id" => $z,"wing_id"=>$wing,"flat_name"=>$flat_number,"society_id"=>$s_society_id,"flat_type_id"=>$flat_type_id,"flat_area"=>$flat_area));
 $this->set('sucess','Csv Imported successfully.'); 
-
 }
 }
 }
-
-
 }
 //////////////////////// End Flat Nu Import ///////////////////////////////////////////////////////
 
