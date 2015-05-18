@@ -9,25 +9,28 @@ $("#fix<?php echo $id_current_page; ?>").removeClass("blue");
 $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
-<div class="row-fluid">
-					<div style="width:70%; margin-left:15%;">
+<div class="row-fluid" >
+					<div style='width:80%;margin:auto;'>
                         <div class="row-fluid"  >
-              			 <div class="span12">
+              			 <div class="">
                   <!-- BEGIN VALIDATION STATES-->
                  		 <div class="portlet box green">
                      <div class="portlet-title">
-                        <h4><i class="icon-external-link"></i> Add Resources</h4>
+                        <h4><i class="icon-file" style='font-size:16px;'></i>Add Resources</h4>
                         
                      </div>
                      <div class="portlet-body form">
                         <h3 class="block"></h3>
                         <!-- BEGIN FORM-->
                         <form  id="contact-form" class="form-horizontal" method="post" enctype="multipart/form-data">
-                         <fieldset>
+                        
+						 
+						
+						 
                            <div class="control-group ">
                               <div class="controls">
                                <label class="" style="font-size:14px;" >Title <span style="color:red;">*</span> <span style="font-size:12px; color:#999;">(Maximum 30 characters.)</span></label>
-                                 <input type="text" class="span8 m-wrap" id="inputWarning" name="title">
+                                 <input type="text" class="span6 m-wrap" id="inputWarning" name="title">
 								 <label id="inputWarning"></label>
                               </div>
                            </div>
@@ -35,7 +38,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
                            <div class="control-group ">
                               <div class="controls">
                                <label class="" style="font-size:14px;">Category <span style="color:red;">*</span> </label>
-                                 <select name="sel" id="category" class="span8 m-wrap chosen" >
+                                 <select name="sel" id="category" class="span6 m-wrap chosen" >
                             <option value="">--Please select any category--*</option>
                                                  
                             <?php
@@ -64,7 +67,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
                                        <span class="btn btn-file">
                                        <span class="fileupload-new">Select file</span>
                                        <span class="fileupload-exists">Change</span>
-                                       <input type="file"  class="span8 m-wrap" name="file" multiple id='att' >
+                                       <input type="file"  class="span6 m-wrap" name="file" multiple id='att' >
                                        </span>
                                        <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
 									   <label id="att"></label>
@@ -125,7 +128,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			<div class="radio"><span><input type="radio" name="visible" value="3" id="v3" ></span></div>Wing Wise
 			</label> 
 			</div>
-			<div id="show_3" style="display:none; margin-left:5%;">
+			<div id="show_3" style="display:none; margin-left:5%;overflow:auto;">
 			<div class="controls">
 			<?php
 			foreach ($wing_result as $collection) 
@@ -139,8 +142,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			</label>
 			</div>
 			<?php } ?>
-			<br/><label id="requirecheck2"></label>
-			</div><br/>
+			<br/><br/><label id="requirecheck2"></label>
+			</div>
 			</div>
 		<!---------------end visible-------------------------------->
 			
@@ -152,7 +155,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
                            <div class="form-actions">
                               <input type="submit" class="btn green" value="Publish" name="sub">
                            </div>
-                           </fieldset>
+                          
                         </form>
                         <!-- END FORM-->
                      </div>

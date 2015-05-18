@@ -283,6 +283,7 @@ $da_user_id[]=$data['user']['user_id'];
 
 }
 
+
 ///////// creator send email code //////////////////
 
 $result_user=$this->profile_picture($s_user_id);
@@ -302,7 +303,8 @@ $da_user_name=array_unique($da_user_name);
 $da_user_id=array_unique($da_user_id);
 
 /////////////////////////  end code ////////////////////////////////
-
+pr($da_to);
+exit;
 
 $this->loadmodel('resource');
 $this->resource->saveAll(array("resource_id" => $i, "resource_attachment" => $resource_att , "resource_title" => $resource_title,"resource_date"=>$date,"resource_category"=>$resource_cat,"user_id"=>$s_user_id,"society_id"=>$s_society_id,"resource_time"=>$time,"resource_delete"=>0,"visible"=>$visible,"sub_visible"=>$sub_visible));	

@@ -9,7 +9,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </script>
 
 <div class="portlet box light-grey">
-    <div style="background-color:#EFEFEF; border-top:1px solid #e6e6e6; border-bottom:1px solid #e6e6e6; padding:10px; box-shadow:5px; font-size:16px; color:#006;">
+    <div style="background-color:#EFEFEF; border-top:1px solid #e6e6e6; border-bottom:1px solid #e6e6e6; padding:10px; box-shadow:5px; font-size:16px; color:#006;"><i class="icon-file" style='font-size:16px;'></i>
             Documents   &nbsp; <span><i class=" icon-info-sign tooltips " data-placement="right" data-original-title="You could post frequently needed content like Society Rules & Regulations, Associations Policies, Standard Operating Procedures, Guidelines, News Letters etc. " ></i>
         </div>
 						
@@ -150,12 +150,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
                                         
                                         <!--popup start -->
 <div id="<?php echo $i; ?>" class="modal hide " tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true" style="display: none;">
-									<div class="modal-header" >
-										<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-										<h4 id="myModalLabel3"><b>Conformation </b></h4>
-									</div>
+									
 									<div class="modal-body">
-									<span style="color:red;"><i class="icon-warning-sign"></i></span>	<b style="font-size:16px; margin:1%; font-family:'Times New Roman', Times, serif;">Are you sure you want to delete the resource record ?</b>
+									<span style="color:red;font-size:16px;"><i class="icon-warning-sign"></i></span>	<span style="font-size:16px; margin:1%;">Are you sure you want to delete the resource record ?</span>
 									</div>
 									<div class="modal-footer">
 										
