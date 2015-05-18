@@ -164,7 +164,7 @@ $flat_info=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_f
 
 				$flat_info=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing,$flat)));
 				?>
-				<span><?php echo $user_name.' '.$flat_info; ?></span>
+				<span><?php echo $user_name.' '.$flat_info; ?><br/></span>
 				<?php
 			}
 			?>
