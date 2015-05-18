@@ -142,7 +142,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			</label>
 			</div>
 			<?php } ?>
-			<br/><br/><label id="requirecheck2"></label>
+			<br/><br/><br/><label id="requirecheck2"></label>
 			</div>
 			</div>
 		<!---------------end visible-------------------------------->
