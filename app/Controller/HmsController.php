@@ -18287,7 +18287,6 @@ return $this->terms_condition->find('all',array('conditions'=>$conditions));
 ////////////////// End terms Condition fetch(Accounts) (Accounts)//////////////////////
 
 ///////////////////// Start Flat Type //////////////////////////////////////////////
-
 function flat_type()
 {
 if($this->RequestHandler->isAjax()){
@@ -18309,10 +18308,10 @@ $this->loadmodel('wing');
 $conditions=array("society_id" => $s_society_id);
 $cursor2 = $this->wing->find('all',array('conditions'=>$conditions));
 $this->set('cursor2',$cursor2);
-}
+
 
 ///////// Flat Import ///////////////////////////
-/*
+
 if($this->request->is('post')) 
 {
 $file=$this->request->form['file']['name'];
@@ -18347,88 +18346,66 @@ for($i=1;$i<sizeof($test);$i++)
 {
 $row_no=$i+1;
 $r=explode(',',$test[$i][0]);
-$date = trim($r[0]);
-//$acccount_type=trim($r[1]); 
-$account_name=trim($r[1]);
-$amount_type=trim($r[2]);
-$opening_balance=trim($r[3]);
-//if($i==1) { $email_current=array(); }
-//$society_name=trim($r[4]);
-//$owner=trim($r[5]);
-//$committee=trim($r[6]);
-//$residing =trim($r[7]);
-$date1 = date("Y-m-d", strtotime($date));
-$date1 = new MongoDate(strtotime($date1));
+$wing = trim($r[0]);
+$flat_number=trim($r[1]);
+$flat_type=trim($r[2]);
+$flat_area=trim($r[3]);
 
 if(!empty($date)) 
 {	
-//$ok=2; 
-$this->loadmodel('financial_year');
-$conditions=array("society_id" => $s_society_id,"status"=>1);
-$cursor = $this->financial_year->find('all',array('conditions'=>$conditions));
-$abc = 0;
-foreach($cursor as $collection)
-{
-$from = $collection['financial_year']['from'];
-$to = $collection['financial_year']['to'];
-if($date1 <= $to && $date1 >= $from)
-{
-$abc = 5;
-break;
-}
-}
-if($abc == 5)
-{
 $ok=2;
-}
+} 
 else
 {
-$ok=1; $error_msg[]="Date is not in Open Year ".$row_no.".";	
+$ok=1; $error_msg[]="wing should not be empty in row".$row_no.".";	
 break;
 }
-}
-else { $ok=1; $error_msg[]="Year should not be empty in row ".$row_no.".";	break;}
-
-
-if(!empty($amount_type)) 
+if(!empty($flat_number)) 
 {
 $ok=2;
- 
-if (strcasecmp($amount_type, 'debit') == 0) 
-{
-
-$amount_type_id = 1;
-$total_debit = $total_debit + $opening_balance;
-}	
-else if(strcasecmp($amount_type, 'credit') == 0)
-{
-$amount_type_id = 2;
-$total_credit = $total_credit + $opening_balance;
-}
-else
-{
-$ok = 1; $error_msg[]="Please Fill 'Debit' or 'Credit' ".$row_no."."; break;
-}
-}
-else { $ok=1; $error_msg[]="Amount Type should not be empty in row ".$row_no.".";	break;}
-
-
-
-
-if(!empty($opening_balance)) 
-{	
-$ok=2; 
-if(is_numeric($opening_balance))
+if(is_numeric($flat_area))
 {
 
 }
 else
 {
 $ok = 1;
-$error_msg[]="Opening Balance should be numeric value ".$row_no.".";	break;
+$error_msg[]="flat number should be numeric in row".$row_no.".";	break;
 }
 }
-else { $ok=1; $error_msg[]="Opening Balance should not be empty in row ".$row_no.".";	break;}
+else
+{
+$ok=1; $error_msg[]="flat number should not be empty in row".$row_no.".";
+}
+if(!empty($flat_type))
+{
+$ok=2;
+}
+else
+{
+$ok=1; $error_msg[]="flat type should not be empty in row".$row_no.".";	
+}
+if(!empty($flat_area))
+{
+$ok=2;
+if(is_numeric($flat_area))
+{
+
+}
+else
+{
+$ok = 1;
+$error_msg[]="flat area should be numeric in row".$row_no.".";	break;
+}
+}
+else
+{
+$ok=1; $error_msg[]="flat area should not be empty in row".$row_no.".";	
+}
+
+
+
+
 
 
 if(!empty($account_name)) 
@@ -18482,8 +18459,7 @@ $ok = 1; $error_msg[]="Total Credit is not equal to Total debit";
 }
 }
 
-$this->set('td',$total_debit);
-$this->set('tc',$total_credit);
+
 
 $this->set('error_msg',@$error_msg);
 $this->set('ok',$ok);
@@ -18502,7 +18478,7 @@ for($i=1;$i<sizeof($test);$i++)
 $row_no=$i+1;
 $r=explode(',',$test[$i][0]);
 $date2=trim($r[0]);
-//$acccount_type=trim($r[1]); 
+
 $account_name=trim($r[1]);
 $amount_type=trim($r[2]);
 $opening_balance=trim($r[3]);
@@ -18511,14 +18487,7 @@ $date1 = date("Y-m-d", strtotime($date2));
 $date1 = new MongoDate(strtotime($date1));
 
 
-if (strcasecmp($amount_type, 'debit') == 0) 
-{
-$amount_type_id = 1;
-}	
-else if(strcasecmp($amount_type, 'credit') == 0)
-{
-$amount_type_id = 2;
-}
+
 
 $this->loadmodel('ledger_account'); 
 $conditions=array("ledger_name"=> new MongoRegex('/^' .  $account_name . '$/i'));
@@ -18530,22 +18499,8 @@ $this->loadmodel('ledger_sub_account');
 $conditions=array("name"=> new MongoRegex('/^' .  $account_name . '$/i'));
 $result_sac=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
 $result_sac_count=sizeof($result_sac);
-if($result_ac_count>0)
-{
-$account_type_id = 2;
-foreach($result_ac as $collection)
-{
-$account_id = (int)$collection['ledger_account']['auto_id'];
-}
-}
-else if($result_sac_count>0)
-{
-$account_type_id = 1;
-foreach($result_sac as $collection)
-{
-$account_id = (int)$collection['ledger_sub_account']['auto_id'];
-}
-}
+
+
 $cr_date = date("Y-m-d");
 $cr_date = new MongoDate(strtotime($cr_date));
 
@@ -18567,7 +18522,7 @@ $this->set('sucess','Csv Imported successfully.');
 
 
 
-*/
+
 
 ////////// End Flat Import/////////////
 

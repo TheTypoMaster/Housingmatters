@@ -7,7 +7,7 @@ Society Setup
 <li><a href="<?php echo $webroot_path; ?>Hms/master_sm_wing" rel='tab' > Wing</a></li>
 <li><a href="<?php echo $webroot_path; ?>Hms/flat_type" rel='tab' >Flat Type</a></li>
 <li><a href="<?php echo $webroot_path; ?>Hms/master_sm_flat" rel='tab' >Flat Configuration</a></li>
-<li class="active" ><a href="<?php echo $webroot_path; ?>Hms/flat_nu_import" rel='tab' >Flat Number Import</a></li>
+<!--<li class="active" ><a href="<?php //echo $webroot_path; ?>Hms/flat_nu_import" rel='tab' >Flat Number Import</a></li>-->
 <li><a href="<?php echo $webroot_path; ?>Hms/society_details" rel='tab' >Society Details</a></li>
 <li><a href="<?php echo $webroot_path; ?>Hms/society_settings" rel='tab' >Society Settings</a></li>
 </ul>
@@ -15,6 +15,10 @@ Society Setup
 <div class="tab-pane active" id="tab_1_1">
 
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<a href="<?php echo $webroot_path; ?>Hms/flat_type" class="btn yellow">Flat Type</a>
+<a href="<?php echo $webroot_path; ?>Hms/flat_nu_import" class="btn purple">Flat Import</a> 
+
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 <?php
 if(@$ok==2)
@@ -33,6 +37,8 @@ echo '<p>'.$er_msg.'</p>';
 echo '</div>';
 }
 ?>
+<br /><br />
+
 <div class="portlet box green">
 <div class="portlet-title">
 <h4><i class="icon-cogs"></i>Flat Number Import</h4>
@@ -56,14 +62,8 @@ echo '</div>';
 <li>The field flat fype format is : (1 BHK)</li>
 <li>Flat area shouls be in square feet</li>
 </ol>
-	
 </div>
 </div>
-
-
-
-
-
 
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 </div>

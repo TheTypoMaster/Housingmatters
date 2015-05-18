@@ -155,7 +155,6 @@ if($b == 5)
 <?php } ?>
 
 </table>
-
 <div id="shwd" class="hide">
 <div class="modal-backdrop fade in"></div>
 <div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">

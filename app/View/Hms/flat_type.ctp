@@ -10,15 +10,18 @@ Society Setup
 <li><a href="<?php echo $webroot_path; ?>Hms/master_sm_wing" rel='tab'> Wing</a></li>
 <li class="active"><a href="<?php echo $webroot_path; ?>Hms/flat_type" rel='tab'>Flat Type</a></li>
 <li><a href="<?php echo $webroot_path; ?>Hms/master_sm_flat" rel='tab'>Flat Configuration</a></li>
-<li ><a href="<?php echo $webroot_path; ?>Hms/flat_nu_import" rel='tab'>Flat Number Import</a></li>
+<!--<li><a href="<?php echo $webroot_path; ?>Hms/flat_nu_import" rel='tab'>Flat Number Import</a></li>-->
 <li><a href="<?php echo $webroot_path; ?>Hms/society_details" rel='tab'>Society Details</a></li>
 <li><a href="<?php echo $webroot_path; ?>Hms/society_settings" rel='tab'>Society Settings</a></li>
 </ul>
 <div class="tab-content" style="min-height:300px;">
 <div class="tab-pane active" id="succ">
 <div id="error_msg"></div>   
+<?php ///////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<a href="<?php echo $webroot_path; ?>Hms/flat_type" class="btn purple">Flat Type</a>
+<a href="<?php echo $webroot_path; ?>Hms/flat_nu_import" class="btn yellow">Flat Import</a> 
+
 <?php ////////////////////////////////////////////////////////////////////////////////////////////// ?>   
-	  
 <div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">      
 <div class="row-fluid">
 <div class="span5">    
@@ -142,8 +145,8 @@ echo '</div>';
 <script>
 $(document).ready(function(){
 	 $("#add_row").bind('click',function(){
-		var count = $("#url_main div").length;
-		count++;
+var count = $("#url_main div").length;
+count++;
 $("#url_main").append('<div class="content_'+count+'"><input type="text" class="m-wrap span7" maxlength="10" id="nu"><a href="#" role="button" id='+count+' class="btn black mini delete"><i class="icon-remove-sign"></i></a></div>');
 });
 $(".delete").live('click',function(){
