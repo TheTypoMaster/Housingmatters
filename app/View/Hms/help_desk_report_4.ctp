@@ -49,7 +49,7 @@ if($data['help_desk_status']==1) { $closed++;}
 </div>-->
 </div>
  <?php echo $webroot_path ; ?>
-<script src="<?php echo $this->webroot ; ?>/as/charts/Chart.js"></script>
+<script src="<?php echo $webroot_path ; ?>/as/charts/Chart.js"></script>
 <script>
 alert();
 	var pieData = [
