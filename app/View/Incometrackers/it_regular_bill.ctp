@@ -63,17 +63,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 		
 		
-		<!-- <div class="controls">
-		<label class="" style="font-size:14px;">Period*</label>
-		<div class="input-prepend"><span class="add-on">from</span></div>
-		<input type="text" class="span3 m-wrap  m-ctrl-medium date-picker" data-date-format="dd-mm-yyyy" placeholder="From*" name="from" id="from">
-		<span> - </span>
-		<div class="input-prepend"><span class="add-on">to</span></div>
-		<input type="text" class="span3 m-wrap  m-ctrl-medium date-picker" data-date-format="dd-mm-yyyy" placeholder="to*" name="to" id="to">
-		<label id="from" ></label>
-		<label id="to" ></label>
-        <div id="result11"></div>
-		</div><br/>		-->
+	
 		
 
 <div class="control-group">
@@ -88,10 +78,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 
 
-	<!--	<div class="control-group">
-		<div class="controls">
-		<label class="" style="font-size:14px;">Income-heads</label>
-		<select data-placeholder="Account Heads"  name="i_head[]" id="i_head" class="chosen m-wrap large" multiple="multiple" tabindex="6">	
+	
 		<?php
 		foreach ($cursor1 as $collection) 
 		{
@@ -198,10 +185,7 @@ No
 		</div>
 		
 		
-		<!-- <div class="control-group ">
-		<div class="controls">
-		<label class="" style="font-size:14px;">Terms and Condition</label>
-		<select data-placeholder="Select Terms and Conditions"  name="terms[]" id="terms" class="chosen m-wrap large" multiple="multiple" tabindex="6">	
+	
 		<?php
 		$q=0;
 		foreach ($cursor3 as $collection) 
@@ -373,10 +357,7 @@ $('#chk_vali').html('<p style="color:red;"></p>');
 		var date2 = m + "/" + d + "/" + y; 
 		//alert(date2);
 		var datobj=new Date(date2);
-		
-		//alert(d);
-		//alert(m);
-		//alert(y);
+			
 		if(per_tp == 1)
 		{
 		var to1 = new Date(date2).addMonths(1);  //
@@ -494,10 +475,6 @@ $('#chk_vali').html('<p style="color:red;"></p>');
 		{
 		$("#result11").load("regular_vali?ss=" + 12 + "");		
 		}
-		
-		
-		
-		
 		if(due == "")
 		{
 			

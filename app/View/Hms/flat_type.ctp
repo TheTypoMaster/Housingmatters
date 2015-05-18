@@ -123,7 +123,7 @@ echo '</div>';
 <label class="control-label">Attach csv file</label>
 <div class="controls">
 <input type="file" name="file" class="default">
-<input type="submit" name="sub" class="btn blue" value="Import" >
+<input type="submit" name="sub1" class="btn blue" value="Import" >
 </div>
 </div>
 </form>	
