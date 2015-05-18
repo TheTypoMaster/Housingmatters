@@ -152,7 +152,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <div id="<?php echo $i; ?>" class="modal hide " tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true" style="display: none;">
 									
 									<div class="modal-body">
-									<span style="color:red;font-size:16px;"><i class="icon-warning-sign"></i></span>	<span style="font-size:16px; margin:1%;">Are you sure you want to delete the resource record ?</span>
+									<span style="color:red;font-size:16px;"><i class="icon-warning-sign"></i></span>	<span style="font-size:16px; margin:1%;">Are you sure you want to delete the document record ?</span>
 									</div>
 									<div class="modal-footer">
 										
