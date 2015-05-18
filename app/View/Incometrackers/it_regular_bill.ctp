@@ -16,7 +16,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 <?php ///////////////////////////////////////////////////////////////////////////////////////// ?>		
 <div style="background-color:#fff;padding:5px;width:100%;margin:auto; overflow:auto;" class="form_div">
-<h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Generate Bill (Income Tracker)</h4>
+<h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Generate Regular Bill(Income Tracker)</h4>
 
 <form method="post" id="contact-form">
 <div class="row-fluid">

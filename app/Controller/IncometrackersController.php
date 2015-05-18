@@ -31,7 +31,6 @@ foreach($cursor as $collection)
 $ele_id=(int)@$collection['regular_bill']['receipt_id'];
 }
 
-
 $this->loadmodel('financial_year');
 $conditions=array("society_id" => $s_society_id, "status"=>1);
 $cursor=$this->financial_year->find('all',array('conditions'=>$conditions));
