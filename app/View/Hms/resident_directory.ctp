@@ -109,7 +109,7 @@ background-color:rgb(218, 236, 240);
 		  }
 		  
 	</script>
-
+<div style="overflow:auto;">
 <div id="all_dir">
 
 <div style="background-color:#EFEFEF; border-top:1px solid #e6e6e6; border-bottom:1px solid #e6e6e6; padding:2px; box-shadow:5px; font-size:16px; color:#006;overflow:auto;">
@@ -140,7 +140,7 @@ background-color:rgb(218, 236, 240);
 
 
 
-<div id="view_search" style="overflow:auto;" >
+<div id="view_search"  >
 
  <?php
   
@@ -186,7 +186,7 @@ background-color:rgb(218, 236, 240);
 <br/><br/><div align="center" style="font-size:24px;"><img src="<?php echo $this->webroot ; ?>/as/loading.gif" height="50px" width="50px"/><br/>Please Wait</div>
 
 </div>
-
+</div>
 <script>
 $(document).ready(function() {
 	$("#back").live('click',function(){
