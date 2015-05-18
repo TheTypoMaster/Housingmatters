@@ -145,7 +145,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			
 			</div>
 			</div>
-			<label id="requirecheck2" style='margin: auto; width: 60%;'></label>
+			<label id="requirecheck2" style='margin: auto; width: 50%;'></label>
 		<!---------------end visible-------------------------------->
 			
 			
