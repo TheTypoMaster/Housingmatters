@@ -19044,6 +19044,9 @@ $flat_number = trim($r[1]);
 $flat_type = trim($r[2]);
 $flat_area = trim($r[3]);
 
+$count2 = 0;
+$count1 = 0;
+
 if(!empty($wing_name)) 
 {	
 $ok=2; 
@@ -19093,6 +19096,31 @@ else
 { 
 $ok=1; $error_msg[]="Flat Area should not be empty in row ".$row_no.".";	break;
 }
+
+$this->loadmodel('wing');
+$condition=array('society_id'=>$s_society_id);
+$cursor = $this->wing->find('all',array('conditions'=>$condition)); 
+foreach($cursor as $collection)
+{
+$wing_name_flat = $collection['wing']['wing_name'];
+if(strcasecmp($wing_name_flat,$wing_name) == 0);
+{
+$count1=5;
+break;
+}
+}
+$this->loadmodel('flat');
+$condition=array('society_id'=>$s_society_id,"flat_name"=>$flat_number);
+$cursor = $this->flat->find('all',array('conditions'=>$condition)); 
+foreach($cursor as $collection)
+{
+$count2 = 5;
+}
+if($count2 == 5 and $count1 == 5)
+{
+$ok=1; $error_msg[]="same wing and flat exist please select another wing or flat".$row_no.".";	break;
+}
+
 }
 $this->set('error_msg',@$error_msg);
 $this->set('ok',$ok);
@@ -19109,7 +19137,6 @@ $wing_name = trim($r[0]);
 $flat_number = trim($r[1]);
 $flat_type = trim($r[2]);
 $flat_area = trim($r[3]);
-//$noc_type = 2;
 
 $this->loadmodel('wing');
 $condition=array('society_id'=>$s_society_id);
