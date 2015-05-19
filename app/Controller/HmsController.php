@@ -5398,12 +5398,13 @@ function notice_approval_ajax()
 			$conditions7=array("module_id" =>1,"user_id"=>$d_user_id,'chk_status'=>0);
 			$result5=$this->notification_email->find('all',array('conditions'=>$conditions7));
 			$n=sizeof($result5);
-			if($n>0)
-			{
-			@$subject.= '['. $society_name . '] - ' .' New Notice '.'     '.''.$sub.'';
-			$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
-			$subject="";
-			}	
+				if($n>0)
+				{
+				
+					@$subject.= 'Notice: ['. $society_name . ']  - '.' New Notice : '.'     '.''.$sub.'';
+					$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
+					$subject="";
+				}	
 			}
 			
 			
