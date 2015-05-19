@@ -682,7 +682,7 @@ $multipleRowData = Array( Array("regular_bill_id" => $regular_bill_id,"receipt_i
 "description"=>$description,"date"=>$current_date, "society_id"=>$s_society_id,"bill_for_user"=>$user_id,
 "g_total"=>$grand_total,"bill_daterange_from"=>$m_from,"bill_daterange_to"=>$m_to,
 "bill_html"=>"","one_time_id"=>$one,"status" => 0,  
-"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "due_amount_tax" => @$due_tax,"remaining_amount"=>$grand_total,"total_amount" => $total_amt,"pay_amount"=>"", "due_amount" => @$due_amount11,"period_id"=>$p_id,"ih_detail"=>$income_headd2));
+"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "due_amount_tax" => @$due_tax,"remaining_amount"=>$grand_total,"total_amount" => $total_amt,"pay_amount"=>"", "due_amount" => @$due_amount11,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>$noc_amt2));
 $this->regular_bill->saveAll($multipleRowData);	
 
 ///////////////////////////////////////
@@ -1370,7 +1370,6 @@ $total_amt = $total_amt + $noc_amt2;
 
 }
 
-
 ////////////////////////////////////
 //$tax_amount = round(($tax_per/100)*$total_amount);
 $current_date = new MongoDate(strtotime(date("Y-m-d")));
@@ -1563,9 +1562,8 @@ $multipleRowData = Array( Array("regular_bill_id" => $regular_bill_id,"receipt_i
 "description"=>$description,"date"=>$current_date, "society_id"=>$s_society_id,"bill_for_user"=>$user_id,
 "g_total"=>$grand_total,"bill_daterange_from"=>$m_from,"bill_daterange_to"=>$m_to,
 "bill_html"=>"","one_time_id"=>$one,"status" => 0,  
-"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "due_amount_tax" => @$due_tax,"remaining_amount"=>$grand_total,"total_amount" => $total_amt,"pay_amount"=>"", "due_amount" => @$due_amount11,"period_id"=>$p_id,"ih_detail"=>$income_headd2));
+"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "due_amount_tax" => @$due_tax,"remaining_amount"=>$grand_total,"total_amount" => $total_amt,"pay_amount"=>"", "due_amount" => @$due_amount11,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>$noc_amt2));
 $this->regular_bill->saveAll($multipleRowData);	
-
 
 ///////////////////////////////////////
 
@@ -1636,8 +1634,7 @@ $society_name=$collection['society']["society_name"];
 $so_reg_no = $collection['society']['society_reg_num'];
 $so_address = $collection['society']['society_address'];	
 }
-
- $date = date('d-M-Y',$date->sec);
+$date = date('d-M-Y',$date->sec);
 
 
 

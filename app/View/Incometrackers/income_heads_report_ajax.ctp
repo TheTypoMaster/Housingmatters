@@ -24,7 +24,7 @@ $total[]="";
 
 $cnt++;	
 }
-$cnt = $cnt+3;
+$cnt = $cnt+4;
 ?>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <table class="table table-bordered" style="background-color:white; width:100%;">
@@ -50,6 +50,7 @@ $ac_name = $collection2['ledger_account']['ledger_name'];
 <?php
 }
 ?>
+<th>Non Occupancy Charges</th>
 <th>Total</th>
 </tr>
 <?php
@@ -59,6 +60,8 @@ foreach($cursor2 as $collection)
 $bill_id = $collection['regular_bill']['receipt_id'];
 $user_id = (int)$collection['regular_bill']['bill_for_user'];
 $ih_detail2 = $collection['regular_bill']['ih_detail'];
+$noc_amt = $collection['regular_bill']['noc_charge'];
+
 
 $result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
 foreach ($result as $collection) 
@@ -94,6 +97,7 @@ $total_amt=$total_amt+$amount;
 }
 }
 ?>
+<td><?php echo $noc_amt; ?></td>
 <td><?php echo $total_amt; ?></td>
 </tr>
 <?php 
@@ -111,6 +115,7 @@ for($h=0; $h<sizeof($total); $h++)
 $grand_total = $grand_total + $total[$h];
 }
 ?>
+<th></th>
 <th><?php echo $grand_total; ?></th>
 </tr>
 
