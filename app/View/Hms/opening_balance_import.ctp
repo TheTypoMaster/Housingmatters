@@ -39,7 +39,7 @@ echo '</div>';
 </div>
 </form>	
 	
-<strong><a href="/cakephp_test/csv_file/demo/demo2.csv" download="">Click here for sample format</a></strong>
+<strong><a href="<?php echo $webroot_path; ?>/csv_file/demo/demo2.csv" download="">Click here for sample format</a></strong>
 <br>
 <h4>Instruction set to import users</h4>
 <ol>

@@ -16,6 +16,7 @@ $this->layout='blank';
 }else{
 $this->layout='session';
 }
+
 $this->ath();
 $this->check_user_privilages();
 
