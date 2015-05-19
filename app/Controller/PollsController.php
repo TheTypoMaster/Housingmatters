@@ -490,7 +490,7 @@ function poll_add(){
 		</div>";
 
 		$reply="support@housingmatters.in";
-		$subject="[".$s_name."]-".$question;
+		$subject="Polls: [".$s_name."]- New Poll: ".$question;
 		$from_name="HousingMatters";
 		$this->loadmodel('email');
 		$conditions=array("auto_id" => 4);
