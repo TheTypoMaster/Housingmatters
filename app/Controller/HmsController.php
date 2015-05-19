@@ -4430,7 +4430,7 @@ $flat_name=$collection['flat']['flat_name'];
 }
 $wing_flat = $wing_name.'-'.$flat_name;
 
-$r_sms=$this->hms_sms_ip();
+	$r_sms=$this->hms_sms_ip();
   $working_key=$r_sms->working_key;
  $sms_sender=$r_sms->sms_sender; 
 
@@ -4502,7 +4502,7 @@ foreach ($result_email as $collection)
 {
 $from=$collection['email']['from'];
 }
-$subject="New User Request for approval";
+$subject="Admin : New User Request for approval";
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 $z++;			
 }
@@ -14770,7 +14770,7 @@ foreach ($result_email as $collection)
 {
 $from=$collection['email']['from'];
 }
-$subject="New User Request for approval";
+$subject="Admin : New User Request for approval";
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);	
 $this->send_notification('<span class="label label-success" ><i class="icon-user"></i></span>','New User <b>'.$user_name.' '.$wing_flat.'</b> awaiting your approval/action',100,$da_user_id,'resident_approve',0,$da_user_id);
 	
