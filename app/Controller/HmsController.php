@@ -12915,7 +12915,7 @@ $result5=$this->notification_email->find('all',array('conditions'=>$conditions7)
 $n=sizeof($result5);
 if($n>0)
 {
-@$subject.= '['. $society_name . ']'.'-' . 'New Document upload'.  '    ' .$title;
+@$subject.= 'Document: ['. $society_name . ']'.'-' . 'New Document :'.  '    ' .$title;
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 $subject="";
 }	
