@@ -10774,7 +10774,7 @@ function discussion_forum_app_ajax()
 				
 				$reply="donotreply@housingmatters.in";
 				$from_name="HousingMatters";
-				$sub="New Topic";
+				$sub=$topic;
 				$result= $this->society_name($s_society_id);
 				foreach($result as $data)
 				{
