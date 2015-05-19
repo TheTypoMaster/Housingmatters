@@ -4404,6 +4404,12 @@ $conditions=array("society_id"=>$s_society_id);
 $cursor2=$this->regular_bill->find('all',array('conditions'=>$conditions,'order' =>$order));
 $this->set('cursor2',$cursor2);	
 
+$this->loadmodel('flat_type');
+$conditions=array("society_id"=>$s_society_id);
+$cursor9 = $this->flat_type->find('all',array('conditions'=>$conditions));
+$this->set('cursor9',$cursor9);
+
+
 }
 ////////////////////////////// End Income Heads Report Ajax(Accounts)////////////////
 ///////////////////////////////// Start Regular Bill Pdf(Accounts)///////////////////////////////////////
