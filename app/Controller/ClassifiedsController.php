@@ -160,26 +160,19 @@ function submit_ad(){
 	}
 	
 	
-	$title=$post_data["title"];
-	$price=$post_data["price"];
-	$price_type=$post_data["price_type"];
-	$ad_type=$post_data["ad_type"];
-	$condition=$post_data["condition"];
-	$offer=(int)$post_data["offer"];
-	if(empty($offer)){ $offer=30; }
+	$e_name=$post_data["e_name"];
 	$description=$post_data["description"];
-	$post_type=$post_data["post_type"];
-	
-	$file_name="";
-	if(isset($_FILES['file'])){
-		$file_name=$_FILES['file']['name'];
-		$file_size=$_FILES['file']['size'];
-		$file_tmp_name=$_FILES['file']['tmp_name'];
-		$file_type=$_FILES['file']['type'];
-		if($file_size>100000){
-			$report[]=array('label'=>'file', 'text' => 'Image size is too big. It should be less than 1 MB.');
-		}
+	$day_type=$post_data["day_type"];
+	if($day_type==1){
+		$date_single=$post_data["date_single"];
+	}else{
+		$date_from=$post_data["date_from"];
+		$date_to=$post_data["date_to"];
 	}
+	$e_time=$post_data["e_time"];
+	$location=$post_data["location"];
+	$visible=$post_data["visible"];
+	
 	
 	$report=array();
 	if(empty($cat_id)){

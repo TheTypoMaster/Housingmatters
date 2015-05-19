@@ -8,7 +8,7 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 });
 </script>
 
-
+<div id="success_div2">
 <div style="border-bottom:solid 2px #44b6ae; color:white; background-color: #44b6ae; padding:4px; font-size:20px;"><i class="icon-calendar"></i> Create New Event</div>
 <div style="padding:10px;background-color:#fff;border: solid 1px rgb(68, 182, 174);">
 
@@ -23,6 +23,7 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 		  <label class="control-label">Event Name</label>
 		  <div class="controls">
 			 <input type="text" name="e_name" class="span9 m-wrap" maxlength="50" id="alloptions" placeholder="Event Name">
+			 <label report="e_name" class="remove_report"></label>
 		  </div>
 		</div>
 
@@ -30,6 +31,7 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 		  <div class="controls">
 		   <label class="" style="font-size:14px;">Description</label>
 			  <textarea name="description" rows="2"  id="textarea" maxlength="500" class="span9 m-wrap" style="resize:none;" placeholder="More info about event"></textarea>
+			  <label report="description" class="remove_report"></label>
 		  </div>
 		</div>
 
@@ -56,7 +58,7 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 			<input type="text" name="date_single" data-date-format="dd-mm-yyyy" class="span3 m-wrap date-picker" placeholder="Date">
 		  </div>
 		</div>
-
+		<label report="day_type" class="remove_report"></label>
 		
 		
 		
@@ -71,6 +73,7 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 				 <div class="input-append bootstrap-timepicker-component">
 					<input class="m-wrap m-ctrl-small timepicker-default " type="text" name='e_time'>
 					<span class="add-on"><i class="icon-time"></i></span>
+					<label report="e_time" class="remove_report"></label>
 				 </div>
 			  </div>
 			</div>
@@ -84,6 +87,7 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
   <label class="control-label">Location</label>
   <div class="controls">
 	 <input type="text" name="location" class="span8 m-wrap" maxlength="100" id="alloptions" placeholder="Location">
+	 <label report="location" class="remove_report"></label>
   </div>
 </div>
 
@@ -128,7 +132,7 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 	</label>
 	<?php } ?>
 	</div>
-	<label  id="requirecheck1"></label>
+	<label report="visible_role" class="remove_report"></label>	
 	</div>
 
 	<div class="controls">
@@ -136,7 +140,8 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 	<div class="radio"><span><input type="radio" name="visible" value="3" id="v3" ></span></div>Wing Wise
 	</label> 
 	</div>
-	<div id="show_3" style="display:none; margin-left:5%;">
+	<div id="show_3" style="display:none; margin-left:5%;overflow: auto;">
+	<label report="visible_wing" class="remove_report"></label>
 	<div class="controls">
 	<?php
 	foreach ($wing_result as $collection) 
@@ -150,23 +155,22 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 	</label>
 	</div>
 	<?php } ?>
-	</div><br/>
-	<label id="requirecheck2"></label>
 	</div>
-
 	
-	
+	</div>	
 	<!---------------end visible-------------------------------->
-		
+	
 	</div>
+	
 </div>
 		
 <div  style="margin-bottom:0px !important;">
 	<button type="submit" name="create_event" class="btn blue" style="font-size: 20px;padding: 12px;"><i class="icon-calendar"></i> Create Event</button>
+	 <div style="display:none;" id='wait'><img src="<?php echo $webroot_path; ?>as/fb_loading.gif" /> Please Wait...</div>
 </div>
 </form>
 </div>
-
+</div>
 
 <script>
 $(document).ready(function(){
@@ -202,4 +206,89 @@ $(document).ready(function() {
 		$("#show_3").slideUp('fast');
 	 });
 });
+</script>
+
+<script>
+$(document).ready(function() {
+	$('form').submit( function(ev){
+	ev.preventDefault();
+		
+		
+		var m_data = new FormData();    
+		m_data.append( 'e_name', $('input[name=e_name]').val());
+		m_data.append( 'description', $('textarea[name=description]').val());
+		var day_type=$('input:radio[name=day_type]:checked').val();
+		m_data.append( 'day_type', day_type);
+		if(day_type==1){
+			m_data.append( 'date_single', $('input[name=date_single]').val());
+		}else{
+			m_data.append( 'date_from', $('input[name=date_from]').val());
+			m_data.append( 'date_to', $('input[name=date_to]').val());
+		}
+		m_data.append( 'e_time', $('input[name=e_time]').val());
+		m_data.append( 'location', $('input[name=location]').val());
+		
+		var visible=$('input:radio[name=visible]:checked').val();
+		m_data.append( 'visible', visible);
+		if(visible==2){
+			var allVals = [];
+			$('.v2:checked').each(function() {
+			allVals.push($(this).val());
+			});
+			if(allVals.length==0){
+				m_data.append( 'sub_visible', 0);
+			}else{
+				m_data.append( 'sub_visible', allVals);
+			}
+		}
+		if(visible==3){
+			var allVals = [];
+			$('.v3:checked').each(function() {
+			allVals.push($(this).val());
+			});
+			if(allVals.length==0){
+				m_data.append( 'sub_visible', 0);
+			}else{
+				m_data.append( 'sub_visible', allVals);
+			}
+		}
+		if(visible==1 || visible==4 || visible==5){
+			m_data.append( 'sub_visible', 0);
+		}
+		
+		
+		$(".form_post").addClass("disabled");
+		$("#wait").show();
+			
+			$.ajax({
+			url: "event_submit",
+			data: m_data,
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			dataType:'json',
+			}).done(function(response) {
+			$("#wait").html(response);
+				if(response.report_type=='error'){
+					$(".remove_report").html('');
+						jQuery.each(response.report, function(i, val) {
+						$("label[report="+val.label+"]").html('<span style="color:red;">'+val.text+'</span>');
+					});
+				}
+				if(response.report_type=='success'){
+					
+					$("#success_div2").html("<div class='alert alert-block alert-success fade in'><h4 class='alert-heading'>Success!</h4><p>Your Event is successfully reated.</p><p><a class='btn green' href='<?php echo $webroot_path ?>Events/events' rel='tab' role='button'>ok</a></p></div>");
+					
+				}
+			$("html, body").animate({
+			scrollTop:0
+			},"slow");
+			$(".form_post").removeClass("disabled");
+			$("#wait").hide();
+			});
+
+	 
+	});
+});
+
 </script>

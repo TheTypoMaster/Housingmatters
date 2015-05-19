@@ -51,7 +51,7 @@ $this->set('result_users',$this->user->find('all',array('conditions'=>$condition
 if (isset($this->request->data['create_event'])) 
 {
 $e_name=htmlentities($this->request->data['e_name']);
- $e_time=htmlentities($this->request->data['e_time']);
+$e_time=htmlentities($this->request->data['e_time']);
 
 $day_type=(int)$this->request->data['day_type'];
 $ip=$this->hms_email_ip();
@@ -305,6 +305,139 @@ Your Event has been created.
 }
 
 }
+
+
+function event_submit(){
+$this->layout=null;
+	$post_data=$this->request->data;
+	
+	$this->ath();
+	$s_society_id=$this->Session->read('society_id');
+	$s_role_id=$this->Session->read('role_id'); 
+	$s_user_id=$this->Session->read('user_id');
+	$date=date('d-m-Y');
+	$time = date(' h:i a', time());
+	$result_society=$this->society_name($s_society_id);
+	foreach($result_society as $child)	{
+		@$notice=$child['society']['notice'];
+	}
+	
+	
+	
+	
+	$report=array();
+	$e_name=htmlentities($post_data["e_name"]);
+	if(empty($e_name)){
+		$report[]=array('label'=>'e_name', 'text' => 'Please fill event name.');
+	}
+	$description=htmlentities($post_data["description"]);
+	if(empty($description)){
+		$report[]=array('label'=>'description', 'text' => 'Please fill description.');
+	}
+	$day_type=$post_data["day_type"];
+	if($day_type==1){
+		if(empty($post_data["date_single"])){
+			$report[]=array('label'=>'day_type', 'text' => 'Please select date_single');
+		}
+		$date_email='On '.$post_data["date_single"];
+		$date_from=date("Y-m-d",strtotime($post_data["date_single"]));
+		$date_from = $date_to = new MongoDate(strtotime($date_from));
+		
+	}else{
+		if(empty($post_data["date_from"]) or empty($post_data["date_to"])){
+			$report[]=array('label'=>'day_type', 'text' => 'Please select a valid data-range.');
+		}
+		$date_email='from '.$post_data["date_from"].' to '.$post_data["date_to"];
+		$date_from=date("Y-m-d",strtotime($post_data["date_from"]));
+		$date_from = new MongoDate(strtotime($date_from));
+		$date_to=date("Y-m-d",strtotime($post_data["date_to"]));
+		$date_to = new MongoDate(strtotime($date_to));
+		
+	}
+	$e_time=$post_data["e_time"];
+	if(empty($e_time)){
+		$report[]=array('label'=>'e_time', 'text' => 'Please select e_time');
+	}
+	$location=htmlentities($post_data["location"]);
+	if(empty($location)){
+		$report[]=array('label'=>'location', 'text' => 'Please select location');
+	}
+	
+	$visible=$post_data['visible'];
+	$sub_visible=$post_data['sub_visible'];
+	if($visible==0){
+		$report[]=array('label'=>'visible', 'text' => 'Please select visible');
+	}elseif($visible==2 and $sub_visible==0){
+		$report[]=array('label'=>'visible_role', 'text' => 'Please select role.');
+		$sub_visible=explode(",",$sub_visible);
+	}elseif($visible==3 and $sub_visible==0){
+		$report[]=array('label'=>'visible_wing', 'text' => 'Please select wing.');
+		$sub_visible=explode(",",$sub_visible);
+	}
+	
+	
+	if(sizeof($report)>0){
+		$output=json_encode(array('report_type'=>'error','report'=>$report));
+		die($output);
+	}
+	
+	@$ip=$this->hms_email_ip();
+	$recieve_info=$this->visible_subvisible($visible,$sub_visible);
+		
+	$event_id=$this->autoincrement('event','event_id');
+	$this->loadmodel('event');
+	$this->event->saveAll(array('event_id' => $event_id,'e_name' => $e_name, 'user_id' => $s_user_id, 'society_id' => $s_society_id, 'date_from' => $date_from , 'date_to' => $date_to, 'day_type' => $day_type, 'location' => $location,'description' => $description,'visible' => $visible,'sub_visible' => $sub_visible,'visible_user_id' => $recieve_info[2],'date' => $date,'time'=>$e_time));
+
+
+	
+	
+	$from="Support@housingmatters.in";
+	$reply="Support@housingmatters.in";
+	$from_name="HousingMatters";
+	$society_result=$this->society_name($s_society_id);
+	foreach($society_result as $data)
+	{
+	$society_name=$data['society']['society_name'];
+	}
+		
+		
+	foreach($recieve_info[0] as $user_id=>$email)
+	{
+	$to = @$email;
+	$d_user_id = @$user_id;	
+	$da_user_id[]=$d_user_id;		
+	$result_user=$this->profile_picture($user_id);
+	$user_name=$result_user[0]['user']['user_name'];
+
+	$message_web="<div>
+	<img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+	<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
+	<a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+	</br><p>Hello $user_name </p>
+	<p>A new event has been created.</p>
+	<p><span>$e_name</span></p>
+	<p><span>$date_email</span></p>
+	<p><span>$location</span></p>
+	<div>
+	<br/>
+	<br/>
+	Thank you.<br/>
+	HousingMatters (Support Team)<br/><br/>
+	www.housingmatters.co.in
+	</div>
+	</div>";
+	
+	@$subject.= '['. $society_name . ']' .'  -   '.' '.$e_name.'';
+	$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
+	$subject="";
+		
+	}
+	
+	$output=json_encode(array('report_type'=>'success','report'=>''));
+	die($output);
+	
+}
+
 
 function calendar()
 {
