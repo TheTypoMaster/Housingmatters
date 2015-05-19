@@ -254,7 +254,8 @@ HousingMatters (Support Team)<br/><br/>
 www.housingmatters.co.in
 </div>
 </div>";
- @$subject.= '['. $society_name . ']' .'  -   '.' '.$e_name.'';
+
+ @$subject.= 'Events: ['. $society_name . ']' .'  - New event:  '.' '.$e_name.'';
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 $subject="";
 
