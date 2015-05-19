@@ -268,8 +268,6 @@ $pen_per2 = (int)$collection['society']['tax'];
 $per_type2 = (int)$collection['society']['tax_type'];
 $society_address = $collection['society']['society_address'];
 }
-if(!empty($society_address))
-{
 $bill_for = (int)$this->request->data['bill_for'];
 $wing_arr_imp = $this->request->data['wing_ar'];
 $from = $this->request->data['from'];
@@ -2070,28 +2068,6 @@ $this->send_email($to_mail,$from,$from_name,$subject,$html_mail,$reply);
 </div>
 </div>
 <?php
-}
-}
-else
-{
-?>
-<div class="modal-backdrop fade in"></div>
-<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-<div class="modal-header">
-<center>
-<h3 id="myModalLabel3" style="color:#999;"><b>Regular Bill</b></h3>
-</center>
-</div>
-<div class="modal-body">
-<center>
-<h5><b>Please Fill Society Address</b></h5>
-</center>
-</div>
-<div class="modal-footer">
-<a href="regular_bill_view2" class="btn blue">OK</a>
-</div>
-</div>
-<?php 
 }
 }
 ////////////////////////// End Regular Bill View2 /////////////////////////////////////////////////////////////
