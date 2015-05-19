@@ -74,6 +74,7 @@ $wing_flat = $this->requestAction(array('controller' => 'hms', 'action'=>'wing_f
 <td><?php echo $wing_flat; ?></td>
 <td><?php echo $user_name; ?></td>
 <?php
+$total_amt = 0;
 for($y=0; $y<sizeof($income_head_charge); $y++)
 {
 $income_head_arr_id = $income_head_charge[$y];	
@@ -88,11 +89,12 @@ $total[$y] = $total[$y] + $amount;
 ?>
 <td><?php echo $amount; ?></td>
 <?php
+$total_amt=$total_amt+$amount;
 }
 }
 }
 ?>
-<td>total</td>
+<td><?php echo $total_amt; ?></td>
 </tr>
 <?php 
 }
