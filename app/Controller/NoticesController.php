@@ -1423,6 +1423,7 @@ function submit_notice(){
 	$result_society=$this->society_name($s_society_id);
 	foreach($result_society as $child)	{
 		@$notice=$child['society']['notice'];
+		 @$s_duser_id[]=$child['society']['user_id'];
 	}
 	
 	if(empty($post_data['notice_subject'])){
@@ -1469,6 +1470,8 @@ if($post_data['post_type']==1){
 		$this->loadmodel('notice');
 		$this->notice->save(array('notice_id' => $notice_id, 'user_id' => $s_user_id, 'society_id' => $s_society_id, 'n_category_id' => $category_id ,'n_subject' => $notice_subject , 'n_expire_date' => $notice_expire_date, 'n_attachment' => "" , 'n_message' => $code,'n_date' => $date, 'n_time' => $time, 'n_delete_id' => 0,'n_draft_id' => 4,'visible' => $visible,'sub_visible' => $sub_visible));
 		
+		$this->send_notification('<span class="label label-info" ><i class="icon-bullhorn"></i></span>','Approval request for notice published - <b>'.$notice_subject.'</b> by',2,$notice_id,$this->webroot.'Hms/notice_approval',$s_user_id,$s_duser_id);
+						
 		$output = json_encode(array('type'=>'approve', 'text' =>'Your notice has created and sent for approval to your society Admin/Committee.'));
 		die($output);
 	}else{
