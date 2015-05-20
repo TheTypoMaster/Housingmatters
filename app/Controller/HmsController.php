@@ -268,7 +268,7 @@ $this->redirect(array('action' => 'index'));
 }
 function beforeFilter()
 {
-Configure::write('debug', 0);
+//Configure::write('debug', 0);
 }
 
 function menus_from_role_privileges()
@@ -3598,10 +3598,10 @@ function send_notification($icon,$text,$module_id,$element_id,$url,$by_user,$use
 $s_society_id=$this->Session->read('society_id');
 
 $now=date('Y-m-d');
-
+$seen=array();
 $notification_id=$this->autoincrement('notification','notification_id');
 $this->loadmodel('notification');
-$this->notification->saveAll(array('notification_id' => $notification_id,'icon' => $icon,'module_id' => $module_id,'element_id' => $element_id,'text' => $text, 'url' =>$url, 'by_user' =>$by_user, 'users' =>$users, 'society_id' =>$s_society_id, 'date' =>$now));
+$this->notification->saveAll(array('notification_id' => $notification_id,'icon' => $icon,'module_id' => $module_id,'element_id' => $element_id,'text' => $text, 'url' =>$url, 'by_user' =>$by_user, 'users' =>$users, 'society_id' =>$s_society_id, 'date' =>$now,'seen_users'=>$seen));
 }
 
 
@@ -3609,22 +3609,24 @@ function seen_notification($module_id,$element_id)
 {
 	$module_id=(int)$module_id;
 	$element_id=(int)$element_id;
-$s_society_id=$this->Session->read('society_id');
-$s_user_id=$this->Session->read('user_id');
+	$s_society_id=$this->Session->read('society_id');
+	$s_user_id=$this->Session->read('user_id');
 
 	$this->loadmodel('notification');
 	$conditions=array("module_id" => $module_id,"element_id" => $element_id);
 	$notification_result=$this->notification->find('all', array('conditions' => $conditions));
+	
+	
 	foreach($notification_result as $notification_result_data)
 	{
-		$seen_users=@$notification_result_data['notification']['seen_users'];
+		 $seen_users=@$notification_result_data['notification']['seen_users'];
 	
-	if(is_array($seen_users))	{
+	if(is_array($seen_users))	{  
 	if(sizeof($seen_users)==0)	{ $seen_users=array(); }
 	
 	if (!in_array($s_user_id, $seen_users))
 	{
-	
+	  
 		if(sizeof($seen_users)==0)
 		{
 		$seen_users[]=$s_user_id;
@@ -5217,6 +5219,14 @@ function notice_approval()
 	$conditions=array("n_draft_id" => 4, "n_delete_id" => 0,"society_id"=> $s_society_id);
 	$order=array('notice_id'=>'DESC');
 	$res_notice=$this->notice->find('all',array('conditions'=>$conditions,'order'=>$order));
+	
+	foreach($res_notice as $dda)
+			{
+				$id=(int)$dda['notice']['notice_id'];
+				$this->seen_notification(2,$id);
+
+			}
+
 	$this->set('result_notice_publish',$res_notice);	
 
 }
@@ -7732,7 +7742,15 @@ function poll_approve()
 	$this->loadmodel('poll');
 	$conditions=array("society_id" => $s_society_id,"deleted" => 4,'close_date' => array('$gt' => $current_date));
 	$order=array('poll.poll_id'=>'DESC');
-	$this->set('result_poll',$this->poll->find('all', array('conditions' => $conditions,'order' => $order)));
+	$result=$this->poll->find('all', array('conditions' => $conditions,'order' => $order));
+			foreach($result as $dda)
+			{
+				$id=(int)$dda['poll']['poll_id'];
+				$this->seen_notification(7,$id);
+
+			}
+
+	$this->set('result_poll',$result);
 	
 }
 
@@ -10632,10 +10650,18 @@ function discussion_forum_approval()
 	
 	$this->check_user_privilages();	
 	$s_society_id=$this->Session->read('society_id');
+	
 	$this->loadmodel('discussion_post');
 	$conditions=array('delete_id'=>4,'society_id'=>$s_society_id);
 	$order=array('discussion_post.discussion_post_id'=>'DESC');
 	$result=$this->discussion_post->find('all',array('conditions'=>$conditions,'order'=>$order));
+	foreach($result as $dda)
+	{
+		 $id=(int)$dda['discussion_post']['discussion_post_id'];
+		$this->seen_notification(3,$id);
+		
+	}
+	
 	$this->set('result_discussion',$result);
 }
 
@@ -12707,6 +12733,13 @@ $this->loadmodel('resource');
 $conditions=array('society_id'=>$s_society_id,'resource_delete'=>4);	
 $order=array('resource.resource_id'=>'DESC');
 $result=$this->resource->find('all',array('conditions'=>$conditions,'order'=>$order));
+foreach($result as $dda)
+	{
+		 $id=(int)$dda['resource']['resource_id'];
+		$this->seen_notification(4,$id);
+		
+	}
+	
 $this->set('result_resource',$result);	
 	
 }
