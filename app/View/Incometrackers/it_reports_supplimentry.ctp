@@ -9,8 +9,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
 </div>
-
-
 <?php ///////////////////////////////////////////////////////////////////////////////////////// ?>		
    
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
@@ -26,14 +24,12 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 $c_date = date('d-m-Y');
 $b_date = date('1-m-Y');
 ?>
-
 <center>
 <div class="hide_at_print">
 <form method="post" id="contact-form">
 <br>
 <table>
 <tbody>
-
 <?php
 foreach($cursor2 as $collection)
 {
@@ -59,7 +55,6 @@ $user_name = $collection['user']['user_name'];
 </div>
 </td>
 </tr>
--->
 <tr>
 <td>
 <select name="type" id="tp" class="m-wrap medium">
@@ -70,7 +65,6 @@ $user_name = $collection['user']['user_name'];
 </select>
 </td>
 <td><input type="text" id="date1" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="from" placeholder="From" style="background-color:white !important;" value="<?php echo $b_date; ?>"></td>
-
 <td><input type="text" id="date2" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="to" placeholder="To" style="background-color:white !important;" value="<?php echo $c_date; ?>"></td>
 <td valign="top"><button type="button" name="sub" class="btn yellow" id="go">Go</button></td>
 </tr>
@@ -82,11 +76,10 @@ $user_name = $collection['user']['user_name'];
 </center>
 	
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>    
-   <center>
-   <div id="result" style="width:94%;">
-   </div>
-   </center>
-
+<center>
+<div id="result" style="width:94%;">
+</div>
+</center>
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 

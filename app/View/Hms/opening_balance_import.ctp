@@ -38,10 +38,13 @@ echo '</div>';
 </div>
 </div>
 </form>	
-	
+
 <strong><a href="<?php echo $webroot_path; ?>/csv_file/demo/demo2.csv" download="">Click here for sample format</a></strong>
 <br>
 <h4>Instruction set to import users</h4>
+<?php
+echo 'hello';
+?>	
 <ol>
 <li>All the field are compulsory.</li>
 <li>Opening Balance Amount should be Numeric</li>
