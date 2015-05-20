@@ -43,7 +43,7 @@ function resource_add()
 	foreach($result as $data)
 	{
 	@$document=$data['society']['document'];
-
+	@$s_duser_id[]=$data['society']['user_id'];
 	}
 	if($document==1 && $s_role_id!=3 )
 	{		
@@ -117,6 +117,11 @@ function resource_add()
 					
 				$this->loadmodel('resource');
 				$this->resource->saveAll(array("resource_id" => $i, "resource_attachment" => $resource_att , "resource_title" => $resource_title,"resource_date"=>$date,"resource_category"=>$resource_cat,"user_id"=>$s_user_id,"society_id"=>$s_society_id,"resource_time"=>$time,"resource_delete"=>4,"visible"=>$visible,"sub_visible"=>$sub_visible));	
+				
+				
+$this->send_notification('<span class="label label-warning" ><i class="icon-folder-open"></i></span>','Approval request for  document <b>'.$resource_title.'</b> created by',4,$i,$this->webroot.'Hms/resource_approval',$s_user_id,$s_duser_id);
+				
+				
 				?>
                 
 
