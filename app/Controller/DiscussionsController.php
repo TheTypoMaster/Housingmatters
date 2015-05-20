@@ -180,7 +180,7 @@ function new_topic(){
 	foreach($result_soc as $data)
 	{
 		 @$discussion_forum1=$data['society']['discussion_forum'];
-		//@$s_duser_id=$data['society']['user_id'];
+		 @$s_duser_id[]=$data['society']['user_id'];
 	}
 if($discussion_forum1==1 && $s_role_id!=3)
 {
@@ -249,13 +249,18 @@ if($discussion_forum1==1 && $s_role_id!=3)
 							}
 						}
 					}
-					
-					
+						
 	$discussion_post_id=$this->autoincrement('discussion_post','discussion_post_id');
 	$this->loadmodel('discussion_post');
 	$multipleRowData = Array( Array("discussion_post_id" => $discussion_post_id, "user_id" => $s_user_id , "society_id" => $s_society_id, "topic" => $topic,"description" => $description, "file" =>$file,"delete_id" =>4, "date" =>$date, "time" => $time, "visible" => $visible, "sub_visible" => $sub_visible));
 	$this->discussion_post->saveAll($multipleRowData); 
-					
+	
+$this->send_notification('<span class="label" style="background-color:#269abc;"><i class="icon-comment"></i></span>','Approval request for discussion <b>'.$topic.'</b> created by',3,$discussion_post_id,$this->webroot.'Hms/discussion_forum_approval',$s_user_id,$s_duser_id);		
+		
+
+
+
+	
 	?>
                 
 
