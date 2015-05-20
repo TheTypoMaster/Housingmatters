@@ -153,6 +153,7 @@ function poll_add(){
 	foreach($result_so as $data)
 	{
 	  @$poll_society=$data['society']['poll'];
+	  @$s_duser_id[]=$data['society']['user_id'];
 	}
 	if(@$poll_society==1 && $s_role_id!=3 )
 	{
@@ -250,6 +251,9 @@ function poll_add(){
 					$poll_id=$this->autoincrement('poll','poll_id');
 					$this->loadmodel('poll');
 					$this->poll->saveAll(array('poll_id' => $poll_id,'question' => $question , 'des' => $description, 'type' => $type, 'choice' => $choice,'visible' => $visible,'sub_visible' => $sub_visible,'date' => $current_date,'close_date' => $close_date,'file' => $file,'society_id' => $s_society_id,'user_id' => $s_user_id,"deleted" => 4,"private" => $private));
+					
+					
+		$poll_id=$this->send_notification('<span class="label" style="background-color:#46b8da;"><i class="icon-question-sign"></i></span>','Approval request for Poll <b>'.$question.'</b> created by',7,$poll_id,$this->webroot.'Hms/poll_approve',$s_user_id,$s_duser_id);
 				
 				?>
 		<!----alert-------------->
