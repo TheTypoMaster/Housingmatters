@@ -5411,11 +5411,11 @@ function notice_approval_ajax()
 				if($n>0)
 				{
 				
-					@$subject.= 'Notice: ['. $society_name . ']  - '.' New Notice : '.'     '.''.$sub.'';
+					@$subject.= '['. $society_name . ']  - '.' New Notice : '.'     '.''.$sub.'';
 					$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 					$subject="";
 				}	
-			}
+	}
 			
 			
 ////////// Send Notification code start ///////////////////////////////////////
