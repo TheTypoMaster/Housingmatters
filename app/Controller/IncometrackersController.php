@@ -130,7 +130,6 @@ $pen = $this->encode($penalty,'housingmatters');
 $wing_imp_en = $this->encode($wing_imp,'housingmatters');
 $bill_for_en = $this->encode($bill_for,'housingmatters');
 
-
 $this->response->header('Location','regular_bill_view2?f='.$f1.'&t='.$t1.'&due='.$due1.'&d='.$desc1.'&p='.$p_id.'&pen='.$pen.'&wi='.$wing_imp_en.'&bi='.$bill_for_en.' ');
 }
 
@@ -682,7 +681,7 @@ $multipleRowData = Array( Array("regular_bill_id" => $regular_bill_id,"receipt_i
 "description"=>$description,"date"=>$current_date, "society_id"=>$s_society_id,"bill_for_user"=>$user_id,
 "g_total"=>$grand_total,"bill_daterange_from"=>$m_from,"bill_daterange_to"=>$m_to,
 "bill_html"=>"","one_time_id"=>$one,"status" => 0,  
-"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "due_amount_tax" => @$due_tax,"remaining_amount"=>$grand_total,"total_amount" => $total_amt,"pay_amount"=>"", "due_amount" => @$due_amount11,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>$noc_amt2));
+"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "due_amount_tax" => @$due_tax,"remaining_amount"=>$grand_total,"total_amount" => $total_amt,"pay_amount"=>"", "due_amount" => @$due_amount11,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt2));
 $this->regular_bill->saveAll($multipleRowData);	
 
 ///////////////////////////////////////
@@ -1473,7 +1472,7 @@ $this->ledger->saveAll($multipleRowData);
 $total_due_amount = @$due_tax + @$due_amount11;
 $grand_total = $total_amt + $total_due_amount;
 
-if($due_amount11 > 0)
+if(@$due_amount11 > 0)
 {
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
@@ -1599,7 +1598,7 @@ $multipleRowData = Array( Array("regular_bill_id" => $regular_bill_id,"receipt_i
 "description"=>$description,"date"=>$current_date, "society_id"=>$s_society_id,"bill_for_user"=>$user_id,
 "g_total"=>$grand_total,"bill_daterange_from"=>$m_from,"bill_daterange_to"=>$m_to,
 "bill_html"=>"","one_time_id"=>$one,"status" => 0,  
-"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "due_amount_tax" => @$due_tax,"remaining_amount"=>$grand_total,"total_amount" => $total_amt,"pay_amount"=>"", "due_amount" => @$due_amount11,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>$noc_amt2));
+"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "due_amount_tax" => @$due_tax,"remaining_amount"=>$grand_total,"total_amount" => $total_amt,"pay_amount"=>"", "due_amount" => @$due_amount11,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt2));
 $this->regular_bill->saveAll($multipleRowData);	
 
 ///////////////////////////////////////
@@ -1616,14 +1615,9 @@ $this->regular_bill->saveAll($multipleRowData);
 	$bill_no = (int)$collection['regular_bill']['regular_bill_id'];
 	$date_from = $collection['regular_bill']['bill_daterange_from'];
 	$date_to = $collection['regular_bill']['bill_daterange_to'];
-	//$ih_id1 = $collection['regular_bill']["ih_id"];
 	$ih_detail2 = $collection['regular_bill']['ih_detail'];
-	//$tax_id=(int)$collection['regular_bill']["tax_id"]; 
 	$date=$collection['regular_bill']["date"];
-	//$terms_conditions_id=$collection['regular_bill']["terms_conditions_id"];
 	$regular_bill_id=$collection['regular_bill']["regular_bill_id"];
-	//$rent2 = (int)$collection['regular_bill']['rent'];	
-	//$tax_amount = (int)$collection['regular_bill']['tax_amount'];
 	$grand_total = (int)$collection['regular_bill']['g_total'];
 	$late_amt2 = (int)$collection['regular_bill']['due_amount_tax'];
 	$due_amt2 = (int)$collection['regular_bill']['total_due_amount'];
@@ -2146,6 +2140,7 @@ $this->send_email($to_mail,$from,$from_name,$subject,$html_mail,$reply);
 
 ///////////////////////////////////////////////
 }
+
 ?>
 <div class="modal-backdrop fade in"></div>
 <div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
