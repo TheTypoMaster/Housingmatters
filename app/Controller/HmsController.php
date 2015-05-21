@@ -10861,7 +10861,7 @@ $result5=$this->notification_email->find('all',array('conditions'=>$conditions7)
 $n=sizeof($result5);
 	if($n>0)
 	{
-	@$subject.= 'Discussion: ['. $society_name . ']' .'  -   '.'New Discussion: '.$sub.'';
+	@$subject.= '['. $society_name . ']' .'  -   '.'New Discussion: '.$sub.'';
 	$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 	$subject="";
 	
@@ -15041,60 +15041,6 @@ $this->loadmodel('wing');
 $conditions=array("society_id" => $s_society_id);
 $result_wing = $this->wing->find('all',array('conditions'=>$conditions));
 $this->set('result_wing',$result_wing);
-}
-
-function new_user_enrollment2()
-{
-if($this->RequestHandler->isAjax()){
-		$this->layout='blank';
-	}else{
-		$this->layout='session';
-	}
-$this->check_user_privilages();
-$this->ath();
-$s_society_id=$this->Session->read('society_id');
-
-$this->loadmodel('wing');
-$conditions=array("society_id" => $s_society_id);
-$result_wing = $this->wing->find('all',array('conditions'=>$conditions));
-$this->set('result_wing',$result_wing);
-}
-
-
-function import_user_ajax()
-{
-	$this->layout=null;
-	$this->ath();
-	 
-	if(isset($_FILES['file'])){
-		$file_name=$_FILES['file']['name'];
-		$file_tmp_name =$_FILES['file']['tmp_name'];
-		$target = "csv_file/";
-		$target=@$target.basename($file_name);
-		move_uploaded_file($file_tmp_name,@$target);
-		
-		$f = fopen('csv_file/'.$file_name, 'r') or die("ERROR OPENING DATA");
-		$batchcount=0;
-		$records=0;
-		while (($line = fgetcsv($f, 4096, ';')) !== false) {
-		// skip first record and empty ones
-		$numcols = count($line);
-
-		$test[]=$line;
-
-		//echo $col = $line[0];
-		//echo $batchcount++.". ".$col."\n";
-
-
-		++$records;
-		}
-
-		fclose($f);
-		$records;
-		$this->set('test',$test);
-	}
-	
-	
 }
 
 function user_enrollment_ajax_add_row()
@@ -19862,9 +19808,8 @@ else
 function check_email_already_exist()
 {
 $this->layout='blank';
-$q=$this->request->query('q'); 
-
-
+$q=$this->request->query('q');
+$q = html_entity_decode($q);
 
 $s_society_id=$this->Session->read('society_id');
 
@@ -19892,21 +19837,23 @@ $dd=explode(' ',$sco_na);
 
 $myArray = json_decode($q, true);
 $c=0;
-$report=array();
 foreach($myArray as $child){
 	$c++;
-	
 	if(empty($child[0])){
-		$report[]=array('tr'=>$c,'td'=>1, 'text' => 'Required');
+		$output = json_encode(array('type'=>'error', 'text' => 'Please enter name in row '.$c));
+        die($output);
 	}
 	if(empty($child[1])){
-        $report[]=array('tr'=>$c,'td'=>2, 'text' => 'Required');
+		$output = json_encode(array('type'=>'error', 'text' => 'Please Select a wing in row '.$c));
+        die($output);
 	}
 	if(empty($child[2])){
-        $report[]=array('tr'=>$c,'td'=>3, 'text' => 'Required');
+		$output = json_encode(array('type'=>'error', 'text' => 'Please Select a flat in row '.$c));
+        die($output);
 	}
 	if (!filter_var($child[3], FILTER_VALIDATE_EMAIL) && !empty($child[3])) {
-		$report[]=array('tr'=>$c,'td'=>4, 'text' => 'Invalid');
+	  $output = json_encode(array('type'=>'error', 'text' => 'Invalid email format in row '.$c));
+        die($output);
 	}elseif(!empty($child[3])){
 		$this->loadmodel('user_temp');
 		$conditions=array("email" => $child[3],'reject'=>0);
@@ -19918,11 +19865,13 @@ foreach($myArray as $child){
 		$n4 = sizeof($result4);
 		$e=$n3+$n4;
 		if ($e > 0) {
-			$report[]=array('tr'=>$c,'td'=>4, 'text' => 'already exist');
+			$output = json_encode(array('type'=>'error', 'text' => 'Email already exist in row '.$c));
+			die($output);
 		}
 	}
 	if (!preg_match ( '/^\\d{10}$/',$child[4]) && !empty($child[4])) {
-		$report[]=array('tr'=>$c,'td'=>5, 'text' => 'Invalid');
+	  $output = json_encode(array('type'=>'error', 'text' => 'Invalid mobile format in row '.$c));
+        die($output);
 	}elseif(!empty($child[4])){
 		$this->loadmodel('user_temp');
 		$conditions=array("mobile" => $child[4],'reject'=>0);
@@ -19934,23 +19883,25 @@ foreach($myArray as $child){
 		$n4 = sizeof($result4);
 		$e=$n3+$n4;
 		if ($e > 0) {
-			$report[]=array('tr'=>$c,'td'=>5, 'text' => 'already exist');
+			$output = json_encode(array('type'=>'error', 'text' => 'Mobile already exist in row '.$c));
+			die($output);
 		}
 	}
 	if (empty($child[5])) {
-		$report[]=array('tr'=>$c,'td'=>6, 'text' => 'Required');
+	  $output = json_encode(array('type'=>'error', 'text' => 'Please Select owner in row '.$c));
+        die($output);
 	}else{
 			if ($child[5]==1){
 					if (empty($child[6])){
-						$report[]=array('tr'=>$c,'td'=>7, 'text' => 'Required');
+						$output = json_encode(array('type'=>'error', 'text' => 'Please Select a Committee in row '.$c));
+						die($output);
 					}
 			}
 	}
 	if (empty($child[7])) {
-		$report[]=array('tr'=>$c,'td'=>8, 'text' => 'Required');
+	  $output = json_encode(array('type'=>'error', 'text' => 'Please Select NOC Type in row '.$c));
+        die($output);
 	}
-	
-	
 	
 	if (!empty($child[3])) {
 	  $email_addrs1[]=$child[3];
@@ -19962,15 +19913,10 @@ foreach($myArray as $child){
 	}
 }
 
-if(sizeof($report)>0){
-	$output=json_encode(array('report_type'=>'error','report'=>$report));
-	die($output);
-}
-
 if((sizeof(@$email_addrs1)>0) && (sizeof(@$email_addrs2)>0)){
 	$email_addrs1 = array_unique($email_addrs1);
 	if(sizeof(@$email_addrs1)!=sizeof(@$email_addrs2)){
-	$output = json_encode(array('report_type'=>'already_error', 'text' => 'Email should not be same in two or more rows.'));
+	$output = json_encode(array('type'=>'error', 'text' => 'Email should not be same in two or more rows.'));
         die($output);
 }
 }
@@ -19978,7 +19924,7 @@ if((sizeof(@$email_addrs1)>0) && (sizeof(@$email_addrs2)>0)){
 if((sizeof(@$mobile_no1)>0) && (sizeof(@$mobile_no2)>0)){
 	$mobile_no1 = array_unique($mobile_no1);
 	if(sizeof(@$mobile_no1)!=sizeof(@$mobile_no2)){
-	$output = json_encode(array('report_type'=>'already_error', 'text' => 'mobile should not be same in two or more rows.'));
+	$output = json_encode(array('type'=>'error', 'text' => 'mobile should not be same in two or more rows.'));
         die($output);
 }
 }
