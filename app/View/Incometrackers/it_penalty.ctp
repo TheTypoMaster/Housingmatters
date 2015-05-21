@@ -1,4 +1,3 @@
-
 <?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 ?>				   
@@ -8,9 +7,6 @@ $("#fix<?php echo $id_current_page; ?>").removeClass("blue");
 $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
-
-
-
 
 <?php /////////////////////////////////////////////////////////////////////////////////////////////// ?>            
 <table  align="center" border="1" bordercolor="#FFFFFF" cellpadding="0">
@@ -58,8 +54,8 @@ From First day
 </td>
 </tr>
 <tr>
-<td>Persentage in Number:</td>
-<td><input type="text" name="tax" class="m-wrap small" style="background-color:white !important;" id="tax" value="<?php echo $tax; ?>"/></td>
+<td>Percentage in Number:</td>
+<td><input type="text" name="tax" class="m-wrap small" style="background-color:white !important;" id="tax" value="<?php echo $tax; ?> <?php echo "%"; ?>"/></td>
 </tr>
 <tr>
 <td colspan="2">

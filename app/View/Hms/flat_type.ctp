@@ -20,7 +20,6 @@ Society Setup
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <a href="<?php echo $webroot_path; ?>Hms/flat_type" class="btn purple">Flat Type</a>
 <a href="<?php echo $webroot_path; ?>Hms/flat_nu_import" class="btn yellow">Flat Import</a> 
-
 <?php ////////////////////////////////////////////////////////////////////////////////////////////// ?>   
 <div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">      
 <div class="row-fluid">
@@ -143,7 +142,7 @@ echo '</div>';
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <script>
 $(document).ready(function(){
-	 $("#add_row").bind('click',function(){
+$("#add_row").bind('click',function(){
 var count = $("#url_main div").length;
 count++;
 $("#url_main").append('<div class="content_'+count+'"><input type="text" class="m-wrap span7" maxlength="10" id="nu"><a href="#" role="button" id='+count+' class="btn black mini delete"><i class="icon-remove-sign"></i></a></div>');

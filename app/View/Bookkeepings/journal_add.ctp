@@ -8,13 +8,12 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
- <center>
-<a href="<?php echo $webroot_path; ?>Bookkeepings/journal_add" class="btn red" rel='tab'> Create</a>
-<a href="<?php echo $webroot_path; ?>Bookkeepings/journal_view" class="btn blue" rel='tab'> View</a>
+<center>
+<a href="<?php echo $webroot_path; ?>Bookkeepings/journal_add" class="btn red" rel='tab'>Create</a>
+<a href="<?php echo $webroot_path; ?>Bookkeepings/journal_view" class="btn blue" rel='tab'>View</a>
 <br><br>              
 </center>            					
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-
 <script>
 $(document).ready(function() {
 $("#button_add").live('click',function(){
@@ -31,18 +30,150 @@ $('#tab' + d).remove();
 d--; 
 $('#t_box').val(d);
 }
-	
 });
 });
 </script>		
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>					
-	<div id="succ">	
+<?php 
+/*
+<div style="background-color:#fff;padding:5px;width:100%;margin:auto; overflow:auto;" class="form_div">
+<h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Post Journal Entry</h4>
+<?php 
+if($zz == 0)
+{
+?>      
+<div style="background-color:#FCEBF8;">
+<center>
+<p style="color:#A99185;">No Previous Receipt</p>
+</center>
+</div> 
+<?php
+}
+else
+{
+?>
+<div style="background-color:#FCEBF8;">
+<center>
+<p style="color:#A99185;">The Last Receipt Number is : <?php echo $zz; ?></p>
+</center>
+</div> 
+<?php } ?>
+<div class="row-fluid">
+<input type="text" id="date"  name="date" class="all_validate  m-wrap span3 date-picker"  data-date-format="dd-mm-yyyy" style="background-color:#FFF !important;" placeholder="Transaction Date" >
+<br /><br />
+<table style="width:100%; background-color:white;" class="table table-bordered table-hover">
+<tr>
+<th style="width:19%;">Ledger A/c</th>
+<th style="width:19%;">Subledger A/c</th>
+<th style="width:19%;">Debit</th>
+<th style="width:19%;">Credit</th>
+<th style="width:19%;">Description</th>
+<th style="width:5%;">Del</th>
+</tr>
+</table>
+
+<table  style="width:100%; background-color:white;"  class="table table-bordered table-hover" id="url_main">
+<tr>
+<td style="width:19%;"><select class="all_validate span12 m-wrap chosen" onchange="show_ledger_type(this.value,1)" name="l_type_id1" id="lac1">
+<option value="">--SELECT--</option>					
+<?php
+foreach ($cursor2 as $collection) 
+{
+$auto_id = (int)$collection['ledger_account']['auto_id'];
+$name = $collection['ledger_account']['ledger_name'];
+?>
+<option value="<?php echo $auto_id; ?>"><?php echo $name; ?></option>
+<?php } ?>               
+</select></td>
+<td id="show_ledger_type1" style="width:19%;">
+</td>
+<td style="width:19%;">
+<input type="text" class="all_validate span12 m-wrap" style="background-color:#FFF !important;" onblur="total_am('1')" name="debit1" placeholder="Debits" id="debit1">
+</td>
+<td style="width:19%;">
+<input type="text" class="all_validate span12 m-wrap" style="background-color:#FFF !important;" name="credit1" onblur="total_amc('1')" placeholder="Credits" id="credit1">
+</td>
+<td style="width:19%;">
+<input type="text"  name="remark1" class="all_validate span12 m-wrap m-ctrl-medium" style="background-color:#FFF !important;" placeholder="Description" id="desc1">
+</td>
+<td style="width:5%;"></td>
+</tr>
+</table>
+
+<table  style="width:100%; background-color:white;"  class="table table-bordered table-hover" id="url_main">
+<tr>
+<td style="width:19%;">
+<select class="all_validate span12 m-wrap chosen" onchange="show_ledger_type(this.value,2)" name="l_type_id2" id="lac2">
+<option value="">--SELECT--</option>					
+<?php
+foreach ($cursor2 as $collection) 
+{
+$auto_id = (int)$collection['ledger_account']['auto_id'];
+$name = $collection['ledger_account']['ledger_name'];
+?>
+<option value="<?php echo $auto_id; ?>"><?php echo $name; ?></option>
+<?php } ?>               
+</select>
+</td>
+<td id="show_ledger_type2" style="width:19%;">
+</td>
+<td style="width:19%;">
+<input type="text" class="all_validate span12 m-wrap" style="background-color:#FFF !important;" onblur="total_am('2')" name="debit2" placeholder="Debits" id="debit2">
+</td>
+<td style="width:19%;">
+<input type="text" class="all_validate span12 m-wrap" style="background-color:#FFF !important;" name="credit2" onblur="total_amc('2')" placeholder="Credits" id="credit2"></td>
+<td style="width:19%;">
+<input type="text"  name="remark2" class="all_validate span12 m-wrap m-ctrl-medium" style="background-color:#FFF !important;" placeholder="Description" id="desc2">
+</td>
+<td style="width:5%;"></td>
+</tr>
+</table>
+
+
+
+
+
+</div>
+<button type="submit" class="btn green" id="add_row">Add Row</button>
+</div>
+
+<?php ////////////////////////////////////////////////////////////////////////////////////////////// ?>
+
+<script>
+$(document).ready(function(){
+$("#add_row").bind('click',function(){
+var count = $("#url_main").length;
+count++;
+alert(count);
+$("#url_main").append('<table id="url_main"><tr>td>dsfsdfsdfsd</td><td>dsfsdfsdf</td><td>sdfsdfdsf</td></tr></table>');
+});
+$(".delete").bind('click',function(){
+var id = $(this).attr("id");
+$('.content_'+id).remove();
+});
+});
+</script> 
+
+
+
+
+
+*/
+?>
+
+
+
+
+
+
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+
+<div id="succ">	
 <div class="portlet box grey" style="width:100%;">
 <div class="portlet-title">
 <h4><i class="icon-reorder"></i>Journal</h4>
 </div>
 <div class="portlet-body form">
-
 <?php 
 if($zz == 0)
 {
@@ -65,24 +196,11 @@ else
 <?php } ?>
 
 
-
-
-
-
-
-
-
-
-
-	<form  method="POST" onSubmit="return balance()" >			  
-	 <br>
-
+<form  method="POST" onSubmit="return balance()" >			  
+<br>
 <input type="text" id="date"  name="date" class="all_validate  m-wrap m-ctrl-medium date-picker"  data-date-format="dd-mm-yyyy" style="background-color:#FFF !important;" placeholder="Transaction Date" >
-
 <br><br>
-
 <center>
-
 <div id="error_msg"></div>
 					
 					
@@ -97,13 +215,11 @@ else
 					
 					<table width="100%" >
 					<tr class="table table-bordered table-hover" style="font-size:16px;">
-				
 					<th width="20.2%">Ledger A/c</th>
 					<th width="19.8%">Subledger</th>
 					<th width="20%">Debits</th>
 					<th width="20%">Credits</th>
 					<th width="20%">Description</th>
-					
 					</tr>
 					</table>
 					
@@ -112,15 +228,12 @@ else
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>					
 <div id="add_div" >
 <table width="100%"  >
-
 <tr class="table table-bordered table-hover">
-
 <td style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:20%;">
 <div class="control-group">
 <div class="controls">
 <select class="all_validate span12 m-wrap chosen" onchange="show_ledger_type(this.value,1)" name="l_type_id1" id="lac1">
 <option value="">--SELECT--</option>					
-					
 <?php
 foreach ($cursor2 as $collection) 
 {
@@ -133,27 +246,16 @@ $name = $collection['ledger_account']['ledger_name'];
 </div>
 </div>
 </td>					
-					
-					
-					
-					
 <td style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:20%;" id="show_ledger_type1">
-
 </td>					
-					
-					
-					
+				
 <td style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:20%;">
 <div class="control-group">
 <div class="controls">
-
 <input type="text" class="all_validate span12 m-wrap" style="background-color:#FFF !important;" onblur="total_am('1')" name="debit1" placeholder="Debits" id="debit1">
-
-
 </div>
 </div>
 </td>					
-					
 					
 <td style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:20%;">
 <div class="control-group">
@@ -163,22 +265,15 @@ $name = $collection['ledger_account']['ledger_name'];
 </div>
 </td>
 
-
 <td style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:20%;">
-<input type="text"  name="remark1" class="all_validate span12 m-wrap m-ctrl-medium"  style="background-color:#FFF !important;" placeholder="Description" id="desc1">
+<input type="text"  name="remark1" class="all_validate span12 m-wrap m-ctrl-medium"  style="background-color:#FFF !important;"placeholder="Description" id="desc1">
 </td>
-
-
 </tr>
 					
 </table>					
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>					
 <table width="100%" >
-
 <tr class="table table-bordered table-hover">
-
-
-
 
 <td style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:20%;">
 <div class="control-group">
@@ -186,7 +281,6 @@ $name = $collection['ledger_account']['ledger_name'];
 <select class="all_validate span12 m-wrap chosen qwerty" onchange="show_ledger_type(this.value,2)" name="l_type_id2" id="lac2">
 <option value="">--SELECT--</option>
 <?php
-
 foreach ($cursor2 as $collection) 
 {
 $auto_id = (int)$collection['ledger_account']['auto_id'];
@@ -201,22 +295,14 @@ $name = $collection['ledger_account']['ledger_name'];
 
 
 <td style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:20%;" id="show_ledger_type2">
-
 </td>
-
-
-
 <td style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:20%;">
 <div class="control-group">
 <div class="controls">
-
 <input type="text" class="all_validate span12 m-wrap" style="background-color:#FFF !important;" onblur="total_am('2')" name="debit2" placeholder="Debits" id="debit2">
-
-
 </div>
 </div>
 </td>
-
 
 <td style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:20%;">
 <div class="control-group">
@@ -229,91 +315,49 @@ $name = $collection['ledger_account']['ledger_name'];
 <td style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:20%;">
 <input type="text"  name="remark2" class="all_validate span12 m-wrap m-ctrl-medium" style="background-color:#FFF !important;" placeholder="Description" id="desc2">
 </td>
-
-
 </tr>
 
-
-
 </table>
-
-
-
 </div>
+<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
-<?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-
-<table width="100%" >
-
+<table width="100%">
 <tr class="table table-bordered table-hover">
-
-
-
-
 <th style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:40.1%; text-align:right;">
 Total
 </th>
-
-
 <th style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:19.9%;">
-
 <div class="control-group">
 <div class="controls">
-
 <input type="text" class="all_validate span12 m-wrap" style="background-color:#FFF !important; border:none !important;" id="total" style="border:none !important">
-
-
 </div>
 </div>
-
-
 </th>
-
-
 <th style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:20%;">
 <div class="control-group">
 <div class="controls">
-
 <input type="text" class="all_validate span12 m-wrap" style="background-color:#FFF !important; border:none !important;" id="total_c" style="border:none !important">
-
-
 </div>
 </div>
 </th>
 
-<th style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:20%;">
-
-</th>
-
-
-
+<th style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:20%;"></th>
 </tr>
-
-
-
 </table>
-
-
-
-
 
 <?php /////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 <input type="hidden" id="total_dr5">
-
 					
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////// ?>
 </div>
 </div>
-
 <br>
-
 <div class="form-actions" style="background-color:#CCC;">
 <button type="submit" class="btn blue" name="journal_add" id="submit">Submit</button>
 <button type="button" id="button_add" class="btn blue"> <i class="icon-plus"></i> Add Row</button>
 <button type="button" id="button_remove" class="btn red"> <i class=" icon-remove"></i>Delete Row</button>
 <a href="journal_add" class="btn">Reset</a>
-
 </div>
 <br><Br>
 </form>
@@ -321,9 +365,7 @@ Total
 </div>
 </div>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////?>
-
 <script>
-
 function show_ledger_type(c1,t)
 {
 $(document).ready(function() {
@@ -331,9 +373,7 @@ $("#show_ledger_type" + t).load("show_ledger_type?c1=" +c1+ "&t=" +t+ "");
 });
 }
 </script>
-
 <script>
-
 function total_amc(l)
 {
 var t_c = 0;
@@ -354,7 +394,6 @@ t_c = eval(t_c + credit);
 document.getElementById('total_c').value = t_c;
 }
 </script>
-
 
 <script>
 function total_am(x)
@@ -434,76 +473,4 @@ $(document).ready(function() {
 	});
 });
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-					
-					
-					
-					
-					
-					
+				
