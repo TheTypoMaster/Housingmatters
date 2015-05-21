@@ -501,7 +501,7 @@ if($this->request->is('post'))
 	$n=sizeof($result5);
 	if($n>0)
 	{
-	@$subject.= 'Discussion: ['. $society_name . ']' .'  -   '.'New Discussion: '.$sub.'';
+	@$subject.= '['. $society_name . ']' .'  -   '.'New Discussion: '.$sub.'';
 	$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 	$subject="";
 	}	
