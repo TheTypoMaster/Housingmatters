@@ -16,7 +16,6 @@ $this->layout='blank';
 }else{
 $this->layout='session';
 }
-
 $this->ath();
 $this->check_user_privilages();
 
@@ -769,8 +768,35 @@ $so_address = $collection['society']['society_address'];
 }
 $date = date('d-M-Y',$date->sec);
 
+//////////////////////////////////////////////
+$dateA =date('m',strtotime($date));
+$y = date('Y',strtotime($date));
+$datt = array();
+$multi_ch2 = $multi_ch+1;
+$n=1;
+while($n<$multi_ch2)
+{
+$n++;
+$datt[] = date('d-'.$dateA.'-'.$y.'',strtotime($date));
 
+if($dateA == 12)
+{
+$dateA=0;
+$y++;
+}
+$dateA++;
+}
 
+$month2 = array();
+for($r=0; $r<sizeof($datt); $r++)
+{
+$dat2 = $datt[$r];
+$month2[] = date('M',strtotime($dat2));	
+$year = date('Y',strtotime($dat2));
+}
+$monthB = implode("-",$month2);
+
+//////////////////////////////////////////////////
 $html='<center>
 <div style="700px; background-color:white; overflow:auto;">
 <br><Br><br>
@@ -791,7 +817,7 @@ $html='<center>
 </table>
 </div>
 <div style="width:80%; border:solid 1px; overflow:auto; border-top:none; border-bottom:none;">
-<table border="0" style="width:65%; float:left;">
+<table border="0" style="width:60%; float:left;">
 <tr>
 <td style="text-align:left; width:17%;">
 Name :
@@ -811,7 +837,7 @@ Name :
 <td style="text-align:left;">'.$due_date21.'</td>
 </tr>
 </table>
-<table border=0" style="width:34%; float:right;">
+<table border=0" style="width:39%; float:right;">
 <tr>
 <td></td>
 <td></td>
@@ -826,7 +852,7 @@ Name :
 </tr>
 <tr>
 <td style="text-align:left;">Billing Period:</td>
-<td style="text-align:left;">For October-November-December-2014</td>
+<td style="text-align:left;">'.$monthB.''. $year.'</td>
 </tr>
 </table>
 </div>
@@ -1029,7 +1055,7 @@ Name :
 </tr>
 <tr>
 <td style="text-align:left;">Bill No. :</td>
-<td style="text-align:left;">'.$bill_no.'     For  October-November-December-2014 </td>
+<td style="text-align:left;">'.$bill_no.'</td>
 </tr>
 <tr>
 <td style="text-align:left;">Bill Date :</td>
@@ -1052,6 +1078,10 @@ Name :
 <tr>
 <td style="text-align:left;">Area:</td>
 <td style="text-align:left;">'.$flat_area.' Sq Feet</td>
+</tr>
+<tr>
+<td style="text-align:left;">Billing Period:</td>
+<td style="text-align:left;">'.$monthB.''.  $year.'</td>
 </tr>
 </table>
 </div>
@@ -1599,16 +1629,43 @@ $this->regular_bill->saveAll($multipleRowData);
 	$due_amt2 = (int)$collection['regular_bill']['total_due_amount'];
 	$due_date2 = @$collection['regular_bill']['due_date'];
 	$narration = $collection['regular_bill']['description'];
+	$billing_cycle_id = (int)$collection['regular_bill']['period_id'];
 	}
+$date_frm = date('M',$date_from->sec);	
+if($billing_cycle_id == 1)
+{
+$multi_ch = 1;
+}
+if($billing_cycle_id == 2)
+{
+$multi_ch = 2;
+}
+if($billing_cycle_id == 3)
+{
+$multi_ch = 4;
+}
+if($billing_cycle_id == 4)
+{
+$multi_ch = 6;
+}
+if($billing_cycle_id == 5)
+{
+$multi_ch = 12;
+}	
 	
-
+	
+	
+	
+	
+	
+	
+	
 $date_from = date("d-M-Y", $date_from->sec);
 $date_to = date("d-M-Y", $date_to->sec);
 $date_to2 = date('Y-m-d',strtotime($date_to));
 
 //$due_date = date('Y-m-d', strtotime($date_to2 .'+'. $due_days2.'day'));
 $due_date21 = date('d-M-Y',@$due_date2->sec);
-
 $newDate = date("d-M-Y", $date->sec);	
 
 
@@ -1642,10 +1699,37 @@ $so_reg_no = $collection['society']['society_reg_num'];
 $so_address = $collection['society']['society_address'];	
 }
 $date = date('d-M-Y',$date->sec);
+/////////////////////////////////////
+$dateA =date('m',strtotime($date));
+$y = date('Y',strtotime($date));
 
+$datt = array();
+$multi_ch2 = $multi_ch+1;
+$n=1;
+while($n<$multi_ch2)
+{
+$n++;
+$datt[] = date('d-'.$dateA.'-'.$y.'',strtotime($date));
 
+if($dateA == 12)
+{
+$dateA=0;
+$y++;
+}
 
+$dateA++;
+}
 
+$month2 = array();
+for($r=0; $r<sizeof($datt); $r++)
+{
+$dat2 = $datt[$r];
+$month2[] = date('M',strtotime($dat2));	
+$year = date('Y',strtotime($dat2));
+}
+$monthB = implode("-",$month2);
+
+//////////////////////////////////////////
 $html='<center>
 <div style="700px; background-color:white; overflow:auto;">
 <br><Br><br>
@@ -1665,7 +1749,7 @@ $html='<center>
 </table>
 </div>
 <div style="width:80%; border:solid 1px; overflow:auto; border-top:none; border-bottom:none;">
-<table border="0" style="width:65%; float:left;">
+<table border="0" style="width:60%; float:left;">
 <tr>
 <td style="text-align:left; width:17%;">
 Name :
@@ -1674,7 +1758,7 @@ Name :
 </tr>
 <tr>
 <td style="text-align:left;">Bill No. :</td>
-<td style="text-align:left;">'.$bill_no.'     For  October-November-December-2014 </td>
+<td style="text-align:left;">'.$bill_no.'</td>
 </tr>
 <tr>
 <td style="text-align:left;">Bill Date :</td>
@@ -1685,7 +1769,7 @@ Name :
 <td style="text-align:left;">'.$due_date21.'</td>
 </tr>
 </table>
-<table border=0" style="width:34%; float:right;">
+<table border=0" style="width:39%; float:right;">
 <tr>
 <td></td>
 <td></td>
@@ -1697,6 +1781,10 @@ Name :
 <tr>
 <td style="text-align:left;">Area:</td>
 <td style="text-align:left;">'.$flat_area.' Sq Feet</td>
+</tr>
+<tr>
+<td style="text-align:left;">Billing Period:</td>
+<td style="text-align:left;">'.$monthB.''.  $year.'</td>
 </tr>
 </table>
 </div>
@@ -1871,7 +1959,7 @@ Name :
 </tr>
 <tr>
 <td style="text-align:left;">Bill No. :</td>
-<td style="text-align:left;">'.$bill_no.'     For  October-November-December-2014 </td>
+<td style="text-align:left;">'.$bill_no.'</td>
 </tr>
 <tr>
 <td style="text-align:left;">Bill Date :</td>
@@ -1894,6 +1982,10 @@ Name :
 <tr>
 <td style="text-align:left;">Area:</td>
 <td style="text-align:left;">'.$flat_area.' Sq Feet</td>
+</tr>
+<tr>
+<td style="text-align:left;">Billing Period:</td>
+<td style="text-align:left;">'.$monthB.''. $year.'</td>
 </tr>
 </table>
 </div>

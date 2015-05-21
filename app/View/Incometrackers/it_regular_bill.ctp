@@ -14,7 +14,38 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <input type="hidden" id="fb" value="<?php echo $datefb; ?>" />
 <input type="hidden" id="tb" value="<?php echo $datetb; ?>" />
 
-<?php ///////////////////////////////////////////////////////////////////////////////////////// ?>		
+<?php ///////////////////////////////////////////////////////////////////////////////////////// ?>	
+<?php
+$date = 5-5-2015;
+$dateA = 5;
+$y=2015;
+$n=1;
+while($n<15)
+{
+$n++;
+$datt[] = date('d-'.$dateA.'-'.$y.'',strtotime($date));
+
+if($dateA == 12)
+{
+$dateA=0;
+$y++;
+}
+
+$dateA++;
+}
+
+
+for($r=0; $r<sizeof($datt); $r++)
+{
+$dat2 = $datt[$r];
+$month2[] = date('M',strtotime($dat2));	
+$year = date('Y',strtotime($dat2));
+}
+echo $monthB = implode("-",$month2);
+?>
+
+	
+<?php ////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <div style="background-color:#fff;padding:5px;width:100%;margin:auto; overflow:auto;" class="form_div">
 <h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Generate Regular Bill(Income Tracker)</h4>
 
@@ -366,6 +397,7 @@ $(document).ready(function(){
 </script>
 
 <script>
+/*
 		$(document).ready(function() {
 		$("#go").live('click',function(){
  
@@ -532,6 +564,8 @@ $('#chk_vali').html('<p style="color:red;"></p>');
 		
 		});
 		});
+		*/
+		
 		</script>
         
 <script>        
