@@ -9,6 +9,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
 
+<div id="report_success_pop">
 <a href="#" class="btn purple" role="button" id="import">Import</a>
 <div id="myModal3" class="modal hide fade in" style="display: none;">
 <div class="modal-backdrop fade in"></div>
@@ -107,6 +108,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <button type="submit" id="submit" class="btn blue">Submit</button>
 </div>
 </form>
+</div>
 <script>
 $(document).ready(function(){
 	 $("#add_row").bind('click',function(){
@@ -198,7 +200,7 @@ $(document).ready(function(){
 				$("#report").html(response.text);
 			}
 			if(response.report_type=='success'){
-				$("#report").html(response.text);
+				$("#report_success_pop").html("<div class='alert alert-block alert-success fade in'><h4 class='alert-heading'>Success!</h4><p>"+response.text+"</p><p><a class='btn green' href='<?php echo $webroot_path; ?>Hms/new_user_enrollment2' rel='tab' role='button'>Ok</a></p></div>");
 			}
 		});
 	});
