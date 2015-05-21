@@ -224,7 +224,7 @@ function notice_approval_ajax($id=null)
 			if($n>0)
 			{
 		
-			@$subject.= 'Notice: ['. $society_name . ']  - '.' New Notice : '.'     '.''.$sub.'';
+			@$subject.= '['. $society_name . ']  - '.' New Notice : '.'     '.''.$sub.'';
 			$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 			$subject="";
 			}	
@@ -654,7 +654,7 @@ $result5=$this->notification_email->find('all',array('conditions'=>$conditions7)
 $n=sizeof($result5);
 if($n>0)
 {
-@$subject.= 'Notice: ['. $society_name . ']  - '.' New Notice : '.'     '.''.$sub.'';
+@$subject.= '['. $society_name . ']  - '.' New Notice : '.'     '.''.$sub.'';
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 $subject="";
 }	
@@ -1179,7 +1179,7 @@ $result5=$this->notification_email->find('all',array('conditions'=>$conditions7)
 $n=sizeof($result5);
 if($n>0)
 {
-@$subject.= 'Notice: ['. $society_name . ']  - '.' New Notice : '.'     '.''.$sub.'';
+@$subject.= '['. $society_name . ']  - '.' New Notice : '.'     '.''.$sub.'';
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 $subject="";
 }
@@ -1552,7 +1552,7 @@ if($post_data['post_type']==1){
 		if($n>0)
 		{
 			
-		@$subject.= 'Notice: ['. $society_name . ']  - '.' New Notice : '.'     '.''.$sub.'';
+		@$subject.= '['. $society_name . ']  - '.' New Notice : '.'     '.''.$sub.'';
 		$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 		$subject="";
 		}	
@@ -1719,7 +1719,7 @@ function submit_notice_edit($id=null){
 		$n=sizeof($result5);
 		if($n>0)
 		{
-			@$subject.= 'Notice: ['. $society_name . ']  - '.' New Notice : '.'     '.''.$sub.'';
+			@$subject.= '['. $society_name . ']  - '.' New Notice : '.'     '.''.$sub.'';
 			$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 			$subject="";
 		}	
