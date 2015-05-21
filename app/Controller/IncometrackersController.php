@@ -334,7 +334,7 @@ else
 $one=$last10;
 }
 $one++;
-
+////////////////////////// BILL FOR 2///////////////////////////////////////////////
 if($bill_for == 2)
 {
 $this->loadmodel('user');
@@ -769,6 +769,8 @@ $so_address = $collection['society']['society_address'];
 }
 $date = date('d-M-Y',$date->sec);
 
+
+
 $html='<center>
 <div style="700px; background-color:white; overflow:auto;">
 <br><Br><br>
@@ -798,7 +800,7 @@ Name :
 </tr>
 <tr>
 <td style="text-align:left;">Bill No. :</td>
-<td style="text-align:left;">'.$bill_no.'     For  October-November-December-2014 </td>
+<td style="text-align:left;">'.$bill_no.' </td>
 </tr>
 <tr>
 <td style="text-align:left;">Bill Date :</td>
@@ -821,6 +823,10 @@ Name :
 <tr>
 <td style="text-align:left;">Area:</td>
 <td style="text-align:left;">'.$flat_area.' Sq Feet</td>
+</tr>
+<tr>
+<td style="text-align:left;">Billing Period:</td>
+<td style="text-align:left;">For October-November-December-2014</td>
 </tr>
 </table>
 </div>

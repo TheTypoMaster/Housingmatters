@@ -1,4 +1,6 @@
-
+<?php
+$todat_posting = date('d-m-Y');
+?>
 <?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 ?>				   
@@ -138,7 +140,7 @@ $name = $collection['ledger_sub_account']['name'];
 
 <label style="font-size:14px;">Posting Date<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="posting_date" id="pd">
+<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="posting_date" id="pd" value="<?php echo $todat_posting; ?>">
 <label report="pos_dat" class="remove_report"></label>
 </div>
 <br />
