@@ -174,7 +174,7 @@ $sq_feet = (int)$collection3['flat']['flat_area'];
 $noc_ch_id = (int)@$collection3['flat']['noc_ch_type'];
 }
 
-$result5 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_fetch'),array('pass'=>array($flat_type_id)));
+$result5 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_fetch'),array('pass'=>array(@$flat_type_id)));
 foreach($result5 as $collection5)
 {
 $charge = $collection5['flat_type']['charge'];
