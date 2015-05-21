@@ -255,7 +255,7 @@ www.housingmatters.co.in
 </div>
 </div>";
 
- @$subject.= 'Events: ['. $society_name . ']' .'  - New event:  '.' '.$e_name.'';
+ @$subject.= '['. $society_name . ']' .'  - New event:  '.' '.$e_name.'';
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 $subject="";
 
@@ -427,7 +427,7 @@ $this->layout=null;
 	</div>
 	</div>";
 	
-	@$subject.= '['. $society_name . ']' .'  -   '.' '.$e_name.'';
+	@$subject.= '['. $society_name . ']' .'  - New event:  '.' '.$e_name.'';
 	$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 	$subject="";
 		
