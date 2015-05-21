@@ -710,6 +710,11 @@ if(@$complaints==1)
 	<i class="icon-phone"></i> Contact Us
 	</a>					
 </li>
+<li>
+	<a href="<?php echo $webroot_path; ?>Hms/new_user_enrollment2" rel='tab'>
+	<i class="icon-phone"></i> new_user_enrollment2
+	</a>					
+</li>
 <?php } ?>
 <!---------housingmatters------------->
 <?php if($s_role_id==0)	{?>

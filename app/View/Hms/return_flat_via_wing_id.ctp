@@ -1,6 +1,6 @@
 <div class="control-group" >
           <div class="controls">
-              <select style="width:100%;"  class="m-wrap chosen" name="flat<?php echo $i; ?>" id="flat<?php echo $i; ?>"  data-placeholder="Choose a Category"   tabindex="1">
+              <select style="width:100%;"  class="m-wrap" name="flat<?php echo $i; ?>" id="flat<?php echo $i; ?>"  data-placeholder="Choose a Category"   tabindex="1">
                  <option value="">--Flat--</option>
                   <?php
 										

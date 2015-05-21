@@ -239,7 +239,6 @@ $(document).ready(function() {
 		if(visible==1 || visible==4 || visible==5){
 			m_data.append( 'sub_visible', 0);
 		}
-		m_data.append( 'post_type', post_type);
 		
 		$(".form_post").addClass("disabled");
 		$("#wait").show();
