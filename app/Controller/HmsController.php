@@ -4392,6 +4392,7 @@ $result_society = $this->society->find('all',array('conditions'=>$conditions));
 foreach ($result_society as $collection) 
 {
 $user_id=$collection['society']['user_id'];
+$society_name3=$collection['society']['society_name'];
 }
 $this->loadmodel('user');
 $conditions=array("user_id" => $user_id);
@@ -4504,7 +4505,7 @@ foreach ($result_email as $collection)
 {
 $from=$collection['email']['from'];
 }
-$subject="Admin : New User Request for approval";
+$subject="[$society_name3]-New User Request for approval";
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 $z++;			
 }
@@ -4649,7 +4650,7 @@ $from=$collection['email']['from'];
 $sub=$collection['email']['subject'];
 }
 
-$subject='New Society  Set up in HousingMatters:   ' . $society_name . '';
+$subject='New Society  Set up in HousingMatters:   [' . $society_name . ']';
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 $z++;
 }
@@ -5092,8 +5093,55 @@ $order=array('resource.resource_id'=>'DESC');
 $result_resource_last=$this->resource->find('all',array('conditions'=>$conditions,'order' => $order,'limit' =>3));
 $this->set('result_resource_last',$result_resource_last);
 //////////////documents  last 3///////////////// 
-}
 
+/////////////// Discussion information reject //////////////////
+
+$this->loadmodel('discussion_post');
+$conditions=array('delete_id'=>5,'society_id'=>$s_society_id,'user_id'=>$s_user_id);
+$res_dis=$this->discussion_post->find('all',array('conditions'=>$conditions));
+$this->set('disc_res',$res_dis);
+
+//////////////// end ///////////////////////////////////////
+
+
+/////////////// Notice information reject //////////////////
+$this->loadmodel('notice');
+$conditions=array('n_draft_id'=>5,'society_id'=>$s_society_id,'user_id'=>$s_user_id);
+$res_not=$this->notice->find('all',array('conditions'=>$conditions));
+
+$this->set('not_res',$res_not);
+
+//////////////// end ///////////////////////////////////////
+
+
+/////////////// Poll information reject //////////////////
+$this->loadmodel('poll');
+$conditions=array('deleted'=>5,'society_id'=>$s_society_id,'user_id'=>$s_user_id);
+$res_poll=$this->poll->find('all',array('conditions'=>$conditions));
+$this->set('poll_res',$res_poll);
+
+//////////////// end ///////////////////////////////////////
+
+}
+function reject_notification($id,$change)
+{
+	if($change==1)
+	{
+	$this->loadmodel('notice');
+	$this->notice->updateAll(array('n_draft_id'=>6),array('notice_id'=>$id));
+	}
+	if($change==2)
+	{
+	$this->loadmodel('discussion_post');
+	$this->discussion_post->updateAll(array('delete_id'=>6),array('discussion_post_id'=>$id));
+	}
+	if($change==3)
+	{
+	$this->loadmodel('poll');
+	$this->poll->updateAll(array('deleted'=>6),array('poll_id'=>$id));
+	}
+	
+}
 
 
 function dashboard_old() 
@@ -13709,6 +13757,11 @@ foreach($result_user as $data)
 {
 	  $profile=$data['user']['profile_pic'];
 }
+$result_society=$this->society_name($s_society_id);
+foreach($result_society as $data)
+{
+	 $society_name2=$data['society']['society_name'];
+}
 
 if(isset($this->request->data['sub']))
 {
@@ -13788,7 +13841,7 @@ $this->user->updateAll(array("user_name" => $name,"email" => $email,'mobile'=>$m
 
 $to=$email;
 $from_name="HousingMatters";
-$subject='Profile Update';
+$subject='[$society_name2]-Profile Update';
 $this->loadmodel('email');
 $conditions=array('auto_id'=>4);
 $result_email=$this->email->find('all',array('conditions'=>$conditions));
@@ -14752,6 +14805,7 @@ $result_society=$this->society_name($society_id);
 foreach($result_society as $data)
 {
 	 $da_user_id=$data['society']['user_id'];
+	  $society_name3=$data['society']['society_name'];
 	
 }
 $result_user=$this->profile_picture($da_user_id);
@@ -14803,7 +14857,7 @@ foreach ($result_email as $collection)
 {
 $from=$collection['email']['from'];
 }
-$subject="Admin : New User Request for approval";
+$subject="[$society_name3]- New User Request for approval";
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);	
 $this->send_notification('<span class="label label-success" ><i class="icon-user"></i></span>','New User <b>'.$user_name.' '.$wing_flat.'</b> awaiting your approval/action',100,$da_user_id,'resident_approve',0,$da_user_id);
 	
