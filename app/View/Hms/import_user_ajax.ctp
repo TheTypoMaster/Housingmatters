@@ -7,7 +7,7 @@ foreach($table as $child){
 		<td width="15%"><input type="text" class="span12 m-wrap textbox" name="name" id="name1" style="font-size:16px;  background-color: white !important;" placeholder="Name*" value="<?php echo $child[0]; ?>"></td>
 		
 		<td width="10%">
-		<select class="span12 m-wrap wing" id="wing2" name="wing" inc_id="1">
+		<select class="span12 m-wrap wing" id="wing2" name="wing" inc_id="<?php echo $i; ?>">
 		<option value="">-Wing-</option>
 		<?php 
 		foreach($result_wing as $data) { 
@@ -20,7 +20,7 @@ foreach($table as $child){
 		</select>
 		</td>
 		
-		<td id="echo_flat1" width="10%">
+		<td id="echo_flat<?php echo $i; ?>" width="10%">
 		<?php $result_flat=$this->requestAction(array('controller' => 'Hms', 'action' => 'flat'), array('pass' => array($child[1]))); ?>
 		<select class="span12 m-wrap" id="flat1" name="flat" >
 		<option value="">Flat</option>

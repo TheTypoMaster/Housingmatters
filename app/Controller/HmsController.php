@@ -17825,132 +17825,40 @@ $this->set('cursor1',$cursor1);
 
 
 /////////////////////////////////////////// Start Function Convert Rupee ///////////////////////////////////////////////////////////////////////////////
+function n2www($num){
+$numbers10 = array('ten','twenty','thirty','fourty','fifty','sixty','seventy','eighty','ninety');
+$numbers01 = array('one','two','three','four','fife','six','seven','eight','nine','ten',
+    'eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen');
 
-function convert_number_to_words($number) 
-{
-
-$hyphen      = '-';
-$conjunction = ' and ';
-$separator   = ', ';
-$negative    = 'negative ';
-$decimal     = ' point ';
-$dictionary  = array(
-
-
-01                   => 'One',
-02                   => 'Two',
-03                   => 'Three',
-04                   => 'Four',
-05                   => 'Five',
-06                   => 'Six',
-07                   => 'Seven',
-08                   => 'Eight',
-09                   => 'Nine',
-
-
-
-0                   => 'Zero',
-1                   => 'One',
-2                   => 'Two',
-3                   => 'Three',
-4                   => 'Four',
-5                   => 'Five',
-6                   => 'Six',
-7                   => 'Seven',
-8                   => 'Eight',
-9                   => 'Nine',
-10                  => 'Ten',
-11                  => 'Eleven',
-12                  => 'Twelve',
-13                  => 'Thirteen',
-14                  => 'Fourteen',
-15                  => 'Fifteen',
-16                  => 'Sixteen',
-17                  => 'Seventeen',
-18                  => 'Eighteen',
-19                  => 'Nineteen',
-20                  => 'Twenty',
-30                  => 'Thirty',
-40                  => 'Fourty',
-50                  => 'Fifty',
-60                  => 'Sixty',
-70                  => 'Seventy',
-80                  => 'Eighty',
-90                  => 'Ninety',
-100                 => 'Hundred',
-1000                => 'Thousand',
-1000000             => 'Million',
-1000000000          => 'Billion',
-1000000000000       => 'Trillion',
-1000000000000000    => 'Quadrillion',
-1000000000000000000 => 'Quintillion'
-);
-
-if (!is_numeric($number)) {
-return false;
+if($num == 0) {
+    echo "zero";
 }
 
-if (($number >= 0 && (int) $number < 0) || (int) $number < 0 - PHP_INT_MAX) {
-// overflow
-trigger_error(
-'convert_number_to_words only accepts numbers between -' . PHP_INT_MAX . ' and ' . PHP_INT_MAX,
-E_USER_WARNING
-);
-return false;
+$thousands = floor($num/1000);
+if($thousands != 0) {
+    echo $numbers01[$thousands-1] . " thousand ";
+    $num -= $thousands*1000;
 }
 
-if ($number < 0) {
-return $negative . convert_number_to_words(abs($number));
+$hundreds = floor($num/100);
+if($hundreds != 0) {
+    echo $numbers01[$hundreds-1] . " hundred ";
+    $num -= $hundreds*100;
 }
 
-$string = $fraction = null;
+if($num < 20) {
+    if($num != 0) {
+        echo $numbers01[$num-1];
+    }
+} else {
+    $tens = floor($num/10);
+    echo $numbers10[$tens-1] . " ";
+    $num -= $tens*10;
 
-if (strpos($number, '.') !== false) {
-list($number, $fraction) = explode('.', $number);
+    if($num != 0) {
+        echo $numbers01[$num-1];
+    }
 }
-
-switch (true) {
-case $number < 21:
-$string = $dictionary[$number];
-break;
-case $number < 100:
-$tens   = ((int) ($number / 10)) * 10;
-$units  = $number % 10;
-$string = $dictionary[$tens];
-if ($units) {
-$string .= $hyphen . $dictionary[$units];
-}
-break;
-case $number < 1000:
-$hundreds  = $number / 100;
-$remainder = $number % 100;
-$string = $dictionary[$hundreds] . ' ' . $dictionary[100];
-if ($remainder) {
-$string .= $conjunction . convert_number_to_words($remainder);
-}
-break;
-default:
-$baseUnit = pow(1000, floor(log($number, 1000)));
-$numBaseUnits = (int) ($number / $baseUnit);
-$remainder = $number % $baseUnit;
-$string = convert_number_to_words($numBaseUnits) . ' ' . $dictionary[$baseUnit];
-if ($remainder) {
-$string .= $remainder < 100 ? $conjunction : $separator;
-$string .= convert_number_to_words($remainder);
-}
-break;
-}
-
-if (null !== $fraction && is_numeric($fraction)) {
-$string .= $decimal;
-$words = array();
-foreach (str_split((string) $fraction) as $number) {
-$words[] = $dictionary[$number];
-}
-$string .= implode(' ', $words);
-}
-
-return $string;
 }
 
 function serial_no($number)
@@ -21000,6 +20908,19 @@ die($output);
 
 }
 /////////////////////////////////// End Wing Json//////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 ?>
