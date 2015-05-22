@@ -200,7 +200,7 @@ $(document).ready(function(){
 				$("#report").html(response.text);
 			}
 			if(response.report_type=='success'){
-				$("#report_success_pop").html("<div class='alert alert-block alert-success fade in'><h4 class='alert-heading'>Success!</h4><p>"+response.text+"</p><p><a class='btn green' href='<?php echo $webroot_path; ?>Hms/new_user_enrollment2' rel='tab' role='button'>Ok</a></p></div>");
+				$("#report_success_pop").html("<div class='alert alert-block alert-success fade in'><h4 class='alert-heading'>Success!</h4><p>"+response.text+"</p><p><a class='btn green' href='<?php echo $webroot_path; ?>Hms/society_member_view' rel='tab' role='button'>Ok</a></p></div>");
 			}
 		});
 	});
