@@ -367,7 +367,7 @@ $(document).ready(function(){
 </script>
 
 <script>
-/*
+
 		$(document).ready(function() {
 		$("#go").live('click',function(){
  
@@ -534,7 +534,7 @@ $('#chk_vali').html('<p style="color:red;"></p>');
 		
 		});
 		});
-		*/
+		
 		
 		</script>
         
