@@ -9,6 +9,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
 
+<div id="report_success_pop">
 <a href="#" class="btn purple" role="button" id="import">Import</a>
 <div id="myModal3" class="modal hide fade in" style="display: none;">
 <div class="modal-backdrop fade in"></div>
@@ -19,6 +20,17 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 		</div>
 		<div class="modal-body">
 			<input type="file" name="file" class="default">
+			
+			<strong><a href="<?php echo $this->webroot; ?>csv_file/demo/demo.csv" download>Click here for sample format</a></strong>
+			<br/>
+			<h4>Instruction set to import users</h4>
+			<ol>
+			<li>All the field are compulsory.</li>
+			<li>Wing and Flat name be valid as per society setting.</li>
+			<li>Email ID should be correct as all the further communication will be send to this email id. No duplicate Email is allowed.</li>
+			<li>Mobile number should be 10 digits. No Duplicate Mobile No is allowed.</li>
+			<li>Owner,Committee,Residing should be only "Yes" or "No".</li>
+			</ol>
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn" id="close_div">Close</button>
@@ -96,6 +108,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <button type="submit" id="submit" class="btn blue">Submit</button>
 </div>
 </form>
+</div>
 <script>
 $(document).ready(function(){
 	 $("#add_row").bind('click',function(){
@@ -167,8 +180,8 @@ $(document).ready(function(){
 		
 		var qw3='input:radio:checked';
 		var r=$("#url_main table tr:nth-child("+i+") td:nth-child(8) "+qw3).val();
-		
-		ar.push([n,w,f,e,m,o,c,r]);
+		var sub="yes";
+		ar.push([n,w,f,e,m,o,c,r,sub]);
 		}
 		var myJsonString = JSON.stringify(ar);
 		myJsonString=encodeURIComponent(myJsonString);
@@ -185,6 +198,9 @@ $(document).ready(function(){
 			}
 			if(response.report_type=='already_error'){
 				$("#report").html(response.text);
+			}
+			if(response.report_type=='success'){
+				$("#report_success_pop").html("<div class='alert alert-block alert-success fade in'><h4 class='alert-heading'>Success!</h4><p>"+response.text+"</p><p><a class='btn green' href='<?php echo $webroot_path; ?>Hms/new_user_enrollment2' rel='tab' role='button'>Ok</a></p></div>");
 			}
 		});
 	});
@@ -204,6 +220,62 @@ $(document).ready(function(){
 			}).done(function(response) {
 				$("#myModal3").hide();
 				$("#url_main table").html(response);
+				
+				
+				
+				
+				
+				
+				var count = $("#myTable tr").length;
+		var ar = [];
+		for(var i=1;i<=count;i++)
+		{
+			$("#url_main table tr:nth-child("+i+") span.report").remove();
+			$("#url_main table tr:nth-child("+i+") td").css("background-color", "#fff");
+			
+		var n=$("#url_main table tr:nth-child("+i+")  input[name=name]").val();
+		var w=$("#url_main table tr:nth-child("+i+") td:nth-child(2) select").val();
+		var f=$("#url_main table tr:nth-child("+i+") td:nth-child(3) select").val();
+		var e=$("#url_main table tr:nth-child("+i+")  input[name=email]").val();
+		var m=$("#url_main table tr:nth-child("+i+")  input[name=mobile]").val();
+		
+		
+		
+		
+		var qw1='input:radio:checked';
+		var o=$("#url_main table tr:nth-child("+i+") td:nth-child(6) "+qw1).val();
+	
+		var qw2='input:radio:checked';
+		var c=$("#url_main table tr:nth-child("+i+") td:nth-child(7) "+qw2).val();
+		
+		var qw3='input:radio:checked';
+		var r=$("#url_main table tr:nth-child("+i+") td:nth-child(8) "+qw3).val();
+		var sub="no";
+		ar.push([n,w,f,e,m,o,c,r,sub]);
+		}
+		var myJsonString = JSON.stringify(ar);
+		myJsonString=encodeURIComponent(myJsonString);
+		$.ajax({
+			url: "check_email_already_exist?q="+myJsonString,
+			type: 'POST',
+			dataType:'json',
+		}).done(function(response) {
+			if(response.report_type=='error'){
+				jQuery.each(response.report, function(i, val) {
+					$("#url_main table tr:nth-child("+val.tr+") td:nth-child("+val.td+")").append('<span class="report" style="color:red;">'+val.text+'</span>');
+					$("#url_main table tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
+				});
+			}
+			if(response.report_type=='already_error'){
+				$("#report").html(response.text);
+			}
+			
+		});
+				
+				
+				
+				
+				
 			});
 	});
 });

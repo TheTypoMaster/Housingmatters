@@ -90,11 +90,41 @@ if($profile==1 && $progres<82)
    </div>
 <?php } ?>   
 
-
-
-
-
-
+			<div style='float:right;'>
+			<div class="alert alert-info" style='height:50px;z-index: inherit;' >
+			<button class="close" data-dismiss="alert"></button>
+			<strong>Info!</strong> Your discussion is reject 
+			</div>
+<div class="alert alert-info" style='height:50px;z-index: inherit;' >
+			<button class="close" data-dismiss="alert"></button>
+			<strong>Info!</strong> Your discussion is reject 
+			</div>
+			
+			<div class="alert alert-info" style='height:50px;z-index: inherit;' >
+			<button class="close" data-dismiss="alert"></button>
+			<strong>Info!</strong> Your discussion is reject 
+			</div>
+<div class="alert alert-info" style='height:50px;z-index: inherit;' >
+			<button class="close" data-dismiss="alert"></button>
+			<strong>Info!</strong> Your discussion is reject 
+			</div><div class="alert alert-info" style='height:50px;z-index: inherit;' >
+			<button class="close" data-dismiss="alert"></button>
+			<strong>Info!</strong> Your discussion is reject 
+			</div>
+<div class="alert alert-info" style='height:50px;z-index: inherit;' >
+			<button class="close" data-dismiss="alert"></button>
+			<strong>Info!</strong> Your discussion is reject 
+			</div><div class="alert alert-info" style='height:50px;z-index: inherit;' >
+			<button class="close" data-dismiss="alert"></button>
+			<strong>Info!</strong> Your discussion is reject 
+			</div>
+<div class="alert alert-info" style='height:50px;z-index: inherit;' >
+			<button class="close" data-dismiss="alert"></button>
+			<strong>Info!</strong> Your discussion is reject 
+			</div>
+			
+			
+</div>
 
 
 

@@ -15063,9 +15063,16 @@ $this->set('result_wing',$result_wing);
 
 function import_user_ajax()
 {
-	$this->layout=null;
+	$this->layout="blank";
 	$this->ath();
 	 
+	$s_society_id=$this->Session->read('society_id');
+	$this->loadmodel('wing');
+	$conditions=array("society_id" => $s_society_id);
+	$result_wing = $this->wing->find('all',array('conditions'=>$conditions));
+	$this->set('result_wing',$result_wing);
+	
+
 	if(isset($_FILES['file'])){
 		$file_name=$_FILES['file']['name'];
 		$file_tmp_name =$_FILES['file']['tmp_name'];
@@ -15091,8 +15098,86 @@ function import_user_ajax()
 
 		fclose($f);
 		$records;
-		$this->set('test',$test);
 	}
+	
+	
+	$i=0;
+	foreach($test as $child){
+		if($i>0){
+			$child_ex=explode(',',$child[0]);
+			$name=$child_ex[0];
+			$wing_name=$child_ex[1];
+			$flat_name=$child_ex[2];
+			$email=$child_ex[3];
+			$mobile=$child_ex[4];
+			$owner=$child_ex[5];
+			$committee=$child_ex[6];
+			$noc=$child_ex[7];
+			
+			$this->loadmodel('wing'); 
+			$conditions=array("society_id"=>$s_society_id,"wing_name"=> new MongoRegex('/^' .  $wing_name . '$/i'));
+			$result_wing=$this->wing->find('all',array('conditions'=>$conditions));
+			$result_wing_count=sizeof($result_wing);
+
+			$wing_id=0;
+			$flat_id=0;
+			if($result_wing_count>0){
+				$wing_id=$result_wing[0]['wing']['wing_id'];
+				
+				$this->loadmodel('flat'); 
+				$conditions=array("wing_id"=>$wing_id,"flat_name"=> new MongoRegex('/^' .  $flat_name . '$/i'));
+				$result_flat=$this->flat->find('all',array('conditions'=>$conditions));
+				$result_flat_count=sizeof($result_flat);
+
+				if($result_flat_count>0){
+					$flat_id=$result_flat[0]['flat']['flat_id'];	
+				}
+			}
+			
+			$owner_id=0;
+			$committee_id=0;
+			$noc_id=0;
+			if(!empty($owner)){
+				$result_owner_yes = strcasecmp($owner, 'yes');
+				$result_owner_no = strcasecmp($owner, 'no');
+				if ($result_owner_yes == 0){
+				$owner_id=1;
+				}
+				if ($result_owner_no == 0){
+				$owner_id=2;
+				}
+			}
+			
+			if(!empty($committee)){
+				$result_committee_yes = strcasecmp($committee, 'yes');
+				$result_committee_no = strcasecmp($committee, 'no');
+				if ($result_committee_yes == 0){
+				$committee_id=1;
+				}
+				if ($result_committee_no == 0){
+				$committee_id=2;
+				}
+			}
+			
+			if(!empty($noc)){
+				$result_noc_yes = strcasecmp($noc, 'yes');
+				$result_noc_no = strcasecmp($noc, 'no');
+				if ($result_noc_yes == 0){
+				$noc_id=1;
+				}
+				if ($result_noc_no == 0){
+				$noc_id=2;
+				}
+			}
+			
+			
+			
+			$table[]=array($name,$wing_id,$flat_id,$email,$mobile,$owner_id,$committee_id,$noc_id);
+		}
+		$i++;
+	}
+	$this->set('table',$table);
+	
 	
 	
 }
@@ -19987,10 +20072,9 @@ if((sizeof(@$mobile_no1)>0) && (sizeof(@$mobile_no2)>0)){
 /*------code here insert start -------*/
 
 $ip=$this->hms_email_ip();
-
+if($child[8]=="yes"){
 foreach($myArray as $child)
 {
-
 	$name=$child[0];
 	$email=$child[3];
 	$mobile=$child[4];
@@ -20084,6 +20168,7 @@ $this->flat->updateAll(array("noc_ch_tp" =>$residing),array("flat_id" =>$flat));
 
 		if(!empty($email) && empty($mobile))
 		{
+			
 			$login_user=$email;	
 			$message_web="<div>
 			<img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
@@ -20137,18 +20222,22 @@ $this->flat->updateAll(array("noc_ch_tp" =>$residing),array("flat_id" =>$flat));
 
 				//////////////// End all checked code   //////////////////////////
 
-				
-			////////////////////  insert login table  ///////////////////
-
-			$this->loadmodel('login');
-			$this->login->saveAll(array('login_id'=>$log_i,'user_name'=>$login_user,'password'=>$random,'signup_random'=>$random,'mobile'=>$mobile));
-
+			if(empty($email) && empty($mobile))
+			{
+			}else{
+				////////////////////  insert login table  ///////////////////
+				$this->loadmodel('login');
+				$this->login->saveAll(array('login_id'=>$log_i,'user_name'=>$login_user,'password'=>$random,'signup_random'=>$random,'mobile'=>$mobile));
+			}
 			//////////////////////////////////////////////////////////////////
 		
 unset($role_id);
 }
-$output = json_encode(array('type'=>'success', 'text' => 'New members registered into your society successfully.'));
+$output = json_encode(array('report_type'=>'success', 'text' => 'New members registered into your society successfully.'));
 die($output);
+}
+
+
 }
 ///////////////////////////////// End Check Email Already Exist ////////////////////////////////////////////// 
 
