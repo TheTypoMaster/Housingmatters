@@ -4967,7 +4967,7 @@ $arrr[] = $incid;
 }
 }
 $this->loadmodel('society');
-$this->society->updateAll(array('income_head'=> $arrr),array('society_id'=>$s_society_id));
+$this->society->updateAll(array('income_head'=> @$arrr),array('society_id'=>$s_society_id));
 
 $this->redirect(array('controller' => 'Incometrackers','action' => 'select_income_heads'));
 }
