@@ -5026,7 +5026,7 @@ foreach($cursor as $collection)
 {
 $bill_html = $collection['regular_bill']['bill_html'];	
 }
-$this->set('bill_html',$bill_html);
+$this->set('bill_html',@$bill_html);
 
 }
 //////////////// End ac statement Bill View////////////////////////////////////////
