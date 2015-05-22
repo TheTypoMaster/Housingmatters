@@ -3232,9 +3232,6 @@ Terms & Condition Deleted Successfully
 </div>
 <!----alert-------------->
 
-
-
-
 <?php	
 }
 

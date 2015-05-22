@@ -355,7 +355,7 @@ $date2 = date_create($current_date);
 $interval = date_diff($date1, $date2);
 $days = $interval->format('%a');	
 
-$due_taxamt = round(($due_amount*$days*$pen_per)/365);
+$due_taxamt = round((@$due_amount*$days*$pen_per)/365);
 	
 }
 }
