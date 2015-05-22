@@ -5092,8 +5092,55 @@ $order=array('resource.resource_id'=>'DESC');
 $result_resource_last=$this->resource->find('all',array('conditions'=>$conditions,'order' => $order,'limit' =>3));
 $this->set('result_resource_last',$result_resource_last);
 //////////////documents  last 3///////////////// 
-}
 
+/////////////// Discussion information reject //////////////////
+
+$this->loadmodel('discussion_post');
+$conditions=array('delete_id'=>5,'society_id'=>$s_society_id,'user_id'=>$s_user_id);
+$res_dis=$this->discussion_post->find('all',array('conditions'=>$conditions));
+$this->set('disc_res',$res_dis);
+
+//////////////// end ///////////////////////////////////////
+
+
+/////////////// Notice information reject //////////////////
+$this->loadmodel('notice');
+$conditions=array('n_draft_id'=>5,'society_id'=>$s_society_id,'user_id'=>$s_user_id);
+$res_not=$this->notice->find('all',array('conditions'=>$conditions));
+
+$this->set('not_res',$res_not);
+
+//////////////// end ///////////////////////////////////////
+
+
+/////////////// Poll information reject //////////////////
+$this->loadmodel('poll');
+$conditions=array('deleted'=>5,'society_id'=>$s_society_id,'user_id'=>$s_user_id);
+$res_poll=$this->poll->find('all',array('conditions'=>$conditions));
+$this->set('poll_res',$res_poll);
+
+//////////////// end ///////////////////////////////////////
+
+}
+function reject_notification($id,$change)
+{
+	if($change==1)
+	{
+	$this->loadmodel('notice');
+	$this->notice->updateAll(array('n_draft_id'=>6),array('notice_id'=>$id));
+	}
+	if($change==2)
+	{
+	$this->loadmodel('discussion_post');
+	$this->discussion_post->updateAll(array('delete_id'=>6),array('discussion_post_id'=>$id));
+	}
+	if($change==3)
+	{
+	$this->loadmodel('poll');
+	$this->poll->updateAll(array('deleted'=>6),array('poll_id'=>$id));
+	}
+	
+}
 
 
 function dashboard_old() 
