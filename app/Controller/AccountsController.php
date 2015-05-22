@@ -1413,10 +1413,10 @@ foreach($cursor as $collection)
 $auto_id = (int)$collection['ledger_sub_account']['auto_id'];
 $user_name = $collection['ledger_sub_account']['name'];
 }
-$this->set('user_name',$user_name);
+$this->set('user_name',@$user_name);
 
 $this->loadmodel('cash_bank');
-$conditions=array("user_id"=>$auto_id,"society_id"=>$s_society_id,"module_id"=>1);
+$conditions=array("user_id"=>@$auto_id,"society_id"=>$s_society_id,"module_id"=>1);
 $cursor4 = $this->cash_bank->find('all',array('conditions'=>$conditions));
 $this->set('cursor4',$cursor4);
 

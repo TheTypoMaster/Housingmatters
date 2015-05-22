@@ -180,6 +180,11 @@ $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
 
+
+$this->ath();
+
+
+
 $this->loadmodel('penalty');
 $condition=array('society_id'=>$s_society_id);
 $result5=$this->penalty->find('all',array('conditions'=>$condition)); 
@@ -630,8 +635,6 @@ $regular_bill_id = $this->autoincrement('regular_bill','regular_bill_id');
 $wing_flat = $this->wing_flat($wing_id,$flat_id);
 
 
-$this->send_notification('<span class="label label-success" ><i class="icon-user"></i></span>','New Bill for <b>'.$user_name.' '.$wing_flat.'</b> is generated',10,$regular_bill_id,$this->webroot.'Accounts/my_flat_bill',$s_user_id,$admin_user_id);
-
 
 //////////////////////////////////////////////////////////////
 $this->loadmodel('society');
@@ -684,8 +687,12 @@ $multipleRowData = Array( Array("regular_bill_id" => $regular_bill_id,"receipt_i
 "due_date" => $due_date, "total_due_amount"=> $total_due_amount, "due_amount_tax" => @$due_tax,"remaining_amount"=>$grand_total,"total_amount" => $total_amt,"pay_amount"=>"", "due_amount" => @$due_amount11,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt2));
 $this->regular_bill->saveAll($multipleRowData);	
 
-///////////////////////////////////////
+$ussrs[]=$user_id;
 
+
+$this->send_notification('<span class="label label-warning" ><i class="icon-money"></i></span>','New bill for your flat '.$wing_flat.' is generated ',10,$regular_bill_id,$this->webroot_path().'Incometrackers/ac_statement_bill_view/'.$r,0,$ussrs);
+unset($ussrs);
+///////////////////////////////////////
 
 ////////////////////////////////////////////
 ///////Start Bill Html Code/////////////////
@@ -1602,8 +1609,10 @@ $multipleRowData = Array( Array("regular_bill_id" => $regular_bill_id,"receipt_i
 $this->regular_bill->saveAll($multipleRowData);	
 
 ///////////////////////////////////////
+$ussrs[]=$user_id;
 
-
+$this->send_notification('<span class="label label-warning" ><i class="icon-money"></i></span>','New bill for your flat '.$wing_flat.' is generated ',10,$regular_bill_id,$this->webroot_path().'Incometrackers/ac_statement_bill_view/'.$r,0,$ussrs);
+unset($ussrs);
 ////////////////////////////////////////////
 ///////Start Bill Html Code/////////////////
 	$total_amount2 = 0;	
@@ -3231,9 +3240,6 @@ Terms & Condition Deleted Successfully
 </div>
 </div>
 <!----alert-------------->
-
-
-
 
 <?php	
 }
@@ -4967,7 +4973,7 @@ $arrr[] = $incid;
 }
 }
 $this->loadmodel('society');
-$this->society->updateAll(array('income_head'=> $arrr),array('society_id'=>$s_society_id));
+$this->society->updateAll(array('income_head'=> @$arrr),array('society_id'=>$s_society_id));
 
 $this->redirect(array('controller' => 'Incometrackers','action' => 'select_income_heads'));
 }
@@ -5000,7 +5006,28 @@ $this->set('cursor2',$cursor2);
 }
 ////////////////End Account Statement (Accounts)/////////////////////////////////////
 
+//////////////// Start ac statement Bill View////////////////////////////////////////
+/////////// Done////////////////////////////
+function ac_statement_bill_view($receipt_id=null)
+{
+$this->layout='blank';
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
 
+//$receipt_id = (int)$this->request->query('bill');
+$receipt_id = (int)$receipt_id; 
+$this->loadmodel('regular_bill');
+$conditions=array("receipt_id"=>$receipt_id,"society_id" => $s_society_id);
+$cursor=$this->regular_bill->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$bill_html = $collection['regular_bill']['bill_html'];	
+}
+$this->set('bill_html',$bill_html);
+
+}
+//////////////// End ac statement Bill View////////////////////////////////////////
 
 
 
