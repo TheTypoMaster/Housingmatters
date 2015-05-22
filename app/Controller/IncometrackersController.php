@@ -1552,7 +1552,6 @@ $regular_bill_id = $this->autoincrement('regular_bill','regular_bill_id');
 $wing_flat = $this->wing_flat($wing_id,$flat_id);
 
 
-$this->send_notification('<span class="label label-success" ><i class="icon-user"></i></span>','New Bill for <b>'.$user_name.' '.$wing_flat.'</b> is generated',10,$regular_bill_id,'my_flat_bill',$s_user_id,$admin_user_id);
 ///////////////////////////
 
 //////////////////////////////////////////////////////////////
