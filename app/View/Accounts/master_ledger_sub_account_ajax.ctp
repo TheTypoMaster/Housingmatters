@@ -29,5 +29,5 @@ if($value == 35)
 <input type="text" name="tax" class="m-wrap medium" placeholder="Tax In Persentage" id="tx" style="background-color:white !important;">
 <label id="tx"></label>
 <?php
-}
+}*/
 ?>
