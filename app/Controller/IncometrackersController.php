@@ -630,8 +630,6 @@ $regular_bill_id = $this->autoincrement('regular_bill','regular_bill_id');
 $wing_flat = $this->wing_flat($wing_id,$flat_id);
 
 
-$this->send_notification('<span class="label label-success" ><i class="icon-user"></i></span>','New Bill for <b>'.$user_name.' '.$wing_flat.'</b> is generated',10,$regular_bill_id,$this->webroot.'Accounts/my_flat_bill',$s_user_id,$admin_user_id);
-
 
 //////////////////////////////////////////////////////////////
 $this->loadmodel('society');
@@ -684,8 +682,12 @@ $multipleRowData = Array( Array("regular_bill_id" => $regular_bill_id,"receipt_i
 "due_date" => $due_date, "total_due_amount"=> $total_due_amount, "due_amount_tax" => @$due_tax,"remaining_amount"=>$grand_total,"total_amount" => $total_amt,"pay_amount"=>"", "due_amount" => @$due_amount11,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt2));
 $this->regular_bill->saveAll($multipleRowData);	
 
-///////////////////////////////////////
+$ussrs[]=$user_id;
 
+
+$this->send_notification('<span class="label label-warning" ><i class="icon-money"></i></span>','New bill for your flat '.$wing_flat.' is generated ',10,$regular_bill_id,$webroot_path.'Incometrackers/ac_statement_bill_view/'.$regular_bill_id,0,$ussrs);
+
+///////////////////////////////////////
 
 ////////////////////////////////////////////
 ///////Start Bill Html Code/////////////////
@@ -1602,7 +1604,9 @@ $multipleRowData = Array( Array("regular_bill_id" => $regular_bill_id,"receipt_i
 $this->regular_bill->saveAll($multipleRowData);	
 
 ///////////////////////////////////////
+$ussrs[]=$user_id;
 
+$this->send_notification('<span class="label label-warning" ><i class="icon-money"></i></span>','New bill for your flat '.$wing_flat.' is generated ',10,$regular_bill_id,$webroot_path.'Incometrackers/ac_statement_bill_view/'.$regular_bill_id,0,$ussrs);
 
 ////////////////////////////////////////////
 ///////Start Bill Html Code/////////////////
