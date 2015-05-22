@@ -647,7 +647,15 @@ foreach($poll_res as $data)
 				
             });
 	<?php $this->requestAction(array('controller' => 'hms', 'action' => 'reject_notification'), array('pass' => array($poll_id,3))); } } ?>
-            return false;
+           
+
+
+
+
+
+
+
+		   return false;
 
       
 
