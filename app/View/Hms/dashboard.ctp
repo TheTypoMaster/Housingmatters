@@ -90,41 +90,6 @@ if($profile==1 && $progres<82)
    </div>
 <?php } ?>   
 
-			<div style='float:right;'>
-			<div class="alert alert-info" style='height:50px;z-index: inherit;' >
-			<button class="close" data-dismiss="alert"></button>
-			<strong>Info!</strong> Your discussion is reject 
-			</div>
-<div class="alert alert-info" style='height:50px;z-index: inherit;' >
-			<button class="close" data-dismiss="alert"></button>
-			<strong>Info!</strong> Your discussion is reject 
-			</div>
-			
-			<div class="alert alert-info" style='height:50px;z-index: inherit;' >
-			<button class="close" data-dismiss="alert"></button>
-			<strong>Info!</strong> Your discussion is reject 
-			</div>
-<div class="alert alert-info" style='height:50px;z-index: inherit;' >
-			<button class="close" data-dismiss="alert"></button>
-			<strong>Info!</strong> Your discussion is reject 
-			</div><div class="alert alert-info" style='height:50px;z-index: inherit;' >
-			<button class="close" data-dismiss="alert"></button>
-			<strong>Info!</strong> Your discussion is reject 
-			</div>
-<div class="alert alert-info" style='height:50px;z-index: inherit;' >
-			<button class="close" data-dismiss="alert"></button>
-			<strong>Info!</strong> Your discussion is reject 
-			</div><div class="alert alert-info" style='height:50px;z-index: inherit;' >
-			<button class="close" data-dismiss="alert"></button>
-			<strong>Info!</strong> Your discussion is reject 
-			</div>
-<div class="alert alert-info" style='height:50px;z-index: inherit;' >
-			<button class="close" data-dismiss="alert"></button>
-			<strong>Info!</strong> Your discussion is reject 
-			</div>
-			
-			
-</div>
 
 
 
@@ -605,7 +570,6 @@ function substrwords($text, $maxchar, $end='...') {
 <!---------right section end------------------>
 </div>
 
-
 <style>
 .shadow {
     box-shadow: 1px 1px 1px #888888;
@@ -620,3 +584,76 @@ $("#div_close").hide();
 window.location.href='dashboard?try=' + c3 ;
 };
 </script>
+
+
+<script>
+
+$(document).ready(function() {
+
+<?php
+
+ $cont_not= sizeof($not_res);
+if($cont_not>0)
+{
+foreach($not_res as $data)
+{
+ $topic=$data['notice']['n_subject'];
+  $notice_id=(int)$data['notice']['notice_id'];
+ ?>	
+            $.gritter.add({
+               
+                title: 'Notice',
+               text: 'The Notice <?php echo $topic ; ?> is rejected. ',
+               sticky: false,
+                time: '10000',
+				
+            });
+	<?php  $this->requestAction(array('controller' => 'hms', 'action' => 'reject_notification'), array('pass' => array($notice_id,1))); } }?>
+
+<?php
+$cont_dis= sizeof($disc_res);
+if($cont_dis>0)
+{
+foreach($disc_res as $data)
+{
+ $topic=$data['discussion_post']['topic'];
+ $discussion_post_id=$data['discussion_post']['discussion_post_id'];
+ ?>	
+ $.gritter.add({
+               
+                title: ' discussion forum ',
+               text: 'The discussion topic <?php echo $topic ; ?> is rejected. ',
+               sticky: false,
+                time: '10000',
+				
+            });
+	<?php $this->requestAction(array('controller' => 'hms', 'action' => 'reject_notification'), array('pass' => array($discussion_post_id,2)));} } ?>
+	
+<?php
+$cont_poll= sizeof($poll_res);
+if($cont_poll>0)
+{
+foreach($poll_res as $data)
+{
+ $topic=$data['poll']['question'];
+ $poll_id=(int)$data['poll']['poll_id'];
+ ?>	
+ $.gritter.add({
+               
+               title: 'Polls',
+               text: 'The Poll question <?php echo $topic ; ?> is rejected. ',
+               sticky: false,
+                time: '10000',
+				
+            });
+	<?php $this->requestAction(array('controller' => 'hms', 'action' => 'reject_notification'), array('pass' => array($poll_id,3))); } } ?>
+            return false;
+
+      
+
+   
+});
+
+
+</script>
+<?php  ?>
