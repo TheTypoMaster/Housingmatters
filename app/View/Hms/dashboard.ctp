@@ -648,7 +648,24 @@ foreach($poll_res as $data)
             });
 	<?php $this->requestAction(array('controller' => 'hms', 'action' => 'reject_notification'), array('pass' => array($poll_id,3))); } } ?>
            
-
+<?php
+$cont_document= sizeof($resource_res);
+if($cont_document>0)
+{
+foreach($resource_res as $data)
+{
+ $topic=$data['resource']['resource_title'];
+ $resource_id=(int)$data['resource']['resource_id'];
+ ?>	
+ $.gritter.add({
+               
+               title: 'Document',
+               text: 'The Document <?php echo $topic ; ?> is rejected. ',
+               sticky: false,
+                time: '10000',
+				
+            });
+	<?php $this->requestAction(array('controller' => 'hms', 'action' => 'reject_notification'), array('pass' => array($resource_id,4))); } } ?>
 
 
 
@@ -664,4 +681,4 @@ foreach($poll_res as $data)
 
 
 </script>
-<?php  ?>
+

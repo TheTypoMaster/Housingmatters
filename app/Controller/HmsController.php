@@ -5122,6 +5122,19 @@ $this->set('poll_res',$res_poll);
 
 //////////////// end ///////////////////////////////////////
 
+
+
+/////////////// Documents information reject //////////////////
+
+$this->loadmodel('resource');
+$conditions=array('resource_delete'=>5,'society_id'=>$s_society_id,'user_id'=>$s_user_id);
+$res_resource=$this->resource->find('all',array('conditions'=>$conditions));
+$this->set('resource_res',$res_resource);
+
+//////////////// end ///////////////////////////////////////
+
+
+
 }
 function reject_notification($id,$change)
 {
@@ -5139,6 +5152,12 @@ function reject_notification($id,$change)
 	{
 	$this->loadmodel('poll');
 	$this->poll->updateAll(array('deleted'=>6),array('poll_id'=>$id));
+	}
+	if($change==4)
+	{
+		$this->loadmodel('resource');
+		$this->resource->updateAll(array('resource_delete'=>6),array('resource_id'=>$id));
+
 	}
 	
 }
