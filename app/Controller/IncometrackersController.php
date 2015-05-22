@@ -5015,6 +5015,9 @@ $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
 
+$this->seen_notification(10,$receipt_id);
+
+
 //$receipt_id = (int)$this->request->query('bill');
 $receipt_id = (int)$receipt_id; 
 $this->loadmodel('regular_bill');
