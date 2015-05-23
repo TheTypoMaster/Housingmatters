@@ -1028,10 +1028,10 @@ $this->regular_bill->updateAll(array("bill_html" =>$html),array("regular_bill_id
 ////////////////////////////////////////////
 
 ///////////////Bill Html for mail////////////
-
-$html_mail='
-<center>
+/*
+$html_mail=' <center>
 <div style="width:700px; background-color:white; overflow:auto;">
+
 <br><Br><br>
 <div style="width:96%; border:solid 1px; overflow:auto; border-bottom:none;">
 <br>
@@ -1098,7 +1098,6 @@ Name :
 <tr>
 <td valign="top" style="height:200px;">
 <table border="0" style="width:100%;">';
-
 for($x=0; $x<sizeof($ih_detail2); $x++)
 {
 $ih_det = $ih_detail2[$x];
@@ -1146,7 +1145,7 @@ $html.='
 <td valign="top">
 <table border="0" style="width:100%;">
 <tr>
-<td rowspan="4"></td>
+<th rowspan="4"></th>
 <td style="text-align:right;">Sub-Total:</td>
 </tr>
 <tr>
@@ -1179,6 +1178,8 @@ $html.='
 </tr>
 </table>
 </div>
+
+
 <div style="width:96%; overflow:auto; border:solid 1px; border-top:none;">
 <table border="0" style="width:70%; float:left;">
 <tr>
@@ -1221,7 +1222,7 @@ $html_mail.='</table>
 <br><br><br><br>
 </div>
 ';
-
+*/
 ////////////End Html For mail/////////////////
 
 $this->loadmodel('society');
@@ -1242,7 +1243,7 @@ $from_name="HousingMatters";
 //$message_web = "Receipt No. :".$d_receipt_id;
 $from = "accounts@housingmatters.in";
 $reply="accounts@housingmatters.in";
-$this->send_email($to_mail,$from,$from_name,$subject,$html_mail,$reply);
+$this->send_email($to_mail,$from,$from_name,$subject,$html,$reply);
 }
 }
 }
@@ -1931,7 +1932,7 @@ $this->regular_bill->updateAll(array("bill_html" =>$html),array("regular_bill_id
 ////////////////////////////////////////////
 
 ///////////////Bill Html for mail////////////
-
+/*
 $html_mail='<center>
 <div style="width:700px; background-color:white; overflow:auto;">
 <br><Br><br>
@@ -2119,7 +2120,7 @@ $html_mail.='</table>
 <br><br><br><br>
 </div>
 ';
-
+*/
 ////////////End Html For mail/////////////////
 
 $this->loadmodel('society');
@@ -2139,7 +2140,7 @@ $from_name="HousingMatters";
 //$message_web = "Receipt No. :".$d_receipt_id;
 $from = "accounts@housingmatters.in";
 $reply="accounts@housingmatters.in";
-$this->send_email($to_mail,$from,$from_name,$subject,$html_mail,$reply);
+$this->send_email($to_mail,$from,$from_name,$subject,$html,$reply);
 }
 }
 }
