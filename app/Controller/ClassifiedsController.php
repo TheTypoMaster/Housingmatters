@@ -146,6 +146,7 @@ function send_message_ajax($id=null,$m=null){
 function submit_ad(){
 	$this->layout=null;
 	$post_data=$this->request->data;
+	
 	$this->ath();
 	$s_society_id=$this->Session->read('society_id');
 	$s_user_id=$this->Session->read('user_id');
@@ -195,8 +196,8 @@ function submit_ad(){
 		
 		
 		if(isset($_FILES['file'])){
-		$file_name=$_FILES['file']['name'];
-		$file_tmp_name =$_FILES['file']['tmp_name'];
+		$file_name=@$_FILES['file']['name'];
+		$file_tmp_name =@$_FILES['file']['tmp_name'];
 		$target = "Classifieds/";
 		$target=@$target.basename($file_name);
 		move_uploaded_file($file_tmp_name,@$target);
@@ -204,16 +205,13 @@ function submit_ad(){
 
 		$classified_id=$this->autoincrement('classified','classified_id');
 		$this->loadmodel('classified');
-		$this->classified->save(array('classified_id' => $classified_id, 'category' => $category, 'sub_category' => $sub_category, 'title' => $title ,'price' => $price , 'price_type' => $price_type, 'ad_type' => $ad_type, 'condition' => $condition,'offer' => $offer, 'description' => $description, 'delete' => 0,'draft' => 0,'user_id' => $s_user_id,'society_id' => $s_society_id,'file' => $file_name));
-		
-		
-		
+		$this->classified->save(array('classified_id' => $classified_id, 'category' => $category, 'sub_category' => $sub_category, 'title' => $title ,'price' => $price , 'price_type' => $price_type, 'ad_type' => $ad_type, 'condition' => $condition,'offer' => $offer, 'description' => $description, 'delete' => 0,'draft' => 0,'user_id' => $s_user_id,'society_id' => $s_society_id,'file' => @$file_name));
+				
 		@$ip=$this->hms_email_ip();
 		
 		$this->loadmodel('notification_email');
 		$conditions=array('module_id'=>3,'chk_status'=>0);
 		$result_users=$this->notification_email->find('all',array('conditions'=>$conditions));
-		
 		
 		$this->loadmodel('email');
 		$conditions=array('auto_id'=>3);
@@ -236,7 +234,7 @@ function submit_ad(){
 			$user_name=$result_user[0]['user']['user_name'];
 			$to=$result_user[0]['user']['email'];
 			
-			$message_web="<div>
+			 $message_web="<div>
 			<img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 			<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
 			<a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
@@ -259,7 +257,7 @@ function submit_ad(){
 		$subject="";
 		}
 		
-		
+			
 		
 		$this->loadmodel('user');
 		$conditions=array('deactive'=>0);
@@ -277,8 +275,8 @@ function submit_ad(){
 	if($post_data['post_type']==2){
 		
 		if(isset($_FILES['file'])){
-			$file_name=$_FILES['file']['name'];
-		$file_tmp_name =$_FILES['file']['tmp_name'];
+			$file_name=@$_FILES['file']['name'];
+		$file_tmp_name =@$_FILES['file']['tmp_name'];
 		$target = "Classifieds/";
 		$target=@$target.basename($file_name);
 		move_uploaded_file($file_tmp_name,@$target);
@@ -286,7 +284,7 @@ function submit_ad(){
 		
 		$classified_id=$this->autoincrement('classified','classified_id');
 		$this->loadmodel('classified');
-		$this->classified->save(array('classified_id' => $classified_id, 'category' => $category, 'sub_category' => $sub_category, 'title' => $title ,'price' => $price , 'price_type' => $price_type, 'ad_type' => $ad_type, 'condition' => $condition,'offer' => $offer, 'description' => $description, 'delete' => 0,'draft' => 1,'user_id' => $s_user_id,'society_id' => $s_society_id,'file' => $file_name));
+		$this->classified->save(array('classified_id' => $classified_id, 'category' => $category, 'sub_category' => $sub_category, 'title' => $title ,'price' => $price , 'price_type' => $price_type, 'ad_type' => $ad_type, 'condition' => $condition,'offer' => $offer, 'description' => $description, 'delete' => 0,'draft' => 1,'user_id' => $s_user_id,'society_id' => $s_society_id,'file' => @$file_name));
 		
 		$output=json_encode(array('report_type'=>'publish','report'=>'Your Classified ad has been saved as draft successfully.'));
 		die($output);
