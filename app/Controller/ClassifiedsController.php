@@ -231,7 +231,7 @@ function submit_ad(){
 		foreach($result_users as $data){
 			$user_id=$data["notification_email"]["user_id"];
 			$result_user=$this->profile_picture($user_id);
-			$user_name=$result_user[0]['user']['user_name'];
+			@$user_name=@$result_user[0]['user']['user_name'];
 			$to=$result_user[0]['user']['email'];
 			
 			 $message_web="<div>
