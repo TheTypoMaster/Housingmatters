@@ -180,10 +180,7 @@ $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
 
-
 $this->ath();
-
-
 
 $this->loadmodel('penalty');
 $condition=array('society_id'=>$s_society_id);
@@ -1025,7 +1022,6 @@ $html.='</table>
 <br><br><br><br>
 </div>
 ';
-
 $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array("bill_html" =>$html),array("regular_bill_id" =>$regular_bill_id));	
 ////////End Bill Html Code///////////////////
@@ -1159,13 +1155,13 @@ $html_mail.='</table>
 </table>
 </td>
 <td valign="top">
-<table border="0" style="width:100%;">
-<tr>';
+<table border="0" style="width:100%;">';
 $total_amount3 = number_format($total_amount2);
 $due_amt4 = number_format($due_amt3);
 $late_amt3 = number_format($late_amt2);
 $grand_total2 = number_format($grand_total);
 $html.='
+<tr>
 <td style="text-align:center;">'.$total_amount3.'</td>
 </tr>
 <tr>
@@ -2060,13 +2056,13 @@ $html_mail.='</table>
 </table>
 </td>
 <td valign="top">
-<table border="0" style="width:100%;">
-<tr>';
+<table border="0" style="width:100%;">';
 $total_amount3 = number_format($total_amount2);
 $due_amt4 = number_format($due_amt3);
 $late_amt3 = number_format($late_amt2);
 $grand_total2 = number_format($grand_total);
 $html.='
+<tr>
 <td style="text-align:center;">'.$total_amount3.'</td>
 </tr>
 <tr>
