@@ -59,7 +59,7 @@ foreach($table as $child){
 		<label class="radio"><input type="radio" name="residing<?php echo $i; ?>" <?php if(2==$child[7]){ echo 'checked';} ?> value="2">Leased</label>
 		</div>
 		
-		<?php if($i>1) { ?> <div class="pull-right"><a href="#" role="button" class="btn mini black delete" id="<?php echo $i; ?>"><i class="icon-trash"></i> Delete</a></div> <?php } ?>
+		<?php if($i>0) { ?> <div class="pull-right"><a href="#" role="button" class="btn mini black delete" id="<?php echo $i; ?>"><i class="icon-trash"></i> Delete</a></div> <?php } ?>
 		</td>
 	</tr>
 	<?php

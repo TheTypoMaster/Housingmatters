@@ -34,7 +34,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn" id="close_div">Close</button>
-			<button type="submit" class="btn blue">Submit</button>
+			<button type="submit" class="btn blue import_btn">Import</button>
 		</div>
 	</div>
 	</form>
@@ -97,6 +97,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 		<label class="radio"><input type="radio" name="residing1"  value="1">Self Occupied</label>
 		<label class="radio"><input type="radio" name="residing1"  value="2">Leased</label>
 		</div>
+		<div class="pull-right"><a href="#" role="button" class="btn mini black delete" id="1"><i class="icon-trash"></i> Delete</a></div>
 		</td>
 	</tr>
 
@@ -154,6 +155,8 @@ $(document).ready(function(){
 		}
 	 });
 	 
+	 
+	 
 	$('form#form2').submit( function(ev){
 		ev.preventDefault();
 		var count = $("#myTable tr").length;
@@ -209,6 +212,7 @@ $(document).ready(function(){
 	
 	$('form#form1').submit( function(ev){
 		ev.preventDefault();
+		$(".import_btn").text("Importing...");
 		var m_data = new FormData();
 		m_data.append( 'file', $('input[name=file]')[0].files[0]);
 		$.ajax({
@@ -269,7 +273,7 @@ $(document).ready(function(){
 			if(response.report_type=='already_error'){
 				$("#report").html(response.text);
 			}
-			
+			$(".import_btn").text("Import");
 		});
 				
 				
