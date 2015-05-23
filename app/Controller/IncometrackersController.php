@@ -1153,7 +1153,7 @@ Grand Total
 </tr>
 </table>
 </div>
-<div style="width:100%;">
+<div style="width:100%; border:solid 1px;">
 <table border="1">
 <tr>
 <td>
