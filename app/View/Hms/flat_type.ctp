@@ -21,7 +21,7 @@ Society Setup
 <a href="<?php echo $webroot_path; ?>Hms/flat_type" class="btn purple">Flat Type</a>
 <a href="<?php echo $webroot_path; ?>Hms/flat_nu_import" class="btn yellow">Flat Import</a> 
 <?php ////////////////////////////////////////////////////////////////////////////////////////////// ?>   
-<div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">      
+<div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">    
 <div class="row-fluid">
 <div class="span5">    
 <form  method="post">

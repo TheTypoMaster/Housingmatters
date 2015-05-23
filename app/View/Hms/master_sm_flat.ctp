@@ -283,7 +283,7 @@ url: "master_sm_flat_vali?q="+myJsonString,
 dataType:'json',
 }).done(function(response) {
 
-if(response.type == 'error'){  
+if(response.type == 'error'){
 output = '<div class="alert alert-error">'+response.text+'</div>';
 $("#submit").removeClass("disabled").text("submit");
 $("html, body").animate({
