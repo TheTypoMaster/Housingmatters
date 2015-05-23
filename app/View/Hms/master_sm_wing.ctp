@@ -33,8 +33,8 @@ Society Setup
 </div>
 <div class="span7">
 
-<div style="height:300px;">
-<div>
+
+
 <table class="table table-striped table-bordered" id="sample_2" style="width:100%;">
 <thead>
 <tr>
@@ -57,8 +57,8 @@ $wing_name=$collection['wing']['wing_name'];
 <?php } ?>
 </tbody>
 </table>
-</div>
-</div>
+
+
 </div>
 </div>
 </div>
