@@ -1098,7 +1098,6 @@ Name :
 <tr>
 <td valign="top" style="height:200px;">
 <table border="0" style="width:100%;">';
-
 for($x=0; $x<sizeof($ih_detail2); $x++)
 {
 $ih_det = $ih_detail2[$x];
@@ -1153,7 +1152,22 @@ Grand Total
 </td>
 </tr>
 </table>
-</div>';
+</div>
+<div style="width:100%;">
+<table border="1">
+<tr>
+<td>
+jasjgdjgjasgd
+sfdsfdfds
+</td>
+<td>
+adsdas
+asdsadasd
+</td>
+</tr>
+</table>
+</div>
+';
 /*
 <table border="0" style="width:100%;">
 <tr>
