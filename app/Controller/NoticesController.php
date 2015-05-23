@@ -908,7 +908,7 @@ if($r==0)
 		}
 $this->loadmodel('notice_board_reply');
 $conditions=array("notice_id" => $n_id);
-$order=array('notice_board_reply.notice_id'=>'ASC');
+$order=array('notice_board_reply.reply_id'=>'ASC');
 $this->set('result_reply',$this->notice_board_reply->find('all',array('conditions'=>$conditions,'order'=>$order)));
 
 }
@@ -1414,6 +1414,7 @@ function edit_notice($id=null){
 function submit_notice(){
 	$this->layout=null;
 	$post_data=$this->request->data;
+	
 	$this->ath();
 	$s_society_id=$this->Session->read('society_id');
 	$s_role_id=$this->Session->read('role_id'); 
@@ -1468,7 +1469,7 @@ if($post_data['post_type']==1){
 	if($notice==1 && $s_role_id!=3){
 		$notice_id=$this->autoincrement('notice','notice_id');
 		$this->loadmodel('notice');
-		$this->notice->save(array('notice_id' => $notice_id, 'user_id' => $s_user_id, 'society_id' => $s_society_id, 'n_category_id' => $category_id ,'n_subject' => $notice_subject , 'n_expire_date' => $notice_expire_date, 'n_attachment' => "" , 'n_message' => $code,'n_date' => $date, 'n_time' => $time, 'n_delete_id' => 0,'n_draft_id' => 4,'visible' => $visible,'sub_visible' => $sub_visible));
+		$this->notice->save(array('notice_id' => $notice_id, 'user_id' => $s_user_id, 'society_id' => $s_society_id, 'n_category_id' => $category_id ,'n_subject' => $notice_subject , 'n_expire_date' => $notice_expire_date, 'n_attachment' => $attachment , 'n_message' => $code,'n_date' => $date, 'n_time' => $time, 'n_delete_id' => 0,'n_draft_id' => 4,'visible' => $visible,'sub_visible' => $sub_visible));
 		
 		$this->send_notification('<span class="label label-info" ><i class="icon-bullhorn"></i></span>','Approval request for notice published - <b>'.$notice_subject.'</b> by',2,$notice_id,$this->webroot.'Hms/notice_approval',$s_user_id,$s_duser_id);
 						
@@ -1482,9 +1483,21 @@ if($post_data['post_type']==1){
 		
 		$recieve_info=$this->visible_subvisible($visible,$sub_visible);
 		
+		 
+		if(isset($_FILES['file'])){
+		$target = "notice_file/";
+		$file_name=$_FILES['file']['name'];
+		$file_tmp_name =$_FILES['file']['tmp_name'];
+		$target=@$target.basename($file_name);
+		move_uploaded_file($file_tmp_name,@$target);
+		}
+		
+		
+		
+		
 		$notice_id=$this->autoincrement('notice','notice_id');
 		$this->loadmodel('notice');
-		$this->notice->save(array('notice_id' => $notice_id, 'user_id' => $s_user_id, 'society_id' => $s_society_id, 'n_category_id' => $category_id ,'n_subject' => $notice_subject , 'n_expire_date' => $notice_expire_date, 'n_attachment' => "" , 'n_message' => $code,'n_date' => $date, 'n_time' => $time, 'n_delete_id' => 0,'n_draft_id' => 0,'visible' => $visible,'sub_visible' => $sub_visible,'visible_user_id' => $recieve_info[2] ));
+		$this->notice->save(array('notice_id' => $notice_id, 'user_id' => $s_user_id, 'society_id' => $s_society_id, 'n_category_id' => $category_id ,'n_subject' => $notice_subject , 'n_expire_date' => $notice_expire_date, 'n_attachment' => $file_name, 'n_message' => $code,'n_date' => $date, 'n_time' => $time, 'n_delete_id' => 0,'n_draft_id' => 0,'visible' => $visible,'sub_visible' => $sub_visible,'visible_user_id' => $recieve_info[2] ));
 		
 		
 		
@@ -1567,10 +1580,18 @@ if($post_data['post_type']==1){
 	}
 }
 if($post_data['post_type']==2){
+	
+	if(isset($_FILES['file'])){
+		$target = "notice_file/";
+		$file_name=$_FILES['file']['name'];
+		$file_tmp_name =$_FILES['file']['tmp_name'];
+		$target=@$target.basename($file_name);
+		move_uploaded_file($file_tmp_name,@$target);
+		}
+	
 	$notice_id=$this->autoincrement('notice','notice_id');	
 	$this->loadmodel('notice');
-	$this->notice->save(array('notice_id' => $notice_id, 'user_id' => $s_user_id, 'society_id' => $s_society_id, 'n_category_id' => $category_id ,'n_subject' => $notice_subject , 'n_expire_date' => $notice_expire_date, 'n_attachment' => "" , 'n_message' => $code,'n_date' => $date, 'n_time' => $time, 'n_delete_id' => 0,'n_draft_id' => 1,'visible' => $visible,'sub_visible' => $sub_visible ));
-
+	$this->notice->save(array('notice_id' => $notice_id, 'user_id' => $s_user_id, 'society_id' => $s_society_id, 'n_category_id' => $category_id ,'n_subject' => $notice_subject , 'n_expire_date' => $notice_expire_date, 'n_attachment' => $file_name , 'n_message' => $code,'n_date' => $date, 'n_time' => $time, 'n_delete_id' => 0,'n_draft_id' => 1,'visible' => $visible,'sub_visible' => $sub_visible ));
 	$output = json_encode(array('type'=>'draft', 'text' =>'Your notice has been saved in Draft box. You can edit/post later.'));
 	die($output);
 }	

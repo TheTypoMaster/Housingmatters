@@ -54,7 +54,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			   <span class="btn btn-file">
 			   <span class="fileupload-new">Select file</span>
 			   <span class="fileupload-exists">Change</span>
-			   <input type="file" class="default">
+			   <input type="file" name="file" class="default">
 			   </span>
 			   <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
 			</div>
@@ -212,6 +212,8 @@ $(document).ready(function() {
 		m_data.append( 'notice_category', $('select[name=notice_category]').val());
 		m_data.append( 'notice_expire_date', $('input[name=notice_expire_date]').val());
 		m_data.append( 'code', $('#summernote').code());
+		m_data.append( 'file', $('input[name=file]')[0].files[0]);
+		m_data.append( 'post_type', post_type);
 		var visible=$('input:radio[name=visible]:checked').val();
 		m_data.append( 'visible', visible);
 		if(visible==2){
