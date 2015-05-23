@@ -42,7 +42,7 @@ $n_time=$data['notice']['n_time'];
 <div id="reply_post">
 <?php
 $s_user_id=$this->Session->read('user_id');
-pr($result_reply);
+
 foreach ($result_reply as $collection) 
 {
 $date=$collection['notice_board_reply']['date'];
