@@ -1144,6 +1144,17 @@ $grand_total2 = number_format($grand_total);
 $html.='
 <tr>
 <td valign="top">
+Sub Total <br>
+Grand Total
+</td>
+<td valign="top">
+10000 <br>
+20000
+</td>
+</tr>
+</table>
+</div>';
+/*
 <table border="0" style="width:100%;">
 <tr>
 <td rowspan="4"></td>
@@ -1179,7 +1190,7 @@ $html.='
 </tr>
 </table>
 </div>';
-/*
+
 
 <div style="width:96%; overflow:auto; border:solid 1px; border-top:none;">
 <table border="0" style="width:70%; float:left;">
