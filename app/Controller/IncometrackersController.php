@@ -1029,7 +1029,8 @@ $this->regular_bill->updateAll(array("bill_html" =>$html),array("regular_bill_id
 
 ///////////////Bill Html for mail////////////
 
-$html_mail='<center>
+$html_mail='
+<center>
 <div style="width:700px; background-color:white; overflow:auto;">
 <br><Br><br>
 <div style="width:96%; border:solid 1px; overflow:auto; border-bottom:none;">
@@ -1177,7 +1178,9 @@ $html.='
 </td>
 </tr>
 </table>
-</div>
+</div>';
+/*
+
 <div style="width:96%; overflow:auto; border:solid 1px; border-top:none;">
 <table border="0" style="width:70%; float:left;">
 <tr>
@@ -1218,8 +1221,9 @@ $html_mail.='</table>
 </table>
 </div>
 <br><br><br><br>
-</div>
-';
+*/
+$html.='
+</div>';
 
 ////////////End Html For mail/////////////////
 
