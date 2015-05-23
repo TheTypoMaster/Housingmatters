@@ -703,6 +703,7 @@ unset($ussrs);
 	foreach($cursor as $collection)
 	{
 	$bill_no = (int)$collection['regular_bill']['regular_bill_id'];
+	$receipt_id = $collection['regular_bill']['receipt_id'];
 	$date_from = $collection['regular_bill']['bill_daterange_from'];
 	$date_to = $collection['regular_bill']['bill_daterange_to'];
 	$ih_detail2 = $collection['regular_bill']['ih_detail'];
@@ -832,7 +833,7 @@ Name :
 </tr>
 <tr>
 <td style="text-align:left;">Bill No. :</td>
-<td style="text-align:left;">'.$bill_no.' </td>
+<td style="text-align:left;">'.$receipt_id.' </td>
 </tr>
 <tr>
 <td style="text-align:left;">Bill Date :</td>
@@ -1061,7 +1062,7 @@ Name :
 </tr>
 <tr>
 <td style="text-align:left;">Bill No. :</td>
-<td style="text-align:left;">'.$bill_no.'</td>
+<td style="text-align:left;">'.$receipt_id.'</td>
 </tr>
 <tr>
 <td style="text-align:left;">Bill Date :</td>
@@ -1621,6 +1622,7 @@ unset($ussrs);
 	foreach($cursor as $collection)
 	{
 	$bill_no = (int)$collection['regular_bill']['regular_bill_id'];
+	$receipt_id = $collection['regular_bill']['receipt_id'];
 	$date_from = $collection['regular_bill']['bill_daterange_from'];
 	$date_to = $collection['regular_bill']['bill_daterange_to'];
 	$ih_detail2 = $collection['regular_bill']['ih_detail'];
@@ -1760,7 +1762,7 @@ Name :
 </tr>
 <tr>
 <td style="text-align:left;">Bill No. :</td>
-<td style="text-align:left;">'.$bill_no.'</td>
+<td style="text-align:left;">'.$receipt_id.'</td>
 </tr>
 <tr>
 <td style="text-align:left;">Bill Date :</td>
@@ -1961,7 +1963,7 @@ Name :
 </tr>
 <tr>
 <td style="text-align:left;">Bill No. :</td>
-<td style="text-align:left;">'.$bill_no.'</td>
+<td style="text-align:left;">'.$receipt_id.'</td>
 </tr>
 <tr>
 <td style="text-align:left;">Bill Date :</td>
