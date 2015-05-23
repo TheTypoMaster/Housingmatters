@@ -151,29 +151,19 @@ function submit_ad(){
 	$s_user_id=$this->Session->read('user_id');
 	$date=date('d-m-Y');
 	$time = date(' h:i a', time());
-		
 	$cat_id=$post_data["cat_id"];
 	if(!empty($cat_id)){
 		$cat_id_ar=explode(',',$cat_id);
 		$category=(int)$cat_id_ar[0];
 		$sub_category=(int)$cat_id_ar[1];
 	}
-	
-	
-	$e_name=$post_data["e_name"];
+	$title=$post_data["title"]; 
 	$description=$post_data["description"];
-	$day_type=$post_data["day_type"];
-	if($day_type==1){
-		$date_single=$post_data["date_single"];
-	}else{
-		$date_from=$post_data["date_from"];
-		$date_to=$post_data["date_to"];
-	}
-	$e_time=$post_data["e_time"];
-	$location=$post_data["location"];
-	$visible=$post_data["visible"];
-	
-	
+	$price=$post_data["price"];
+	$price_type=$post_data["price_type"];
+	$ad_type=$post_data["ad_type"];
+	$condition=$post_data["condition"];
+	$offer=$post_data["offer"];
 	$report=array();
 	if(empty($cat_id)){
 		$report[]=array('label'=>'cat_id', 'text' => 'Please select category');
@@ -196,16 +186,17 @@ function submit_ad(){
 	if(empty($description)){
 		$report[]=array('label'=>'description', 'text' => 'Please fill description');
 	}
-	
 	if(sizeof($report)>0){
 		$output=json_encode(array('report_type'=>'error','report'=>$report));
 		die($output);
 	}
 	
-	
 	if($post_data['post_type']==1){
 		
+		
 		if(isset($_FILES['file'])){
+		$file_name=$_FILES['file']['name'];
+		$file_tmp_name =$_FILES['file']['tmp_name'];
 		$target = "Classifieds/";
 		$target=@$target.basename($file_name);
 		move_uploaded_file($file_tmp_name,@$target);
@@ -286,6 +277,8 @@ function submit_ad(){
 	if($post_data['post_type']==2){
 		
 		if(isset($_FILES['file'])){
+			$file_name=$_FILES['file']['name'];
+		$file_tmp_name =$_FILES['file']['tmp_name'];
 		$target = "Classifieds/";
 		$target=@$target.basename($file_name);
 		move_uploaded_file($file_tmp_name,@$target);
