@@ -1154,13 +1154,13 @@ $html_mail.='</table>
 </tr>
 </table>
 </td>
-<td valign="top">
-<table border="0" style="width:100%;">';
+<td valign="top">';
 $total_amount3 = number_format($total_amount2);
 $due_amt4 = number_format($due_amt3);
 $late_amt3 = number_format($late_amt2);
 $grand_total2 = number_format($grand_total);
 $html.='
+<table border="0" style="width:100%;">
 <tr>
 <td style="text-align:center;">'.$total_amount3.'</td>
 </tr>
@@ -2055,13 +2055,13 @@ $html_mail.='</table>
 </tr>
 </table>
 </td>
-<td valign="top">
-<table border="0" style="width:100%;">';
+<td valign="top">';
 $total_amount3 = number_format($total_amount2);
 $due_amt4 = number_format($due_amt3);
 $late_amt3 = number_format($late_amt2);
 $grand_total2 = number_format($grand_total);
 $html.='
+<table border="0" style="width:100%;">
 <tr>
 <td style="text-align:center;">'.$total_amount3.'</td>
 </tr>
@@ -2132,7 +2132,6 @@ if($mail_id == 1)
 {
 $from_mail_date = date('d M',strtotime($date_from));
 $to_mail_date = date('d M Y',strtotime($date_to));
-
 //$my_mail = "nikhileshvyas@yahoo.com";
 $subject = ''.$society_name.' : Maintanance bill, '.$from_mail_date.' to '.$to_mail_date.'';
 $from_name="HousingMatters";
