@@ -267,8 +267,7 @@ function submit_ad(){
 		}
 		
 		$this->send_notification('<span class="label" style="background-color:#1BBC9B;"><i class="icon-shopping-cart"></i></span>','New Classified Ad <b>'.$title.'</b> posted ',21,$classified_id,$this->webroot.'Classifieds/classified_ads/',0,$users);
-		pr($post_data);
-		exit;
+		
 		$output=json_encode(array('report_type'=>'publish','report'=>'Your Classified ad has been published successfully.'));
 		die($output);
 	}

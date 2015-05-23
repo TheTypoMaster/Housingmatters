@@ -223,9 +223,8 @@ $(document).ready(function() {
 			processData: false,
 			contentType: false,
 			type: 'POST',
-			
+			dataType:'json',
 			}).done(function(response) {
-			alert(response);
 				if(response.report_type=='error'){
 					$(".remove_report").html('');
 						jQuery.each(response.report, function(i, val) {
