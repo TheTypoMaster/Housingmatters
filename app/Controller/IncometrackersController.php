@@ -1135,7 +1135,12 @@ $total_amount2 = $total_amount2 + $amount;
 $due_amt3 = $due_amt2 - $late_amt2;
 $html_mail.='</table>
 </td>
-</tr>
+</tr>';
+$total_amount3 = number_format($total_amount2);
+$due_amt4 = number_format($due_amt3);
+$late_amt3 = number_format($late_amt2);
+$grand_total2 = number_format($grand_total);
+$html.='
 <tr>
 <td valign="top">
 <table border="0" style="width:100%;">
@@ -1154,12 +1159,7 @@ $html_mail.='</table>
 </tr>
 </table>
 </td>
-<td valign="top">';
-$total_amount3 = number_format($total_amount2);
-$due_amt4 = number_format($due_amt3);
-$late_amt3 = number_format($late_amt2);
-$grand_total2 = number_format($grand_total);
-$html.='
+<td valign="top">
 <table border="0" style="width:100%;">
 <tr>
 <td style="text-align:center;">'.$total_amount3.'</td>
@@ -2036,7 +2036,12 @@ $total_amount2 = $total_amount2 + $amount;
 $due_amt3 = $due_amt2 - $late_amt2;
 $html_mail.='</table>
 </td>
-</tr>
+</tr>';
+$total_amount3 = number_format($total_amount2);
+$due_amt4 = number_format($due_amt3);
+$late_amt3 = number_format($late_amt2);
+$grand_total2 = number_format($grand_total);
+$html.='
 <tr>
 <td valign="top">
 <table border="0" style="width:100%;">
@@ -2055,12 +2060,7 @@ $html_mail.='</table>
 </tr>
 </table>
 </td>
-<td valign="top">';
-$total_amount3 = number_format($total_amount2);
-$due_amt4 = number_format($due_amt3);
-$late_amt3 = number_format($late_amt2);
-$grand_total2 = number_format($grand_total);
-$html.='
+<td valign="top">
 <table border="0" style="width:100%;">
 <tr>
 <td style="text-align:center;">'.$total_amount3.'</td>
