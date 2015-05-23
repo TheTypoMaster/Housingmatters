@@ -832,11 +832,11 @@ Name :
 <td style="text-align:left;">'.$user_name.'</td>
 </tr>
 <tr>
-<td style="text-align:left;">Bill No. :</td>
+<td style="text-align:left;">Bill No.:</td>
 <td style="text-align:left;">'.$receipt_id.' </td>
 </tr>
 <tr>
-<td style="text-align:left;">Bill Date :</td>
+<td style="text-align:left;">Bill Date:</td>
 <td style="text-align:left;">'.$date.'</td>
 </tr>
 <tr>
@@ -844,13 +844,13 @@ Name :
 <td style="text-align:left;">'.$due_date21.'</td>
 </tr>
 </table>
-<table border=0" style="width:39%; float:right;">
+<table border="0" style="width:39%; float:right;">
 <tr>
 <td></td>
 <td></td>
 </tr>
 <tr>
-<td style="text-align:left;">Flat/Shop No. :</td>
+<td style="text-align:left;">Flat/Shop No.:</td>
 <td style="text-align:left;">'.$wing_flat.'</td>
 </tr>
 <tr>
@@ -1974,7 +1974,7 @@ Name :
 <td style="text-align:left;">'.$due_date21.'</td>
 </tr>
 </table>
-<table border=0" style="width:30%; float:right;">
+<table border="0" style="width:30%; float:right;">
 <tr>
 <td></td>
 <td></td>
