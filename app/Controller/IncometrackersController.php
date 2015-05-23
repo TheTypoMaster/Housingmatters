@@ -1072,7 +1072,7 @@ Name :
 <td style="text-align:left;">'.$due_date21.'</td>
 </tr>
 </table>
-<table border=0" style="width:30%; float:right;">
+<table border="0" style="width:30%; float:right;">
 <tr>
 <td></td>
 <td></td>
@@ -1771,7 +1771,7 @@ Name :
 <td style="text-align:left;">'.$due_date21.'</td>
 </tr>
 </table>
-<table border=0" style="width:39%; float:right;">
+<table border="0" style="width:39%; float:right;">
 <tr>
 <td></td>
 <td></td>
@@ -1790,7 +1790,7 @@ Name :
 </tr>
 </table>
 </div>
-<div style="width:80.4%; overflow:auto;">
+<div style="width:80.2%; overflow:auto;">
 <table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="0">
 <tr>
 <td style="width:80%; text-align:center;">Particulars</td>
@@ -1991,7 +1991,7 @@ Name :
 </tr>
 </table>
 </div>
-<div style="width:96.4%; overflow:auto;">
+<div style="width:96.2%; overflow:auto;">
 <table border="1" style="width:100%; border:black;  border-collapse:collapse; margine-left:2px;" cellpadding="0" cellspacing="0">
 <tr>
 <td style="width:80%; text-align:center;">Particulars</td>
