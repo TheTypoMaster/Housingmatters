@@ -56,6 +56,7 @@ $due_date11 = date('d-M-Y',strtotime($due_date));
 <tr>
 <th style="text-align:center;">
 <p style="font-size:18px;">
+<?php $to = date('d-m-Y',strtotime($to)); ?>
 Bill for date From :<?php echo $from; ?> To : <?php echo $to; ?>    
 </p>
 </th>
