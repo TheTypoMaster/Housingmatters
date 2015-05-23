@@ -908,7 +908,7 @@ if($r==0)
 		}
 $this->loadmodel('notice_board_reply');
 $conditions=array("notice_id" => $n_id);
-$order=array('notice_board_reply.reply_id'=>'ASC');
+$order=array('notice_board_reply.notice_id'=>'ASC');
 $this->set('result_reply',$this->notice_board_reply->find('all',array('conditions'=>$conditions,'order'=>$order)));
 
 }
