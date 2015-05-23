@@ -232,7 +232,7 @@ function submit_ad(){
 			$user_id=$data["notification_email"]["user_id"];
 			$result_user=$this->profile_picture($user_id);
 			@$user_name=@$result_user[0]['user']['user_name'];
-			$to=$result_user[0]['user']['email'];
+			@$to=@$result_user[0]['user']['email'];
 			
 			 $message_web="<div>
 			<img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
