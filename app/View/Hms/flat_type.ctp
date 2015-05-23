@@ -58,7 +58,6 @@ $wing_name = $collection['wing']['wing_name'];
 </div>
 <div class="span7">
 
-<div style="height:350px;">
 <table class="table table-striped table-bordered">
 <tr>
 <th style="text-align:center;">Sr #</th>
@@ -87,7 +86,6 @@ $wing_name = $collection['wing']['wing_name'];
 </tr>
 <?php } ?>
 </table>
-</div>
 </div>
 </div>
 </div>
