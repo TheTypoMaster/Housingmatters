@@ -223,7 +223,7 @@ $(document).ready(function() {
 			processData: false,
 			contentType: false,
 			type: 'POST',
-			dataType:'json',
+			
 			}).done(function(response) {
 				if(response.report_type=='error'){
 					$(".remove_report").html('');
@@ -232,7 +232,8 @@ $(document).ready(function() {
 					});
 				}
 				if(response.report_type=='publish'){
-				$(".success_report").show().html("<p>"+response.report+"</p><p><a class='btn green' href='<?php echo $webroot_path; ?>Classifieds/classified_ads' rel='tab' >ok</a></p>");
+				alert(response.report);
+					$(".success_report").show().html("<p>"+response.report+"</p><p><a class='btn green' href='<?php echo $webroot_path; ?>Classifieds/classified_ads' rel='tab' >ok</a></p>");
 					$(".form_div").remove();
 				}
 			
