@@ -573,7 +573,7 @@ $time=date('h:i:a',time());
 	
 if($r==0)
 {
-echo $word='You have enter wrong word  <br/> ';
+echo $word='You have entered banned words. <br/> ';
 exit;
 	
 }

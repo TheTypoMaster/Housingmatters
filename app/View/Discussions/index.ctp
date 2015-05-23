@@ -59,6 +59,7 @@ $description=$data2["discussion_post"]["description"];
 $discussion_post_id=(int)$data2["discussion_post"]["discussion_post_id"];
 $visible=$data2["discussion_post"]["visible"];
 $sub_visible=$data2["discussion_post"]["sub_visible"];
+$delete_id=$data2["discussion_post"]["delete_id"];
 }
 
 $visible_detail='';
@@ -160,6 +161,7 @@ foreach($result_comment_last as $collection2)
 {
 $discussion_comment_id=$collection2["discussion_comment"]["discussion_comment_id"];
 $comment=$collection2["discussion_comment"]["comment"];
+
 $comment_user_id=$collection2["discussion_comment"]["user_id"];
 $date=$collection2["discussion_comment"]["date"];
 $time=$collection2["discussion_comment"]["time"];
@@ -222,6 +224,10 @@ $flat_info=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_f
 
 
 <!---------------------------------------------->
+<?php 
+
+if($delete_id!=1)
+{ ?>
 <div class="chat-form hide_at_print" style="margin-left: 5px;width: 94%;">
 	<textarea class="span12 m-wrap animated"  type="text" id="posttext" placeholder="Type a message here..." style="background-color:#FFF !important; resize:none;" ></textarea>
 	<div align="right">
@@ -230,7 +236,7 @@ $flat_info=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_f
 	</div>
 </div>
 <!---------------------------------------------->
-<?php } else { ?><h4>There are no any topics strated.</h4><?php } ?>
+<?php } } else { ?><h4>There are no any topics strated.</h4><?php } ?>
 </div>
 </td>
 <td width="40%" valign="top" class="hide_at_print"> 
