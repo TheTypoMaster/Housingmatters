@@ -1098,6 +1098,7 @@ Name :
 <tr>
 <td valign="top" style="height:200px;">
 <table border="0" style="width:100%;">';
+
 for($x=0; $x<sizeof($ih_detail2); $x++)
 {
 $ih_det = $ih_detail2[$x];
@@ -1143,32 +1144,6 @@ $grand_total2 = number_format($grand_total);
 $html.='
 <tr>
 <td valign="top">
-Sub Total <br>
-Grand Total
-</td>
-<td valign="top">
-10000 <br>
-20000
-</td>
-</tr>
-</table>
-</div>
-<div style="width:100%; border:solid 1px;">
-<table border="1">
-<tr>
-<td>
-jasjgdjgjasgd
-sfdsfdfds
-</td>
-<td>
-adsdas
-asdsadasd
-</td>
-</tr>
-</table>
-</div>
-';
-/*
 <table border="0" style="width:100%;">
 <tr>
 <td rowspan="4"></td>
@@ -1203,9 +1178,7 @@ asdsadasd
 </td>
 </tr>
 </table>
-</div>';
-
-
+</div>
 <div style="width:96%; overflow:auto; border:solid 1px; border-top:none;">
 <table border="0" style="width:70%; float:left;">
 <tr>
@@ -1246,9 +1219,8 @@ $html_mail.='</table>
 </table>
 </div>
 <br><br><br><br>
-*/
-$html.='
-</div>';
+</div>
+';
 
 ////////////End Html For mail/////////////////
 
