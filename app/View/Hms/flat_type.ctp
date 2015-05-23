@@ -59,7 +59,7 @@ $wing_name = $collection['wing']['wing_name'];
 <div class="span7">
 
 <div style="height:350px;">
-<table class="table table-striped table-bordered" style="overflow:Y-scroll;">
+<table class="table table-striped table-bordered">
 <tr>
 <th style="text-align:center;">Sr #</th>
 <th style="text-align:center;">Wing Name</th>

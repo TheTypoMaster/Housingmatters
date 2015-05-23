@@ -34,7 +34,7 @@ Society Setup
 <div class="span7">
 
 <div style="height:300px;">
-<div  style="overflow:Y-scroll;">
+<div>
 <table class="table table-striped table-bordered" id="sample_2" style="width:100%;">
 <thead>
 <tr>
