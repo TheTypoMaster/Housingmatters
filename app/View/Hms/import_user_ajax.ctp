@@ -39,13 +39,13 @@ foreach($table as $child){
 		
 		<td width="10%">
 		<div class="controls">
-		<label class="radio"><input type="radio" class="owner" name="owner<?php echo $i; ?>" <?php if(1==$child[5]){ echo 'checked';} ?> value="1" inc_id="1">Yes</label>
-		<label class="radio"><input type="radio" class="owner" name="owner<?php echo $i; ?>" <?php if(2==$child[5]){ echo 'checked';} ?> value="2" inc_id="1">No</label>
+		<label class="radio"><input type="radio" class="owner" name="owner<?php echo $i; ?>" <?php if(1==$child[5]){ echo 'checked';} ?> value="1" inc_id="<?php echo $i; ?>">Yes</label>
+		<label class="radio"><input type="radio" class="owner" name="owner<?php echo $i; ?>" <?php if(2==$child[5]){ echo 'checked';} ?> value="2" inc_id="<?php echo $i; ?>">No</label>
 		</div>
 		</td>
 		
 		<td width="10%">
-		<div class="controls" id="committe1">
+		<div class="controls" id="committe<?php echo $i; ?>">
 		<label class="radio"><input type="radio" name="committe<?php echo $i; ?>" <?php if(1==$child[6]){ echo 'checked';} ?> value="1">Yes</label>
 		<label class="radio"><input type="radio" name="committe<?php echo $i; ?>" <?php if(2==$child[6]){ echo 'checked';} ?> value="2">No</label>
 		</div>
