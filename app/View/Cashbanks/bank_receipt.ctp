@@ -1,27 +1,4 @@
 <?php
-if($zz == 0)
-{
-?>
-<div class="alert">
-<button class="close" data-dismiss="alert"></button>
-<center>
-No Previous Receipt
-</center>
-</div> 
-<?php
-}
-else
-{
-?>
-<div class="alert">
-<button class="close" data-dismiss="alert"></button>
-<center>
-The Last Receipt Number is : <?php echo $zz; ?>
-</center>
-</div> 
-<?php } ?>
-
-<?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 ?>				   
 <script>
@@ -33,97 +10,54 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <input type="hidden" id="fi" value="<?php echo $datef1; ?>" />
 <input type="hidden" id="ti" value="<?php echo $datet1; ?>" />
 <input type="hidden" id="cn" value="<?php echo $count; ?>" />
-
-<?php //////////////////////////////////////////////////////////////////////////////////////////
-	/*
-		   if($s_role_id == 3)
-           { ?>
-            <table width="100%" border="1" bordercolor="#FFFFFF" cellpadding="0">
-            <tr>
-            <td style="width:20%">
-            <a href="bank_receipt_view" class="btn red btn-block"  style="font-size:16px;">Bank Receipt</a>
-            </td>
-            <td style="width:20%">
-            <a href="bank_payment_view" class="btn blue btn-block"   style="font-size:16px;">Bank Payment</a>
-            </td>
-            <td style="width:20%">
-            <a href="petty_cash_receipt_view" class="btn blue btn-block"  style="font-size:16px;">Petty Cash Receipt</a>
-            </td>
-            <td style="width:20%">
-            <a href="petty_cash_payment_view" class="btn blue btn-block"  style="font-size:16px;">Petty Cash Payment</a>
-            </td>
-            <td style="width:20%">
-            <a href="fix_deposit_view" class="btn blue btn-block"  style="font-size:16px;">Fixed Deposit</a>
-            </td>
-            </tr>
-            </table>     
-           <?php }
-		   if($s_role_id == 2)
-		   {
-		   ?>
-            <table width="100%" border="1" bordercolor="#FFFFFF" cellpadding="0">
-            <tr>            
-			<?php
-			if($tenant_c == 1)
-			{
-			?>
-			
-			
-            <td style="width:25%">
-            <a href="bank_receipt_view" class="btn red btn-block"  style="font-size:16px;">Bank Receipt</a>
-            </td>
-            <?php } ?>
-			<td style="width:25%">
-            <a href="bank_payment_view" class="btn blue btn-block"   style="font-size:16px;">Bank Payment</a>
-            </td>
-            <td style="width:25%">
-            <a href="petty_cash_receipt_view" class="btn blue btn-block"  style="font-size:16px;">Petty Cash Receipt</a>
-            </td>
-            <td style="width:25%">
-            <a href="petty_cash_payment_view" class="btn blue btn-block"  style="font-size:16px;">Petty Cash Payment</a>
-            </td>
-            </tr>
-            </table>   
-           <?php } 
-		   
-		   */?>
-<?php //////////////////////////////////////////////////////////////////////////////////////// ?>
-
-<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>			
+	
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>			
 <center>
 <a href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt" class="btn red" rel='tab'>Create</a>
 <a href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt_view" class="btn blue" rel='tab'>View</a>
 </center>	
 <?php /////////////////////////////////////////////////////////////////////////////////////////?>
-     
-<br />	          
-<div class="portlet box grey" style="width:60%; margin-left:20%; margin-right:20%;">
-<div class="portlet-title">
-<h4><i class="icon-reorder"></i>Bank Receipt</h4>
-</div>
-<div class="portlet-body form">
-<form id="contact-form" method="POST" class="form-horizontal" enctype="multipart/form-data">
-<center>             
-<table  style="width:80%;">                   
-<tr>
-<td align="left">
-<br />
-<label  style="font-size:14px;">Transaction date</label>
-</td>
-<td>
-<br />
-<input type="text" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="date" placeholder="Transaction Date" style="background-color:white !important;" id="date">
+<div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">
+<h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Post Bank Receipt</h4>
+<?php
+if($zz == 0)
+{
+?>
+<div style="background-color:#FCEBF8;">
+<center>
+<p style="color:#A99185;">No Previous Receipt</p>
+</center>
+</div> 
+<?php
+}
+else
+{
+?>
+<div style="background-color:#FCEBF8;">
+<center>
+<p style="color:#A99185;">The Last Receipt Number is : <?php echo $zz; ?></p>
+</center>
+</div> 
+<?php } ?>
+<br />  
+<form id="contact-form" method="post">
+<div class="row-fluid">
+<div class="span6">  
+  
+
+
+<label style="font-size:14px;">Transaction date<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="date" placeholder="Transaction Date" style="background-color:white !important;" id="date">
 <label id="date"></label>
 <div id="result11"></div>
-</td>
-</tr>
-<tr>
-<td align="left">
-<br />
-<label  style="font-size:14px;">Receipt Mode</label>
-</td>
-<td>
-<br />
+</div>
+<br /> 
+ 
+
+
+<label  style="font-size:14px;">Receipt Mode<span style="color:red;">*</span></label>
+<div class="controls">
 <label class="radio">
 <div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" value="Cheque" style="opacity: 0;" id="mode" class="chn"></span></div>
 Cheque
@@ -137,34 +71,27 @@ NEFT
 PG
 </label> 
 <label id="mode"></label>
-</td>
-</tr>
-<tr>
-<td id="td1">
-</td>
-<td id="td2">
+</div>
+<br />
 
 
-</td>
-</tr>
-<tr>
-<td align="left">
-<br />
-<label style="font-size:14px;">Instrument/UTR</label>
-</td>
-<td>
-<br />
-<input type="text"  name="instruction" class="m-wrap medium" placeholder="Instrument/UTR" style="background-color:white !important;" id="ins">
-</td>
-</tr>
-<tr>
-<td align="left">
-<br />
-<label style="font-size:14px;">Deposited In</label>
-</td>
-<td>
-<br />
-<select name="bank_account" class="medium m-wrap chosen" id="bank">
+<div id="td1"></div>
+
+
+ 
+ 
+<label style="font-size:14px;">Instrument/UTR<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text"  name="instruction" class="m-wrap span9" placeholder="Instrument/UTR" style="background-color:white !important;" id="ins">
+</div>
+<br /> 
+ 
+ 
+ 
+
+<label style="font-size:14px;">Deposited In<span style="color:red;">*</span></label>
+<div class="controls">
+<select name="bank_account" class="span9 m-wrap chosen" id="bank">
 <option value="" style="display:none;">Deposited In</option>    
 <?php
 foreach ($cursor3 as $db) 
@@ -176,19 +103,28 @@ $bank_ac = $db['ledger_sub_account']["name"];
 <?php } ?>
 </select>
 <label id="bank"></label>
-</td>
-</tr>
+</div>
+<br />
 
 
-<tr>
-<td align="left">
+<label style="font-size:14px;">Narration<span style="color:red;">*</span></label>
+<div class="controls">
+<textarea   rows="4" name="description" class="span9 m-wrap" placeholder="Narration" style="background-color:white !important; resize:none; margin-right:70%;"  id="nar"></textarea>
+</div>
 <br />
-<label style="font-size:14px;">Received from</label>
-</td>
-<td>
-<br />
+  
+  
+</div>
+
+<div class="span6">
+
+
+
+
+<label style="font-size:14px;">Received from<span style="color:red;">*</span></label>
+<div class="controls">
 <label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="member" class="go5" value="1" style="opacity: 0;" id="mem"></span></div>
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="member" class="hhh" value="1" style="opacity: 0;" id="mem"></span></div>
 Member
 </label>
 <label class="radio">
@@ -196,72 +132,110 @@ Member
 Non-Member
 </label>
 <label id="mem"></label>
-</td>
-</tr>
-
-
-<tr>
-
-<td align="left">
-<br />
-<label style="font-size:14px;">Party Name</label>
-</td>
-<td>
-<br />
-<span id="div11"></span> 
-
-<label id="go"></label>
-<label id="re"></label>        
-</td>
-</tr>
-
-
-<tr>
-<td align="left">
-<br />
-<label style="font-size:14px;">Narration</label>
-</td>
-<td>
-<br />
-<textarea   rows="4" name="description" class="medium m-wrap" placeholder="Narration" style="background-color:white !important; resize:none; margin-right:70%;"  id="nar"></textarea>
-</td>
-</tr>
-</table>              
-<div id="div13" class="hide">
-<table border="0" style="width:80%;">
-<tr>
-<td align="left">
-<br />
-<label style="font-size:14px;">Bill Reference</label>
-</td>
-<td>
-<br />
-<span style="margin-left:6%;">
-<input type="text" class="m-wrap medium" name="refn" placeholder="Bill Reference" style="background-color:white !important;" id="refn"/>
-</span>
-<label id="refn" style="margin-left:6%;"></label>
-</td>
-</tr>
-<tr>
-<td align="left">
-<br />
-<label style="font-size:14px;">Amount</label>
-</td>
-<td>
-<br />
-<span style="margin-left:6%;">
-<input type="text" name="amountn" class="m-wrap medium" placeholder="Amount" style="background-color:white !important;" id="amt"/>
-</span>
-<label id="amt" style="margin-left:6%;"></label>
-</td>
-</tr>
-</table>
 </div>
 <br />
+
+
+
+<div id="div11"></div>
+
+
+
+<div id="div13" class="hide">
+<label style="font-size:14px;">Bill Reference<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text" class="m-wrap span9" name="refn" placeholder="Bill Reference" style="background-color:white !important;" id="refn"/>
+<label id="refn"></label>
+</div>
+<br />
+
+
+
+<label style="font-size:14px;">Amount<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text" name="amountn" class="m-wrap span9" placeholder="Amount" style="background-color:white !important;" id="amt"/>
+<label id="amt"></label>
+</div>
+<br />
+</div>
+
+
+
+
 <div id="div12">
 <div id="result" style="width:94%;" >
 </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+<br />  
+<button type="submit" class="btn green" name="bank_receipt_add" value="xyz" id="vali">Submit</button>
+<a href="bank_receipt" class="btn">Reset</a>
+     
+</div>
+<?php //////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php 
+/*          
+<div class="portlet box grey" style="width:60%; margin-left:20%; margin-right:20%;">
+<div class="portlet-title">
+<h4><i class="icon-reorder"></i>Bank Receipt</h4>
+</div>
+<div class="portlet-body form">
+<form id="contact-form" method="POST" class="form-horizontal" enctype="multipart/form-data">
+<center>             
+<table  style="width:80%;"> 
+
+
+                  
+
+
+
+
+
+
+
+
+
+
+
+            
+
+
+
+</div>
+
+
+
+<br />
+
 
 </center>
 <div class="form-actions" style="background-color:#CCC;">
@@ -271,18 +245,10 @@ Non-Member
 </form>
 </div>
 </div>
+           
               
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
+*/ ?>         
+       
               
 <?php /////////////////////////////////////////////////////////////////////////////////////////////// ?>              
 
@@ -321,14 +287,14 @@ function hidediv(id)
 	document.getElementById(id).style.display='none';
 }
 $(document).ready(function() {
-	$(".go5").live('click',function(){
+	$(".hhh").live('click',function(){
 		
 		document.getElementById('div12').style.display='block';
 		document.getElementById('div13').style.display='none';
-		$("#div1").show();
-		$("#div2").hide();
-		//$("#div11").show();
-		//$("#div22").hide();
+		//$("#div1").show();
+		//$("#div2").hide();
+		//$("#div13").hide();
+		
 	
 	$("#div11").html('Loding...').load("bank_receipt_ajax?ff=" + 5 + "");
 	
@@ -336,11 +302,11 @@ $(document).ready(function() {
 	});
 	
 	$(".go6").live('click',function(){
-		$("#div2").show();
-		$("#div1").hide();
-		//$("#div22").show();
-		//$("#div11").hide();
-		$("div13").show();
+		
+		//$("#div2").show();
+		//$("#div1").hide();
+		
+		$("#div13").show();
 	
 	$("#div11").html('Loding...').load("bank_receipt_ajax?ff=" + 8 + "");
 	
@@ -530,19 +496,19 @@ $(document).ready(function(){
 <script>
 $(document).ready(function() {
 	$(".chn").live('click',function(){
-	$('#td1').html('<br><label  style="font-size:14px;">Receipt/NEFT No.</label>');    
-	$('#td2').html('<br><input type="text" name="no" class="m-wrap medium" id="no2"><label id="no2"></label>');   
+	$('#td1').html('<label style="font-size:14px;">Receipt/NEFT No.<span style="color:red;">*</span></label><div class="controls"><input type="text" name="no" class="m-wrap span9" id="no2"><label id="no2"></label></div><br>');    
+	
+	
+	//$('#td2').html('<br><input type="text" name="no" class="m-wrap medium" id="no2"><label id="no2"></label>');   
 	});
 	
 	$(".neft").live('click',function(){
-	$('#td1').html('<br><label  style="font-size:14px;">Receipt/NEFT No.</label>');    
-	$('#td2').html('<br><input type="text" name="no" class="m-wrap medium" id="no2"><label id="no2"></label>');   
-	
-		
+	$('#td1').html('<label style="font-size:14px;">Receipt/NEFT No.<span style="color:red;">*</span></label><div class="controls"><input type="text" name="no" class="m-wrap span9" id="no2"><label id="no2"></label></div><br>'); 
 	});
+	
 	$(".pg").live('click',function(){
 	$('#td1').html('');    
-	$('#td2').html('');   	
+	//$('#td2').html('');   	
 	   
 	});
 });
