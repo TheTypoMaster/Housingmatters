@@ -359,7 +359,7 @@ $cursor = $this->flat->find('all',array('conditions'=>$conditions));
 foreach($cursor as $collection)
 {
 $flat_type_id = (int)$collection['flat']['flat_type_id'];
-$noc_ch_id = (int)@$collection['flat']['noc_ch_type'];
+$noc_ch_id = (int)@$collection['flat']['noc_ch_tp'];
 $sq_feet = (int)$collection['flat']['flat_area'];
 }
 
@@ -1274,7 +1274,7 @@ $cursor = $this->flat->find('all',array('conditions'=>$conditions));
 foreach($cursor as $collection)
 {
 $flat_type_id = (int)$collection['flat']['flat_type_id'];
-$noc_ch_id = (int)@$collection['flat']['noc_ch_type'];
+$noc_ch_id = (int)@$collection['flat']['noc_ch_tp'];
 $sq_feet = (int)$collection['flat']['flat_area'];
 }
 

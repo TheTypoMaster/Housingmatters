@@ -550,9 +550,6 @@ echo $gt_gt_amt2; ?></th>
 </div>
 </form>
 
-<?php 
-//echo "damalaaaaaaa";
-?>
 
 
 
