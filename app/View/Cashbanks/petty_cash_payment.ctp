@@ -1,28 +1,4 @@
 <?php
-if($zz == 0)
-{
-?>
-<div class="alert">
-<button class="close" data-dismiss="alert"></button>
-<center>
-No Previous Voucher
-</center>
-</div> 
-<?php
-}
-else
-{
-?>
-<div class="alert">
-<button class="close" data-dismiss="alert"></button>
-<center>
-The Last Voucher Number is : <?php echo $zz; ?>
-</center>
-</div> 
-<?php } ?>
-
-
-<?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 ?>				   
 <script>
@@ -32,71 +8,109 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
 
-
 <input type="hidden" id="fi" value="<?php echo $datef1; ?>" />
 <input type="hidden" id="ti" value="<?php echo $datet1; ?>" />
 <input type="hidden" id="cn" value="<?php echo $count; ?>" />
-
-
-<?php //////////////////////////////////////////////////////////////////////////////////////////////// ?>            
-			<?php
-			/*
-			 if($s_role_id == 2) { ?> 
-            <table width="100%" border="1" bordercolor="#FFFFFF" cellpadding="0">
-            <tr>
-            <?php
-			if($tenant_c == 1)
-			{
-			?>
-			<td style="width:25%">
-            <a href="bank_receipt_view" class="btn blue btn-block"  style="font-size:16px;">Bank Receipt</a>
-            </td>
-			<?php } ?>
-            <td style="width:25%">
-            <a href="bank_payment_view" class="btn blue btn-block"   style="font-size:16px;">Bank Payment</a>
-            </td>
-            <td style="width:25%">
-            <a href="petty_cash_receipt_view" class="btn blue btn-block"  style="font-size:16px;">Petty Cash Receipt</a>
-            </td>
-            <td style="width:25%">
-            <a href="petty_cash_payment_view" class="btn red btn-block"  style="font-size:16px;">Petty Cash Payment</a>
-            </td>
-            </tr>
-            </table>     
-           <?php } if($s_role_id == 3) { ?>
-           
-            <table width="100%" border="1" bordercolor="#FFFFFF" cellpadding="0">
-            <tr>
-            <td style="width:20%">
-            <a href="bank_receipt_view" class="btn blue btn-block"  style="font-size:16px;">Bank Receipt</a>
-            </td>
-            <td style="width:20%">
-            <a href="bank_payment_view" class="btn blue btn-block"   style="font-size:16px;">Bank Payment</a>
-            </td>
-            <td style="width:20%">
-            <a href="petty_cash_receipt_view" class="btn blue btn-block"  style="font-size:16px;">Petty Cash Receipt</a>
-            </td>
-            <td style="width:20%">
-            <a href="petty_cash_payment_view" class="btn red btn-block"  style="font-size:16px;">Petty Cash Payment</a>
-            </td>
-            <td style="width:20%">
-            <a href="fix_deposit_view" class="btn blue btn-block"  style="font-size:16px;">Fixed Deposit</a>
-            </td>
-            </tr>
-            </table> 
-           <?php } 
-		   */
-		   ?>
-<?php ///////////////////////////////////////////////////////////////////////////////////// ?>
-								
-<?php ////////////////////////////////////////////////////////////////////////////////////////// ?>
+							
+<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 			<center>
 			<a href="<?php echo $webroot_path; ?>Cashbanks/petty_cash_payment" class="btn red" rel='tab'>Create</a>
 			<a href="<?php echo $webroot_path; ?>Cashbanks/petty_cash_payment_view" class="btn blue" rel='tab'>View</a>
 			</center>	   
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////// ?>		   
-		   
-<br />		   
+<div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">
+<h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Post Petty Cash Payment</h4>
+<?php
+if($zz == 0)
+{
+?>
+<div style="background-color:#FCEBF8;">
+<center>
+<p style="color:#A99185;">No Previous Voucher</p>
+</center>
+</div> 
+<?php } else { ?>
+<div style="background-color:#FCEBF8;">
+<center>
+<p style="color:#A99185;">The Last Voucher Number is : <?php echo $zz; ?></p>
+</center>
+</div> 
+<?php } ?>
+<br />
+<form id="contact-form" method="post">
+<div class="row-fluid">
+<div class="span6">
+
+
+<label style="font-size:14px;">Transaction Date<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="date" id="date">
+<label id="date"></label>
+<div id="result11"></div>
+</div>
+<br />
+
+
+<label style="font-size:14px;">A/c Group<span style="color:red;">*</span></label>
+<div class="controls">
+<select name="type" id="go" class="m-wrap span9 chosen">
+<option value="" style="display:none;">Select</option>
+<option value="1">Sundry Creditors Control A/c</option>
+<option value="2">All Expenditure A/cs</option>
+</select>
+<label id="go"></label>
+</div>
+<br />
+
+
+<label style="font-size:14px;">Expense/Party A/c<span style="color:red;">*</span></label></td>
+<div class="controls" id="show_user">
+<select   name="user_id" class="m-wrap span9 chosen" id="usr">
+<option value="" style="display:none;">Select</option>
+</select>
+<label id="usr"></label>
+</div>
+</div>
+
+
+<div class="span6">
+
+<label style="font-size:14px;">Amount<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text"  name="ammount" id="amount" class="m-wrap span9">
+<label id="amount"></label>
+</div>
+<br />
+
+
+
+<label style="font-size:14px;">Paid From<span style="color:red;">*</span></label>
+<div class="controls">
+<select   name="account_head" class="m-wrap span9 chosen" id="ach">
+<option value="" style="display:none;">Select</option>
+<option value="32">Cash-in-hand</option>
+</select> 
+<label id="ach"></label>
+</div>
+<br />
+
+
+<label style="font-size:14px;">Narration<span style="color:red;">*</span></label>
+<div class="controls">
+<textarea   rows="4" name="narration" style="resize:none;" class="m-wrap span9" id="nr"></textarea>
+<label id="nr"></label>
+</div>
+
+</div>
+</div>
+<button type="submit" class="btn green" name="ptp_add" value="xyz" id="vali">Submit</button>
+<a href="petty_cash_payment" class="btn">Reset</a>
+</form>
+</div>
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		   
+<?php	   
+/*
+<form id="contact-form" method="POST" class="form-horizontal" enctype="multipart/form-data">
 
 <div class="portlet box grey" style="width:60%; margin-left:20%; margin-right:20%;">
 <div class="portlet-title">
@@ -107,99 +121,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <form id="contact-form" method="POST" class="form-horizontal" enctype="multipart/form-data">
 <center>
 <table border="0" style="width:80%;">                  
-
-<tr>
-<td align="left" valign="top">
-<br>
-<label class="" style="font-size:14px;">Transaction Date</label></td>
-<td valign="top">
-<br>
-<input type="text" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="date" id="date">
-<label id="date"></label>
-<div id="result11"></div>
-</td>
-</tr>
-
-
-
-
-<tr>
-<td valign="top">
-<Br>
-<label class="" style="font-size:14px;">A/c Group</label></td>
-<td valign="top">
-<br>
-<select name="type" id="go" class="m-wrap medium chosen">
-<option value="" style="display:none;">Select</option>
-<option value="1">Sundry Creditors Control A/c</option>
-<option value="2">All Expenditure A/cs</option>
-</select>
-<label id="go"></label>
-</td>
-</tr>
-
-
-
-<tr>
-<td valign="top">
-<br>
-<label class="" style="font-size:14px;">Expense/Party A/c</label></td>
-<td id="show_user" valign="top">
-<br>
-<select   name="user_id" class="m-wrap medium chosen" id="usr">
-<option value="" style="display:none;">Select</option>
-</select>
-<label id="usr"></label>
-</td>
-</tr>    
-
-
-
-									<tr>
-									<td valign="top">
-									<Br>
-									<label class="" style="font-size:14px;">Amount</label></td>
-									<td valign="top">
-									<br>
-									<input type="text"  name="ammount" id="amount" class="m-wrap medium">
-									<label id="amount"></label>
-									</td>
-									</tr>   
-
-
-
-
-									<tr>
-									<td valign="top">
-									<br>
-									<label class="" style="font-size:14px;">Narration</label></td>
-									<td valign="top">
-									<br>
-									<textarea   rows="4" name="narration" style="resize:none;" class="m-wrap medium" id="nr"></textarea>
-									<label id="nr"></label>
-									</td>
-									</tr>
-
-
-
-									<tr>
-									<td valign="top">
-									<Br>
-									<label class="" style="font-size:14px;">Paid From</label></td>
-									<td valign="top">
-									<br>
-									<select   name="account_head" class="m-wrap medium chosen" id="ach">
-									<option value="" style="display:none;">Select</option>
-									<option value="32">Cash-in-hand</option>
-									</select> 
-									<label id="ach"></label>
-									</td>
-									</tr>
-
-
-
-
-									
 
 																		</table>
 
@@ -219,8 +140,10 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 									</div>
 									</div>
+									
+								*/	?>
 
-<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php //////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 <script>
 $(document).ready(function() {
