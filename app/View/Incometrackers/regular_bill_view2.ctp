@@ -32,13 +32,13 @@ $due_date11 = date('d-M-Y',strtotime($due_date));
 ?>
 <?php //////////////////////////////////////////////////////////////////////////////////////////// ?>
 <center>
-<br />
+
 <div style="width:100%; overflow:auto; background-color:white;">
 <br /><br />
 <table Border="0" style="width:100%;">
 <tr>
 <th style="text-align:center;" colspan="2">
-<p style="font-size:36px;"><?php echo $society_name; ?></p>
+<p style="font-size:30px;"><?php echo $society_name; ?></p>
 </th>
 </tr>
 <tr>
@@ -74,7 +74,7 @@ Bill for date From :<?php echo $from; ?> To : <?php echo $to; ?>
 </table>
 <br /><br />
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<table border="2" style="width:100%;">
+<table class="table table-bordered" style="width:100%;">
 <tr>
 <th>Sr.No.</th>
 <th>Bill No.</th>
@@ -184,9 +184,9 @@ $noc_charge = $collection5['flat_type']['noc_charge'];
 
 ?>
 <tr>
-<td style="text-align:center;"><?php echo $sr; ?></td>
-<td style="text-align:center;"><?php echo $bill_no; ?></td>
-<td style="text-align:center;"><?php echo $user_name; ?></td>
+<td style="text-align:right;"><?php echo $sr; ?></td>
+<td style="text-align:right;"><?php echo $bill_no; ?></td>
+<td style="text-align:left;"><?php echo $user_name; ?></td>
 <?php
 $total_amt = 0;
 $gt_amt = 0;
@@ -218,7 +218,7 @@ $maint_ch = $ih_amt;
 }
 ?>
 <?php /////////////////////////////////////////////////////////////////////////////////////// ?>
-<td style="text-align:center;">
+<td style="text-align:right;">
 <?php 
 if(!empty($ih_amt))
 {
@@ -264,31 +264,31 @@ $gt_gt_amt = $gt_gt_amt + $gt_amt;
 $over_due_tt = $over_due_tt + @$due_amount;
 ?>
 
-<td style="text-align:center;"><?php if(!empty($noc_amt)) { 
+<td style="text-align:right;"><?php if(!empty($noc_amt)) { 
 $noc_amt5 = $noc_amt*$multi;
 $noc_amt5 = number_format($noc_amt5);
 echo $noc_amt5; } else { echo "0"; } ?></td>
 
 
-<td style="text-align:center;"><?php 
+<td style="text-align:right;"><?php 
 $total_amt5 = $total_amt*$multi;
 $total_amt5 = number_format($total_amt5);
 echo $total_amt5; ?></td>
 
 
-<td style="text-align:center;"><?php if(!empty($due_amount)) { 
+<td style="text-align:right;"><?php if(!empty($due_amount)) { 
 $due_amount5 = $due_amount*$multi;
 $due_amount5 = number_format(@$due_amount5);
 echo $due_amount5; } else { echo "0"; } ?></td>
 
 
-<td style="text-align:center;"><?php if(!empty($due_taxamt)) {
+<td style="text-align:right;"><?php if(!empty($due_taxamt)) {
 $due_taxamt5 = $due_taxamt*$multi;	 
 $due_taxamt5 = number_format($due_taxamt5);
 echo $due_taxamt5; } else { echo "0"; }?></td>
 
 
-<td style="text-align:center;"><?php
+<td style="text-align:right;"><?php
 $gt_amt5 = $gt_amt + $multi; 
 $gt_amt5 = number_format($gt_amt5);
 echo $gt_amt5; ?></td>
@@ -378,9 +378,9 @@ $noc_charge = $collection5['flat_type']['noc_charge'];
 
 ?>
 <tr>
-<td style="text-align:center;"><?php echo $sr; ?></td>
-<td style="text-align:center;"><?php echo $bill_no; ?></td>
-<td style="text-align:center;"><?php echo $user_name; ?></td>
+<td style="text-align:right;"><?php echo $sr; ?></td>
+<td style="text-align:right;"><?php echo $bill_no; ?></td>
+<td style="text-align:left;"><?php echo $user_name; ?></td>
 <?php
 $total_amt = 0;
 $gt_amt = 0;
@@ -413,7 +413,7 @@ $maint_ch = $ih_amt;
 }
 ?>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<td style="text-align:center;"><?php
+<td style="text-align:right;"><?php
 if(!empty($ih_amt))
 {
 $ih_amt2 = $ih_amt*$multi; 
@@ -458,31 +458,31 @@ $gt_gt_amt = $gt_gt_amt + $gt_amt;
 $over_due_tt = $over_due_tt + @$due_amount;
 ?>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<td style="text-align:center;"><?php if(!empty($noc_amt)) {
+<td style="text-align:right;"><?php if(!empty($noc_amt)) {
 $noc_amt2 = $noc_amt*$multi;	 
 $noc_amt2 = number_format($noc_amt2);
 echo $noc_amt2; } else { echo "0"; } ?></td>
 
 
-<td style="text-align:center;"><?php 
+<td style="text-align:right;"><?php 
 $total_amt2 = $total_amt*$multi;
 $total_amt2 = number_format($total_amt2);
 echo $total_amt2; ?></td>
 
 
-<td style="text-align:center;"><?php if(!empty($due_amount)) { 
+<td style="text-align:right;"><?php if(!empty($due_amount)) { 
 $due_amount2 = $due_amount*$multi;
 $due_amount2 = number_format($due_amount2);
 echo $due_amount2; } else { echo "0"; } ?></td>
 
 
-<td style="text-align:center;"><?php if(!empty($due_taxamt)) { 
+<td style="text-align:right;"><?php if(!empty($due_taxamt)) { 
 $due_taxamt2 = $due_taxamt*$multi;
 $due_taxamt2 = number_format($due_taxamt2);
 echo $due_taxamt2; } else { echo "0"; }?></td>
 
 
-<td style="text-align:center;"><?php
+<td style="text-align:right;"><?php
 $gt_amt2 = $gt_amt*$multi; 
 $gt_amt2 = number_format($gt_amt2);
 echo $gt_amt2; ?></td>
@@ -493,36 +493,36 @@ echo $gt_amt2; ?></td>
 
 ?>
 <tr>
-<th colspan="3">Total</th>
+<th colspan="3" style="text-align:right;">Total</th>
 <?php
 for($k=0; $k<sizeof($total_ih); $k++)
 {
 $tt_amt = $total_ih[$k];
 ?>
-<th><?php 
+<th style="text-align:right;"><?php 
 $tt_amt2 = $tt_amt*$multi;
 $tt_amt2 = number_format($tt_amt2);
 echo $tt_amt2; ?></th>
 <?php
 }
 ?>
-<th><?php 
+<th style="text-align:right;"><?php 
 $noc_tt_amt2 = $noc_tt_amt*$multi;
 $noc_tt_amt2 = number_format($noc_tt_amt2);
 echo $noc_tt_amt2; ?></th>
-<th><?php 
+<th style="text-align:right;"><?php 
 $gt_tt_amt2 = $gt_tt_amt*$multi;
 $gt_tt_amt2 = number_format($gt_tt_amt2);
 echo $gt_tt_amt2; ?></th>
-<th><?php 
+<th style="text-align:right;"><?php 
 $over_due_tt2 = $over_due_tt*$multi;
 $over_due_tt2 = number_format($over_due_tt2);
 echo $over_due_tt2; ?></th>
-<th><?php 
+<th style="text-align:right;"><?php 
 $gt_penalty_amt2 = $gt_penalty_amt*$multi;
 $gt_penalty_amt2 = number_format($gt_penalty_amt2);
 echo $gt_penalty_amt2; ?></th>
-<th><?php 
+<th style="text-align:right;"><?php 
 $gt_gt_amt2 = $gt_gt_amt*$multi;
 $gt_gt_amt2 = number_format($gt_gt_amt2);
 echo $gt_gt_amt2; ?></th>
@@ -550,12 +550,7 @@ echo $gt_gt_amt2; ?></th>
 </div>
 </form>
 
-<?php 
 
-//echo $noc_charge[0];
-//echo $noc_charge[1];
-echo $noc_amt;
-?>
 
 
 
