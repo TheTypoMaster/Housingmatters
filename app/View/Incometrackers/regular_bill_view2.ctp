@@ -172,7 +172,7 @@ foreach($result3 as $collection3)
 {
 $flat_type_id = (int)$collection3['flat']['flat_type_id'];
 $sq_feet = (int)$collection3['flat']['flat_area'];
-$noc_ch_id = (int)@$collection3['flat']['noc_ch_type'];
+$noc_ch_id = (int)@$collection3['flat']['noc_ch_tp'];
 }
 
 $result5 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_fetch'),array('pass'=>array(@$flat_type_id)));
@@ -549,11 +549,6 @@ echo $gt_gt_amt2; ?></th>
 <button type="submit" name="sub" class="btn red">Submit</button>
 </div>
 </form>
-
-
-
-
-
 
 
 
