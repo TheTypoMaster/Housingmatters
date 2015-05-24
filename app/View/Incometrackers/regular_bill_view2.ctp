@@ -239,7 +239,7 @@ $n++;
 }
 if($noc_ch_id == 2)
 {
-$tp_id2 = (int)$noc_charge[0];
+$tp_id2 = $noc_charge[0];
 if($tp_id2 == 2)
 {
 $amount = $noc_charge[1];
@@ -550,7 +550,12 @@ echo $gt_gt_amt2; ?></th>
 </div>
 </form>
 
+<?php 
 
+//echo $noc_charge[0];
+//echo $noc_charge[1];
+echo $noc_amt;
+?>
 
 
 
