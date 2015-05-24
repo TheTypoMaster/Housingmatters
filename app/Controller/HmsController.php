@@ -20111,6 +20111,9 @@ foreach($myArray as $child)
 	      ///////////  code end insert //////////////////////////////////
           $this->loadmodel('flat');
           $this->flat->updateAll(array("noc_ch_tp" =>$residing),array("flat_id" =>$flat));
+		 
+		 
+		 
 	      ///////////////  Insert code ledger Sub Accounts //////////////////////
 
 		 $this->loadmodel('ledger_sub_account');
