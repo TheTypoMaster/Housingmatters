@@ -139,10 +139,10 @@ $grand_total = $grand_total + $g_total;
 <td><?php echo $user_name; ?></td>
 <td><?php echo $bill_daterange_from2; ?></td>
 <td><?php echo $bill_daterange_to2; ?></td>
-<td><?php 
+<td style="text-align:right;"><?php 
 $g_total = number_format($g_total);
 echo $g_total; ?></td>
-<td class="hide_at_print"><a href="regular_bill_view/<?php echo $regular_bill_id; ?>" class="btn mini yellow" target="_blank">View</a>
+<td class="hide_at_print" style="text-align:right;"><a href="regular_bill_view/<?php echo $regular_bill_id; ?>" class="btn mini yellow" target="_blank">View</a>
 <a href="regular_bill_pdf?p=<?php echo $regular_bill_id; ?>" class="btn mini purple" target="_blank">Pdf</a>
 </td>			
 </tr>
@@ -166,10 +166,10 @@ $grand_total = $grand_total + $g_total;
 <td><?php echo $user_name; ?></td>
 <td><?php echo $bill_daterange_from2; ?></td>
 <td><?php echo $bill_daterange_to2; ?></td>
-<td><?php 
+<td style="text-align:right;"><?php 
 $g_total = number_format($g_total);
 echo $g_total; ?></td>
-<td class="hide_at_print"><a href="regular_bill_view/<?php echo $regular_bill_id; ?>" class="btn mini yellow" target="_blank">View</a>
+<td class="hide_at_print" style="text-align:right;"><a href="regular_bill_view/<?php echo $regular_bill_id; ?>" class="btn mini yellow" target="_blank">View</a>
 <a href="regular_bill_pdf?p=<?php echo $regular_bill_id; ?>" class="btn mini purple" target="_blank">Pdf</a>
 </td>			
 </tr>	
@@ -180,8 +180,8 @@ echo $g_total; ?></td>
 }
 ?>
 <tr>
-<th colspan="6">Grand Total</th>
-<th><?php 
+<th colspan="6" style="text-align:right;">Grand Total</th>
+<th style="text-align:right;"><?php 
 $grand_total = number_format($grand_total);
 echo $grand_total; ?></th>
 <th class="hide_at_print"></th>

@@ -119,8 +119,8 @@ for($h=0; $h<sizeof($total); $h++)
 {  
 ?>
 <th style="text-align:right;"><?php 
-$totalh2 = number_format($total[$h]);
-echo $totalh2; ?></th>
+@$totalh2 = number_format($total[$h]);
+echo @$totalh2; ?></th>
 <?php 
 $grand_total = $grand_total + $total[$h];
 }

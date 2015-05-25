@@ -210,17 +210,17 @@ $grand_total = $grand_total + $g_total;
 <td><?php echo $user_name; ?>&nbsp;&nbsp;<?php echo $wing_flat; ?> </td>
 <td><?php echo $bill_date_from2; ?></td>
 <!--<td><?php echo $bill_date_to2; ?></td> -->
-<td><?php 
+<td style="text-align:right;"><?php 
 $g_total = number_format($g_total);
 echo $g_total; ?></td>
-<td class="hide_at_print"><a href="supplimentry_view/<?php echo $receipt_id; ?>" class="btn mini yellow" target="_blank">View</a>
+<td class="hide_at_print" style="text-align:right;"><a href="supplimentry_view/<?php echo $receipt_id; ?>" class="btn mini yellow" target="_blank">View</a>
 <a href="supplimentry_bill_pdf?p=<?php echo $adhoc_bill; ?>" class="btn mini purple" target="_blank">Pdf</a>
 </td>
 </tr>
 <?php }} ?>
 <tr>
-<th colspan="6">Total</th>
-<th><?php 
+<th colspan="6" style="text-align:right;">Total</th>
+<th style="text-align:right;"><?php 
 $grand_total = number_format($grand_total);
 echo $grand_total; ?></th>
 <th class="hide_at_print"></th>
@@ -304,17 +304,17 @@ $grand_total = $grand_total + $g_total;
 <td><?php echo $user_name; ?>&nbsp;&nbsp;<?php echo $wing_flat; ?> </td>
 <td><?php echo $bill_date_from2; ?></td>
 <!--<td><?php echo $bill_date_to2; ?></td>-->
-<td><?php
+<td style="text-align:right;"><?php
 $g_total = number_format($g_total);
  echo $g_total; ?></td>
-<td class="hide_at_print"><a href="supplimentry_view/<?php echo $receipt_id; ?>" class="btn mini yellow" target="_blank">View</a>
+<td class="hide_at_print" style="text-align:right;"><a href="supplimentry_view/<?php echo $receipt_id; ?>" class="btn mini yellow" target="_blank">View</a>
 <a href="supplimentry_bill_pdf?p=<?php echo $adhoc_bill; ?>" class="btn mini purple" target="_blank">Pdf</a>
 </td>
 </tr>
 <?php }}} ?>
 <tr>
-<th colspan="5">Total</th>
-<th><?php 
+<th colspan="5" style="text-align:right;">Total</th>
+<th style="text-align:right;"><?php 
 $grand_total = number_format($grand_total);
 echo $grand_total; ?></th>
 <th class="hide_at_print"></th>
@@ -384,17 +384,17 @@ $grand_total = $grand_total + $g_total;
 <td><?php echo $user_name; ?>&nbsp;&nbsp;<?php echo $wing_flat; ?> </td>
 <td><?php echo $bill_date_from2; ?></td>
 <!--<td><?php echo $bill_date_to2; ?></td> -->
-<td><?php 
+<td style="text-align:right;"><?php 
 $g_total = number_format($g_total);
 echo $g_total; ?></td>
-<td class="hide_at_print"><a href="supplimentry_view/<?php echo $receipt_id; ?>" class="btn mini yellow" target="_blank">View</a>
+<td class="hide_at_print" style="text-align:right;"><a href="supplimentry_view/<?php echo $receipt_id; ?>" class="btn mini yellow" target="_blank">View</a>
 <a href="supplimentry_bill_pdf?p=<?php echo $adhoc_bill; ?>" class="btn mini purple" target="_blank">Pdf</a>
 </td>
 </tr>
 <?php }}} ?>
 <tr>
-<th colspan="5">Total</th>
-<th><?php 
+<th colspan="5" style="text-align:right;">Total</th>
+<th style="text-align:right;"><?php 
 $grand_total = number_format($grand_total);
 echo $grand_total; ?></th>
 <th class="hide_at_print"></th>
