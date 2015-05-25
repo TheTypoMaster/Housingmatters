@@ -2508,6 +2508,7 @@ $flat1 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fet
 foreach($flat1 as $collection)
 {
 $flat_type_id = (int)$collection['flat']['flat_type_id'];
+$area = $collection['flat']['flat_area'];
 //$flat_master_id = (int)$collection['flat']['flat_master_id'];
 }
 /*
@@ -2534,7 +2535,7 @@ $amt = $s_ih3[1];
 
 $k = (int)$this->autoincrement('ledger','auto_id');
 $this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $l, 
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $z, 
 "amount" => $amt, "amount_category_id" => 2, "table_name" => "adhoc_bill", "account_type" => 2, "account_id" => $ihid5, "current_date" => $s_cur_date,"society_id" => $s_society_id,"module_name"=>"Supplimentry Bill"));
 $this->ledger->saveAll($multipleRowData);	
 $total = $total + $amt;
@@ -2544,7 +2545,7 @@ $ih_det[] = $s_ih3;
 
 $k = (int)$this->autoincrement('ledger','auto_id');
 $this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $l, 
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $z, 
 "amount" => $total, "amount_category_id" => 1, "table_name" => "adhoc_bill", "account_type" => 1,
 "account_id" => $res_id, "current_date" => $s_cur_date,
 "society_id" => $s_society_id,"module_name"=>"Supplimentry Bill"));
@@ -2702,7 +2703,7 @@ $html.='</table>
 </tr>
 <tr>
 <td style="text-align:left;">AREA:</td>
-<td style="text-align:left;">1120</td>
+<td style="text-align:left;">'.$area.' Sq Feet</td>
 </tr>
 </table>
 </div>

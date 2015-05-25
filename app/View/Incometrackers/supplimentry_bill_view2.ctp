@@ -6,8 +6,6 @@ $ih3 = explode('/',$ih);
 }
 ?>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-
-
 <center>
 <div style="width:90%; background-color:white; overflow:auto;">
 <br><Br><br>
@@ -51,13 +49,16 @@ $user_name = $collection['user']['user_name'];
 $wing = (int)$collection['user']['wing'];
 $flat =(int)$collection['user']['flat'];
 }
-/*
+
 $flat1 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch2'),array('pass'=>array($flat,$wing)));
 foreach($flat1 as $collection)
 {
 $flat_type_id = (int)$collection['flat']['flat_type_id'];
-$flat_master_id = (int)$collection['flat']['flat_master_id'];
+$area = $collection['flat']['flat_area'];
+
+//$flat_master_id = (int)$collection['flat']['flat_master_id'];
 }
+/*
 $flat2 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_fetch'),array('pass'=>array($flat_type_id)));
 foreach($flat2 as $collection)
 {
@@ -116,7 +117,7 @@ Company Name:
 </tr>
 <tr>
 <td style="text-align:left;">AREA:</td>
-<td style="text-align:left;">1120</td>
+<td style="text-align:left;"><?php echo $area; ?> Sq Feet</td>
 </tr>
 </table>
 </div>
