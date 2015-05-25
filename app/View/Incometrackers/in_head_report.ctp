@@ -14,9 +14,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
 
 <div style="text-align:center;" class="hide_at_print">
-<a href="<?php echo $webroot_path; ?>Incometrackers/in_head_report" class="btn yellow" rel='tab'>bill Report</a>
-<a href="<?php echo $webroot_path; ?>Incometrackers/it_reports_regular" class="btn" rel='tab'>Regular</a>
-<a href="<?php echo $webroot_path; ?>Incometrackers/it_reports_supplimentry" class="btn" rel='tab'>Supplementary</a>
+<a href="<?php echo $webroot_path; ?>Incometrackers/in_head_report" class="btn yellow" rel='tab'>Bill Report</a>
+<a href="<?php echo $webroot_path; ?>Incometrackers/it_reports_regular" class="btn" rel='tab'>Regular Report</a>
+<a href="<?php echo $webroot_path; ?>Incometrackers/it_reports_supplimentry" class="btn" rel='tab'>Supplementary Report</a>
 <a href="<?php echo $webroot_path; ?>Incometrackers/income_heads_report" class="btn" rel='tab'>Income head report</a>
 <a href="<?php echo $webroot_path; ?>Incometrackers/account_statement" class="btn" rel='tab'>Account Statement</a>
 </div>
@@ -26,7 +26,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
            <table border="0">
            <tr>
            <td>
-           <select name="period" class="m-wrap medium" id="un">
+           <select name="period" class="m-wrap large" id="un">
            <option value="" style="display:none;">Select</option>
            <?php
 		   foreach($cursor1 as $collection)

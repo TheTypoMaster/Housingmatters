@@ -32,24 +32,24 @@ $due_date11 = date('d-M-Y',$due_dm->sec);
 <table Border="0" style="width:100%;">
 <tr>
 <th style="text-align:center;" colspan="2">
-<p style="font-size:36px;"><?php echo $society_name; ?></p>
+<p style="font-size:30px;"><?php echo $society_name; ?></p>
 </th>
 </tr>
 <tr>
 <td colspan="2" style="text-align:center;">
-<p style="font-size:18px;">
+<p style="font-size:16px;">
 <?php echo $society_reg_nu; ?>
 </p>
 </td>
 </tr>
 <tr>
 <td colspan="2" style="text-align:center;">
-<p style="font-size:18px;"><?php echo $society_address; ?></p>
+<p style="font-size:16px;"><?php echo $society_address; ?></p>
 </td>
 </tr>
 <tr>
 <th style="text-align:center;">
-<p style="font-size:18px;">
+<p style="font-size:16px;">
 Bill for date From :<?php echo $from; ?> To : <?php echo $to; ?>    
 </p>
 </th>
@@ -66,11 +66,11 @@ Bill for date From :<?php echo $from; ?> To : <?php echo $to; ?>
 </tr>
 </table>
 <br /><br />
-<table border="2" style="width:100%;">
+<table class="table table-bordered" style="width:100%;">
 <tr>
-<th>Sr.No.</th>
-<th>Bill No.</th>
-<th>Name of Resident</th>
+<th style="text-align:left;">Sr.No.</th>
+<th style="text-align:left;">Bill No.</th>
+<th style="text-align:left;">Name of Resident</th>
 <?php
 for($k=0; $k<sizeof($ih_arr); $k++)
 {
@@ -86,13 +86,13 @@ if($ih_id1 != 43)
 {
 $ih_tt_amt[] = 0;
 ?>
-<th><?php echo $in_name; ?></th>
+<th style="text-align:left;"><?php echo $in_name; ?></th>
 <?php }} ?>
-<th>Non Occupancy charges</th>
-<th>Current Amount</th>
-<th>Over Due Amount</th>
-<th>Penalty Amount</th>
-<th>Grand Total Amount</th>
+<th style="text-align:left;">Non Occupancy charges</th>
+<th style="text-align:left;">Current Amount</th>
+<th style="text-align:left;">Over Due Amount</th>
+<th style="text-align:left;">Penalty Amount</th>
+<th style="text-align:left;">Grand Total Amount</th>
 </tr>
 
 <?php
@@ -124,9 +124,9 @@ $tt_gt_amt = $tt_gt_amt + $gt_amt;
 $m++;
 ?>
 <tr>
-<td style="text-align:center;"><?php echo $m; ?></td>
-<td style="text-align:center;"><?php echo $bill_no; ?></td>
-<td style="text-align:center;"><?php echo $user_name; ?></td>
+<td style="text-align:right;"><?php echo $m; ?></td>
+<td style="text-align:right;"><?php echo $bill_no; ?></td>
+<td style="text-align:left;"><?php echo $user_name; ?></td>
 <?php
 for($x=0; $x<sizeof($ih_det); $x++)
 {
@@ -137,7 +137,7 @@ if($ih_id5 != 43)
 $amt = $charge3[1];
 $ih_tt_amt[$x] = $ih_tt_amt[$x] + $amt;
 ?>
-<td style="text-align:center;"><?php 
+<td style="text-align:right;"><?php 
 $amt = number_format($amt);
 echo $amt; ?></td>
 <?php
@@ -154,7 +154,7 @@ $n=55;
 $amt2 = $charge4[1];
 $tt_noc_amt = $tt_noc_amt + $amt2;
 ?>
-<td style="text-align:center;"><?php 
+<td style="text-align:right;"><?php 
 $amt2 = number_format($amt2);
 echo $amt2; ?></td>	
 <?php
@@ -163,49 +163,49 @@ echo $amt2; ?></td>
 if($n == 5)
 {
 ?>
-<td style="text-align:center;"><?php echo "0"; ?></td>	
+<td style="text-align:right;"><?php echo "0"; ?></td>	
 <?php
 }
 ?>
-<td style="text-align:center;"><?php 
+<td style="text-align:right;"><?php 
 $current_amt = number_format($current_amt);
 echo $current_amt; ?></td>
-<td style="text-align:center;"><?php if(!empty($over_due_amt)) { 
+<td style="text-align:right;"><?php if(!empty($over_due_amt)) { 
 $over_due_amt = number_format($over_due_amt);
 echo $over_due_amt; } else { echo "0"; } ?></td>
-<td style="text-align:center;"><?php if(!empty($over_due_amt)) { 
+<td style="text-align:right;"><?php if(!empty($over_due_amt)) { 
 $penalty_amt = number_format($penalty_amt);
 echo $penalty_amt; } else { echo "0"; } ?></td>
-<td style="text-align:center;"><?php 
+<td style="text-align:right;"><?php 
 $gt_amt = number_format($gt_amt);
 echo $gt_amt; ?></td>
 </tr>
 <?php } ?>
 <tr>
-<th colspan="3">Total</th>
+<th colspan="3" style="text-align:right;">Total</th>
 <?php
 for($v=0; $v<sizeof($ih_tt_amt); $v++)
 {
 $tt_amt = $ih_tt_amt[$v];	
 ?>
-<th><?php 
+<th style="text-align:right;"><?php 
 $tt_amt = number_format($tt_amt);
 echo $tt_amt; ?></th>
 <?php } ?>
-<th><?php 
+<th style="text-align:right;"><?php 
 $tt_noc_amt = number_format($tt_noc_amt);
 echo $tt_noc_amt; ?></th>
 
-<th><?php 
+<th style="text-align:right;"><?php 
 $tt_current_amt = number_format($tt_current_amt);
 echo $tt_current_amt; ?></th>
-<th><?php 
+<th style="text-align:right;"><?php 
 $tt_over_due_amt = number_format($tt_over_due_amt);
 echo $tt_over_due_amt; ?></th>
-<th><?php 
+<th style="text-align:right;"><?php 
 $total_penalty_amt = number_format($total_penalty_amt);
 echo $total_penalty_amt; ?></th>
-<th><?php 
+<th style="text-align:right;"><?php 
 $tt_gt_amt = number_format($tt_gt_amt);
 echo $tt_gt_amt; ?></th>
 </tr>

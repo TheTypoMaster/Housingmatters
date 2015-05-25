@@ -18,8 +18,8 @@ $showing_to_date = date('d-m-Y');
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
 <div style="text-align:center;" class="hide_at_print">
 <a href="<?php echo $webroot_path; ?>Incometrackers/in_head_report" class="btn" rel='tab'>bill Report</a>
-<a href="<?php echo $webroot_path; ?>Incometrackers/it_reports_regular" class="btn" rel='tab'>Regular</a>
-<a href="<?php echo $webroot_path; ?>Incometrackers/it_reports_supplimentry" class="btn" rel='tab'>Supplementary</a>
+<a href="<?php echo $webroot_path; ?>Incometrackers/it_reports_regular" class="btn" rel='tab'>Regular Report</a>
+<a href="<?php echo $webroot_path; ?>Incometrackers/it_reports_supplimentry" class="btn" rel='tab'>Supplementary Report</a>
 <a href="<?php echo $webroot_path; ?>Incometrackers/income_heads_report" class="btn yellow" rel='tab'>Income head report</a>
 <a href="<?php echo $webroot_path; ?>Incometrackers/account_statement" class="btn" rel='tab'>Account Statement</a>
 </div>
