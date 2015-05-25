@@ -2700,12 +2700,15 @@ $html.='</table>
 <tr>
 <td style="text-align:left;">Due Date:</td>
 <td style="text-align:left;">'.$s_due_date.'</td>
-</tr>
-<tr>
+</tr>';
+if($type == 2)
+{
+$html.='<tr>
 <td style="text-align:left;">AREA:</td>
 <td style="text-align:left;">'.$area.' Sq Feet</td>
-</tr>
-</table>
+</tr>';
+}
+$html.='</table>
 </div>
 <div style="width:90.25%;">
 <table border="1" style="width:100%;">
