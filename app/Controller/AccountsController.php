@@ -645,7 +645,6 @@ $this->loadmodel('ledger_account');
 $cursor1=$this->ledger_account->find('all');
 $this->set('cursor1',$cursor1);	
 
-
 /*
 $this->loadmodel('ledger_sub_account');
 $conditions=array("society_id" => $s_society_id,"delete_id"=>0);
@@ -655,7 +654,6 @@ foreach($cursor as $collection)
 $auto_id = (int)$collection['ledger_sub_account']['auto_id'];
 if(isset($this->request->data['sub'.$auto_id]))
 {
-
 $this->loadmodel('ledger_sub_account');
 $this->ledger_sub_account->updateAll(array("delete_id" => 1),array("auto_id" => $auto_id));	
 }
@@ -707,7 +705,7 @@ $i=$last;
 }
 $i++;
 $this->loadmodel('ledger_sub_account');
-$multipleRowData = Array( Array("auto_id" => $i, "ledger_id" => $main_id, "name" => $name, "society_id" => $s_society_id, "user_id" => $user_id,"delete_id"=>0));
+$multipleRowData = Array( Array("auto_id" => $i, "ledger_id" => $main_id, "name" => $name, "society_id" => $s_society_id, "user_id" => $user_id,"delete_id"=>0,"deactive"=>0));
 $this->ledger_sub_account->saveAll($multipleRowData);	
 
 }
