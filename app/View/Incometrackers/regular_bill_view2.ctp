@@ -289,7 +289,7 @@ echo $due_taxamt5; } else { echo "0"; }?></td>
 
 
 <td style="text-align:right;"><?php
-$gt_amt5 = $gt_amt + $multi; 
+$gt_amt5 = $gt_amt*$multi; 
 $gt_amt5 = number_format($gt_amt5);
 echo $gt_amt5; ?></td>
 </tr>
