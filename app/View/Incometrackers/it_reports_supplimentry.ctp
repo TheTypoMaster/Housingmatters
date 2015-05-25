@@ -27,34 +27,7 @@ $b_date = date('1-m-Y');
 <center>
 <div class="hide_at_print">
 <form method="post" id="contact-form">
-<br>
 <table>
-<tbody>
-<?php
-foreach($cursor2 as $collection)
-{
-$wing_id = (int)$collection['wing']['wing_id'];	
-$wing_name = $collection['wing']['wing_name'];	
-?>
-<option value="<?php echo $wing_id; ?>"><?php echo $wing_name; ?></option>
-<?php } ?>
-</select>
-</div>
-<div id="two" class="hide">
-<select id="mem" class="m-wrap medium">
-<option value="">--SELECT MEMBER--</option>
-<?php 
-foreach($cursor3 as $collection)
-{
-$user_id = (int)$collection['user']['user_id'];
-$user_name = $collection['user']['user_name'];	
-?>
-<option value="<?php echo $user_id; ?>"><?php echo $user_name; ?></option>	
-<?php } ?>	
-</select>
-</div>
-</td>
-</tr>
 <tr>
 <td>
 <select name="type" id="tp" class="m-wrap medium">

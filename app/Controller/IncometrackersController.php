@@ -2433,10 +2433,27 @@ else
 $this->set('res_id',$res_id);
 $this->set('ih',$ih);
 }
-$z = (int)$this->autoincrement('adhoc_bill','adhoc_bill_id');
+//////////////////////////////
+$this->loadmodel('adhoc_bill');
+$order=array('adhoc_bill.receipt_id'=> 'DESC');
+$cursor=$this->adhoc_bill->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last11=$collection['adhoc_bill']["receipt_id"];
+}
+if(empty($last11))
+{
+$z=1000;
+}	
+else
+{	
+$z=$last11;
+}
+$z++;
+
 $this->set('bill_no',$z);
 
-
+///////////////////////////////////
 if(isset($this->request->data['sub_sup']))
 {
 $s_from = $this->request->data['from'];
@@ -2533,19 +2550,62 @@ $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $l,
 "society_id" => $s_society_id,"module_name"=>"Supplimentry Bill"));
 $this->ledger->saveAll($multipleRowData);
 
-$adhoc_bill_id = (int)$this->autoincrement('adhoc_bill','adhoc_bill_id');
+//////////////////////////
 $this->loadmodel('adhoc_bill');
-$multipleRowData = Array( Array("adhoc_bill_id" => $adhoc_bill_id, "receipt_id" => $adhoc_bill_id, "company_name"=> "",
+$order=array('adhoc_bill.adhoc_bill_id'=> 'DESC');
+$cursor=$this->adhoc_bill->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last22=$collection['adhoc_bill']["adhoc_bill_id"];
+$last33=$collection['adhoc_bill']['receipt_id'];
+}
+if(empty($last22))
+{
+$adhoc_bill_id=0;
+$receipt_id=1000;
+}	
+else
+{	
+$adhoc_bill_id=$last22;
+$receipt_id=$last33;
+}
+$adhoc_bill_id++;
+$receipt_id++;
+////////////////////////
+
+$this->loadmodel('adhoc_bill');
+$multipleRowData = Array( Array("adhoc_bill_id" => $adhoc_bill_id, "receipt_id" => $receipt_id, "company_name"=> "",
 "person_name"=>$s_res_id,"description"=>$s_desc,"date"=>$s_cur_date,"society_id"=>$s_society_id,"residential"=>"y" ,"g_total"=> $total,"bill_daterange_from"=>$s_from2,"remaining_amt"=>$total,
 "bill_html"=>"","pay_status"=>0,"ih_detail"=>$ih_det));
 $this->adhoc_bill->saveAll($multipleRowData);	
 }
 else
 {
-$l = (int)$this->autoincrement('adhoc_bill','adhoc_bill_id');
+//////////////////////////
+$this->loadmodel('adhoc_bill');
+$order=array('adhoc_bill.adhoc_bill_id'=> 'DESC');
+$cursor=$this->adhoc_bill->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last22=$collection['adhoc_bill']["adhoc_bill_id"];
+$last33=$collection['adhoc_bill']['receipt_id'];
+}
+if(empty($last22))
+{
+$adhoc_bill_id=0;
+$receipt_id=1000;
+}	
+else
+{	
+$adhoc_bill_id=$last22;
+$receipt_id=$last33;
+}
+$adhoc_bill_id++;
+$receipt_id++;
+////////////////////////
 
 $this->loadmodel('adhoc_bill');
-$multipleRowData = Array( Array("adhoc_bill_id" => $l, "receipt_id" => $l,"company_name"=> $s_com_name,
+$multipleRowData = Array( Array("adhoc_bill_id" => $adhoc_bill_id, "receipt_id" => $receipt_id,"company_name"=> $s_com_name,
 "person_name"=>$s_person_name,"description"=>$s_desc,"date"=>$s_cur_date,"society_id"=>$s_society_id,"residential"=>"n","g_total"=> $amt5,"remaining_amt"=>$amt5,
 "bill_daterange_from"=>$s_from2,"bill_html"=>"","pay_status"=>0));
 $this->adhoc_bill->saveAll($multipleRowData);
@@ -2630,7 +2690,7 @@ $html.='</table>
 <table border="0" style="width:30%; float:right;">
 <tr>
 <td style="text-align:left;">Bill No.:</td>
-<td style="text-align:left;">'.$l.'</td>
+<td style="text-align:left;">'.$receipt_id.'</td>
 </tr>
 <tr>
 <td style="text-align:left;">Bill Creation Date:</td>
@@ -2773,7 +2833,7 @@ $html.='</table>
 <br><br><br><br>
 </div>';
 $this->loadmodel('adhoc_bill');
-$this->adhoc_bill->updateAll(array("bill_html" =>$html),array("adhoc_bill_id" =>$l));	
+$this->adhoc_bill->updateAll(array("bill_html" =>$html),array("adhoc_bill_id" =>$adhoc_bill_id));	
 
 /////////////////////////////////END HTML BILL/////////////////////////////////////////
 ?>

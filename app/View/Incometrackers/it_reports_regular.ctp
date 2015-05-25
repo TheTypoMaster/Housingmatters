@@ -27,12 +27,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 $c_date = date('d-m-Y');
 $b_date = date('1-m-Y'); 
 ?> 
- 
- 
 <center>
 <div class="hide_at_print">
 <form method="post" id="contact-form">
-<br>
 <label style="background-color:white;" id="v"></label>
 <div id="validate_result"></div>
 <table>
@@ -50,7 +47,6 @@ Member Wise
 </tr>
 <tr>
 <td colspan="2" style="text-align:center;">
-<br />
 <div class="hide" id="one">
 <select id="wing" class="m-wrap medium">
 <option value="">--SELECT WING--</option>

@@ -16,7 +16,7 @@ $ih3 = explode('/',$ih);
 <table border="0">
 <tr>
 <th style="text-align:center;">
-<p style="font-size:22px;"><?php echo $society_name; ?>  Society</p>
+<p style="font-size:22px;"><?php echo $society_name; ?> Society</p>
 </th>
 </tr>
 <td style="text-align:center;">

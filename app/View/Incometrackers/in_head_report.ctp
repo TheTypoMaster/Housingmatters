@@ -22,7 +22,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </div>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
            <center>
-           <br />
            <div class="hide_at_print">
            <table border="0">
            <tr>

@@ -153,6 +153,7 @@ $i=0;
 foreach ($cursor1 as $collection) 
 {
 $adhoc_bill= (int)$collection['adhoc_bill']["adhoc_bill_id"];
+$receipt_id = $collection['adhoc_bill']['receipt_id'];
 $pay_status=$collection['adhoc_bill']["pay_status"];
 $date=$collection['adhoc_bill']["date"];
 $residential=$collection['adhoc_bill']["residential"];
@@ -212,7 +213,7 @@ $grand_total = $grand_total + $g_total;
 <td><?php 
 $g_total = number_format($g_total);
 echo $g_total; ?></td>
-<td class="hide_at_print"><a href="supplimentry_view/<?php echo $adhoc_bill; ?>" class="btn mini yellow" target="_blank">View</a>
+<td class="hide_at_print"><a href="supplimentry_view/<?php echo $receipt_id; ?>" class="btn mini yellow" target="_blank">View</a>
 <a href="supplimentry_bill_pdf?p=<?php echo $adhoc_bill; ?>" class="btn mini purple" target="_blank">Pdf</a>
 </td>
 </tr>
@@ -258,6 +259,7 @@ $i=0;
 foreach ($cursor1 as $collection) 
 {
 $adhoc_bill= (int)$collection['adhoc_bill']["adhoc_bill_id"];
+$receipt_id = $collection['adhoc_bill']['receipt_id'];
 $pay_status=$collection['adhoc_bill']["pay_status"];
 $date=$collection['adhoc_bill']["date"];
 $residential=$collection['adhoc_bill']["residential"];
@@ -305,7 +307,7 @@ $grand_total = $grand_total + $g_total;
 <td><?php
 $g_total = number_format($g_total);
  echo $g_total; ?></td>
-<td class="hide_at_print"><a href="supplimentry_view/<?php echo $adhoc_bill; ?>" class="btn mini yellow" target="_blank">View</a>
+<td class="hide_at_print"><a href="supplimentry_view/<?php echo $receipt_id; ?>" class="btn mini yellow" target="_blank">View</a>
 <a href="supplimentry_bill_pdf?p=<?php echo $adhoc_bill; ?>" class="btn mini purple" target="_blank">Pdf</a>
 </td>
 </tr>
@@ -355,6 +357,7 @@ $i=0;
 foreach ($cursor1 as $collection) 
 {
 $adhoc_bill= (int)$collection['adhoc_bill']["adhoc_bill_id"];
+$receipt_id = $collection['adhoc_bill']['receipt_id'];
 $pay_status=$collection['adhoc_bill']["pay_status"];
 $date=$collection['adhoc_bill']["date"];
 $residential=$collection['adhoc_bill']["residential"];
@@ -384,7 +387,7 @@ $grand_total = $grand_total + $g_total;
 <td><?php 
 $g_total = number_format($g_total);
 echo $g_total; ?></td>
-<td class="hide_at_print"><a href="supplimentry_view/<?php echo $adhoc_bill; ?>" class="btn mini yellow" target="_blank">View</a>
+<td class="hide_at_print"><a href="supplimentry_view/<?php echo $receipt_id; ?>" class="btn mini yellow" target="_blank">View</a>
 <a href="supplimentry_bill_pdf?p=<?php echo $adhoc_bill; ?>" class="btn mini purple" target="_blank">Pdf</a>
 </td>
 </tr>
