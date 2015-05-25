@@ -5094,9 +5094,142 @@ $this->set('bill_html',@$bill_html);
 }
 //////////////// End ac statement Bill View////////////////////////////////////////
 
+///////////////////// Start account statement show ajax(Accounts)////////////////////
+///////Done////////////
+function account_statement_show_ajax()
+{
+$this->layout='blank';
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
+
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor = $this->society->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$society_name = $collection['society']['society_name'];
+}
+$this->set('society_name',$society_name);
 
 
+$from = $this->request->query('f');
+$to = $this->request->query('t');
+$value = (int)$this->request->query('ff');
+$this->set('value',$value);
+$this->set('from',$from);
+$this->set('to',$to);
 
+}
+////////////////// End account statement show ajax(Accounts)////////////////////////
+
+/////////////////////// Start Account Statement Excel////////////////////////////////
+//////////Done/////////////
+function account_statement_excel()
+{
+$this->layout="";
+$filename="Account Statement";
+header ("Expires: 0");
+header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+header ("Cache-Control: no-cache, must-revalidate");
+header ("Pragma: no-cache");
+header ("Content-type: application/vnd.ms-excel");
+header ("Content-Disposition: attachment; filename=".$filename.".xls");
+header ("Content-Description: Generated Report" );
+
+$s_society_id = (int)$this->Session->read('society_id');
+$s_role_id=$this->Session->read('role_id');
+
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor = $this->society->find('all',array('conditions'=>$conditions));
+foreach ($cursor as $collection) 
+{
+$society_name = $collection['society']['society_name'];
+}
+
+$from = $this->request->query('f');
+$to = $this->request->query('t');
+$user_id = (int)$this->request->query('u');
+
+$m_from = date("Y-m-d", strtotime($from));
+$m_from = new MongoDate(strtotime($m_from));
+$m_to = date("Y-m-d", strtotime($to));
+$m_to = new MongoDate(strtotime($m_to));
+
+$excel="<table border='1'>
+<tr>
+<th colspan='7' style='text-align:center;'>
+Account Statement ($society_name)
+</th>
+</tr>
+<tr>
+<th style='text-align:center;'>Sr. No.</th>
+<th style='text-align:center;'>User Name</th>
+<th style='text-align:center;'>Bill No.</th>
+<th style='text-align:center;'>Bill for Date</th>
+<th style='text-align:center;'>Last Date</th>
+<th style='text-align:center;'>Total Amount</th>
+<th style='text-align:center;'>Due Amount</th>
+</tr>";
+$nn = 0;
+$grand_total_amount=0;
+$total_due_amount=0;
+$result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'regular_bill_fetch2'),array('pass'=>array($user_id)));	
+foreach($result2 as $collection)
+{
+$nn++;
+$bill_no = (int)$collection['regular_bill']['receipt_id'];
+$date_from = $collection['regular_bill']['bill_daterange_from'];
+$date_to = $collection['regular_bill']['bill_daterange_to'];
+$last_date = $collection['regular_bill']['due_date'];
+$total_amount = (int)$collection['regular_bill']['g_total'];
+$due_amount = (int)$collection['regular_bill']['remaining_amount'];
+$date = $collection['regular_bill']['date'];
+$user_id = (int)$collection['regular_bill']['bill_for_user'];
+//$bill_no = (int)$collection[''][''];
+//$bill_no = (int)$collection[''][''];
+$date_from1 = date('d-M-Y',$date_from->sec);
+$date_to1 = date('d-M-Y',$date_to->sec);
+$due_date = date('d-M-Y',$last_date->sec); 
+
+$bill_html = $collection['regular_bill']['bill_html'];
+$receipt_id = (int)$collection['regular_bill']['receipt_id']; 
+$result3 = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));	
+foreach($result3 as $collection)
+{
+$user_name = $collection['user']['user_name'];
+$wing = (int)$collection['user']['wing'];
+$flat =(int)$collection['user']['flat'];
+}
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array(@$wing,@$flat)));
+
+if($m_from <= $date && $m_to >= $date)
+{
+$grand_total_amount = $grand_total_amount + $total_amount;
+$total_due_amount = $total_due_amount + $due_amount;	
+
+$excel.="<tr>
+<td style='text-align:center;'>$nn</td>
+<td style='text-align:center;'>$user_name&nbsp;&nbsp;$wing_flat</td>
+<td style='text-align:center;'>$bill_no</td>
+<td style='text-align:center;'>$date_from1&nbsp;&nbsp;To&nbsp;&nbsp;$date_to1</td>
+<td style='text-align:center;'>$due_date</td>
+<td style='text-align:center;'>$total_amount</td>
+<td style='text-align:center;'>$due_amount</td>
+</tr>";
+}}
+$excel.="<tr>
+<th colspan='5' style='text-align:center;'>Total</th>
+<th style='text-align:center;'>$grand_total_amount</th>
+<th style='text-align:center;'>$total_due_amount</th>
+</tr>";
+
+$excel.="</table>";
+
+echo $excel;
+}
+/////////////////////// End Account Statement Excel////////////////////////////////
 
 
 
