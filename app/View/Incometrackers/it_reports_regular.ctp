@@ -48,7 +48,7 @@ Member Wise
 <tr>
 <td colspan="2" style="text-align:center;">
 <div class="hide" id="one">
-<select id="wing" class="m-wrap medium">
+<select id="wing" class="m-wrap medium chosen">
 <option value="">--SELECT WING--</option>
 <?php
 foreach($cursor2 as $collection)
