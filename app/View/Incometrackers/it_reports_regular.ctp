@@ -59,7 +59,7 @@ $wing_name = $collection['wing']['wing_name'];
 </select>
 </div>
 <div class="hide" id="two">
-<select id="mem" class="m-wrap medium">
+<select id="mem" class="m-wrap medium chosen">
 <option value="">--SELECT MEMBER--</option>
 <?php 
 foreach($cursor3 as $collection)

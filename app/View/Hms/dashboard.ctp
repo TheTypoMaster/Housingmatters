@@ -4,7 +4,7 @@ foreach ($result_user as $collection)
 					$c_email = $collection['user']['email'];
 					$c_mobile = $collection['user']['mobile'];
 					$c_name = $collection['user']['user_name'];
-					$profile = $collection['user']['profile_status'];
+					$profile = @$collection['user']['profile_status'];
 					@$profile_pic = $collection['user']['profile_pic'];
 					$c_sex = (int)@$collection['user']['sex'];
 					$c_wing_id = (int)$collection['user']['wing'];

@@ -115,10 +115,17 @@ Company Name:
 <td style="text-align:left;">Due Date:</td>
 <td style="text-align:left;"><?php echo $due_date; ?></td>
 </tr>
+<?php
+if($type == 2)
+{
+?>
 <tr>
 <td style="text-align:left;">AREA:</td>
-<td style="text-align:left;"><?php echo $area; ?> Sq Feet</td>
+<td style="text-align:left;"><?php echo @$area; ?> Sq Feet</td>
 </tr>
+<?php 
+}
+?>
 </table>
 </div>
 <div style="width:90.25%;">
