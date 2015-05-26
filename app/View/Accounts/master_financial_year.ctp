@@ -54,10 +54,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <br>
 <br>
 
-
-
-
-
 <div class="form-actions" style="background-color:#D7DACD;">
 <button type="submit" class="btn blue" name="sub1" id="go">Submit</button>
 <!--<button type="submit" class="btn green" name="sub1" value="xyz" id="go">Submit</button> -->

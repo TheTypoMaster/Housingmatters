@@ -65,11 +65,11 @@ if($nnn == 555)
 <button type="button" class=" printt btn green" onclick="window.print()"><i class="icon-print"></i> Print</button></span>
 </div>
 <br />
-<table width="100%" style="background-color:#FDFDEE;" class="table table-bordered">
+<table width="100%" style="background-color:white;" class="table table-bordered">
 <tr>
 <th colspan="7" style="text-align:center;">
 <p style="font-size:16px;">
-Journal Report  (<?php echo $society_name; ?>)
+Journal Report  (<?php echo $society_name; ?> Society)
 </p>
 </th>
 </tr>

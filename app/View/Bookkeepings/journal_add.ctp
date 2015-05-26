@@ -9,8 +9,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </script>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <center>
-<a href="<?php echo $webroot_path; ?>Bookkeepings/journal_add" class="btn red" rel='tab'>Create</a>
-<a href="<?php echo $webroot_path; ?>Bookkeepings/journal_view" class="btn blue" rel='tab'>View</a>
+<a href="<?php echo $webroot_path; ?>Bookkeepings/journal_add" class="btn yellow" rel='tab'>Create</a>
+<a href="<?php echo $webroot_path; ?>Bookkeepings/journal_view" class="btn" rel='tab'>View</a>
 <br><br>              
 </center>            					
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
@@ -34,7 +34,8 @@ $('#t_box').val(d);
 });
 </script>		
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>					
-
+<?php
+/*
 <div style="background-color:#fff;padding:5px;width:100%;margin:auto; overflow:auto;" class="form_div">
 <h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Post Journal Entry</h4>
 <?php 
@@ -152,7 +153,7 @@ $('.content_'+id).remove();
 });
 });
 </script> 
-
+*/ ?>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 <div id="succ">	

@@ -9,12 +9,11 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
 </div>
-
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////// ?>  
 <center>
 <div class="hide_at_print">
-<a href="<?php echo $webroot_path; ?>Bookkeepings/journal_add" class="btn blue" rel='tab'> Create</a>
-<a href="<?php echo $webroot_path; ?>Bookkeepings/journal_view" class="btn red" rel='tab'> View</a>
+<a href="<?php echo $webroot_path; ?>Bookkeepings/journal_add" class="btn" rel='tab'> Create</a>
+<a href="<?php echo $webroot_path; ?>Bookkeepings/journal_view" class="btn yellow" rel='tab'> View</a>
 </div>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
@@ -27,7 +26,7 @@ $b_date = date('1-m-Y');
 
  <div class="hide_at_print">
             <form method="post" id="contact-form">
-            <br>
+           
             <table>
             <tbody><tr>
             <td><input type="text" class="date-picker m-wrap medium" id="date1" data-date-format="dd-mm-yyyy" name="from" placeholder="From" style="background-color:white !important;" value="<?php echo $b_date; ?>"></td>
@@ -35,14 +34,13 @@ $b_date = date('1-m-Y');
             <td valign="top"><button type="button" name="sub" class="btn yellow" id="go">Go</button></td>
             </tr>
             </tbody></table>
-            <br>
             </form>
             </div>
 			
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
  <center>
- <div id="result" style="width:94%;">
+ <div id="result" style="width:100%;">
  </div>
  </center>
  
