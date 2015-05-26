@@ -7,7 +7,6 @@ $help_desk_description=$data['help_desk']['help_desk_description'];
 $help_desk_file1=$data['help_desk']['help_desk_file'];
 $ticket_priority=$data['help_desk']['ticket_priority'];
 }
-pr($result_help_desk_draft);
 ?>
 <div class="row-fluid">
 					<div style="width:70%; margin-left:15%;">
