@@ -7,18 +7,19 @@ $("#fix<?php echo $id_current_page; ?>").removeClass("blue");
 $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
-
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////?>
-<a href="<?php echo $webroot_path; ?>Accounts/master_ledger_account_coa" class="btn yellow" rel='tab'>Ledger Accounts</a>
-<a href="<?php echo $webroot_path; ?>Accounts/master_ledger_sub_accounts_coa" class="btn yellow" rel='tab'>Ledger Sub Accounts</a>
-<a href="<?php echo $webroot_path; ?>Accounts/master_ledger_accounts_view" class="btn yellow">Master Ledger  Account View</a>
-<a href="<?php echo $webroot_path; ?>Accounts/master_ledger_sub_account_view" class="btn purple">Master Ledger Sub Account View</a>
-<?php ///////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<br /><br />
 <center>
-<div class="portlet box grey" style="width:90%;">
+<a href="<?php echo $webroot_path; ?>Accounts/master_ledger_account_coa" class="btn" rel='tab'>Ledger Accounts Add</a>
+<a href="<?php echo $webroot_path; ?>Accounts/master_ledger_sub_accounts_coa" class="btn" rel='tab'>Ledger Sub Accounts Add</a>
+<a href="<?php echo $webroot_path; ?>Accounts/master_ledger_accounts_view" class="btn">Master Ledger  Account View</a>
+<a href="<?php echo $webroot_path; ?>Accounts/master_ledger_sub_account_view" class="btn yellow">Master Ledger Sub Account View</a>
+</center>
+<?php ///////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<br />
+<center>
+<div class="portlet box grey" style="width:100%;">
 <div style="background-color:#B2B2B2; border-top:1px solid #e6e6e6; border-bottom:1px solid #e6e6e6; padding:10px; box-shadow:5px; font-size:16px; color:#006;">
-<b style="color:white;">  Ledger Sub Accounts </b>
+<b style="color:white;">  Ledger Sub Accounts View </b>
 </div>
 <div class="portlet-body">
 <div style="width:100%;">

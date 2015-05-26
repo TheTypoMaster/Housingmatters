@@ -7,19 +7,12 @@ $("#fix<?php echo $id_current_page; ?>").removeClass("blue");
 $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
-
-
-
-
 <center>
-<h3><b>Financial Period Status</b></h3>
+<a href="<?php echo $webroot_path; ?>Accounts/master_financial_period_status" class="btn yellow" rel='tab'>Financial Year Status</a>
+<a href="<?php echo $webroot_path; ?>Accounts/master_financial_year" class="btn" rel='tab'>Open New Year</a>
 </center>
-<a href="<?php echo $webroot_path; ?>Accounts/master_financial_period_status" class="btn purple" rel='tab'>Financial Year Status</a>
-<a href="<?php echo $webroot_path; ?>Accounts/master_financial_year" class="btn yellow" rel='tab'>Open New Year</a>
-<br><br>
-
-
 <center>
+<br />
 <form method="post">
 <table class="table table-bordered" style="width:80%; background-color:white;">
 <tr>

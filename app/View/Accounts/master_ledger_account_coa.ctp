@@ -7,22 +7,21 @@ $("#fix<?php echo $id_current_page; ?>").removeClass("blue");
 $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
-
-
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////?>
-<a href="<?php echo $webroot_path; ?>Accounts/master_ledger_account_coa" class="btn purple" rel='tab'>Ledger Accounts</a>
-<a href="<?php echo $webroot_path; ?>Accounts/master_ledger_sub_accounts_coa" class="btn yellow" rel='tab'>Ledger Sub Accounts</a>
-<a href="<?php echo $webroot_path; ?>Accounts/master_ledger_accounts_view" class="btn yellow">Master Ledger  Account View</a>
-<a href="<?php echo $webroot_path; ?>Accounts/master_ledger_sub_account_view" class="btn yellow">Master Ledger Sub Account View</a>
-<?php ///////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<center><h3><b>Master Ledger Accounts</b></h3></center>
+<center>
+<a href="<?php echo $webroot_path; ?>Accounts/master_ledger_account_coa" class="btn yellow" rel='tab'>Ledger Accounts Add</a>
+<a href="<?php echo $webroot_path; ?>Accounts/master_ledger_sub_accounts_coa" class="btn" rel='tab'>Ledger Sub Accounts Add</a>
+<a href="<?php echo $webroot_path; ?>Accounts/master_ledger_accounts_view" class="btn">Master Ledger  Account View</a>
+<a href="<?php echo $webroot_path; ?>Accounts/master_ledger_sub_account_view" class="btn">Master Ledger Sub Account View</a>
+</center>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<br />
 <center>
 <form method="post" id="contact-form"> 
 <table>
 <tr>
 <td>
-<select class="medium m-wrap chosen" name="main_id" id="go">
+<select class="large m-wrap chosen" name="main_id" id="go">
 <option value="" style="display:none;">Select Group Account</option>
 <?php
 foreach ($cursor1 as $collection) 
@@ -36,22 +35,19 @@ $name = $collection['accounts_groups']['group_name'];
 <label id="go"></label>
 </td>
 </tr>
-
 <tr>
 <td>
-<input type="text" name="cat_name" placeholder="Name" class="m-wrap medium" style="background-color:white !important;" id="cat">
+<input type="text" name="cat_name" placeholder="Name" class="m-wrap large" style="background-color:white !important;" id="cat">
 <label id="cat"></label>
 </td>
 </tr>
-
-                       
+        
 <tr>
 <td id="result">
 <label id="rate"></label><label id="amt"></label>
 </td>
 </tr>
-                    
-                       
+                  
 <tr>
 <td>
 <button type="submit" name="sub" class="btn blue">Add</button>
@@ -60,7 +56,7 @@ $name = $collection['accounts_groups']['group_name'];
 </table>
 </form>
 </center>
-<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>			   
+	   
 			
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>	
 <form method="post">

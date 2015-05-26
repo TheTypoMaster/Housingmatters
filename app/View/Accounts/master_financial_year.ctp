@@ -7,24 +7,19 @@ $("#fix<?php echo $id_current_page; ?>").removeClass("blue");
 $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
-
-
-
 <input type="hidden" name="fd1" value="<?php echo @$fd1; ?>" id="fd1"/>
 <input type="hidden" name="td1" value="<?php echo @$td1; ?>" id="td1" />
 <center>
-<h3><b>Master Financial Year</b></h3>
+<a href="<?php echo $webroot_path; ?>Accounts/master_financial_period_status" class="btn" rel='tab'>Financial Year Status</a>
+<a href="<?php echo $webroot_path; ?>Accounts/master_financial_year" class="btn yellow" rel='tab'>Open New Year</a>
 </center>
-
-<a href="<?php echo $webroot_path; ?>Accounts/master_financial_period_status" class="btn yellow" rel='tab'>Financial Year Status</a>
-<a href="<?php echo $webroot_path; ?>Accounts/master_financial_year" class="btn purple" rel='tab'>Open New Year</a>
-<br><br>
+<br />
 <center>
- <div class="portlet box grey" style="width:90%; margin-left:1%; margin-right:1%;">
-              <div class="portlet-title">
-              <h4><i class="icon-reorder"></i>Open New Year</h4>
-              </div>
-              <div class="portlet-body form" style="background-color:white;"> 
+<div class="portlet box grey" style="width:90%; margin-left:1%; margin-right:1%;">
+<div class="portlet-title">
+<h4><i class="icon-reorder"></i>Open New Financial Year</h4>
+</div>
+<div class="portlet-body form" style="background-color:white;"> 
 <br><br>
 <form method="post" id="contact-form" onsubmit="return valid()">			  
 <table border="0">
