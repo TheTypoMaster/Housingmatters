@@ -1,7 +1,7 @@
 
 
 <?php
-
+echo $webroot ;
 foreach($result_help_desk_draft as $data)
 {
 
