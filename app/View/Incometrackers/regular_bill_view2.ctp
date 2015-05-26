@@ -25,7 +25,7 @@ $multi = 12;
 $wing_arr = explode(',',$wing_arr_im);
 foreach($cursor12 as $collection)
 {
-$income_head_arr = $collection['society']['income_head'];	
+$income_head_arr = @$collection['society']['income_head'];	
 }
 $cur_date11 = date('d-M-Y');
 $due_date11 = date('d-M-Y',strtotime($due_date));
@@ -178,8 +178,8 @@ $noc_ch_id = (int)@$collection3['flat']['noc_ch_tp'];
 $result5 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_fetch'),array('pass'=>array(@$flat_type_id)));
 foreach($result5 as $collection5)
 {
-$charge = $collection5['flat_type']['charge'];
-$noc_charge = $collection5['flat_type']['noc_charge'];
+$charge = @$collection5['flat_type']['charge'];
+$noc_charge = @$collection5['flat_type']['noc_charge'];
 }
 
 ?>
@@ -372,8 +372,8 @@ $noc_ch_id = (int)@$collection3['flat']['noc_ch_tp'];
 $result5 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_fetch'),array('pass'=>array($flat_type_id)));
 foreach($result5 as $collection5)
 {
-$charge = $collection5['flat_type']['charge'];
-$noc_charge = $collection5['flat_type']['noc_charge'];
+$charge = @$collection5['flat_type']['charge'];
+$noc_charge = @$collection5['flat_type']['noc_charge'];
 }
 
 ?>
@@ -389,7 +389,7 @@ for($q=0; $q<sizeof($income_head_arr); $q++)
 {
 $ih_id2 = (int)$income_head_arr[$q];	
 
-for($y=0; $y<sizeof($charge); $y++)
+for($y=0; $y<sizeof(@$charge); $y++)
 {
 $charge3 = $charge[$y];	
 $ih_id7 = (int)$charge3[0];
@@ -495,7 +495,7 @@ echo $gt_amt2; ?></td>
 <tr>
 <th colspan="3" style="text-align:right;">Total</th>
 <?php
-for($k=0; $k<sizeof($total_ih); $k++)
+for($k=0; $k<sizeof(@$total_ih); $k++)
 {
 $tt_amt = $total_ih[$k];
 ?>

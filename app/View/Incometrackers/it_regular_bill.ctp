@@ -19,6 +19,7 @@ foreach($socct1 as $data)
 {
 $society_registration_number = @$data['society']['society_reg_num'];
 $society_address = @$data['society']['society_address'];
+$society_income_head = @$data['society']['income_head'];
 }
 if(empty($society_registration_number) || empty($society_address))
 {
@@ -28,11 +29,61 @@ else
 {
 $society_detail = "YES";	
 }
+?>
+<?php //////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php
+$income_head_detail = 'YES'; 
+foreach($flat_tpp as $data2)
+{
+$charge = @$data2['flat_type']['charge'];
+$noc_charge = @$data2['flat_type']['noc_charge'];
+if(empty($charge) && empty($noc_charge))
+{
+$income_head_detail = "NOT";
+break;	
+}
+if(empty($society_income_head) && empty($charge))
+{
+$income_head_detail = "YES";
+break;
+}
+}
+
+if($income_head_detail == 'YES')
+{
+$charge_count = sizeof($charge);
+$society_income_head_count = sizeof($society_income_head);
+if($charge_count != $society_income_head_count)
+{
+$income_head_detail = "NOT";
+}
+}
+if($income_head_detail == 'YES')
+{
+for($t=0; $t<sizeof($charge); $t++)
+{
+$charge2 = $charge[$t];
+$income_head_arr[] = $charge2[0];
+}
+$rrr = @array_diff(@$income_head_arr,@$society_income_head);
+$count = sizeof($rrr);
+if($count == 0)
+{
+$income_head_detail = "YES";	
+}
+else
+{
+$income_head_detail = "NOT";	
+}
+}
+
 ?>	
 <?php ////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
 if($society_detail == 'YES')
 {
+if($income_head_detail == 'YES')	
+{	
 ?>
 <div style="background-color:#fff;padding:5px;width:100%;margin:auto; overflow:auto;" class="form_div">
 <h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Generate Regular Bill(Income Tracker)</h4>
@@ -524,17 +575,32 @@ $("#show_bill_for").hide();
 }
 </script>   
 
-<?php  } ?>
+<?php }} ?>
 <?php 
 if($society_detail == 'NOT')
 {
 ?>	     
-<br /><br /><br />
-<div  class="alert alert-info">
+<br /><br />
 <center>
+<div  class="alert alert-info" style="width:70%;">
 <h4><b>
-Dear Sir, For Regular Bill genereation you have to full fill the Society Registartion Number and Society Address at Society Setup. Without this detail you can not generate Regular Bill, So Please fill these details.
+Dear Sir, For Regular Bill genereation you have to full fill the Society Registartion Number and Society Address at Society Setup. Without these detail you can not generate Regular Bill, So Please fill these details.
 </b></h4>
-</center>
 </div>
+</center>
 <?php } ?>
+<?php 
+if($income_head_detail == 'NOT')
+{
+?>
+<br /><br />
+<center>
+<div  class="alert alert-info" style="width:70%;">
+<h4><b>
+Dear Sir, For Regular Bill genereation you have to full fill the Non Occupancy Charges and Rate card at Accounting Setup. Without these detail you can not generate Regular Bill, So Please fill these details.
+</b></h4>
+</div>
+</center>
+<?php
+}
+?>

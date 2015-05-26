@@ -41,7 +41,7 @@ $income_head_arr1[] = (int)$ac_id;
 }
 foreach($cursor3 as $collection)
 {
-$income_head_selected_arr = $collection['society']['income_head'];
+$income_head_selected_arr = @$collection['society']['income_head'];
 }
 if(!empty($income_head_selected_arr))
 {

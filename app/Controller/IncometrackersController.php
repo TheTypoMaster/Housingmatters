@@ -30,6 +30,12 @@ $socct1=$this->society->find('all',array('conditions'=>$conditions));
 $this->set('socct1',$socct1);
 
 
+$this->loadmodel('flat_type');
+$conditions=array("society_id" => $s_society_id);
+$flat_tpp=$this->flat_type->find('all',array('conditions'=>$conditions));
+$this->set('flat_tpp',$flat_tpp);
+
+
 $this->loadmodel('regular_bill');
 $conditions=array("society_id" => $s_society_id,"status"=>0,"bill_for_user"=>$s_user_id);
 $cursor=$this->regular_bill->find('all',array('conditions'=>$conditions));
@@ -270,7 +276,7 @@ $conditions=array("society_id" => $s_society_id);
 $cursor = $this->society->find('all',array('conditions'=>$conditions));
 foreach($cursor as $collection)
 {
-$income_head_arr = $collection['society']['income_head'];
+$income_head_arr = @$collection['society']['income_head'];
 $terms_arr = $collection['society']['terms_conditions'];
 $pen_per2 = (int)$collection['society']['tax'];
 $per_type2 = (int)$collection['society']['tax_type'];
@@ -375,8 +381,8 @@ $conditions=array("society_id" => $s_society_id, "auto_id" => $flat_type_id);
 $cursor = $this->flat_type->find('all',array('conditions'=>$conditions));
 foreach($cursor as $collection)
 {
-$charge = $collection['flat_type']['charge'];
-$noc_charge = $collection['flat_type']['noc_charge'];
+$charge = @$collection['flat_type']['charge'];
+$noc_charge = @$collection['flat_type']['noc_charge'];
 }
 
 $this->loadmodel('regular_bill');
@@ -1290,8 +1296,8 @@ $conditions=array("society_id" => $s_society_id, "auto_id" => $flat_type_id);
 $cursor = $this->flat_type->find('all',array('conditions'=>$conditions));
 foreach($cursor as $collection)
 {
-$charge = $collection['flat_type']['charge'];
-$noc_charge = $collection['flat_type']['noc_charge'];
+$charge = @$collection['flat_type']['charge'];
+$noc_charge = @$collection['flat_type']['noc_charge'];
 }
 
 $this->loadmodel('regular_bill');
@@ -5044,6 +5050,27 @@ $arrr[] = $incid;
 }
 $this->loadmodel('society');
 $this->society->updateAll(array('income_head'=> @$arrr),array('society_id'=>$s_society_id));
+
+$this->loadmodel('flat_type');
+$conditions=array("society_id" => $s_society_id);
+$cursor=$this->flat_type->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection2)
+{
+$auto_id = (int)$collection2['flat_type']['auto_id'];
+$charge3 = array();
+$charge = @$collection2['flat_type']['charge'];
+foreach($charge as $charge2)
+{
+$in1 = $charge2[0];
+if($in1 != $inid)
+{
+$charge3[] = $charge2;
+}
+}
+$this->loadmodel('flat_type');
+$this->flat_type->updateAll(array('charge'=> @$charge3),array('society_id'=>$s_society_id,"auto_id"=>$auto_id));
+}
+
 
 $this->redirect(array('controller' => 'Incometrackers','action' => 'select_income_heads'));
 }
