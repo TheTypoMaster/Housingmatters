@@ -25,6 +25,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
                                         	<th>Date</th>
                                             <th >Time</th>
 											<th >Category</th>
+											<th>Ticket Priority</th>
                                             <!--<th style="width:10%;">View</th>-->
                                             <th >Action</th>
 										</tr>
@@ -41,6 +42,15 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 	    $time=$collection['help_desk']['help_desk_time'];
 		$complain_type_id=(int)$collection['help_desk']['help_desk_complain_type_id'];
 		$d_user_id=(int)$collection['help_desk']['user_id'];
+		$ticket_priority=$collection['help_desk']['ticket_priority'];
+		if($ticket_priority==1)
+		{
+			$ticket_priority="Urgent";
+		}
+		else
+		{
+			$ticket_priority="Normal";
+		}
 		$help_desk_category_name = $this->requestAction(array('controller' => 'hms', 'action' => 'help_desk_category_name'),array('pass'=>array($complain_type_id)));
 		?>
 <tr class="odd gradeX">
@@ -48,6 +58,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 		<td><?php echo $date; ?></td>
 		<td><?php echo $time; ?></td>
 		<td><?php echo $help_desk_category_name; ?></td>
+		<td><?php echo $ticket_priority; ?></td>
 			<td> 
 			<!---- action popup ----->
 
