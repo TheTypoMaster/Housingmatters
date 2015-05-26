@@ -143,52 +143,18 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
                             <?php
                             if(!empty($attachment))
 							{
-                            if($ext=="jpg" ||$ext=="png"||$ext=="gif" ||$ext=="JPG" ||$ext=="PNG"||$ext=="GIF")
-                            { ?>
-                            
-                            <a href="#portlet-configxx<?php echo $z; ?>" data-toggle="modal" class="config btn mini green tooltips" data-placement="bottom" data-original-title=" <?php echo $attachment; ?>"><i class=" icon-download-alt"></i></a>                                    
-                            
+                            ?> <a href="<?php echo $this->webroot; ?>service_provider_file/<?php echo $attachment; ?>" class="btn mini green tooltips"  data-placement="bottom" data-original-title="<?php echo $attachment; ?>" download="<?php echo $attachment ; ?>"><i class=" icon-download-alt"></i></a>
                             <?php
                             }
                             else
                             {
                             ?>
-                            
-                            <a href="<?php echo $this->webroot; ?>service_provider_file/<?php echo $attachment; ?>" class="btn mini green tooltips"  data-placement="bottom" data-original-title="<?php echo $attachment; ?>"><i class=" icon-download-alt"></i></a>
+                            <a href="#" class="btn mini green tooltips" role='button' data-placement="bottom" data-original-title="<?php echo 'empty';?>"><i class=" icon-download-alt"></i></a>
                            <?php
-                            }
-							}
-							else{ ?>
+                            } ?>
+						
 							
-							<a href="#" class="btn mini green tooltips" role='button' data-placement="bottom" data-original-title="<?php echo 'empty';?>"><i class=" icon-download-alt"></i></a>
-							
-							<?php }
-                            ?>
-                            
-                        <!-- View detail popup start -->
-                        <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
-                        
-                        <div id="portlet-configxx<?php echo $z; ?>" class="popupcenter modal hide " >
-                        <div class="modal-header " >
-                        <!--<button data-dismiss="modal" class="close" type="button"></button>-->
-                        <h4><b><center></center></b></h4>
-                        </div>
-                        <div class="modal-body">
-                        
-                        <img src="<?php echo $this->webroot; ?>service_provider_file/<?php echo $attachment; ?>" width="400px;" height="300px;">
-                        
-                        </div>
-						
-                        <div class="modal-footer"><button data-dismiss="modal"  class="btn purple" type="button">close</button>
-						
-						<div style='float:left;'>
-						 <a href="<?php echo $this->webroot; ?>service_provider_file/<?php echo $attachment; ?>" class="btn mini green tooltips"  data-placement="bottom" data-original-title="<?php echo $attachment; ?>" download='<?php echo $attachment; ?>'><i class=" icon-download-alt"></i> Download</a>
-						
-						 </div>
-						</div> 
-                        </div>
-						<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
-						 <!-- View detail popup end -->	
+                       
                              </td>
                             <?php if($role_id==3){ ?>                    
                             <td>
