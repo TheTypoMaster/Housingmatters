@@ -27,6 +27,14 @@ $cnt++;
 $cnt = $cnt+4;
 ?>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<div style="width:100%;" class="hide_at_print">
+<span style="margin-left:80%;">
+<a href="income_head_report_excel?f=<?php echo $from; ?>&t=<?php echo $to; ?>" class="btn blue">Export in Excel</a>
+<button type="button" class=" printt btn green" onclick="window.print()"><i class="icon-print"></i> Print</button></span>
+</div>
+
+
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <table class="table table-bordered" style="background-color:white; width:100%;">
 <thead>
 <tr>
@@ -61,7 +69,7 @@ $bill_id = $collection['regular_bill']['receipt_id'];
 $user_id = (int)$collection['regular_bill']['bill_for_user'];
 $ih_detail2 = $collection['regular_bill']['ih_detail'];
 $noc_amt = $collection['regular_bill']['noc_charge'];
-
+$date = $collection['regular_bill']['date'];
 
 $result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
 foreach ($result as $collection) 
@@ -71,6 +79,8 @@ $flat_id = (int)$collection['user']['flat'];
 $user_name = $collection['user']['user_name'];
 }	
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action'=>'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
+if($date1 <= $date && $date2 >= $date)
+{
 ?>
 <tr>
 <td style="text-align:right;"><?php echo $bill_id; ?></td>
@@ -109,6 +119,7 @@ $total_amt2 = number_format($total_amt);
 echo $total_amt2; ?></td>
 </tr>
 <?php 
+}
 }
 ?>
 <tr>

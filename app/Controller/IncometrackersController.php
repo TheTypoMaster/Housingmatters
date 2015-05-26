@@ -3055,14 +3055,6 @@ $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
 
-$this->loadmodel('society');
-$conditions=array("society_id"=>$s_society_id);
-$cursor = $this->society->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$society_name = $collection['society']['society_name'];
-}
-
 $from = $this->request->query('f');
 $to = $this->request->query('t');
 
@@ -3071,57 +3063,74 @@ $m_from = new MongoDate(strtotime($m_from));
 $m_to = date("Y-m-d", strtotime($to));
 $m_to = new MongoDate(strtotime($m_to));
 
-$c=0;
-$ledgerac2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch'),array('pass'=>array(7)));			
-foreach($ledgerac2 as $collection2)
+/////////////////////////////
+$this->loadmodel('society');
+$conditions=array("society_id"=>$s_society_id);
+$cursor = $this->society->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
 {
-$ac_name = $collection2['ledger_account']['ledger_name'];
-$ac_id = (int)$collection2['ledger_account']['auto_id'];		
-if($ac_id != 43 && $ac_id != 39 && $ac_id != 40)
-{
-$c++;
-}}
-$cnt = $c+5;
+$society_name = $collection['society']['society_name'];
+$society_reg_num = $collection['society']['society_reg_num'];
+$society_address = $collection['society']['society_address'];
+}
 
-$excel ="<table border='1'>
-	<tr>
-	<th colspan='$cnt' style='text-align:center;'>$society_name  Society</th>
-	</tr>
-	 <tr>
-            <th>Bill No.</th>
-            <th style='width:6%;'>Flat No.</th>
-            <th style='width:10%;'>Name of Resident</th>";
-$ledgerac = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch'),array('pass'=>array(7)));			
+////////////////////////////////////////
+$this->loadmodel('flat_type');
+$conditions=array("society_id"=>$s_society_id);
+$cursor9 = $this->flat_type->find('all',array('conditions'=>$conditions));
+foreach($cursor9 as $collection) 
+{
+$charge = $collection['flat_type']['charge'];	
+$income_heade_charge[] = $charge[0];
+}
+for($i=0; $i<sizeof($charge); $i++)
+{
+$inc_id = $charge[$i];
+$income_head_charge[] = $inc_id[0];
+}
+$cnt=0;
+for($y=0; $y<sizeof($income_head_charge); $y++)
+{
+$total[]="";	
+$cnt++;	
+}
+$cnt = $cnt+4;
+/////////////////////////////////////////
+$excel="<table border='1'>
+<thead>
+<tr>
+<th colspan='$cnt' style='text-align:center;'>$society_name Society</th>
+</tr>
+<tr>
+<th style='text-align:left;'>Bill No.</th>
+<th style='text-align:left;'>Flat No.</th>
+<th style='text-align:left;'>Name of Resident</th>";
+for($r=0; $r<sizeof($income_head_charge); $r++)
+{
+$abc = (int)$income_head_charge[$r];	
+$ledgerac = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($abc)));			
 foreach($ledgerac as $collection2)
 {
 $ac_name = $collection2['ledger_account']['ledger_name'];
-$ac_id = (int)$collection2['ledger_account']['auto_id'];		
-if($ac_id != 43 && $ac_id != 39 && $ac_id != 40)
-{
-$ih_id[] = (int)$ac_id;
-$gt_amt[] = 0;
-$noc_tt = 0;
-$grand_tt = 0;
-
-$excel.="<th style='text-align:center;'>$ac_name</th>";
-}}
-$excel.="<th style='text-align:center;'>Non Occupancy Charges</th>
-<th style='text-align:center;'>Total</th>          
+}
+$excel.="<th style='text-align:left;'>$ac_name</th>";
+}
+$excel.="
+<th style='text-align:left;'>Non Occupancy Charges</th>
+<th style='text-align:left;'>Total</th>
 </tr>";
-
+$total_noc_amt = 0;
 $this->loadmodel('regular_bill');
 $order=array('regular_bill.receipt_id'=> 'ASC');
 $conditions=array("society_id"=>$s_society_id);
 $cursor2=$this->regular_bill->find('all',array('conditions'=>$conditions,'order' =>$order));
 foreach($cursor2 as $collection)
 {
-$total = 0;	
-$date_from = $collection['regular_bill']['bill_daterange_from'];
-$date_to = $collection['regular_bill']['bill_daterange_to'];
-$date = $collection['regular_bill']['date'];	
 $bill_id = $collection['regular_bill']['receipt_id'];
 $user_id = (int)$collection['regular_bill']['bill_for_user'];
 $ih_detail2 = $collection['regular_bill']['ih_detail'];
+$noc_amt = $collection['regular_bill']['noc_charge'];
+$date = $collection['regular_bill']['date'];
 
 $result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
 foreach ($result as $collection) 
@@ -3131,75 +3140,66 @@ $flat_id = (int)$collection['user']['flat'];
 $user_name = $collection['user']['user_name'];
 }	
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action'=>'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
-
-if($date >= $m_from && $date <= $m_to)
+if($m_from<= $date && $m_to>= $date)
 {
-
 $excel.="<tr>
-<td style='text-align:center;'>$bill_id</td>
-<td style='text-align:center;'>$wing_flat</td>
-<td style='text-align:center;'>$user_name</td>";
+<td style='text-align:right;'>$bill_id</td>
+<td style='text-align:left;'>$wing_flat</td>
+<td style='text-align:left;'>$user_name</td>";
+$total_amt = 0;
+for($y=0; $y<sizeof($income_head_charge); $y++)
+{
+$income_head_arr_id = $income_head_charge[$y];	
+for($r=0; $r<sizeof($ih_detail2); $r++)
+{
+$ih_detail1 = $ih_detail2[$r];	
+$ih_id1 = $ih_detail1[0];
+$amount = $ih_detail1[1];
+if($income_head_arr_id == $ih_id1)
+{
+$total[$y] = $total[$y] + $amount;
+$excel.="<td style='text-align:right;'>";
+ 
+$amount2 = number_format($amount);
+$excel.="$amount2</td>";
+$total_amt=$total_amt+$amount;
+}
+}
+}
+$total_noc_amt = $total_noc_amt + $noc_amt;
+$total_amt=$total_amt+$noc_amt;
 
-for($k=0; $k<sizeof($ih_id); $k++)
-{
-$ih_id1 = (int)$ih_id[$k];
-$nnn = 5;
-$amount = 0;	
-for($l=0; $l<sizeof($ih_detail2); $l++)
-{
-$ih_detail = $ih_detail2[$l];
-$ih_id2 = (int)$ih_detail[0];
-
-if($ih_id1 == $ih_id2)
-{
-$amount = $ih_detail[1];
-$nnn = 55;
-break;
-}
-}
-$excel.="<td style='text-align:center;'>$amount</td>";
-
-$total = $total + $amount;
-$gt_amt[$k] = $gt_amt[$k] + $amount;
-}
-
-for($q=0; $q<sizeof($ih_detail2); $q++)
-{
-$aaa = 5;
-$amt = 0;	
-$ihd = $ih_detail2[$q];	
-$ih_id3 = (int)$ihd[0];	
-if($ih_id3 == 43)
-{
-$amt = $ihd[1];
-$aaa = 55;
-break;
-}
-}
-$excel.="<td style='text-align:center;'>$amt</td>";
-$total = $total + $amt;
-$noc_tt = $noc_tt + $amt;
-$excel.="<th style='text-align:center;'>$total</th>
+$excel.="<td style='text-align:right;'>";
+$noc_amt2 = number_format($noc_amt);
+$excel.="$noc_amt2</td>
+<td style='text-align:right;'>";
+$total_amt2 = number_format($total_amt);
+$excel.="$total_amt2</td>
 </tr>";
-$grand_tt = $grand_tt + $total;
-}}
-
-$excel.="<tr>
-<th colspan='3'>Grand Total</th>";
-
-for($o=0; $o<sizeof($gt_amt); $o++)
-{
-$gt_amt2 = $gt_amt[$o];
-
-$excel.="<th style='text-align:center;'>$gt_amt2</th>";
 }
-$excel.="
-<th style='text-align:center;'>$noc_tt</th>
-<th style='text-align:center;'>$grand_tt</th>
+}
+$excel.="<tr>
+<th colspan='3' style='text-align:right;'>Grand Total</th>";
+$grand_total = 0;
+for($h=0; $h<sizeof($total); $h++)
+{  
+$excel.="<th style='text-align:right;'>";
+@$totalh2 = number_format($total[$h]);
+$excel.="$totalh2</th>";
+$grand_total = $grand_total + $total[$h];
+}
+$grand_total = $grand_total + $total_noc_amt;
+$excel.="<th style='text-align:right;'>";
+$total_noc_amt2 = number_format($total_noc_amt);
+$excel.="$total_noc_amt2</th>
+<th style='text-align:right;'>";
+$grand_total2 = number_format($grand_total);
+$excel.="$grand_total2</th>
 </tr>
 </table>";
 
 echo $excel;
+
 }
 //////////////////////// End income Head report Excel///////////////////////////////
 
