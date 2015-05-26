@@ -54,11 +54,10 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			 xobj.send(null);
 		  }
 		   </script>
-<script>
-setTimeout( "$('#showing').hide();", 4000);
-</script>	
-<div id="st"> 
+	
+<div id="st" class="h_d"> 
  </div>
+ 
 <div class="portlet box " >
 							
 							<div class="portlet-body">
@@ -263,3 +262,11 @@ setTimeout( "$('#showing').hide();", 4000);
 		</div>
 		<!-- END PAGE -->	 	
 	</div>
+	
+	<script>
+	 $(document).ready(function () {
+	  $('.h_d').delay(10000).fadeOut();
+	 
+	
+	 });
+	</script>
