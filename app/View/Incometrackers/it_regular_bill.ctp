@@ -13,9 +13,27 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <input type="hidden" id="cn" value="<?php echo $count; ?>" />
 <input type="hidden" id="fb" value="<?php echo $datefb; ?>" />
 <input type="hidden" id="tb" value="<?php echo $datetb; ?>" />
-
-<?php ///////////////////////////////////////////////////////////////////////////////////////// ?>	
+<?php ///////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php 
+foreach($socct1 as $data)
+{
+$society_registration_number = @$data['society']['society_reg_num'];
+$society_address = @$data['society']['society_address'];
+}
+if(empty($society_registration_number) && empty($society_address))
+{
+$society_detail = "NOT";
+}
+else
+{
+$society_detail = "YES";	
+}
+?>	
 <?php ////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php
+if($society_detail == 'YES')
+{
+?>
 <div style="background-color:#fff;padding:5px;width:100%;margin:auto; overflow:auto;" class="form_div">
 <h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Generate Regular Bill(Income Tracker)</h4>
 
@@ -140,10 +158,7 @@ No
 
 <?php //////////////////////////////////////////////////////////////////////////////////////////////// ?>		
 <?php
-
 /*
-
-
 <div style="width:70%; margin-left:15%;">
 <div class="row-fluid">
 <div class="span12">
@@ -153,30 +168,10 @@ No
 <form class="form-horizontal" method="post" id="contact-form" novalidate>		
 <div class="control-group">
 <div class="controls">
+</div>
+</div>	
 
 
-        </div>
-        </div>	
-
-
-
-
-
-
-
-
-
-		
-		
-	
-		
-
-
-
-
-
-
-	
 		<?php
 		foreach ($cursor1 as $collection) 
 		{
@@ -214,24 +209,7 @@ No
 		<label id="tax"></label>
 		</div>
 		</div> -->
-        
 
-        
-        
-    
-
-       
-        
-        
-        
-        
-        
-        
-		
-		
-		
-		
-	
 		<?php
 		$q=0;
 		foreach ($cursor3 as $collection) 
@@ -258,10 +236,7 @@ No
         
         
 <?php //////////////////////////////////////////////////////////////////////////////////////////////?>		
-		
 
-	
-	
 <?php ///////////////////////////////////////////////////////////////////////////////////////////?>		
 		
 <script>
@@ -547,5 +522,19 @@ function flat()
 {
 $("#show_bill_for").hide();	
 }
-   
-</script>        
+</script>   
+
+<?php  } ?>
+<?php 
+if($society_detail == 'NOT')
+{
+?>	     
+<br /><br /><br />
+<div  class="alert alert-info">
+<center>
+<h4><b>
+Dear Sir, For Regular Bill genereation you have to full fill the Society Registartion Number and Society Address at Society Setup. Without this detail you can not generate Regular Bill, So Please fill these details.
+</b></h4>
+</center>
+</div>
+<?php } ?>
