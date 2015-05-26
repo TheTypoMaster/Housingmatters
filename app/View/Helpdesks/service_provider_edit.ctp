@@ -1,3 +1,6 @@
+<div>
+<a href='<?php echo $this->webroot;?>/Helpdesks/service_provider_view' role='button' rel='tab' class='btn blue'>Back</a>
+</div>
 <?php 
 foreach ($result_sp as $collection) 
                 {
@@ -13,25 +16,23 @@ foreach ($result_sp as $collection)
 ?>
 
 
+
 <div class="container-fluid">
+
 				<!-- BEGIN PAGE HEADER-->
-				<div class="row-fluid">
-					<div class="span12">
-						<!-- BEGIN PAGE TITLE & BREADCRUMB-->		
-						
-						<!-- END PAGE TITLE & BREADCRUMB-->
-					</div>
-				</div>
+				
+			
 				<!-- END PAGE HEADER-->
 				<!-- BEGIN PAGE CONTENT-->
 				<div class="row-fluid">
 					<div style="width:70%; margin-left:15%;">
                         <div class="row-fluid"  >
+
               			 <div class="span12">
                   <!-- BEGIN VALIDATION STATES-->
                  		 <div class="portlet box green">
                      <div class="portlet-title">
-                        <h4><i class="icon-reorder"></i> Vendor Registration Form</h4>
+                        <h4><i class="icon-reorder"></i> Service provider Edit</h4>
                         
                      </div>
                      <div class="portlet-body form">

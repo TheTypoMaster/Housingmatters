@@ -78,14 +78,16 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
                            <div class="control-group ">
                               <div class="controls">
                                <label class="" style="font-size:14px;" > Name of Service Provider</label>
-                                 <input type="text" class="span8 m-wrap"  name="name">
+                                 <input type="text" class="span8 m-wrap" id='Name' name="name">
+								 <label id="Name" ></label>
                               </div>
                            </div>
                            
                             <div class="control-group ">
                               <div class="controls">
                                <label class="" style="font-size:14px;" >Name of Contact Person </label>
-                                <input type="text" class="span8 m-wrap"  name="person">
+                                <input type="text" class="span8 m-wrap" id='n_cont'  name="person">
+								 <label id="n_cont" ></label>
                               </div>
                            </div>
                           
@@ -93,7 +95,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
                             <div class="control-group ">
                               <div class="controls">
                                <label class="" style="font-size:14px;" >Mobile</label>
-                                 <input type="text" class="span8 m-wrap" name="mobile">
+                                 <input type="text" class="span8 m-wrap" id='mobile' name="mobile">
+								  <label id="mobile" ></label>
                               </div>
                            </div>
                            
@@ -102,7 +105,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
                             <div class="control-group ">
                               <div class="controls">
                                <label class="" style="font-size:14px;" >Email</label>
-                                 <input type="text" class="span8 m-wrap" name="email">
+                                 <input type="text" class="span8 m-wrap" id="email" name="email">
+								 <label id="email" ></label>
                               </div>
                            </div>
                            
@@ -149,19 +153,22 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
                               <div class="controls">
                                <label class="" style="font-size:14px;" >Contract start Period</label>
                                  <input type="text" class="span8 m-wrap date-picker act" data-date-format="dd-mm-yyyy" id="zzz" name="cont_start">
+								  <label id="zzz" ></label>
                               </div>
                            </div>
                            
                             <div class="control-group ">
                               <div class="controls">
                                <label class="" style="font-size:14px;" >Contract end Period</label>
-                                 <input type="text" class="span8 m-wrap date-picker act" data-date-format="dd-mm-yyyy" id="xxx" name="cont_end">
+                                 <input type="text" class="span8 m-wrap date-picker act" data-date-format="dd-mm-yyyy" id="xxx" name="cont_end"> <label id="xxx" ></label>
                               </div>
                            </div>
                           
                           </div>
                          
-                       <div class="control-group ">
+                       <div >
+					    
+						<div class="control-group ">
                               <div class="controls">
                                <label class="" style="font-size:14px;" >Category </label>
                                <table>
@@ -175,17 +182,17 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 				$servies=$collection['help_desk_category']['help_desk_category_name'];
            		if($i%3==0)
 				{ ?>          
-                      <tr> <td>  <input type="checkbox" name="<?php echo $id; ?>" value="<?php echo $id; ?>" ><?php echo $servies; ?> </td><?php } ?>
+                      <tr> <td>  <input type="checkbox" class="requirecheck1" id="requirecheck1" name="<?php echo $id; ?>" value="<?php echo $id; ?>" ><?php echo $servies; ?> </td><?php } ?>
                 <?php  if($i%3==1)
-				 { ?> <td><input type="checkbox" name="<?php echo $id; ?>" value="<?php echo $id; ?>" ><?php echo $servies; ?> </td><?php } ?>    
+				 { ?> <td><input type="checkbox" class="requirecheck1" id="requirecheck1" name="<?php echo $id; ?>" value="<?php echo $id; ?>" ><?php echo $servies; ?> </td><?php } ?>    
                  <?php if($i%3==2)
-				 { ?>  <td><input type="checkbox" name="<?php echo $id; ?>" value="<?php echo $id; ?>" ><?php echo $servies; ?> </td> </tr><?php } } ?>     
+				 { ?>  <td><input type="checkbox" class="requirecheck1" id="requirecheck1" name="<?php echo $id; ?>" value="<?php echo $id; ?>" ><?php echo $servies; ?> </td> </tr><?php } } ?>     
                              
-                             </table> </div>
+                             </table> <label id="requirecheck1" ></label> </div>
                            </div>
-                           
+						   
                            <div class="form-actions">
-                              <input type="submit" class="btn green" value="Submit" name="sub">
+                              <input type="submit" class="btn green" value="Submit" name="sub" >
                            </div>
                            </fieldset>
                         </form>
@@ -204,13 +211,31 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 				
 				
 				
-	    <script>
+ <script>
+$.validator.addMethod('requirecheck1', function (value, element) {
+	 return $('.requirecheck1:checked').size() > 0;
+}, 'Please check at least one category.');
 $(document).ready(function(){
+var checkboxes = $('.requirecheck1');
+			var checkbox_names = $.map(checkboxes, function(e, i) {
+				return $(e).attr("name")
+			}).join(" ");
+
 		$('#contact-form').validate({
-	    rules: {
+		 errorElement: "label",
+                    //place all errors in a <div id="errors"> element
+                    errorPlacement: function(error, element) {
+                        //error.appendTo("label#errors");
+						error.appendTo('label#' + element.attr('id'));
+                    }, 
+	     groups: {
+            asdfg: checkbox_names
+			
+        },
+	
+		rules: {
 	      name: {
-	       
-	        required: true
+	       required: true
 	      },
 		  mobile: {
 	       
@@ -243,6 +268,7 @@ $(document).ready(function(){
 				maxlength: "Please enter 10 digits only"
 			}
 		},
+		
 			highlight: function(element) {
 				$(element).closest('.control-group').removeClass('success').addClass('error');
 			},
@@ -251,6 +277,7 @@ $(document).ready(function(){
 				.text('OK!').addClass('valid')
 				.closest('.control-group').removeClass('error').addClass('success');
 			}
+			
 	  });
 
 }); 

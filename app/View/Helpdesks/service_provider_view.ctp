@@ -142,7 +142,8 @@ setTimeout( "$('#showing').hide();", 4000);
                             <td><?php echo $Contract_end; ?></td>
                             <td>
                             <?php
-                            
+                            if(!empty($attachment))
+							{
                             if($ext=="jpg" ||$ext=="png"||$ext=="gif" ||$ext=="JPG" ||$ext=="PNG"||$ext=="GIF")
                             { ?>
                             
@@ -157,6 +158,12 @@ setTimeout( "$('#showing').hide();", 4000);
                             <a href="<?php echo $this->webroot; ?>service_provider_file/<?php echo $attachment; ?>" class="btn mini green tooltips"  data-placement="bottom" data-original-title="<?php echo $attachment; ?>"><i class=" icon-download-alt"></i></a>
                            <?php
                             }
+							}
+							else{ ?>
+							
+							<a href="#" class="btn mini green tooltips" role='button' data-placement="bottom" data-original-title="<?php echo 'empty';?>"><i class=" icon-download-alt"></i></a>
+							
+							<?php }
                             ?>
                             
                         <!-- View detail popup start -->
@@ -172,7 +179,14 @@ setTimeout( "$('#showing').hide();", 4000);
                         <img src="<?php echo $this->webroot; ?>service_provider_file/<?php echo $attachment; ?>" width="400px;" height="300px;">
                         
                         </div>
-                        <div class="modal-footer"><button data-dismiss="modal"  class="btn purple" type="button">close</button></div> 
+						
+                        <div class="modal-footer"><button data-dismiss="modal"  class="btn purple" type="button">close</button>
+						
+						<div style='float:left;'>
+						 <a href="<?php echo $this->webroot; ?>service_provider_file/<?php echo $attachment; ?>" class="btn mini green tooltips"  data-placement="bottom" data-original-title="<?php echo $attachment; ?>" download='<?php echo $attachment; ?>'><i class=" icon-download-alt"></i> Download</a>
+						
+						 </div>
+						</div> 
                         </div>
 						<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 						 <!-- View detail popup end -->	
