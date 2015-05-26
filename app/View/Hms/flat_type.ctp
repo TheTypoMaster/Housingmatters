@@ -16,15 +16,15 @@ Society Setup
 </ul>
 <div class="tab-content" style="min-height:300px;">
 <div class="tab-pane active" id="succ">
+<a href="#"role="button" class="btn blue" id="import_btn">Import csv</a>
 <div id="error_msg"></div>   
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<a href="<?php echo $webroot_path; ?>Hms/flat_type" class="btn purple">Flat Type</a>
-<a href="<?php echo $webroot_path; ?>Hms/flat_nu_import" class="btn yellow">Flat Import</a> 
+
 <?php ////////////////////////////////////////////////////////////////////////////////////////////// ?>   
 <div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">    
 <div class="row-fluid">
 <div class="span5">    
-<form  method="post">
+<form  method="post" id="form2">
 <br />
 <div id="error_msg"></div>
 <br />   
@@ -155,7 +155,7 @@ $('.content_'+id).remove();
  
 <script>
 $(document).ready(function() { 
-	$('form').submit( function(ev){
+	$('form#form2').submit( function(ev){
 	ev.preventDefault();
 	$("#submit").addClass("disabled").text("submiting...");
 		var count = $("#url_main div").length;
@@ -214,4 +214,65 @@ $(document).ready(function() {
 </div>
 </div> 	
 
-        
+
+
+<div id="myModal3" class="modal hide fade in" style="display: none;">
+<div class="modal-backdrop fade in"></div>
+	<form id="form1" method="post">
+	<div class="modal content_model">
+		<div class="modal-header">
+			<h4 id="myModalLabel1">Import csv</h4>
+		</div>
+		<div class="modal-body">
+			<input type="file" name="file" class="default">
+			
+			<strong><a href="<?php echo $this->webroot; ?>csv_file/demo/unit_import.csv" download>Click here for sample format</a></strong>
+			<br/>
+			<h4>Instruction set to import users</h4>
+			<ol>
+			<li>All the field are compulsory.</li>
+			<li>Wing and Flat name be valid as per society setting.</li>
+			<li>Email ID should be correct as all the further communication will be send to this email id. No duplicate Email is allowed.</li>
+			<li>Mobile number should be 10 digits. No Duplicate Mobile No is allowed.</li>
+			<li>Owner,Committee,Residing should be only "Yes" or "No".</li>
+			</ol>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn" id="import_close">Cancel</button>
+			<button type="submit" class="btn blue import_btn">Import</button>
+		</div>
+	</div>
+	</form>
+</div>
+
+
+
+
+<script>
+$(document).ready(function(){
+	$("#import_btn").bind('click',function(){
+		$("#myModal3").show();
+	});
+	
+	$("#import_close").live('click',function(){
+		$("#myModal3").hide();
+	});
+	
+	
+	$('form#form1').submit( function(ev){
+		ev.preventDefault();
+		$(".import_btn").text("Importing...");
+		var m_data = new FormData();
+		m_data.append( 'file', $('input[name=file]')[0].files[0]);
+		$.ajax({
+			url: "import_flat_ajax",
+			data: m_data,
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			}).done(function(response) {
+				$(".content_model").html(response);
+			});
+	});
+});
+</script>

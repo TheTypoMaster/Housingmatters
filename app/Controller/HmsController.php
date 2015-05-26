@@ -18463,6 +18463,62 @@ $cursor2 = $this->wing->find('all',array('conditions'=>$conditions));
 $this->set('cursor2',$cursor2);
 
 }
+
+function import_flat_ajax(){
+	$this->layout="blank";
+	$this->ath();
+	 
+	$s_society_id=$this->Session->read('society_id');
+	$this->loadmodel('wing');
+	$conditions=array("society_id" => $s_society_id);
+	$result_wing = $this->wing->find('all',array('conditions'=>$conditions));
+	$this->set('result_wing',$result_wing);
+
+	if(isset($_FILES['file'])){
+		$file_name=$_FILES['file']['name'];
+		$file_tmp_name =$_FILES['file']['tmp_name'];
+		$target = "csv_file/unit/";
+		$target=@$target.basename($file_name);
+		move_uploaded_file($file_tmp_name,@$target);
+		
+		$f = fopen('csv_file/unit/'.$file_name, 'r') or die("ERROR OPENING DATA");
+		$batchcount=0;
+		$records=0;
+		while (($line = fgetcsv($f, 4096, ';')) !== false) {
+		// skip first record and empty ones
+		$numcols = count($line);
+		$test[]=$line;
+		++$records;
+		}
+
+		fclose($f);
+		$records;
+	}
+	
+	$i=0;
+	foreach($test as $child){
+		if($i>0){
+			$child_ex=explode(',',$child[0]);
+			$wing_name=$child_ex[0];
+			$flat_name=$child_ex[1];
+			
+			
+			$this->loadmodel('wing'); 
+			$conditions=array("society_id"=>$s_society_id,"wing_name"=> new MongoRegex('/^' .  $wing_name . '$/i'));
+			$result_wing=$this->wing->find('all',array('conditions'=>$conditions));
+			$result_wing_count=sizeof($result_wing);
+			
+			$wing_id=0;
+			if($result_wing_count>0){
+				$wing_id=$result_wing[0]['wing']['wing_id'];
+			}
+			
+			$table[]=array($wing_id,$flat_name);
+		}
+		$i++;
+	}
+	$this->set('table',$table);
+}
 ///////// Flat Import ///////////////////////////
 /*
 if($this->request->is('post')) 
