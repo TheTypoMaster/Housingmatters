@@ -1,7 +1,4 @@
-
-
 <?php
-echo $webroot ;
 foreach($result_help_desk_draft as $data)
 {
 
@@ -59,7 +56,7 @@ pr($result_help_desk_draft);
 							<div class="fileupload-new thumbnail" style="width: 150px; height: 75px;">
 							<?php if(!empty($help_desk_file1))
 							{ ?>
-							<img src="<?php echo $this->webroot ; ?>/help_desk_file/<?php echo $help_desk_file1 ; ?>" alt="" >
+							<img src="<?php echo $webroot_path ; ?>/help_desk_file/<?php echo $help_desk_file1 ; ?>" alt="" >
 							<?php } else { ?>
 							
 							<img src="http://www.placehold.it/150x75/EFEFEF/AAAAAA&amp;text=no+image" alt="" >
@@ -111,7 +108,7 @@ pr($result_help_desk_draft);
 				</div>
 				
 				
-<script src="<?php echo $this->webroot ; ?>/as/bootstrap-maxlength.min.js"></script>
+<script src="<?php echo $webroot_path ; ?>/as/bootstrap-maxlength.min.js"></script>
 	
     <script>
         $(document).ready(function () {
