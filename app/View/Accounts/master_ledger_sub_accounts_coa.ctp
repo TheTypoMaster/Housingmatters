@@ -62,59 +62,8 @@ $name = $collection['ledger_account']['ledger_name'];
                </center>
 			   
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+           
 
-<?php /*
-<form method="post">
-<?php
-foreach ($cursor2 as $collection) 
-{
-$auto_id2 = (int)$collection['ledger_sub_account']['auto_id'];
-$name2 = $collection['ledger_sub_account']['name'];
-$ledger_id2 = (int)$collection['ledger_sub_account']['ledger_id'];
-
-
-?>
-<div id="myModal<?php echo $auto_id2; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="false" style="display: block;">
-<div class="modal-header">
-<center>
-<h3 id="myModalLabel3" style="color:#999;"><b>Ledger Sub Accounts</b></h3>
-</center>
-</div>
-<div class="modal-body">
-<center>
-<table border="0">
-<tr>
-<td>
-<select name="gr" class="m-wrap medium">
-<?php
-foreach($cursor1 as $collection3)
-{
-$led_id = (int)$collection3['ledger_account']['auto_id'];
-$ledger_name = $collection3['ledger_account']['ledger_name'];	
-?>
-<option value="<?php echo $led_id; ?>" <?php if($led_id == $ledger_id2) { ?> selected="selected" <?php } ?>><?php echo $ledger_name; ?></option>
-<?php } ?>
-</select>
-</td>
-</tr>
-<tr>
-<td>
-<input type="text" value="<?php echo $name2; ?>" name="name"  class="m-wrap medium"/>
-</td>
-</tr>
-</table>
-</center>
-</div>
-<div class="modal-footer">
-<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-<button type="submit" class="btn blue" name="sub<?php echo $auto_id2; ?>">Update</button>
-</div>
-</div>                        
-<?php } ?>                    
-</form>  
-*/ ?>
-               
-<?php ///////////////////////////////////////////////////////////////////////////// ?>
 <script>
 $(document).ready(function() {
 	$("#go").live('change',function(){

@@ -53,34 +53,34 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 					
 					
 					
-					$result_ag = $this->requestAction(array('controller' => 'hms', 'action' => 'accounts_group'),array('pass'=>array($group_id)));
-					foreach ($result_ag as $collection) 
-					{
-					$accounts_id = (int)$collection['accounts_group']['accounts_id'];	
-					$group_name = $collection['accounts_group']['group_name'];	
-					}
+$result_ag = $this->requestAction(array('controller' => 'hms', 'action' => 'accounts_group'),array('pass'=>array($group_id)));
+foreach ($result_ag as $collection) 
+{
+$accounts_id = (int)$collection['accounts_group']['accounts_id'];	
+$group_name = $collection['accounts_group']['group_name'];	
+}
 
-					$result_ac = $this->requestAction(array('controller' => 'hms', 'action' => 'accounts_category'),array('pass'=>array($accounts_id)));		   
-					foreach ($result_ac as $collection) 
-					{
-					$main_name = $collection['accounts_category']['category_name'];	
-					} 
-					?>        
+$result_ac = $this->requestAction(array('controller' => 'hms', 'action' => 'accounts_category'),array('pass'=>array($accounts_id)));		   
+foreach ($result_ac as $collection) 
+{
+$main_name = $collection['accounts_category']['category_name'];	
+} 
+?>        
 					
-					<tr>
-					<td><?php echo $n; ?></td>
-					<td><?php echo $main_name; ?></td>
-					<td><?php echo $group_name; ?></td>
-					<td><?php echo $ledger_name; ?></td>
-					<td><?php echo $name;     ?> </td>
-                    <td style="text-align:center;">
-               <a href="#myModal<?php echo $auto_id; ?>" role="button" class="btn mini purple" data-toggle="modal">Edit</a>
-                    </td>
-                    </tr>           
-					<?php $n++; } ?> 
-                    </tbody>  
-					</table>
-					</div> 
-                    </div>
-                    </div>        
-					</center>
+<tr>
+<td><?php echo $n; ?></td>
+<td><?php echo $main_name; ?></td>
+<td><?php echo $group_name; ?></td>
+<td><?php echo $ledger_name; ?></td>
+<td><?php echo $name;     ?> </td>
+<td style="text-align:center;">
+<a href="#myModal<?php echo $auto_id; ?>" role="button" class="btn mini purple" data-toggle="modal">Edit</a>
+</td>
+</tr>           
+<?php $n++; } ?> 
+</tbody>  
+</table>
+</div> 
+</div>
+</div>        
+</center>
