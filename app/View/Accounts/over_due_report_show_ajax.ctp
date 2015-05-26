@@ -35,19 +35,11 @@ else if($wise == 2)
 </div>
 <br />	<br />
 
-
-
-
-
-
-
-
-
 <table class="table table-bordered" style="width:100%; background-color:white;">
 <tr>
 <th colspan="8" style="text-align:center;">
 <p style="font-size:16px;">
-Over Due Report  (<?php echo $soc_name; ?>)</p>
+Over Due Report  (<?php echo $soc_name; ?> Society)</p>
 </th>
 </tr>
 <tr>

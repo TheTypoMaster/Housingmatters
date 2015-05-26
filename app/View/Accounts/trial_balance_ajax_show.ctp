@@ -5,36 +5,34 @@ $from = new MongoDate(strtotime($from));
 
 $to = date("Y-m-d", strtotime($to_d));
 $to = new MongoDate(strtotime($to));
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ?>
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <div class="hide_at_print">
 <span style="float:right;"><a href="trial_balance_excel?f=<?php echo $from_d; ?>&t=<?php echo $to_d; ?>&tp=<?php echo $wise; ?>" 
 class="btn blue">Export in Excel</a>
 <button type="button" class=" printt btn green" onclick="window.print()"><i class="icon-print"></i> Print</button> 
 </span> 
 </div> 
- 
-<?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////?>
+<br /><br />
+<?php ///////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
 if($wise == 1)
 {
 ?>
 <center>
-		<br />	<br /><br />
-<h4><b>Sundry Creditors Control A/c</b></h4>		
-		<table class="table table-bordered" style="width:100%; background-color:white;">
-        <?php
-		foreach ($cursor1 as $collection) 
-		{
-		$society_name = $collection['society']['society_name'];
-		}
-		?>
-		<tr>
-		<th colspan="5" style="text-align:center;">
-		<p style="font-size:15px;"><?php echo $society_name; ?>
-		</p>
-		</th>
-		</tr>
+<table class="table table-bordered" style="width:100%; background-color:white;">
+<?php
+foreach ($cursor1 as $collection) 
+{
+$society_name = $collection['society']['society_name'];
+}
+?>
+<tr>
+<th colspan="5" style="text-align:center;">
+<p style="font-size:15px;"><?php echo $society_name; ?> Society
+</p>
+</th>
+</tr>
 
 		<tr>
 		<th colspan="5" style="text-align:center;">
@@ -284,8 +282,8 @@ if($wise == 4)
 {
 ?>
 <center>
-		<br />	<br /><br />	
-		<h4><b>Bank Accounts</b></h4>	
+			
+			
 		<table class="table table-bordered" style="width:100%; background-color:white;">
         <?php
 		foreach ($cursor1 as $collection) 
@@ -295,7 +293,7 @@ if($wise == 4)
 		?>
 		<tr>
 		<th colspan="5" style="text-align:center;">
-		<p style="font-size:15px;"><?php echo $society_name; ?>
+		<p style="font-size:15px;"><?php echo $society_name; ?> Society
 		</p>
 		</th>
 		</tr>
@@ -532,15 +530,12 @@ $total_closing_balance = $total_closing_balance + $amount1;
 }
 
 ?>
-<?php///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
 if($wise == 2)
 {
 ?>
 <center>
-<br />	<br /><br />	
-<h4><b>Sundry Debtors Control A/c</b></h4>	
 <table class="table table-bordered" style="width:100%; background-color:white;">
 <?php
 foreach ($cursor1 as $collection) 
@@ -548,10 +543,9 @@ foreach ($cursor1 as $collection)
 $society_name = $collection['society']['society_name'];
 }
 ?>
-
 <tr>
 <th colspan="5" style="text-align:center;">
-<p style="font-size:15px;"><?php echo $society_name; ?>
+<p style="font-size:15px;"><?php echo $society_name; ?> Society
 </p>
 </th>
 </tr>
@@ -806,7 +800,6 @@ $total_closing_balance = $total_closing_balance + $amount1;
 		{
 		?>
 		<center>
-		<br />	<br /><br />	
 		<table class="table table-bordered" style="width:100%; background-color:white;">
         <?php
 		foreach ($cursor1 as $collection) 
@@ -816,7 +809,7 @@ $total_closing_balance = $total_closing_balance + $amount1;
 		?>
 		<tr>
 		<th colspan="5" style="text-align:center;">
-		<p style="font-size:15px;"><?php echo $society_name; ?>
+		<p style="font-size:15px;"><?php echo $society_name; ?> Society
 		</p>
 		</th>
 		</tr>
