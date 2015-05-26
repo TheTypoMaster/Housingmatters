@@ -15,13 +15,15 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </center>
 <br />
 <center>
+
+
 <div class="portlet box grey" style="width:90%; margin-left:1%; margin-right:1%;">
 <div class="portlet-title">
 <h4><i class="icon-reorder"></i>Open New Financial Year</h4>
 </div>
 <div class="portlet-body form" style="background-color:white;"> 
 <br><br>
-<form method="post" id="contact-form" onsubmit="return valid()">			  
+<form method="post" id="contact-form">			  
 <table border="0">
 <tr>
 <td  colspan="4" style="text-align:center;">
@@ -39,10 +41,10 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 </tr>
 <tr>
-<td style="padding:0px; margin:0px;"></td>
-<td style="padding:0px; margin:0px;"><label id="from"></label></td>
-<td style="padding:0px; margin:0px;"></td>
-<td style="padding:0px; margin:0px;"><label id="to"></label></td>
+<td></td>
+<td><label id="from"></label></td>
+<td></td>
+<td><label id="to"></label></td>
 </tr>
 <tr>
 <td colspan="4" id="result5" style="padding:0px; margin:0px; text-align:center;"></td>
@@ -56,48 +58,19 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 
 
-		<div class="form-actions" style="background-color:#D7DACD;">
-        <button type="submit" class="btn blue" name="sub1" value="xyz" id="go">Submit</button>
-		<!--<button type="submit" class="btn green" name="sub1" value="xyz" id="go">Submit</button> -->
-		<button type="reset" class="btn">Cancel</button>
-		</div>
-        
-        
-
+<div class="form-actions" style="background-color:#D7DACD;">
+<button type="submit" class="btn blue" name="sub1" id="go">Submit</button>
+<!--<button type="submit" class="btn green" name="sub1" value="xyz" id="go">Submit</button> -->
+<button type="reset" class="btn">Cancel</button>
+</div>
     
         
-        
-        
-  </form>      
-        
-        
-
+</form>      
 </div>
 </div>
 			  
 			  
 </center>
-
-<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-
-<!--
-<div id="myModal3" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="false" style="display: block;">
-<div class="modal-header">
-<center>
-<h3 id="myModalLabel3" style="color:#999;"><b>Financial Year</b></h3>
-</center>
-</div>
-<div class="modal-body">
-<center>
-<h3><b>Are You Sure</b></h3>
-</center>
-</div>
-<div class="modal-footer">
-<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-
-</div>
-</div>-->
-
 
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <script>
@@ -180,9 +153,9 @@ thanks</textarea>
          var fd1 = document.getElementById("fd1").value;
 		 var td1 = document.getElementById("td1").value;
          
-		 if(fromd1=== '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Fill from date</div>'); return false; }
+		 //if(fromd1=== '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Fill from date</div>'); return false; }
 		 
-		 if(tod1=== '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Fill to date</div>'); return false; }
+		 //if(tod1=== '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Fill to date</div>'); return false; }
 		 
 		 
 		 

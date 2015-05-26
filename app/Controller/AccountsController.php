@@ -381,8 +381,8 @@ $s_user_id=$this->Session->read('user_id');
 
 if(isset($this->request->data['sub1']))
 {
- $from = $this->request->data['from'];	
- $to = $this->request->data['to'];	
+$from = $this->request->data['from'];	
+$to = $this->request->data['to'];	
 
 $m_from = date("Y-m-d", strtotime($from));
 $m_from = new MongoDate(strtotime($m_from));
