@@ -28,54 +28,33 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </tr>
 </table> 
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">
+<h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i>Add New Terms and Condition</h4>
 
-			<div style="width:70%; margin-left:15%;">
-			<div class="row-fluid"  >
-			<div class="span12">
-			<div class="portlet box green" style="border:solid 1px #ffb848;">
-			<div class="portlet-body form">
-			<h3 class="block"></h3>
+<div class="row-fluid">
+<div class="span5">
+<form  method="post" id="contact-form">
+<label style="font-size:14px;" >Terms & Conditions<span style="color:red;">*</span></label>
+<div class="controls">
+<textarea class="span9 m-wrap" name="terms" style="resize:none;" rows="4" id="tem" placeholder="Please Type Terms & Condition"></textarea>
+<label id="tem"></label>
+</div>
+<br />
+<input type="submit" class="btn green" value="Submit" name="sub">
+</form>
+</div>
+<div class="span7">
 
-           <form  class="form-horizontal" method="post" id="contact-form">
 
-			<div class="control-group ">
-			<div class="controls">
-			<label class="" style="font-size:14px;" >Terms & Conditions</label>
-			<textarea class="span10 m-wrap" name="terms" style="resize:none; height:150px;" rows="3" id="tem" placeholder="Please Type Terms & Condition"></textarea>
-			 
-            <label id="tem"></label>
-            </div>
-			</div>
-			<div class="form-actions">
-			<input type="submit" class="btn green" value="Submit" name="sub">
-			</div>
-            </form>
 
-			</div>
-			</div>
-			</div>
-			</div>
-			</div>
-
-<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-
-<div class="portlet box yellow " style="width:70%; margin-left:15%; border:solid 1px #ffb848;">
-<div class="portlet-body">
-								
-                                
 
 <table class="table table-bordered table-hover">
-<thead>
 <tr>
-<th style="width:5%;">#</th>
-<th style="width:95%;">Terms & Conditions</th>
+<th>#</th>
+<th>Terms & Conditions</th>
 <th>Edit</th>
 <th>Delete</th>
 </tr>
-</thead>
-<tbody>
-								
-								
 <?php
 foreach ($cursor2 as $collection) 
 {
@@ -87,100 +66,86 @@ for($i=0; $i<sizeof($terms_con); $i++)
 $w++;
 $terms_name = $terms_con[$i];
 ?>
-					
-<tr>
-<td style="text-align:left;"><?php echo $w; ?></td>
-<td style="text-align:left;"><?php echo $terms_name; ?></td>
-<td style="text-align:center;">
-<a href="#myModal2<?php echo $i; ?>" role="button" class="btn mini purple" data-toggle="modal">Edit</a>
+<tr id="tem<?php echo $w; ?>">
+<td style="text-align:right;"><?php echo $w; ?></td>
+<td style="text-align:left;" id="tt<?php echo $w; ?>"><?php echo $terms_name; ?></td>
+<td style="text-align:right;">
+<a href="#" role='button' edit_id="<?php echo $w; ?>" class="btn mini blue edit_tems"><i class="icon-pencil"></i> Edit</a>
 </td>
-<td style="text-align:center;">
-<a href="#myModal<?php echo $i; ?>" role="button" class="btn mini black" data-toggle="modal">Delete</a>
-</td>
+<td style="text-align:right;">
+<a href="#" role='button' edit_id="<?php echo $w; ?>"  class="btn mini red delete_tems"><i class="icon-trash"></i> Delete</a></td>
 </tr>
 <?php } ?>
-<?php ///////////////////////////////////////////////////////////////////////////////////// ?>
-<?php
-
-?>
-
-<?php
-for($j=0; $j<sizeof($terms_con); $j++)
-{
-$terms_edit_name = $terms_con[$j];	?>
-<form method="post">
-<div id="myModal<?php echo $j; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="false" style="display: block;">
-<div class="modal-header">
-<center>
-<h3 style="color:#999;"><b>Terms and Condition</b></h3>
-</center>
-</div>
-<div class="modal-body">
-<center>
-<input type="hidden" value="<?php echo $j; ?>" name="arr_id" />
-<h4><b>Are You Sure</b></h4>
-</center>
-</div>
-<div class="modal-footer">
-<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-<button type="submit" class="btn blue" name="del">Confirm</button>
-</div>
-</div>
-</form>
-<?php } ?>  
-
-
-
-
-<?php
-for($j=0; $j<sizeof($terms_con); $j++)
-{
-$terms_edit_name = $terms_con[$j];	?>
-<form method="post">
-<div id="myModal2<?php echo $j; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="false" style="display: block;">
-<div class="modal-header">
-<center>
-<h3 style="color:#999;"><b>Terms and Condition</b></h3>
-</center>
-</div>
-<div class="modal-body">
-<center>
-<input type="hidden" value="<?php echo $j; ?>" name="arr_id" />
-<input type="text" class="m-wrap medium" name="name" value="<?php echo $terms_edit_name; ?>" />
-</center>
-</div>
-<div class="modal-footer">
-<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-<button type="submit" class="btn blue" name="edit">Confirm</button>
-</div>
-</div>
-</form>
-<?php } ?>
-
-
-
-
-
-
-                              
-                                
-<?php ///////////////////////////////////////////////////////////////////////////////////////////// ?>
-
-
-
-
-
-
-</tbody>
 </table>
 
-								
-</div>
-</div>
 
+</div>
+</div>
+</div>
 
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<script>
+$(document).ready(function() {
+ $(".delete_tems").live('click',function(){
 
+		$(".edit_div").show();
+		var t_id=$(this).attr("edit_id");
+		
+		$("#tems_edit_content").html('<div align="center" style="padding:20px;"><img src="<?php echo $this->webroot ; ?>/as/indicator_blue_small.gif" /><br/><h5>Please Wait</h5></div>').load('<?php echo $this->webroot; ?>Incometrackers/delete_terms?t_id='+t_id+'&delete=0');
+	 });
+	 
+
+$("#close_edit").live('click',function(){
+$(".edit_div").hide();
+});	 
+	 
+$(".delete_tems_btn").live('click',function(){
+		var t_id=$(this).attr("tems_id");
+		$("#tems_edit_content").load('<?php echo $this->webroot; ?>Incometrackers/delete_terms?t_id='+t_id+'&delete=1', function() {
+			$("#tem"+t_id).remove();
+		});	 
+	 
+	 });	
+	 
+	 
+	 
+$(".edit_tems").live('click',function(){
+    
+	 $(".edit_div").show();
+     var t_id=$(this).attr("edit_id");
+
+  $("#tems_edit_content").html('<div align="center" style="padding:20px;"><img src="<?php echo $this->webroot ; ?>/as/indicator_blue_small.gif" /><br/><h5>Please Wait</h5></div>').load('<?php echo $this->webroot; ?>Incometrackers/edit_terms?t_id='+t_id+'&edit=0');
+});	 
+	 
+
+
+
+ $(".save_edited_terms").live('click',function(){
+	
+		var t_id=$(this).attr("tems_id");
+		 
+		var tems_name=$("#description").val();
+		var temnam=encodeURIComponent(tems_name);
+		
+		//var des=encodeURIComponent(des1);
+		//var close_date1=$("#close_date").val();
+		//var close_date=encodeURIComponent(close_date1);
+		
+		$("#tt"+t_id).html(tems_name);
+		//$("#close_date"+p_id).html(close_date1);
+			
+		$("#tems_edit_content").load('<?php echo $this->webroot; ?>Incometrackers/edit_terms?t_id='+t_id+'&tem='+temnam+'&edit=1', function() {
+			
+		});
+			
+		
+		
+	 });
+	 
+	 
+});
+</script>
+<?php //////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <script>
 $(document).ready(function(){
 $.validator.setDefaults({ ignore: ":hidden:not(select)" });
@@ -205,4 +170,18 @@ element
 });
 }); 
 </script>	
+
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+
+<div class="edit_div"  style="display:none;">
+<div class="modal-backdrop fade in"></div>
+<div class="modal"  id="tems_edit_content">
+	
+</div>
+</div>
+
+
+
+
+
 

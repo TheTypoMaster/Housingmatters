@@ -5263,9 +5263,86 @@ $excel.="</table>";
 
 echo $excel;
 }
-/////////////////////// End Account Statement Excel////////////////////////////////
+/////////////////////// End Account Statement Excel/////////////////////////////////////////////////////////////
+
+///////////////////////// Start Delete Terms ///////////////////////////////////////////////////////////////////
+function delete_terms()
+{
+$this->layout='blank';
+$s_society_id = (int)$this->Session->read('society_id');
+
+$delete = (int)$this->request->query('delete');
+$t_id = (int)$this->request->query('t_id');
+$this->set('delete',$delete);
+if($delete == 0)
+{
+$this->set('t_id',$t_id);
+}
+if($delete == 1)
+{
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor = $this->society->find('all',array('conditions'=>$conditions));
+foreach ($cursor as $collection) 
+{
+$terms_arr = @$collection['society']['terms_conditions'];
+}
+$k=0;
+$terms_arr2 = array();
+for($h=0; $h<sizeof($terms_arr); $h++)
+{
+$k++;
+$terms_name = $terms_arr[$h];
+if($k != $t_id)
+{
+$terms_arr2[] = $terms_name;
+} 
+}
+$this->loadmodel('society');
+$this->society->updateAll(array('terms_conditions'=>$terms_arr2),array("society_id" => $s_society_id));
+}
+}
+//////////////////////////// End Delete Terms ///////////////////////////////////////////////////////////////
+
+//////////////////////// Start Edit Terms ////////////////////////////////////////////////////
+function edit_terms()
+{
+$this->layout='blank';
+$s_society_id = (int)$this->Session->read('society_id');
+$t_id = (int)$this->request->query('t_id');
+$edit = (int)$this->request->query('edit');
+$this->set('edit',$edit);
+
+if($edit == 0)
+{
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor1 = $this->society->find('all',array('conditions'=>$conditions));
+$this->set('cursor1',$cursor1);
+$this->set('t_id',$t_id);
+}
+if($edit == 1)
+{
+$tems_name = $this->request->query('tem');
+
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor = $this->society->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$terms_arr = $collection['society']['terms_conditions'];
+}
+$hh = $t_id-1;
+$terms_arr[$hh] = $tems_name;
+
+$this->loadmodel('society');
+$this->society->updateAll(array('terms_conditions'=>$terms_arr),array("society_id" => $s_society_id));
+}
 
 
+
+}
+//////////////////////// End Edit Terms ////////////////////////////////////////////////////////////////
 
 }
 ?>

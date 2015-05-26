@@ -219,7 +219,7 @@ $(document).ready(function() {
 });
 </script>
 
-<div class="edit_div"  style="display: none;">
+<div class="edit_div" style="display: none;">
 <div class="modal-backdrop fade in"></div>
 <div class="modal"  id="poll_edit_content">
 	
