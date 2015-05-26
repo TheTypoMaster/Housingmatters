@@ -26,7 +26,7 @@ $ticket_priority=$data['help_desk']['ticket_priority'];
                         <h3 class="block"></h3>
                         <!-- BEGIN FORM-->
                         <form  id="contact-form" name="myform" enctype="multipart/form-data" class="form-horizontal" method="post" >
-                         <fieldset>
+                        
                           
                           
                           
@@ -104,7 +104,7 @@ $ticket_priority=$data['help_desk']['ticket_priority'];
                               <input type="submit" name="sub" class="btn blue" value="Publish It" >
                              
                            </div>
-                           </fieldset>
+                          
                         </form>
                         <!-- END FORM-->
                      </div>
