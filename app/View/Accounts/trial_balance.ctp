@@ -13,8 +13,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <div class="hide_at_print">
 <div id="validate_result"></div>
 <center>
-<select class="medium m-wrap" tabindex="1" id="wise">
-<option value="">--SELECT--</option>
+<select class="large m-wrap chosen" tabindex="1" id="wise">
+<option value="">Select Option</option>
 <option value="1">Sundry Creditors Control A/c</option>
 <option value="2">Sundry Debtors Control A/c</option>
 <option value="4">Bank Accounts</option>
@@ -26,9 +26,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 $c_date = date('d-m-Y');
 $b_date = date('1-m-Y');
 ?> 
-
-
-
 <center>
 <div>
 <form method="post">
