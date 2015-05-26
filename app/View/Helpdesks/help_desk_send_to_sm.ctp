@@ -10,7 +10,7 @@ $help_desk_description=$data['help_desk']['help_desk_description'];
 $help_desk_file1=$data['help_desk']['help_desk_file'];
 $ticket_priority=$data['help_desk']['ticket_priority'];
 }
-
+pr($result_help_desk_draft);
 ?>
 <div class="row-fluid">
 					<div style="width:70%; margin-left:15%;">
@@ -26,12 +26,7 @@ $ticket_priority=$data['help_desk']['ticket_priority'];
                         <h3 class="block"></h3>
                         <!-- BEGIN FORM-->
                         <form  id="contact-form" name="myform" enctype="multipart/form-data" class="form-horizontal" method="post" >
-                        
-                          
-                          
-                          
-                           
-                           <div class="control-group ">
+                        <div class="control-group ">
                               <div class="controls">
                                <label class="" style="font-size:14px;">Category <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Select the category for which you want to create ticket"> </i> </label>
                                  <select name="category" class="span6 m-wrap" >
@@ -48,10 +43,6 @@ $ticket_priority=$data['help_desk']['ticket_priority'];
                             </select> 
                               </div>
                            </div>
-                           
-                           
-                          
-                           
                            <div class="control-group ">
                               <div class="controls">
                                <label class="" style="font-size:14px;">Description</label>
