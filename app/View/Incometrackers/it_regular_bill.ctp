@@ -20,7 +20,7 @@ foreach($socct1 as $data)
 $society_registration_number = @$data['society']['society_reg_num'];
 $society_address = @$data['society']['society_address'];
 }
-if(empty($society_registration_number) && empty($society_address))
+if(empty($society_registration_number) || empty($society_address))
 {
 $society_detail = "NOT";
 }
