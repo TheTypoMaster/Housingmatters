@@ -21,7 +21,6 @@ $cnt=0;
 for($y=0; $y<sizeof($income_head_charge); $y++)
 {
 $total[]="";	
-
 $cnt++;	
 }
 $cnt = $cnt+4;
@@ -32,7 +31,7 @@ $cnt = $cnt+4;
 <a href="income_head_report_excel?f=<?php echo $from; ?>&t=<?php echo $to; ?>" class="btn blue">Export in Excel</a>
 <button type="button" class=" printt btn green" onclick="window.print()"><i class="icon-print"></i> Print</button></span>
 </div>
-
+<br />
 
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <table class="table table-bordered" style="background-color:white; width:100%;">

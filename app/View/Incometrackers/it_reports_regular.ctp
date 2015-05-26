@@ -11,7 +11,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </div>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
-
 <div style="text-align:center;" class="hide_at_print">
 <a href="<?php echo $webroot_path; ?>Incometrackers/in_head_report" class="btn" rel='tab'>Bill Report</a>
 <a href="<?php echo $webroot_path; ?>Incometrackers/it_reports_regular" class="btn yellow" rel='tab'>Regular Report</a>
@@ -19,7 +18,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <a href="<?php echo $webroot_path; ?>Incometrackers/income_heads_report" class="btn" rel='tab'>Income head report</a>
 <a href="<?php echo $webroot_path; ?>Incometrackers/account_statement" class="btn" rel='tab'>Account Statement</a>
 </div>
-
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
 $c_date = date('d-m-Y');
@@ -46,8 +44,8 @@ Member Wise
 <tr>
 <td colspan="2" style="text-align:center;">
 <div class="hide" id="one">
-<select id="wing" class="m-wrap medium chosen">
-<option value="">--SELECT WING--</option>
+<select id="wing" class="m-wrap large chosen">
+<option value="" style="display:none;">Select Wing</option>
 <?php
 foreach($cursor2 as $collection)
 {
@@ -59,8 +57,8 @@ $wing_name = $collection['wing']['wing_name'];
 </select>
 </div>
 <div class="hide" id="two">
-<select id="mem" class="m-wrap medium chosen">
-<option value="">--SELECT MEMBER--</option>
+<select id="mem" class="m-wrap large chosen">
+<option value="" style="display:none;">Select member</option>
 <?php 
 foreach($cursor3 as $collection)
 {
@@ -73,28 +71,22 @@ $user_name = $collection['user']['user_name'];
 </div>
 </td>
 </tr>
-
 <tr>
 <td><input type="text" id="date1" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="from" placeholder="From" style="background-color:white !important;" value="<?php echo $b_date; ?>"></td>
 <td><input type="text" id="date2" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="to" placeholder="To" style="background-color:white !important;" value="<?php echo $c_date; ?>"></td>
 <td valign="top"><button type="button" name="sub" class="btn yellow" id="go">Go</button></td>
 </tr>
 </table>
-</br>
 </form>
 </div>
 </center>
- 
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?> 
 <center>
-<div id="result" style="width:94%;">
+<div id="result" style="width:100%;">
 </div>
 </center>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?> 
 				
-				
-<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-
 <script>
 $(document).ready(function() {
 $("#go").bind('click',function(){
