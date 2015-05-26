@@ -153,8 +153,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
                            <?php
                             } ?>
 						
-							
-                       
                              </td>
                             <?php if($role_id==3){ ?>                    
                             <td>
