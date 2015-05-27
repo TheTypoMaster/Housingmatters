@@ -42,7 +42,7 @@ if(sizeof($not_in_rsvp)==0) { $not_in_rsvp=array();}
 
 
 $date_created=$data["event"]["date"];
-$date_created = date('d-m-Y',$date_created->sec);
+
 
 $date_from=$data["event"]["date_from"];
 $date_from = date('d-m-Y',$date_from->sec);
