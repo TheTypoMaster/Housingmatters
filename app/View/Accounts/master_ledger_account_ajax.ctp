@@ -3,6 +3,7 @@ if($value == 4)
 {
 ?>
 <input type="text" name="rate" class="m-wrap large" placeholder="Depriciation Rate" id="rate" style="background-color:white !important;">
+<label id="rate"></label>
 <?php
 }
 
