@@ -9,33 +9,17 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
 </div>
-<?php //////////////////////////////////////////////////////////////////////////////////////////////////////?>		
-		<!--<center>
-		<div class="hide_at_print">
-		<table width="50%" border="1" bordercolor="#FFFFFF" cellpadding="0">
-		<tr>
-		<td style="width:25%">
-		<a href="journal_view" class="btn blue btn-block"  style="font-size:16px;">Journal</a>
-		</td>
-		<td style="width:25%">
-		<a href="ledger" class="btn red btn-block"  style="font-size:16px;">Ledger</a>
-		</td>
-		</tr>
-		</table>
-        </div>		
-		</center> -->
+		
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>	
  <center>
                 <form method="post" onSubmit="return valid()">
                 <div id="validate_result"></div>
 				<div  class="hide_at_print">
-                <br>
-				<table style="width:60%;">
+               	<table style="width:60%;">
                 <tr>
                 <td>
-                
                 <select class="medium m-wrap chosen" tabindex="1" name="type" id="main_id">
-                <option value="">Select Ledger Type</option>
+                <option value="">Select Ledger A/c</option>
                 <?php
                 foreach ($cursor1 as $collection) 
 				{
@@ -45,29 +29,26 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
                 <option value="<?php echo $auto_id; ?>"><?php echo $name; ?></option>
                 <?php } ?>
                 </select>
-                
                 </td>
                
                
                 <td id="result1">
-                <select class="medium m-wrap" tabindex="1" name="user_name" id="sub_id">
-                <option value="0">Sub Ledger</option>
+                <select class="medium m-wrap" tabindex="1" name="user_name" id="sub_id" style="margin-top:7px;">
+                <option value="0">Select Sub Ledger A/c</option>
                 </select>
                 </td>
-               
-               
+                             
                 <td>
-                <input type="text" placeholder="From Date" id="date1" style="height:77%;" class="date-picker medium" data-date-format="dd-mm-yyyy" name="from">
+                <input type="text" placeholder="From Date" id="date1" class="date-picker medium m-wrap" data-date-format="dd-mm-yyyy" name="from" style="background-color:white !important; margin-top:7px;">
                 </td>
-                
-                
+                                
                 <td>
-                <input type="text" placeholder="To Date" id="date2" style="height:77%;" class="date-picker medium" data-date-format="dd-mm-yyyy" name="to">
+                <input type="text" placeholder="To Date" id="date2" class="date-picker medium m-wrap" data-date-format="dd-mm-yyyy" name="to" style="background-color:white !important; margin-top:7px;">
                 </td>
                 
                 
                 <td valign="top">
-                <button type="button" id="go" name="sub" class="btn yellow">Search</button>
+                <button type="button" id="go" name="sub" class="btn yellow" style="margin-top:7px;">Search</button>
                 </td>
                 
                 

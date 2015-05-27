@@ -3,8 +3,8 @@ if($get_id == 34 || $get_id == 15 || $get_id == 33 || $get_id == 35)
 {
 ?>
  
-                <select class="medium m-wrap" tabindex="1" name="user_name2" id="sub_id">
-                <option value="">Sub Ledger</option>
+                <select class="medium m-wrap chosen" tabindex="1" name="user_name2" id="sub_id" style="margin-top:7px;">
+                <option value="">Sub Sub Ledger A/c</option>
                 <?php
 				
                 foreach ($cursor1 as $collection) 
