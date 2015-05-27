@@ -31,8 +31,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 					<th>Accounts Group</th>
 					<th>Ledger Account</th>
 					<th>Ledger Sub Account</th>
-                    <th>Edit</th>
-					</tr>        
+                   	</tr>        
                     </thead>
                     <tbody>
 					<?php
@@ -73,9 +72,6 @@ $main_name = $collection['accounts_category']['category_name'];
 <td><?php echo $group_name; ?></td>
 <td><?php echo $ledger_name; ?></td>
 <td><?php echo $name;     ?> </td>
-<td style="text-align:center;">
-<a href="#myModal<?php echo $auto_id; ?>" role="button" class="btn mini purple" data-toggle="modal">Edit</a>
-</td>
 </tr>           
 <?php $n++; } ?> 
 </tbody>  

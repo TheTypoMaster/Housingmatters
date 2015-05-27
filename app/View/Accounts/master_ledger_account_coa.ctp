@@ -61,7 +61,7 @@ $name = $collection['accounts_groups']['group_name'];
 
 <script>
 $(document).ready(function() {
-	$("#go").live('change',function(){
+	$("#go").bind('change',function(){
 		var value = document.getElementById('go').value;
 		
 		$("#result").load("master_ledger_account_ajax?value=" +value+ "");

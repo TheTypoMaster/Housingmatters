@@ -66,7 +66,7 @@ $name = $collection['ledger_account']['ledger_name'];
 
 <script>
 $(document).ready(function() {
-	$("#go").live('change',function(){
+	$("#go").bind('change',function(){
 		var value=document.getElementById('go').value;
 		
 		

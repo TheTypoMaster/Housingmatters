@@ -30,7 +30,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <th>Account Category</th>
 <th>Accounts Group</th>
 <th>Ledger</th>
-<th>Edit/Delete</th>
+<th>Edit</th>
 </tr>        
 </thead>
 <tbody>
