@@ -26,7 +26,7 @@ $wing=$data_user['user']['wing'];
 $flat=$data_user['user']['flat'];
 }
 
-$flat_info=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing,$flat)));
+$flat_info=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array(@$wing,@$flat)));
 //////////////////////////user info////////////////
 $question=$data["poll"]["question"];
 $des=$data["poll"]["des"];
