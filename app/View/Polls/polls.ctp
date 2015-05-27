@@ -189,7 +189,7 @@ $current_date = new MongoDate(strtotime($current_date));
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <span style="font-weight: 200;">close date: </span><span style="font-weight: 600;"><?php echo date('d-m-Y',$close_date->sec); ?></span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<span style="font-weight: 200;">created by: </span><span style="font-weight: 600;"><?php echo $user_name.' '.$flat_info; ?></span>
+<span style="font-weight: 200;">created by: </span><span style="font-weight: 600;"><?php echo @$user_name.' '.$flat_info; ?></span>
 </div>
 	
 	</div>
