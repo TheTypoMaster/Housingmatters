@@ -9,12 +9,19 @@
 		</tr>
 	</table>
 	<table class="table table-bordered">
-	<?php foreach($table as $data){ ?>
+	<?php foreach($table as $data){ 
+	pr($data); ?>
 		<tr>result_wing
 			<td>
 				<select class="span6 m-wrap" data-placeholder="Choose a Category" tabindex="1">
 				<option value="">Select...</option>
-				<option value="Category 1">Category 1</option>
+				<?php foreach($result_wing as $wdata){
+				$wing_id=$wdata["wing"]["wing_id"];
+				$wing_name=$wdata["wing"]["wing_name"];
+				?>
+				<option value="<?php echo $wing_id; ?>" <?php if($wing_id==$data[0]){ echo 'selected'; }><?php echo $wing_name; ?></option>
+				<?php } ?>
+				
 				</select>
 			</td>
 			<td>First Name</td>
