@@ -36,8 +36,69 @@ $expense_month_arr[] = $expense_month;
 
 }
 
-////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+$nnn = 55;
+
+$total = 0;
+foreach($cursor2 as $collection)
+{
+$group_id = (int)$collection['accounts_group']['auto_id'];	
+$result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch'),array('pass'=>array($group_id)));
+foreach($result2 as $collection2)
+{
+$ex_head = (int)$collection2['ledger_account']['auto_id'];	
+$expense_head = $collection2['ledger_account']['ledger_name'];
+for($k=0; $k<sizeof(@$expense_arr); $k++)
+{
+$exp_arr1 = $expense_arr[$k];
+$auto_id2 = (int)$exp_arr1[0];
+$month5 = $exp_arr1[1];
+$result5 = $this->requestAction(array('controller' => 'hms', 'action' => 'expense_tracker_fetch'),array('pass'=>array($auto_id2)));
+foreach($result5 as $collection3)
+{
+$exp_head2 = (int)$collection3['expense_tracker']['expense_head'];
+$amount = $collection3['expense_tracker']['amount'];
+}
+if($exp_head2 == $ex_head)
+{
+
 ?>
+<?php //echo $expense_head;  ?>
+<?php
+for($m=0; $m<sizeof($abc); $m++)
+{
+$total = 0;
+$month_name3 = $abc[$m];
+foreach($cursor3 as $collection6)
+{
+$exps_head = (int)$collection6['expense_tracker']['expense_head'];
+$posting_date = $collection6['expense_tracker']['posting_date'];
+$amount = $collection6['expense_tracker']['amount'];
+$posting_date = date('M-Y',$posting_date->sec);
+if($posting_date == $month_name3 && $exp_head2 == $exps_head)
+{
+$total = $total + $amount;	
+}
+}
+$nnn = 555;	
+?>
+
+<?php //echo $total; ?>
+
+<?php
+$total = 0;
+}
+?>
+
+<?php
+break;
+}}}}
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+?>
+<?php if($nnn == 555) { ?>
 
 <div style="width:100%;" class="hide_at_print">
 <span style="margin-left:80%;">
@@ -103,24 +164,6 @@ if($exp_head2 == $ex_head)
 <?php echo $expense_head;  ?>
 </td>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <?php
 for($m=0; $m<sizeof($abc); $m++)
 {
@@ -153,5 +196,16 @@ break;
 ?>
 </table>
 
+<?php }
+else if($nnn == 55) {
+?>	
+<br /><br />					 
+<center>					 
+<h3 style="color:red;"><b>No Record Found in Selected Period</b></h3>					 
+</center>					 
+<br /><br />	
+<?php
+}
+ ?>
 
 

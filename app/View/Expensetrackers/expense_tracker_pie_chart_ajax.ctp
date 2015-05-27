@@ -5,7 +5,7 @@ $m_from = new MongoDate(strtotime($m_from));
 $m_to = date("Y-m-d", strtotime($date2));
 $m_to = new MongoDate(strtotime($m_to));
 
-
+$nnn = 55;
 $administrative_expenses = 0;
 $repairs_maintenance = 0;
 $tax_utilities = 0;
@@ -17,6 +17,7 @@ $ac_id = (int)$collection['expense_tracker']['expense_head'];
 if($posting_date >= $m_from && $posting_date <= $m_to)
 {
 $result = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($ac_id)));
+$nnn = 555;
 foreach($result as $collection)
 {
 $group_id = (int)$collection['ledger_account']['group_id'];	
@@ -37,6 +38,8 @@ $administrative_expenses = $administrative_expenses + $amount;
 }
 
 ?>
+<?php if($nnn == 555) { ?>
+
 <div style="width:80%; border:solid 1px; overflow:auto;">
 <div id="canvas-holder" style="float:left; margin-left:10%;">
 			<canvas id="chart-area" width="300" height="300"/>
@@ -102,12 +105,14 @@ Tax & Utilities
 		
 </script>
 
-
-
-
-
-
-
+<?php }
+else if($nnn == 55) { ?>
+<br /><br />					 
+<center>					 
+<h3 style="color:red;"><b>No Record Found in Selected Period</b></h3>					 
+</center>					 
+<br /><br />
+<?php } ?>
 
 
 
