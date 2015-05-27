@@ -9,36 +9,22 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </script>
 
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<center>
-<h3><b>Expense Tracker Pie Charts</b>
-</center>
-
-<?php //////////////////////////////////////////////////////////////////////////////////////////////////////?>
-
-<?php //////////////////////////////////////////////////////////////////////////////////////////////////////?>
-<!--
-<center>
-<a href="<?php echo $this->webroot; ?>Expensetrackers/expense_tracker_add" class="btn blue">Add</a>
-<!-- <a href="expense_tracker_edit" class="btn blue">Edit</a> 
-<a href="<?php echo $this->webroot; ?>Expensetrackers/expense_tracker_view" class="btn blue">View</a>
-<a href="<?php echo $this->webroot; ?>Expensetrackers/expense_tracker_pie_chart" class="btn red">Pie Chart</a>
-</center>	-->
-<?php ///////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-
+<?php
+$date_from = date('1-m-Y');
+$date_to = date('d-m-Y');
+?>
  <center>
-            <div style="width:50%; background-color:white;" class="hide_at_print">
+            <div style="width:50%;" class="hide_at_print">
             <form method="post" id="contact-form">
-            <br>
-            <table>
+             <table>
             <tbody><tr>
            
-            <td><input type="text" id="date1" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="from" placeholder="From" style="background-color:white !important;"></td>
+            <td><input type="text" id="date1" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="from" placeholder="From" style="background-color:white !important;" value="<?php echo $date_from; ?>"></td>
            
-            <td><input type="text" id="date2" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="to" placeholder="To" style="background-color:white !important;"></td>
+            <td><input type="text" id="date2" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="to" placeholder="To" style="background-color:white !important;" value="<?php echo $date_to; ?>"></td>
             <td valign="top"><button type="button" name="sub" class="btn yellow" id="go">Go</button></td>
             </tr>
             </tbody></table>
-            </br>
             </form>
             </div>
 </center>
@@ -46,7 +32,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 <center>
-<div id="result" style="width:96%;">
+<div id="result" style="width:100%;">
 </div>
 </center>  
 

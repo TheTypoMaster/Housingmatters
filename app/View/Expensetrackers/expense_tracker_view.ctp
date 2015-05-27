@@ -9,38 +9,16 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
 </div>
-<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<center>
-<div class="hide_at_print">
-<h3><b>Expense Tracker View</b></h3>
-</center>
-</div>
-<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
- <!--
- <br>
-<div class="hide_at_print">
- <center>
-<a href="<?php echo $this->webroot; ?>Expensetrackers/expense_tracker_add" class="btn blue">Add</a>
-<!-- <a href="expense_tracker_edit" class="btn blue">Edit</a> 
-<a href="<?php echo $this->webroot; ?>Expensetrackers/expense_tracker_view" class="btn red">View</a>
-<a href="<?php echo $this->webroot; ?>Expensetrackers/expense_tracker_pie_chart" class="btn blue">Pie Chart</a>
-</center>	
-</div> -->
-<?php //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
 $c_date = date('d-m-Y');
 $b_date = date('1-m-Y');
 ?>
-
-
-
-  <center>
-            <div class="hide_at_print">
-            <form method="post" id="contact-form">
-            <br>
-            <table>
-            <tbody><tr>
+<center>
+<div class="hide_at_print">
+<form method="post" id="contact-form">
+<table>
+<tbody><tr>
            
             <td><input type="text" id="date1" class="date-picker m-wrap medium" data-date-format="dd-mm-yyyy" name="from" placeholder="From" style="background-color:white !important;" value="<?php echo $b_date; ?>"></td>
            
@@ -48,7 +26,6 @@ $b_date = date('1-m-Y');
             <td valign="top"><button type="button" name="sub" class="btn yellow" id="go">Go</button></td>
             </tr>
             </tbody></table>
-            </br>
             </form>
             </div>
 </center>
