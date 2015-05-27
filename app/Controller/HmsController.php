@@ -17292,6 +17292,23 @@ return $this->accounts_group->find('all',array('conditions'=>$conditions));
 }
 
 ////////////////////////////////////// End Accounts Group Fetch (Accounts)//////////////////////////////////////////////////////////////////////////////
+/////////////////// Start accounts_group_fetch2 //////////////////////////////////
+
+function accounts_group_fetch2($auto_id) 
+{
+$this->loadmodel('accounts_group');
+$conditions=array("auto_id" => $auto_id);
+return $this->accounts_group->find('all',array('conditions'=>$conditions));
+}
+
+/////////////////// End accounts_group_fetch2 //////////////////////////////////
+
+
+
+
+
+
+
 /////////////////////// Start Ledger Account Fetch (Accounts)////////////////////////////////////////////////////////////////////////
 function ledger_account_fetch($auto_id) 
 {

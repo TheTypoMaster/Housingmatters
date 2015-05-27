@@ -59,13 +59,13 @@ $main_name = $collection['accounts_category']['category_name'];
 <tr>
 <td><?php echo $n; ?></td>
 <td><?php echo $main_name; ?></td>
-<td><?php echo $group_name; ?></td>
-<td><?php echo $name; ?></td>
+<td id="kk<?php echo $auto_id5; ?>"><?php echo $group_name; ?></td>
+<td id="tt<?php echo $auto_id5; ?>"><?php echo $name; ?></td>
 <td> 
 <?php if($edit_id == $s_user_id)
 {
 ?>
-<a href="#myModal5<?php echo $auto_id5; ?>" role="button" class="btn mini purple" data-toggle="modal">Edit</a>
+<a href="#" role='button' edit_id="<?php echo $auto_id5; ?>" class="btn mini blue edit_ledger"><i class="icon-pencil"></i> Edit</a>
 <?php  } ?>
 </td>
 </tr>
@@ -76,3 +76,74 @@ $main_name = $collection['accounts_category']['category_name'];
 </div> 
 </div>      
 </center>
+
+<?php ///////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<script>
+$(document).ready(function() {
+
+$("#close_edit").live('click',function(){
+$(".edit_div").hide();
+});	 
+
+
+
+$(".edit_ledger").live('click',function(){
+    
+	 $(".edit_div").show();
+     var t_id=$(this).attr("edit_id");
+
+  $("#tems_edit_content").html('<div align="center" style="padding:20px;"><img src="<?php echo $this->webroot ; ?>/as/indicator_blue_small.gif" /><br/><h5>Please Wait</h5></div>').load('<?php echo $this->webroot; ?>Accounts/ledger_edit?t_id='+t_id+'&edit=0');
+});	 
+
+
+$(".save_edited_terms").live('click',function(){
+	
+		var t_id=$(this).attr("tems_id");
+		 
+		var ledger1=$("#ledger").val();
+		var group1 = $("#group").val();
+		var ledger2=encodeURIComponent(ledger1);
+		var group_name = $("#group").find(":selected").text();
+		
+		//$("table#abc tr:nth-child("+t_id+") td:nth-child(3)").text(group1);
+		//var des=encodeURIComponent(des1);
+		//var close_date1=$("#close_date").val();
+		//var close_date=encodeURIComponent(close_date1);
+		$("#kk"+t_id).html(group_name);
+		$("#tt"+t_id).html(ledger1);
+		//$("#close_date"+p_id).html(close_date1);
+			
+		$("#tems_edit_content").load('<?php echo $this->webroot; ?>Accounts/ledger_edit?t_id='+t_id+'&led='+ledger2+'&g='+group1+'&edit=1', function() {
+			
+		});
+			
+		
+		
+	 });
+
+
+
+
+
+
+
+
+
+
+
+
+});
+</script>
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+
+<div class="edit_div"  style="display:none;">
+<div class="modal-backdrop fade in"></div>
+<div class="modal"  id="tems_edit_content">
+	
+</div>
+</div>
+
+
+
+
+

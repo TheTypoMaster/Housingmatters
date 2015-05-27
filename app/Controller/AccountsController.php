@@ -3230,5 +3230,60 @@ $this->set('cursor3',$cursor3);
 
 }
 /////////////////////// End Master Ledger Accounts View ////////////////////////////////////////////////////////////////
+
+////////////////////////////// Start ledger Edit ///////////////////////////////////////////////////////////////////
+function ledger_edit()
+{
+$this->layout='blank';
+$s_society_id = (int)$this->Session->read('society_id');
+$auto_id = (int)$this->request->query('t_id');
+$edit = (int)$this->request->query('edit');
+$this->set('edit',$edit);
+if($edit == 0)
+{
+$this->set('ledger_id',$auto_id);
+
+$this->loadmodel('ledger_account');
+$conditions=array('$or' => array( 
+array("society_id" => 0, "auto_id" => $auto_id),
+array("society_id" => $s_society_id, "auto_id" => $auto_id),));
+$cursor1=$this->ledger_account->find('all', array('conditions' => $conditions));
+$this->set('cursor1',$cursor1);
+
+$this->loadmodel('accounts_group');
+$cursor2=$this->accounts_group->find('all');
+$this->set('cursor2',$cursor2);
+
+}
+
+if($edit == 1)
+{
+$ledger_name = $this->request->query('led');
+$group_id = (int)$this->request->query('g');
+
+$this->loadmodel('ledger_account');
+$this->ledger_account->updateAll(array('group_id'=>$group_id,'ledger_name'=>$ledger_name),array('auto_id'=>$auto_id));
+}
+
+}
+////////////////////////////// End ledger Edit ///////////////////////////////////////////////////////////////////
+
+/////////////////////////////// Start SubLedgerEdit ////////////////////////////////////////////////////
+function subledger_edit()
+{
+$this->layout='blank';
+$s_society_id = (int)$this->Session->read('society_id');
+
+
+
+
+
+
+
+
+
+}
+/////////////////////////////// End SubLedgerEdit ////////////////////////////////////////////////////
+
 }
 ?>
