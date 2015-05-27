@@ -536,7 +536,7 @@ $this->ledger_account->saveAll($multipleRowData);
 }
 else if($main_id == 7 || $main_id == 8)
 {
-$amount = $this->request->data['amount'];		
+//$amount = $this->request->data['amount'];		
 
 
 $this->loadmodel('ledger_account');
@@ -556,7 +556,7 @@ $i=$last;
 }
 $i++;
 $this->loadmodel('ledger_account');
-$multipleRowData = Array( Array("auto_id" => $i, "group_id" => $main_id, "ledger_name" => $name, "amount" => $amount,"society_id"=> $s_society_id,"edit_user_id"=>$s_user_id,"delete_id" => 0));
+$multipleRowData = Array( Array("auto_id" => $i, "group_id" => $main_id, "ledger_name" => $name, "society_id"=> $s_society_id,"edit_user_id"=>$s_user_id,"delete_id" => 0));
 $this->ledger_account->saveAll($multipleRowData);	
 }
 else
