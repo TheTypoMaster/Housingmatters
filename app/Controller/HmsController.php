@@ -18481,6 +18481,24 @@ $this->set('cursor2',$cursor2);
 
 }
 
+
+function save_import_flat(){
+	$this->layout='blank';
+	$q=$this->request->query('q'); 
+	$myArray = json_decode($q, true);
+	pr($myArray);
+	$c=0;
+	$report=array();
+	foreach($myArray as $child){
+		$c++;
+		
+		if(empty($child[0])){
+			$report[]=array('tr'=>$c,'td'=>1, 'text' => 'Required');
+		}
+	}
+
+	
+}
 function import_flat_ajax(){
 	$this->layout="blank";
 	$this->ath();

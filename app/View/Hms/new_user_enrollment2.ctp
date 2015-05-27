@@ -226,10 +226,6 @@ $(document).ready(function(){
 				$("#url_main table").html(response);
 				
 				
-				
-				
-				
-				
 				var count = $("#myTable tr").length;
 		var ar = [];
 		for(var i=1;i<=count;i++)

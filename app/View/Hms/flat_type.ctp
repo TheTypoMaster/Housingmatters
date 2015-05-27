@@ -17,7 +17,7 @@ Society Setup
 <div class="tab-content" style="min-height:300px;">
 <div class="tab-pane active" id="succ">
 <a href="#"role="button" class="btn blue" id="import_btn">Import csv</a>
-<div id="error_msg"></div>   
+<div id="error_msg"></div>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 <?php ////////////////////////////////////////////////////////////////////////////////////////////// ?>   
@@ -220,6 +220,7 @@ $(document).ready(function() {
 <div class="modal-backdrop fade in"></div>
 	<form id="form1" method="post">
 	<div class="modal content_model">
+	<input type="text" value="1" id="stype"/>
 		<div class="modal-header">
 			<h4 id="myModalLabel1">Import csv</h4>
 		</div>
@@ -241,6 +242,7 @@ $(document).ready(function() {
 			<button type="button" class="btn" id="import_close">Cancel</button>
 			<button type="submit" class="btn blue import_btn">Import</button>
 		</div>
+		
 	</div>
 	</form>
 </div>
@@ -259,20 +261,61 @@ $(document).ready(function(){
 	});
 	
 	
+	$(".form_post").bind('click', function(e){
+		$(".form_post").removeClass("clicked");
+		$(this).addClass("clicked");
+	});
+	
 	$('form#form1').submit( function(ev){
 		ev.preventDefault();
 		$(".import_btn").text("Importing...");
-		var m_data = new FormData();
-		m_data.append( 'file', $('input[name=file]')[0].files[0]);
-		$.ajax({
-			url: "import_flat_ajax",
-			data: m_data,
-			processData: false,
-			contentType: false,
-			type: 'POST',
+		var sub=$("#stype").val();
+		
+		if(sub==1){
+		
+			var m_data = new FormData();
+			m_data.append( 'file', $('input[name=file]')[0].files[0]);
+			$.ajax({
+				url: "import_flat_ajax",
+				data: m_data,
+				processData: false,
+				contentType: false,
+				type: 'POST',
 			}).done(function(response) {
 				$(".content_model").html(response);
 			});
+		
+		}
+		
+		if(sub==2){
+		var count = $("#flats_main tr").length;
+		var ar = [];
+		
+		for(var i=1;i<=count;i++)
+		{
+			var w=$("#flats_main tr:nth-child("+i+") select").val();
+			var f=$("#flats_main tr:nth-child("+i+") input").val();
+			var sub="no";
+			ar.push([w,f,sub]);
+		}
+		var myJsonString = JSON.stringify(ar);
+		myJsonString=encodeURIComponent(myJsonString);
+		
+		$.ajax({
+			url: "save_import_flat?q="+myJsonString,
+			type: 'POST',
+			
+		}).done(function(response) {
+			$(".content_model").html(response);
+			
+		});
+		
+		}
+		
 	});
+	
+	
+	
+	
 });
 </script>
