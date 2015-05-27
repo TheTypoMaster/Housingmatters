@@ -9,9 +9,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </script>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <center>
-<a href="<?php echo $webroot_path; ?>Cashbanks/fix_deposit_add" class="btn red" rel='tab'>Add</a>
-<a href="<?php echo $webroot_path; ?>Cashbanks/fix_deposit_view" class="btn blue" rel='tab'>Active Deposits</a>
-<a href="<?php echo $webroot_path; ?>Cashbanks/matured_deposit_view" class="btn blue" rel='tab'>Matured Deposits</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/fix_deposit_add" class="btn yellow" rel='tab'>Add</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/fix_deposit_view" class="btn" rel='tab'>Active Deposits</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/matured_deposit_view" class="btn" rel='tab'>Matured Deposits</a>
 </center>	
 
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>

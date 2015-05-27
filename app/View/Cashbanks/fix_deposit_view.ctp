@@ -11,9 +11,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </div>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <center>
-<a href="<?php echo $webroot_path; ?>Cashbanks/fix_deposit_add" class="btn blue" rel='tab'>Add</a>
-<a href="<?php echo $webroot_path; ?>Cashbanks/fix_deposit_view" class="btn red" rel='tab'>Active Deposits</a>
-<a href="<?php echo $webroot_path; ?>Cashbanks/matured_deposit_view" class="btn blue" rel='tab'>Matured Deposits</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/fix_deposit_add" class="btn" rel='tab'>Add</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/fix_deposit_view" class="btn yellow" rel='tab'>Active Deposits</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/matured_deposit_view" class="btn" rel='tab'>Matured Deposits</a>
 </center>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
@@ -22,7 +22,6 @@ $c_date = date('d-m-Y');
 
 ?>
 <center>
-<br />
 <table border='0'>
 <tr>
 <td><input type="text" name="from" id="date1" class="m-wrap medium date-picker" data-date-format="dd-mm-yyyy" placeholder="From" style="background-color:white !important;" value="<?php echo $b_date; ?>"/></td>

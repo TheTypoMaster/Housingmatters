@@ -17,8 +17,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 if($s_role_id == 3)
 {
 ?>
-<a href="<?php echo $webroot_path; ?>Cashbanks/bank_payment" class="btn blue" rel='tab'>Create</a>
-<a href="<?php echo $webroot_path; ?>Cashbanks/bank_payment_view" class="btn red" rel='tab'>View</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/bank_payment" class="btn" rel='tab'>Create</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/bank_payment_view" class="btn yellow" rel='tab'>View</a>
 <?php } ?>
 </div>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
@@ -33,7 +33,7 @@ $b_date = date('1-m-Y');
   <center>
             <div class="hide_at_print">
             <form method="post" id="contact-form">
-            <br>
+          
             <table>
             <tbody><tr>
            
@@ -43,7 +43,7 @@ $b_date = date('1-m-Y');
             <td valign="top"><button type="button" name="sub" class="btn yellow" id="go">Go</button></td>
             </tr>
             </tbody></table>
-            </br>
+          
             </form>
             </div>
 </center>

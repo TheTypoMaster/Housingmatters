@@ -9,8 +9,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </script>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////// ?> 
 <center>                
-<a href="<?php echo $webroot_path; ?>Cashbanks/petty_cash_receipt" class="btn red" rel='tab'>Create</a>
-<a href="<?php echo $webroot_path; ?>Cashbanks/petty_cash_receipt_view" class="btn blue" rel='tab'>View</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/petty_cash_receipt" class="btn yellow" rel='tab'>Create</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/petty_cash_receipt_view" class="btn" rel='tab'>View</a>
 </center>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 

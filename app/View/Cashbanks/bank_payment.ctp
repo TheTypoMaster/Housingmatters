@@ -13,8 +13,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <center>
-<a href="<?php echo $webroot_path; ?>Cashbanks/bank_payment" class="btn red" rel='tab'>Create</a>
-<a href="<?php echo $webroot_path; ?>Cashbanks/bank_payment_view" class="btn blue" rel='tab'>View</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/bank_payment" class="btn yellow" rel='tab'>Create</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/bank_payment_view" class="btn" rel='tab'>View</a>
 </center>	
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 

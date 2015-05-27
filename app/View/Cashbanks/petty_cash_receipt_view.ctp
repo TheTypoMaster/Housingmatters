@@ -16,8 +16,8 @@ if($s_role_id == 3)
 {
 ?>
 <div class="hide_at_print">
-<a href="<?php echo $webroot_path; ?>Cashbanks/petty_cash_receipt" class="btn blue" rel='tab'>Create</a>
-<a href="<?php echo $webroot_path; ?>Cashbanks/petty_cash_receipt_view" class="btn red" rel='tab'>View</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/petty_cash_receipt" class="btn" rel='tab'>Create</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/petty_cash_receipt_view" class="btn yellow" rel='tab'>View</a>
 </div>
 <?php } ?>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?> 
@@ -31,7 +31,7 @@ $b_date = date('1-m-Y');
 
 		 <div class="hide_at_print">
             <form method="post" id="contact-form">
-            <br>
+           
             <table>
             <tbody><tr>
             
@@ -41,7 +41,7 @@ $b_date = date('1-m-Y');
             <td valign="top"><button type="button" name="sub" class="btn yellow" id="go">Go</button></td>
             </tr>
             </tbody></table>
-            <br>
+           
             </form>
             </div>
 
