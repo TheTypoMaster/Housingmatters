@@ -283,7 +283,50 @@ $(document).ready(function(){
 				type: 'POST',
 			}).done(function(response) {
 				$(".content_model").html(response);
+				
+				
+				
+				
+				
+				
+				
+				var count = $("#flats_main tr").length;
+		var ar = [];
+		
+		for(var i=1;i<=count;i++)
+		{
+			$("#url_main table tr:nth-child("+i+") span.report").remove();
+			var w=$("#flats_main tr:nth-child("+i+") select").val();
+			var f=$("#flats_main tr:nth-child("+i+") input").val();
+			var sub="yes";
+			ar.push([w,f,sub]);
+		}
+		var myJsonString = JSON.stringify(ar);
+		myJsonString=encodeURIComponent(myJsonString);
+		
+		$.ajax({
+			url: "save_import_flat?q="+myJsonString,
+			type: 'POST',
+			dataType:'json',
+		}).done(function(response) {
+			if(response.report_type=='error'){
+				jQuery.each(response.report, function(i, val) {
+					$("#flats_main tr:nth-child("+val.tr+") td:nth-child("+val.td+")").append('<span class="report" style="color:red;">'+val.text+'</span>');
+					$("#flats_main tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
+				});
+			}
+			
+		});
+				
+				
+				
+				
 			});
+			
+			
+			
+			
+			
 		
 		}
 		
@@ -293,9 +336,10 @@ $(document).ready(function(){
 		
 		for(var i=1;i<=count;i++)
 		{
+			$("#flats_main tr:nth-child("+i+") span.report").remove();
 			var w=$("#flats_main tr:nth-child("+i+") select").val();
 			var f=$("#flats_main tr:nth-child("+i+") input").val();
-			var sub="no";
+			var sub="yes";
 			ar.push([w,f,sub]);
 		}
 		var myJsonString = JSON.stringify(ar);
@@ -304,9 +348,14 @@ $(document).ready(function(){
 		$.ajax({
 			url: "save_import_flat?q="+myJsonString,
 			type: 'POST',
-			
+			dataType:'json',
 		}).done(function(response) {
-			$(".content_model").html(response);
+			if(response.report_type=='error'){
+				jQuery.each(response.report, function(i, val) {
+					$("#flats_main tr:nth-child("+val.tr+") td:nth-child("+val.td+")").append('<span class="report" style="color:red;">'+val.text+'</span>');
+					$("#flats_main tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
+				});
+			}
 			
 		});
 		

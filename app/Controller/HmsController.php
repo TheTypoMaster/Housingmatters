@@ -18486,15 +18486,26 @@ function save_import_flat(){
 	$this->layout='blank';
 	$q=$this->request->query('q'); 
 	$myArray = json_decode($q, true);
-	pr($myArray);
+	
 	$c=0;
 	$report=array();
 	foreach($myArray as $child){
 		$c++;
-		
 		if(empty($child[0])){
 			$report[]=array('tr'=>$c,'td'=>1, 'text' => 'Required');
 		}
+		if(empty($child[1])){
+			$report[]=array('tr'=>$c,'td'=>2, 'text' => 'Required');
+		}
+	}
+	
+	if(sizeof($report)>0){
+		$output=json_encode(array('report_type'=>'error','report'=>$report));
+		die($output);
+	}
+	
+	if($child[2]=="yes"){
+		
 	}
 
 	
