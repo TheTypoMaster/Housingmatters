@@ -57,7 +57,7 @@ $expense_month_arr[] = $expense_month;
 foreach ($period as $dt){
 $month_name1 = $dt->format("M-Y");
 
-for($p=0; $p<sizeof($expense_month_arr); $p++)
+for($p=0; $p<sizeof(@$expense_month_arr); $p++)
 {
 $month_name2 = $expense_month_arr[$p];
 

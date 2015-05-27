@@ -3420,7 +3420,30 @@ die($output);
 
 }
 ////////////////////////////////////////// End Fix Deposit Jason ////////////////////////////////////////////////
+///////////////////////// Start Matured Deposit View ////////////////////////////////////////////////
+function matured_deposit_view()
+{
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
+
+$this->ath();
+$this->check_user_privilages();
 
 
+$s_society_id=(int)$this->Session->read('society_id');
+
+
+
+
+
+
+
+
+
+}
+///////////////////////////////// End Matured Deposit View /////////////////////////////////////////////////
 }
 ?>
