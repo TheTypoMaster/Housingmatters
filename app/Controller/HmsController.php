@@ -18481,35 +18481,112 @@ $this->set('cursor2',$cursor2);
 
 }
 
-
+/////////////////////////// Start Flat Import ////////////////////////////////////////////// 
 function save_import_flat(){
 	$this->layout='blank';
+	$s_society_id = (int)$this->Session->read('society_id');
+	
 	$q=$this->request->query('q'); 
 	$myArray = json_decode($q, true);
 	
 	$c=0;
 	$report=array();
+	$array1 = array();
 	foreach($myArray as $child){
 		$c++;
 		if(empty($child[0])){
 			$report[]=array('tr'=>$c,'td'=>1, 'text' => 'Required');
 		}
 		if(empty($child[1])){
-			$report[]=array('tr'=>$c,'td'=>2, 'text' => 'Required');
+		$report[]=array('tr'=>$c,'td'=>2, 'text' => 'Required');
 		}
-	}
-	
-	if(sizeof($report)>0){
-		$output=json_encode(array('report_type'=>'error','report'=>$report));
-		die($output);
-	}
-	
-	if($child[2]=="yes"){
 		
-	}
+if(sizeof($report) == 0)
+{		
+$wing = (int)$child[0];
+$flat_name = $child[1];	   
+//////////////////////////////////////////
+$nnn = 555;
+$this->loadmodel('flat');
+$conditions=array("society_id"=>$s_society_id);
+$cursor3 = $this->flat->find('all',array('conditions'=>$conditions));
+foreach($cursor3 as $collection)
+{	
+$wing_id2 = (int)$collection['flat']['wing_id'];
+$flat_nu2 = $collection['flat']['flat_name'];	
+if($wing_id2 == $wing && $flat_nu2 == $flat_name)
+{
+$nnn = 55;	
+}	
+}	
+if($nnn == 55)
+{	
+$output=json_encode(array('report_type'=>'already','text'=>'Same Wing and Flat Already Exist in row '.$c));
+die($output);
+}	
+
+foreach($array1 as $cmp)
+{
+$w = (int)$cmp[0];
+$f = $cmp[1];
+if($w == $wing && $f == $flat_name)
+{
+$output = json_encode(array('report_type'=>'repeat', 'text' => 'Repeatation of Flat Number in row '.$c.''));
+die($output);
+}
+}
+$array1[] = array($wing,$flat_name);
+
+///////////////////////////////////////////////
+}
+}
+if(sizeof($report)>0){
+$output=json_encode(array('report_type'=>'error','report'=>$report));
+die($output);
+	
+}
+	
+	
+	
+	
+	
+if($child[2]=="yes")
+{
+foreach($myArray as $child)
+{
+
+$wing = (int)$child[0];
+$flat_name = $child[1];	
+$this->loadmodel('flat');
+$order=array('flat.flat_id'=> 'DESC');
+$cursor=$this->flat->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last=$collection['flat']["flat_id"];
+}
+if(empty($last))
+{
+$k=0;
+}	
+else
+{	
+$k=$last;
+}
+$k++;
+$this->loadmodel('flat');
+$multipleRowData = Array( Array("flat_id"=>$k, "wing_id"=>$wing, "flat_name"=>$flat_name, "society_id"=>$s_society_id));
+$this->flat->saveAll($multipleRowData);	
+
+}
+
+$output=json_encode(array('report_type'=>'done','text'=>'Record Inserted Successfully'));
+die($output);
+
+}
 
 	
 }
+/////////////////////////// End Flat Import ////////////////////////////////////////////// 
 function import_flat_ajax(){
 	$this->layout="blank";
 	$this->ath();

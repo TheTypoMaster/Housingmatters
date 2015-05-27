@@ -18,6 +18,7 @@ Society Setup
 <div class="tab-pane active" id="succ">
 <a href="#"role="button" class="btn blue" id="import_btn">Import csv</a>
 <div id="error_msg"></div>
+<div id="don"></div>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 <?php ////////////////////////////////////////////////////////////////////////////////////////////// ?>   
@@ -221,7 +222,8 @@ $(document).ready(function() {
 	<form id="form1" method="post">
 	<div class="modal content_model">
 	<input type="text" value="1" id="stype"/>
-		<div class="modal-header">
+   
+    <div class="modal-header">
 			<h4 id="myModalLabel1">Import csv</h4>
 		</div>
 		<div class="modal-body">
@@ -298,7 +300,7 @@ $(document).ready(function(){
 			$("#url_main table tr:nth-child("+i+") span.report").remove();
 			var w=$("#flats_main tr:nth-child("+i+") select").val();
 			var f=$("#flats_main tr:nth-child("+i+") input").val();
-			var sub="yes";
+			var sub="no";
 			ar.push([w,f,sub]);
 		}
 		var myJsonString = JSON.stringify(ar);
@@ -356,6 +358,22 @@ $(document).ready(function(){
 					$("#flats_main tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
 				});
 			}
+			if(response.report_type=='already')
+			{
+			$("#ovrlp").html('<h5 style="color:red;"><b>'+response.text+'</b></h5>');	
+			}
+			if(response.report_type=='repeat')
+			{
+			$("#ovrlp").html('<h5 style="color:red;"><b>'+response.text+'</b></h5>');	
+			}
+			if(response.report_type=='done')
+			{
+			$("#myModal3").hide();
+			$("#don").html('<div class="alert alert-block alert-success fade in"><h4 class="alert-heading">Success!</h4><p>Record Inserted Successfully</p><p><a class="btn green" href="<?php echo $webroot_path; ?>Hms/flat_type" rel="tab">OK</a></p></div>');
+			
+			}
+			
+			
 			
 		});
 		

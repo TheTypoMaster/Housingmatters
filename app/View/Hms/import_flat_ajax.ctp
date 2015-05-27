@@ -3,6 +3,10 @@
 	<h4 id="myModalLabel1">Import csv</h4>
 </div>
 <div class="modal-body">
+<center>
+<div id="ovrlp"></div>
+<div id="rpp"></div>
+</center>
 	<table class="table table-bordered">
 		<tr>
 			<th width="50%">Wing</th>
