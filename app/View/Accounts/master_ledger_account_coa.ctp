@@ -11,8 +11,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <center>
 <a href="<?php echo $webroot_path; ?>Accounts/master_ledger_account_coa" class="btn yellow" rel='tab'>Ledger Accounts Add</a>
 <a href="<?php echo $webroot_path; ?>Accounts/master_ledger_sub_accounts_coa" class="btn" rel='tab'>Ledger Sub Accounts Add</a>
-<a href="<?php echo $webroot_path; ?>Accounts/master_ledger_accounts_view" class="btn">Master Ledger  Account View</a>
-<a href="<?php echo $webroot_path; ?>Accounts/master_ledger_sub_account_view" class="btn">Master Ledger Sub Account View</a>
+<a href="<?php echo $webroot_path; ?>Accounts/master_ledger_accounts_view" class="btn" rel='tab'>Master Ledger  Account View</a>
+<a href="<?php echo $webroot_path; ?>Accounts/master_ledger_sub_account_view" class="btn" rel='tab'>Master Ledger Sub Account View</a>
 </center>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <br />
