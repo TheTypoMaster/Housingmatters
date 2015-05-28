@@ -16756,11 +16756,9 @@ $this->set('cursor2',$cursor2);
 //////////////////////////////////////// Start Ledger Sub Account Fetch (Accounts)///////////////////////////////////////////////////////////////////////
 function ledger_sub_account_fetch($auto_id) 
 {
-
 $this->loadmodel('ledger_sub_account');
 $conditions=array("auto_id" => $auto_id);
 return $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
-
 
 }
 

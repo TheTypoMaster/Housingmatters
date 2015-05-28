@@ -6,7 +6,64 @@ $from = new MongoDate(strtotime($from));
 $to = date("Y-m-d", strtotime($to_d));
 $to = new MongoDate(strtotime($to));
 ?>
+
+<?php //////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php $nnn = 55;
+foreach($cursor6 as $data)
+{
+$type = (int)$data['ledger']['account_type'];
+$account_id = (int)$data['ledger']['account_id'];
+if($wise == 3)
+{
+$nnn = 555;	
+}
+
+if($wise == 4 && $type == 1)
+{
+$result1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($account_id)));
+foreach($result1 as $data2)
+{
+$ledger_id = (int)$data2['ledger_sub_account']['ledger_id'];	
+}
+if($ledger_id == 33)
+{
+$nnn = 555;	
+}
+}
+
+if($wise == 2 && $type == 1)
+{
+$result1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($account_id)));
+foreach($result1 as $data2)
+{
+$ledger_id = (int)$data2['ledger_sub_account']['ledger_id'];	
+}
+if($ledger_id == 34)
+{
+$nnn = 555;	
+}
+}
+
+
+if($wise == 1 && $type == 1)
+{
+$result1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($account_id)));
+foreach($result1 as $data2)
+{
+$ledger_id = (int)$data2['ledger_sub_account']['ledger_id'];	
+}
+if($ledger_id == 15)
+{
+$nnn = 555;	
+}
+}
+
+}
+?>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php 
+if($nnn == 555) {
+?>
 <div class="hide_at_print">
 <span style="float:right;"><a href="trial_balance_excel?f=<?php echo $from_d; ?>&t=<?php echo $to_d; ?>&tp=<?php echo $wise; ?>" 
 class="btn blue">Export in Excel</a>
@@ -1462,11 +1519,17 @@ $total_closing_balance2 = $total_closing_balance2 + $amount;
 <?php
  }  ?>	
 			
-			
-			
-			
-			
-			
+<?php } 
+else if($nnn == 55) { ?>			
+<br /><br />											
+<center>
+<h3 style="color:red;">
+<b>No Records Found in Selected Period</b>
+</h3>
+</center>
+<br /><br />			
+		
+<?php } ?>			
 			
 			
 			
