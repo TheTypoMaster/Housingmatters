@@ -948,7 +948,7 @@ $m_to = new MongoDate(strtotime($m_to));
 $excel="<table border='1'>
 <tr>
 <th colspan='8' style='text-align:center;'>
-Over Due Report  ($society_name)</th>
+Over Due Report  ($society_name Society)</th>
 </tr>
 <tr>
 <th>#</th>
