@@ -975,7 +975,7 @@ $tax_amt = (int)$collection['regular_bill']['due_amount_tax'];
 $due_amt = (int)$collection['regular_bill']['total_due_amount'];	
 $bill_amt = (int)$collection['regular_bill']['g_total'];	
 $bill_for_user = (int)$collection['regular_bill']['bill_for_user'];
-
+$date = $collection['regular_bill']['date'];
 
 
 
@@ -993,7 +993,7 @@ if($wise == 2)
 {
 if($user_id == $bill_for_user)
 {
-if($date_from >= $m_from && $date_to <= $m_to)
+if($date >= $m_from && $date <= $m_to)
 {
 if($due_amt > 0)
 {
@@ -1020,7 +1020,7 @@ else if($wise == 1)
 {
 if($wing == $wing_id)
 {
-if($date_from >= $m_from && $date_to <= $m_to)
+if($date >= $m_from && $date <= $m_to)
 {
 if($due_amt > 0)
 {

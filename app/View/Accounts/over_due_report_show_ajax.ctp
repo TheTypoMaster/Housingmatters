@@ -13,9 +13,11 @@ $user_id = $collection['user']['user_id'];
 $user_name = $collection['user']['user_name'];
 }
 
-
 ?>
+<?php /////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
+
+<?php //////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <div style="width:100%;" class="hide_at_print">
 <?php
 if($wise == 1)
@@ -66,6 +68,7 @@ $total_amt = (int)$collection['regular_bill']['total_amount'];
 $due_amt = (int)$collection['regular_bill']['total_due_amount'];	
 $bill_amt = (int)$collection['regular_bill']['g_total'];	
 $bill_for_user = (int)$collection['regular_bill']['bill_for_user'];
+$date = $collection['regular_bill']['date'];
 $total_amount = $total_amt;
 
 
@@ -78,15 +81,11 @@ $flat_id = (int)$collection2['user']['flat'];
 $tenant = (int)$collection2['user']['tenant'];
 }	
 
-
-
-
-
 if($wise == 2)
 {
 if($user_id == $bill_for_user)
 {
-if($date_from >= $from1 && $date_to <= $to1)
+if($date >= $from1 && $date <= $to1)
 {
 if($due_amt > 0)
 {
@@ -109,7 +108,6 @@ $bill_amt = number_format($bill_amt);
 <td style="text-align:center;"><?php echo $bill_amt; ?></td>
 <td style="text-align:center;" class="hide_at_print"><a href="regular_bill_view/<?php echo $bill_no; ?>" class="btn mini yellow" target="_blank">Bill View</a></td>
 </tr>
-
 <?php
 }
 }
@@ -119,7 +117,7 @@ else if($wise == 1)
 {
 if($wing == $wing_id)
 {
-if($date_from >= $from1 && $date_to <= $to1)
+if($date >= $from1 && $date <= $to1)
 {
 if($due_amt > 0)
 {
@@ -150,6 +148,5 @@ $bill_amt = number_format($bill_amt);
 }
 }
 ?>
-
 </table>
 
