@@ -2240,6 +2240,7 @@ header ("Content-Description: Generated Report" );
 
 $s_society_id = (int)$this->Session->read('society_id');
 $s_role_id=$this->Session->read('role_id');
+$s_user_id = (int)$this->Session->read('user_id');
 
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
@@ -2276,7 +2277,7 @@ Petty Cash Payment Report  ($society_name)
 <th>Narration</th>
 <th>Amount</th>
 </tr>";
-										
+									
 $total_debit = 0;
 $total_credit = 0;
 $this->loadmodel('cash_bank');
@@ -2293,7 +2294,7 @@ $prepaired_by = (int)$collection['cash_bank']['prepaired_by'];
 $narration = $collection['cash_bank']['narration'];
 $account_head = $collection['cash_bank']['account_head'];
 $amount = $collection['cash_bank']['amount'];
-$amount_category_id = (int)$collection['cash_bank']['amount_category_id'];
+//$amount_category_id = (int)$collection['cash_bank']['amount_category_id'];
 $current_date = $collection['cash_bank']['current_date'];
 $creation_date = date('d-m-Y',$current_date->sec);										
 										
@@ -2318,11 +2319,6 @@ foreach ($result_la as $collection)
 $user_name = $collection['ledger_account']['ledger_name'];	  
 }
 }   										
-$result_amt = $this->requestAction(array('controller' => 'hms', 'action' => 'amount_category'),array('pass'=>array($amount_category_id)));
-foreach ($result_amt as $collection) 
-{
-$amount_category_name = $collection['amount_category']['amount_category'];	  
-}  
 
 if($date >= $m_from && $date <= $m_to)
 {
@@ -2351,7 +2347,7 @@ $excel.="<tr>
 <td>$narration</td>
 <td>$amount</td>
 </tr>";
-   }}}
+}}}
 
 $excel.="<tr>
 <th colspan='4'>Total</th>
