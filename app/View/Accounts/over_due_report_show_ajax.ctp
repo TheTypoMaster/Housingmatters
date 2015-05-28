@@ -171,7 +171,7 @@ $total_bill_amt = number_format($total_bill_amt);
 <th style="text-align:right;"><?php echo $grand_total; ?></th>
 <th style="text-align:right;"><?php echo $total_due_amt; ?></th>
 <th style="text-align:right;"><?php echo $total_bill_amt; ?></th>
-<th style="text-align:right;"></th>
+<th style="text-align:right;" class="hide_at_print"></th>
 </tr>
 </table>
 
