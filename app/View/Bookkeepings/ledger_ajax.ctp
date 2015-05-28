@@ -39,7 +39,7 @@ else
 {
 ?>
 
- <select class="medium m-wrap" tabindex="1" name="user_name2" id="sub_id">
+ <select class="medium m-wrap" tabindex="1" name="user_name2" id="sub_id" style="margin-top:7px;">
                 <option value="0">Sub Ledger</option>
   </select>
 

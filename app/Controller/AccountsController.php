@@ -906,7 +906,7 @@ $this->set('cursor1',$cursor1);
 function overdue_excel()
 {
 $this->layout="";
-$filename=strtotime("now");
+$filename="OverDue Report";
 header ("Expires: 0");
 header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
 header ("Cache-Control: no-cache, must-revalidate");
