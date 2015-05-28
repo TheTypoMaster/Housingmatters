@@ -961,6 +961,9 @@ Over Due Report  ($society_name Society)</th>
 <th>Bill Amount</th>
 </tr>";
 $c = 0;
+$grand_total = 0;
+$total_due_amt = 0;
+$total_bill_amt = 0;
 $this->loadmodel('regular_bill');
 $conditions=array("society_id"=> $s_society_id,"status"=>0);
 $cursor = $this->regular_bill->find('all',array('conditions'=>$conditions));
@@ -1001,6 +1004,9 @@ $fromd = date('d-M-Y',$date_from->sec);
 $tod = date('d-M-Y',$date_to->sec);	
 $dued = date('d-M-Y',$due_date->sec);	
 $c++;
+$grand_total = $grand_total + $total_amount;
+$total_due_amt = $total_due_amt + $due_amt;
+$total_bill_amt = $total_bill_amt + $bill_amt;
 $excel.="<tr>
 <td>$c</td>
 <td>$bill_no</td>
@@ -1028,6 +1034,9 @@ $fromd = date('d-M-Y',$date_from->sec);
 $tod = date('d-M-Y',$date_to->sec);	
 $dued = date('d-M-Y',$due_date->sec);	
 $c++;
+$grand_total = $grand_total + $total_amount;
+$total_due_amt = $total_due_amt + $due_amt;
+$total_bill_amt = $total_bill_amt + $bill_amt;
 $excel.="<tr>
 <td>$c</td>
 <td>$bill_no</td>
@@ -1042,7 +1051,14 @@ $excel.="<tr>
 }}}
 }
 }
-
+$excel.="
+<tr>
+<th colspan='5' style='text-align:right;'>Total</th>
+<th>$grand_total</th>
+<th>$total_due_amt</th>
+<th>$total_bill_amt</th>
+</tr>
+";
 $excel.="</table>";
 
 

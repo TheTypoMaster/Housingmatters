@@ -45,18 +45,21 @@ Over Due Report  (<?php echo $soc_name; ?> Society)</p>
 </th>
 </tr>
 <tr>
-<th style="text-align:center;">#</th>
-<th style="text-align:center;">Bill No</th>
-<th style="text-align:center;">Owner Name</th>
-<th style="text-align:center;">Bill Date</th>
-<th style="text-align:center;">Due date</th>
-<th style="text-align:center;">Total Amount</th>
-<th style="text-align:center;">Due Amount</th>
-<th style="text-align:center;">Bill Amount</th>
-<th style="text-align:center;" class="hide_at_print">Bill View</th>
+<th style="text-align:left;">#</th>
+<th style="text-align:left;">Bill No</th>
+<th style="text-align:left;">Owner Name</th>
+<th style="text-align:left;">Bill Date</th>
+<th style="text-align:left;">Due date</th>
+<th style="text-align:left;">Total Amount</th>
+<th style="text-align:left;">Due Amount</th>
+<th style="text-align:left;">Bill Amount</th>
+<th style="text-align:left;" class="hide_at_print">Bill View</th>
 </tr>
 <?php 
 $c=0;
+$grand_total = 0;
+$total_due_amt = 0;
+$total_bill_amt = 0;
 foreach($cursor1 as $collection)
 {
 $bill_no = (int)$collection['regular_bill']['receipt_id'];	
@@ -93,20 +96,26 @@ $fromd = date('d-M-Y',$date_from->sec);
 $tod = date('d-M-Y',$date_to->sec);	
 $dued = date('d-M-Y',$due_date->sec);	
 $c++;
+$grand_total = $grand_total + $total_amount;
+$total_due_amt = $total_due_amt + $due_amt;
+$total_bill_amt = $total_bill_amt + $bill_amt;
+
 $total_amount = number_format($total_amount);
 $due_amt = number_format($due_amt);
 $bill_amt = number_format($bill_amt);
+
+
 ?>
 <tr>
-<td style="text-align:center;"><?php echo $c; ?></td>
-<td style="text-align:center;"><?php echo $bill_no; ?></td>
-<td style="text-align:center;"><?php echo $user_name; ?></td>
-<td style="text-align:center;"><?php echo $fromd; ?>  -  <?php echo $tod; ?></td>
-<td style="text-align:center;"><?php echo $dued; ?></td>
-<td style="text-align:center;"><?php echo $total_amount; ?></td>
-<td style="text-align:center;"><?php echo $due_amt; ?></td>
-<td style="text-align:center;"><?php echo $bill_amt; ?></td>
-<td style="text-align:center;" class="hide_at_print"><a href="regular_bill_view/<?php echo $bill_no; ?>" class="btn mini yellow" target="_blank">Bill View</a></td>
+<td style="text-align:right;"><?php echo $c; ?></td>
+<td style="text-align:right;"><?php echo $bill_no; ?></td>
+<td style="text-align:left;"><?php echo $user_name; ?></td>
+<td style="text-align:left;"><?php echo $fromd; ?>  -  <?php echo $tod; ?></td>
+<td style="text-align:left;"><?php echo $dued; ?></td>
+<td style="text-align:right;"><?php echo $total_amount; ?></td>
+<td style="text-align:right;"><?php echo $due_amt; ?></td>
+<td style="text-align:right;"><?php echo $bill_amt; ?></td>
+<td style="text-align:right;" class="hide_at_print"><a href="regular_bill_view/<?php echo $bill_no; ?>" class="btn mini yellow" target="_blank">Bill View</a></td>
 </tr>
 <?php
 }
@@ -125,28 +134,44 @@ $fromd = date('d-M-Y',$date_from->sec);
 $tod = date('d-M-Y',$date_to->sec);	
 $dued = date('d-M-Y',$due_date->sec);	
 $c++;
+
+$grand_total = $grand_total + $total_amount;
+$total_due_amt = $total_due_amt + $due_amt;
+$total_bill_amt = $total_bill_amt + $bill_amt;
+
 $total_amount = number_format($total_amount);
 $due_amt = number_format($due_amt);
 $bill_amt = number_format($bill_amt);
-
-
 ?>
 <tr>
-<td style="text-align:center;"><?php echo $c; ?></td>
-<td style="text-align:center;"><?php echo $bill_no; ?></td>
-<td style="text-align:center;"><?php echo $user_name; ?></td>
-<td style="text-align:center;"><?php echo $fromd; ?>  -  <?php echo $tod; ?></td>
-<td style="text-align:center;"><?php echo $dued; ?></td>
-<td style="text-align:center;"><?php echo $total_amount; ?></td>
-<td style="text-align:center;"><?php echo $due_amt; ?></td>
-<td style="text-align:center;"><?php echo $bill_amt; ?></td>
-<td style="text-align:center;" class="hide_at_print"><a href="regular_bill_view/<?php echo $bill_no; ?>" class="btn mini yellow" target="_blank">Bill View</a></td>
+<td style="text-align:right;"><?php echo $c; ?></td>
+<td style="text-align:right;"><?php echo $bill_no; ?></td>
+<td style="text-align:left;"><?php echo $user_name; ?></td>
+<td style="text-align:left;"><?php echo $fromd; ?>  -  <?php echo $tod; ?></td>
+<td style="text-align:left;"><?php echo $dued; ?></td>
+<td style="text-align:right;"><?php echo $total_amount; ?></td>
+<td style="text-align:right;"><?php echo $due_amt; ?></td>
+<td style="text-align:right;"><?php echo $bill_amt; ?></td>
+<td style="text-align:right;" class="hide_at_print"><a href="regular_bill_view/<?php echo $bill_no; ?>" class="btn mini yellow" target="_blank">Bill View</a></td>
 </tr>
-
 <?php
-}}}
+}
+}
+}
 }
 }
 ?>
+<?php 
+$grand_total = number_format($grand_total);
+$total_due_amt = number_format($total_due_amt);
+$total_bill_amt = number_format($total_bill_amt);
+?>
+<tr>
+<th style="text-align:right;" colspan="5">Total</th>
+<th style="text-align:right;"><?php echo $grand_total; ?></th>
+<th style="text-align:right;"><?php echo $total_due_amt; ?></th>
+<th style="text-align:right;"><?php echo $total_bill_amt; ?></th>
+<th style="text-align:right;"></th>
+</tr>
 </table>
 
