@@ -37,7 +37,7 @@ $expense_month_arr[] = $expense_month;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////
-$nnn = 55;
+$nnn = 555;
 
 $total = 0;
 foreach($cursor2 as $collection)
@@ -65,7 +65,7 @@ if($exp_head2 == $ex_head)
 ?>
 <?php //echo $expense_head;  ?>
 <?php
-for($m=0; $m<sizeof($abc); $m++)
+for($m=0; $m<sizeof(@$abc); $m++)
 {
 $total = 0;
 $month_name3 = $abc[$m];
