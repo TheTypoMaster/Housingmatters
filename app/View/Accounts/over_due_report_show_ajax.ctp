@@ -15,9 +15,94 @@ $user_name = $collection['user']['user_name'];
 
 ?>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php 
+$nnn = 55;
+?>
+<?php 
+foreach($cursor1 as $collection)
+{
+$bill_no = (int)$collection['regular_bill']['receipt_id'];	
+$date_from = $collection['regular_bill']['bill_daterange_from'];	
+$date_to = $collection['regular_bill']['bill_daterange_to'];	
+$due_date = $collection['regular_bill']['due_date'];	
+$total_amt = (int)$collection['regular_bill']['total_amount'];
+//$tax_amt = (int)$collection['regular_bill']['tax_amount'];	
+$due_amt = (int)$collection['regular_bill']['total_due_amount'];	
+$bill_amt = (int)$collection['regular_bill']['g_total'];	
+$bill_for_user = (int)$collection['regular_bill']['bill_for_user'];
+$date = $collection['regular_bill']['date'];
+$total_amount = $total_amt;
+
+$result11 = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($bill_for_user)));				
+foreach ($result11 as $collection2) 
+{
+$user_name = $collection2['user']['user_name'];
+$wing_id = (int)$collection2['user']['wing'];  
+$flat_id = (int)$collection2['user']['flat'];
+$tenant = (int)$collection2['user']['tenant'];
+}	
+
+if($wise == 2)
+{
+if($user_id == $bill_for_user)
+{
+if($date >= $from1 && $date <= $to1)
+{
+if($due_amt > 0)
+{
+
+$nnn = 555;
+
+}
+}
+}
+}
+else if($wise == 1)
+{
+if($wing == $wing_id)
+{
+if($date >= $from1 && $date <= $to1)
+{
+if($due_amt > 0)
+{
+
+$nnn = 555;
+
+}
+}
+}
+}
+}
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <?php //////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php if($nnn == 555) { ?>
+
 <div style="width:100%;" class="hide_at_print">
 <?php
 if($wise == 1)
@@ -175,3 +260,17 @@ $total_bill_amt = number_format($total_bill_amt);
 </tr>
 </table>
 
+<?php }
+else if($nnn == 55)
+{
+?>
+<br /><br />											
+<center>
+<h3 style="color:red;">
+<b>No Records Found in Selected Period</b>
+</h3>
+</center>
+<br /><br />
+<?php 
+}
+?>
