@@ -13,11 +13,14 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <input type="hidden" id="cn" value="<?php echo $count; ?>" />
 							
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-			<center>
-			<a href="<?php echo $webroot_path; ?>Cashbanks/petty_cash_payment" class="btn yellow" rel='tab'>Create</a>
-			<a href="<?php echo $webroot_path; ?>Cashbanks/petty_cash_payment_view" class="btn" rel='tab'>View</a>
-			</center>	   
+<center>
+<a href="<?php echo $webroot_path; ?>Cashbanks/petty_cash_payment" class="btn yellow" rel='tab'>Create</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/petty_cash_payment_view" class="btn" rel='tab'>View</a>
+</center>	   
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////// ?>		   
+<?php 
+$default_date = date('d-m-Y');
+?>
 <div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">
 <h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Post Petty Cash Payment</h4>
 <?php
@@ -44,7 +47,7 @@ if($zz == 0)
 
 <label style="font-size:14px;">Transaction Date<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="date" id="date">
+<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="date" id="date" value="<?php echo $default_date; ?>">
 <label id="date"></label>
 <div id="result11"></div>
 </div>
