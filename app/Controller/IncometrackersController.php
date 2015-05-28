@@ -49,8 +49,8 @@ $conditions=array("society_id" => $s_society_id, "status"=>1);
 $cursor=$this->financial_year->find('all',array('conditions'=>$conditions));
 foreach($cursor as $collection)
 {
-$date_from = $collection['financial_year']['from'];
-$date_to = $collection['financial_year']['to'];
+$date_from = @$collection['financial_year']['from'];
+$date_to = @$collection['financial_year']['to'];
 
 $date_from1 = date('Y-m-d',$date_from->sec);
 $date_to1 = date('Y-m-d',$date_to->sec);
@@ -58,11 +58,14 @@ $date_to1 = date('Y-m-d',$date_to->sec);
 $datef[] = $date_from1;
 $datet[] = $date_to1;
 }
+if(!empty($datef))
+{
 $datef1 = implode(',',$datef);
 $datet1 = implode(',',$datet);
-$count = sizeof($datef);
-$this->set('datef1',$datef1);
-$this->set('datet1',$datet1);
+}
+$count = sizeof(@$datef);
+$this->set('datef1',@$datef1);
+$this->set('datet1',@$datet1);
 $this->set('count',$count);
 
 $this->loadmodel('regular_bill');
@@ -247,8 +250,8 @@ foreach($cursor as $collection)
 $society_name = $collection['society']['society_name'];
 $society_reg_no = $collection['society']['society_reg_num'];
 $society_address = $collection['society']['society_address'];
-$pen_per = (int)$collection['society']['tax'];
-$per_type = (int)$collection['society']['tax_type'];
+$pen_per = (int)@$collection['society']['tax'];
+$per_type = (int)@$collection['society']['tax_type'];
 }
 $this->set('pen_per',$pen_per);
 $this->set('per_type',$per_type);
@@ -277,9 +280,9 @@ $cursor = $this->society->find('all',array('conditions'=>$conditions));
 foreach($cursor as $collection)
 {
 $income_head_arr = @$collection['society']['income_head'];
-$terms_arr = $collection['society']['terms_conditions'];
-$pen_per2 = (int)$collection['society']['tax'];
-$per_type2 = (int)$collection['society']['tax_type'];
+$terms_arr = @$collection['society']['terms_conditions'];
+$pen_per2 = (int)@$collection['society']['tax'];
+$per_type2 = (int)@$collection['society']['tax_type'];
 $society_address = $collection['society']['society_address'];
 }
 $bill_for = (int)$this->request->data['bill_for'];
@@ -2207,8 +2210,8 @@ $conditions=array("society_id" => $s_society_id, "status"=>1);
 $cursor=$this->financial_year->find('all',array('conditions'=>$conditions));
 foreach($cursor as $collection)
 {
-$date_from = $collection['financial_year']['from'];
-$date_to = $collection['financial_year']['to'];
+$date_from = @$collection['financial_year']['from'];
+$date_to = @$collection['financial_year']['to'];
 
 $date_from1 = date('Y-m-d',$date_from->sec);
 $date_to1 = date('Y-m-d',$date_to->sec);
@@ -2216,11 +2219,14 @@ $date_to1 = date('Y-m-d',$date_to->sec);
 $datef[] = $date_from1;
 $datet[] = $date_to1;
 }
+if(!empty($datef))
+{
 $datef1 = implode(',',$datef);
 $datet1 = implode(',',$datet);
-$count = sizeof($datef);
-$this->set('datef1',$datef1);
-$this->set('datet1',$datet1);
+}
+$count = sizeof(@$datef);
+$this->set('datef1',@$datef1);
+$this->set('datet1',@$datet1);
 $this->set('count',$count);
 
 
@@ -2385,7 +2391,7 @@ foreach($cursor as $collection)
 $society_name = $collection['society']['society_name'];
 $society_reg_no = $collection['society']['society_reg_num'];
 $society_address = $collection['society']['society_address'];
-$terms_arr = $collection['society']['terms_conditions'];
+$terms_arr = @$collection['society']['terms_conditions'];
 }
 $this->set('society_name',$society_name);
 $this->set('society_reg_no',$society_reg_no);
@@ -3947,7 +3953,7 @@ $excel="<table border='1'>
 <th>Sr.No.</th>
 <th>Bill No.</th>
 <th>Name of Resident</th>";
-for($k=0; $k<sizeof($ih_arr); $k++)
+for($k=0; $k<sizeof(@$ih_arr); $k++)
 {
 $sub_arr = $ih_arr[$k];
 $ih_id1 = (int)$sub_arr[0];
@@ -4005,7 +4011,7 @@ $excel.="<tr>
 <td style='text-align:center;'>$m</td>
 <td style='text-align:center;'>$bill_no</td>
 <td style='text-align:center;'>$user_name</td>";
-for($x=0; $x<sizeof($ih_det); $x++)
+for($x=0; $x<sizeof(@$ih_det); $x++)
 {
 $charge3 = $ih_det[$x];
 $ih_id5 = (int)$charge3[0];
@@ -4017,7 +4023,7 @@ $ih_tt_amt[$x] = $ih_tt_amt[$x] + $amt;
 $excel.="<td style='text-align:center;'>$amt</td>";
 }}
 $n=5;
-for($y=0; $y<sizeof($ih_det); $y++)
+for($y=0; $y<sizeof(@$ih_det); $y++)
 {
 $charge4 = $ih_det[$y];
 $ih_id6 = (int)$charge4[0];
@@ -4049,7 +4055,7 @@ $excel.="
 }
 $excel.="<tr>
 <th colspan='3'>Total</th>";
-for($v=0; $v<sizeof($ih_tt_amt); $v++)
+for($v=0; $v<sizeof(@$ih_tt_amt); $v++)
 {
 $tt_amt = $ih_tt_amt[$v];	
 $excel.="<th>$tt_amt</th>";

@@ -184,7 +184,7 @@ echo $gt_amt; ?></td>
 <tr>
 <th colspan="3" style="text-align:right;">Total</th>
 <?php
-for($v=0; $v<sizeof($ih_tt_amt); $v++)
+for($v=0; $v<sizeof(@$ih_tt_amt); $v++)
 {
 $tt_amt = $ih_tt_amt[$v];	
 ?>
