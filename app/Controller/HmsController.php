@@ -4950,10 +4950,6 @@ $wing=$this->Session->read('wing');
 $current_date = new MongoDate(strtotime(date("Y-m-d")));
 
 
-
-
-
-
 if(!empty($r))
 {
 $this->loadmodel('user');
@@ -8781,7 +8777,7 @@ $time=date('h:i:a',time());
 $role_id[]=3;
 $default_role_id=3;
 $this->loadmodel('user');
-$this->user->save(array('user_id' => $i, 'user_name' => $user_name,'email' => $email, 'password' =>'', 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => 2, 'wing' =>0, 'flat' =>0,'residing' => 1, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$log_i,'s_default'=>1));
+$this->user->save(array('user_id' => $i, 'user_name' => $user_name,'email' => $email, 'password' =>'', 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => 2, 'wing' =>0, 'flat' =>0,'residing' => 1,'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$log_i,'s_default'=>1));
 
 //////////////////////////////////// End Code ////////////////////////////////////////////////////////////////////////
 
@@ -8856,25 +8852,6 @@ $this->role->saveAll(array("auto_id" => $k, "role_name" => $d, 'role_id'=>$p, "s
 //////////////// Role to assign end   //////////////////////////
 
 
-//////////////////  Ledger account table entry //////////////////////////
-
-$this->loadmodel('ledger_account');
-$conditions=array('edit_user_id'=>1);
-$result=$this->ledger_account->find('all',array('conditions'=>$conditions));
-foreach($result as $data)
-{
-	
-	$group_id=$data['ledger_account']['group_id'];
-	$ledger_name=$data['ledger_account']['ledger_name'];
-	$h=$this->autoincrement('ledger_account','auto_id');
-		
-	$this->loadmodel('ledger_account');
-	$this->ledger_account->saveAll(array('auto_id'=>$h,'ledger_name'=>$ledger_name,'group_id'=>$group_id,'edit_user_id'=>1,'society_id'=>$society_id,'delete_id'=>0));
-	
-}
-
-
-//////////////////////////  End account ledger table entry  ///////////////////////////////////////////
 ?>
 <!----alert-------------->
 <div class="modal-backdrop fade in"></div>

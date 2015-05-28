@@ -28,9 +28,11 @@ foreach ($cursor1 as $collection)
 {
 $auto_id = (int)$collection['ledger_account']['auto_id'];
 $name = $collection['ledger_account']['ledger_name']; 
+if($auto_id == 33 || $auto_id == 35)
+{
 ?>
 <option value="<?php echo $auto_id; ?>"><?php echo $name; ?></option>
-<?php } ?>
+<?php }} ?>
 </select>
 <label id="go"></label>
                          </td>
