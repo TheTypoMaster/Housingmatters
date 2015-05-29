@@ -293,7 +293,7 @@ $(document).ready(function(){
 				
 				
 				var count = $("#flats_main tr").length;
-		var ar = [];
+		        var ar = [];
 		
 		for(var i=1;i<=count;i++)
 		{
