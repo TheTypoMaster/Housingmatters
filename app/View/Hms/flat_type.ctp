@@ -221,7 +221,7 @@ $(document).ready(function() {
 <div class="modal-backdrop fade in"></div>
 	<form id="form1" method="post">
 	<div class="modal content_model">
-	<input type="text" value="1" id="stype"/>
+	<input type="hidden" value="1" id="stype"/>
    
     <div class="modal-header">
 			<h4 id="myModalLabel1">Import csv</h4>

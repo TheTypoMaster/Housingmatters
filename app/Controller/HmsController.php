@@ -18567,6 +18567,7 @@ die($output);
 }
 /////////////////////////// End Flat Import ////////////////////////////////////////////// 
 function import_flat_ajax(){
+	
 	$this->layout="blank";
 	$this->ath();
 	 

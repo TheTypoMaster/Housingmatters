@@ -8,44 +8,22 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
 
-
-<?php
-if($nnn == 5)
-{
-
-if(@$ok==2)
-{
-echo '<div class="alert alert-success">'.$sucess.'</div>';
-}
-if(@$ok==1)
-{
-
-echo '<div class="alert alert-error">';
-echo "<h4>Error :</h4></br>";
-foreach($error_msg as $er_msg)
-{
-echo '<p>'.$er_msg.'</p>';
-}
-echo '</div>';
-}
-?>
-
+<div class="show_record" style="width:100%; overflow:auto;">
 
 <div class="portlet box green">
 <div class="portlet-title">
 <h4><i class="icon-cogs"></i> Csv Import</h4>
 </div>
 <div class="portlet-body">
-<form  id="contact-form" name="myform" enctype="multipart/form-data" class="form-horizontal" method="post" >	
+<form  id="form1" method="post" >	
 <div class="control-group">
 <label class="control-label">Attach csv file</label>
 <div class="controls">
 <input type="file" name="file" class="default">
-<input type="submit" name="sub" class="btn blue" value="Import" >
+<button type="submit" class="btn blue import_btn">Import</button>
 </div>
 </div>
 </form>	
-	
 <strong><a href="<?php echo $this->webroot; ?>csv_file/demo/demo2.csv" download="">Click here for sample format</a></strong>
 <br>
 <h4>Instruction set to import users</h4>
@@ -55,66 +33,35 @@ echo '</div>';
 <li>Amount Type should be 'Debit' or 'Credit'</li>
 <li>Total Debit should be same to total Credit</li>
 </ol>
-	
 </div>
 </div>
-<?php }
 
-else if($nnn == 55)
-{
+<?php //////////////////////////////////////////////////////////////////////////////////// ?>
 
-//$datee = explode(',',$datei);
-//$ac_namee = explode(',',$ac_namei);
-//$amt_typee = explode(',',$amt_typei);
-//$op_bale = explode(',',$op_bali);
+<script>
+$(document).ready(function(){
 
-?>
-<form method="post">
-<table class="table table-bordered" style="background-color:white;">
-<tr>
-<th>Sr #</th>
-<th>Date</th>
-<th>A/c Name</th>
-<th>Amount Type</th>
-<th>Amount(Opening Balance)</th>    
-</tr>
-<?php
-$n=0;
-$total = 0;
-for($i=1;$i<sizeof($test);$i++)
-{
-	$n++;
-$row_no=$i+1;
-$r=explode(',',$test[$i][0]);
-$date2=trim($r[0]);
-//$acccount_type=trim($r[1]); 
-$account_name=trim($r[1]);
-$amount_type=trim($r[2]);
-$opening_balance=trim($r[3]);
-$total = $total + $opening_balance;
+$('form#form1').submit( function(ev){
+		ev.preventDefault();
+		$(".import_btn").text("Importing...");
+		
+		var m_data = new FormData();
+		m_data.append( 'file', $('input[name=file]')[0].files[0]);
+		$.ajax({
+		url: "opening_balance_import_ajax",
+		data: m_data,
+		processData: false,
+		contentType: false,
+		type: 'POST',
+		}).done(function(response) {
+		$(".show_record").html(response);
 
-?>    
- <tr>
- <td><?php echo $n; ?></td>
- <td><?php echo $date2; ?></td>
- <td><?php echo $account_name; ?></td>
- <td><?php echo $amount_type; ?></td>
- <td><?php echo $opening_balance; ?></td>
- </tr>   
- <?php
-}
- ?>  
- <tr>
- <th colspan="4">Total</th>
- <th><?php echo $total; ?></th>
- </tr> 
- </table>   
-    
-<div style="width:100%;">
-<a href="opening_balance_import" class="btn green">Ok</a>
-</div>   
-</form>   
 
-<?php
-}
-?>
+
+
+		});
+});
+
+
+});
+</script>

@@ -36,11 +36,7 @@ $this->layout='session';
 $this->ath();
 $this->check_user_privilages();
 
-
 $s_society_id=(int)$this->Session->read('society_id');
-$nnn = 5;
-$this->set('nnn',$nnn);
-
 
 if($this->request->is('post')) 
 {
@@ -3293,16 +3289,92 @@ function subledger_edit()
 $this->layout='blank';
 $s_society_id = (int)$this->Session->read('society_id');
 
+}
+/////////////////////////////// End SubLedgerEdit ////////////////////////////////////////////////////
+
+///////////////////////////////////// Start Opening Balance Import Ajax //////////////////////////////////////////
+function opening_balance_import_ajax()
+{
+$this->layout="blank";
+$this->ath();
+
+$s_society_id= (int)$this->Session->read('society_id');
+
+if(isset($_FILES['file'])){
+$file_name=$_FILES['file']['name'];
+$file_tmp_name =$_FILES['file']['tmp_name'];
+$target = "csv_file/unit/";
+$target=@$target.basename($file_name);
+move_uploaded_file($file_tmp_name,@$target);
+
+$f = fopen('csv_file/unit/'.$file_name, 'r') or die("ERROR OPENING DATA");
+$batchcount=0;
+$records=0;
+while (($line = fgetcsv($f, 4096, ';')) !== false) {
+// skip first record and empty ones
+$numcols = count($line);
+$test[]=$line;
+++$records;
+}
+fclose($f);
+$records;
+}
+
+    $i=0;
+	foreach($test as $child)
+	{
+    if($i>0)
+	{
+
+	  $child_ex=explode(',',$child[0]);
+      $date=$child_ex[0];
+      $ac_name=$child_ex[1];
+      $amt_type=$child_ex[2];
+	  $amt=$child_ex[3];
 
 
+$this->loadmodel('ledger_account'); 
+$conditions=array("ledger_name"=> new MongoRegex('/^' .  $ac_name . '$/i'));
+$result_ac=$this->ledger_account->find('all',array('conditions'=>$conditions));
+foreach($result_ac as $collection)
+{
+$auto_id = (int)$collection['ledger_account']['auto_id'];
+$ledger_type = 2;
+}
 
+$this->loadmodel('ledger_sub_account'); 
+$conditions=array("name"=> new MongoRegex('/^' .  $ac_name . '$/i'));
+$result_sac2=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+foreach($result_sac2 as $collection2)
+{
+$auto_id = (int)$collection2['ledger_sub_account']['auto_id'];
+$ledger_type = 1;
+}
 
+	  
+	  $table[] = array($date,$ac_name,$amt_type,$amt,$auto_id,$ledger_type);
+	  } 
+      $i++;
+      }
 
+$this->set('table',$table);
+
+$this->loadmodel('ledger_sub_account');
+$conditions=array("society_id" => $s_society_id);
+$cursor1 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+$this->set('cursor1',$cursor1);
+
+$this->loadmodel('ledger_account');
+$cursor2 = $this->ledger_account->find('all');
+$this->set('cursor2',$cursor2);
 
 
 
 }
-/////////////////////////////// End SubLedgerEdit ////////////////////////////////////////////////////
+///////////////////////////////////// End Opening Balance Import Ajax //////////////////////////////////////////
+
+
+
 
 }
 ?>

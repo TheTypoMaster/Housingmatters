@@ -1,4 +1,4 @@
-<input type="text" value="2" id="stype"/>
+<input type="hidden" value="2" id="stype"/>
 <div class="modal-header">
 	<h4 id="myModalLabel1">Import csv</h4>
 </div>
