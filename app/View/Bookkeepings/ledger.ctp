@@ -66,7 +66,7 @@ $default_date_to = date('d-m-Y')
 
 <?php //////////////////////////////////////////////////////////////////////////////////?>		
 <center>
-<div id="result" style="width:94%;">
+<div id="result" style="width:100%;">
 </div>
 </center>		
 		

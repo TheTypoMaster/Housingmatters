@@ -254,8 +254,10 @@ $(document).ready(function() {
 
 <script>
 $(document).ready(function(){
-	
-		
+
+$("#import_btn").live('click',function(){
+$("#myModal3").show();
+});
 	$("#import_close").live('click',function(){
 		$("#myModal3").hide();
 	});
