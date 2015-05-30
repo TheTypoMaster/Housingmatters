@@ -267,7 +267,7 @@ $this->redirect(array('action' => 'index'));
 }
 function beforeFilter()
 {
-//Configure::write('debug', 0);
+Configure::write('debug', 0);
 }
 
 function menus_from_role_privileges()
@@ -14426,7 +14426,7 @@ function family_member_view()
 	$tenant=(int)$data['user']['tenant'];
 	$wing=(int)$data['user']['wing'];
 	$flat=(int)$data['user']['flat'];
-	$residing=(int)$data['user']['residing'];
+	$residing=(int)$data['user']['noc_type'];
 
 	}
 	$result_society=$this->society_name($s_society_id);	
