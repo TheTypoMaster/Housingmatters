@@ -50,8 +50,8 @@ foreach($table as $child){
 		</td>
 		
 					
-		<td width="25%" style="padding-top:2%;"><input type="text" class="span12 m-wrap textbox" name="area1" id="area" style="font-size:16px;  background-color: white !important;" placeholder="area" value="<?php echo $child[3]; ?>">
-		<div class="pull-right"><a href="#" role="button" class="btn mini black delete" id="<?php echo $i; ?>"><i class="icon-trash"></i> Delete</a></div>
+		<td width="25%" style=""><input type="text" class="span12 m-wrap textbox" name="area1" id="area" style="font-size:16px;  background-color: white !important;" placeholder="area" value="<?php echo $child[3]; ?>"></td>
+		<td align="top"><div class="pull-right"><a href="#" role="button" class="btn mini red delete" id="<?php echo $i; ?>"><i class="icon-remove icon-white"></i></a></div>
 		
 		</td>
 			

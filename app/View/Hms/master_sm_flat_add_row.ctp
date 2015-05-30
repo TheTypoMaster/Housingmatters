@@ -36,7 +36,7 @@ $flat_name = $collection['flat_type_name']['flat_name'];
 					
 <td width="25%" style="text-align:center;">
 <input type="text" name="area1" class="m-wrap medium" id="ar<?php echo $t; ?>"/>
-<div class="pull-right"><a href="#" role="button" class="btn mini black delete" id="<?php echo $t; ?>"><i class="icon-trash"></i> Delete</a></div>
+<div class="pull-right"><a href="#" role="button" class="btn mini red delete" id="<?php echo $t; ?>"><i class="icon-remove icon-white"></i></a></div>
 </td>
 </tr>
 					
