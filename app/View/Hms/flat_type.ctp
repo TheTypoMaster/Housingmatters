@@ -254,10 +254,8 @@ $(document).ready(function() {
 
 <script>
 $(document).ready(function(){
-	$("#import_btn").bind('click',function(){
-		$("#myModal3").show();
-	});
 	
+		
 	$("#import_close").live('click',function(){
 		$("#myModal3").hide();
 	});
@@ -295,14 +293,14 @@ $(document).ready(function(){
 				var count = $("#flats_main tr").length;
 		        var ar = [];
 		
-		for(var i=1;i<=count;i++)
-		{
+		    for(var i=1;i<=count;i++)
+		    {
 			$("#url_main table tr:nth-child("+i+") span.report").remove();
 			var w=$("#flats_main tr:nth-child("+i+") select").val();
 			var f=$("#flats_main tr:nth-child("+i+") input").val();
 			var sub="no";
 			ar.push([w,f,sub]);
-		}
+		    }
 		var myJsonString = JSON.stringify(ar);
 		myJsonString=encodeURIComponent(myJsonString);
 		

@@ -58,6 +58,6 @@ $c = (int)strcasecmp("Credit",$type);
 </table>
 </div>
 <div class="modal-footer">
-	<button type="button" class="btn" id="import_close">Cancel</button>
-	<button type="submit" class="btn blue import_op">Import</button>
+<a class="btn" href="<?php echo $webroot_path; ?>Accounts/opening_balance_import" rel="tab">Cancel</a>
+<button type="submit" class="btn blue import_op">Import</button>
 </div>

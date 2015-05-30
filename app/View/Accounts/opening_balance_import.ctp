@@ -10,7 +10,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <div id="done" style="overflow:auto;">
 <form  id="form1" method="post" >	
 <div class="show_record" style="width:100%; overflow:auto;">
-
 <div class="portlet box green">
 <div class="portlet-title">
 <h4><i class="icon-cogs"></i> Csv Import</h4>
@@ -36,12 +35,15 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </ol>
 </div>
 </div>
+
 </form>	
 </div>
 <?php //////////////////////////////////////////////////////////////////////////////////// ?>
 
 <script>
 $(document).ready(function(){
+
+
 
 $('form#form1').submit( function(ev){
 		ev.preventDefault();
