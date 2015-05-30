@@ -20,7 +20,7 @@ Society Setup
 
 
 
-<a href="#" class="btn purple" role="button" id="import">Import</a>
+<a href="#" class="btn purple" role="button" id="import">Import csv</a>
 <div id='suces'>
 <div id="error_msg"></div>
 <div id="myModal3" class="modal hide fade in" style="display: none;">
