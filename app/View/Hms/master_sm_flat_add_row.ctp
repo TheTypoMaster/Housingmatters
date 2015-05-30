@@ -1,10 +1,7 @@
-
-
-<table width="100%" id="tab<?php echo $t; ?>" >
-<tr class="table table-bordered table-hover">
+<tr class="table table-bordered table-hover" id="tr<?php echo $t; ?>">
 
 <td width="25%" style="text-align:center;">
-<select name="wing_name<?php echo $t; ?>" class=" m-wrap medium" id="sel<?php echo $t; ?>" onchange="show_flat(this.value,<?php echo $t; ?>)" >
+<select name="wing_name<?php echo $t; ?>" class=" m-wrap medium wing" id="sel<?php echo $t; ?>" inc_id="<?php echo $t; ?>">
 <option value="">Select Category</option>
 <?php
 foreach ($user_wing as $collection) 
@@ -38,8 +35,8 @@ $flat_name = $collection['flat_type_name']['flat_name'];
 </td>					
 					
 <td width="25%" style="text-align:center;">
-<input type="text" name="area<?php echo $t; ?>" class="m-wrap medium" id="ar<?php echo $t; ?>"/>
+<input type="text" name="area1" class="m-wrap medium" id="ar<?php echo $t; ?>"/>
+<div class="pull-right"><a href="#" role="button" class="btn mini black delete" id="<?php echo $t; ?>"><i class="icon-trash"></i> Delete</a></div>
 </td>
 </tr>
 					
-</table>	
