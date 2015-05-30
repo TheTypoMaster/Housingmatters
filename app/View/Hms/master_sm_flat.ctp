@@ -42,6 +42,7 @@ Society Setup
 			<li>Wing and Flat name be valid as per society setting.</li>
 			<li>Flat type be valid as per society setting. </li>
 			<li>Flat area be valid as per society setting. </li>
+			<li>Flat name should be not same.</li>
 			</ol>
 		</div>
 		<div class="modal-footer">
@@ -265,21 +266,15 @@ $(document).ready(function(){
 					},"slow");
 					}
 					if(response.type=='succ'){
-					$('#suces').show().html('<div class="alert alert-success">'+response.text+'</div>');
+					$('#suces').show().html('<div class="alert alert-success"><h4 class="alert-heading">Success!</h4><p>'+response.text+'</p><p><a class="btn green" href="<?php echo $webroot_path; ?>Hms/master_sm_flat" rel="tab">OK</a></p></div>');
 					}
 			$("#error_msg").html(output);
-			
 			});
 
 		 };
 	 });
 	
-	 
-	 
-	 
-	 
-	 
-	 
+		 
 });
 </script>
 <script>

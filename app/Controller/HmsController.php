@@ -20623,7 +20623,7 @@ $time=date('h:i:a',time());
 $myArray = json_decode($q, true);
 
 $c=0;
-
+/*
 foreach($myArray as $child)
 {
 $c++;
@@ -20752,7 +20752,7 @@ $this->flat->updateAll(array("flat_area"=>$flat_area5,"flat_type_id"=>$auto_id),
 }
 
 }
-
+*/
 $output = json_encode(array('type'=>'succ', 'text' => 'Record Inserted Successfully.'));
 die($output);
 
