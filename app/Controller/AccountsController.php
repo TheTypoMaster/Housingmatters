@@ -36,12 +36,9 @@ $this->layout='session';
 $this->ath();
 $this->check_user_privilages();
 
-
 $s_society_id=(int)$this->Session->read('society_id');
-$nnn = 5;
-$this->set('nnn',$nnn);
 
-
+/*
 if($this->request->is('post')) 
 {
 $file=$this->request->form['file']['name'];
@@ -286,6 +283,7 @@ $this->set('sucess','Csv Imported successfully.');
 }
 }
 }
+*/
 }
 
 //////////////////// End Opening Balance Import (Accounts)//////////////////////////////
@@ -3293,16 +3291,222 @@ function subledger_edit()
 $this->layout='blank';
 $s_society_id = (int)$this->Session->read('society_id');
 
+}
+/////////////////////////////// End SubLedgerEdit ////////////////////////////////////////////////////
 
+///////////////////////////////////// Start Opening Balance Import Ajax //////////////////////////////////////////
+function opening_balance_import_ajax()
+{
+$this->layout="blank";
+$this->ath();
 
+$s_society_id= (int)$this->Session->read('society_id');
 
+if(isset($_FILES['file'])){
+$file_name=$_FILES['file']['name'];
+$file_tmp_name =$_FILES['file']['tmp_name'];
+$target = "csv_file/unit/";
+$target=@$target.basename($file_name);
+move_uploaded_file($file_tmp_name,@$target);
 
+$f = fopen('csv_file/unit/'.$file_name, 'r') or die("ERROR OPENING DATA");
+$batchcount=0;
+$records=0;
+while (($line = fgetcsv($f, 4096, ';')) !== false) {
+// skip first record and empty ones
+$numcols = count($line);
+$test[]=$line;
+++$records;
+}
+fclose($f);
+$records;
+}
 
+    $i=0;
+	foreach($test as $child)
+	{
+    if($i>0)
+	{
+
+	  $child_ex=explode(',',$child[0]);
+      $date=$child_ex[0];
+      $ac_name=$child_ex[1];
+      $amt_type=$child_ex[2];
+	  $amt=$child_ex[3];
+
+$auto_id = "";
+	  
+$this->loadmodel('ledger_account'); 
+$conditions=array("ledger_name"=> new MongoRegex('/^' .  $ac_name . '$/i'));
+$result_ac=$this->ledger_account->find('all',array('conditions'=>$conditions));
+foreach($result_ac as $collection)
+{
+$auto_id = (int)$collection['ledger_account']['auto_id'];
+$ledger_type = 2;
+}
+
+$this->loadmodel('ledger_sub_account'); 
+$conditions=array("name"=> new MongoRegex('/^' .  $ac_name . '$/i'));
+$result_sac2=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+foreach($result_sac2 as $collection2)
+{
+$auto_id = (int)$collection2['ledger_sub_account']['auto_id'];
+$ledger_type = 1;
+}
+
+	  
+	  $table[] = array(@$date,@$ac_name,@$amt_type,@$amt,@$auto_id,@$ledger_type);
+	  } 
+      $i++;
+      }
+
+$this->set('table',$table);
+
+$this->loadmodel('ledger_sub_account');
+$conditions=array("society_id" => $s_society_id);
+$cursor1 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+$this->set('cursor1',$cursor1);
+
+$this->loadmodel('ledger_account');
+$cursor2 = $this->ledger_account->find('all');
+$this->set('cursor2',$cursor2);
 
 
 
 }
-/////////////////////////////// End SubLedgerEdit ////////////////////////////////////////////////////
+///////////////////////////////////// End Opening Balance Import Ajax //////////////////////////////////////////
 
+//////////////////////////// Start Save Open Bal //////////////////////////////////////////////////////////
+function save_open_bal()
+{
+$this->layout='blank';
+$s_society_id = (int)$this->Session->read('society_id');
+	
+$q=$this->request->query('q'); 
+$myArray = json_decode($q, true);
+	
+$c=1;
+$report=array();
+$array1 = array();
+foreach($myArray as $child){
+
+$c++;
+if(empty($child[0])){
+$report[]=array('tr'=>$c,'td'=>1, 'text' => 'Required');
+}
+if(empty($child[1])){
+$report[]=array('tr'=>$c,'td'=>2, 'text' => 'Required');
+}
+
+if(empty($child[2])){
+$report[]=array('tr'=>$c,'td'=>3, 'text' => 'Required');
+}
+
+if(empty($child[3])){
+$report[]=array('tr'=>$c,'td'=>4, 'text' => 'Required');
+}
+
+}
+if(sizeof($report)>0){
+$output=json_encode(array('report_type'=>'error','report'=>$report));
+die($output);
+}
+
+
+$t=1;
+$total_debit = 0;
+$total_credit = 0;
+foreach($myArray as $child)
+{
+$t++;
+//////////////////////////////////////////////////
+$date2 = $child[0];
+$date1 = date("Y-m-d", strtotime($date2));
+$date1 = new MongoDate(strtotime($date1));
+
+$this->loadmodel('financial_year');
+$conditions=array("society_id" => $s_society_id,"status"=>1);
+$cursor = $this->financial_year->find('all',array('conditions'=>$conditions));
+$abc = 555;
+foreach($cursor as $collection)
+{
+$from = $collection['financial_year']['from'];
+$to = $collection['financial_year']['to'];
+if($date1 <= $to && $date1 >= $from)
+{
+$abc = 5;
+break;
+}
+}
+if($abc == 555)
+{
+$output=json_encode(array('report_type'=>'fina','text'=>'Date is not in Financial Year in row '.$t));
+die($output);
+}
+
+$opening_bal = $child[3]; 
+if(is_numeric($opening_bal))
+{
+
+}
+else
+{
+$output=json_encode(array('report_type'=>'fina','text'=>'Amount (Opening Balance Should be Numeric in row '.$t));
+die($output);
+}
+
+$amt_type = (int)$child[2];
+if($amt_type == 1)
+{
+$total_debit = $total_debit + $opening_bal;
+}
+if($amt_type == 2)
+{
+$total_credit = $total_credit + $opening_bal;
+}
+//////////////////////////////////////////////////////////////////////
+}
+
+if($total_credit != $total_debit)
+{
+$output=json_encode(array('report_type'=>'fina','text'=>'Total Debit must be Equal to Total Credit'));
+die($output);
+}
+
+
+foreach($myArray as $child)
+{
+$op_date = $child[0];
+
+$op_date = date("Y-m-d", strtotime($op_date));
+$op_date = new MongoDate(strtotime($op_date));
+
+$current_date = date("Y-m-d");
+$current_date = new MongoDate(strtotime($current_date));
+
+$open_bal = $child[3];
+$amt_cat = (int)$child[2];
+$ac_id = $child[1];
+$ac_id2 = explode(",",$ac_id);
+$ac_id3 = (int)$ac_id2[0];
+$type = (int)$ac_id2[1];
+$insert = (int)$child[4];
+if($insert == 2)
+{
+$u=$this->autoincrement('ledger','auto_id');
+$this->loadmodel('ledger');
+$this->ledger->saveAll(array("auto_id" => $u, "op_date" => $op_date, 
+"receipt_id" => "O_B","amount" => $open_bal, "amount_category_id" => $amt_cat, "module_id" => "O_B", "account_type" => $type,"account_id" => $ac_id3,"current_date" => $current_date,"society_id" => $s_society_id));
+}
+}
+
+
+$output=json_encode(array('report_type'=>'done','text'=>'Total Debit must be Equal to Total Credit'));
+die($output);
+
+
+}
+
+//////////////////////////// End Save Open Bal //////////////////////////////////////////////////////////
 }
 ?>

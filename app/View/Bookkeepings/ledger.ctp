@@ -11,6 +11,10 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </div>
 		
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>	
+<?php  
+$default_date_from = date('1-m-Y'); 
+$default_date_to = date('d-m-Y')
+?> 
  <center>
                 <form method="post" onSubmit="return valid()">
                 <div id="validate_result"></div>
@@ -30,8 +34,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
                 <?php } ?>
                 </select>
                 </td>
-               
-               
                 <td id="result1">
                 <select class="medium m-wrap" tabindex="1" name="user_name" id="sub_id" style="margin-top:7px;">
                 <option value="0">Select Sub Ledger A/c</option>
@@ -39,11 +41,11 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
                 </td>
                              
                 <td>
-                <input type="text" placeholder="From Date" id="date1" class="date-picker medium m-wrap" data-date-format="dd-mm-yyyy" name="from" style="background-color:white !important; margin-top:7px;">
+                <input type="text" placeholder="From Date" id="date1" class="date-picker medium m-wrap" data-date-format="dd-mm-yyyy" name="from" style="background-color:white !important; margin-top:7px;" value="<?php echo $default_date_from; ?>">
                 </td>
                                 
                 <td>
-                <input type="text" placeholder="To Date" id="date2" class="date-picker medium m-wrap" data-date-format="dd-mm-yyyy" name="to" style="background-color:white !important; margin-top:7px;">
+                <input type="text" placeholder="To Date" id="date2" class="date-picker medium m-wrap" data-date-format="dd-mm-yyyy" name="to" style="background-color:white !important; margin-top:7px;" value="<?php echo $default_date_to; ?>">
                 </td>
                 
                 
