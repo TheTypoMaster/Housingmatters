@@ -246,7 +246,7 @@ $.validator.setDefaults({ ignore: ":hidden:not(select)" });
 		   
 <script>
 		$(document).ready(function() {
-		$("#vali").live('click',function(){
+		$("#vali").bind('click',function(){
         
 		var fi = document.getElementById("fi").value;
 		var ti = document.getElementById("ti").value;

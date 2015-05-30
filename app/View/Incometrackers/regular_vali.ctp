@@ -5,7 +5,7 @@ echo "<p style='color:red;'>Date Invalid (To Date is small than From Date)</p>";
 }
 else if($cc == 2)
 {
-echo "<p style='color:red;'>Date Invalid(Dates is not in open year Plese Check)</p>";	
+echo "<p style='color:red;'>Date Invalid(Dates is not in open year Please Check)</p>";	
 }
 else if($cc == 3)
 {

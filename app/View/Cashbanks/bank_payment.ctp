@@ -1,6 +1,3 @@
-
-
-
 <?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 ?>				   
@@ -10,7 +7,9 @@ $("#fix<?php echo $id_current_page; ?>").removeClass("blue");
 $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
-
+<input type="hidden" id="fi" value="<?php echo $datef1; ?>" />
+<input type="hidden" id="ti" value="<?php echo $datet1; ?>" />
+<input type="hidden" id="cn" value="<?php echo $count; ?>" />
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <center>
 <a href="<?php echo $webroot_path; ?>Cashbanks/bank_payment" class="btn yellow" rel='tab'>Create</a>
@@ -54,6 +53,7 @@ else
 <div class="controls">
 <input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="date" id="date" value="<?php echo $default_date; ?>">
 <label report="tr_dat" class="remove_report"></label>
+<div id="result11"></div>
 </div>
 <br />
 
@@ -195,7 +195,7 @@ $tds_tax = $tds_sub_arr[0];
 </div>
 </div>
 <hr/>
-<button type="submit" class="btn form_post" style="background-color: #09F; color:#fff;" value="xyz">Submit</button>
+<button type="submit" class="btn form_post" style="background-color: #09F; color:#fff;" value="xyz" id="vali">Submit</button>
 <a href="<?php echo $webroot_path; ?>Cashbanks/bank_payment" style="background-color: #09F;color:#fff;" class="btn" rel='tab'>Reset</a>
 <div style="display:none;" id='wait'><img src="<?php echo $webroot_path; ?>as/fb_loading.gif" /> Please Wait...</div>
 <br /><br />
@@ -308,7 +308,64 @@ $(document).ready(function() {
     
     
     
-    
+<script>
+$(document).ready(function() {
+$("#vali").bind('click',function(){
+
+var fi = document.getElementById("fi").value;
+var ti = document.getElementById("ti").value;
+var cn = document.getElementById("cn").value;
+var fe = fi.split(",");
+var te = ti.split(",");
+var date1 = document.getElementById("date").value;
+
+var date = date1.split("-").reverse().join("-");
+
+var nnn = 55;
+for(var i=0; i<cn; i++)
+{
+var fd = fe[i];
+var td = te[i]
+
+if(date == "")
+{
+nnn = 555;
+break;	
+}
+else if(Date.parse(fd) <= Date.parse(date))
+{
+if(Date.parse(td) >= Date.parse(date))
+{
+nnn = 5;
+break;
+}
+else
+{
+
+}
+} 
+}
+
+
+if(nnn == 55)
+{
+$("#result11").load("cash_bank_vali?ss=" + 2 + "");
+return false;	
+}
+else if(nnn == 555)
+{
+
+}
+else
+{
+$("#result11").load("cash_bank_vali?ss=" + 12 + "");		
+}
+
+
+
+});
+});
+</script>   
     
     
     
