@@ -2732,7 +2732,7 @@ function add_field()
 	$this->layout="session";
 	$this->ath();
 	$s_user_id=$this->Session->read('user_id');
-	$files = glob("profile/$s_user_id/*.*");
+	$files = glob("profile/*.*");
 	$this->set('images',$files);
 	
 }
