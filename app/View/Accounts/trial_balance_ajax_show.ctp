@@ -393,7 +393,7 @@ $ledger1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger
 				//$module_id = (int)@$collection['ledger']['module_id'];
 		        $receipt_id = (int)$collection['ledger']['receipt_id'];
                 $op_date = @$collection['ledger']['op_date'];
-                $table_name = $collection['ledger']['table_name']; 
+                $table_name = @$collection['ledger']['table_name']; 
 				if($table_name == "cash_bank")
 				{
 				$module_id = (int)$collection['ledger']['module_id'];	
@@ -645,7 +645,7 @@ $ledger1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger
 				//$module_id = (int)@$collection['ledger']['module_id'];
 		        $receipt_id = (int)$collection['ledger']['receipt_id'];
                 $op_date = @$collection['ledger']['op_date']; 
-                $table_name = $collection['ledger']['table_name'];
+                $table_name = @$collection['ledger']['table_name'];
 				if($table_name == "cash_bank")
 				{
 				$module_id = (int)$collection['ledger']['module_id'];	
@@ -927,7 +927,7 @@ $ledger1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger
 				//$module_id = (int)@$collection['ledger']['module_id'];
 		        $receipt_id = (int)$collection['ledger']['receipt_id'];
 				$op_date = @$collection['ledger']['op_date'];
-				$table_name = $collection['ledger']['table_name'];
+				$table_name = @$collection['ledger']['table_name'];
 				if($table_name == "cash_bank")
 				{
 				$module_id = (int)$collection['ledger']['module_id'];	
@@ -1110,7 +1110,7 @@ $total_closing_balance = $total_closing_balance + $amount1;
 		//$module_id = (int)@$collection['ledger']['module_id'];
 		$receipt_id_s = (int)$collection['ledger']['receipt_id'];
 		$op_date2 = @$collection['ledger']['op_date'];
-		$table_name = $collection['ledger']['table_name'];
+		$table_name = @$collection['ledger']['table_name'];
 		if($table_name == "cash_bank")
 		{
 		$module_id = (int)$collection['ledger']['module_id'];	
@@ -1319,7 +1319,7 @@ else
 			//$module_id = (int)@$collection['ledger']['module_id'];
 			$receipt_id2 = (int)$collection['ledger']['receipt_id'];
 			$op_date3 = @$collection['ledger']['op_date'];
-            $table_name = $collection['ledger']['table_name'];
+            $table_name = @$collection['ledger']['table_name'];
 			if($table_name == "cash_bank")
 			{
 			$module_id = (int)$collection['ledger']['module_id'];	

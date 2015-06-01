@@ -191,7 +191,7 @@ $group_id=$collection["group"]["group_id"];
   </div>
 </div>
 <label style="color: #696969;font-size: 12px;">
-Note: File size must be less than 1 MB and only jpg,png extension are allowed.
+Note: File size must be less than 2 MB and only jpg,png extension are allowed.
 </label>
 <label id="file"></label>				   
 
@@ -391,7 +391,7 @@ rules: {
   },
  file: {
 		accept: "png,jpg",
-		filesize: 1048576
+		filesize: 2097152
 	  },
   
   
@@ -404,7 +404,7 @@ messages: {
 			},
 			file: {
 					accept: "File extension must be png or jpg",
-					filesize: "File size must be less than 1MB."
+					filesize: "File size must be less than 2MB."
 				},
 		},
 	highlight: function(element) {

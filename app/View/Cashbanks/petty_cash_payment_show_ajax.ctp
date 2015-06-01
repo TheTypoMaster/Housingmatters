@@ -16,18 +16,18 @@ $m_to = new MongoDate(strtotime($m_to));
 <?php
 $nnn = 55;
 foreach ($cursor1 as $collection) 
-			{
-			$receipt_no = (int)@$collection['cash_bank']['receipt_id'];
-			$transaction_id = (int)$collection['cash_bank']['transaction_id'];	
-			$account_type = (int)$collection['cash_bank']['account_type'];
-			$user_id = (int)$collection['cash_bank']['user_id'];
-			$date = $collection['cash_bank']['transaction_date'];
-			$prepaired_by = (int)$collection['cash_bank']['prepaired_by'];   
-			$narration = $collection['cash_bank']['narration'];
-			$account_head = $collection['cash_bank']['account_head'];
-			$amount = $collection['cash_bank']['amount'];
-			$amount_category_id = (int)$collection['cash_bank']['amount_category_id'];
-            $current_date = $collection['cash_bank']['current_date'];
+{
+$receipt_no = (int)@$collection['cash_bank']['receipt_id'];
+$transaction_id = (int)$collection['cash_bank']['transaction_id'];	
+$account_type = (int)$collection['cash_bank']['account_type'];
+$user_id = (int)$collection['cash_bank']['user_id'];
+$date = $collection['cash_bank']['transaction_date'];
+$prepaired_by = (int)$collection['cash_bank']['prepaired_by'];   
+$narration = $collection['cash_bank']['narration'];
+$account_head = $collection['cash_bank']['account_head'];
+$amount = $collection['cash_bank']['amount'];
+$amount_category_id = (int)$collection['cash_bank']['amount_category_id'];
+$current_date = $collection['cash_bank']['current_date'];
 $creation_date = date('d-m-Y',$current_date->sec);
 
 $result_gh = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($prepaired_by)));

@@ -221,7 +221,7 @@ $(document).ready(function() {
 <div class="modal-backdrop fade in"></div>
 	<form id="form1" method="post">
 	<div class="modal content_model">
-	<input type="text" value="1" id="stype"/>
+	<input type="hidden" value="1" id="stype"/>
    
     <div class="modal-header">
 			<h4 id="myModalLabel1">Import csv</h4>
@@ -234,10 +234,8 @@ $(document).ready(function() {
 			<h4>Instruction set to import users</h4>
 			<ol>
 			<li>All the field are compulsory.</li>
-			<li>Wing and Flat name be valid as per society setting.</li>
-			<li>Email ID should be correct as all the further communication will be send to this email id. No duplicate Email is allowed.</li>
-			<li>Mobile number should be 10 digits. No Duplicate Mobile No is allowed.</li>
-			<li>Owner,Committee,Residing should be only "Yes" or "No".</li>
+			<li>Wing and Flat number be valid as per society setting.</li>
+			<li>Flat number should be not same.</li>
 			</ol>
 		</div>
 		<div class="modal-footer">
@@ -254,10 +252,10 @@ $(document).ready(function() {
 
 <script>
 $(document).ready(function(){
-	$("#import_btn").bind('click',function(){
-		$("#myModal3").show();
-	});
-	
+
+$("#import_btn").live('click',function(){
+$("#myModal3").show();
+});
 	$("#import_close").live('click',function(){
 		$("#myModal3").hide();
 	});
@@ -293,16 +291,16 @@ $(document).ready(function(){
 				
 				
 				var count = $("#flats_main tr").length;
-		var ar = [];
+		        var ar = [];
 		
-		for(var i=1;i<=count;i++)
-		{
+		    for(var i=1;i<=count;i++)
+		    {
 			$("#url_main table tr:nth-child("+i+") span.report").remove();
 			var w=$("#flats_main tr:nth-child("+i+") select").val();
 			var f=$("#flats_main tr:nth-child("+i+") input").val();
 			var sub="no";
 			ar.push([w,f,sub]);
-		}
+		    }
 		var myJsonString = JSON.stringify(ar);
 		myJsonString=encodeURIComponent(myJsonString);
 		

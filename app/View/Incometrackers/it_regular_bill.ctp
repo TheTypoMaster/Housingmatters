@@ -197,7 +197,6 @@ No
 </div>
 
 
-
 </div>
 </div>
 <hr />
@@ -395,25 +394,9 @@ $(document).ready(function(){
 <script>
 
 		$(document).ready(function() {
-		$("#go").live('click',function(){
- 
- var bb = $('input[type=radio]:checked').val();
- 
- if(bb == 1)
- {       
-if($('input[type=checkbox]:checked').length == 0)
-{
-$('#chk_vali').html('<p style="color:red;">Select at list One wing</p>'); return false;
-}		
-else
-{
-$('#chk_vali').html('<p style="color:red;"></p>');	
-}
- }
-		
-		
-		
-		
+		$("#go").bind('click',function(){
+
+	
 		
 		
 		var from1 = document.getElementById("from").value;
@@ -556,6 +539,22 @@ $('#chk_vali').html('<p style="color:red;"></p>');
 		{
 		$("#result12").load("regular_vali?ss=" + 13 + "");	 
 		}
+		
+		
+var bb = $('input[type=radio]:checked').val();
+if(bb == 1)
+{       
+if($('input[type=checkbox]:checked').length == 0)
+{
+$('#chk_vali').html('<p style="color:red;">Select at list One wing</p>'); return false;
+}		
+else
+{
+$('#chk_vali').html('<p style="color:red;"></p>');	
+}
+}		
+		
+		
 		
 		
 		});

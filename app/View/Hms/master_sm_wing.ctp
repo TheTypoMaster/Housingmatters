@@ -21,13 +21,14 @@ Society Setup
 
 <div class="row-fluid">
 <div class="span5">
-<form method="post">
+<form method="post" id="sucess">
 
 <label >Wing Name <span style="font-size:12px; color:#999;">(Maximum 10 characters.)</span></label>
 <div class="controls">
 <input type="text" class="m-wrap span7" name="wing_name" maxlength="10" id="wing">
 <button type="submit" class="btn form_post" style="background-color: #09F; color:#fff;" value="xyz">Add Wing</button>
 <label report="win" class="remove_report"></label>
+
 </div>
 </form>
 </div>
@@ -86,17 +87,19 @@ $(document).ready(function() {
 			type: 'POST',
 			dataType:'json',
 			}).done(function(response) {
-				if(response.report_type=='error'){
+			if(response.report_type=='error'){
 					$(".remove_report").html('');
 						jQuery.each(response.report, function(i, val) {
 						$("label[report="+val.label+"]").html('<span style="color:red;">'+val.text+'</span>');
 					});
 				}
 				if(response.report_type=='publish'){
-                $("#shwd").show()
-				$(".success_report").show().html(response.report);	
+               
+				$("#sucess").show().html('<div class="alert alert-block alert-success fade in"><h4 class="alert-heading">Success!</h4><p>'+response.report+'</p><p><a class="btn green" href="<?php echo $webroot_path; ?>Hms/master_sm_wing" rel="tab">OK</a></p></div>');	
 				}
-			
+				if(response.report_type=='already_error'){
+				$(".remove_report").html("<span style='color:red;'>"+response.text+"</span>");
+			}
 			$("html, body").animate({
 			scrollTop:0
 			},"slow");
@@ -107,41 +110,4 @@ $(document).ready(function() {
 	});
 });
 </script>	
-
-
-	
-
-
-
-<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<div id="shwd" class="hide">
-<div class="modal-backdrop fade in"></div>
-<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-<div class="modal-header">
-<center>
-<h3 id="myModalLabel3" style="color:#999;"><b>Wing</b></h3>
-</center>
-</div>
-<div class="modal-body">
-<center>
-<h5><b class="success_report"></b></h5>
-</center>
-</div>
-<div class="modal-footer">
-<a href="<?php echo $webroot_path; ?>Hms/master_sm_wing" class="btn blue" rel='tab'>OK</a>
-</div>
-</div>
-</div> 		   
-<?php //////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-
-
-
-		
-		
-		
-
-
-
-
-
 

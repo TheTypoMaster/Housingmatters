@@ -267,7 +267,7 @@ $this->redirect(array('action' => 'index'));
 }
 function beforeFilter()
 {
-//Configure::write('debug', 0);
+Configure::write('debug', 0);
 }
 
 function menus_from_role_privileges()
@@ -2730,54 +2730,11 @@ $this->layout='session';
 function add_field()
 {
 	$this->layout="session";
-	$this->loadmodel('flat');
-	$result=$this->flat->find('all');
-	foreach($result as $data)
-	{
-		$flat_area=$data['flat']['flat_area'];
-		$flat_id=$data['flat']['flat_id'];
-		$flat_number=$data['flat']['flat_number'];
-		$flat_type_id=$data['flat']['flat_type_id'];
-		$noc_ch_type=$data['flat']['noc_ch_type'];
-		$society_id=$data['flat']['society_id'];
-		$wing_id=$data['flat']['wing_id'];
-		
-		$this->loadmodel('flat_new');
-		$this->flat_new->saveAll(array("falt_id"=>$flat_id,"flat_area"=>$flat_area,"flat_name"=>$flat_number,"flat_type_id"=>$flat_type_id,"noc_ch_type"=>$noc_ch_type,"society_id"=>$society_id,"wing_id"=>$wing_id));
-		
-	}
-	//pr($result);
-	 
+	$this->ath();
+	$s_user_id=$this->Session->read('user_id');
+	$files = glob("profile/$s_user_id/*.*");
+	$this->set('images',$files);
 	
-	
-	//pr($result);
-	
-	/*
-$this->layout="session";	
-$s_society_id=$this->Session->read('society_id');	
-$this->loadmodel('user');
-$result=$this->user->find('all');
-$this->set('result_user',$result);
-foreach($result as $data)
-{
-$user_id=$data['user']['user_id'];
-$user_name=$data['user']['user_name'];
-$email=$data['user']['email'];
-$mobile=$data['user']['mobile'];
-$password=$data['user']['password'];
-@$signup_random=$data['user']['signup_random'];
-$user=$email;
-if(empty($email))
-{
-$user=$mobile;
-}
-$log_i=$this->autoincrement('login','login_id');
-$this->loadmodel('login');
-$this->login->saveAll(array('login_id'=>$log_i,'user_name'=>$user,'password'=>$password,'signup_random'=>$signup_random,'mobile'=>$mobile));
-$this->loadmodel('user');
-$this->user->updateAll(array('login_id'=>$log_i,'s_default'=>1),array('user_id'=>$user_id));
-}
-*/
 }
 
 
@@ -4732,6 +4689,20 @@ $conditions=array("wing_id" => $wing_id);
 $result = $this->flat->find('all',array('conditions'=>$conditions));
 $this->set('result3',$result);
 }
+
+function return_flat_via_wing_id3()
+{
+$this->layout='blank';	
+$wing_id=(int)$this->request->query['con2'];
+$i=(int)$this->request->query['con1'];
+$this->set('i',$i);
+$this->loadmodel('flat');
+$conditions=array("wing_id" => $wing_id);
+$result = $this->flat->find('all',array('conditions'=>$conditions));
+$this->set('result3',$result);
+}
+
+
 
 function signup_emilexits()
 {
@@ -13840,7 +13811,7 @@ $this->user->updateAll(array("user_name" => $name,"email" => $email,'mobile'=>$m
 
 $to=$email;
 $from_name="HousingMatters";
-$subject='[$society_name2]-Profile Update';
+ $subject='['.$society_name2.']-Profile Update';
 $this->loadmodel('email');
 $conditions=array('auto_id'=>4);
 $result_email=$this->email->find('all',array('conditions'=>$conditions));
@@ -14172,8 +14143,12 @@ $id=(int)$this->request->data['text_id'];
 $name=htmlentities($this->request->data['name']);
 $mobile=htmlentities($this->request->data['mobile']);
  $email=htmlentities($this->request->data['email']);
- $web=htmlentities($this->request->data['web']);
+  $web=htmlentities($this->request->data['web']);
  $service=htmlentities($this->request->data['service']);
+ if (!preg_match("~^(?:f|ht)tps?://~i", $web)) {
+        $web = "http://" . $web;
+    }
+	
 
 if(!empty($id))
 {
@@ -14455,7 +14430,7 @@ function family_member_view()
 	$tenant=(int)$data['user']['tenant'];
 	$wing=(int)$data['user']['wing'];
 	$flat=(int)$data['user']['flat'];
-	$residing=(int)$data['user']['residing'];
+	$residing=(int)$data['user']['noc_type'];
 
 	}
 	$result_society=$this->society_name($s_society_id);	
@@ -15113,6 +15088,96 @@ $result_wing = $this->wing->find('all',array('conditions'=>$conditions));
 $this->set('result_wing',$result_wing);
 }
 
+function import_flat_configuration()
+{
+	$this->layout="blank";
+	$this->ath();
+	 $s_society_id=$this->Session->read('society_id');
+	
+	$this->loadmodel('wing');
+	$conditions=array("society_id" => $s_society_id);
+	$result_wing = $this->wing->find('all',array('conditions'=>$conditions));
+	$this->set('result_wing',$result_wing);
+	
+	$this->loadmodel('flat_type_name');
+	$result_flat_type = $this->flat_type_name->find('all');
+	$this->set('result_flat_type',$result_flat_type);
+	
+	if(isset($_FILES['file'])){
+		 $file_name=$_FILES['file']['name'];
+		
+		$file_tmp_name =$_FILES['file']['tmp_name'];
+		$target = "csv_file/";
+		$target=@$target.basename($file_name);
+		move_uploaded_file($file_tmp_name,@$target);
+		
+		$f = fopen('csv_file/'.$file_name, 'r') or die("ERROR OPENING DATA");
+		
+		$batchcount=0;
+		$records=0;
+		while (($line = fgetcsv($f, 4096, ';')) !== false) {
+		// skip first record and empty ones
+		 $numcols = count($line);
+
+		$test[]=$line;
+
+		//echo $col = $line[0];
+		//echo $batchcount++.". ".$col."\n";
+
+
+		++$records;
+		}
+
+		fclose($f);
+		$records;
+	}
+	
+	$i=0;
+	foreach($test as $child){ 
+		if($i>0){
+			
+					$child_ex=explode(',',$child[0]);
+					  $wing_name=$child_ex[0];
+					 $flat_name=$child_ex[1];
+					 $flat_type=$child_ex[2];
+					 $flat_area=$child_ex[3];
+					 
+					 $this->loadmodel('wing'); 
+			$conditions=array("society_id"=>$s_society_id,"wing_name"=> new MongoRegex('/^' .  $wing_name . '$/i'));
+			$result_wing=$this->wing->find('all',array('conditions'=>$conditions));
+			 $result_wing_count=sizeof($result_wing);
+
+			$wing_id=0;
+			$flat_id=0;
+			if($result_wing_count>0){
+				  $wing_id=$result_wing[0]['wing']['wing_id'];
+				
+				$this->loadmodel('flat'); 
+				$conditions=array("wing_id"=>$wing_id,"flat_name"=> new MongoRegex('/^' .  $flat_name . '$/i'));
+				$result_flat=$this->flat->find('all',array('conditions'=>$conditions));
+				$result_flat_count=sizeof($result_flat);
+
+				if($result_flat_count>0){
+					$flat_id=$result_flat[0]['flat']['flat_id'];	
+				}
+			}
+			
+			$this->loadmodel('flat_type_name'); 
+			$conditions=array("flat_name"=> new MongoRegex('/^' .  $flat_type . '$/i'));
+			$result_flat_type_name=$this->flat_type_name->find('all',array('conditions'=>$conditions));
+			 $result_f_t_count=sizeof($result_flat_type_name);
+				if($result_f_t_count>0){
+					$flat_type_id=$result_flat_type_name[0]['flat_type_name']['auto_id'];	
+				}	 
+					
+					 $table[]=array($wing_id,$flat_id,$flat_type_id,$flat_area);
+			
+		} $i++;
+	}
+	
+	$this->set('table',$table);
+	
+}
 
 function import_user_ajax()
 {
@@ -18567,6 +18632,7 @@ die($output);
 }
 /////////////////////////// End Flat Import ////////////////////////////////////////////// 
 function import_flat_ajax(){
+	
 	$this->layout="blank";
 	$this->ath();
 	 
@@ -18876,6 +18942,7 @@ $this->set("wing_id",$wing_id);
 $this->loadmodel('flat');
 $conditions=array("society_id" => $s_society_id, "wing_id"=>$wing_id);
 $cursor1 = $this->flat->find('all',array('conditions'=>$conditions));
+
 $this->set('cursor1',$cursor1);
 
 }
@@ -20558,7 +20625,9 @@ $date=date("d-m-Y");
 $time=date('h:i:a',time());
 
 $myArray = json_decode($q, true);
+
 $c=0;
+
 foreach($myArray as $child)
 {
 $c++;
@@ -21125,6 +21194,20 @@ $report = array();
 if(empty($wing)){
 $report[]=array('label'=>'win', 'text' => 'Please Fill Wing Name');
 }
+
+			$this->loadmodel('wing'); 
+			$conditions=array("society_id"=>$s_society_id,"wing_name"=> new MongoRegex('/^' .  $wing . '$/i'));
+			$result_wing=$this->wing->find('all',array('conditions'=>$conditions));
+			
+if(sizeof($result_wing)>0)
+{
+
+$output = json_encode(array('report_type'=>'already_error', 'text' => 'Wing Name is already exist .'));
+        die($output);
+}
+
+			
+			
 if(sizeof($report)>0)
 {
 $output=json_encode(array('report_type'=>'error','report'=>$report));
