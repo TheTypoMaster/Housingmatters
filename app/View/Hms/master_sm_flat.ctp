@@ -39,10 +39,10 @@ Society Setup
 			<h4>Instruction set to import users</h4>
 			<ol>
 			<li>All the field are compulsory.</li>
-			<li>Wing and Flat name be valid as per society setting.</li>
+			<li>Wing and Flat number be valid as per society setting.</li>
 			<li>Flat type be valid as per society setting. </li>
 			<li>Flat area be valid as per society setting. </li>
-			<li>Flat name should be not same.</li>
+			<li>Flat number should be not same.</li>
 			</ol>
 		</div>
 		<div class="modal-footer">
