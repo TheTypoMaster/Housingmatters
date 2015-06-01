@@ -253,6 +253,12 @@ $(document).ready(function() {
 <script>
 $(document).ready(function(){
 
+$(".delete").live('click',function(){
+var id = $(this).attr("del");
+$('#tr'+id).remove();
+});
+
+
 $("#import_btn").live('click',function(){
 $("#myModal3").show();
 });
