@@ -13840,7 +13840,6 @@ Thank you.<br/>
 HousingMatters (Support Team)<br/><br/>
 www.housingmatters.co.in
 </div >
-
 </div>";
 
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
