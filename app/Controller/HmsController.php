@@ -13811,7 +13811,7 @@ $this->user->updateAll(array("user_name" => $name,"email" => $email,'mobile'=>$m
 
 $to=$email;
 $from_name="HousingMatters";
-$subject='[$society_name2]-Profile Update';
+ $subject='['.$society_name2.']-Profile Update';
 $this->loadmodel('email');
 $conditions=array('auto_id'=>4);
 $result_email=$this->email->find('all',array('conditions'=>$conditions));
@@ -21194,6 +21194,20 @@ $report = array();
 if(empty($wing)){
 $report[]=array('label'=>'win', 'text' => 'Please Fill Wing Name');
 }
+
+			$this->loadmodel('wing'); 
+			$conditions=array("society_id"=>$s_society_id,"wing_name"=> new MongoRegex('/^' .  $wing . '$/i'));
+			$result_wing=$this->wing->find('all',array('conditions'=>$conditions));
+			
+if(sizeof($result_wing)>0)
+{
+
+$output = json_encode(array('report_type'=>'already_error', 'text' => 'Wing Name is already exist .'));
+        die($output);
+}
+
+			
+			
 if(sizeof($report)>0)
 {
 $output=json_encode(array('report_type'=>'error','report'=>$report));
