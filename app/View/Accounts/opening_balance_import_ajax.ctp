@@ -9,16 +9,24 @@
 <th>Account Name</th>
 <th>Amount Type</th>
 <th>Amount (Opening Balance)</th>
+<th>Delete</th>
 </tr>
 <?php foreach($table as $data){ 
-$type = $data[2];
+$amt_type1 = "";
+$amt1 = "";
+//$type = $data[1];
+$amt_type1 = $data[1];
+$amt1 = $data[2];
+if(!empty($amt_type1) && !empty($amt1))
+{
+$type = $data[1];
 ?>
 <tr>
-<td><input type="text" class="date-picker m-wrap span10" data-date-format="dd-mm-yyyy" name="date" id="date" value="<?php echo $data[0]; ?>" style="background-color:white !important;"></td>
+<td><input type="text" class="date-picker m-wrap span10" data-date-format="dd-mm-yyyy" name="date" id="date" style="background-color:white !important;"></td>
 <td>
 <?php
-$ledger_type = (int)$data[5];
-$auto_id = (int)$data[4];
+$ledger_type = (int)$data[4];
+$auto_id = (int)$data[3];
 ?>
 <select class="m-wrap span10">
 <option value="">Select</option>
@@ -43,18 +51,19 @@ $ledger_name = $collection['ledger_account']['ledger_name'];
 </select>
 <td>
 <?php
-$d = (int)strcasecmp("Debit",$type);
+$e = (int)strcasecmp("Debit",$type);
 $c = (int)strcasecmp("Credit",$type);
 ?>
 <select class="m-wrap span10">
 <option value="">Select</option>
-<option value="1" <?php if($d == 0) { ?> selected="selected" <?php } ?> >Debit</option>
+<option value="1" <?php if($e == 0) { ?> selected="selected" <?php } ?>>Debit</option>
 <option value="2" <?php if($c == 0) { ?> selected="selected" <?php } ?>>Credit</option>
 </select>
 </td>
-<td><input type="text" value="<?php echo $data[3]; ?>" class="m-wrap span10" style="background-color:white !important;" /></td>	
+<td><input type="text" value="<?php echo $data[2]; ?>" class="m-wrap span10" style="background-color:white !important;" /></td>
+<td>delete</td>	
 </tr>
-<?php } ?>
+<?php }} ?>
 </table>
 </div>
 <div class="modal-footer">

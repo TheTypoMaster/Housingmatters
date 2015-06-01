@@ -3329,10 +3329,10 @@ $records;
 	{
 
 	  $child_ex=explode(',',$child[0]);
-      $date=$child_ex[0];
-      $ac_name=$child_ex[1];
-      $amt_type=$child_ex[2];
-	  $amt=$child_ex[3];
+      //$date=$child_ex[0];
+      $ac_name=$child_ex[0];
+      $amt_type=$child_ex[1];
+	  $amt=$child_ex[2];
 
 $auto_id = "";
 	  
@@ -3355,7 +3355,7 @@ $ledger_type = 1;
 }
 
 	  
-	  $table[] = array(@$date,@$ac_name,@$amt_type,@$amt,@$auto_id,@$ledger_type);
+	  $table[] = array(@$ac_name,@$amt_type,@$amt,@$auto_id,@$ledger_type);
 	  } 
       $i++;
       }
@@ -3370,8 +3370,6 @@ $this->set('cursor1',$cursor1);
 $this->loadmodel('ledger_account');
 $cursor2 = $this->ledger_account->find('all');
 $this->set('cursor2',$cursor2);
-
-
 
 }
 ///////////////////////////////////// End Opening Balance Import Ajax //////////////////////////////////////////

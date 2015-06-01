@@ -24,7 +24,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </div>
 </div>
 
-<strong><a href="<?php echo $this->webroot; ?>csv_file/demo/demo2.csv" download="">Click here for sample format</a></strong>
+<strong><a href="<?php echo $this->webroot; ?>csv_file/demo/Opening Balance Import.csv" download="">Click here for sample format</a></strong>
 <br>
 <h4>Instruction set to import users</h4>
 <ol>
@@ -38,6 +38,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 </form>	
 </div>
+
+
+
 <?php //////////////////////////////////////////////////////////////////////////////////// ?>
 
 <script>
@@ -98,7 +101,7 @@ $("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background
 }
 });
 
-$(".import_op").live('click',function(){
+$(".import_op").bind('click',function(){
 
 var insert = 2;
 	

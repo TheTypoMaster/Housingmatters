@@ -1,9 +1,9 @@
 A/c  Name,Amount Type(Debit or credit),Amount(Opening balance)
-Postage & Courier charges,,
-Meeting & Welfare expenses,,
-Advance given to Vendors,,
-Non Occupancy Charges,,
-Audit fees,,
+Postage & Courier charges,Debit,10000
+Meeting & Welfare expenses,Credit,10000
+Advance given to Vendors,Debit,20000
+Non Occupancy Charges,Credit,20000
+Audit fees,Debit,10000
 Plant & Machinery,,
 Office Equipments,,
 Miscellaneous income,,
