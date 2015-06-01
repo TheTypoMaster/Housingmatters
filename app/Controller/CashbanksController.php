@@ -170,7 +170,7 @@ if(isset($this->request->data['bank_receipt_add']))
 {
 $current_date = date('d-m-Y');
 $current_date = date("Y-m-d", strtotime($current_date));
-$current_date = new MongoDate(strtotime($current_date));
+ $current_date = new MongoDate(strtotime($current_date));
 $date = $this->request->data['date'];
 $bill_no = (int)@$this->request->data['bill_no'];
 $date = date("Y-m-d", strtotime($date));
