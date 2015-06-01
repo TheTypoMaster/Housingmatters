@@ -11,6 +11,9 @@
 <th>Amount (Opening Balance)</th>
 <th>Delete</th>
 </tr>
+<?php
+$j=0;
+?>
 <?php foreach($table as $data){ 
 $amt_type1 = "";
 $amt1 = "";
@@ -19,9 +22,10 @@ $amt_type1 = $data[1];
 $amt1 = $data[2];
 if(!empty($amt_type1) && !empty($amt1))
 {
+$j++;	
 $type = $data[1];
 ?>
-<tr>
+<tr id="tr<?php echo $j; ?>">
 <td><input type="text" class="date-picker m-wrap span10" data-date-format="dd-mm-yyyy" name="date" id="date" style="background-color:white !important;"></td>
 <td>
 <?php
@@ -61,7 +65,7 @@ $c = (int)strcasecmp("Credit",$type);
 </select>
 </td>
 <td><input type="text" value="<?php echo $data[2]; ?>" class="m-wrap span10" style="background-color:white !important;" /></td>
-<td>delete</td>	
+<td><a href="#" role="button" class="btn mini red delete" del="<?php echo $j; ?>"><i class="icon-remove icon-white"></i></a></td>	
 </tr>
 <?php }} ?>
 </table>

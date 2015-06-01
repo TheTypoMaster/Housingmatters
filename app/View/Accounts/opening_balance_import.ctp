@@ -46,7 +46,10 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <script>
 $(document).ready(function(){
 
-
+$(".delete").live('click',function(){
+var id = $(this).attr("del");
+$('#tr'+id).remove();
+});
 
 $('form#form1').submit( function(ev){
 		ev.preventDefault();
