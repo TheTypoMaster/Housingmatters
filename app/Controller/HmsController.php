@@ -14143,8 +14143,12 @@ $id=(int)$this->request->data['text_id'];
 $name=htmlentities($this->request->data['name']);
 $mobile=htmlentities($this->request->data['mobile']);
  $email=htmlentities($this->request->data['email']);
- $web=htmlentities($this->request->data['web']);
+  $web=htmlentities($this->request->data['web']);
  $service=htmlentities($this->request->data['service']);
+ if (!preg_match("~^(?:f|ht)tps?://~i", $web)) {
+        $web = "http://" . $web;
+    }
+	
 
 if(!empty($id))
 {

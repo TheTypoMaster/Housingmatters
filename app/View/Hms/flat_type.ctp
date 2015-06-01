@@ -235,9 +235,7 @@ $(document).ready(function() {
 			<ol>
 			<li>All the field are compulsory.</li>
 			<li>Wing and Flat name be valid as per society setting.</li>
-			<li>Email ID should be correct as all the further communication will be send to this email id. No duplicate Email is allowed.</li>
-			<li>Mobile number should be 10 digits. No Duplicate Mobile No is allowed.</li>
-			<li>Owner,Committee,Residing should be only "Yes" or "No".</li>
+			<li>Flat name should be not same.</li>
 			</ol>
 		</div>
 		<div class="modal-footer">

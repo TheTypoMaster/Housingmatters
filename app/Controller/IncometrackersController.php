@@ -3113,7 +3113,7 @@ for($y=0; $y<sizeof($income_head_charge); $y++)
 $total[]="";	
 $cnt++;	
 }
-$cnt = $cnt+4;
+$cnt = $cnt+5;
 /////////////////////////////////////////
 $excel="<table border='1'>
 <thead>
