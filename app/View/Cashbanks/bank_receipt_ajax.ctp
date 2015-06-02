@@ -10,11 +10,12 @@ if($ff == 5)
 <?php foreach ($cursor1 as $collection) 
 {
 $auto_id=(int)$collection['ledger_sub_account']['auto_id'];
-$name=$collection['ledger_sub_account']['name'];
+//$name=$collection['ledger_sub_account']['name'];
 $user_id=(int)@$collection['ledger_sub_account']['user_id'];
 $result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
 foreach ($result as $collection) 
 {
+$name = $collection['user']['user_name']; 
 $wing_id = $collection['user']['wing'];  
 $flat_id = (int)$collection['user']['flat'];
 $tenant = (int)$collection['user']['tenant'];
