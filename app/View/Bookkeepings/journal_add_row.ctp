@@ -1,23 +1,9 @@
 
-<script>
-$('.date-picker').datepicker().on('changeDate', function(){
-		$(this).blur();
-		});
-</script>
-
-
-<table width="100%" id="tab<?php echo $t; ?>">
-<tr class="table table-bordered table-hover">
-
-
-
-
-
-
+<tr class="table table-bordered table-hover" id="tr<?php echo $t; ?>">
 <td style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:20.2%;">
 <div class="control-group">
 <div class="controls">
-<select class="span12 m-wrap chosen" onchange="show_ledger_type(this.value,<?php echo $t; ?>)" name="l_type_id<?php echo $t; ?>" id="lac<?php echo $t; ?>">
+<select class="span12 m-wrap chosen" onchange="show_ledger_type(this.value,<?php echo $t; ?>)" name="l_type_id<?php echo $t; ?>" id="lac<?php echo $t; ?>" >
 <option value="">--SELECT--</option>
 <?php
 foreach ($cursor1 as $collection) 
@@ -63,13 +49,8 @@ $name = $collection['ledger_account']['ledger_name'];
 </div>
 </div>
 </td>
-
-
-
-
-
+<td width="2%"><a href="#" role="button" class="btn mini black delete_row" id="<?php echo $t; ?>"><i class="icon-remove"></i></a></td>
 </tr>
-</table>
 
 
 

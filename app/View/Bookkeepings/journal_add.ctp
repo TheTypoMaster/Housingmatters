@@ -16,144 +16,24 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <script>
 $(document).ready(function() {
-$("#button_add").live('click',function(){
-var c=$('#t_box').val();
+$("#button_add").bind('click',function(){
+var c=$("#main_table tr").length;
 c++;
-$('#add_div').append($('<div>').load('journal_add_row?con=' + c));
-document.getElementById('t_box').value=c;
+	$.ajax({
+		url: 'journal_add_row?con=' + c,
+	}).done(function(response) {
+		$('table#main_table').append(response);
+	});
 });
 
-$("#button_remove").live('click',function(){
-d=document.getElementById('t_box').value;
-if(d>2) {
-$('#tab' + d).remove();
-d--; 
-$('#t_box').val(d);
-}
+$(".delete_row").live('click',function(){
+	var id=$(this).attr("id");
+	$('#tr'+id).remove();
 });
 });
 </script>		
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>					
-<?php
-/*
-<div style="background-color:#fff;padding:5px;width:100%;margin:auto; overflow:auto;" class="form_div">
-<h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Post Journal Entry</h4>
-<?php 
-if($zz == 0)
-{
-?>      
-<div style="background-color:#FCEBF8;">
-<center>
-<p style="color:#A99185;">No Previous Receipt</p>
-</center>
-</div> 
-<?php
-}
-else
-{
-?>
-<div style="background-color:#FCEBF8;">
-<center>
-<p style="color:#A99185;">The Last Receipt Number is : <?php echo $zz; ?></p>
-</center>
-</div> 
-<?php } ?>
-<div class="row-fluid">
-<input type="text" id="date"  name="date" class="all_validate  m-wrap span3 date-picker"  data-date-format="dd-mm-yyyy" style="background-color:#FFF !important;" placeholder="Transaction Date" >
-<br /><br />
-<table style="width:100%; background-color:white;" class="table table-bordered table-hover">
-<tr>
-<th style="width:19%;">Ledger A/c</th>
-<th style="width:19%;">Subledger A/c</th>
-<th style="width:19%;">Debit</th>
-<th style="width:19%;">Credit</th>
-<th style="width:19%;">Description</th>
-<th style="width:5%;">Del</th>
-</tr>
-</table>
 
-<table  style="width:100%; background-color:white;"  class="table table-bordered table-hover" id="url_main">
-<tr>
-<td style="width:19%;"><select class="all_validate span12 m-wrap chosen" onchange="show_ledger_type(this.value,1)" name="l_type_id1" id="lac1">
-<option value="">--SELECT--</option>					
-<?php
-foreach ($cursor2 as $collection) 
-{
-$auto_id = (int)$collection['ledger_account']['auto_id'];
-$name = $collection['ledger_account']['ledger_name'];
-?>
-<option value="<?php echo $auto_id; ?>"><?php echo $name; ?></option>
-<?php } ?>               
-</select></td>
-<td id="show_ledger_type1" style="width:19%;">
-</td>
-<td style="width:19%;">
-<input type="text" class="all_validate span12 m-wrap" style="background-color:#FFF !important;" onblur="total_am('1')" name="debit1" placeholder="Debits" id="debit1">
-</td>
-<td style="width:19%;">
-<input type="text" class="all_validate span12 m-wrap" style="background-color:#FFF !important;" name="credit1" onblur="total_amc('1')" placeholder="Credits" id="credit1">
-</td>
-<td style="width:19%;">
-<input type="text"  name="remark1" class="all_validate span12 m-wrap m-ctrl-medium" style="background-color:#FFF !important;" placeholder="Description" id="desc1">
-</td>
-<td style="width:5%;"></td>
-</tr>
-</table>
-
-<table  style="width:100%; background-color:white;"  class="table table-bordered table-hover" id="url_main">
-<tr>
-<td style="width:19%;">
-<select class="all_validate span12 m-wrap chosen" onchange="show_ledger_type(this.value,2)" name="l_type_id2" id="lac2">
-<option value="">--SELECT--</option>					
-<?php
-foreach ($cursor2 as $collection) 
-{
-$auto_id = (int)$collection['ledger_account']['auto_id'];
-$name = $collection['ledger_account']['ledger_name'];
-?>
-<option value="<?php echo $auto_id; ?>"><?php echo $name; ?></option>
-<?php } ?>               
-</select>
-</td>
-<td id="show_ledger_type2" style="width:19%;">
-</td>
-<td style="width:19%;">
-<input type="text" class="all_validate span12 m-wrap" style="background-color:#FFF !important;" onblur="total_am('2')" name="debit2" placeholder="Debits" id="debit2">
-</td>
-<td style="width:19%;">
-<input type="text" class="all_validate span12 m-wrap" style="background-color:#FFF !important;" name="credit2" onblur="total_amc('2')" placeholder="Credits" id="credit2"></td>
-<td style="width:19%;">
-<input type="text"  name="remark2" class="all_validate span12 m-wrap m-ctrl-medium" style="background-color:#FFF !important;" placeholder="Description" id="desc2">
-</td>
-<td style="width:5%;"></td>
-</tr>
-</table>
-
-
-
-
-
-</div>
-<button type="submit" class="btn green" id="add_row">Add Row</button>
-</div>
-
-<?php ////////////////////////////////////////////////////////////////////////////////////////////// ?>
-
-<script>
-$(document).ready(function(){
-$("#add_row").bind('click',function(){
-var count = $("#url_main").length;
-count++;
-alert(count);
-$("#url_main").append('');
-});
-$(".delete").bind('click',function(){
-var id = $(this).attr("id");
-$('.content_'+id).remove();
-});
-});
-</script> 
-*/ ?>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 <div id="succ">	
@@ -205,9 +85,10 @@ else
 					<tr class="table table-bordered table-hover" style="font-size:16px;">
 					<th width="20.2%">Ledger A/c</th>
 					<th width="19.8%">Subledger</th>
-					<th width="20%">Debits</th>
-					<th width="20%">Credits</th>
+					<th width="19%">Debits</th>
+					<th width="19%">Credits</th>
 					<th width="20%">Description</th>
+					<th width="2%"></th>
 					</tr>
 					</table>
 					
@@ -215,8 +96,8 @@ else
 					</div>					
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>					
 <div id="add_div" >
-<table width="100%"  >
-<tr class="table table-bordered table-hover">
+<table width="100%"  id="main_table">
+<tr class="table table-bordered table-hover" id="tr1">
 <td style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:20%;">
 <div class="control-group">
 <div class="controls">
@@ -256,12 +137,9 @@ $name = $collection['ledger_account']['ledger_name'];
 <td style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:20%;">
 <input type="text"  name="remark1" class="all_validate span12 m-wrap m-ctrl-medium"  style="background-color:#FFF !important;"placeholder="Description" id="desc1">
 </td>
+<td width="2%"></td>
 </tr>
-					
-</table>					
-<?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>					
-<table width="100%" >
-<tr class="table table-bordered table-hover">
+<tr class="table table-bordered table-hover" id="tr2">
 
 <td style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:20%;">
 <div class="control-group">
@@ -303,9 +181,11 @@ $name = $collection['ledger_account']['ledger_name'];
 <td style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:20%;">
 <input type="text"  name="remark2" class="all_validate span12 m-wrap m-ctrl-medium" style="background-color:#FFF !important;" placeholder="Description" id="desc2">
 </td>
-</tr>
+<td width="2%"><a href="#" role="button" class="btn mini black delete_row" id="2"><i class="icon-remove"></i></a></td>
+</tr>					
+</table>					
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>					
 
-</table>
 </div>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
@@ -365,7 +245,7 @@ $("#show_ledger_type" + t).load("show_ledger_type?c1=" +c1+ "&t=" +t+ "");
 function total_amc(l)
 {
 var t_c = 0;
-var count = document.getElementById('t_box').value;
+var count = $("#main_table tr").length;
 for(var k = 1; k<=count; k++)
 {
 var credit = document.getElementById('credit' + k).value;
@@ -387,7 +267,7 @@ document.getElementById('total_c').value = t_c;
 function total_am(x)
 {
 var t_d = 0;
-var count = document.getElementById('t_box').value;
+var count = $("#main_table tr").length;
 for(var j = 1; j<=count; j++)
 {
 var debit = document.getElementById('debit' + j).value;
@@ -409,24 +289,27 @@ document.getElementById('total').value = t_d;
 </script>
 
 <script>
-$(document).ready(function() { 
+$(document).ready(function() {
 	$('form').submit( function(ev){
 	ev.preventDefault();
 	$("#submit").addClass("disabled").text("submiting...");
-		var hidden=$("#t_box").val();
+		
+		var hidden=$("#main_table tr").length;
+		
 		var date = $("#date").val();
 		
 		var ar = [];
 		for(var i=1;i<=hidden;i++)
 		{
-		var ledger = $("#lac"+i).val();
+		var ledger = $("#main_table tr:nth-child("+i+") td:nth-child(1) select").val();
+		
 		if(ledger == 15 || ledger == 33 || ledger == 35 || ledger == 34)
 		{		
-		var ledger_sub = $("#sul"+i).val();
+		var ledger_sub = $("#main_table tr:nth-child("+i+") td:nth-child(2) select").val();
 		}
-		var debit = $("#debit"+i).val();
-		var credit = $("#credit"+i).val();
-		var desc = $("#desc"+i).val();
+		var debit = $("#main_table tr:nth-child("+i+") td:nth-child(3) input").val();
+		var credit = $("#main_table tr:nth-child("+i+") td:nth-child(4) input").val();
+		var desc = $("#main_table tr:nth-child("+i+") td:nth-child(5) input").val();
 		if(ledger == 15 || ledger == 33 || ledger == 35 || ledger == 34)
 		{
 		ar.push([ledger,ledger_sub,debit,credit,desc]);
