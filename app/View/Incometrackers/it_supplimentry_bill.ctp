@@ -133,7 +133,13 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			foreach ($cursor1 as $collection) 
 			{
 			$auto_id = (int)$collection['ledger_sub_account']['auto_id'];
-			$user_name=$collection['ledger_sub_account']["name"];
+			$user_id = (int)$collection['ledger_sub_account']['user_id'];
+
+				$result_user = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
+				foreach ($result_user as $collection) 
+				{
+				  $user_name = $collection['user']['user_name'];  
+				}
 			?>
 			<option value="<?php echo $auto_id; ?>"><?php echo $user_name; ?></option>
 			<?php } ?>
