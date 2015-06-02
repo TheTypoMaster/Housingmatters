@@ -98,8 +98,6 @@ $society_name = $collection['society']['society_name'];
 		</p>
 		</th>
 		</tr>
-		
-		
 		<tr>
 		<th>Account Name</th>
 		<th>Opening Balance</th>

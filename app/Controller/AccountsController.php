@@ -1866,7 +1866,7 @@ $this->set('cursor1',$cursor1);
 
 /////////////////////////////////////////////////// START FINANCIAL REPORT MODULE /////////////////////////////////////
 
-//////////////////// Start Trial Balance Excel///////////////////////////////////////
+//////////////////// Start Trial Balance Excel////////////////////////////////////////////////////////////////
 function trial_balance_excel()
 {
 $this->layout="";
@@ -1882,6 +1882,7 @@ header ("Content-Description: Generated Report" );
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
+
 
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
@@ -1899,7 +1900,6 @@ $m_from = date("Y-m-d", strtotime($from));
 $m_from = new MongoDate(strtotime($m_from));
 $m_to = date("Y-m-d", strtotime($to));
 $m_to = new MongoDate(strtotime($m_to));
-
 ////////
 if($tp == 1)
 {
@@ -1939,11 +1939,15 @@ $total_closing_balance = 0;
 $ledger1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_fetch1'),array('pass'=>array($auto_id11)));		
 foreach ($ledger1 as $collection) 
 {
+$op_date = "";
 $amount1 = $collection['ledger']['amount'];
 $ammount_type_id1 = (int)$collection['ledger']['amount_category_id'];
 //$module_id = (int)@$collection['ledger']['module_id'];
-$receipt_id = (int)$collection['ledger']['receipt_id'];
+$receipt_id = $collection['ledger']['receipt_id'];
+if($receipt_id == 'O_B')
+{
 $op_date = @$collection['ledger']['op_date'];
+}
 $table_name = $collection['ledger']['table_name'];
 if($table_name == "cash_bank")
 {
@@ -1951,16 +1955,8 @@ $module_id = (int)$collection['ledger']['module_id'];
 }
 
 
-
 if($receipt_id != 'O_B')
 {
-/*
-$module1 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_fetch'),array('pass'=>array($module_id)));	
-foreach ($module1 as $collection) 
-{
-$module_name = @$collection['account_category']['ac_category'];
-}
-*/
 if($table_name == "cash_bank")
 {
 $date_fetch=$this->requestAction(array('controller'=>'hms','action'=>'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id)));				
@@ -1988,6 +1984,8 @@ $date1 = @$collection[$table_name]['date'];
 }
 else 
 {
+if($receipt_id == 'O_B')
+{
 if($op_date < $from)
 {
 if($ammount_type_id1 == 1)
@@ -1997,6 +1995,7 @@ $total_opening_balance = $total_opening_balance - $amount1;
 else if($ammount_type_id1 == 2)
 {
 $total_opening_balance = $total_opening_balance + $amount1;	
+}
 }
 }
 else
@@ -2014,6 +2013,7 @@ $total_closing_balance = $total_closing_balance + $amount1;
 
 if($receipt_id != 'O_B')
 {
+/*
 if($date1 < $m_from)
 {
 if($ammount_type_id1 == 1)
@@ -2025,7 +2025,7 @@ else if($ammount_type_id1 == 2)
 $total_opening_balance = $total_opening_balance + $amount1;	
 }
 }
-
+*/
 if($date1 >= $m_from && $date1 <= $m_to)
 {
 if($ammount_type_id1 == 1)
@@ -3329,15 +3329,53 @@ $records;
 	{
 
 	  $child_ex=explode(',',$child[0]);
-      //$date=$child_ex[0];
-      $ac_name=$child_ex[0];
-      $amt_type=$child_ex[1];
-	  $amt=$child_ex[2];
+      $group=$child_ex[0];
+      $ac_name=$child_ex[1];
+      $amt_type=$child_ex[2];
+	  $amt=$child_ex[3];
 
-$auto_id = "";
+
+if($group == 'Sundry Creditors Control A/c ')
+{
+$group_id = 15;
+}
+if($group == 'Tax deducted at source (TDS receivable)')
+{
+$group_id = 35;
+}
+if($group == 'Sundry Debtors Control A/c  ')
+{
+$group_id = 34;
+}
+if($group == 'Bank Accounts')
+{
+$group_id = 33;
+}
+	  
+	  
+	  
 	  
 $this->loadmodel('ledger_account'); 
-$conditions=array("ledger_name"=> new MongoRegex('/^' .  $ac_name . '$/i'));
+$conditions=array("ledger_name"=> new MongoRegex('/^' .  $group . '$/i'));
+$group2=$this->ledger_account->find('all',array('conditions'=>$conditions));
+foreach($group2 as $collection6)
+{
+$group_id = (int)$collection6['ledger_account']['auto_id'];
+}
+	  
+$this->loadmodel('accounts_group'); 
+$conditions=array("group_name"=> new MongoRegex('/^' .  $group . '$/i'));
+$group1=$this->accounts_group->find('all',array('conditions'=>$conditions));
+foreach($group1 as $collection5)
+{
+$group_id = (int)$collection5['accounts_group']['auto_id'];
+}
+
+	  
+	  
+$auto_id = "";
+$this->loadmodel('ledger_account'); 
+$conditions=array("ledger_name"=> new MongoRegex('/^' .  $ac_name . '$/i'),"group_id"=>$group_id);
 $result_ac=$this->ledger_account->find('all',array('conditions'=>$conditions));
 foreach($result_ac as $collection)
 {
@@ -3346,16 +3384,15 @@ $ledger_type = 2;
 }
 
 $this->loadmodel('ledger_sub_account'); 
-$conditions=array("name"=> new MongoRegex('/^' .  $ac_name . '$/i'));
+$conditions=array("name"=> new MongoRegex('/^' .  $ac_name . '$/i'),"ledger_id"=>$group_id);
 $result_sac2=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
 foreach($result_sac2 as $collection2)
 {
 $auto_id = (int)$collection2['ledger_sub_account']['auto_id'];
 $ledger_type = 1;
 }
-
 	  
-	  $table[] = array(@$ac_name,@$amt_type,@$amt,@$auto_id,@$ledger_type);
+	  $table[] = array(@$ac_name,@$amt_type,@$amt,@$auto_id,@$ledger_type,@$group_id,@$group);
 	  } 
       $i++;
       }
