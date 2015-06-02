@@ -21261,16 +21261,93 @@ $output=json_encode(array('report_type'=>'error','report'=>$report));
 die($output);
 }
 
+$t=0;
+foreach($myArray as $child)
+{
+$t++;
+$wing_id = (int)$child[0];
+$flat_num = $child[1];
+$area = $child[3];
 
 
+$this->loadmodel('flat');
+$conditions=array("society_id" => $s_society_id);
+$cursor1 = $this->flat->find('all',array('conditions'=>$conditions));
+foreach($cursor1 as $collection)
+{
+$wing_id2 = (int)$collection['flat']['wing_id'];
+$flat_name2 = $collection['flat']['flat_name'];
+if($wing_id2 == $wing_id && $flat_name2 == $flat_num)
+{ 
+$nnn = 55;
+break;
+}
+else
+{
+$nnn = 555;
+}
+}
+if($nnn == 55)
+{
+$output=json_encode(array('report_type'=>'vali','text'=>'Wing and Flat Already Exist in row '.$t));
+die($output);
+}
+if(is_numeric($area))
+{
+}
+else
+{
+$output=json_encode(array('report_type'=>'vali','text'=>'Flat Area Should be Numeric in row '.$t));
+die($output);
+}
+}
 
+foreach($myArray as $child)
+{
+$wing_id5 = (int)$child[0];
+$flat_name = $child[1];
+$flat_type = (int)$child[2];
+$area = $child[3];
+$insert = (int)$child[4];
+if($insert == 2)
+{
+$mmm = 5;
+$this->loadmodel('flat_type');
+$condition=array('society_id'=>$s_society_id,"flat_type_id"=>$flat_type);
+$cursor = $this->flat_type->find('all',array('conditions'=>$condition)); 
+foreach($cursor as $collection)
+{
+$auto_id = (int)@$collection['flat_type']['auto_id'];
+$no_of_flat = (int)@$collection['flat_type']['number_of_flat'];
+$mmm = 55;
+}
 
+if($mmm == 5)
+{
+$no_of_flat = 1;
+$this->loadmodel('flat_type');
+$p=$this->autoincrement('flat_type','auto_id');
+$this->flat_type->saveAll(array("auto_id" => $p,"flat_type_id"=> $flat_type,"number_of_flat"=>$no_of_flat,"status"=>0,"society_id"=>$s_society_id));
 
+$l = (int)$this->autoincrement('flat','flat_id');
+$this->loadmodel('flat');
+$this->flat->saveAll(array("flat_id" => $l,"wing_id"=> $wing_id5,"flat_name"=>$flat_name,"flat_area"=>$area,"flat_type_id"=>$flat_type,"society_id"=>$s_society_id));
+}
+else if($mmm == 55)
+{
+$no_of_flat++;
+$this->loadmodel('flat_type');
+$this->flat_type->updateAll(array("number_of_flat"=>$no_of_flat),array("auto_id"=>$auto_id));
 
+$l = (int)$this->autoincrement('flat','flat_id');
+$this->loadmodel('flat');
+$this->flat->saveAll(array("flat_id" => $l,"wing_id"=> $wing_id5,"flat_name"=>$flat_name,"flat_area"=>$area,"flat_type_id"=>$flat_type,"society_id"=>$s_society_id));
+}
+}
+}
 
-
-
-
+$output=json_encode(array('report_type'=>'done','text'=>'Flat Area Should be Numeric in row '));
+die($output);
 }
 /////////////////////////////////// End Save Flat Imp /////////////////////////////////////////////////////
 

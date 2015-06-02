@@ -1,5 +1,5 @@
 <div>
-
+<div id="vali"></div>
 <table class="m-wrap table table-bordered" id="open_bal">
 <tr>
 <th>Wing</th>
@@ -27,7 +27,6 @@ $wing_name=$data["wing"]["wing_name"];
 <?php } ?>
 </select>
 </td>
-		
 <td>
 <input type="text" class="m-wrap span10" value="<?php echo $child[1]; ?>" style="background-color:white !important;" />
 </td>

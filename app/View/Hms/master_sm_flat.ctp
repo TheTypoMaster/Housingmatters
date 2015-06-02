@@ -17,6 +17,7 @@ Society Setup
 </ul>
 <div class="tab-content" style="min-height:300px;">
 <div class="tab-pane active" id="tab_1_1">
+<div id="done" style="overflow:auto;">
 
 <a href="#" class="btn purple" role="button" id="import">Import csv</a>
 <div id='suces'>
@@ -50,7 +51,7 @@ Society Setup
 	</div>
 	</form>
 </div>
-
+</div>
 <?php ///////////////////////////////////////////////////////////////////////////////////////// ?>
 <div id="url_main" style="overflow:auto;">
 <table width="100%" style="background-color:#CDD5ED;">
@@ -383,25 +384,17 @@ $("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background
 
 $("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
 });
-}	
+}
+if(response.report_type=='vali')
+{
+$("#vali").html('<b style="color:red;">'+response.text+'</b>');
+}
+if(response.report_type=='done')
+{
+$("#done").html('<div class="alert alert-block alert-success fade in"><h4 class="alert-heading">Success!</h4><p>Record Inserted Successfully</p><p><a class="btn green" href="<?php echo $webroot_path; ?>Hms/master_sm_flat" rel="tab">OK</a></p></div>');
+	
+}
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 });
 
