@@ -85,7 +85,6 @@ var myJsonString = JSON.stringify(ar);
 myJsonString=encodeURIComponent(myJsonString);
 
 
-
 $.ajax({
 url: "save_open_bal?q="+myJsonString,
 type: 'POST',

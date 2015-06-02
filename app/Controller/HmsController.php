@@ -15091,7 +15091,7 @@ function import_flat_configuration()
 {
 	$this->layout="blank";
 	$this->ath();
-	 $s_society_id=$this->Session->read('society_id');
+	$s_society_id=$this->Session->read('society_id');
 	
 	$this->loadmodel('wing');
 	$conditions=array("society_id" => $s_society_id);
@@ -15149,16 +15149,17 @@ function import_flat_configuration()
 			$wing_id=0;
 			$flat_id=0;
 			if($result_wing_count>0){
-				  $wing_id=$result_wing[0]['wing']['wing_id'];
+			  $wing_id=$result_wing[0]['wing']['wing_id'];
 				
-				$this->loadmodel('flat'); 
-				$conditions=array("wing_id"=>$wing_id,"flat_name"=> new MongoRegex('/^' .  $flat_name . '$/i'));
-				$result_flat=$this->flat->find('all',array('conditions'=>$conditions));
-				$result_flat_count=sizeof($result_flat);
+				//$this->loadmodel('flat'); 
+				//$conditions=array("wing_id"=>$wing_id,"flat_name"=> new MongoRegex('/^' .  $flat_name . '$/i'));
+				//$result_flat=$this->flat->find('all',array('conditions'=>$conditions));
+				//$result_flat_count=sizeof($result_flat);
 
-				if($result_flat_count>0){
-					$flat_id=$result_flat[0]['flat']['flat_id'];	
-				}
+				//if($result_flat_count>0){
+					//$flat_id=$result_flat[0]['flat']['flat_id'];	
+				//}
+			
 			}
 			
 			$this->loadmodel('flat_type_name'); 
@@ -15169,7 +15170,7 @@ function import_flat_configuration()
 					$flat_type_id=$result_flat_type_name[0]['flat_type_name']['auto_id'];	
 				}	 
 					
-					 $table[]=array($wing_id,$flat_id,$flat_type_id,$flat_area);
+					 $table[]=array($wing_id,$flat_name,$flat_type_id,$flat_area);
 			
 		} $i++;
 	}
@@ -21224,6 +21225,41 @@ die($output);
 }
 /////////////////////////////////// End Wing Json//////////////////////////////////////////////////////////////
 
+/////////////////////////////////// Start Save Flat Imp /////////////////////////////////////////////////////
+function save_flat_imp()
+{
+$this->layout='blank';
+$s_society_id = (int)$this->Session->read('society_id');
+	
+$q=$this->request->query('q'); 
+$myArray = json_decode($q, true);
+
+$c=1;
+$report=array();
+//$array1 = array();
+foreach($myArray as $child){
+
+$c++;
+if(empty($child[0])){
+$report[]=array('tr'=>$c,'td'=>1, 'text' => 'Required');
+}
+if(empty($child[1])){
+$report[]=array('tr'=>$c,'td'=>2, 'text' => 'Required');
+}
+
+if(empty($child[2])){
+$report[]=array('tr'=>$c,'td'=>3, 'text' => 'Required');
+}
+
+if(empty($child[3])){
+$report[]=array('tr'=>$c,'td'=>4, 'text' => 'Required');
+}
+
+}
+if(sizeof($report)>0){
+$output=json_encode(array('report_type'=>'error','report'=>$report));
+die($output);
+}
 
 
 
@@ -21235,7 +21271,8 @@ die($output);
 
 
 
-
+}
+/////////////////////////////////// End Save Flat Imp /////////////////////////////////////////////////////
 
 }
 ?>

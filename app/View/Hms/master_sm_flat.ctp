@@ -18,21 +18,19 @@ Society Setup
 <div class="tab-content" style="min-height:300px;">
 <div class="tab-pane active" id="tab_1_1">
 
-
-
 <a href="#" class="btn purple" role="button" id="import">Import csv</a>
 <div id='suces'>
 <div id="error_msg"></div>
 <div id="myModal3" class="modal hide fade in" style="display: none;">
 
 <div class="modal-backdrop fade in"></div>
-	<form id="form1" method="post">
-	<div class="modal">
-		<div class="modal-header">
-			<h4 id="myModalLabel1">Import csv</h4>
-		</div>
-		<div class="modal-body">
-			<input type="file" name="file" class="default">
+<form id="form1" method="post">
+<div class="modal">
+<div class="modal-header">
+<h4 id="myModalLabel1">Import csv</h4>
+</div>
+<div class="modal-body">
+<input type="file" name="file" class="default">
 			
 			<strong><a href="<?php echo $this->webroot; ?>csv_file/unit_flat/flat_import.csv" download>Click here for sample format</a></strong>
 			<br/>
@@ -53,7 +51,8 @@ Society Setup
 	</form>
 </div>
 
-
+<?php ///////////////////////////////////////////////////////////////////////////////////////// ?>
+<div id="url_main" style="overflow:auto;">
 <table width="100%" style="background-color:#CDD5ED;">
 <tr class="table table-bordered table-hover" style="font-size:16px;">
 <th style="text-align:center;" width="25%">Wing</th>
@@ -63,9 +62,6 @@ Society Setup
 </tr>
 </table>
 <form id="form2" method="post">
-<div id="url_main" >
-
-
 
 <table width="100%" id="myTable">
 <tr class="table table-bordered table-hover" id="tr1">
@@ -96,7 +92,6 @@ foreach($cursor4 as $collection)
 {
 $auto_id = (int)$collection['flat_type_name']['auto_id'];
 $flat_type_name = $collection['flat_type_name']['flat_name'];	
-
 ?>
 <option value="<?php echo $auto_id; ?>"><?php echo $flat_type_name; ?></option>
 <?php } ?>
@@ -113,7 +108,7 @@ $flat_type_name = $collection['flat_type_name']['flat_name'];
 </table>
 
 
-</div>
+
 <br/>
 <a role="button" class="btn blue " id="add_row"><i class="icon-plus"></i> Add row</a>
 <div align="center">
@@ -121,13 +116,13 @@ $flat_type_name = $collection['flat_type_name']['flat_name'];
 </div>
 </form>
 
-
+</div>
 </div>
 </div>
 </div>
 </div>			
 
-
+<?php //////////////////////////////////////////////////////////////////////////////////////// ?>
 
 
 
@@ -218,12 +213,14 @@ $(document).ready(function(){
 	 $("#add_row").bind('click',function(){
 		var count = $("#myTable tr").length;
 		count++;
+		
 		$("#url_main").append();
 		$.get('master_sm_flat_add_row?con='+count, function(data){
 			content= data;
 			$('#myTable').append(content);
 		});
 	 });
+	
 	
 	 $(".delete").live('click',function(){
 		var id = $(this).attr("id");
@@ -236,6 +233,7 @@ $(document).ready(function(){
 		var i=$(this).attr('inc_id');
 		$('#echo_flat'+i).html("Loading...").load('return_flat_via_wing_id3?con2='+c+'&con1='+i);
 	 });
+	 
 	 
 	 $('form#form2').submit( function(ev){
 		ev.preventDefault();
@@ -284,13 +282,15 @@ $("#import").bind('click',function(){
 	 });
 	 
 	  $("#close_div").bind('click',function(){
-		$("#myModal3").hide();
+	  $("#myModal3").hide();
 	 });
 	$(".wing").live('change',function(){
 		var c=this.value;
 		var i=$(this).attr('inc_id');
 		$('#showflat'+i).html("Loading...").load('return_flat_via_wing_id3?con2='+c+'&con1='+i);
 	 });
+	
+	
 	$('form#form1').submit( function(ev){
 			ev.preventDefault(); 
 			
@@ -305,9 +305,108 @@ $("#import").bind('click',function(){
 			type: 'POST',
 			}).done(function(response) {
 			$("#myModal3").hide();
-			$("#url_main table").html(response);
-	 });
+			$("#url_main").html(response);
+			
+    
+	
+var insert = 1;
+var count = $("#open_bal tr").length;
+var ar = [];
+
+for(var i=2;i<=count;i++)
+{
+$("#open_bal tr:nth-child("+i+") span.report").remove();
+var wing = $("#open_bal tr:nth-child("+i+") td:nth-child(1) select").val();
+var flat=$("#open_bal tr:nth-child("+i+") td:nth-child(2) input").val();
+var type=$("#open_bal tr:nth-child("+i+") td:nth-child(3) select").val();
+var feet=$("#open_bal tr:nth-child("+i+") td:nth-child(4) input").val();
+
+ar.push([wing,flat,type,feet,insert]);
+}
+
+var myJsonString = JSON.stringify(ar);
+myJsonString=encodeURIComponent(myJsonString);
+	
+	
+$.ajax({
+url: "save_flat_imp?q="+myJsonString,
+type: 'POST',
+dataType:'json',
+}).done(function(response) {
+if(response.report_type=='error'){
+jQuery.each(response.report, function(i, val) {
+$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").append('<span class="report" style="color:red;">'+val.text+'</span>');
+
+$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
+
+$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
+
+$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
 });
+}	
+});
+});
+
+$(".import_op").live('click',function(){
+
+var insert = 2;
+var count = $("#open_bal tr").length;
+var ar = [];
+
+for(var i=2;i<=count;i++)
+{
+$("#open_bal tr:nth-child("+i+") span.report").remove();
+var wing = $("#open_bal tr:nth-child("+i+") td:nth-child(1) select").val();
+var flat=$("#open_bal tr:nth-child("+i+") td:nth-child(2) input").val();
+var type=$("#open_bal tr:nth-child("+i+") td:nth-child(3) select").val();
+var feet=$("#open_bal tr:nth-child("+i+") td:nth-child(4) input").val();
+
+ar.push([wing,flat,type,feet,insert]);
+}
+
+var myJsonString = JSON.stringify(ar);
+myJsonString=encodeURIComponent(myJsonString);
+	
+	
+$.ajax({
+url: "save_flat_imp?q="+myJsonString,
+type: 'POST',
+dataType:'json',
+}).done(function(response) {
+if(response.report_type=='error'){
+jQuery.each(response.report, function(i, val) {
+$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").append('<span class="report" style="color:red;">'+val.text+'</span>');
+
+$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
+
+$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
+
+$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
+});
+}	
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+});
+
+});
+
 
 }); 
 </script>				
