@@ -24,6 +24,8 @@ if(!empty($amt_type1) && !empty($amt1))
 {
 $j++;	
 $type = $data[1];
+$group_id = (int)$data[5];
+$group = $data[6];
 ?>
 <tr id="tr<?php echo $j; ?>">
 <td><input type="text" class="date-picker m-wrap span10" data-date-format="dd-mm-yyyy" name="date" id="date" style="background-color:white !important;"></td>
@@ -33,12 +35,13 @@ $ledger_type = (int)$data[4];
 $auto_id = (int)$data[3];
 ?>
 <select class="m-wrap span10">
-<option value="">Select</option>
+<option value=""><?php echo $group; ?></option>
 <?php 
 foreach($cursor1 as $collection)
 {
 $auto_id1 = (int)$collection['ledger_sub_account']['auto_id'];
-$sub_ledger_name = $collection['ledger_sub_account']['name'];	
+$sub_ledger_name = $collection['ledger_sub_account']['name'];
+$ledger_id = (int)$collection['ledger_sub_account']['ledger_id'];	
 ?>
 <option value="<?php echo $auto_id1; ?>,1" <?php if($ledger_type == 1 && $auto_id1 == $auto_id) { ?> selected="selected" <?php } ?> ><?php echo $sub_ledger_name; ?></option>
 <?php
@@ -47,6 +50,7 @@ foreach($cursor2 as $collection)
 {
 $auto_id2 = (int)$collection['ledger_account']['auto_id'];	
 $ledger_name = $collection['ledger_account']['ledger_name'];
+$grp_id = (int)$collection['ledger_account']['group_id'];
 ?>
 <option value="<?php echo $auto_id2; ?>,2" <?php if($ledger_type == 2 && $auto_id2 == $auto_id) { ?> selected="selected" <?php } ?> ><?php echo $ledger_name; ?></option>
 <?php 	
