@@ -11,7 +11,7 @@ if($value == 1)
 									{
  									$auto_id = (int)$db['ledger_sub_account']['auto_id'];
 									$user_id = (int)$db['ledger_sub_account']["user_id"];
-									$user_name = $db['ledger_sub_account']["name"];
+									//$user_name = $db['ledger_sub_account']["name"];
 										
 										
 									
@@ -20,6 +20,7 @@ if($value == 1)
 	$result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
 	foreach ($result as $collection) 
 	{
+	$user_name = $collection['user']['user_name'];  
 	$wing_id = $collection['user']['wing'];  
 	$flat_id = (int)$collection['user']['flat'];
 	$tenant = (int)$collection['user']['tenant'];
