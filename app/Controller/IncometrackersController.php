@@ -4105,10 +4105,10 @@ foreach($cursor as $collection)
 $society_name = $collection['society']['society_name'];
 }
 
-$m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
-$m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+$m_from1 = date("Y-m-d", strtotime($from));
+$m_from = new MongoDate(strtotime($m_from1));
+$m_to1 = date("Y-m-d", strtotime($to));
+$m_to = new MongoDate(strtotime($m_to1));
 
 $excel = "<table border='1'>
 <tr>
@@ -4143,6 +4143,7 @@ $bill_for_user=(int)$collection['regular_bill']["bill_for_user"];
 $bill_html=$collection['regular_bill']["bill_html"];
 $g_total=$collection['regular_bill']["g_total"];
 $date=$collection['regular_bill']["date"]; 
+$date2= date('Y-m-d',$date->sec);
 $pay_status=(int)@$collection['regular_bill']["pay_status"];
 				
 $result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($bill_for_user)));				
@@ -4158,7 +4159,7 @@ if($wise == 2)
 {
 if($user_id == $bill_for_user)
 {
-if($m_from <= $date && $m_to >= $date)
+if($m_from1 <= $date2 && $m_to1 >= $date2)
 {
 $date = date('d-m-Y', $date->sec);						
 $total_amt = $total_amt + $g_total;									
@@ -4177,7 +4178,7 @@ else if($wise == 1)
 {
 if($wing_id == $wing)
 {
-if($m_from <= $date && $m_to >= $date)
+if($m_from1 <= $date2 && $m_to1 >= $date2)
 {
 $date = date('d-m-Y', $date->sec);						
 $total_amt = $total_amt + $g_total;									
