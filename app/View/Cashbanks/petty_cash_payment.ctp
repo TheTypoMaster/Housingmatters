@@ -150,7 +150,7 @@ if($zz == 0)
 
 <script>
 $(document).ready(function() {
-	$("#go").live('change',function(){
+	$("#go").bind('change',function(){
 		
 		var value1 = document.getElementById('go').value;
 		$("#show_user").load("petty_cash_payment_ajax?value1=" +value1 + "");

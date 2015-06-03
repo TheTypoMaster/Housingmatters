@@ -217,7 +217,7 @@ $("#result").load('bank_payment_tds_ajax?tds='+tds+'&amount='+amount+'');
 	
 <script>
 $(document).ready(function() {
-$("#type").live('change',function(){
+$("#type").bind('change',function(){
 var type = document.getElementById('type').value;
 $("#result2").load('bank_payment_type_ajax?type='+type+'');
 });
@@ -360,8 +360,6 @@ else
 {
 $("#result11").load("cash_bank_vali?ss=" + 12 + "");		
 }
-
-
 
 });
 });

@@ -126,7 +126,7 @@ else
 
 <script>
 $(document).ready(function() {
-$("#go").live('change',function(){
+$("#go").bind('change',function(){
 var value=document.getElementById('go').value;
 {
 $("#show_user").load("petty_cash_receipt_ajax?value=" +value+ "");
