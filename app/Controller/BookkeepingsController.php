@@ -25,10 +25,10 @@ $this->set('cc',$cc);
 function journal_add()
 {
 if($this->RequestHandler->isAjax()){
-		$this->layout='blank';
-	}else{
-		$this->layout='session';
-	}
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
 	
 $this->ath();
 $this->check_user_privilages();
