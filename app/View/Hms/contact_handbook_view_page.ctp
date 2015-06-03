@@ -29,7 +29,7 @@ foreach($result_contact_handbook as $collection)
 <i class="icon-envelope-alt"></i> <span style="font-size:14px;"><?php echo $email ; ?></span><br/>
 <i class="icon-sitemap"></i> <span style="font-size:14px;"><?php echo $web ; ?></span><br/>
  <i class=" icon-wrench"></i> <span style="font-size:14px;">Services : <?php echo $service ; ?></span><br/>
-<i class="icon-user"></i> <span class=" tooltips" data-placement="right" data-original-title="<?php echo $user_name ; ?>"  >Update By</span><br/> 
+<i class="icon-user"></i> <span class="" data-placement="right" data-original-title=""  >Update By: <?php echo $user_name ; ?></span><br/> 
 <div style="">
 <?php
 if($s_user_id==$user_id || $role_id==3)

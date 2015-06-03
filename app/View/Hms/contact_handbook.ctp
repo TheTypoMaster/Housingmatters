@@ -118,7 +118,7 @@ background-color:rgb(218, 236, 240);
 <i class="icon-envelope-alt"></i> <span style="font-size:14px;"><?php echo $email ; ?></span><br/>
 <i class="icon-sitemap"></i> <span style="font-size:14px;"><a href='<?php echo $web ; ?>' target="_blank"> <?php echo $web ; ?></a></span><br/>
 
-<i class="icon-user"></i> <span class=" tooltips" data-placement="right" data-original-title="<?php echo $user_name ; ?>">Updated by:</span><br/> 
+<i class="icon-user"></i> <span class="" data-placement="right" data-original-title="">Updated by: <?php echo $user_name ; ?></span><br/> 
 <div style="">
 <?php
 if($s_user_id==$user_id || $role_id==3)
