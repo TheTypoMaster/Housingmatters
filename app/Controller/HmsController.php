@@ -4745,6 +4745,79 @@ echo "true";
 }
 }
 
+function profile_mobile_check()
+{
+$this->layout='blank_signup';
+$s_user_id=$this->Session->read('user_id');	
+$mobile=$this->request->query['mobile1'];
+
+$this->loadmodel('user');
+$conditions=array("mobile" => $mobile,'user_id'=>$s_user_id);
+$result4 = $this->user->find('all',array('conditions'=>$conditions));
+$n4 = sizeof($result4);
+$e=$n4;
+if ($e > 0) {
+echo "true";
+} else {
+		$this->loadmodel('user_temp');
+		$conditions=array("mobile" => $mobile,'reject'=>0);
+		$result3 = $this->user_temp->find('all',array('conditions'=>$conditions));
+		$n3 = sizeof($result3);
+		$this->loadmodel('user');
+		$conditions=array("mobile" => $mobile);
+		$result4 = $this->user->find('all',array('conditions'=>$conditions));
+		$n4 = sizeof($result4);
+		$e=$n3+$n4;
+
+		if ($e > 0) {
+		echo"false";
+		} else {
+		echo"true";
+		}
+	
+}	
+
+
+
+	
+}
+
+
+
+function profile_email_check()
+{
+$this->layout='blank_signup';
+$s_user_id=$this->Session->read('user_id');
+$email=$this->request->query['email'];
+$this->loadmodel('user');
+$conditions=array("email" => $email,'user_id'=>$s_user_id);
+$result4 = $this->user->find('all',array('conditions'=>$conditions));
+$n4 = sizeof($result4);
+$e=$n4;
+if ($e > 0) {
+echo "true";
+} else {
+
+		$this->loadmodel('user_temp');
+		$conditions=array("email" => $email,'reject'=>0);
+		$result3 = $this->user_temp->find('all',array('conditions'=>$conditions));
+		$n3 = sizeof($result3);
+		$this->loadmodel('user');
+		$conditions=array("email" => $email);
+		$result4 = $this->user->find('all',array('conditions'=>$conditions));
+		$n5 = sizeof($result4);	
+		$e1=$n3+$n5;
+		if ($e1 > 0) {
+		echo "false";
+		} else {
+		echo "true";	
+		}
+
+		}
+}
+
+
+
 
 function forget() 
 {
@@ -13733,13 +13806,13 @@ foreach($result_society as $data)
 	 $society_name2=$data['society']['society_name'];
 }
 
-if(isset($this->request->data['sub']))
+if($this->request->is('post')) 
 {
 	
  @$name=htmlentities($this->request->data['name']);	
  @$medical=htmlentities($this->request->data['medical']);	
- $mobile=htmlentities($this->request->data['mobile']);
- $email=htmlentities($this->request->data['email']);
+ @$mobile=htmlentities($this->request->data['mobile1']); 
+ @$email=htmlentities($this->request->data['email']);
  @$sex=(int)htmlentities($this->request->data['sex']);
  @$dob=htmlentities($this->request->data['dob']);
  @$per_address=htmlentities($this->request->data['per_address']);

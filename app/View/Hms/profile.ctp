@@ -249,7 +249,7 @@ $flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat
 											<table width="100%" >
                                         <tr>
                                         <td width="40%" style="font-size:14px; ">Mobile Number</td>
-                                        <td width="40%"><input type="text" class="m-wrap" value="<?php echo $c_mobile; ?>" name="mobile" maxlength="10"></td>
+                                        <td width="40%"><input type="text" class="m-wrap" value="<?php echo $c_mobile; ?>" name="mobile1" maxlength="10"></td>
 											<td width="15%">
 										<div id="show_public"> </div>
                                  <select class="span12 m-wrap" data-placeholder="Choose a Category" tabindex="1" name="sel_private" onchange="check_public(this.value)" id="check_id">
@@ -580,17 +580,29 @@ $(document).ready(function(){
 			
 	      },
 
-mobile: {
+mobile1: {
 			//required: true,
 			number: true,
 			minlength: 10,
-			maxlength: 10
+			maxlength: 10,
+			remote: "profile_mobile_check"
 	      },
 email: {
 			//required: true,
-			email : true
+			email : true,
+			remote: "profile_email_check"
 	      }		  
 	    },
+		
+		messages: {
+	                email: {
+	                    remote: "Login-Id is Already Exist."
+	                },
+					 mobile1: {
+	                    remote: "Mobile-No is Already Exist."
+	                }
+	            },
+		
 			highlight: function(element) {
 				$(element).closest('.control-group').removeClass('success').addClass('error');
 			},
