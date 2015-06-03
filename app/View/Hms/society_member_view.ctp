@@ -93,17 +93,19 @@ foreach ($result_society as $collection){
 					<?php } ?>
 				</td>
 				<td><?php echo $date; ?></td>
-				<td><a href="#" class="btn red mini deactive tooltips" id="<?php echo $user_id; ?>" data-placement="bottom" data-original-title="Deactivate?" role="button"><i class=" icon-remove-sign"></i></a></td>
+				<td><a href="#" class="btn red mini deactive_conferm tooltips" id="<?php echo $user_id; ?>" data-placement="bottom" data-original-title="Deactivate?" role="button"><i class=" icon-remove-sign"></i></a>
+				</td>
 			</tr>
 		<?php } ?>	
 		</tbody>
 	</table>
 	
 </div>
-
+<div class="edit_div" style=""></div>
 <script>
 $(document).ready(function() {
-	$(".deactive").bind('click', function(e){
+	$(".deactive").live('click', function(e){
+		$(".edit_div").hide();
 		$(this).text("Wait...");
 		var id=$(this).attr("id");
 		$.ajax({
@@ -116,10 +118,19 @@ $(document).ready(function() {
 				}, 2000);
 			});
 	});
+	$(".deactive_conferm").off().on('click', function(e){
+		var id=$(this).attr("id");
+		$('.edit_div').show();
+		$('.edit_div').html('<div class="modal-backdrop fade in"></div><div class="modal" id="poll_edit_content"><div class="modal-header"><h4 id="myModalLabel1">Edit poll</h4></div><div class="modal-body">12345</div><div class="modal-footer"><button class="btn" id="close_edit">No</button>	<a href="#" class="btn red deactive tooltips" id='+id+' data-placement="bottom" data-original-title="Deactivate?" role="button"> Yes</a></div></div>');
+		return false;
+	});
+	$("#close_edit").live('click', function(e){
+		$('.edit_div').hide();
+	});
 });
 </script>
 <script>
-$(document).ready(function() { 
+$(document).ready(function() {
 	 $(".resend").live('click',function(){
 		var id=$(this).attr('id');
 		
