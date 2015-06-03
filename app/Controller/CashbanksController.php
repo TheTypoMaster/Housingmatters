@@ -2583,7 +2583,7 @@ $maturity_date = $this->request->data['maturity_date'];
 $interest_rate = $this->request->data['interest_rate'];
 $remark = $this->request->data['remark'];
 $reminder = $this->request->data['reminder'];
-$tds = $this->request->data['tds'];
+//$tds = $this->request->data['tds'];
 $name = $this->request->data['name'];
 $email = $this->request->data['email'];
 $mobile = $this->request->data['mobile'];
@@ -2617,7 +2617,7 @@ $i=$last11;
 $i++; 
 $this->loadmodel('fix_deposit');
 $multipleRowData = Array( Array("auto_id" => $i, "bank_name" => $bank_name,  "branch" => $branch, "account_reference" => $account_reference, "prepaired_by" => $s_user_id, 
-"principal_amount" => $principal_amount, "start_date" => $start_date,"maturity_date" => $maturity_date, "interest_rate" => $interest_rate,"remark" => $remark, "reminder" => $reminder,"tds" => $tds, "name" => $name, "society_id" => $s_society_id, "email" => $email,"mobile" => $mobile, "current_date"=>$current_date));
+"principal_amount" => $principal_amount, "start_date" => $start_date,"maturity_date" => $maturity_date, "interest_rate" => $interest_rate,"remark" => $remark, "reminder" => $reminder,"name" => $name, "society_id" => $s_society_id, "email" => $email,"mobile" => $mobile, "current_date"=>$current_date));
 $this->fix_deposit->saveAll($multipleRowData);
 ?>
 
@@ -3227,7 +3227,7 @@ $remarks = $post_data['remark'];
 $start_date = $post_data['st_dat'];
 $mat_date = $post_data['mat_dat'];
 $int_rate = $post_data['int_rate'];
-$tds_amt = $post_data['tds_amt'];
+//$tds_amt = $post_data['tds_amt'];
 $name = $post_data['name'];
 $email = $post_data['email'];
 $mobile = $post_data['mobile'];
@@ -3299,9 +3299,9 @@ $report[]=array('label'=>'inrat', 'text' => 'Please Fill Interest Rate');
 
 
 
-if(empty($tds_amt)){
-$report[]=array('label'=>'tds', 'text' => 'Please Fill Tds Amount');
-}	
+//if(empty($tds_amt)){
+//$report[]=array('label'=>'tds', 'text' => 'Please Fill Tds Amount');
+//}	
 
 
 
@@ -3338,7 +3338,7 @@ else
 $report[]=array('label'=>'inrat', 'text' => 'Please Fill Numeric Value');
 }	
 }
-
+/*
 if(!empty($tds_amt))
 {
 if(is_numeric($tds_amt))
@@ -3349,7 +3349,7 @@ else
 $report[]=array('label'=>'tds', 'text' => 'Please Fill Numeric Value');
 }	
 }
-
+*/
 $date4 = date("Y-m-d", strtotime($start_date));
 $date4 = new MongoDate(strtotime($date4));
 
@@ -3421,7 +3421,7 @@ $i=$last11;
 $i++; 
 $this->loadmodel('fix_deposit');
 $multipleRowData = Array( Array("auto_id" => $i, "bank_name" => $bank_name,  "branch" => $branch, "account_reference" => $account_ref, "prepaired_by" => $s_user_id, 
-"principal_amount" => $principal_amt, "start_date" => $start_date2,"maturity_date" => $mat_date2, "interest_rate" => $int_rate,"remark" => $remarks, "reminder" => $remind_day,"tds" => $tds_amt, "name" => $name, "society_id" => $s_society_id, "email" => $email,"mobile" => $mobile, "current_date"=>$current_date,"file_name"=>$file_name));
+"principal_amount" => $principal_amt, "start_date" => $start_date2,"maturity_date" => $mat_date2, "interest_rate" => $int_rate,"remark" => $remarks, "reminder" => $remind_day,"name" => $name, "society_id" => $s_society_id, "email" => $email,"mobile" => $mobile, "current_date"=>$current_date,"file_name"=>$file_name));
 $this->fix_deposit->saveAll($multipleRowData);
 
 $output=json_encode(array('report_type'=>'publish','report'=>'Record Inserted Successfully'));

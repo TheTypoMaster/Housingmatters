@@ -111,14 +111,14 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </div>
 <br />
 
-	
+<!--
 <label style="font-size:14px;">TDS Amount<span style="color:red;">*</span></label>
 <div class="controls">
 <input type="text" name="tds" class="m-wrap span9" id="tda">
 <label report="tds" class="remove_report"></label>
 </div>
 <br />
-			
+-->			
  
  
  
@@ -195,7 +195,7 @@ $(document).ready(function() {
 		m_data.append( 'st_dat', $('#std').val());
 		m_data.append( 'mat_dat', $('#mtd').val());
 		m_data.append( 'int_rate', $('#ir').val());
-		m_data.append( 'tds_amt', $('#tda').val());
+		//m_data.append( 'tds_amt', $('#tda').val());
 		m_data.append( 'name', $('#name').val());
 		m_data.append( 'email', $('#email').val());
 		m_data.append( 'mobile', $('#mobile').val());
