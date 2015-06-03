@@ -142,6 +142,7 @@ $name = $collection['ledger_sub_account']['name'];
 <div class="controls">
 <input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="posting_date" id="pd" value="<?php echo $todat_posting; ?>">
 <label report="pos_dat" class="remove_report"></label>
+<div id="result11"></div>
 </div>
 <br />
 
@@ -287,7 +288,64 @@ $(document).ready(function() {
 
 
 
-
+<script>
+		$(document).ready(function() {
+		$("#vali").live('click',function(){
+        
+		var fi = document.getElementById("fi").value;
+		var ti = document.getElementById("ti").value;
+		var cn = document.getElementById("cn").value;
+		var fe = fi.split(",");
+		var te = ti.split(",");
+		var date1 = document.getElementById("pd").value;
+		
+		var date = date1.split("-").reverse().join("-");
+				
+		var nnn = 55;
+		for(var i=0; i<cn; i++)
+		{
+		var fd = fe[i];
+		var td = te[i]
+		
+		    if(date == "")
+			{
+				nnn = 555;
+			break;	
+			}
+			else if(Date.parse(fd) <= Date.parse(date))
+		     {
+			 if(Date.parse(td) >= Date.parse(date))
+			 {
+				 nnn = 5;
+				 break;
+			 }
+			 else
+			 {
+				 
+			 }
+        	 } 
+			 }
+			 
+		
+		if(nnn == 55)
+		{
+		$("#result11").load("cash_bank_vali?ss=" + 2 + "");
+        return false;	
+		}
+		else if(nnn == 555)
+		{
+			
+		}
+		else
+		{
+		$("#result11").load("cash_bank_vali?ss=" + 12 + "");		
+		}
+		
+		
+		
+		});
+		});
+		</script>	
 
 
 
