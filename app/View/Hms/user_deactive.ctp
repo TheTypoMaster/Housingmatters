@@ -72,7 +72,7 @@ foreach ($result_society as $collection){
 <div class="edit_div" style=""></div>
 <script>
 $(document).ready(function() {
-	$(".deactive").live('click', function(e){
+	$(".deactive12").live('click', function(e){
 		$(".edit_div").hide();
 		$(this).text("Wait...");
 		var id=$(this).attr("id");
@@ -91,7 +91,7 @@ $(document).ready(function() {
 	$(".deactive_conferm").off().on('click', function(e){
 		var id=$(this).attr("id");
 		$('.edit_div').show();
-		$('.edit_div').html('<div class="modal-backdrop fade in"></div><div class="modal" id="poll_edit_content"><div class="modal-header"><h4 id="myModalLabel1">Edit poll</h4></div><div class="modal-body">12345</div><div class="modal-footer"><button class="btn" id="close_edit">No</button>	<a href="#" class="btn green mini deactive tooltips" data-placement="bottom" data-original-title="Activate?" id='+id+' role="button"><i class=" icon-ok-sign"></i></a></div></div>');
+		$('.edit_div').html('<div class="modal-backdrop fade in"></div><div class="modal" id="poll_edit_content"><div class="modal-header"><h4 id="myModalLabel1">Edit poll</h4></div><div class="modal-body">12345</div><div class="modal-footer"><button class="btn" id="close_edit">No</button>	<a href="#" class="btn green mini deactive12 tooltips" data-placement="bottom" data-original-title="Activate?" id='+id+' role="button"><i class=" icon-ok-sign"></i></a></div></div>');
 		return false;
 	});
 	$("#close_edit").live('click', function(e){
