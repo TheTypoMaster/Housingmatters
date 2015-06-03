@@ -3444,15 +3444,126 @@ $this->check_user_privilages();
 
 $s_society_id=(int)$this->Session->read('society_id');
 
-
-
-
-
-
-
-
-
 }
 ///////////////////////////////// End Matured Deposit View /////////////////////////////////////////////////
+
+////////////////////////////////// Start Fix Deposit view (Active) Excel///////////////////////////////////////////
+function fix_deposit_excel()
+{
+$this->layout="";
+$filename="Fix Deposit Excel";
+header ("Expires: 0");
+header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+header ("Cache-Control: no-cache, must-revalidate");
+header ("Pragma: no-cache");
+header ("Content-type: application/vnd.ms-excel");
+header ("Content-Disposition: attachment; filename=".$filename.".xls");
+header ("Content-Description: Generated Report" );
+
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id = (int)$this->Session->read('user_id');	
+
+$from = $this->request->query('f');
+$to = $this->request->query('t');
+
+$excel="<table border='1'>
+<tr>
+<th>Sr #</th>
+<th>Bank Name</th>
+<th>Branch</th>
+<th>Name</th>
+<th>E-mail</th>
+<th>Mobile</th>
+<th>A/c Reference</th>
+<th>Principal Amount</th>
+<th>Start Date</th>
+<th>Maturity Date</th>
+<th>Interest Amount</th>
+<th>Interest Rate</th>
+<th>Maturity Amount</th>
+<th>Transaction Id</th>
+<th>Remark</th>
+</tr>";
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor2=$this->society->find('all',array('conditions'=>$conditions));
+$this->set('cursor2',$cursor2);
+
+$this->loadmodel('fix_deposit');
+$conditions=array("society_id" => $s_society_id);
+$cursor1 = $this->fix_deposit->find('all',array('conditions'=>$conditions));
+foreach($cursor1 as $collection)
+{
+$auto_id = (int)$collection['fix_deposit']['auto_id'];	
+$bank_name = $collection['fix_deposit']['bank_name'];	
+$branch = $collection['fix_deposit']['branch'];	
+$account_ref = $collection['fix_deposit']['account_reference'];	
+$prepaired_by = $collection['fix_deposit']['prepaired_by'];	
+$principal_amt = $collection['fix_deposit']['principal_amount'];
+$start_date = $collection['fix_deposit']['start_date'];
+$maturity_date = $collection['fix_deposit']['maturity_date'];
+$interest_rate = $collection['fix_deposit']['interest_rate'];
+$remark = $collection['fix_deposit']['remark'];
+$reminder = $collection['fix_deposit']['reminder'];
+$name = $collection['fix_deposit']['name'];
+$email = $collection['fix_deposit']['email'];
+$mobile = $collection['fix_deposit']['mobile'];
+$file_name = $collection['fix_deposit']['file_name'];
+
+if($start_date >= $from && $start_date <= $to)
+{
+$n++;
+$start_date2 = date('d-M-Y',$start_date->sec);
+$maturity_date2 = date('d-M-Y',$maturity_date->sec);
+function dateDiff($d1, $d2)
+{
+return round(abs(strtotime($d1)-strtotime($d2))/86400);
+} 
+
+$days = dateDiff($start_date2,$maturity_date2);
+$interest = round(($principal_amt * $interest_rate *($days/365))/100);
+
+$mat_amt = $principal_amt + $interest;
+
+$principal_tt = $principal_tt + $principal_amt;
+$int_tt = $int_tt + $interest;
+$mat_tt = $mat_tt + $mat_amt;
+
+$excel.="
+<tr>
+<td>$n</td>
+<td>$bank_name</td>
+<td>$branch</td>
+<td>$name</td>
+<td>$email</td>
+<td>$mobile</td>
+<td>$account_ref</td>
+<td>$principal_amt</td>
+<td>$start_date2</td>
+<td>$maturity_date2</td>
+<td>$interest_rate</td>
+<td>$interest</td>
+<td>$mat_amt</td>
+<td>$auto_id</td>
+<td>$remark</td>
+</tr>";
+}}
+$excel.="
+<tr>
+<th colspan='7' style='text-align:right;'>Total</th>
+<th style='text-align:center;'>$principal_tt</th>
+<th colspan='3'></th>
+<th>$int_tt</th>
+<th>$mat_tt</th>
+<th colspan='2'></th>
+</tr>
+</table>";
+
+echo $excel;
+}
+////////////////////////////////// Start Fix Deposit view (Active) Excel///////////////////////////////////////////
+
+
 }
 ?>
