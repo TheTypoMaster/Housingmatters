@@ -93,10 +93,11 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 		<div id="no1" style="display:none;">No</div>
 		</td>
 		<td width="10%">
-		<div class="controls">
+		<div class="controls" id="residing_div1">
 		<label class="radio"><input type="radio" name="residing1"  value="1">Self Occupied</label>
 		<label class="radio"><input type="radio" name="residing1"  value="2">Leased</label>
 		</div>
+		<div id="not1" style="display:none;">No</div>
 		<div class="pull-right"><a href="#" role="button" class="btn mini black delete" id="1"><i class="icon-trash"></i> Delete</a></div>
 		</td>
 	</tr>
@@ -147,11 +148,15 @@ $(document).ready(function(){
 		
 		if(w==1){
 		$('#committe'+j).show();
+		$('#residing_div'+j).show();
 		$('#no'+j).hide();
+		$('#not'+j).hide();
 		}
 		if(w==2){
 		$('#committe'+j).hide();
+		$('#residing_div'+j).hide();
 		$('#no'+j).show();
+		$('#not'+j).show();
 		}
 	 });
 	 
