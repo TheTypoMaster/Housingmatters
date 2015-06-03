@@ -10,6 +10,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <input type="hidden" id="fi" value="<?php echo $datef1; ?>" />
 <input type="hidden" id="ti" value="<?php echo $datet1; ?>" />
 <input type="hidden" id="cn" value="<?php echo $count; ?>" />
+
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <center>
 <a href="<?php echo $webroot_path; ?>Bookkeepings/journal_add" class="btn yellow" rel='tab'>Create</a>
@@ -349,58 +350,4 @@ $(document).ready(function() {
 });
 </script>
 				
-<script>
-$(document).ready(function() {
-$("#vali").live('click',function(){
 
-var fi = document.getElementById("fi").value;
-var ti = document.getElementById("ti").value;
-var cn = document.getElementById("cn").value;
-var fe = fi.split(",");
-var te = ti.split(",");
-var date1 = document.getElementById("date").value;
-
-var date = date1.split("-").reverse().join("-");
-
-var nnn = 55;
-for(var i=0; i<cn; i++)
-{
-var fd = fe[i];
-var td = te[i]
-
-if(date == "")
-{
-nnn = 555;
-break;	
-}
-else if(Date.parse(fd) <= Date.parse(date))
-{
-if(Date.parse(td) >= Date.parse(date))
-{
-nnn = 5;
-break;
-}
-else
-{
-
-}
-} 
-}
-
-if(nnn == 55)
-{
-$("#result11").load("cash_bank_vali?ss=" + 2 + "");
-return false;	
-}
-else if(nnn == 555)
-{
-
-}
-else
-{
-$("#result11").load("cash_bank_vali?ss=" + 12 + "");		
-}
-
-});
-});
-</script>	

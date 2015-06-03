@@ -63,10 +63,6 @@ $this->set('datet1',@$datet1);
 $this->set('count',$count);
 
 
-
-
-
-
 $this->loadmodel('journal');
 $conditions=array("society_id" => $s_society_id);
 $order=array('journal.receipt_id'=> 'DESC');
@@ -1438,12 +1434,13 @@ die($output);
 
 $date4 = date("Y-m-d", strtotime($date3));
 $date4 = new MongoDate(strtotime($date4));
-
+$cnnn = 55;
 $this->loadmodel('financial_year');
-$conditions=array("society_id" => $s_society_id);
+$conditions=array("society_id" => $s_society_id,"status"=>1);
 $cursor=$this->financial_year->find('all',array('conditions'=>$conditions));
 foreach($cursor as $collection)
 {
+$cnnn = 555;
 $from = $collection['financial_year']['from'];
 $to = $collection['financial_year']['to'];
 
@@ -1458,11 +1455,22 @@ else
 $abc = 555; 
 }
 }
+
+if($cnnn == 55)
+{
+$output = json_encode(array('type'=>'error', 'text' => 'Transaction Date is not in Financial Year'));
+die($output);
+}
 if($abc == 555)
 {
 $output = json_encode(array('type'=>'error', 'text' => 'Transaction Date is not in Financial Year'));
 die($output);
 }
+
+
+
+
+
 $myArray = json_decode($q, true);
 $c=0;
 $total_debit = 0;
