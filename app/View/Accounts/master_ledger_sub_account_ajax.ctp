@@ -18,7 +18,7 @@ if($value == 15)
 if($value == 33)
 {
 ?>
-<input type="text" name="bank_account" class="m-wrap large" placeholder="Bank Account" id="ba" style="background-color:white !important;">
+<input type="text" name="bank_account" class="m-wrap large" placeholder="Bank Account Number" id="ba" style="background-color:white !important;">
 <label id="ba"></label>
 <?php 
 }
