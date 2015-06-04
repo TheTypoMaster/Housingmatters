@@ -312,9 +312,6 @@ foreach($cursor as $collection)
 $society_name = $collection['society']['society_name'];
 }
 
-
-
-
 $excel="<table border='1'>
 <tr>
 <th colspan='6' style='text-align:center;'>
@@ -583,6 +580,12 @@ $cursor = $collection->find();
 $this->loadmodel('ledger_account');
 $cursor1=$this->ledger_account->find('all');
 $this->set('cursor1',$cursor1);
+
+
+$this->loadmodel('flat');
+$conditions=array("society_id" => $s_society_id);
+$cursor2=$this->flat->find('all',array('conditions'=>$conditions));
+$this->set('cursor2',$cursor2);
 
 }
 /////////////////////////////////////////// End Ledger (Accounts)//////////////////////////////////////////////////////////////////////////////////////
@@ -1278,8 +1281,9 @@ $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
 
 $this->set('s_role_id',$s_role_id);
-
-
+$type = (int)$this->request->query('type');
+if($type == 1)
+{
 $main_id = (int)$this->request->query('main_id');
 $sub_id = (int)$this->request->query('sub_id');
 $date1 = $this->request->query('date1');
@@ -1288,6 +1292,34 @@ $this->set('main_id',$main_id);
 $this->set('sub_id',$sub_id);
 $this->set('date111',$date1);
 $this->set('date222',$date2);
+$this->set('type',$type);
+}
+if($type == 2)
+{
+$main_id = 34;
+$flat_id = (int)$this->request->query('flat_id');
+$date1 = $this->request->query('date1');
+$date2 = $this->request->query('date2');
+
+$this->loadmodel('user');
+$conditions=array("society_id" => $s_society_id,"flat"=>$flat_id);
+$cursor = $this->user->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$user_id = (int)$collection['user']['user_id'];
+}
+$result_gh = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch3'),array('pass'=>array($user_id)));
+foreach ($result_gh as $collection) 
+{
+$sub_id = (int)$collection['ledger_sub_account']['auto_id'];
+}	
+$this->set('main_id',$main_id);
+$this->set('sub_id',$sub_id);
+$this->set('date111',$date1);
+$this->set('date222',$date2);
+$this->set('type',$type);
+
+}
 
 $this->loadmodel('financial_year');
 $conditions=array("society_id" => $s_society_id);
