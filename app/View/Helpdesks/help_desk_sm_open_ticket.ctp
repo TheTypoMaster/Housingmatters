@@ -76,13 +76,13 @@ $result_regular_bill = $this->requestAction(array('controller' => 'hms', 'action
 	 $n=sizeof($result_regular_bill);
 
 ?>
-<tr class="odd gradeX" <?php if($n>0) {?> style='background-color:rgba(229, 16, 16, 0.09);' <?php } ?> >
+<tr class="odd gradeX">
 	<td><?php echo $z ; ?></td>
 	<td><?php echo $date; ?></td>
 	<td><?php echo $time; ?></td>
 	<td><?php echo $ticket_id; ?></td>
 	<td><?php echo $ticket_priority; ?></td>
-	<td><?php echo $name; ?></td>
+	<td><?php echo $name; ?> <?php if($n>0) {?><span class="tooltips" data-placement="right" data-original-title="Due payment"><i class="icon-flag" style="color:red;font-size:14px;"></i></span> <?php } ?></td>
 	<td><?php echo $flat; ?></td>
 	<td><?php echo $help_desk_category_name; ?></td>
 	<td><a href="<?php echo $this->webroot;?>Helpdesks/help_desk_sm_view/<?php echo $help_desk_id; ?>/<?php echo $help_desk_status; ?>" rel='tab' class="btn yellow mini green"  >View</a></td>
