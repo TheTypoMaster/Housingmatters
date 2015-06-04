@@ -76,12 +76,14 @@ foreach ($cursor as $collection)
 $d_from = $collection['regular_bill']['bill_daterange_from'];
 $d_to = $collection['regular_bill']['bill_daterange_to'];
 }
+if(!empty($d_from))
+{
 $datefb = date('Y-m-d',@$d_from->sec);
 $datetb = date('Y-m-d',@$d_to->sec);
 
 $this->set('datefb',$datefb);
 $this->set('datetb',$datetb);
-
+}
 if(isset($this->request->data['sub1']))
 {
 $from = $this->request->data['from'];

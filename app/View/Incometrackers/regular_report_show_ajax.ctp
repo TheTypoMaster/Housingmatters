@@ -20,8 +20,8 @@ $bill_daterange_to2= date('d-m-Y', $bill_daterange_to->sec);
 $bill_for_user=(int)$collection['regular_bill']["bill_for_user"];
 $bill_html=$collection['regular_bill']["bill_html"];
 $g_total=$collection['regular_bill']["g_total"];
- $date=$collection['regular_bill']["date"]; 
- $date1= date('Y-m-d',$date->sec);
+$date=$collection['regular_bill']["date"]; 
+$date1= date('Y-m-d',$date->sec);
 
 $pay_status=(int)@$collection['regular_bill']["pay_status"];
 
@@ -117,8 +117,8 @@ $bill_daterange_to2= date('d-m-Y', $bill_daterange_to->sec);
 $bill_for_user=(int)$collection['regular_bill']["bill_for_user"];
 $bill_html=$collection['regular_bill']["bill_html"];
 $g_total=$collection['regular_bill']["g_total"];
- $date=$collection['regular_bill']["date"]; 
- $date2= date('Y-m-d',$date->sec);
+$date=$collection['regular_bill']["date"]; 
+$date2= date('Y-m-d',$date->sec);
 
 $pay_status=(int)@$collection['regular_bill']["pay_status"];
 

@@ -19,46 +19,55 @@ $default_date_to = date('d-m-Y')
                 <form method="post" onSubmit="return valid()">
                 <div id="validate_result"></div>
 				<div  class="hide_at_print">
-               	<table style="width:60%;">
-                <tr>
-                <td>
-                <select class="medium m-wrap chosen" tabindex="1" name="type" id="main_id">
-                <option value="">Select Ledger A/c</option>
-                <?php
-                foreach ($cursor1 as $collection) 
-				{
-				$auto_id = (int)$collection['ledger_account']['auto_id'];
-                $name = $collection['ledger_account']['ledger_name'];
-				?>
-                <option value="<?php echo $auto_id; ?>"><?php echo $name; ?></option>
-                <?php } ?>
-                </select>
-                </td>
-                <td id="result1">
-                <select class="medium m-wrap" tabindex="1" name="user_name" id="sub_id" style="margin-top:7px;">
-                <option value="0">Select Sub Ledger A/c</option>
-                </select>
-                </td>
-                             
-                <td>
-                <input type="text" placeholder="From Date" id="date1" class="date-picker medium m-wrap" data-date-format="dd-mm-yyyy" name="from" style="background-color:white !important; margin-top:7px;" value="<?php echo $default_date_from; ?>">
-                </td>
-                                
-                <td>
-                <input type="text" placeholder="To Date" id="date2" class="date-picker medium m-wrap" data-date-format="dd-mm-yyyy" name="to" style="background-color:white !important; margin-top:7px;" value="<?php echo $default_date_to; ?>">
-                </td>
+               	
                 
+<label class="radio">
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="optionsRadios1" value="1" style="opacity: 0;" checked="checked"></span></div>
+Account Wise
+</label>
+<label class="radio">
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="optionsRadios1" value="2" style="opacity: 0;"></span></div>
+Flat Wise
+</label>                
+             
+<table style="width:60%;">
+<tr>
+<td>
+<select class="medium m-wrap chosen" tabindex="1" name="type" id="main_id">
+<option value="">Select Ledger A/c</option>
+<?php
+foreach ($cursor1 as $collection) 
+{
+$auto_id = (int)$collection['ledger_account']['auto_id'];
+$name = $collection['ledger_account']['ledger_name'];
+?>
+<option value="<?php echo $auto_id; ?>"><?php echo $name; ?></option>
+<?php } ?>
+</select>
+</td>
+<td id="result1">
+<select class="medium m-wrap" tabindex="1" name="user_name" id="sub_id" style="margin-top:7px;">
+<option value="0">Select Sub Ledger A/c</option>
+</select>
+</td>
+
+<td>
+<input type="text" placeholder="From Date" id="date1" class="date-picker medium m-wrap" data-date-format="dd-mm-yyyy" name="from" style="background-color:white !important; margin-top:7px;" value="<?php echo $default_date_from; ?>">
+</td>
+
+<td>
+<input type="text" placeholder="To Date" id="date2" class="date-picker medium m-wrap" data-date-format="dd-mm-yyyy" name="to" style="background-color:white !important; margin-top:7px;" value="<?php echo $default_date_to; ?>">
+</td>
                 
-                <td valign="top">
-                <button type="button" id="go" name="sub" class="btn yellow" style="margin-top:7px;">Search</button>
-                </td>
-                
-                
-                </tr>
-                </table>
-                <br>
-				</div>	 
-                </form>
+<td valign="top">
+<button type="button" id="go" name="sub" class="btn yellow" style="margin-top:7px;">Search</button>
+</td>
+
+</tr>
+</table>
+<br>
+</div>	 
+</form>
 </center>
 <?php ////////////////////////////////////////////////////////////////////////////////////////?>
 

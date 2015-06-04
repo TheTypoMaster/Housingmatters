@@ -7,7 +7,7 @@ $("#fix<?php echo $id_current_page; ?>").removeClass("blue");
 $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
-
+<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <input type="hidden" id="fi" value="<?php echo $datef1; ?>" />
 <input type="hidden" id="ti" value="<?php echo $datet1; ?>" />
 <input type="hidden" id="cn" value="<?php echo $count; ?>" />
@@ -395,10 +395,7 @@ $(document).ready(function(){
 
 		$(document).ready(function() {
 		$("#go").bind('click',function(){
-
 	
-		
-		
 		var from1 = document.getElementById("from").value;
 		var per_tp = document.getElementById("bp").value;
 		var date = from1.split("-"); 
@@ -556,9 +553,9 @@ $('#chk_vali').html('<p style="color:red;"></p>');
 		
 		
 		
-		
-		});
-		});
+
+});
+});
 		
 		
 		</script>
