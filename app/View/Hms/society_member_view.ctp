@@ -121,7 +121,7 @@ $(document).ready(function() {
 	$(".deactive_conferm").off().on('click', function(e){
 		var id=$(this).attr("id");
 		$('.edit_div').show();
-		$('.edit_div').html('<div class="modal-backdrop fade in"></div><div class="modal" id="poll_edit_content"><div class="modal-header"><h4 id="myModalLabel1">Edit poll</h4></div><div class="modal-body">12345</div><div class="modal-footer"><button class="btn" id="close_edit">No</button>	<a href="#" class="btn red deactive tooltips" id='+id+' data-placement="bottom" data-original-title="Deactivate?" role="button"> Yes</a></div></div>');
+		$('.edit_div').html('<div class="modal-backdrop fade in"></div><div class="modal" id="poll_edit_content"><div class="modal-body"><span style="font-size:16px;"> <i class="icon-warning-sign" style="color:#d84a38;"></i>  Are you sure you want to deactivate user ? </span></div><div class="modal-footer"><a href="#" class="btn red deactive tooltips" id='+id+' data-placement="bottom" data-original-title="Deactivate?" role="button"> Yes</a><button class="btn" id="close_edit">No</button></div></div>');
 		return false;
 	});
 	$("#close_edit").live('click', function(e){
