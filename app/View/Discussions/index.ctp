@@ -249,7 +249,7 @@ if($delete_id!=1)
 if(sizeof($result_discussion)==0) { echo '<div align="center"><h5>No Record Found.</h5></div>'; }
 foreach($result_discussion as $collection)
 {
-echo $discussion_post_id=(int)$collection["discussion_post"]["discussion_post_id"];
+ $discussion_post_id=(int)$collection["discussion_post"]["discussion_post_id"];
 $discussion_post_id=$this->requestAction(array('controller' => 'hms', 'action' => 'encode'), array('pass' => array($discussion_post_id,'housingmatters')));
 $topic=$collection["discussion_post"]["topic"];
 $d_user_id=(int)$collection["discussion_post"]["user_id"];
