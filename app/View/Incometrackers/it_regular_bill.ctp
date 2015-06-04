@@ -13,6 +13,12 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <input type="hidden" id="cn" value="<?php echo $count; ?>" />
 <input type="hidden" id="fb" value="<?php echo $datefb; ?>" />
 <input type="hidden" id="tb" value="<?php echo $datetb; ?>" />
+<?php
+echo $d_from."<br>"; 
+echo $datefb."<br>";
+echo $datetb."<br>";
+echo "afasds";
+?>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php 
 foreach($socct1 as $data)
@@ -453,7 +459,7 @@ $(document).ready(function(){
 		var due1 = document.getElementById("due").value;
 		var fb = document.getElementById("fb").value;
 		var tb= document.getElementById("tb").value;
-		
+		alert(tb);
 		var from = from1.split("-").reverse().join("-");
 		var to = to1.split("-").reverse().join("-");
 		var due = due1.split("-").reverse().join("-");

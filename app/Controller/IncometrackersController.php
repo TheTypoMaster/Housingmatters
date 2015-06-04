@@ -76,6 +76,8 @@ foreach ($cursor as $collection)
 $d_from = $collection['regular_bill']['bill_daterange_from'];
 $d_to = $collection['regular_bill']['bill_daterange_to'];
 }
+
+$this->set('d_from',$d_from);
 if(!empty($d_from))
 {
 $datefb = date('Y-m-d',@$d_from->sec);
