@@ -46,7 +46,7 @@ $society_name = $collection['society']['society_name'];
 ?>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <div style="width:100%;" class="hide_at_print">
-<span style="float:right;"><a href="fix_deposit_excel?f=<?php echo $from; ?>&t=<?php echo $to; ?>" class="btn blue" style="margin-right:70px;">Export in Excel</a></span>
+<span style="float:right;"><a href="fix_deposit_excel" class="btn blue" style="margin-right:70px;">Export in Excel</a></span>
 <span style="float:right; margin-right:1%;"><button type="button" class=" printt btn green" onclick="window.print()"><i class="icon-print"></i> Print</button></span>
 </div>
 <br /><br />

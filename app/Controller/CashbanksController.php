@@ -2689,6 +2689,16 @@ $s_user_id=$this->Session->read('user_id');
 
 $this->set('s_role_id',$s_role_id);
 
+$this->loadmodel('fix_deposit');
+$conditions=array("society_id" => $s_society_id,"status"=>0);
+$cursor1 = $this->fix_deposit->find('all',array('conditions'=>$conditions));
+$this->set('cursor1',$cursor1);
+
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor2=$this->society->find('all',array('conditions'=>$conditions));
+$this->set('cursor2',$cursor2);
+
 
 }
 
@@ -3241,14 +3251,6 @@ $file_type=$_FILES['file']['type'];
 }
 
 
-
-
-
-
-
-
-
-
 $report = array();
 if(empty($bank_name)){
 $report[]=array('label'=>'bnk', 'text' => 'Please Fill Bank Name');
@@ -3421,7 +3423,7 @@ $i=$last11;
 $i++; 
 $this->loadmodel('fix_deposit');
 $multipleRowData = Array( Array("auto_id" => $i, "bank_name" => $bank_name,  "branch" => $branch, "account_reference" => $account_ref, "prepaired_by" => $s_user_id, 
-"principal_amount" => $principal_amt, "start_date" => $start_date2,"maturity_date" => $mat_date2, "interest_rate" => $int_rate,"remark" => $remarks, "reminder" => $remind_day,"name" => $name, "society_id" => $s_society_id, "email" => $email,"mobile" => $mobile, "current_date"=>$current_date,"file_name"=>$file_name));
+"principal_amount" => $principal_amt, "start_date" => $start_date2,"maturity_date" => $mat_date2, "interest_rate" => $int_rate,"remark" => $remarks, "reminder" => $remind_day,"name" => $name, "society_id" => $s_society_id, "email" => $email,"mobile" => $mobile, "current_date"=>$current_date,"file_name"=>$file_name,"status"=>0));
 $this->fix_deposit->saveAll($multipleRowData);
 
 $output=json_encode(array('report_type'=>'publish','report'=>'Record Inserted Successfully'));
@@ -3464,8 +3466,8 @@ $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id = (int)$this->Session->read('user_id');	
 
-$from = $this->request->query('f');
-$to = $this->request->query('t');
+//$from = $this->request->query('f');
+//$to = $this->request->query('t');
 
 $excel="<table border='1'>
 <tr>
@@ -3491,7 +3493,7 @@ $cursor2=$this->society->find('all',array('conditions'=>$conditions));
 $this->set('cursor2',$cursor2);
 
 $this->loadmodel('fix_deposit');
-$conditions=array("society_id" => $s_society_id);
+$conditions=array("society_id" => $s_society_id,"status"=>0);
 $cursor1 = $this->fix_deposit->find('all',array('conditions'=>$conditions));
 foreach($cursor1 as $collection)
 {
@@ -3511,8 +3513,7 @@ $email = $collection['fix_deposit']['email'];
 $mobile = $collection['fix_deposit']['mobile'];
 $file_name = $collection['fix_deposit']['file_name'];
 
-if($start_date >= $from && $start_date <= $to)
-{
+
 $n++;
 $start_date2 = date('d-M-Y',$start_date->sec);
 $maturity_date2 = date('d-M-Y',$maturity_date->sec);
@@ -3548,7 +3549,7 @@ $excel.="
 <td>$auto_id</td>
 <td>$remark</td>
 </tr>";
-}}
+}
 $excel.="
 <tr>
 <th colspan='7' style='text-align:right;'>Total</th>
