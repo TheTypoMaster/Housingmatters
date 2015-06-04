@@ -311,7 +311,6 @@ $(document).ready(function() {
 <script>
 $(document).ready(function() {
 $("#vali").bind('click',function(){
-
 var fi = document.getElementById("fi").value;
 var ti = document.getElementById("ti").value;
 var cn = document.getElementById("cn").value;

@@ -805,10 +805,10 @@ echo $excel;
 function bank_payment()
 {
 if($this->RequestHandler->isAjax()){
-		$this->layout='blank';
-	}else{
-		$this->layout='session';
-	}
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
 
 	
 $this->ath();
@@ -846,7 +846,7 @@ $datef[] = $date_from1;
 $datet[] = $date_to1;
 }
 
-if(!empty($datef1))
+if(!empty($datef))
 {
 $datef1 = implode(',',$datef);
 $datet1 = implode(',',$datet);
