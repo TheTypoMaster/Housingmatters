@@ -413,7 +413,7 @@ $this->financial_year->saveAll($multipleRowData);
 </center>
 </div>
 <div class="modal-footer">
-<a href="master_financial_year" class="btn blue">OK</a>
+<a href="master_financial_period_status" class="btn blue">OK</a>
 </div>
 </div>
 
