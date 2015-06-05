@@ -86,7 +86,7 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 		<div class="control-group">
   <label class="control-label">Location</label>
   <div class="controls">
-	 <input type="text" name="location" class="span8 m-wrap" maxlength="100" id="alloptions" placeholder="Location">
+	 <textarea name="location" rows="3" id="alloptions" class="span9 m-wrap" placeholder="Location"></textarea>
 	 <label report="location" class="remove_report"></label>
   </div>
 </div>
@@ -226,7 +226,7 @@ $(document).ready(function() {
 			m_data.append( 'date_to', $('input[name=date_to]').val());
 		}
 		m_data.append( 'e_time', $('input[name=e_time]').val());
-		m_data.append( 'location', $('input[name=location]').val());
+		m_data.append( 'location', $('textarea[name=location]').val());
 		
 		var visible=$('input:radio[name=visible]:checked').val();
 		m_data.append( 'visible', visible);

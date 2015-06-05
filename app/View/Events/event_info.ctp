@@ -74,8 +74,8 @@ $flat_info=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_f
 
 <div style="width:80%; margin-left:10%;margin-top:4px;">
 <a href="<?php echo $webroot_path; ?>Events/event_info/<?php echo $e_id; ?>" class="event_tab tab_active" rel='tab'> Event Details</a>
-<a href="<?php echo $webroot_path; ?>Events/updates/<?php echo $e_id; ?>" class="event_tab" rel='tab'> Updates</a>
-<a href="<?php echo $webroot_path; ?>Events/gallery/<?php echo $e_id; ?>" class="event_tab" rel='tab'> Gallery</a> 
+<!--<a href="<?php echo $webroot_path; ?>Events/updates/<?php echo $e_id; ?>" class="event_tab" rel='tab'> Updates</a>
+<a href="<?php echo $webroot_path; ?>Events/gallery/<?php echo $e_id; ?>" class="event_tab" rel='tab'> Gallery</a> -->
 <!-- BEGIN BORDERED TABLE PORTLET-->
 <div class="portlet box" style="background-color:#44b6ae;">
 	

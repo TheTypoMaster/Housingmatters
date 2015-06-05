@@ -390,6 +390,18 @@ $this->layout=null;
 
 
 	
+	$result_user_info=$this->profile_picture($s_user_id);
+	foreach($result_user_info as $collection2)
+	{
+	$user_name=$collection2["user"]["user_name"];
+	$profile_pic=$collection2["user"]["profile_pic"];
+	$wing=$collection2["user"]["wing"];
+	$flat=$collection2["user"]["flat"];
+	}
+
+	$flat_info=$this->wing_flat($wing,$flat);
+
+
 	
 	$from="Support@housingmatters.in";
 	$reply="Support@housingmatters.in";
@@ -415,9 +427,31 @@ $this->layout=null;
 	<a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 	</br><p>Hello $user_name </p>
 	<p>A new event has been created.</p>
-	<p><span>$e_name</span></p>
-	<p><span>$date_email</span></p>
-	<p><span>$location</span></p>
+	<br>
+	<div style='border:solid 1px;'>
+	<table width='100%' border='0'>
+			<tbody><tr>
+				<td width='60%' valign='top' align='left'>
+				<span style='font-size:22px;'>$e_name</span><br>
+				<span>$date_email</span><br>
+				<span>Time:- $e_time</span>
+				</td>
+				<td width='30%' valign='top' align='right'>
+				<span style='font-weight: 100;'>Created by: </span><span>$user_name.' '.$flat_info</span>
+				</td>
+			</tr>
+			
+			<tr>
+				<td colspan='2'>
+				<br>
+				<h4>Location:- $location</h4>
+				<p>$description</p>						
+							
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
 	<div>
 	<br/>
 	<br/>
