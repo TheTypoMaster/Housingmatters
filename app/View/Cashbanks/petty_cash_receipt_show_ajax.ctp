@@ -7,10 +7,10 @@ jQuery('.tooltips').tooltip();
 <?php
 $nnn = 55;         
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
 ?>
 
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
@@ -80,7 +80,9 @@ $nnn = 555;
 else if($s_role_id == 3)
 {
 $nnn = 555;
-}}}
+}
+}
+}
 ?>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
@@ -93,10 +95,7 @@ if($nnn == 555)
 </div>
 <br /><br />
 
-
-
 <table class="table table-bordered" width="100%" style="background-color:#FDFDEE;">
-
 <tr>
 <th colspan="6" style="text-align:center;">
 <p style="font-size:16px;">
@@ -201,66 +200,62 @@ $user_name1 = $this->requestAction(array('controller' => 'hms', 'action' => 'fet
 				{
 				if($s_user_id == $d_user_id)  
 				{
-				$date = date('d-m-Y',$date->sec);
+				$date = date('d-m-Y',strtotime($date));
 				$total_debit = $total_debit + $amount;
 			    $amount = number_format($amount);
 			   
 			    ?>
-                                        <tr>
-											
-                                            <td><?php echo $receipt_no; ?> </td>
-											<td><?php echo $date; ?> </td>
-                                            <td><?php echo $narration; ?> </td>
-                                            <td><?php echo $user_name; ?>  &nbsp&nbsp&nbsp&nbsp<?php echo @$wing_flat; ?> </td>
-                                            <td><?php echo $amount; ?></td>
-     <td class="hide_at_print"><a href="petty_cash_receipt_pdf?c=<?php echo $transaction_id; ?>" class="btn mini purple tooltips" data-placement="bottom" 
-	 data-original-title="Download Pdf" target="_blank">Pdf</a>
-	 <a class="btn mini black tooltips" data-placement="bottom"   data-original-title="Created By:<?php echo $prepaired_by_name; ?>
-										   Creation Date : <?php echo $creation_date; ?>">!</a>
+<tr>
+<td><?php echo $receipt_no; ?> </td>
+<td><?php echo $date; ?> </td>
+<td><?php echo $narration; ?> </td>
+<td><?php echo $user_name; ?>  &nbsp&nbsp&nbsp&nbsp<?php echo @$wing_flat; ?> </td>
+<td><?php echo $amount; ?></td>
+<td class="hide_at_print"><a href="petty_cash_receipt_pdf?c=<?php echo $transaction_id; ?>" class="btn mini purple tooltips" data-placement="bottom" 
+data-original-title="Download Pdf" target="_blank">Pdf</a>
+<a class="btn mini black tooltips" data-placement="bottom"   data-original-title="Created By:<?php echo $prepaired_by_name; ?>
+Creation Date : <?php echo $creation_date; ?>">!</a>
 	 
 	 
 	 
-                                          </td>
-										    </tr>
-									  <?php
-                                        }
-									   else
-									   if($s_role_id == 3)
-									   {
-										   
-										  $date = date('d-m-Y',$date->sec);  
-										 $total_debit = $total_debit + $amount;
-										 $amount = number_format($amount);
-										 ?>
-										   <tr>
-											
-                                            <td><?php echo $receipt_no; ?> </td>
-											<td><?php echo $date; ?> </td>
-                                            <td><?php echo $narration; ?> </td>
-                                            <td><?php echo $user_name; ?>  &nbsp&nbsp&nbsp&nbsp<?php echo @$wing_flat; ?> </td>
-                                            <td><?php echo $amount; ?></td>
-                                            
-                                            <td class="hide_at_print">
-                                            <a href="petty_cash_receipt_pdf?c=<?php echo $transaction_id; ?>" class="btn mini purple tooltips"  data-placement="bottom" data-original-title="Download Pdf" target="_blank">Pdf</a>
-                                            <a class="btn mini black tooltips" data-placement="bottom"   data-original-title="Created By:<?php echo $prepaired_by_name; ?>
-										   Creation Date : <?php echo $creation_date; ?>">!</a>
-										   
-										   </td>
-                                         
-										
-                                        </tr>
-									  <?php   
-									  }}}
-									  ?> 
-                                      <tr>
-                                      <th colspan="4">Total</th>
-                                      <th><?php 
-									  $total_debit = number_format($total_debit);
-									  echo $total_debit; ?></th>  
-                                      <th class="hide_at_print"></th>
-                                      </tr>
-                                      </table>  
-                                        
+</td>
+</tr>
+<?php
+}
+else
+if($s_role_id == 3)
+{
+
+$date = date('d-m-Y',strtotime($date));  
+$total_debit = $total_debit + $amount;
+$amount = number_format($amount);
+?>
+<tr>
+
+<td><?php echo $receipt_no; ?> </td>
+<td><?php echo $date; ?> </td>
+<td><?php echo $narration; ?> </td>
+<td><?php echo $user_name; ?>  &nbsp&nbsp&nbsp&nbsp<?php echo @$wing_flat; ?> </td>
+<td><?php echo $amount; ?></td>
+
+<td class="hide_at_print">
+<a href="petty_cash_receipt_pdf?c=<?php echo $transaction_id; ?>" class="btn mini purple tooltips"  data-placement="bottom" data-original-title="Download Pdf" target="_blank">Pdf</a>
+<a class="btn mini black tooltips" data-placement="bottom"   data-original-title="Created By:<?php echo $prepaired_by_name; ?>
+Creation Date : <?php echo $creation_date; ?>">!</a>
+</td>
+</tr>
+<?php   
+}}}
+?> 
+<tr>
+<th colspan="4">Total</th>
+<th><?php 
+$total_debit = number_format($total_debit);
+echo $total_debit; ?></th>  
+<th class="hide_at_print"></th>
+</tr>
+</table>  
+            
                              
 <?php } 
 if($nnn == 55)

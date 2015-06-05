@@ -1886,10 +1886,10 @@ $this->set('cursor2',$cursor2);
 function petty_cash_payment()
 {
 if($this->RequestHandler->isAjax()){
-		$this->layout='blank';
-	}else{
-		$this->layout='session';
-	}
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
 	
 $this->ath();
 $this->check_user_privilages();	
@@ -1909,8 +1909,6 @@ foreach ($cursor as $collection)
 $tenant_c = (int)$collection['user']['tenant'];
 }
 $this->set('tenant_c',$tenant_c);
-
-
 
 $this->loadmodel('financial_year');
 $conditions=array("society_id" => $s_society_id, "status"=>1);
@@ -1968,7 +1966,7 @@ if(isset($this->request->data['ptp_add']))
 
 $date = $this->request->data['date'];
 $date = date("Y-m-d", strtotime($date));
-$date = new MongoDate(strtotime($date));
+//$date = new MongoDate(strtotime($date));
 $user_id = (int)$this->request->data['user_id'];
 $narration = $this->request->data['narration']; 
 $account_head = (int)$this->request->data['account_head'];
@@ -3109,7 +3107,7 @@ $date = date('Y-m-d');
 $current_date = new MongoDate(strtotime($date));
 
 $transaction_date2 = date("Y-m-d", strtotime($transaction_date));
-$transaction_date2 = new MongoDate(strtotime($transaction_date2));
+//$transaction_date2 = new MongoDate(strtotime($transaction_date2));
 
 
 
@@ -3141,10 +3139,6 @@ $multipleRowData = Array( Array("transaction_id" => $auto, "receipt_id" => $i, "
 $this->cash_bank->saveAll($multipleRowData);  
 
 
-
-
-
-
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
 $cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
@@ -3166,11 +3160,7 @@ $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $i,
 "amount" => $amt, "amount_category_id" => 2, "module_id" => 3, "account_type" => $account_group, "account_id" => $party_account, "current_date" => $current_date, "society_id" => $s_society_id,"table_name"=>"cash_bank","module_name"=>"Petty Cash Receipt"));
 $this->ledger->saveAll($multipleRowData); 
 
-
-
-
 $sub_account_id_a = (int)$account_head;
-
 
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
