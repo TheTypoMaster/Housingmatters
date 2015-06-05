@@ -88,23 +88,21 @@ function intrested_in_classified_ajax($id=null){
 	$this->set('result_user',$result_user);
 }
 
-function send_message_ajax($id=null,$m=null){
+function send_message_ajax(){
 	$this->layout=null;
 	$this->ath();
-	$id=(int)$id;
-
-	
+	$id=(int)$this->request->query('con');
+	$m=$this->request->query('con1');
+	$m=nl2br($m);
 	$this->loadmodel('classified');
 	$conditions=array('classified_id'=>$id);
 	$result_classified=$this->classified->find('all',array('conditions'=>$conditions));
-	
 	$user_id=$result_classified[0]["classified"]["user_id"];
 	$result_user=$this->profile_picture($user_id);
 	$mobile=$result_user[0]["user"]["mobile"];
 	$email=$result_user[0]["user"]["email"];
 	@$ip=$this->hms_email_ip();
 	if(!empty($email)){
-		
 		$to=$email;
 		$this->loadmodel('email');
 		$conditions=array('auto_id'=>3);
@@ -130,16 +128,7 @@ function send_message_ajax($id=null,$m=null){
 	}else{
 		
 
-			/*$r_sms=$this->hms_sms_ip();
-			$working_key=$r_sms->working_key;
-			$sms_sender=$r_sms->sms_sender; 	
-
-			$sms='Dear '.$user_name.' Please enter your code '.$random_otp.' on the signup screen to continue your HousingMatters registration process. Thank you';
-			$sms1=str_replace(' ', '+', $sms);
-			@$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
-		
-		*/
-		
+		// sms code 
 	}
 }
 

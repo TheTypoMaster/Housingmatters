@@ -246,7 +246,7 @@ $(document).ready(function() {
 		m=encodeURIComponent(m);
 		var id=$(this).attr("c_id");
 		$.ajax({
-			url: "<?php echo $webroot_path; ?>Classifieds/send_message_ajax/"+id+"/"+m,
+			url: "<?php echo $webroot_path; ?>Classifieds/send_message_ajax?con="+id +"&con1="+m
 			}).done(function(response) {
 			$("#myModal_ad123").html(response);
 			});
