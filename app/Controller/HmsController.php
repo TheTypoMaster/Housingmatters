@@ -16631,14 +16631,30 @@ $s_user_id=$this->Session->read('user_id');
 
 $this->set('s_role_id',$s_role_id);
 
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor=$this->society->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$society_name = $collection['society']['society_name'];
+}
+$this->set('society_name',$society_name);
 
+$this->loadmodel('fix_asset');
+$conditions=array("society_id" => $s_society_id);
+$cursor1=$this->fix_asset->find('all',array('conditions'=>$conditions));
+$this->set('cursor1',$cursor1);
+
+
+$this->loadmodel('fix_asset');
+$conditions=array("society_id" => $s_society_id);
+$cursor2=$this->fix_asset->find('all',array('conditions'=>$conditions));
+$this->set('cursor2',$cursor2);
 
 }
+////////////////////////////// End Fix Asset View (Accounts)///////////////////////////////////////////////////////
 
-
-/////////////////////////////////////// End Fix Asset View (Accounts)////////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////Start Fix Asset Add (Accounts)////////////////////////////////////////// ////////////////////////////////////////////
+/////////////////////////////Start Fix Asset Add (Accounts)////////////////////////////////////////////////////////
 function fix_asset_add()
 {
 if($this->RequestHandler->isAjax()){
@@ -21440,6 +21456,113 @@ $output=json_encode(array('report_type'=>'done','text'=>'Flat Area Should be Num
 die($output);
 }
 /////////////////////////////////// End Save Flat Imp /////////////////////////////////////////////////////
+
+//////////////////////////////// Start Fix Asset Excel ///////////////////////////////////////////////////////
+function fix_asset_excel()
+{
+$this->layout="";
+$filename="Fix Asset Excel";
+header ("Expires: 0");
+header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+header ("Cache-Control: no-cache, must-revalidate");
+header ("Pragma: no-cache");
+header ("Content-type: application/vnd.ms-excel");
+header ("Content-Disposition: attachment; filename=".$filename.".xls");
+header ("Content-Description: Generated Report" );
+
+$s_society_id = (int)$this->Session->read('society_id');
+
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor=$this->society->find('all',array('conditions'=>$conditions));
+foreach($cursor as $data)
+{
+$society_name = $data['society']['society_name'];
+}
+
+
+$excel="
+<table border='1'>
+<tr>
+<th style='text-align:center;' colspan='10'>$society_name Society (Fixed Assets)</th>
+</tr>
+</tr>
+<tr>
+<th>Sr.No.</th>
+<th>Asset Category</th>
+<th>Asset Name</th>
+<th>Narration</th>
+<th>Date of Purchase</th>
+<th>Cost of Purchase</th>
+<th>Supplier</th>
+<th>Warranty Period From</th>
+<th>Warranty Period From</th>
+<th>Maintanance Schedule</th>
+</tr>";
+
+$purchase_cost_tt = 0;
+$this->loadmodel('fix_asset');
+$conditions=array("society_id" => $s_society_id);
+$cursor1=$this->fix_asset->find('all',array('conditions'=>$conditions));
+foreach ($cursor1 as $collection) 
+{
+$auto_id = (int)$collection['fix_asset']['auto_id'];		
+$asset_category_id = (int)$collection['fix_asset']['asset_category_id'];
+$asset_name = $collection['fix_asset']['asset_name'];
+$narration = $collection['fix_asset']['narration'];
+$purchase_date = $collection['fix_asset']['purchase_date'];
+$purchase_cost = $collection['fix_asset']['purchase_cost'];
+$supplier = (int)$collection['fix_asset']['supplier'];
+$warranty_period_from = $collection['fix_asset']['warranty_period_from'];
+$warranty_period_to = $collection['fix_asset']['warranty_period_to'];
+$schedule = $collection['fix_asset']['schedule'];
+if(!empty($warranty_period_from) and !empty($warranty_period_to)) 
+{
+$warranty_period_from= date('d-m-Y', $warranty_period_from->sec);
+$warranty_period_to= date('d-m-Y', $warranty_period_to->sec);
+}
+else
+{
+$warranty_period_from = "";
+$warranty_period_to = "";	
+}
+$asset_category_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_amount'),array('pass'=>array($asset_category_id)));										
+foreach ($asset_category_fetch as $collection) 
+{
+$asset_category = $collection['ledger_account']['ledger_name'];
+}
+$supply = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($supplier)));									
+foreach ($supply as $collection) 
+{
+$supplier_name = $collection['ledger_sub_account']['name'];
+}
+$purchase_date = date('d-m-Y',$purchase_date->sec);
+$purchase_cost_tt = $purchase_cost_tt+$purchase_cost;	
+$excel.="<tr>
+<td>$auto_id</td>	
+<td>$asset_category</td>	
+<td>$asset_name</td>	
+<td>$narration</td>	
+<td>$purchase_date</td>	
+<td>$purchase_cost</td>	
+<td>$supplier_name</td>	
+<td>$warranty_period_from</td>	
+<td>$warranty_period_to</td>	
+<td>$schedule</td>	
+</tr>";
+} 
+$excel.="
+<tr>
+<th style='text-align:right;' colspan='5'>Total</th>
+<th>$purchase_cost_tt</th>
+<th colspan='4'></th>
+</tr>
+</table>";
+
+echo $excel;
+
+}
+//////////////////////////////// End Fix Asset Excel ///////////////////////////////////////////////////////
 
 }
 ?>
