@@ -762,7 +762,7 @@ $excel.="<tr>
 <td>$account_no</td>
 <td>$narration</td>
 <td>$amount</td>
-</tr>";";
+</tr>";
 }
 else if($s_role_id == 3)
 {
