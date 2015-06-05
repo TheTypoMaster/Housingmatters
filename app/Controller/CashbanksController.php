@@ -83,7 +83,6 @@ $this->layout='session';
 $this->ath();
 $this->check_user_privilages();
 
-
 App::import('', 'sendsms.php');
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
@@ -393,6 +392,7 @@ foreach ($cursor as $collection)
 {
 $d_receipt_id = (int)$collection['cash_bank']['receipt_id'];	
 }
+
 ?>
 <div class="modal-backdrop fade in"></div>
 <div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
@@ -420,7 +420,7 @@ $d_receipt_id = (int)$collection['cash_bank']['receipt_id'];
 if($member_id == 1)
 { 
 
-$date_sms = date('d-m-Y',$date->sec);
+$date_sms = date('d-m-Y',@$date->sec);
 
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
@@ -606,6 +606,7 @@ $reply="accounts@housingmatters.in";
 $this->smtpmailer($to,$from,$from_name,$subject,$message_mail,$reply);
 }
 }
+exit;
 }
 }
 //////////////////////// End bank receipt ////////////////////////////////////////////

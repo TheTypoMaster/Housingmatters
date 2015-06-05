@@ -11,8 +11,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <input type="hidden" id="fi" value="<?php echo $datef1; ?>" />
 <input type="hidden" id="ti" value="<?php echo $datet1; ?>" />
 <input type="hidden" id="cn" value="<?php echo $count; ?>" />
-<input type="hidden" id="fb" value="<?php echo $datefb; ?>" />
-<input type="hidden" id="tb" value="<?php echo $datetb; ?>" />
+<input type="hidden" id="fb" value="<?php echo @$datefb; ?>" />
+<input type="hidden" id="tb" value="<?php echo @$datetb; ?>" />
 
 <?php ///////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php 

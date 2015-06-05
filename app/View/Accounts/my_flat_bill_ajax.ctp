@@ -145,22 +145,22 @@ foreach ($result_lsa2 as $collection)
 {
 $account_no = $collection['ledger_sub_account']['name'];  
 }		
-if($date >= $m_from && $date <= $m_to)
+if($date >= $from && $date <= $to)
 {
-$tr_date = date('d-M-Y',$date->sec);
+$tr_date = date('d-M-Y',@$date->sec);
 $total_debit = $total_debit + $amount		
 ?>	
 <tr>
 <td><?php echo $receipt_no; ?> </td>
 <td><?php echo $tr_date; ?> </td>
-<td width="15%"><?php echo $narration; ?> </td>
-<td><?php echo $user_name; ?> &nbsp&nbsp&nbsp&nbsp<?php echo $wing_flat; ?></td>
+<td><?php echo $user_name; ?> &nbsp&nbsp&nbsp&nbsp<?php echo $wing_flat; ?> </td>
 <td><?php echo $ref; ?> </td>
 <td><?php echo $receipt_mode; ?> </td>
-<td><?php echo $receipt_instruction; ?> </td>
-<td><?php echo $account_no; ?> </td>
-<td><?php echo $amount; ?></td>
+<td><?php echo $receipt_instruction; ?></td>
 
+<td><?php echo $account_no; ?> </td>
+<td><?php echo $narration; ?> </td>
+<td><?php echo $amount; ?></td>
 <td class="hide_at_print"> <!--<a href="#" class="btn mini blue">Reverse</a> -->
 <a href="bank_receipt_pdf?c=<?php echo $transaction_id; ?>&m=1" class="btn mini purple  tooltips" target="_blank" data-placement="bottom" data-original-title="Download Pdf">Pdf</a>
 <a href="" class="btn mini black tooltips" data-placement="bottom" data-original-title="Created By:<?php echo $prepaired_by_name; ?>
