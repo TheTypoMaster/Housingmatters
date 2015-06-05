@@ -88,7 +88,7 @@ $end=$m_to;
 
 
 //$date=date('Y-m-d', strtotime($date."+1 days"));
-$date = date('Y-m-d',$date->sec);
+//$date = date('Y-m-d',$date->sec);
 if($date >= $m_from && $date <= $m_to)
 {
 if(@$user_id == @$s_user_id)
@@ -155,7 +155,7 @@ Bank Receipt Report  (<?php echo $society_name; ?>)
 			$transaction_id = (int)$collection['cash_bank']['transaction_id'];	
 			$date = $collection['cash_bank']['transaction_date'];
 			$date21 = $collection['cash_bank']['transaction_date'];
-			$date21= date('Y-m-d',$date21->sec);
+			//$date21= date('Y-m-d',$date21->sec);
 			$prepaired_by_id = (int)$collection['cash_bank']['prepaired_by'];
 			$member = (int)$collection['cash_bank']['member'];
 			$narration = $collection['cash_bank']['narration'];
@@ -238,7 +238,7 @@ if($date21 >= $m_from && $date21 <= $m_to)
 {
 if(@$user_id == @$s_user_id)
 {
-$date = date('d-m-Y',$date->sec);	
+//$date = date('d-m-Y',$date->sec);	
 //$date=date('d-m-Y',strtotime($date."+1 days"));
 
 $total_debit =  $total_debit + $amount; 
@@ -269,7 +269,7 @@ $amount = number_format($amount);
 											}
 											else if($s_role_id == 3)
 											{
-                                            $date = date('d-m-Y',$date->sec);
+                                            //$date = date('d-m-Y',$date->sec);
 											$total_debit =  $total_debit + $amount; 
 											$amount = number_format($amount);
 											
