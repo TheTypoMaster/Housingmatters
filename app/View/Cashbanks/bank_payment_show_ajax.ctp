@@ -88,7 +88,7 @@ if($nnn == 555)
 <br />			
 			
 			
-<table class="table table-bordered" style=" background-color:#FDFDEE;">
+<table class="table table-bordered" style=" background-color:white;">
 <tr>
 <th colspan="10" style="text-align:center;">
 <p style="font-size:16px;">

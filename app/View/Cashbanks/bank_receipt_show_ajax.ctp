@@ -112,10 +112,8 @@ if($nnn == 555)
 <span style="float:right; margin-right:1%;"><button type="button" class=" printt btn green" onclick="window.print()"><i class="icon-print"></i> Print</button></span>
 </div>	
 <br />			
-			
 
 <table class="table table-bordered" width="100%" style=" background-color:white;">
-
 <tr>
 <th colspan="10" style="text-align:center;">
 <p style="font-size:16px;">
@@ -178,19 +176,19 @@ Bank Receipt Report  (<?php echo $society_name; ?>)
 			$ref = "Bill No:".$ref;
 			}
 			
-			if($member == 2)
-			{
-			$ref = $collection['cash_bank']['bill_reference'];
-            $receiver_name = @$collection['cash_bank']['receiver_name'];
-            }
+if($member == 2)
+{
+$ref = $collection['cash_bank']['bill_reference'];
+$receiver_name = @$collection['cash_bank']['receiver_name'];
+}
 
-			$creation_date = date('d-m-Y',$current_date->sec);		
-			
-			$result_prb = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($prepaired_by_id)));
-			foreach ($result_prb as $collection) 
-			{
-			$prepaired_by_name = $collection['user']['user_name'];
-			}	
+$creation_date = date('d-m-Y',$current_date->sec);		
+
+$result_prb = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($prepaired_by_id)));
+foreach ($result_prb as $collection) 
+{
+$prepaired_by_name = $collection['user']['user_name'];
+}	
 
 if($member == 2)
 {
@@ -238,7 +236,7 @@ if($date21 >= $m_from && $date21 <= $m_to)
 {
 if(@$user_id == @$s_user_id)
 {
-//$date = date('d-m-Y',$date->sec);	
+$date = date('d-m-Y',strtotime($date));	
 //$date=date('d-m-Y',strtotime($date."+1 days"));
 
 $total_debit =  $total_debit + $amount; 
@@ -256,20 +254,18 @@ $amount = number_format($amount);
                                             <td><?php echo $receipt_instruction; ?> </td>
                                             <td><?php echo $account_no; ?> </td>
                                             <td><?php echo $amount; ?></td>
-                                            
-                                            <td class="hide_at_print"> <!--<a href="#" class="btn mini blue">Reverse</a> -->
-                                            <a href="bank_receipt_pdf?c=<?php echo $transaction_id; ?>&m=1" class="btn mini purple  tooltips" target="_blank" data-placement="bottom" data-original-title="Download Pdf">Pdf</a>
-                                             <a href="" class="btn mini black tooltips" data-placement="bottom" data-original-title="Created By:<?php echo $prepaired_by_name; ?>
-										     Creation Date : <?php echo $creation_date; ?>">!</a>
-											  <!-- <a href="bank_receipt_edit.php?a=<?php //echo $receipt_no; ?>" class="btn mini purple">Edit</a> -->
-                                           
-                                            </td>
-										</tr>			
+
+<td class="hide_at_print"> <!--<a href="#" class="btn mini blue">Reverse</a> -->
+<a href="bank_receipt_pdf?c=<?php echo $transaction_id; ?>&m=1" class="btn mini purple  tooltips" target="_blank" data-placement="bottom" data-original-title="Download Pdf">Pdf</a>
+<a href="" class="btn mini black tooltips" data-placement="bottom" data-original-title="Created By:<?php echo $prepaired_by_name; ?>
+Creation Date : <?php echo $creation_date; ?>">!</a>
+</td>
+</tr>			
 			 <?php
 											}
 											else if($s_role_id == 3)
 											{
-                                            //$date = date('d-m-Y',$date->sec);
+                                            $date = date('d-m-Y',strtotime($date));
 											$total_debit =  $total_debit + $amount; 
 											$amount = number_format($amount);
 											
@@ -304,7 +300,7 @@ $amount = number_format($amount);
 										 ?> 
 
 <tr>
-                                        <th colspan="8"> Total</th>
+                                        <th colspan="8" style="text-align:right;"> Total</th>
                                         <th><?php 
 										$total_debit = number_format($total_debit);
 										echo $total_debit; ?> <?php //echo "  dr"; ?></th>

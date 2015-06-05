@@ -627,10 +627,10 @@ $from = $this->request->query('f');
 $to = $this->request->query('t');
 
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
 
 $s_society_id = (int)$this->Session->read('society_id');
 $s_role_id= (int)$this->Session->read('role_id');
@@ -719,7 +719,6 @@ if($member == 2)
 {
 $user_name = $receiver_name;
 $wing_flat = "";
-	
 }		
 else
 {			
@@ -737,25 +736,20 @@ $flat_id = (int)$collection['user']['flat'];
 $tenant = (int)$collection['user']['tenant'];
 }	
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));	
-			
 }			
-
-		
 
 $result_lsa2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($account_id)));									
 foreach ($result_lsa2 as $collection) 
 {
 $account_no = $collection['ledger_sub_account']['name'];  
 }	
-								
 
 if($date >= $m_from && $date <= $m_to)
 {
 if(@$user_id == @$s_user_id)
 {
-$date3 = date('d-m-Y',$date->sec);	
+$date3 = date('d-m-Y',strtotime($date));	
 $total_debit =  $total_debit + $amount; 
-
 
 $excel.="<tr>
 <td>$receipt_no</td>
@@ -771,7 +765,7 @@ $excel.="<tr>
 }
 else if($s_role_id == 3)
 {
-$date2 = date('d-m-Y',$date->sec);
+$date2 = date('d-m-Y',strtotime($date));
 $total_debit =  $total_debit + $amount; 
 
 $excel.="											
@@ -790,7 +784,7 @@ $excel.="
 
 $excel.="
 <tr>
-<th colspan='8'> Total</th>
+<th colspan='8' style='text-align:right;'>Total</th>
 <th>$total_debit</th>
 </tr>
 <table>";
@@ -1160,7 +1154,7 @@ $from = $this->request->query('f');
 $to = $this->request->query('t');
 
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 
 $s_society_id = (int)$this->Session->read('society_id');
 $s_role_id=$this->Session->read('role_id');
@@ -1173,9 +1167,9 @@ foreach($cursor as $collection)
 {
 $society_name = $collection['society']['society_name'];
 }
-
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
+
 $excel = "<table border='1'>
 <tr>
 <th colspan='9' style='text-align:center;'>Bank Payment Report  ($society_name)</th>
@@ -1220,8 +1214,6 @@ $ac_type = $collection['cash_bank']['account_type'];
 
 if($ac_type == 1)
 {						
-
-
 $result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($user_id)));  
 foreach ($result_lsa as $collection) 
 {
@@ -1230,14 +1222,12 @@ $user_name = $collection['ledger_sub_account']['name'];
 }											
 else if($ac_type == 2)
 {
-
 $result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'expense_head'),array('pass'=>array($user_id)));  
 foreach ($result_lsa as $collection) 
 {
 $user_name = $collection['ledger_account']['ledger_name'];  
 }	
 }		
- 
 
 $result_lsa2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($account_id))); 					   
 foreach ($result_lsa2 as $collection) 
@@ -1245,13 +1235,11 @@ foreach ($result_lsa2 as $collection)
 $account_no = $collection['ledger_sub_account']['bank_account'];  
 }  
 
-
-
 if($date >= $m_from && $date <= $m_to)
 {
 if($s_role_id == 3)
 {
-$date = date('d-m-Y',$date->sec);
+$date = date('d-m-Y',strtotime($date));
 $excel.= "
 <tr>
 <td>$date</td>
@@ -1268,7 +1256,7 @@ $total_debit = $total_debit + $amount;
 }
 else if($user_id == $s_user_id)
 {
-$date = date('d-m-Y',$date->sec);									   
+$date = date('d-m-Y',strtotime($date));									   
 $excel.="
 <tr>
 <td>$date</td>
@@ -1295,14 +1283,9 @@ $excel.="
 </tr>
 </table>
 ";
-
 echo $excel;
 
-
-
-
 /*
-
 
 echo $from."\t";
 echo $to."\n";
@@ -1708,16 +1691,13 @@ foreach ($cursor as $collection)
 $society_name = $collection['society']['society_name'];
 }
 
-
-
-
 $from = $this->request->query('f');
 $to = $this->request->query('t');
 
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
 
 $excel="<table border='1'>
 <tr>
@@ -1807,7 +1787,7 @@ if($date >= $m_from && $date <= $m_to)
 {
 if($s_role_id == 3)
 {
-$date = date('d-m-Y',$date->sec);  
+$date = date('d-m-Y',strtotime($date));  
 $total_debit = $total_debit + $amount;
 $excel.="<tr>
 <td>$receipt_no</td>
@@ -2247,9 +2227,9 @@ $from = $this->request->query('f');
 $to = $this->request->query('t');
 
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
 
 $excel="<table border='1'>
 <tr>
@@ -2316,7 +2296,7 @@ if($date >= $m_from && $date <= $m_to)
 {
 if($s_user_id == $user_id)  
 {
-$date = date('d-m-Y',$date->sec);     
+$date = date('d-m-Y',strtotime($date));     
 $total_debit = $total_debit + $amount;										
 
 $excel.="<tr>
@@ -2329,7 +2309,7 @@ $excel.="<tr>
 }
 else if($s_role_id == 3)
 {
-$date = date('d-m-Y',$date->sec);	   
+$date = date('d-m-Y',strtotime($date));     
 $total_debit = $total_debit + $amount;
 
 $excel.="<tr>

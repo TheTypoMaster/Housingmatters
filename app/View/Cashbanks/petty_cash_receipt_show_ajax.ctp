@@ -95,7 +95,7 @@ if($nnn == 555)
 </div>
 <br /><br />
 
-<table class="table table-bordered" width="100%" style="background-color:#FDFDEE;">
+<table class="table table-bordered" width="100%" style="background-color:white;">
 <tr>
 <th colspan="6" style="text-align:center;">
 <p style="font-size:16px;">

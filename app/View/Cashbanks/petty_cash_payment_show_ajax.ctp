@@ -85,7 +85,7 @@ if($nnn == 555)
 <span style="float:right; margin-right:1%;"><button type="button" class=" printt btn green" onclick="window.print()"><i class="icon-print"></i> Print</button></span>
 </div>
 <br /><br />
-<table class="table table-bordered" width="100%" style="background-color:#FDFDEE;">
+<table class="table table-bordered" width="100%" style="background-color:white;">
 
 <tr>
 <th colspan="6" style="text-align:center;">
