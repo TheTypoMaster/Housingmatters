@@ -188,13 +188,11 @@ else
 {
 $cheque_no = "";
 }
-
 if($member_id == 1)
 {
 $received_from = (int)$this->request->data['recieved_from2'];
 $amount = $this->request->data['amount'];
 }
-
 if($member_id == 2)
 {
 $received_from = $this->request->data['recieved_from'];
@@ -809,7 +807,6 @@ $this->layout='blank';
 }else{
 $this->layout='session';
 }
-
 	
 $this->ath();
 $this->check_user_privilages();	
@@ -912,8 +909,7 @@ if(isset($this->request->data['bank_payment_add']))
 
 $date = $this->request->data['date'];
 $date = date("Y-m-d", strtotime($date));
-$date = new MongoDate(strtotime($date));
-
+//$date = new MongoDate(strtotime($date));
 $paid_to = (int)$this->request->data['expense_ac'];
 $invoice_reference = $this->request->data['invoice_reference'];
 $description = $this->request->data['description']; 
@@ -938,8 +934,6 @@ $current_date = date("Y-m-d", strtotime($current_date));
 $current_date = new MongoDate(strtotime($current_date)); 
 
 ///////////////////Start Insert //////////////////////////////////////
- 
-
 
 $this->loadmodel('cash_bank');
 $conditions=array("society_id" => $s_society_id,"module_id"=>2);
@@ -2862,7 +2856,7 @@ die($output);
 }
 
 $transaction_date2 = date("Y-m-d", strtotime($transaction_date));
-$transaction_date2 = new MongoDate(strtotime($transaction_date2));
+//$transaction_date2 = new MongoDate(strtotime($transaction_date2));
 
 $date = date('Y-m-d');
 $current_date = new MongoDate(strtotime($date));
