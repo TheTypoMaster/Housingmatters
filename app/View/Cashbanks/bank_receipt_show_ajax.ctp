@@ -5,10 +5,10 @@ jQuery('.tooltips').tooltip();
 </script> 
 <?php
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
 ?>
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
@@ -88,10 +88,9 @@ $end=$m_to;
 
 
 //$date=date('Y-m-d', strtotime($date."+1 days"));
-
+$date = date('Y-m-d',$date->sec);
 if($date >= $m_from && $date <= $m_to)
 {
-	
 if(@$user_id == @$s_user_id)
 {
 $nnn = 555;
@@ -114,39 +113,37 @@ if($nnn == 555)
 </div>	
 <br />			
 			
-			
-			 <table class="table table-bordered" width="100%" style=" background-color:white;">
+
+<table class="table table-bordered" width="100%" style=" background-color:white;">
+
+<tr>
+<th colspan="10" style="text-align:center;">
+<p style="font-size:16px;">
+Bank Receipt Report  (<?php echo $society_name; ?>)
+</p>
+</th>
+</tr>
 
 
-					 
-					 <tr>
-					 <th colspan="10" style="text-align:center;">
-					 <p style="font-size:16px;">
-                     Bank Receipt Report  (<?php echo $society_name; ?>)
-					 </p>
-					 </th>
-					 </tr>
-					 
-					 
-                     <tr>
-                     <th>From : <?php echo $from; ?></th>
-                     <th>To : <?php echo $to; ?></th>
-                     <th colspan="8"></th>
-                     </tr>
+<tr>
+<th>From : <?php echo $from; ?></th>
+<th>To : <?php echo $to; ?></th>
+<th colspan="8"></th>
+</tr>
+     
                      
-                     
-                     <tr>
-                     <th>Receipt#</th>
-		             <th>Transaction Date </th>
-                     <th>Party Name</th>
-				     <th>Bill Reference</th>
-                     <th>Payment Mode</th>
-                     <th>Instrument/UTR</th>
-                     <th>Deposit Bank</th>
-                     <th>Narration</th>
-                     <th>Amount</th>
-                     <th class="hide_at_print">Action</th> 
-                     </tr>
+<tr>
+<th>Receipt#</th>
+<th>Transaction Date </th>
+<th>Party Name</th>
+<th>Bill Reference</th>
+<th>Payment Mode</th>
+<th>Instrument/UTR</th>
+<th>Deposit Bank</th>
+<th>Narration</th>
+<th>Amount</th>
+<th class="hide_at_print">Action</th> 
+</tr>
 					 
 					 
 					 <?php
@@ -235,9 +232,9 @@ $result_amt = $this->requestAction(array('controller' => 'hms', 'action' => 'amo
 									}		
 			
 			
-	$date21=date('Y-m-d', strtotime($date21."+1 days"));
+	//$date21=date('Y-m-d', strtotime($date21."+1 days"));
 									  
-if($date >= $m_from && $date <= $m_to)
+if($date21 >= $m_from && $date21 <= $m_to)
 {
 if(@$user_id == @$s_user_id)
 {
