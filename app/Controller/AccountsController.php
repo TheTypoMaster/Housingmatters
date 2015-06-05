@@ -1384,6 +1384,9 @@ $this->layout='blank';
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
+$this->set('s_user_id',$s_user_id);
+
+
 
 $this->loadmodel('society');
 $conditions=array("society_id"=>$s_society_id);
@@ -1431,6 +1434,11 @@ $this->loadmodel('cash_bank');
 $conditions=array("user_id"=>@$auto_id,"society_id"=>$s_society_id,"module_id"=>1);
 $cursor4 = $this->cash_bank->find('all',array('conditions'=>$conditions));
 $this->set('cursor4',$cursor4);
+
+$this->loadmodel('cash_bank');
+$conditions=array("society_id" => $s_society_id,"module_id"=>3);
+$cursor11=$this->cash_bank->find('all',array('conditions'=>$conditions));
+$this->set('cursor11',$cursor11);
 
 }
 ///////////////// End my flat bill Ajax(accounts)//////////////////////////////////

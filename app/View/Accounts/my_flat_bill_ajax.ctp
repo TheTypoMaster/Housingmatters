@@ -7,7 +7,6 @@ $m_to = new MongoDate(strtotime($m_to));
 ?>
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
-
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <div style="width:100%;" class="hide_at_print">
 <span style="margin-left:80%;">
@@ -25,12 +24,12 @@ Bill Detail(<?php echo $society_name; ?>)
 </th>
 </tr>
 <tr>
-<th style="text-align:center;">#</th>
 <th style="text-align:center;">Bill No.</th>
-<th style="text-align:center;" colspan="2">Bill Date</th>
-<th style="text-align:center;" colspan="2">Due Date</th>
+<th colspan="2">Bill Date</th>
+<th style="text-align:center;" colspan="2">Bill Period</th>
+<th style="text-align:center;">Due Date</th>
 <th style="text-align:center;">Total Amount</th>
-<th style="text-align:center;">Pay Amount</th>
+<th style="text-align:center;">Paid Amount</th>
 <th style="text-align:center;">Due Amount</th>
 <th style="text-align:center;" class="hide_at_print">Action</th>
 </tr>
@@ -58,25 +57,25 @@ $nn++;
 $gt_amt = $gt_amt + $total_amount;
 $gt_pay_amt = $gt_pay_amt + $pay_amt;
 $due_amt = $due_amt + $remaining_amt;
+$date1 = date('d-m-Y',$date->sec);
 ?>
 <tr>
-<td style="text-align:center;"><?php echo $nn; ?></td>
 <td style="text-align:center;"><?php echo $bill_no; ?></td>
+<td colspan="2"><?php echo $date1; ?></td>
 <td style="text-align:center;" colspan="2"><?php echo $fromm; ?>-<?php echo $tom; ?></td>
-<td style="text-align:center;" colspan="2"><?php echo $due; ?></td>
+<td style="text-align:center;"><?php echo $due; ?></td>
 <td style="text-align:center;"><?php echo $total_amount; ?></td>
 <td style="text-align:center;"><?php echo $pay_amt; ?></td>
 <td style="text-align:center;"><?php echo $remaining_amt; ?></td>
 <td style="text-align:center;" class="hide_at_print">
 <a href="ac_statement_bill_view/<?php echo $bill_no; ?>" class="btn mini yellow" target="_blank">View Bill</a>
-
 </td>
 </tr>
 <?php
 }}
 ?>
 <tr>
-<th colspan="6">Grand Total</th>
+<th colspan="6" style="text-align:right;">Grand Total</th>
 <th style="text-align:center;"><?php echo $gt_amt; ?></th>
 <th style="text-align:center;"><?php echo $gt_pay_amt; ?></th>
 <th style="text-align:center;"><?php echo $due_amt; ?></th>
@@ -84,7 +83,7 @@ $due_amt = $due_amt + $remaining_amt;
 </tr>
 <tr>
 <th style="text-align:center;" colspan="10">
-<p style="font-size:16px;">Bank Receipt Detail</p>
+<p style="font-size:16px;">Bank Receipt Detail(<?php echo $society_name; ?>)</p>
 </th>
 </tr>
 <tr>
@@ -173,10 +172,116 @@ Creation Date : <?php echo $creation_date; ?>">!</a>
 }
 ?>	
 <tr>
-<th colspan="8"> Total</th>
+<th colspan="8" style="text-align:right;">Grand Total</th>
 <th><?php echo $total_debit; ?></th>
 <th class="hide_at_print"></th>
-</tr>	
+</tr>
+<tr>
+<th colspan="10" style="text-align:center;">
+<p style="font-size:16px;">Petty Cash Receipt Detail(<?php echo $society_name; ?>)</p></th>
+</tr>
+<tr>
+<th colspan="2">PC Receipt #</th>
+<th colspan="2">Transaction Date</th>
+<th colspan="2">Narration</th>
+<th colspan="2">Received From</th>
+<th>Amount</th>
+<th>Action</th>
+</tr>
+<?php
+$n=1;
+$total_credit = 0;
+$total_debit = 0;
+foreach($cursor11 as $collection)
+{
+$receipt_no = @$collection['cash_bank']['receipt_id'];
+$transaction_id = (int)$collection['cash_bank']['transaction_id'];	
+$account_type = (int)$collection['cash_bank']['account_type'];    									  
+$d_user_id = (int)$collection['cash_bank']['user_id'];
+$date = $collection['cash_bank']['transaction_date'];
+$prepaired_by = (int)$collection['cash_bank']['prepaired_by'];   
+$narration = $collection['cash_bank']['narration'];
+$account_head = $collection['cash_bank']['account_head'];
+$amount = $collection['cash_bank']['amount'];
+//$amount_category_id = (int)$collection['cash_bank']['amount_category_id'];
+$prepaired_by = (int)$collection['cash_bank']['prepaired_by'];   
+$current_date = $collection['cash_bank']['current_date'];
+
+$creation_date = date('d-m-Y',$current_date->sec);
+
+$result_gh = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($prepaired_by)));
+foreach ($result_gh as $collection) 
+{
+$prepaired_by_name = (int)$collection['user']['user_name'];
+}			
+
+if($account_type == 1)
+{
+$user_id1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($d_user_id)));
+foreach ($user_id1 as $collection)
+{
+$user_id = (int)$collection['ledger_sub_account']['user_id'];
+}
+
+$result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
+foreach ($result as $collection) 
+{
+$user_name = $collection['user']['user_name'];
+$wing_id = $collection['user']['wing'];  
+$flat_id = (int)$collection['user']['flat'];
+$tenant = (int)$collection['user']['tenant'];
+}	
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
+}
+
+if($account_type == 2)
+{
+$user_name1 = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_amount'),array('pass'=>array($d_user_id)));
+foreach ($user_name1 as $collection)
+{
+$user_name = $collection['ledger_account']['ledger_name'];
+$wing_flat = "";
+}
+}
+		
+$result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($prepaired_by)));
+foreach ($result2 as $collection) 
+{
+$prepaired_by_name = $collection['user']['user_name'];   
+$society_id = $collection['user']['society_id'];  	
+}
+
+if($date >= $from && $date <= $to)
+{
+if($s_user_id == $user_id)  
+{
+$date = date('d-m-Y',strtotime($date));
+$total_debit = $total_debit + $amount;
+$amount = number_format($amount);
+?>
+<tr>
+<td colspan="2"><?php echo $receipt_no; ?> </td>
+<td colspan="2"><?php echo $date; ?> </td>
+<td colspan="2"><?php echo $narration; ?> </td>
+<td colspan="2"><?php echo $user_name; ?>  &nbsp&nbsp&nbsp&nbsp<?php echo @$wing_flat; ?> </td>
+<td><?php echo $amount; ?></td>
+<td class="hide_at_print">
+<a href="petty_cash_receipt_pdf?c=<?php echo $transaction_id; ?>" class="btn mini purple tooltips"  data-placement="bottom" data-original-title="Download Pdf" target="_blank">Pdf</a>
+<a class="btn mini black tooltips" data-placement="bottom"   data-original-title="Created By:<?php echo $prepaired_by_name; ?>
+Creation Date : <?php echo $creation_date; ?>">!</a>
+</td>
+</tr>
+<?php
+}
+}
+}
+$total_debit = number_format($total_debit);
+?>
+<tr>
+<th colspan="8" style="text-align:right;">Grand Total</th>
+<th><?php echo $total_debit; ?></th>
+<th></th>
+</tr>
 </table>
 
 
@@ -187,12 +292,3 @@ Creation Date : <?php echo $creation_date; ?>">!</a>
 
 
 
-
-
-
-
-
-
-
-
-</table>
