@@ -754,15 +754,15 @@ $total_debit =  $total_debit + $amount;
 
 $excel.="<tr>
 <td>$receipt_no</td>
-<td>$date3</td>
-<td>$narration</td>
-<td>$user_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$wing_flat</td>
+<td>$date2</td>
+<td>$user_name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$wing_flat</td>
 <td>$ref</td>
 <td>$receipt_mode</td>
 <td>$receipt_instruction</td>
 <td>$account_no</td>
+<td>$narration</td>
 <td>$amount</td>
-</tr>";
+</tr>";";
 }
 else if($s_role_id == 3)
 {
