@@ -428,7 +428,7 @@ $this->layout=null;
 	</br><p>Hello $user_name </p>
 	<p>A new event has been created.</p>
 	<br>
-	<div style='border:solid 1px;'>
+	<div style='border:solid 1px;padding:5px;'>
 	<table width='100%' border='0'>
 			<tbody><tr>
 				<td width='60%' valign='top' align='left'>
@@ -437,7 +437,7 @@ $this->layout=null;
 				<span>Time:- $e_time</span>
 				</td>
 				<td width='30%' valign='top' align='right'>
-				<span style='font-weight: 100;'>Created by: </span><span>$user_name.' '.$flat_info</span>
+				<span style='font-weight: 100;'>Created by: </span><span>$user_name $flat_info</span>
 				</td>
 			</tr>
 			
@@ -445,7 +445,7 @@ $this->layout=null;
 				<td colspan='2'>
 				<br>
 				<h4>Location:- $location</h4>
-				<p>$description</p>						
+				<p>Description:- $description</p>						
 							
 				</td>
 			</tr>
