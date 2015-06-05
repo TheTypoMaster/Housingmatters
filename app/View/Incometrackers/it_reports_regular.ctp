@@ -39,6 +39,10 @@ Wing Wise
 <div class="radio" id="uniform-undefined"><span><input type="radio" name="wise" value="2" style="opacity: 0;" onclick="member()" class="wiseq" rad="2" id="v"></span></div>
 Member Wise
 </label>
+<label class="radio">
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="wise" value="2" style="opacity: 0;" onclick="bill_wise()" class="wiseq" rad="3" id="v"></span></div>
+Bill Wise
+</label>
 </td>
 </tr>
 <tr>
@@ -66,6 +70,19 @@ $user_id = (int)$collection['user']['user_id'];
 $user_name = $collection['user']['user_name'];	
 ?>
 <option value="<?php echo $user_id; ?>"><?php echo $user_name; ?></option>
+<?php } ?>
+</select>
+</div>
+<div class="hide" id="third">
+<select id="bill" class="m-wrap large chosen">
+<option value="" style="display:none;">Select Bill Number</option>
+<?php 
+foreach($cursor1 as $collection)
+{
+$user_id = (int)$collection['regular_bill']['bill_for_user'];	
+$user_name = $collection['regular_bill']['receipt_id'];	
+?>
+<option value="<?php echo $user_name; ?>"><?php echo $user_name; ?></option>
 <?php } ?>
 </select>
 </div>
@@ -98,7 +115,7 @@ if(date2 === '') { $('#validate_result').html('<div style="background-color:whit
 var wise = $(".wiseq:checked").attr("rad");
 
 if(wise === undefined) {
-$('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Select Wing wise of Member wise</div>'); return false; }
+$('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Select Wing Wise , Member Wise or Bill Wise </div>'); return false; }
 
 if(wise == 1)
 {
@@ -110,7 +127,11 @@ else if(wise == 2)
 var user_id = $("#mem").val();
 if(user_id === '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Select Member </div>'); return false; }
 }
-
+else if(wise == 3)
+{
+var bill = $("#bill").val();
+if(bill === '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Select Bill Number </div>'); return false; }
+}
 $('#validate_result').html('<div></div>');
 
 if(wise == 1)
@@ -121,6 +142,10 @@ else if(wise == 2)
 {
 $("#result").html('<div align="center" style="padding:10px;"><img src="as/loding.gif" />Loading....</div>').load("regular_report_show_ajax?date1=" +date1+ "&date2=" +date2+ "&wise=" +wise+ "&user=" +user_id+ "");
 }
+else if(wise == 3)
+{
+$("#result").html('<div align="center" style="padding:10px;"><img src="as/loding.gif" />Loading....</div>').load("regular_report_show_ajax?date1=" +date1+ "&date2=" +date2+ "&wise=" +wise+ "&user=" +bill+ "");	
+}
 });
 });
 </script>	
@@ -129,12 +154,20 @@ $("#result").html('<div align="center" style="padding:10px;"><img src="as/loding
 function wing_wise()
 {
 $("#one").show();	
-$("#two").hide();	
+$("#two").hide();
+$("#third").hide();		
 }
 function member()
 {
 $("#one").hide();	
-$("#two").show();	
+$("#two").show();
+$("#third").hide();	
+}
+function bill_wise()
+{
+$("#one").hide();	
+$("#two").hide();	
+$("#third").show();	
 }
 </script>
 

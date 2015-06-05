@@ -2920,6 +2920,11 @@ else if($wise == 2)
 $user_id = (int)$this->request->query('user');
 $this->set('user_id',$user_id);
 }
+else if($wise == 3)
+{
+$bill_number = $this->request->query('user');
+$this->set('bill_number',$bill_number);
+}
 $this->set('wise',$wise);
 $this->set('from',$from);
 $this->set('to',$to);
@@ -2943,8 +2948,6 @@ $this->layout='session';
 
 $this->ath();
 $this->check_user_privilages();
-
-
 
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
@@ -4101,6 +4104,10 @@ else if($wise == 2)
 {
 $user_id = (int)$this->request->query('u');
 }
+else if($wise == 3)
+{
+$bill_id = $this->request->query('u');
+}
 $this->loadmodel('society');
 $conditions=array("society_id"=> $s_society_id);
 $cursor=$this->society->find('all',array('conditions'=>$conditions));
@@ -4149,6 +4156,7 @@ $g_total=$collection['regular_bill']["g_total"];
 $date=$collection['regular_bill']["date"]; 
 $date2= date('Y-m-d',$date->sec);
 $pay_status=(int)@$collection['regular_bill']["pay_status"];
+$receipt_id = $collection['regular_bill']['receipt_id'];
 				
 $result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($bill_for_user)));				
 foreach ($result as $collection) 
@@ -4175,7 +4183,8 @@ $excel.="
 <td>$user_name</td>
 <td>$bill_daterange_from2</td>
 <td>$bill_daterange_to2</td>
-<td>$g_total</td>";
+<td>$g_total</td>
+</tr>";
 }
 }}
 else if($wise == 1)
@@ -4194,7 +4203,29 @@ $excel.="
 <td>$user_name</td>
 <td>$bill_daterange_from2</td>
 <td>$bill_daterange_to2</td>
-<td>$g_total</td>";
+<td>$g_total</td>
+</tr>";
+}
+}
+}
+else if($wise == 3)
+{
+if($bill_id == $receipt_id)
+{
+if($m_from1 <= $date2 && $m_to1 >= $date2)
+{
+$date = date('d-m-Y', $date->sec);						
+$total_amt = $total_amt + $g_total;	
+$excel.="								
+<tr>
+<td>$i</td>
+<td>$date</td>
+<td>$wing_flat</td>
+<td>$user_name</td>
+<td>$bill_daterange_from2</td>
+<td>$bill_daterange_to2</td>
+<td>$g_total</td>
+</tr>";
 }
 }
 }
@@ -4203,12 +4234,9 @@ $excel.="
 <tr>
 <th colspan='6'>Total</th>
 <th>$total_amt</th>
-</tr>
-";
-
+</tr>";
 
 $excel.="</table>";
-
 echo $excel;
 }
 ////////////////// End Regular Bill Excel (Accounts)////////////////////////////////

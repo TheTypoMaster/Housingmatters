@@ -305,9 +305,6 @@ $(document).ready(function() {
 </div>
 </div> 
     
-    
-    
-    
 <script>
 $(document).ready(function() {
 $("#vali").bind('click',function(){
