@@ -5,8 +5,10 @@ jQuery('.tooltips').tooltip();
 </script> 
 <?php
 $m_from = date("Y-m-d", strtotime($from));
+$m_from = new MongoDate(strtotime($m_from));
 
 $m_to = date("Y-m-d", strtotime($to));
+$m_to = new MongoDate(strtotime($m_to));
 ?>
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
@@ -16,7 +18,7 @@ foreach ($cursor2 as $collection)
 $receipt_no = $collection['cash_bank']['receipt_id'];
 $transaction_id = (int)$collection['cash_bank']['transaction_id'];	
 $date = $collection['cash_bank']['transaction_date'];
-$date= date('Y-m-d',$date->sec);
+//$date= date('Y-m-d',$date->sec);
 $prepaired_by_id = (int)$collection['cash_bank']['prepaired_by'];
 $member = (int)$collection['cash_bank']['member'];
 $narration = $collection['cash_bank']['narration'];
@@ -85,7 +87,7 @@ $start=$date;
 $end=$m_to;
 
 
-$date=date('Y-m-d', strtotime($date."+1 days"));
+//$date=date('Y-m-d', strtotime($date."+1 days"));
 
 if($date >= $m_from && $date <= $m_to)
 {
@@ -235,15 +237,15 @@ $result_amt = $this->requestAction(array('controller' => 'hms', 'action' => 'amo
 			
 	$date21=date('Y-m-d', strtotime($date21."+1 days"));
 									  
-										   if($date21 >= $m_from && $date21 <= $m_to)
-										   {
-										   if(@$user_id == @$s_user_id)
-											   {
-											   $date = date('d-m-Y',$date->sec);	
-												$date=date('d-m-Y',strtotime($date."+1 days"));
-									
-									 $total_debit =  $total_debit + $amount; 
-									 $amount = number_format($amount);
+if($date >= $m_from && $date <= $m_to)
+{
+if(@$user_id == @$s_user_id)
+{
+$date = date('d-m-Y',$date->sec);	
+//$date=date('d-m-Y',strtotime($date."+1 days"));
+
+$total_debit =  $total_debit + $amount; 
+$amount = number_format($amount);
 									?>
 									
 									

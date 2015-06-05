@@ -273,7 +273,7 @@ Non-Member
 
 		var ss = $("[id=i_head]").val();
 
-		$("#result2").html('Loding...').load("bank_receipt_amount_ajax?ss=" +ss + "");	
+		$("#result2").html('Loading...').load("bank_receipt_amount_ajax?ss=" +ss + "");	
 
 		});
 
@@ -299,7 +299,7 @@ $(document).ready(function() {
 		//$("#div13").hide();
 		
 	
-	$("#div11").html('Loding...').load("bank_receipt_ajax?ff=" + 5 + "");
+	$("#div11").html('Loading...').load("bank_receipt_ajax?ff=" + 5 + "");
 	
 	
 	});
@@ -311,7 +311,7 @@ $(document).ready(function() {
 		
 		$("#div13").show();
 	
-	$("#div11").html('Loding...').load("bank_receipt_ajax?ff=" + 8 + "");
+	$("#div11").html('Loading...').load("bank_receipt_ajax?ff=" + 8 + "");
 	
 	});
 	

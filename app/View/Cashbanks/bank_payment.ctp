@@ -61,7 +61,7 @@ else
 <label style="font-size:14px;">A/c Group<span style="color:red;">*</span></label>
 <div class="controls">
 <select name="ac_type" class="m-wrap chosen span9" id="type">
-<option value="">--SELECT--</option>							 
+<option value="" style="display:none;">--SELECT--</option>							 
 <option value="1">Sundry Creditors Control A/c</option>
 <option value="2">Liability</option>
 <option value="3">Expenditure</option>
