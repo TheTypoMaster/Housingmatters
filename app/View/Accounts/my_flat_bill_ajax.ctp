@@ -7,7 +7,7 @@ $m_to = new MongoDate(strtotime($m_to));
 ?>
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
-<?php //////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <div style="width:100%;" class="hide_at_print">
 <span style="margin-left:80%;">
 <a href="my_flat_bill_excel?f=<?php echo $from; ?>&t=<?php echo $to; ?>" class="btn blue">Export in Excel</a>
@@ -147,7 +147,7 @@ $account_no = $collection['ledger_sub_account']['name'];
 }		
 if($date >= $from && $date <= $to)
 {
-$tr_date = date('d-M-Y',@$date->sec);
+$tr_date = date('d-M-Y',strtotime($date));
 $total_debit = $total_debit + $amount		
 ?>	
 <tr>
