@@ -465,13 +465,27 @@ $this->layout='session';
 $this->ath();
 $this->check_user_privilages();
 
+$ledger = array();
+$y=0;
+$this->loadmodel('ledger_account');
+$order=array('ledger_account.auto_id'=> 'ASC');
+$cursor=$this->ledger_account->find('all',array('order' =>$order));
+foreach ($cursor as $collection) 
+{
+$y++;
+$ledger_name = $collection['ledger_account']['ledger_name'];
+$ledger[] = $ledger_name;
+}
+$ledger2 = implode(",",$ledger);
+$this->set('ledger2',$ledger2);
+$this->set('y',$y);
+
 
 
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
 $this->set('s_user_id',$s_user_id);
-
 
 
 $this->loadmodel('ledger_account');
@@ -643,20 +657,21 @@ $this->loadmodel('ledger_account');
 $cursor1=$this->ledger_account->find('all');
 $this->set('cursor1',$cursor1);	
 
-/*
+$ledger = array();
+$t=0;
 $this->loadmodel('ledger_sub_account');
-$conditions=array("society_id" => $s_society_id,"delete_id"=>0);
+$conditions=array("society_id" => $s_society_id);
 $cursor = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
 foreach($cursor as $collection)
 {
-$auto_id = (int)$collection['ledger_sub_account']['auto_id'];
-if(isset($this->request->data['sub'.$auto_id]))
-{
-$this->loadmodel('ledger_sub_account');
-$this->ledger_sub_account->updateAll(array("delete_id" => 1),array("auto_id" => $auto_id));	
+$t++;
+$sub_ledger_name = $collection['ledger_sub_account']['name'];
+$ledger[] = $sub_ledger_name;
 }
-}
-*/
+$ledger2 = implode(",",$ledger);
+$this->set('ledger2',$ledger2);
+$this->set('t',$t);
+
 $this->loadmodel('ledger_sub_account');
 $conditions=array("society_id" => $s_society_id);
 $cursor = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
