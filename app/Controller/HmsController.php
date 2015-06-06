@@ -13865,8 +13865,28 @@ $b_group="O-";
 	 $med_pro="No";
  }
  
+ $result_user=$this->profile_picture($s_user_id);
+ foreach($result_user as $data)
+ {
+	  $email1=$data['user']['email'];
+	  $mobile1=$data['user']['mobile'];
+	 
+ }
  
- 
+ if($email==$email && $mobile==$mobile1)
+ {
+	
+	 
+ }
+ else{
+	 
+		date_default_timezone_set('Asia/Kolkata');
+		$date=date("d-m-Y");
+		$time = date(' h:i a', time());
+		$op=$this->autoincrement('profile_log','profile_log_id');
+		$this->loadmodel('profile_log');
+		$this->profile_log->saveAll(array('profile_log_id'=>$op,'user_id'=>$s_user_id,'society_id'=>$s_society_id,'email'=>$email1,'mobile'=>$mobile1,'new_email'=>$email,'new_mobile'=>$mobile,'date'=>$date,'time'=>$time));
+ }
  
  
 if(empty($photo_name))
