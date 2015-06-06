@@ -8259,7 +8259,7 @@ if($multiple_society==1)
 }
 
 
-$this->user->save(array('user_id' => $i, 'user_name' => $user_name,'email' => $email, 'password' => $password, 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'noc_type' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$login_id,'profile_status'=>1,'s_default'=>$s_default));
+$this->user->save(array('user_id' => $i, 'user_name' => $user_name,'email' => $email, 'password' => $password, 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'noc_type' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$login_id,'profile_status'=>1,'s_default'=>$s_default,'private'=>array('mobile','email')));
 
 $this->loadmodel('flat');
 $this->flat->updateAll(array("noc_ch_tp" =>$residing),array("flat_id" =>$flat));	
@@ -8821,7 +8821,7 @@ $time=date('h:i:a',time());
 $role_id[]=3;
 $default_role_id=3;
 $this->loadmodel('user');
-$this->user->save(array('user_id' => $i, 'user_name' => $user_name,'email' => $email, 'password' =>'', 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => 2, 'wing' =>0, 'flat' =>0,'residing' => 1,'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$log_i,'s_default'=>1));
+$this->user->save(array('user_id' => $i, 'user_name' => $user_name,'email' => $email, 'password' =>'', 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => 2, 'wing' =>0, 'flat' =>0,'residing' => 1,'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$log_i,'s_default'=>1,'profile_status'=>1,'private'=>array('mobile','email')));
 
 //////////////////////////////////// End Code ////////////////////////////////////////////////////////////////////////
 
@@ -8982,7 +8982,7 @@ $login_id=$this->autoincrement('login','login_id');
 $role_id[]=3;
 $default_role_id=3;
 $this->loadmodel('user');
-$this->user->save(array('user_id' => $i, 'user_name' => $user_name,'email' => $email, 'password' => $password, 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'residing' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$login_id,'s_default'=>1));
+$this->user->save(array('user_id' => $i, 'user_name' => $user_name,'email' => $email, 'password' => $password, 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'residing' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$login_id,'s_default'=>1,'profile_status'=>1,'private'=>array('mobile','email')));
 
 //////////////////////// insert login table //////////////////////////////////////
 
@@ -15011,13 +15011,18 @@ $sms="".$name.", Your housing society  ".$s_n." has enrolled  you in HousingMatt
 }
 }
 
-$this->user->save(array('user_id' => $i, 'user_name' => $name,'email' => $email, 'password' => @$random, 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'residing' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$log_i,'s_default'=>1));
+$this->user->save(array('user_id' => $i, 'user_name' => $name,'email' => $email, 'password' => @$random, 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'residing' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$log_i,'s_default'=>1,'profile_status'=>1,'private'=>array('mobile','email')));
 
+
+		  $this->loadmodel('flat');
+          $this->flat->updateAll(array("noc_ch_tp" =>$residing),array("flat_id" =>$flat));
 ///////////////  Insert code ledger Sub Accounts //////////////////////
 
 $this->loadmodel('ledger_sub_account');
 $j=$this->autoincrement('ledger_sub_account','auto_id');
 $this->ledger_sub_account->save(array('auto_id'=>$j,'ledger_id'=>34,'name'=>$name,'society_id' => $society_id,'user_id'=>$i,'deactive'=>0));
+
+
 
 /////////////  End code ledger sub accounts //////////////////////////
 
@@ -19948,8 +19953,8 @@ function family_member_valid()
 
 $this->layout='blank';
 $q=$this->request->query('q');
-$q = html_entity_decode($q);
-$myArray = json_decode($q, true);
+ $q = html_entity_decode($q);
+ $myArray = json_decode($q, true);
 $s_society_id=$this->Session->read('society_id'); 
 $s_role_id=$this->Session->read('role_id');
 $s_user_id=$this->Session->read('user_id');
@@ -19966,7 +19971,7 @@ $s_user_id=$this->Session->read('user_id');
 	$tenant=(int)$data['user']['tenant'];
 	$wing=(int)$data['user']['wing'];
 	$flat=(int)$data['user']['flat'];
-	$residing=(int)$data['user']['residing'];
+	$residing=(int)$data['user']['noc_type'];
 
 	}
 	$result_society=$this->society_name($s_society_id);	
@@ -20129,7 +20134,7 @@ if($family_member==1 || $s_role_id==3 )
 		  			
 			////////////////////////// insert user table //////////////////////////
 
-$this->user->saveAll(array('user_id' => $i, 'user_name' => $name,'email' => $email, 'password' =>$random, 'mobile' => $mobile,  'society_id' => $s_society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'residing' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>2,'default_role_id'=>2,'signup_random'=>$random,'family_member'=>$s_user_id,'dob'=>$dob,'relation'=>$relation,'login_id'=>$log_i,'s_default'=>1,'blood_group'=>$blood_group,'deactive'=>0));
+$this->user->saveAll(array('user_id' => $i, 'user_name' => $name,'email' => $email, 'password' =>$random, 'mobile' => $mobile,  'society_id' => $s_society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'residing' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>2,'default_role_id'=>2,'signup_random'=>$random,'family_member'=>$s_user_id,'dob'=>$dob,'relation'=>$relation,'login_id'=>$log_i,'s_default'=>1,'blood_group'=>$blood_group,'deactive'=>0,'profile_status'=>1));
 
 			////////////////////// End user table ///////////////////////////////////////////////////
 
@@ -20438,7 +20443,7 @@ foreach($myArray as $child)
 
 		/////////// insert code user table ///////////////////////
 		
-		$this->user->saveAll(array('user_id' => $i, 'user_name' => $name,'email' => $email, 'password' => @$random, 'mobile' => $mobile,  'society_id' => $s_society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'noc_type' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$log_i,'s_default'=>1));
+		$this->user->saveAll(array('user_id' => $i, 'user_name' => $name,'email' => $email, 'password' => @$random, 'mobile' => $mobile,  'society_id' => $s_society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'noc_type' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$log_i,'s_default'=>1,'profile_status'=>1,'private'=>array('mobile','email')));
 	      ///////////  code end insert //////////////////////////////////
           $this->loadmodel('flat');
           $this->flat->updateAll(array("noc_ch_tp" =>$residing),array("flat_id" =>$flat));
