@@ -323,7 +323,7 @@ $this->layout=null;
 	}
 	
 	
-	
+	$ask_no_of_member=(int)$post_data["ask_no_of_member"];
 	
 	$report=array();
 	$e_name=htmlentities($post_data["e_name"]);
@@ -386,7 +386,7 @@ $this->layout=null;
 		
 	$event_id=$this->autoincrement('event','event_id');
 	$this->loadmodel('event');
-	$this->event->saveAll(array('event_id' => $event_id,'e_name' => $e_name, 'user_id' => $s_user_id, 'society_id' => $s_society_id, 'date_from' => $date_from , 'date_to' => $date_to, 'day_type' => $day_type, 'location' => $location,'description' => $description,'visible' => $visible,'sub_visible' => $sub_visible,'visible_user_id' => $recieve_info[2],'date' => $date,'time'=>$e_time));
+	$this->event->saveAll(array('event_id' => $event_id,'e_name' => $e_name, 'user_id' => $s_user_id, 'society_id' => $s_society_id, 'date_from' => $date_from , 'date_to' => $date_to, 'day_type' => $day_type, 'location' => $location,'description' => $description,'visible' => $visible,'sub_visible' => $sub_visible,'visible_user_id' => $recieve_info[2],'date' => $date,'time'=>$e_time,'ask_no_of_member'=>$ask_no_of_member,'no_of_member'=>0));
 
 
 	
@@ -730,6 +730,8 @@ $s_user_id=$this->Session->read('user_id');
 
 $e=(int)$this->request->query('e');
 $type=(int)$this->request->query('type');
+$this->set('e',$e);
+$this->set('type',$type);
 
 	if($type==1)
 	{
@@ -756,7 +758,7 @@ $type=(int)$this->request->query('type');
 		
 		$this->event->updateAll(array('rsvp'=>$rsvp),array('event.event_id'=>$e));
 	}
-	  echo "Thanks for participation.";
+	 // echo "Thanks for participation.";
 	}
 	
 	if($type==2)
@@ -785,6 +787,24 @@ $type=(int)$this->request->query('type');
 		
 		$this->event->updateAll(array('not_in_rsvp'=>$not_in_rsvp),array('event.event_id'=>$e));
 	}
+	
+		echo "Thanks for tell us.";
+	}
+	
+	if($type==3)
+	{
+	$no=(int)$this->request->query('no');
+	
+	$this->loadmodel('event');
+	$conditions=array("event_id" => $e);
+	$event_result=$this->event->find('all', array('conditions' => $conditions));
+	@$no_of_member=@$event_result[0]['event']['no_of_member'];
+	$no_of_member=$no_of_member+$no;
+	
+	
+		
+	$this->event->updateAll(array('no_of_member'=>$no_of_member),array('event.event_id'=>$e));
+	
 	
 		echo "Thanks for participation.";
 	}

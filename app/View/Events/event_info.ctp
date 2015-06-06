@@ -191,5 +191,10 @@ $(document).ready(function() {
 		var e=$(this).attr('element_id');
 		$(".alert-block").html('Please wait...').load('<?php echo $this->webroot; ?>Events/save_rsvp?e='+e+'&type=2');
 	 });
+	 $("#send_member").live('click',function(){
+		var e=$(this).attr('element_id');
+		var no=$("#members").val();
+		$(".alert-block").html('Please wait...').load('<?php echo $this->webroot; ?>Events/save_rsvp?e='+e+'&type=3'+'&no='+no);
+	 });
 });
 </script>

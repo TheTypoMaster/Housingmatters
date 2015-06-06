@@ -538,8 +538,8 @@ $(document).ready(function() {
 					?>
 					<li class="dropdown user">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<img alt="" src="<?php echo $webroot_path; ?>profile/<?php echo $profile_pic; ?>"  style="width:28px; height:28px;" />
-						<span class="username">Hello <?php echo $user_name; ?></span>
+						<img alt="" src="<?php echo $webroot_path; ?>profile/<?php echo @$profile_pic; ?>"  style="width:28px; height:28px;" />
+						<span class="username">Hello <?php echo @$user_name; ?></span>
 						<i class="icon-angle-down"></i>
 						</a>
 						<ul class="dropdown-menu">
