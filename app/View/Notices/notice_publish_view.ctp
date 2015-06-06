@@ -13,10 +13,11 @@ $n_message=$data['notice']['n_message'];
 $n_attachment=$data['notice']['n_attachment'];
 $n_date=$data['notice']['n_date'];
 $n_time=$data['notice']['n_time'];
+$allowed=$data['notice']['allowed'];
 }
 ?>
 
-<div style="background-color:#F3F3F3; border:solid 2px #fcb322; padding:10px; width:80%; margin-left:10%;">
+<div style="background-color:#F3F3F3; border:solid 2px #fcb322; padding:10px;">
 <div align="center" style="background-color:#CCC;"><h3><b><?php echo $n_subject; ?></b></h3></div>
 <div align="right"><span ><?php echo $n_date; ?>&nbsp;&nbsp;&nbsp;&nbsp; <?php echo $n_time; ?></span></div>
 <div align="justify"><p style='font-size:15px;'><?php echo $n_message; ?></div>
@@ -34,8 +35,8 @@ $n_time=$data['notice']['n_time'];
 </div>
 
 
-
-<div style="border:solid 2px #d58512; width:81.8%; margin-left:10%;">
+<?php if($allowed==1) { ?>
+<div style="border:solid 2px #d58512;">
 <div style="border-bottom:solid 2px #d58512; color:white; background-color: #ed9c28; padding:4px; font-size:20px;" align="center">Conversation History</div>
 
 <div style="padding:10px;overflow: auto;">
@@ -94,6 +95,13 @@ $flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat')
 <?php } ?>    
 </div>
 </div>
+<?php }
+
+if($allowed==0){
+	echo '<div class="alert alert-info">
+			<strong>Info!</strong> Comments are not allowed on this notice.
+		</div>';
+} ?>
 <br>
 <?php if($n_draft_id==2)
 { ?>
