@@ -165,7 +165,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 <hr/>
 <button type="submit" class="btn form_post" style="background-color: #1BBC9B;color:#fff;" name="publish" submit_type="publish">Publish Ad</button>
-<button type="submit" class="btn form_post" style="background-color: #1BBC9B;color:#fff;" name="draft" submit_type="draft">Save Ad as Draft</button>
+<!--<button type="submit" class="btn form_post" style="background-color: #1BBC9B;color:#fff;" name="draft" submit_type="draft">Save Ad as Draft</button>-->
 <div style="display:none;" id='wait'><img src="<?php echo $webroot_path; ?>as/fb_loading.gif" /> Please Wait...</div>
 </form>
 <!--FORM CONTENT END-->
@@ -233,9 +233,8 @@ $(document).ready(function() {
 			processData: false,
 			contentType: false,
 			type: 'POST',
-			
+			dataType:'json',
 			}).done(function(response) {
-				alert(response);
 				if(response.report_type=='error'){
 					$(".remove_report").html('');
 						jQuery.each(response.report, function(i, val) {

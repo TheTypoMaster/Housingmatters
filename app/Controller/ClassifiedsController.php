@@ -187,7 +187,6 @@ function submit_ad(){
 		if(isset($_FILES['file'])){
 		$file_name=@$_FILES['file']['name'];
 		$file_tmp_name =@$_FILES['file']['tmp_name'];
-		echo $file_size = $_FILES['file']['size']; exit;
 		$target = "Classifieds/";
 		$target=@$target.basename($file_name);
 		move_uploaded_file($file_tmp_name,@$target);
