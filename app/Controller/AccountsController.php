@@ -3470,9 +3470,7 @@ if($group == 'Bank Accounts')
 {
 $group_id = 33;
 }
-	  
-	  
-	  
+  
 	  
 $this->loadmodel('ledger_account'); 
 $conditions=array("ledger_name"=> new MongoRegex('/^' .  $group . '$/i'));
@@ -3527,6 +3525,10 @@ $this->loadmodel('ledger_account');
 $cursor2 = $this->ledger_account->find('all');
 $this->set('cursor2',$cursor2);
 
+$this->loadmodel('accounts_group');
+$cursor3 = $this->accounts_group->find('all');
+$this->set('cursor3',$cursor3);
+
 }
 ///////////////////////////////////// End Opening Balance Import Ajax //////////////////////////////////////////
 
@@ -3552,12 +3554,8 @@ if(empty($child[1])){
 $report[]=array('tr'=>$c,'td'=>2, 'text' => 'Required');
 }
 
-if(empty($child[2])){
+if(empty($child[2]) && empty($child[3])){
 $report[]=array('tr'=>$c,'td'=>3, 'text' => 'Required');
-}
-
-if(empty($child[3])){
-$report[]=array('tr'=>$c,'td'=>4, 'text' => 'Required');
 }
 
 }
@@ -3566,7 +3564,6 @@ $output=json_encode(array('report_type'=>'error','report'=>$report));
 die($output);
 }
 
-
 $t=1;
 $total_debit = 0;
 $total_credit = 0;
@@ -3574,9 +3571,16 @@ foreach($myArray as $child)
 {
 $t++;
 //////////////////////////////////////////////////
-$date2 = $child[0];
+$date2 = $child[5];
 $date1 = date("Y-m-d", strtotime($date2));
 $date1 = new MongoDate(strtotime($date1));
+
+if(empty($child[5]))
+{
+$output=json_encode(array('report_type'=>'fina','text'=>'Please Select Date'));
+die($output);
+}
+
 
 $this->loadmodel('financial_year');
 $conditions=array("society_id" => $s_society_id,"status"=>1);
@@ -3594,14 +3598,18 @@ break;
 }
 if($abc == 555)
 {
-$output=json_encode(array('report_type'=>'fina','text'=>'Date is not in Financial Year in row '.$t));
+$output=json_encode(array('report_type'=>'fina','text'=>'Date is not in Financial Year'));
 die($output);
 }
 
-$opening_bal = $child[3]; 
+$opening_bal = $child[3];
+if($opening_bal == "")
+{
+$opening_bal = $child[2];
+}
+
 if(is_numeric($opening_bal))
 {
-
 }
 else
 {
@@ -3609,21 +3617,20 @@ $output=json_encode(array('report_type'=>'fina','text'=>'Amount (Opening Balance
 die($output);
 }
 
-$amt_type = (int)$child[2];
-if($amt_type == 1)
-{
-$total_debit = $total_debit + $opening_bal;
-}
-if($amt_type == 2)
-{
-$total_credit = $total_credit + $opening_bal;
-}
+
+//$amt_type = (int)$child[2];
+
+$total_debit = $total_debit + $child[2];
+
+
+$total_credit = $total_credit + $child[3];
+
 //////////////////////////////////////////////////////////////////////
 }
 
 if($total_credit != $total_debit)
 {
-$output=json_encode(array('report_type'=>'fina','text'=>'Total Debit must be Equal to Total Credit'));
+$output=json_encode(array('report_type'=>'fina','text'=>'Total Debit must be Equal to Total Credit','deb'=>$total_debit,'cre'=>$total_credit));
 die($output);
 }
 
