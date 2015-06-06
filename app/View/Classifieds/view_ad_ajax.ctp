@@ -3,6 +3,9 @@
 	$title=strtoupper($classified['classified']['title']);
 	$file=$classified['classified']['file'];
 	$price=$classified['classified']['price'];
+	$society_id=$classified['classified']['society_id'];
+	$society_result=$this->requestAction(array('controller' => 'Hms', 'action' => 'society_name'), array('pass' => array((int)$society_id)));
+	$society_name=$society_result[0]["society"]["society_name"];
 	$price_type=$classified['classified']['price_type'];
 	if($price_type==1){
 		$price_type_text="Negotiable";
@@ -64,6 +67,10 @@
 			<tr>
 				<td width="20%" class="tag">Offer for:</td>
 				<td class="tag_val"><?php echo $offer_for.'<span style="color:red;">*</span> Days'; ?></td>
+			</tr>
+			<tr>
+				<td width="20%" class="tag" valign="top">Society Name:</td>
+				<td class="tag_des"><?php echo $society_name; ?></td>
 			</tr>
 			<tr>
 				<td width="20%" class="tag" valign="top">Description:</td>
