@@ -3176,6 +3176,7 @@ $total_amt = 0;
 for($y=0; $y<sizeof($income_head_charge); $y++)
 {
 $income_head_arr_id = $income_head_charge[$y];	
+$nnn = 55;
 for($r=0; $r<sizeof($ih_detail2); $r++)
 {
 $ih_detail1 = $ih_detail2[$r];	
@@ -3189,7 +3190,13 @@ $excel.="<td style='text-align:right;'>";
 $amount2 = number_format($amount);
 $excel.="$amount2</td>";
 $total_amt=$total_amt+$amount;
+$nnn = 555;
+break;
 }
+}
+if($nnn == 55)
+{
+$excel.="<td style='text-align:right;'> 0 </td>";
 }
 }
 $total_noc_amt = $total_noc_amt + $noc_amt;
