@@ -145,7 +145,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 				<div>
 				   <span class="btn btn-file"><span class="fileupload-new">Select image</span>
 				   <span class="fileupload-exists">Change</span>
-				   <input type="file" name="file" class="default" /></span>
+				   <input type="file" name="file" id="image-file" class="default" /></span>
 				   <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
 				</div>
 			 </div>
@@ -185,7 +185,17 @@ $(document).ready(function() {
 	});
 	 });
 </script>
-
+<script type="text/javascript">
+        $('#image-file').bind('change', function() {
+           var size = this.files[0].size/1024/1024;
+		   
+		   if(size>=1){
+			  $("label[report=file]").html('<span style="color:red;">File Size should be less than 1 MB.</span>');
+			  xhr.abort();
+		   }
+		   
+        });
+    </script>
 <script>
 $(document).ready(function() {
 	$(".form_post").bind('click', function(e){
@@ -223,8 +233,9 @@ $(document).ready(function() {
 			processData: false,
 			contentType: false,
 			type: 'POST',
-			dataType:'json',
+			
 			}).done(function(response) {
+				alert(response);
 				if(response.report_type=='error'){
 					$(".remove_report").html('');
 						jQuery.each(response.report, function(i, val) {
