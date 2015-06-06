@@ -147,6 +147,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 				   <span class="fileupload-exists">Change</span>
 				   <input type="file" name="file" id="image-file" class="default" /></span>
 				   <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+				   <br/><span>Allowed extension: "jpg" , "jpeg", "bmp", "gif", "png" | Allowed size: 1 MB</span>
 				</div>
 			 </div>
 			 <label report="file" class="remove_report"></label>
@@ -188,6 +189,14 @@ $(document).ready(function() {
 <script type="text/javascript">
         $('#image-file').bind('change', function() {
            var size = this.files[0].size/1024/1024;
+		   var f_name = this.files[0].name;
+		   
+		   var re = /(\.jpg|\.jpeg|\.bmp|\.gif|\.png)$/i;
+			if(!re.exec(f_name))
+			{
+			$("label[report=file]").html('<span style="color:red;">File extension not supported!</span>');
+			  xhr.abort();
+			}
 		   
 		   if(size>=1){
 			  $("label[report=file]").html('<span style="color:red;">File Size should be less than 1 MB.</span>');
