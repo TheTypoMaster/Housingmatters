@@ -707,7 +707,7 @@ $this->regular_bill->saveAll($multipleRowData);
 $ussrs[]=$user_id;
 
 
-$this->send_notification('<span class="label label-warning" ><i class="icon-money"></i></span>','New bill for your flat '.$wing_flat.' is generated ',10,$r,$this->webroot_path().'Incometrackers/ac_statement_bill_view/'.$r,0,$ussrs);
+$this->send_notification('<span class="label label-warning" ><i class="icon-money"></i></span>','New bill for your flat '.$wing_flat.' is generated ',10,$r,$this->webroot.'Incometrackers/ac_statement_bill_view/'.$r,0,$ussrs);
 unset($ussrs);
 ///////////////////////////////////////
 
@@ -1629,7 +1629,7 @@ $this->regular_bill->saveAll($multipleRowData);
 ///////////////////////////////////////
 $ussrs[]=$user_id;
 
-$this->send_notification('<span class="label label-warning" ><i class="icon-money"></i></span>','New bill for your flat '.$wing_flat.' is generated ',10,$r,$this->webroot_path().'Incometrackers/ac_statement_bill_view/'.$r,0,$ussrs);
+$this->send_notification('<span class="label label-warning" ><i class="icon-money"></i></span>','New bill for your flat '.$wing_flat.' is generated ',10,$r,$this->webroot.'Incometrackers/ac_statement_bill_view/'.$r,0,$ussrs);
 unset($ussrs);
 ////////////////////////////////////////////
 ///////Start Bill Html Code/////////////////
