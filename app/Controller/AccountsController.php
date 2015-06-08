@@ -3499,7 +3499,6 @@ foreach($result_ac as $collection)
 $auto_id = (int)$collection['ledger_account']['auto_id'];
 $ledger_type = 2;
 }
-
 $this->loadmodel('ledger_sub_account'); 
 $conditions=array("name"=> new MongoRegex('/^' .  $ac_name . '$/i'),"ledger_id"=>$group_id);
 $result_sac2=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
@@ -3508,6 +3507,8 @@ foreach($result_sac2 as $collection2)
 $auto_id = (int)$collection2['ledger_sub_account']['auto_id'];
 $ledger_type = 1;
 }
+
+
 	  
 	  $table[] = array(@$ac_name,@$amt_type,@$amt,@$auto_id,@$ledger_type,@$group_id,@$group);
 	  } 
@@ -3537,6 +3538,7 @@ function save_open_bal()
 {
 $this->layout='blank';
 $s_society_id = (int)$this->Session->read('society_id');
+$s_user_id = (int)$this->Session->read('user_id');
 	
 $q=$this->request->query('q'); 
 $myArray = json_decode($q, true);
@@ -3557,7 +3559,6 @@ $report[]=array('tr'=>$c,'td'=>2, 'text' => 'Required');
 if(empty($child[2]) && empty($child[3])){
 $report[]=array('tr'=>$c,'td'=>3, 'text' => 'Required');
 }
-
 }
 if(sizeof($report)>0){
 $output=json_encode(array('report_type'=>'error','report'=>$report));
@@ -3617,14 +3618,10 @@ $output=json_encode(array('report_type'=>'fina','text'=>'Amount (Opening Balance
 die($output);
 }
 
-
 //$amt_type = (int)$child[2];
-
 $total_debit = $total_debit + $child[2];
 
-
 $total_credit = $total_credit + $child[3];
-
 //////////////////////////////////////////////////////////////////////
 }
 
@@ -3634,38 +3631,220 @@ $output=json_encode(array('report_type'=>'fina','text'=>'Total Debit must be Equ
 die($output);
 }
 
-
 foreach($myArray as $child)
 {
-$op_date = $child[0];
-
-$op_date = date("Y-m-d", strtotime($op_date));
-$op_date = new MongoDate(strtotime($op_date));
-
-$current_date = date("Y-m-d");
-$current_date = new MongoDate(strtotime($current_date));
-
-$open_bal = $child[3];
-$amt_cat = (int)$child[2];
-$ac_id = $child[1];
-$ac_id2 = explode(",",$ac_id);
-$ac_id3 = (int)$ac_id2[0];
-$type = (int)$ac_id2[1];
+$opening_bal = 0;
+$group_id = (int)$child[0];
+$ac_name = $child[1];
+$debit = $child[2];
+$credit = $child[3];
 $insert = (int)$child[4];
+$date = $child[5];
+
+$opening_bal = $opening_bal + $credit - $debit;
+if($opening_bal > 0)
+{
+$amount_type = 2;
+}
+else
+{
+$opening_bal = abs($opening_bal);
+$amount_type = 1;
+}
+
 if($insert == 2)
 {
-$u=$this->autoincrement('ledger','auto_id');
-$this->loadmodel('ledger');
-$this->ledger->saveAll(array("auto_id" => $u, "op_date" => $op_date, 
-"receipt_id" => "O_B","amount" => $open_bal, "amount_category_id" => $amt_cat, "module_id" => "O_B", "account_type" => $type,"account_id" => $ac_id3,"current_date" => $current_date,"society_id" => $s_society_id));
-}
+$auto_id = "";
+$this->loadmodel('ledger_account'); 
+$conditions=array("ledger_name"=> new MongoRegex('/^' .  $ac_name . '$/i'),"group_id"=>$group_id);
+$result_ac=$this->ledger_account->find('all',array('conditions'=>$conditions));
+foreach($result_ac as $collection)
+{
+$auto_id = (int)@$collection['ledger_account']['auto_id'];
+$ledger_type = 2;
 }
 
+$this->loadmodel('ledger_sub_account'); 
+$conditions=array("name"=> new MongoRegex('/^' .  $ac_name . '$/i'),"ledger_id"=>$group_id);
+$result_sac2=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+foreach($result_sac2 as $collection2)
+{
+$auto_id = (int)$collection2['ledger_sub_account']['auto_id'];
+$ledger_type = 1;
+}
+
+if(!empty($auto_id))
+{
+if(@$ledger_type == 1)
+{
+$current_date = date('Y-m-d');
+$current_date = new MongoDate(strtotime($current_date));
+
+$op_date = date('Y-m-d',strtotime($date));
+$op_date = new MongoDate(strtotime($op_date));
+
+$this->loadmodel('ledger');
+$order=array('ledger.auto_id'=> 'DESC');
+$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last22=$collection['ledger']['auto_id'];
+}
+if(empty($last22))
+{
+$k=0;
+}	
+else
+{	
+$k=$last22;
+}
+$k++; 
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => 'O_B', 
+"amount" => $opening_bal, "amount_category_id"=>$amount_type, "account_type" => 1, "account_id"=>$auto_id, "current_date" => $current_date,"society_id" => $s_society_id,"module_id"=>'O_B',"op_date"=>$op_date));
+$this->ledger->saveAll($multipleRowData);
+}
+
+else if(@$ledger_type == 2)
+{
+$current_date = date('Y-m-d');
+$current_date = new MongoDate(strtotime($current_date));
+
+$op_date = date('Y-m-d',strtotime($date));
+$op_date = new MongoDate(strtotime($op_date));
+
+$this->loadmodel('ledger');
+$order=array('ledger.auto_id'=> 'DESC');
+$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last22=$collection['ledger']['auto_id'];
+}
+if(empty($last22))
+{
+$k=0;
+}	
+else
+{	
+$k=$last22;
+}
+$k++; 
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => 'O_B', 
+"amount" => $opening_bal, "amount_category_id"=>$amount_type, "account_type" => 2, "account_id"=>$auto_id, "current_date" => $current_date,"society_id" => $s_society_id,"module_id"=>'O_B',"op_date"=>$op_date));
+$this->ledger->saveAll($multipleRowData);
+}
+}
+}
+else
+{
+    if($group_id == 15 || $group_id == 34 || $group_id == 33 || $group_id == 35)
+    {
+
+$this->loadmodel('ledger_sub_account');
+$order=array('ledger_sub_account.auto_id'=> 'DESC');
+$cursor=$this->ledger_sub_account->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last22=$collection['ledger_sub_account']['auto_id'];
+}
+if(empty($last22))
+{
+$k=0;
+}	
+else
+{	
+$k=$last22;
+}
+$k++; 
+$this->loadmodel('ledger_sub_account');
+$multipleRowData = Array( Array("auto_id" => $k, "ledger_id"=>$group_id,"name" =>$ac_name,"society_id" => $s_society_id,"delete_id"=>0));
+$this->ledger_sub_account->saveAll($multipleRowData);
+	
+$current_date = date('Y-m-d');
+$current_date = new MongoDate(strtotime($current_date));
+
+$op_date = date('Y-m-d',strtotime($date));
+$op_date = new MongoDate(strtotime($op_date));
+
+$this->loadmodel('ledger');
+$order=array('ledger.auto_id'=> 'DESC');
+$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last25=$collection['ledger']['auto_id'];
+}
+if(empty($last25))
+{
+$l=0;
+}	
+else
+{	
+$l=$last25;
+}
+$l++; 
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $l, "receipt_id"=>'O_B', 
+"amount"=>$opening_bal, "amount_category_id"=>$amount_type, "account_type" => 1, "account_id"=>$k,"current_date" => $current_date,"society_id" => $s_society_id,"module_id"=>'O_B',"op_date"=>$op_date));
+$this->ledger->saveAll($multipleRowData);	
+	
+}
+else
+{
+
+$this->loadmodel('ledger_account');
+$order=array('ledger_account.auto_id'=> 'DESC');
+$cursor=$this->ledger_account->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last22=$collection['ledger_account']['auto_id'];
+}
+if(empty($last22))
+{
+$k=0;
+}	
+else
+{	
+$k=$last22;
+}
+$k++; 
+$this->loadmodel('ledger_account');
+$multipleRowData = Array( Array("auto_id" => $k, "group_id"=>$group_id,"ledger_name" =>$ac_name,"society_id" => $s_society_id,"delete_id"=>0,"edit_user_id"=>$s_user_id));
+$this->ledger_account->saveAll($multipleRowData);
+	
+$current_date = date('Y-m-d');
+$current_date = new MongoDate(strtotime($current_date));
+
+$op_date = date('Y-m-d',strtotime($date));
+$op_date = new MongoDate(strtotime($op_date));
+
+$this->loadmodel('ledger');
+$order=array('ledger.auto_id'=> 'DESC');
+$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last25=$collection['ledger']['auto_id'];
+}
+if(empty($last25))
+{
+$l=0;
+}	
+else
+{	
+$l=$last25;
+}
+$l++; 
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $l, "receipt_id"=>'O_B', 
+"amount"=>$opening_bal, "amount_category_id"=>$amount_type, "account_type" => 2, "account_id"=>$k,"current_date" => $current_date,"society_id" => $s_society_id,"module_id"=>'O_B',"op_date"=>$op_date));
+$this->ledger->saveAll($multipleRowData);
+
+}
+}
+}
 
 $output=json_encode(array('report_type'=>'done','text'=>'Total Debit must be Equal to Total Credit'));
 die($output);
-
-
 }
 
 //////////////////////////// End Save Open Bal //////////////////////////////////////////////////////////

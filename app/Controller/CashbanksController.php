@@ -1397,10 +1397,10 @@ $account_no = $collection['ledger_sub_account']['bank_account'];
 function petty_cash_receipt()
 {
 if($this->RequestHandler->isAjax()){
-		$this->layout='blank';
-	}else{
-		$this->layout='session';
-	}
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
 	
 $this->ath();
 $this->check_user_privilages();	
@@ -1486,9 +1486,6 @@ $account_head = (int)$this->request->data['account_head'];
 $ammount = $this->request->data['ammount'];
 $current_date = date("d-m-Y");
 $account_type = (int)$this->request->data['type'];
-
-
-
 
 $current_date = date("Y-m-d", strtotime($current_date));
 $current_date = new MongoDate(strtotime($current_date));
