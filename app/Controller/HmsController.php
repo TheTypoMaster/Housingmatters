@@ -8177,7 +8177,7 @@ $from_name="HousingMatters";
 $from="Support@housingmatters.in";
 $reply="Support@housingmatters.in";
 $ip=$this->hms_email_ip();
-echo $message_web="<div>
+$message_web="<div>
 <img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 <span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
 <a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
@@ -8185,12 +8185,11 @@ echo $message_web="<div>
 <p>$message</p> 
 <br/>
 Thank you.<br/>
-HousingMatters (Support Team)<br/><br/>
+HousingMatters (Support Team)<br/>
 www.housingmatters.co.in
 </div >
 </div>";
 
-exit;
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 $this->loadmodel('user_temp');
 $this->user_temp->updateAll(array('reply_mail'=>$message),array('user_temp.user_temp_id'=>$user_id));
