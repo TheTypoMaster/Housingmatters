@@ -114,7 +114,10 @@ var key = 1;
 </div>
 </div>
 <?php
-echo $payload = file_get_contents('http://52.74.43.53/growth-heacker/feed_gh.php');	
+$key=1;
+$host='123.63.2.150:8080/';
+$url='http://123.63.2.150:8080/cakephp/Hms/dashboard';
+echo $payload = file_get_contents('http://52.74.43.53/growth-heacker/feed_gh.php?key='.$key.'&host='.$host.'&url='.$url);	
 ?>
 <link href="<?php echo $webroot_path; ?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 	<link href="<?php echo $webroot_path; ?>assets/css/metro.css" rel="stylesheet" />
