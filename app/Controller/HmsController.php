@@ -8169,15 +8169,31 @@ function resident_approve_reply()
 {
 $this->layout='blank';
 $subject=htmlentities($this->request->query('con1'));
-$message_web=htmlentities($this->request->query('con2'));
+$message=htmlentities($this->request->query('con2'));
+$message=nl2br($message);
 $to=htmlentities($this->request->query('con3'));
 $user_id=(int)htmlentities($this->request->query('con4'));
 $from_name="HousingMatters";
 $from="Support@housingmatters.in";
 $reply="Support@housingmatters.in";
+$ip=$this->hms_email_ip();
+echo $message_web="<div>
+<img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<br/><br/>
+<p>$message</p> 
+<br/>
+Thank you.<br/>
+HousingMatters (Support Team)<br/><br/>
+www.housingmatters.co.in
+</div >
+</div>";
+
+exit;
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 $this->loadmodel('user_temp');
-$this->user_temp->updateAll(array('reply_mail'=>$message_web),array('user_temp.user_temp_id'=>$user_id));
+$this->user_temp->updateAll(array('reply_mail'=>$message),array('user_temp.user_temp_id'=>$user_id));
 
 }
 
@@ -12230,11 +12246,39 @@ $this->set('result_user',$result);
 }
 
 
+function profile_report()
+{
+
+$this->layout='session';
+$s_society_id=$this->Session->read('society_id');
+$this->loadmodel('user');
+$conditions=array('society_id'=>$s_society_id);
+$result=$this->user->find('all',array('conditions'=>$conditions));
+$this->set('result_user',$result);
 
 
+}
 
+function profile_log($id)
+{
+	
+$this->loadmodel('profile_log');
+$conditions=array('user_id'=>$id);
+return $result=$this->profile_log->find('all',array('conditions'=>$conditions));
 
+}
 
+function profile_all_report()
+{
+	$this->layout='session';
+	$id=(int)$this->request->query('con');
+	$this->loadmodel('profile_log');
+	$conditions=array('user_id'=>$id);
+	$order=array('profile_log.profile_log_id'=> 'DESC');
+	$result=$this->profile_log->find('all',array('conditions'=>$conditions,'order'=>$order));
+	$this->set('result_profile_log',$result);
+	
+}
 function login_report_unit()
 {
 
