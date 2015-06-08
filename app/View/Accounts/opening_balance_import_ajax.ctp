@@ -50,9 +50,12 @@ if($group_id == 15 || $group_id == 34 || $group_id == 33 || $group_id == 35)
 <option value="34" <?php if($group_id == 34) { ?> selected="selected" <?php } ?>>Sundry Debtors Control A/c </option>
 <option value="33" <?php if($group_id == 33) { ?> selected="selected" <?php } ?>>Bank Accounts</option>
 <option value="35" <?php if($group_id == 35) { ?> selected="selected" <?php } ?>>Tax deducted at source (TDS receivable)</option>
-<?php } ?>
+<?php }
+else
+{ ?>
 <option value="<?php echo $group_id; ?>" <?php if($group_id5 == $group_id) { ?> selected="selected" <?php } ?>><?php echo $group_name1; ?></option>
-<?php } ?>
+<?php 
+}} ?>
 </select>
 </td>
 <td>
