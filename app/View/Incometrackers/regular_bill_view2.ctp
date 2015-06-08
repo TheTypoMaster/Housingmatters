@@ -55,13 +55,13 @@ $due_date11 = date('d-M-Y',strtotime($due_date));
 </tr>
 <tr>
 <th style="text-align:center;">
-<p style="font-size:18px;">
+<p style="font-size:18px; margin-left:35%;">
 <?php $to = date('d-m-Y',strtotime($to)); ?>
 Bill for date From :<?php echo $from; ?> To : <?php echo $to; ?>    
 </p>
 </th>
-<td>
-<table border="0">
+<td style="text-align:right;">
+<table border="0" style="margin-left:50%;">
 <tr>
 <td>Bill Date:</td><td><?php echo $cur_date11; ?></td>
 </tr>
@@ -78,7 +78,7 @@ Bill for date From :<?php echo $from; ?> To : <?php echo $to; ?>
 <tr>
 <th>Sr.No.</th>
 <th>Bill No.</th>
-<th>Name of Resident</th>
+<th>Member</th>
 <?php
 for($p=0; $p<sizeof($income_head_arr); $p++)
 {
@@ -103,7 +103,7 @@ $total_ih[] = 0;
 <?php
 foreach($cursor2 as $collection)
 {
-$bill_no = (int)$collection['regular_bill']['regular_bill_id'];	
+$bill_no = (int)$collection['regular_bill']['receipt_id'];	
 }
 
 $sr = 0;
@@ -123,6 +123,8 @@ $user_id = (int)$collection['user']['user_id'];
 $user_name = $collection['user']['user_name'];
 $wing_id = (int)$collection['user']['wing'];
 $flat_id = (int)$collection['user']['flat'];
+
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
 
 $maint_ch = 0;
 $result = $this->requestAction(array('controller' => 'hms', 'action' => 'regular_bill_fetch'),array('pass'=>array($user_id)));
@@ -186,7 +188,7 @@ $noc_charge = @$collection5['flat_type']['noc_charge'];
 <tr>
 <td style="text-align:right;"><?php echo $sr; ?></td>
 <td style="text-align:right;"><?php echo $bill_no; ?></td>
-<td style="text-align:left;"><?php echo $user_name; ?></td>
+<td style="text-align:left;"><?php echo $user_name; ?> &nbsp;&nbsp; (<?php echo $wing_flat; ?>)</td>
 <?php
 $total_amt = 0;
 $gt_amt = 0;
@@ -315,6 +317,9 @@ $wing_id = (int)$collection['user']['wing'];
 $flat_id = (int)$collection['user']['flat'];
 //$residing = (int)$collection['user']['residing'];
 
+
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
+
 $maint_ch = 0;
 $result = $this->requestAction(array('controller' => 'hms', 'action' => 'regular_bill_fetch'),array('pass'=>array($user_id)));
 foreach($result as $collection2)
@@ -380,7 +385,7 @@ $noc_charge = @$collection5['flat_type']['noc_charge'];
 <tr>
 <td style="text-align:right;"><?php echo $sr; ?></td>
 <td style="text-align:right;"><?php echo $bill_no; ?></td>
-<td style="text-align:left;"><?php echo $user_name; ?></td>
+<td style="text-align:left;"><?php echo $user_name; ?> &nbsp;&nbsp; (<?php echo $wing_flat; ?>)</td>
 <?php
 $total_amt = 0;
 $gt_amt = 0;
@@ -543,7 +548,6 @@ echo $gt_gt_amt2; ?></th>
 <input type="hidden" name="wing_ar" value="<?php echo $wing_arr_im; ?>" />
 
 <br />
-
 <div style="width:100%;">
 <a href="it_regular_bill" class="btn green"  style="margin-left:70%;"><i class="icon-arrow-left"></i>Back</a>
 <button type="submit" name="sub" class="btn red">Submit</button>
