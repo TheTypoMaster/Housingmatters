@@ -663,7 +663,7 @@ $sms_id = (int)$collection['society']['account_sms'];
 }
 if($sms_id == 1)
 {
-	
+/*	
 $r_sms=$this->hms_sms_ip();
 $working_key=$r_sms->working_key;
 $sms_sender=$r_sms->sms_sender; 
@@ -671,6 +671,7 @@ $sms='Dear '.$user_name.' '.$wing_flat.', your maintenance bill for period '.$sm
 
 $sms1=str_replace(' ', '+', $sms);
 $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+*/
 }
 /////////////////////////////////////////////////////////////
 
@@ -1254,6 +1255,7 @@ $mail_id = $collection['society']['account_email'];
 }
 if($mail_id == 1)
 {
+/*
 $from_mail_date = date('d M',strtotime($date_from));
 $to_mail_date = date('d M Y',strtotime($date_to));
 
@@ -1264,6 +1266,7 @@ $from_name="HousingMatters";
 $from = "accounts@housingmatters.in";
 $reply="accounts@housingmatters.in";
 $this->send_email($to_mail,$from,$from_name,$subject,$html,$reply);
+*/
 }
 }
 }
@@ -1585,7 +1588,7 @@ echo $sms_id;
 
 if($sms_id == 1)
 {
-
+/*
 $r_sms=$this->hms_sms_ip();
 $working_key=$r_sms->working_key;
 $sms_sender=$r_sms->sms_sender; 	
@@ -1594,6 +1597,7 @@ $sms='Dear '.$user_name.' '.$wing_flat.', your maintenance bill for period '.$sm
 
 $sms1=str_replace(' ', '+', $sms);
 $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+*/
 }
 
 /////////////////////////////////////////////////////////////
@@ -1672,13 +1676,7 @@ if($billing_cycle_id == 5)
 {
 $multi_ch = 12;
 }	
-	
-	
-	
-	
-	
-	
-	
+
 	
 $date_from = date("d-M-Y", $date_from->sec);
 $date_to = date("d-M-Y", $date_to->sec);
@@ -2151,6 +2149,7 @@ $mail_id = $collection['society']['account_email'];
 }
 if($mail_id == 1)
 {
+/*
 $from_mail_date = date('d M',strtotime($date_from));
 $to_mail_date = date('d M Y',strtotime($date_to));
 //$my_mail = "nikhileshvyas@yahoo.com";
@@ -2160,6 +2159,7 @@ $from_name="HousingMatters";
 $from = "accounts@housingmatters.in";
 $reply="accounts@housingmatters.in";
 $this->send_email($to_mail,$from,$from_name,$subject,$html,$reply);
+*/
 }
 }
 }
