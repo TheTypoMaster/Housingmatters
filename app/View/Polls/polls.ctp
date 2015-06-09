@@ -9,7 +9,10 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 </script>
 
 <?php
-
+if(sizeof($result_poll)==0)
+{
+echo '<div align="center"><h4>No record found</h4></div>';
+}
 foreach($result_poll as $data)
 {
 $poll_id=$data["poll"]["poll_id"];

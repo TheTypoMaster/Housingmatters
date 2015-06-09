@@ -166,6 +166,7 @@ function poll_add(){
 			$description=htmlentities($this->request->data['description']);
 			$description=wordwrap($description, 25, " ", true);
 			$poll_close_date=$this->request->data['poll_close_date'];
+			
 			$type=(int)$this->request->data['type'];
 			$private=(int)@$this->request->data['private']; 
 			if(empty($private)) { $private=0; }
@@ -287,7 +288,7 @@ function poll_add(){
 		$question=wordwrap($question, 25, " ", true);
 		$description=htmlentities($this->request->data['description']);
 		$description=wordwrap($description, 25, " ", true);
-		$poll_close_date=$this->request->data['poll_close_date'];
+		echo $poll_close_date=$this->request->data['poll_close_date']; exit;
 		$type=(int)$this->request->data['type'];
 		$private=(int)@$this->request->data['private']; 
 		if(empty($private)) { $private=0; }
