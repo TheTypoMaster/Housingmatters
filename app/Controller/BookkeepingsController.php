@@ -642,10 +642,10 @@ $main_id = (int)$this->request->query('m');
 $sub_id = (int)$this->request->query('s');
 
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
 
 if($main_id == 34 || $main_id == 15 || $main_id == 33 || $main_id == 35)
 {
@@ -721,7 +721,6 @@ $op_im_cre = $amount_o;
 }
 }
 }
-
 
 if($receipt_id != 'O_B')
 {
@@ -1306,9 +1305,9 @@ $conditions=array("society_id" => $s_society_id,"flat"=>$flat_id);
 $cursor = $this->user->find('all',array('conditions'=>$conditions));
 foreach($cursor as $collection)
 {
-$user_id = (int)$collection['user']['user_id'];
+$user_id = (int)@$collection['user']['user_id'];
 }
-$result_gh = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch3'),array('pass'=>array($user_id)));
+$result_gh = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch3'),array('pass'=>array(@$user_id)));
 foreach ($result_gh as $collection) 
 {
 $sub_id = (int)$collection['ledger_sub_account']['auto_id'];

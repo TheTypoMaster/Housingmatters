@@ -48,12 +48,6 @@ $s_user_id=$this->Session->read('user_id');
 
 $this->set('s_role_id',$s_role_id);
 
-
-
-
-
-
-
 $this->loadmodel('financial_year');
 $conditions=array("society_id" => $s_society_id, "status"=>1);
 $cursor=$this->financial_year->find('all',array('conditions'=>$conditions));
@@ -111,10 +105,9 @@ $this->set('cursor2',$cursor2);
 
 if(isset($this->request->data['ext_addxfdfg']))
 {
-
 $posting_date = $this->request->data['posting_date'];
 $posting_date = date("Y-m-d", strtotime($posting_date));
-$posting_date = new MongoDate(strtotime($posting_date));
+//$posting_date = new MongoDate(strtotime($posting_date));
 $file_name = $_FILES['uploaded']['name'];
 $expense_head = (int)$this->request->data['ex_head'];
 $invoice_date = $this->request->data['invoice_date'];
@@ -126,30 +119,20 @@ $description = $this->request->data['description'];
 $current_date = date("d-m-Y");
 $invoice_reference = $this->request->data['invoice_reference'];
 $invoice_date = date("Y-m-d", strtotime($invoice_date));
-$invoice_date = new MongoDate(strtotime($invoice_date));
+//$invoice_date = new MongoDate(strtotime($invoice_date));
 
 
 $due_date = date("Y-m-d", strtotime($due_date));
-$due_date = new MongoDate(strtotime($due_date));
+//$due_date = new MongoDate(strtotime($due_date));
 
 $current_date = date("Y-m-d", strtotime($current_date));
-$current_date = new MongoDate(strtotime($current_date));
+//$current_date = new MongoDate(strtotime($current_date));
 
 
 $target = "expenset/";
 $target = $target . basename( $_FILES['uploaded']['name']) ;
 $ok=1;
 move_uploaded_file($_FILES['uploaded']['tmp_name'], $target);
-
-
-
-
-
-
-
-
-
-
 
 ////////////////////////////////////////
 $p = 1;
@@ -301,13 +284,12 @@ $d_receipt_id = (int)$collection['expense_tracker']['receipt_id'];
 <a href="expense_tracker_view" class="btn blue">OK</a>
 </div>
 </div>
-
 <?php		
 }
 }
-///////////////////////End Expense Tracker Add (Accounts) ////////////////////////////
+///////////////////////End Expense Tracker Add (Accounts) //////////////////////////////////////////////////////////////
 
-/////////////////////////////////////////////////////////////Start Expense Tracker View (Accounts)///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////Start Expense Tracker View (Accounts)//////////////////////////////////////////
 function expense_tracker_view()
 {
 if($this->RequestHandler->isAjax()){
