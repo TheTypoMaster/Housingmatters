@@ -37,8 +37,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 		   if($abc == $unic_id)
 		   continue;
 		   $abc = $unic_id;
-		   $from = date('d-m-Y',$date_from->sec);
-		   $to = date('d-m-Y',$date_to->sec);
+		   $from = date('d-m-Y',strtotime($date_from));
+		   $to = date('d-m-Y',strtotime($date_to));
 		   ?>
            <option value="<?php echo $unic_id; ?>"><?php echo $from; ?> to <?php echo $to; ?></option>
            <?php } ?>
@@ -78,4 +78,3 @@ $("#result").html('<div align="center" style="padding:10px;"><img src="as/loding
 
 });
 </script>	
-
