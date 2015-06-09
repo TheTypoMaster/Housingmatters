@@ -141,7 +141,6 @@ while($p < 3)
 if($p == 1)
 {
 
-
 $this->loadmodel('expense_tracker');
 $conditions=array("society_id" => $s_society_id);
 $order=array('expense_tracker.auto_id'=> 'DESC','expense_tracker.receipt_id'=>'DESC');

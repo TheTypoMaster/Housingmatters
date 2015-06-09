@@ -2490,10 +2490,10 @@ $s_ih = $this->request->data['ih'];
 }
 //$s_tem1 = explode(',',$s_tem);
 $s_cur_date = date('Y-m-d');
-$s_cur_date = new MongoDate(strtotime($s_cur_date));
+//$s_cur_date = new MongoDate(strtotime($s_cur_date));
 
 $s_from2 = date("Y-m-d", strtotime($s_from));
-$s_from2 = new MongoDate(strtotime($s_from2));
+//$s_from2 = new MongoDate(strtotime($s_from2));
 
 //$s_to2 = date("Y-m-d", strtotime($s_to));
 //$s_to2 = new MongoDate(strtotime($s_to2));
@@ -2874,9 +2874,6 @@ $this->adhoc_bill->updateAll(array("bill_html" =>$html),array("adhoc_bill_id" =>
 <?php
 }
 }
-
-
-
 
 //////////////////////// End supplimentry bill view2(Accounts)/////////////////////////////
 
