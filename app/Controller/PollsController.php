@@ -187,7 +187,8 @@ function poll_add(){
 			$poll_close_date=$current_date_add;
 
 			}
-			$poll_close_date = date("Y-m-d", strtotime($poll_close_date));
+			$poll_close_date=date('Y-m-d', strtotime(date('Y-m-d'). ' + '.$poll_close_date.' days'));
+			//$poll_close_date = date("Y-m-d", strtotime($poll_close_date));
 			$close_date = new MongoDate(strtotime($poll_close_date));
 			
 			$file=$this->request->form['file']['name'];
@@ -288,7 +289,7 @@ function poll_add(){
 		$question=wordwrap($question, 25, " ", true);
 		$description=htmlentities($this->request->data['description']);
 		$description=wordwrap($description, 25, " ", true);
-		echo $poll_close_date=$this->request->data['poll_close_date']; exit;
+		 $poll_close_date=$this->request->data['poll_close_date']; 
 		$type=(int)$this->request->data['type'];
 		$private=(int)@$this->request->data['private']; 
 		if(empty($private)) { $private=0; }
@@ -310,11 +311,9 @@ function poll_add(){
 		$poll_close_date=$current_date_add;
 
 		}
-		$poll_close_date = date("Y-m-d", strtotime($poll_close_date));
+		
+		$poll_close_date=date('Y-m-d', strtotime(date('Y-m-d'). ' + '.$poll_close_date.' days'));
 		$close_date = new MongoDate(strtotime($poll_close_date));
-
-
-
 		$s_message='Your Poll has been created.';
 
 		$file=$this->request->form['file']['name'];
