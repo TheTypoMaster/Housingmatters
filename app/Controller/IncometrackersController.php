@@ -328,13 +328,13 @@ $dueeed = $due_date;
 $due_date_msg = $due_date;
 
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
 
 $due_date = date("Y-m-d", strtotime($due_date));
-$due_date = new MongoDate(strtotime($due_date));
+//$due_date = new MongoDate(strtotime($due_date));
 
 
 
@@ -410,7 +410,7 @@ $regular_bill_id11=$last111;
 $regular_bill_id11++;
 
 $current_date11 = date('Y-m-d');
-$current_date11 = new MongoDate(strtotime($current_date11));
+//$current_date11 = new MongoDate(strtotime($current_date11));
 /////////////////////////////////////
 $total_amt = 0;
 $income_headd2 = array();
@@ -517,7 +517,7 @@ $total_amt = $total_amt + $noc_amt2;
 }
 
 ////////////////////////////////////
-$current_date = new MongoDate(strtotime(date("Y-m-d")));
+//$current_date = new MongoDate(strtotime(date("Y-m-d")));
 $this->loadmodel('regular_bill');
 $conditions=array("society_id" => $s_society_id,"bill_for_user"=>$user_id,"status"=>0);
 $cursor = $this->regular_bill->find('all',array('conditions'=>$conditions));
@@ -528,14 +528,14 @@ $due_date11 = $collection['regular_bill']['due_date'];
 $from_due = $collection['regular_bill']['bill_daterange_from'];
 }
 $cur_date = date('Y-m-d');
-$cur_datec = new MongoDate(strtotime($cur_date));
+//$cur_datec = new MongoDate(strtotime($cur_date));
 
 if($penalty == 1)
 {
 if($cur_datec > @$due_date11)
 {
-$due_date12 = date('Y-m-d',@$due_date11->sec);
-$from_due_date = date('Y-m-d',@$from_due->sec);
+$due_date12 = date('Y-m-d',strtotime(@$due_date11));
+$from_due_date = date('Y-m-d',strtotime(@$from_due));
 if($per_type2 == 1)
 {
 $date1 = date_create($due_date12);
@@ -603,7 +603,7 @@ $this->ledger->saveAll($multipleRowData);
 }
 
 $current_date13 = date('Y-m-d');
-$current_date13 = new MongoDate(strtotime($current_date13));
+//$current_date13 = new MongoDate(strtotime($current_date13));
 
 $regular_bill_id13 = (int)$this->autoincrement('regular_bill','regular_bill_id');
 
@@ -756,11 +756,11 @@ if($billing_cycle_id == 5)
 $multi_ch = 12;
 }	
 
-$date_from = date("d-M-Y", $date_from->sec);
-$date_to = date("d-M-Y", $date_to->sec);
+$date_from = date("d-M-Y",strtotime($date_from));
+$date_to = date("d-M-Y",strtotime($date_to));
 $date_to2 = date('Y-m-d',strtotime($date_to));
-$due_date21 = date('d-M-Y',@$due_date2->sec);
-$newDate = date("d-M-Y", $date->sec);	
+$due_date21 = date('d-M-Y',strtotime($due_date2));
+$newDate = date("d-M-Y",strtotime($date));	
 
 $this->loadmodel('user');
 $conditions=array("user_id"=>$user_id,"society_id" => $s_society_id);
@@ -791,7 +791,7 @@ $society_name=$collection['society']["society_name"];
 $so_reg_no = $collection['society']['society_reg_num'];
 $so_address = $collection['society']['society_address'];	
 }
-$date = date('d-M-Y',$date->sec);
+$date = date('d-M-Y',strtotime($date));
 
 //////////////////////////////////////////////
 $dateA =date('m',strtotime($date));
@@ -1328,7 +1328,7 @@ $regular_bill_id11=$last111;
 $regular_bill_id11++;
 
 $current_date11 = date('Y-m-d');
-$current_date11 = new MongoDate(strtotime($current_date11));
+//$current_date11 = new MongoDate(strtotime($current_date11));
 /////////////////////////////////////
 $total_amt = 0;
 $income_headd2 = array();
@@ -1454,8 +1454,8 @@ if($penalty == 1)
 {
 if($cur_datec > @$due_date11)
 {
-$due_date12 = date('Y-m-d',@$due_date11->sec);
-$from_due_date = date('Y-m-d',@$from_due->sec);
+$due_date12 = date('Y-m-d',strtotime(@$due_date11));
+$from_due_date = date('Y-m-d',strtotime(@$from_due));
 if($per_type2 == 1)
 {
 $date1 = date_create($due_date12);
@@ -1467,7 +1467,6 @@ $date1 = date_create($from_due_date);
 $date2 = date_create($cur_date);
 $interval = date_diff($date1, $date2);
 $days = $interval->format('%a');
-
 
 $due_tax = round((@$due_amount11 * $days * $pen_per2)/365);
 
@@ -1525,7 +1524,7 @@ $this->ledger->saveAll($multipleRowData);
 }
 
 $current_date13 = date('Y-m-d');
-$current_date13 = new MongoDate(strtotime($current_date13));
+//$current_date13 = new MongoDate(strtotime($current_date13));
 
 $regular_bill_id13 = (int)$this->autoincrement('regular_bill','regular_bill_id');
 
@@ -1573,8 +1572,7 @@ $regular_bill_id = $this->autoincrement('regular_bill','regular_bill_id');
 //////////////////////////////////////////////////////////////
 $wing_flat = $this->wing_flat($wing_id,$flat_id);
 
-
-///////////////////////////
+///////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////
 $this->loadmodel('society');
@@ -1678,13 +1676,13 @@ $multi_ch = 12;
 }	
 
 	
-$date_from = date("d-M-Y", $date_from->sec);
-$date_to = date("d-M-Y", $date_to->sec);
+$date_from = date("d-M-Y",strtotime($date_from));
+$date_to = date("d-M-Y",strtotime($date_to));
 $date_to2 = date('Y-m-d',strtotime($date_to));
 
 //$due_date = date('Y-m-d', strtotime($date_to2 .'+'. $due_days2.'day'));
-$due_date21 = date('d-M-Y',@$due_date2->sec);
-$newDate = date("d-M-Y", $date->sec);	
+$due_date21 = date('d-M-Y',strtotime(@$due_date2));
+$newDate = date("d-M-Y",strtotime(@$date));	
 
 
 $this->loadmodel('user');
@@ -1716,7 +1714,7 @@ $society_name=$collection['society']["society_name"];
 $so_reg_no = $collection['society']['society_reg_num'];
 $so_address = $collection['society']['society_address'];	
 }
-$date = date('d-M-Y',$date->sec);
+$date = date('d-M-Y',strtotime($date));
 /////////////////////////////////////
 $dateA =date('m',strtotime($date));
 $y = date('Y',strtotime($date));
@@ -1734,7 +1732,6 @@ if($dateA == 12)
 $dateA=0;
 $y++;
 }
-
 $dateA++;
 }
 
@@ -1836,7 +1833,6 @@ $html.='<tr>
 <td style="text-align:left;">'.$ih_name.'</td>
 </tr>';
 }
-
 $html.='</table>
 </td>
 <td valign="top">
@@ -2166,7 +2162,6 @@ $this->send_email($to_mail,$from,$from_name,$subject,$html,$reply);
 
 ///////////////////////////////////////////////
 }
-
 ?>
 <div class="modal-backdrop fade in"></div>
 <div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
