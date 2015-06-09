@@ -678,7 +678,7 @@ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingk
 
 
 
-
+$current_date = date('Y-m-d');
 
 //////////////////////////////////////////////////////////////
 $this->loadmodel('regular_bill');
@@ -734,7 +734,7 @@ unset($ussrs);
 	$narration = $collection['regular_bill']['description'];
 	$billing_cycle_id = (int)$collection['regular_bill']['period_id'];
 	}
-$date_frm = date('M',$date_from->sec);	
+$date_frm = date('M',strtotime($date_from));	
 if($billing_cycle_id == 1)
 {
 $multi_ch = 1;
@@ -1582,7 +1582,6 @@ foreach($cursor as $collection)
 {
 $sms_id = (int)$collection['society']['account_sms'];
 }
-echo $sms_id;
 
 if($sms_id == 1)
 {
@@ -1653,7 +1652,7 @@ unset($ussrs);
 	$narration = $collection['regular_bill']['description'];
 	$billing_cycle_id = (int)$collection['regular_bill']['period_id'];
 	}
-$date_frm = date('M',$date_from->sec);	
+$date_frm = date('M',strtotime($date_from));	
 if($billing_cycle_id == 1)
 {
 $multi_ch = 1;
@@ -2159,7 +2158,6 @@ $this->send_email($to_mail,$from,$from_name,$subject,$html,$reply);
 }
 }
 }
-
 ///////////////////////////////////////////////
 }
 ?>
