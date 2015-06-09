@@ -4111,10 +4111,10 @@ foreach($cursor as $collection)
 $society_name = $collection['society']['society_name'];
 }
 
-$m_from1 = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from1));
-$m_to1 = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to1));
+$m_from = date("Y-m-d", strtotime($from));
+//$m_from = new MongoDate(strtotime($m_from1));
+$m_to = date("Y-m-d", strtotime($to));
+//$m_to = new MongoDate(strtotime($m_to1));
 
 $excel = "<table border='1'>
 <tr>
@@ -4142,14 +4142,14 @@ $i++;
 $one_time_id =(int)$collection['regular_bill']["one_time_id"];
 $regular_bill_id=(int)$collection['regular_bill']["regular_bill_id"];
 $bill_daterange_from=$collection['regular_bill']["bill_daterange_from"];
-$bill_daterange_from2= date('d-m-Y', $bill_daterange_from->sec);
+$bill_daterange_from2= date('d-m-Y',strtotime($bill_daterange_from));
 $bill_daterange_to=$collection['regular_bill']["bill_daterange_to"];
-$bill_daterange_to2= date('d-m-Y', $bill_daterange_to->sec);
+$bill_daterange_to2= date('d-m-Y',strtotime($bill_daterange_to));
 $bill_for_user=(int)$collection['regular_bill']["bill_for_user"];
 $bill_html=$collection['regular_bill']["bill_html"];
 $g_total=$collection['regular_bill']["g_total"];
 $date=$collection['regular_bill']["date"]; 
-$date2= date('Y-m-d',$date->sec);
+$date2= date('Y-m-d',strtotime($date));
 $pay_status=(int)@$collection['regular_bill']["pay_status"];
 $receipt_id = $collection['regular_bill']['receipt_id'];
 				
@@ -4168,7 +4168,7 @@ if($user_id == $bill_for_user)
 {
 if($m_from1 <= $date2 && $m_to1 >= $date2)
 {
-$date = date('d-m-Y', $date->sec);						
+$date = date('d-m-Y',strtotime($date));						
 $total_amt = $total_amt + $g_total;									
 $excel.="								
 <tr>
@@ -4188,7 +4188,7 @@ if($wing_id == $wing)
 {
 if($m_from1 <= $date2 && $m_to1 >= $date2)
 {
-$date = date('d-m-Y', $date->sec);						
+$date = date('d-m-Y',strtotime($date));						
 $total_amt = $total_amt + $g_total;									
 $excel.="								
 <tr>
