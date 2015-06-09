@@ -879,7 +879,7 @@ if(@$date >= $m_from && @$date <= $m_to)
 {
 if($account_type == 1)
 {
-$date = date('d-m-Y',$date->sec);	
+$date = date('d-m-Y',strtotime($date));	
 
 $excel.="<tr>
 <td>$date</td>
@@ -1191,7 +1191,7 @@ if(@$date >= $m_from && @$date <= $m_to)
 {
 if($account_type == 2)
 {
-$date = date('d-m-Y',$date->sec);	
+$date = date('d-m-Y',strtotime($date));	
 
 $excel.="<tr>
 <td>$date</td>
