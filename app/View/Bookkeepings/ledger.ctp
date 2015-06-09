@@ -15,7 +15,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 $default_date_from = date('1-m-Y'); 
 $default_date_to = date('d-m-Y')
 ?> 
- <center>
+<center>
 <form method="post" onSubmit="return valid()">
 <div id="validate_result"></div>
 <div  class="hide_at_print">
@@ -160,7 +160,7 @@ $(document).ready(function() {
 		}
 		else
 		{
-		$("#result").html('<div align="center" style="padding:10px;"><img src="as/loding.gif" />Loading....</div>').load("ledger_show_ajax?date1=" +date1+ "&date2=" +date2+ "&main_id=" +main_id+ "&sub_id=" +sub_id+ "&type" + 1 + "");
+		$("#result").html('<div align="center" style="padding:10px;"><img src="as/loding.gif" />Loading....</div>').load("ledger_show_ajax?date1=" +date1+ "&date2=" +date2+ "&main_id=" +main_id+ "&sub_id=" +sub_id+ "&type=1");
 		}
 		
 	});
@@ -175,7 +175,7 @@ var date1=document.getElementById('date1').value;
 var date2=document.getElementById('date2').value;
 
 
-$("#result").html('<div align="center" style="padding:10px;"><img src="as/loding.gif" />Loading....</div>').load("ledger_show_ajax?date1=" +date1+ "&date2=" +date2+ "&flat_id=" +flat_id+ "&type=" + 2 + "");
+$("#result").html('<div align="center" style="padding:10px;"><img src="as/loding.gif" />Loading....</div>').load("ledger_show_ajax?date1=" +date1+ "&date2=" +date2+ "&flat_id=" +flat_id+ "&type=2");
 
 });
 	
