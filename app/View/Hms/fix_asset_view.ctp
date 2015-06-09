@@ -96,8 +96,8 @@ $bbb = 555;
 <th>Date of Purchase</th>
 <th>Cost of Purchase</th>
 <th>Supplier</th>
-<th>Warranty Period From</th>
-<th>Warranty Period From</th>
+<th>Warranty From</th>
+<th>Warranty To</th>
 <th>Maintanance Schedule</th>
 <th width="10%" class="hide_at_print">Action</th>
 </tr>

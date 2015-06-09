@@ -1,9 +1,9 @@
 <?php
 $date1 = date("Y-m-d", strtotime($from));
-$date1 = new MongoDate(strtotime($date1));
+//$date1 = new MongoDate(strtotime($date1));
 
 $date2 = date("Y-m-d", strtotime($to));
-$date2 = new MongoDate(strtotime($date2)); 
+//$date2 = new MongoDate(strtotime($date2)); 
 ?>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
