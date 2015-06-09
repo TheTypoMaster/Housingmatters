@@ -1329,7 +1329,7 @@ $from = $collection['financial_year']['from'];
 $to = $collection['financial_year']['to'];
 }
 $year = date('Y');
-$date_f = $from.'-'.$year;
+$date_f = @$from.'-'.$year;
 
 $datefrom = date('Y-m-d',strtotime($date_f));
 $datefrom = new MongoDate(strtotime($datefrom));
@@ -1394,7 +1394,7 @@ foreach($cursor as $collection)
 {
 $society_name = $collection['society']['society_name'];	
 }
-$this->set('society_name',$society_name);
+$this->set('society_name',@$society_name);
 
 
 
