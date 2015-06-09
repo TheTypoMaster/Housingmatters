@@ -39,7 +39,10 @@ $('#tr'+id).remove();
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>					
 
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php
+$default_date = date('d-m-Y');
 
+?>
 <div id="succ">	
 <div class="portlet box grey" style="width:100%;">
 <div class="portlet-title">
@@ -70,7 +73,7 @@ else
 
 <form  method="POST" onSubmit="return balance()" >			  
 <br>
-<input type="text" id="date"  name="date" class="all_validate  m-wrap m-ctrl-medium date-picker"  data-date-format="dd-mm-yyyy" style="background-color:#FFF !important;" placeholder="Transaction Date" >
+<input type="text" id="date"  name="date" class="all_validate  m-wrap m-ctrl-medium date-picker"  data-date-format="dd-mm-yyyy" style="background-color:#FFF !important;" placeholder="Transaction Date" value="<?php echo $default_date; ?>">
 <br><br>
 <center>
 <div id="error_msg"></div>
