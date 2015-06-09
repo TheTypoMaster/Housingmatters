@@ -1,9 +1,9 @@
 Group Name,A/c  Name,Amount Type(Debit or credit),Amount(Opening balance)
-Administrative Expenses,Postage & Courier charges,Credit,10000
-Administrative Expenses,Meeting & Welfare expenses,Credit,10000
-Current Assets,Advance given to Vendors,Credit,10000
-Contribution from Members,Non Occupancy Charges,Credit,10000
-Administrative Expenses,Audit fees,Credit,10000
+Administrative Expenses,Postage & Courier charges,,
+Administrative Expenses,Meeting & Welfare expenses,,
+Current Assets,Advance given to Vendors,,
+Contribution from Members,Non Occupancy Charges,,
+Administrative Expenses,Audit fees,,
 Fixed Assets,Plant & Machinery,,
 Fixed Assets,Office Equipments,,
 Other Income,Miscellaneous income,,
@@ -86,15 +86,15 @@ Bank Accounts,SBBJ,,
 Bank Accounts,SBI,,
 Bank Accounts,Canara Bank,,
 Bank Accounts,ICICICI,,
-Sundry Creditors Control A/c,Rohit Joshi,Debit,10000
+Sundry Creditors Control A/c,Rohit Joshi,,
 Sundry Creditors Control A/c,Ajay Pal,,
 Sundry Creditors Control A/c,Hemant Patel,,
 Tax deducted at source (TDS receivable),Service Tax1,,
-Tax deducted at source (TDS receivable),Service Tax2,Debit,20000
+Tax deducted at source (TDS receivable),Service Tax2,,
 Tax deducted at source (TDS receivable),Service Tax3,,
 Sundry Debtors Control A/c  ,Sudhir P,,
 Sundry Debtors Control A/c  ,Nikhilesh,,
-Sundry Debtors Control A/c  ,Rohit Joshi,Debit,10000
+Sundry Debtors Control A/c  ,Rohit Joshi,,
 Sundry Debtors Control A/c  ,Ankit Sisodiya,,
 Sundry Debtors Control A/c  ,Vinav Bhanawat,,
 Sundry Debtors Control A/c  ,Abhilash Lohar,,
