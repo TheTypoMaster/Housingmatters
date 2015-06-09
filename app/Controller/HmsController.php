@@ -2733,7 +2733,11 @@ function add_field()
 	$this->ath();
 	$s_user_id=$this->Session->read('user_id');
 	$files = glob("profile/$s_user_id/*.*");
-	$this->set('images',$files);
+	$this->set('images',$files); 
+	$user_name="Rohit Joshi";
+	$random_otp="9877";
+	// $sms='Dear '.$user_name.' Please enter your code '.$random_otp.' on the signup screen to continue your HousingMatters registration process. Thank you';
+	// $sms=''.$random_otp.' is your One Time Passcode, please enter on the signup screen to continue your HousingMatters registration process.';
 	
 }
 
@@ -8740,7 +8744,8 @@ $r_sms=$this->hms_sms_ip();
   $working_key=$r_sms->working_key;
  $sms_sender=$r_sms->sms_sender; 	
 	
-$sms='Dear '.$user_name.' Please enter your code '.$random_otp.' on the signup screen to continue your HousingMatters registration process. Thank you';
+//$sms='Dear '.$user_name.' Please enter your code '.$random_otp.' on the signup screen to continue your HousingMatters registration process. Thank you';
+$sms=''.$random_otp.' is your One Time Passcode, please enter on the signup screen to continue your HousingMatters registration process.';
 $sms1=str_replace(' ', '+', $sms);
 @$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 $this->user->updateAll(array('password'=>$random_otp,'deactive'=>2),array('user.user_id'=>$user_id));
@@ -8775,7 +8780,8 @@ $working_key=$r_sms->working_key;
 $sms_sender=$r_sms->sms_sender; 
 	
 	 $random_otp=(string)mt_rand(1000,9999);
-$sms='Dear '.$user.' Please enter your code '.$random_otp.' on the signup screen to continue your HousingMatters registration process. Thank you';
+//$sms='Dear '.$user.' Please enter your code '.$random_otp.' on the signup screen to continue your HousingMatters registration process. Thank you';
+$sms=''.$random_otp.' is your One Time Passcode, please enter on the signup screen to continue your HousingMatters registration process.';
 $sms1=str_replace(' ', '+', $sms);
 $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 $this->user->updateAll(array('password'=>$random_otp),array('user.user_id'=>$id));
