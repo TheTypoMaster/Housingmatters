@@ -1,16 +1,15 @@
 <?php
 $m_from = date("Y-m-d", strtotime($date111));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 
 $m_to = date("Y-m-d", strtotime($date222));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
 
 $opening_balance = 0;
 $closing_balance = 0;
 $nnn = 1;
-//$open_bal_import = $op_cred - $op_deb;
-?>
 
+?>
 <?php
 
 if($main_id == 34 || $main_id == 15 || $main_id == 33 || $main_id == 35)
@@ -31,12 +30,7 @@ $cursor2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger
 									
 					?>              
 					
-					
-					             
-					
-					
-                                   
-							
+			
 									<?php
                                    
                                      $opening_balance = 0;
@@ -228,7 +222,7 @@ $amount_category = @$collection['amount_category']['amount_category'];
 											 if($account_type == 1)
 											 {
 											 $nnn = 5;
-											 $date = date('d-m-Y',$date->sec);	
+											 //$date = date('d-m-Y',$date->sec);	
       								?>
 																			
 										<?php
@@ -350,53 +344,48 @@ $amount_category_fetch3 = $this->requestAction(array('controller' => 'hms', 'act
 									} 
 */
 									
-									if($sub_account_id == $main_id)
-	                                {
-									
-									if(@$date1 < $m_from)
-									{
-								   if($account_type == 2)
-								   {
-										if($amount_category_id == 1)
-										{
-										$opening_balance = $opening_balance - $amount_o;
-										}
-										else if($amount_category_id == 2)
-										{
-										$opening_balance = $opening_balance + $amount_o;	
-										}
-									}
-									}
-									}
-									} 
+if($sub_account_id == $main_id)
+{
+if(@$date1 < $m_from)
+{
+if($account_type == 2)
+{
+if($amount_category_id == 1)
+{
+$opening_balance = $opening_balance - $amount_o;
+}
+else if($amount_category_id == 2)
+{
+$opening_balance = $opening_balance + $amount_o;	
+}
+}
+}
+}
+} 
+?>
+<?php
+$balance = $opening_balance;
+?>
 
+										
 
- ?>
-                                   
-									
-                                    <?php
-                                    $balance = $opening_balance;
-									?>
-													
-										
-										
-								<?php
-									$total_debit = 0;
-									$total_credit = 0;
-									foreach ($cursor3 as $collection) 
-									{
-                                     $auto_id = (int)@$collection['ledger']['auto_id'];
-									 $account_type = (int)@$collection['ledger']['account_type'];
-									 $receipt_id = (int)@$collection['ledger']['receipt_id']; 
-                                     $amount = @$collection['ledger']['amount'];
-					                 $amount_category_id = (int)@$collection['ledger']['amount_category_id'];
-									 $module_id = (int)@$collection['ledger']['module_id'];
-									 $sub_account_id = (int)@$collection['ledger']['account_id']; 
-									 $current_date = @$collection['ledger']['current_date'];
-									 $society_id = (int)@$collection['ledger']['society_id'];
-                                     $table_name = @$collection['ledger']['table_name'];
-									 $module_name = @$collection['ledger']['module_name'];
-									 if($table_name == "cash_bank")
+<?php
+$total_debit = 0;
+$total_credit = 0;
+foreach ($cursor3 as $collection) 
+{
+$auto_id = (int)@$collection['ledger']['auto_id'];
+$account_type = (int)@$collection['ledger']['account_type'];
+$receipt_id = (int)@$collection['ledger']['receipt_id']; 
+$amount = @$collection['ledger']['amount'];
+$amount_category_id = (int)@$collection['ledger']['amount_category_id'];
+$module_id = (int)@$collection['ledger']['module_id'];
+$sub_account_id = (int)@$collection['ledger']['account_id']; 
+$current_date = @$collection['ledger']['current_date'];
+$society_id = (int)@$collection['ledger']['society_id'];
+$table_name = @$collection['ledger']['table_name'];
+$module_name = @$collection['ledger']['module_name'];
+if($table_name == "cash_bank")
 									 {
 									 $module_id = (int)$collection['ledger']['module_id'];	 
 									 }
@@ -462,7 +451,7 @@ $amount_category = @$collection['amount_category']['amount_category'];
 											if($account_type == 2)
 											{
 										$nnn = 5;
-											 $date = date('d-m-Y',$date->sec);	
+											// $date = date('d-m-Y',$date->sec);	
 									 
 									 	?>
 										
@@ -776,7 +765,7 @@ $amount_category = @$collection['amount_category']['amount_category'];
 											 if($account_type == 1)
 											 {
 											
-											 $date = date('d-m-Y',$date->sec);	
+											// $date = date('d-m-Y',$date->sec);	
       								?>
 									 <tr>
 											<td><?php echo $date; ?></td>
@@ -1172,7 +1161,7 @@ $module_date_fetch4 = $this->requestAction(array('controller' => 'hms', 'action'
 											if($account_type == 2)
 											{
 										
-											 $date = date('d-m-Y',$date->sec);	
+											 //$date = date('d-m-Y',$date->sec);	
                                          
  										    
 									 	?>

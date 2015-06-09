@@ -1267,7 +1267,6 @@ $excel.="$closing_balance</th>
 
 $excel.="</table>";
 }
-
 echo $excel;
 }
 //////////////////////////// End Ledger Excel (Accounts)/////////////////////////////
@@ -1282,6 +1281,7 @@ $s_user_id=$this->Session->read('user_id');
 
 $this->set('s_role_id',$s_role_id);
 $type = (int)$this->request->query('type');
+$this->set('type',$type);
 if($type == 1)
 {
 $main_id = (int)$this->request->query('main_id');
