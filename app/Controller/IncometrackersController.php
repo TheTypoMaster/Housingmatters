@@ -4078,6 +4078,7 @@ echo $excel;
 function regular_bill_excel()
 {
 $s_society_id=(int)$this->Session->read('society_id');
+$s_user_id = (int)$this->Session->read('user_id');
 $this->layout="";
 $filename= "Regular_Bill";
 header ("Expires: 0");
@@ -4162,11 +4163,12 @@ $flat_id = (int)$collection['user']['flat'];
 $tenant = (int)$collection['user']['tenant'];
 }	
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
+
 if($wise == 2)
 {
 if($user_id == $bill_for_user)
 {
-if($m_from1 <= $date2 && $m_to1 >= $date2)
+if($m_from <= $date2 && $m_to >= $date2)
 {
 $date = date('d-m-Y',strtotime($date));						
 $total_amt = $total_amt + $g_total;									
@@ -4182,11 +4184,12 @@ $excel.="
 </tr>";
 }
 }}
+
 else if($wise == 1)
 {
 if($wing_id == $wing)
 {
-if($m_from1 <= $date2 && $m_to1 >= $date2)
+if($m_from <= $date2 && $m_to >= $date2)
 {
 $date = date('d-m-Y',strtotime($date));						
 $total_amt = $total_amt + $g_total;									
@@ -4207,9 +4210,9 @@ else if($wise == 3)
 {
 if($bill_id == $receipt_id)
 {
-if($m_from1 <= $date2 && $m_to1 >= $date2)
+if($m_from <= $date2 && $m_to >= $date2)
 {
-$date = date('d-m-Y', $date->sec);						
+$date = date('d-m-Y',strtotime($date));						
 $total_amt = $total_amt + $g_total;	
 $excel.="								
 <tr>
@@ -4230,6 +4233,7 @@ $excel.="
 <th colspan='6'>Total</th>
 <th>$total_amt</th>
 </tr>";
+
 
 $excel.="</table>";
 echo $excel;
