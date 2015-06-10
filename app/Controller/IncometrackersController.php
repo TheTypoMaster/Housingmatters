@@ -4321,9 +4321,9 @@ $to = $this->request->query('t');
 $tp = $this->request->query('tp');
 
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
 
 if($tp == 1)
 {
@@ -4358,7 +4358,7 @@ $g_total=$collection['adhoc_bill']["g_total"];
 $html_bill = $collection['adhoc_bill']['bill_html'];
 $bill_date_from = $collection['adhoc_bill']['bill_daterange_from'];
 //$bill_date_to = $collection['adhoc_bill']['bill_daterange_to'];
-$bill_date_from2 = date('d-m-Y',$bill_date_from->sec);
+$bill_date_from2 = date('d-m-Y',strtotime($bill_date_from));
 //$bill_date_to2 = date('d-m-Y',$bill_date_to->sec);
 
 if($residential=="y")
@@ -4378,7 +4378,6 @@ $user_name = $collection['user']['user_name'];
 }	
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));									
 $bill_for = $wing_flat;
-
 $bill_type = "Residential";
 }
 
@@ -4393,7 +4392,7 @@ $wing_flat = "";
 if($m_from <= $date && $m_to >= $date)
 {
 $i++;
-$date = date('d-m-Y',$date->sec);
+$date = date('d-m-Y',strtotime($date));
 $grand_total = $grand_total + $g_total;
 $excel.="<tr>
 <td>$i</td>
@@ -4444,7 +4443,7 @@ $g_total=$collection['adhoc_bill']["g_total"];
 $html_bill = $collection['adhoc_bill']['bill_html'];
 $bill_date_from = $collection['adhoc_bill']['bill_daterange_from'];
 //$bill_date_to = $collection['adhoc_bill']['bill_daterange_to'];
-$bill_date_from2 = date('d-m-Y',$bill_date_from->sec);
+$bill_date_from2 = date('d-m-Y',strtotime($bill_date_from));
 //$bill_date_to2 = date('d-m-Y',$bill_date_to->sec);
 
 if($residential=="y")
@@ -4470,7 +4469,7 @@ $bill_type = "Residential";
 if($m_from <= $date && $m_to >= $date)
 {
 	$i++;
-$date = date('d-m-Y',$date->sec);
+$date = date('d-m-Y',strtotime($date));
 $grand_total = $grand_total + $g_total;
 
 $excel.="<tr>
@@ -4520,7 +4519,7 @@ $g_total=$collection['adhoc_bill']["g_total"];
 $html_bill = $collection['adhoc_bill']['bill_html'];
 $bill_date_from = $collection['adhoc_bill']['bill_daterange_from'];
 //$bill_date_to = $collection['adhoc_bill']['bill_daterange_to'];
-$bill_date_from2 = date('d-m-Y',$bill_date_from->sec);
+$bill_date_from2 = date('d-m-Y',strtotime($bill_date_from));
 //$bill_date_to2 = date('d-m-Y',$bill_date_to->sec);	
 if($residential=="n")
 {
@@ -4532,7 +4531,7 @@ $wing_flat = "";
 if($m_from <= $date && $m_to >= $date)
 {
 $i++;
-$date = date('d-m-Y',$date->sec);
+$date = date('d-m-Y',strtotime($date));
 $grand_total = $grand_total + $g_total;
 $excel.="<tr>
 <td>$i</td>
