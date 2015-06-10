@@ -3073,9 +3073,9 @@ $from = $this->request->query('f');
 $to = $this->request->query('t');
 
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
 
 /////////////////////////////
 $this->loadmodel('society');
