@@ -55,6 +55,51 @@ foreach($result_society as $data)
 <textarea rows='5' cols='5' style='resize:none;' name='address' class="m-wrap span9"><?php echo $society_address ; ?></textarea>
 </div>
 <br />
+
+
+
+<label style="font-size:14px;">Society Signature<span style="color:red;">*</span></label>
+<div class="controls">
+<div class="fileupload fileupload-new" data-provides="fileupload">
+<div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
+<img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="">
+</div>
+<div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+<div>
+<span class="btn btn-file"><span class="fileupload-new">Select image</span>
+<span class="fileupload-exists">Change</span>
+<input type="file" class="default" name="sig" id="sig"></span>
+<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+</div>
+</div>
+<label id="sig_vali"></label>
+</div>
+<br />
+
+
+<label style="font-size:14px;">Society Logo<span style="color:red;">*</span></label>
+<div class="controls">
+<div class="fileupload fileupload-new" data-provides="fileupload">
+<div class="fileupload-new thumbnail" style="width: 200px; height: 150px;">
+<img src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" alt="">
+</div>
+<div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+<div>
+<span class="btn btn-file"><span class="fileupload-new">Select image</span>
+<span class="fileupload-exists">Change</span>
+<input type="file" class="default" name="logo"></span>
+<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+</div>
+</div>
+</div>
+<br />
+
+
+
+
+
+
+
 </div>
 <div class="span6">
 <h4 style="color:#999;">Optional Field</h4>
@@ -82,7 +127,7 @@ foreach($result_society as $data)
 </div>
 </div>
 <hr/>
-<button type="submit" class="btn blue" >Update </button>
+<button type="submit" class="btn blue" id="go">Update </button>
 <br /><br />
 </form>
 </div>
@@ -92,9 +137,6 @@ foreach($result_society as $data)
 </div>
 </div>
 </div>
-
-
-
 
 <script>
 $(document).ready(function(){
