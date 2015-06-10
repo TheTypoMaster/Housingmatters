@@ -57,9 +57,9 @@ Society Setup
 <table width="100%" style="background-color:#CDD5ED;">
 <tr class="table table-bordered table-hover" style="font-size:16px;">
 <th style="text-align:center;" width="25%">Wing</th>
-<th style="text-align:center;" width="25%">Flat Number</th>
-<th style="text-align:center;" width="25%">Flat Type</th>
-<th style="text-align:center;" width="25%">Flat Area (Sq.Ft.)</th>
+<th style="text-align:center;" width="25%">Unit Number</th>
+<th style="text-align:center;" width="25%">Unit Type</th>
+<th style="text-align:center;" width="25%">Unit Area (Sq.Ft.)</th>
 </tr>
 </table>
 <form id="form2" method="post">
@@ -143,9 +143,9 @@ $flat_type_name = $collection['flat_type_name']['flat_name'];
 					<tr>
 					<th>Sr No.</th>
 					<th>Wing</th>
-					<th>Flat-Number</th>
-                    <th>Flat Type</th>
-                    <th>Flat Area (Sq. Ft.)</th>
+					<th>Unit Number</th>
+                    <th>Unit Type</th>
+                    <th>Unit Area (Sq. Ft.)</th>
                     <th>NOC Type</th>
 					</tr>
 							</thead>

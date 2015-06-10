@@ -19494,9 +19494,9 @@ $excel="<table border='1'>
 <tr>
 <th>Sr No.</th>
 <th>Wing</th>
-<th>Flat Number</th>
-<th>Flat Type</th>
-<th>Flat Area(Sq. Ft.)</th>
+<th>Unit Number</th>
+<th>Unit Type</th>
+<th>Unit Area(Sq. Ft.)</th>
 <th>Status</th>
 </tr>";
 $q = 0;

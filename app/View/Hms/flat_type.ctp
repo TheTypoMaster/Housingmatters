@@ -63,7 +63,7 @@ $wing_name = $collection['wing']['wing_name'];
 <tr>
 <th style="text-align:center;">Sr #</th>
 <th style="text-align:center;">Wing Name</th>
-<th style="text-align:center;">Flat Number</th>
+<th style="text-align:center;">Unit Number</th>
 </tr>
 <?php
 $c=0;

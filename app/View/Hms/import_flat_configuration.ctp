@@ -3,9 +3,9 @@
 <table class="m-wrap table table-bordered" id="open_bal">
 <tr>
 <th>Wing</th>
-<th>Flat Number</th>
-<th>Flat Type</th>
-<th>Flat Area (Sq.Ft.)</th>
+<th>Unit Number</th>
+<th>Unit Type</th>
+<th>Unit Area (Sq.Ft.)</th>
 <th>Delete</th>
 </tr>
 <?php 
