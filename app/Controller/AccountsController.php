@@ -1499,10 +1499,10 @@ $to = $this->request->query('t');
 //$tp = (int)$this->request->query('tp');
 
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
 
 //////////////////////////////////////////////////////////
 $excel="<table border='1'>
@@ -1539,9 +1539,9 @@ $due_date = $collection['regular_bill']['due_date'];
 $total_amount = (int)$collection['regular_bill']['g_total'];
 $remaining_amt = (int)$collection['regular_bill']['remaining_amount'];
 $date = $collection['regular_bill']['date'];
-$fromm = date('d-M-Y',$from2->sec);
-$tom = date('d-M-Y',$to2->sec);
-$due = date('d-M-Y',$due_date->sec);
+$fromm = date('d-M-Y',strtotime($from2));
+$tom = date('d-M-Y',strtotime($to2));
+$due = date('d-M-Y',strtotime($due_date));
 $pay_amt = $total_amount - $remaining_amt; 
 if($m_from <= $date && $m_to >= $date)
 {
@@ -1549,7 +1549,7 @@ $nn++;
 $gt_amt = $gt_amt + $total_amount;
 $gt_pay_amt = $gt_pay_amt + $pay_amt;
 $due_amt = $due_amt + $remaining_amt;
-$date1 = date('d-m-Y',$date->sec);
+$date1 = date('d-m-Y',strtotime($date));
 
 $excel.="<tr>
 <td style='text-align:center;'>$bill_no</td>
