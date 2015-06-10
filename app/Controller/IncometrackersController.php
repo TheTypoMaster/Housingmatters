@@ -5224,9 +5224,9 @@ $to = $this->request->query('t');
 $user_id = (int)$this->request->query('u');
 
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
 
 $excel="<table border='1'>
 <tr>
@@ -5260,9 +5260,9 @@ $date = $collection['regular_bill']['date'];
 $user_id = (int)$collection['regular_bill']['bill_for_user'];
 //$bill_no = (int)$collection[''][''];
 //$bill_no = (int)$collection[''][''];
-$date_from1 = date('d-M-Y',$date_from->sec);
-$date_to1 = date('d-M-Y',$date_to->sec);
-$due_date = date('d-M-Y',$last_date->sec); 
+$date_from1 = date('d-M-Y',strtotime($date_from));
+$date_to1 = date('d-M-Y',strtotime($date_to));
+$due_date = date('d-M-Y',strtotime($last_date)); 
 
 $bill_html = $collection['regular_bill']['bill_html'];
 $receipt_id = (int)$collection['regular_bill']['receipt_id']; 
