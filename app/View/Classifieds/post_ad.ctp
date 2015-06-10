@@ -186,25 +186,7 @@ $(document).ready(function() {
 	});
 	 });
 </script>
-<script type="text/javascript">
-        $('#image-file').bind('change', function() {
-           var size = this.files[0].size/1024/1024;
-		   var f_name = this.files[0].name;
-		   
-		   var re = /(\.jpg|\.jpeg|\.bmp|\.gif|\.png)$/i;
-			if(!re.exec(f_name))
-			{
-			$("label[report=file]").html('<span style="color:red;">File extension not supported!</span>');
-			  xhr.abort();
-			}
-		   
-		   if(size>=1){
-			  $("label[report=file]").html('<span style="color:red;">File Size should be less than 1 MB.</span>');
-			  xhr.abort();
-		   }
-		   
-        });
-    </script>
+
 <script>
 $(document).ready(function() {
 	$(".form_post").bind('click', function(e){
