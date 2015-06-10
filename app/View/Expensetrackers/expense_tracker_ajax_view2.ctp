@@ -15,7 +15,7 @@ foreach($cursor3 as $collection)
 {
 $auto_id = (int)$collection['expense_tracker']['auto_id'];	
 $expense_date_mongo = $collection['expense_tracker']['posting_date'];
-$expense_date = date('d-m-Y',$expense_date_mongo->sec);
+$expense_date = date('d-m-Y',strtotime($expense_date_mongo));
 $expense_month = date("M-Y",strtotime($expense_date));
 if($expense_month == $mon1) 
 {
@@ -30,7 +30,7 @@ $expense_arr[] = array($auto_id,$expense_month);
 foreach($cursor3 as $collection)
 {
 $expense_date_mongo = $collection['expense_tracker']['posting_date'];
-$expense_date = date('d-m-Y',$expense_date_mongo->sec);
+$expense_date = date('d-m-Y',strtotime($expense_date_mongo));
 $expense_month = date("M-Y",strtotime($expense_date));
 $expense_month_arr[] = $expense_month;
 
@@ -74,7 +74,7 @@ foreach($cursor3 as $collection6)
 $exps_head = (int)$collection6['expense_tracker']['expense_head'];
 $posting_date = $collection6['expense_tracker']['posting_date'];
 $amount = $collection6['expense_tracker']['amount'];
-$posting_date = date('M-Y',$posting_date->sec);
+$posting_date = date('M-Y',strtotime($posting_date));
 if($posting_date == $month_name3 && $exp_head2 == $exps_head)
 {
 $total = $total + $amount;	
@@ -174,7 +174,7 @@ foreach($cursor3 as $collection6)
 $exps_head = (int)$collection6['expense_tracker']['expense_head'];
 $posting_date = $collection6['expense_tracker']['posting_date'];
 $amount = $collection6['expense_tracker']['amount'];
-$posting_date = date('M-Y',$posting_date->sec);
+$posting_date = date('M-Y',strtotime($posting_date));
 if($posting_date == $month_name3 && $exp_head2 == $exps_head)
 {
 $total = $total + $amount;	

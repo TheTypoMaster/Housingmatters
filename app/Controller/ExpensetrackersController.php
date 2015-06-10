@@ -439,10 +439,10 @@ $from = $this->request->query('f');
 $to = $this->request->query('t');
 
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
 
 $s_role_id = (int)$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
@@ -461,11 +461,9 @@ $end      = (new DateTime($to));
 $interval = DateInterval::createFromDateString('1 month');
 $period   = new DatePeriod($start, $interval, $end);
 
-
 foreach($period as $data)
 {
 $mon1 = $data->format("M-Y");
-
 $this->loadmodel('expense_tracker');
 $conditions=array("society_id"=>$s_society_id);
 $cursor3 = $this->expense_tracker->find('all',array('conditions'=>$conditions));
@@ -473,7 +471,7 @@ foreach($cursor3 as $collection)
 {
 $auto_id = (int)$collection['expense_tracker']['auto_id'];	
 $expense_date_mongo = $collection['expense_tracker']['posting_date'];
-$expense_date = date('d-m-Y',$expense_date_mongo->sec);
+$expense_date = date('d-m-Y',strtotime($expense_date_mongo));
 $expense_month = date("M-Y",strtotime($expense_date));
 if($expense_month == $mon1) 
 {
@@ -487,7 +485,7 @@ $cursor3 = $this->expense_tracker->find('all',array('conditions'=>$conditions));
 foreach($cursor3 as $collection)
 {
 $expense_date_mongo = $collection['expense_tracker']['posting_date'];
-$expense_date = date('d-m-Y',$expense_date_mongo->sec);
+$expense_date = date('d-m-Y',strtotime($expense_date_mongo));
 $expense_month = date("M-Y",strtotime($expense_date));
 $expense_month_arr[] = $expense_month;
 }
@@ -550,7 +548,7 @@ foreach($cursor3 as $collection6)
 $exps_head = (int)$collection6['expense_tracker']['expense_head'];
 $posting_date = $collection6['expense_tracker']['posting_date'];
 $amount = $collection6['expense_tracker']['amount'];
-$posting_date = date('M-Y',$posting_date->sec);
+$posting_date = date('M-Y',strtotime($posting_date));
 if($posting_date == $month_name3 && $exp_head2 == $exps_head)
 {
 $total = $total + $amount;	
@@ -665,17 +663,17 @@ $output=json_encode(array('report_type'=>'error','report'=>$report));
 die($output);
 }
 
-$date = date('Y-m-d');
-$current_date = new MongoDate(strtotime($date));
+$current_date = date('Y-m-d');
+//$current_date = new MongoDate(strtotime($date));
 
 $posting_date2 = date("Y-m-d", strtotime($posting_date));
-$posting_date2 = new MongoDate(strtotime($posting_date2));
+//$posting_date2 = new MongoDate(strtotime($posting_date2));
 
 $due_date2 = date("Y-m-d", strtotime($due_date));
-$due_date2 = new MongoDate(strtotime($due_date2));
+//$due_date2 = new MongoDate(strtotime($due_date2));
 
 $invoice_date2 = date("Y-m-d", strtotime($invoice_date));
-$invoice_date2 = new MongoDate(strtotime($invoice_date2));
+//$invoice_date2 = new MongoDate(strtotime($invoice_date2));
 
 
 
