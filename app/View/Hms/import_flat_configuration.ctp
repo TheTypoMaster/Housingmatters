@@ -1,5 +1,5 @@
 <div>
-<div id="vali"></div>
+<div id="vali5"></div>
 <table class="m-wrap table table-bordered" id="open_bal">
 <tr>
 <th>Wing</th>
@@ -14,7 +14,6 @@ foreach($table as $child){
 $i++;
 ?>
 <tr id="tr<?php echo $i; ?>">
-				
 <td>
 <select class="span10 m-wrap wing" id="wing2" name="wing" inc_id="<?php echo $i; ?>">
 <option value="">Select</option>

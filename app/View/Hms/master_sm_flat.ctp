@@ -392,7 +392,6 @@ dataType:'json',
 if(response.report_type=='error'){
 jQuery.each(response.report, function(i, val) {
 $("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").append('<span class="report" style="color:red;">'+val.text+'</span>');
-
 $("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
 
 $("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
@@ -402,7 +401,7 @@ $("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background
 }
 if(response.report_type=='vali')
 {
-$("#vali").html('<b style="color:red;">'+response.text+'</b>');
+$("#vali5").html('<b style="color:red;">'+response.text+'</b>');
 }
 if(response.report_type=='done')
 {
