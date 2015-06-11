@@ -3008,11 +3008,17 @@ $account_group = (int)$post_data['ac_gr'];
 $party_account = (int)$post_data['prt_ac'];
 $account_head = (int)$post_data['ac_head'];
 $transaction_date = $post_data['tra_dat'];
+if($account_group == 2)
+{
 $amt = $post_data['amt'];
+}
 $narration = $post_data['desc'];
+if($account_group == 1)
+{
+$amt2 = $post_data['deb'];
+}
 
 $report = array();
-
 if(empty($account_group)){
 $report[]=array('label'=>'ac_grp', 'text' => 'Please select Expense Head');
 }	
