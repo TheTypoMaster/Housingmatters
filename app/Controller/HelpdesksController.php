@@ -842,11 +842,6 @@ $this->response->header('Location:help_desk_sm_close_ticket');
 
 }
 
-function assign_ticket()
-{
-$this->layout='blank';
-}
-
 
 function help_desk_sm_close_ticket()
 {
@@ -1198,6 +1193,7 @@ $this->set('ticket_id',(int)$collection['help_desk']['ticket_id']);
 $this->set('help_desk_close_date',@$collection['help_desk']['help_desk_close_date']);
 $this->set('help_desk_close_comment',@$collection['help_desk']['help_desk_close_comment']);
 $help_desk_complain_type_id=(int)$collection['help_desk']['help_desk_complain_type_id'];
+$hd_sp_id=(int)$collection['help_desk']['help_desk_service_provider_id'];
 $this->set('help_desk_complain_type_id',$help_desk_complain_type_id);
 $this->set('help_desk_date',$collection['help_desk']['help_desk_date']);
 $this->set('help_desk_time',$collection['help_desk']['help_desk_time']);
@@ -1225,10 +1221,10 @@ $result_vendor=$this->vendor->find('all',array('conditions'=>$conditions));
 $this->set('result_vendor',$result_vendor);
 foreach ($result_vendor as $collection)
 {
- $vendor_id = (int)$collection['vendor']['vendor_id'];
+    $vendor_id = (int)$collection['vendor']['vendor_id'];
 }
 
-$result_sp2=$this->fetch_service_provider_info_via_vendor_id(@$vendor_id);
+$result_sp2=$this->fetch_service_provider_info_via_vendor_id(@$hd_sp_id);
 foreach ($result_sp2 as $collection3)
 {
 $this->set('sp_name',$collection3['service_provider']['sp_name']);
@@ -1330,6 +1326,42 @@ $this->set('d2',$d2);
 	$result_help_desk_report1=$this->help_desk->find('all',array('conditions'=>$conditions));
 	$this->set('result_help_desk_report1',$result_help_desk_report1);
 }
+
+
+
+function assign_ticket_to_sp_sms()
+{
+	$this->layout='blank';
+	 $sp_id=(int)$this->request->query('sp_id');
+	$mobile=$this->request->query('mob');
+	$hd_id=(int)$this->request->query('hd_id');
+	$date=date("d-m-y");
+	$r_sms=$this->hms_sms_ip();
+	$working_key=$r_sms->working_key;
+	$sms_sender=$r_sms->sms_sender; 
+	$s_society_id=$this->Session->read('society_id');
+	$s_user_id=$this->Session->read('user_id');
+	
+	$this->loadmodel('help_desk');
+	$conditions=array("help_desk_id" => $hd_id);
+	$result=$this->help_desk->find('all',array('conditions'=>$conditions));
+	foreach ($result as $collection) 
+	{
+		 $ticket_id=(int)$collection['help_desk']['ticket_id'];
+		 $d_user_id=(int)$collection['help_desk']['user_id'];
+	}
+	
+	
+	$sms='New Helpdesk ticket '.$ticket_id.' assign ticket to you';
+	$sms1=str_replace(' ', '+', $sms);
+	$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+	
+	$this->loadmodel('help_desk');
+	$this->help_desk->updateAll(array("help_desk_service_provider_id" => $sp_id,"help_desk_assign_date" => $date),array("help_desk_id" => $hd_id));
+	$this->response->header('Location:help_desk_sm_open_ticket');
+}
+
+
 
 function assign_ticket_to_sp()
 {
