@@ -47,8 +47,8 @@ Receipt Applied towards following bill:
 <td colspan="6" style="text-align:right;"><label id="ab"></label></td>
 </table>
 
-<input type="hidden" value="<?php echo $bill_no; ?>" name="bill_no" />
- 
+<input type="hidden" value="<?php echo $bill_no; ?>" name="bill_no" id="bll" />
+<label report="amt2" class="remove_report"></label>
 <?php
 }
 else
