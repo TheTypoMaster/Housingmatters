@@ -532,7 +532,7 @@ $cur_date = date('Y-m-d');
 
 if($penalty == 1)
 {
-if($cur_datec > @$due_date11)
+if($cur_date > @$due_date11)
 {
 $due_date12 = date('Y-m-d',strtotime(@$due_date11));
 $from_due_date = date('Y-m-d',strtotime(@$from_due));
@@ -834,7 +834,7 @@ $html='<center>
 </th>
 </tr>
 <tr>
-<th style="text-align:center;">'.$so_reg_no.'</th>
+<th style="text-align:center;">Regn#  &nbsp;&nbsp; '.$so_reg_no.'</th>
 </tr>
 <tr>
 <th style="text-align:center;">'.$so_address.'</th>
@@ -858,8 +858,8 @@ Name :
 <td style="text-align:left;">'.$date.'</td>
 </tr>
 <tr>
-<td style="text-align:left;">Due Date:</td>
-<td style="text-align:left;">'.$due_date21.'</td>
+<td style="text-align:left;"></td>
+<td style="text-align:left;"></td>
 </tr>
 </table>
 <table border="0" style="width:39%; float:right;">
@@ -878,6 +878,10 @@ Name :
 <tr>
 <td style="text-align:left;">Billing Period:</td>
 <td style="text-align:left;">'.$monthB.''. $year.'</td>
+</tr>
+<tr>
+<td style="text-align:left;">Due Date:</td>
+<td style="text-align:left;">'.$due_date21.'</td>
 </tr>
 </table>
 </div>
@@ -970,31 +974,21 @@ $grand_total2 = number_format($grand_total);
 
 $html.='<table border="0" style="width:100%;">
 <tr>';
-if($total_amount2 != 0)
-{
 $html.='
 <td style="text-align:center;">'.$total_amount3.'</td>
 </tr>';
-}
-if($due_amt3 != 0)
-{
 $html.='<tr>
 <td style="text-align:center;">'.@$due_amt4.'</td>
 </tr>';
-}
-if($late_amt2 != 0)
-{
 $html.='
 <tr>
 <td style="text-align:center;">'.@$late_amt3.'</td>
 </tr>';
-}
-if($grand_total != 0)
-{
+
 $html.='<tr>
 <th style="text-align:center;">'.$grand_total2.'</th>
 </tr>';
-}
+
 $html.='
 </table>
 </td>
@@ -1031,7 +1025,7 @@ $html.='
 $html.='</table> 
 </div>
 <div style="width:80%; overflow:auto; border:solid 1px; border-top:none;">
-<br><br><br>
+
 <table border="0" style="width:100%;">
 <tr>
 <td style="text-align:right;">
@@ -1039,6 +1033,7 @@ $html.='</table>
 </td>
 </tr>
 </table>
+<br><br><br>
 </div>
 <br><br><br><br>
 </div>
@@ -1437,7 +1432,7 @@ $total_amt = $total_amt + $noc_amt2;
 
 ////////////////////////////////////
 //$tax_amount = round(($tax_per/100)*$total_amount);
-$current_date = new MongoDate(strtotime(date("Y-m-d")));
+$current_date = date('Y-m-d');
 $this->loadmodel('regular_bill');
 $conditions=array("society_id" => $s_society_id,"bill_for_user"=>$user_id,"status"=>0);
 $cursor = $this->regular_bill->find('all',array('conditions'=>$conditions));
@@ -1756,7 +1751,7 @@ $html='<center>
 </th>
 </tr>
 <tr>
-<th style="text-align:center;">'.$so_reg_no.'</th>
+<th style="text-align:center;">Regn# &nbsp;&nbsp; '.$so_reg_no.'</th>
 </tr>
 <tr>
 <th style="text-align:center;">'.$so_address.'</th>
@@ -1780,8 +1775,8 @@ Name :
 <td style="text-align:left;">'.$date.'</td>
 </tr>
 <tr>
-<td style="text-align:left;">Due Date:</td>
-<td style="text-align:left;">'.$due_date21.'</td>
+<td style="text-align:left;"></td>
+<td style="text-align:left;"></td>
 </tr>
 </table>
 <table border="0" style="width:39%; float:right;">
@@ -1800,6 +1795,10 @@ Name :
 <tr>
 <td style="text-align:left;">Billing Period:</td>
 <td style="text-align:left;">'.$monthB.''.  $year.'</td>
+</tr>
+<tr>
+<td style="text-align:left;">Due Date:</td>
+<td style="text-align:left;">'.$due_date21.'</td>
 </tr>
 </table>
 </div>
@@ -1923,7 +1922,7 @@ $html.='
 $html.='</table> 
 </div>
 <div style="width:80%; overflow:auto; border:solid 1px; border-top:none;">
-<br><br><br>
+
 <table border="0" style="width:100%;">
 <tr>
 <td style="text-align:right;">
@@ -1931,6 +1930,7 @@ $html.='</table>
 </td>
 </tr>
 </table>
+<br><br><br>
 </div>
 <br><br><br><br>
 </div>
