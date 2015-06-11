@@ -55,7 +55,7 @@ if($zz == 0)
 ?>      
 <div style="background-color:#FCEBF8;">
 <center>
-<p style="color:#A99185;">No Previous Receipt</p>
+<p style="color:#A99185;">No Previous Journal Voucher</p>
 </center>
 </div> 
 <?php
@@ -65,7 +65,7 @@ else
 ?>
 <div style="background-color:#FCEBF8;">
 <center>
-<p style="color:#A99185;">The Last Receipt Number is : <?php echo $zz; ?></p>
+<p style="color:#A99185;">The Last Journal Voucher Number is : <?php echo $zz; ?></p>
 </center>
 </div> 
 <?php } ?>
