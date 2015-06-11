@@ -98,7 +98,7 @@ Ticket has been closed on <?php echo @$help_desk_close_date ;?>
 		  $sp_id=(int)$collection2['service_provider']['sp_id'];
 		 $sp_name=$collection2['service_provider']['sp_name'];
 		  $sp_email=$collection2['service_provider']['sp_email'];
-		 $mobile=$collection2['service_provider']['sp_mobile'];
+		 $sp_mobile=$collection2['service_provider']['sp_mobile'];
 		  $sp_society_id=(int)$collection2['service_provider']['society_id'];
 		}
 		
@@ -111,8 +111,21 @@ Ticket has been closed on <?php echo @$help_desk_close_date ;?>
 				</div>
 				<div id="myModal<?php echo @$sp_id; ?>" class="accordion-body collapse">
 					<div class="accordion-inner">
-						<form method="post" >
+					<div>
+					<p style="font-size:14px;"><span><i class=" icon-question-sign" style=""></i> Are you assign ticket via Sms or email ?</span></p>
+						<label class="radio">
+						<div class="radio " id="uniform-undefined"><span><input type="radio" name="optionsRadios1" value="<?php echo $sp_id; ?>" style="opacity: 0;" class='sms'></span></div>
+						Sms
+						</label>
+						<label class="radio">
+						<div class="radio " id="uniform-undefined"><span><input type="radio" name="optionsRadios1" value="<?php echo $sp_id; ?>" style="opacity: 0;" class="email"></span></div>
+						Email
+						</label>
+					</div>
+					<br/>
+						<form method="post" id="contact_form" >
 						<input type="hidden" value="<?php echo $hd_id; ?>" id="hd_id" name="hd_id">
+						<div id='form_email<?php echo $sp_id ; ?>' style="display:none;">
 						<h5 id="myModalLabel1">Assign Ticket# [<?php echo $ticket_id; ?>] to [<?php echo $sp_name; ?>] Via email</h5>
 						<table style="font-size:14px;" width="100%">
 						<tbody><tr>
@@ -129,6 +142,28 @@ Ticket has been closed on <?php echo @$help_desk_close_date ;?>
 						</tr>
 						</tbody></table>
 						<div class="pull-right"><button type="button" onclick=assign_ticket(<?php echo $sp_id; ?>) class="btn blue">Assign Ticket</button></div>
+						</div>
+						
+						
+						
+						
+						<div id='form_sms<?php echo $sp_id ; ?>' style="display:none;">
+						<h5 id="myModalLabel1">Assign Ticket# [<?php echo $ticket_id; ?>] to [<?php echo $sp_name; ?>] Via sms</h5>
+						<table style="font-size:14px;" width="100%">
+						<tbody><tr>
+						<td valign="top">To:</td>
+				<td><input type="text" name="mobile" value="<?php echo $sp_mobile; ?>" id="mob<?php echo $sp_id ; ?>" maxlength="10">
+				<div id="mob_er<?php echo $sp_id ; ?>"></div>
+				
+				</td>
+						</tr>
+	
+						
+						</tbody></table>
+						<div class="pull-right"><button type="button" value="<?php echo $sp_id ; ?>" class="btn blue sms_assign">Assign Ticket</button></div>
+						</div>
+						
+						
 						</form>
 					</div>
 				</div>
@@ -293,6 +328,46 @@ $(document).ready(function() {
 			
 				
 	});
+	
+	$(".sms").live('click',function(){
+	var r=$(this).val();
+	$("#form_email" + r).hide();
+	$("#form_sms" + r).show();
+	});
+	
+	$(".email").live('click',function(){
+	var z=$(this).val();
+	$("#form_email" + z).show();
+	$("#form_sms" + z).hide();
+	});
+	
+	$(".sms_assign").live('click',function(){
+	var r=$(this).val();
+	var z=$("#mob"+r).val();
+	if(z=="")
+	{
+	$("#mob_er"+r).html("<span style='color:red;'>this field is required.</span>");
+	return false;
+	}
+	if(isNaN(z))
+	{
+	$("#mob_er"+r).html("<span style='color:red;'>this field is only numeric.</span>");
+	return false;
+	}
+	if (/^\d{10}$/.test(z)) {
+	$("#mob_er"+r).html("<span style='color:red;'></span>");
+		var hd_id=$("#hd_id").val();
+	window.location.href = "<?php echo $this->webroot;?>Helpdesks/assign_ticket_to_sp_sms?sp_id="+r+"&mob="+z+"&hd_id="+hd_id;
+	
+	}else {
+	$("#mob_er"+r).html("<span style='color:red;'>Invalid number must be ten digits.</span>");
+    
+	return false;
+	}
+	});
+	
+	
+		
 });
 
 </script>
