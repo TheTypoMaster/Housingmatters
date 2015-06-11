@@ -2643,7 +2643,7 @@ $html='<center>
 <p style="font-size:22px;">'.$society_name.' Society</p>
 </th>
 </tr>
-<td style="text-align:center;">
+<td style="text-align:center;">Regn# &nbsp; &nbsp; 
 '.$society_reg_no.'
 </td>
 </tr>
@@ -2768,7 +2768,6 @@ $html.='<tr>
 </tr>';
 $total_amount2 = $total_amount2 + $amt;
 }
-
 $gt = $total_amount2;
 $html.='</table>';
 }
@@ -2839,7 +2838,7 @@ $html.='<tr>
 $html.='</table> 
 </div>
 <div style="width:90%; border:solid 1px; border-top:none;">
-<br><br><br>
+
 <table border="0" style="width:100%;">
 <tr>
 <td style="text-align:right;">
@@ -2847,6 +2846,7 @@ $html.='</table>
 </td>
 </tr>
 </table>
+<br><br><br>
 </div>
 <br><br><br><br>
 </div>';
