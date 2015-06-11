@@ -168,16 +168,27 @@ $("#show_user").load("petty_cash_receipt_ajax?value=" +value+ "");
 $(document).ready(function() { 
 	$('form').submit( function(ev){
 	ev.preventDefault();
+		//var type = $("#go").val();
 		
 		var m_data = new FormData();
+		
+		
+		
+		
 		m_data.append( 'ac_gr', $('#go').val());
-		m_data.append( 'prt_ac', $('#usr').val());
 		m_data.append( 'ac_head', $('#acn').val());
 		m_data.append( 'tra_dat', $('#date').val());
+		//if(type == 2)
+		//{
 		m_data.append( 'amt', $('#amt').val());
+		//}
 		m_data.append( 'desc', $('#narr').val());
-		m_data.append( 'deb', $('#usr').val());
-		
+		m_data.append( 'deb', $('#ab').val());
+		//if(type == 1)
+		//{
+		m_data.append( 'bill', $('#bll').val());
+		m_data.append( 'prt_ac', $('#usr').val());
+		//}
 		$(".form_post").addClass("disabled");
 		$("#wait").show();
 			

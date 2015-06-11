@@ -606,7 +606,6 @@ $reply="accounts@housingmatters.in";
 $this->smtpmailer($to,$from,$from_name,$subject,$message_mail,$reply);
 }
 }
-exit;
 }
 }
 //////////////////////// End bank receipt ////////////////////////////////////////////
@@ -3016,29 +3015,39 @@ $narration = $post_data['desc'];
 if($account_group == 1)
 {
 $amt2 = $post_data['deb'];
+$bill_receipt = (int)$post_data['bill'];
 }
 
 $report = array();
 if(empty($account_group)){
-$report[]=array('label'=>'ac_grp', 'text' => 'Please select Expense Head');
+$report[]=array('label'=>'ac_grp', 'text' => 'Please select Account Group');
 }	
 	
 if(empty($party_account)){
-$report[]=array('label'=>'prt_ac', 'text' => 'Please select Expense Head');
+$report[]=array('label'=>'prt_ac', 'text' => 'Please select Party Account');
 }	
 
 if(empty($account_head)){
-$report[]=array('label'=>'ac_head', 'text' => 'Please select Expense Head');
+$report[]=array('label'=>'ac_head', 'text' => 'Please select Account Head');
 }	
 
 if(empty($transaction_date)){
-$report[]=array('label'=>'tr_dat', 'text' => 'Please select Expense Head');
+$report[]=array('label'=>'tr_dat', 'text' => 'Please select Transaction Date');
 }	
-
+if($account_group == 2)
+{
 if(empty($amt)){
-$report[]=array('label'=>'amt', 'text' => 'Please select Expense Head');
+$report[]=array('label'=>'amt', 'text' => 'Please Fill Amount');
 }	
-
+}
+if($account_group == 1)
+{
+if(empty($amt2)){
+$report[]=array('label'=>'amt2', 'text' => 'Please Fill Amount');
+}	
+}
+if($account_group == 2)
+{
 if(!empty($amt))
 {
 if(is_numeric($amt))
@@ -3047,6 +3056,20 @@ if(is_numeric($amt))
 else
 {
 $report[]=array('label'=>'amt', 'text' => 'Pleaes Fill Numeric Value');
+}
+}
+}
+if($account_group == 1)
+{
+if(!empty($amt2))
+{
+if(is_numeric($amt2))
+{
+}
+else
+{
+$report[]=array('label'=>'amt2', 'text' => 'Pleaes Fill Numeric Value');
+}
 }
 }
 
@@ -3086,7 +3109,10 @@ $output=json_encode(array('report_type'=>'error','report'=>$report));
 die($output);
 }
 
-
+if($account_group == 1)
+{
+$amt=(int)$amt2;
+}
 $date = date('Y-m-d');
 $current_date = new MongoDate(strtotime($date));
 
@@ -3119,7 +3145,7 @@ $i++;
 $this->loadmodel('cash_bank');
 $multipleRowData = Array( Array("transaction_id" => $auto, "receipt_id" => $i, "prepaired_by" => $s_user_id,
 "current_date" => $current_date, "account_type" => $account_group,"transaction_date" => $transaction_date2, "user_id" => $party_account, 
-"narration" => $narration, "account_head" => $account_head,  "amount" => $amt, "society_id" => $s_society_id,"module_id"=>3));
+"narration" => $narration, "account_head" => $account_head,  "amount" => $amt, "society_id" => $s_society_id,"module_id"=>3,"bill_reference"=>@$bill_receipt));
 $this->cash_bank->saveAll($multipleRowData);  
 
 
@@ -3167,7 +3193,28 @@ $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $i,
 "amount" => $amt, "amount_category_id" => 1, "module_id" => 3, "account_type" => 2, "account_id" => $sub_account_id_a, "current_date" => $current_date, "society_id" => $s_society_id,"table_name"=>"cash_bank","module_name"=>"Petty Cash Receipt"));
 $this->ledger->saveAll($multipleRowData); 
 
+if($account_group == 1)
+{
+$this->loadmodel('regular_bill');
+$conditions=array("receipt_id" => $bill_receipt);
+$cursor=$this->regular_bill->find('all',array('conditions'=>$conditions));
+foreach ($cursor as $collection) 
+{
+$remain_amt = $collection['regular_bill']['remaining_amount'];
+}
+$due_amt = $remain_amt - $amt;
 
+if($due_amt == 0)
+{
+$this->loadmodel('regular_bill');
+$this->regular_bill->updateAll(array("remaining_amount" => $due_amt, "status" => 1),array("receipt_id" => $bill_receipt));
+}
+else
+{
+$this->loadmodel('regular_bill');
+$this->regular_bill->updateAll(array("remaining_amount" => $due_amt, "status" => 0),array("receipt_id" => $bill_receipt));
+}
+}
 
 $this->loadmodel('cash_bank');
 $conditions=array("society_id" => $s_society_id,"module_id"=>3);
@@ -3177,7 +3224,6 @@ foreach ($cursor1 as $collection)
 {
 $d_receipt_id = (int)$collection['cash_bank']['receipt_id'];	 
 }
-
 
 $output=json_encode(array('report_type'=>'publish','report'=>'Petty Cash Receipt #'.$d_receipt_id.' is generated successfully'));
 die($output);
