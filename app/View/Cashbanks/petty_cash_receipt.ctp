@@ -134,15 +134,17 @@ else
 <script>
 $(document).ready(function() {
 $("#usr").live('change',function(){	
-var type = $("#go").val();	
+var type = $("#go").val();
 if(type == 1)
 {
 var value1 = document.getElementById('usr').value;
-$("#show_bill").load("bank_receipt_reference_ajax?value1=" +value1 + "");	
+$("#show_bill").load("bank_receipt_reference_ajax?value1=" +value1 + "");
+$("#amt").attr('readonly','readonly');	
 }
 else
 {
 $("#show_bill").html("");
+$("#amt").removeAttr("readonly");
 }
 });
 });
@@ -174,6 +176,7 @@ $(document).ready(function() {
 		m_data.append( 'tra_dat', $('#date').val());
 		m_data.append( 'amt', $('#amt').val());
 		m_data.append( 'desc', $('#narr').val());
+		m_data.append( 'deb', $('#usr').val());
 		
 		$(".form_post").addClass("disabled");
 		$("#wait").show();
