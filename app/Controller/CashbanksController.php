@@ -3501,11 +3501,10 @@ $excel="<table border='1'>
 <th>Transaction Id</th>
 <th>Remark</th>
 </tr>";
-$this->loadmodel('society');
-$conditions=array("society_id" => $s_society_id);
-$cursor2=$this->society->find('all',array('conditions'=>$conditions));
-$this->set('cursor2',$cursor2);
-
+$n=0;
+$principal_tt = 0;
+$int_tt = 0;
+$mat_tt = 0;
 $this->loadmodel('fix_deposit');
 $conditions=array("society_id" => $s_society_id,"status"=>0);
 $cursor1 = $this->fix_deposit->find('all',array('conditions'=>$conditions));
@@ -3527,16 +3526,18 @@ $email = $collection['fix_deposit']['email'];
 $mobile = $collection['fix_deposit']['mobile'];
 $file_name = $collection['fix_deposit']['file_name'];
 
-
 $n++;
+
 $start_date2 = date('d-M-Y',$start_date->sec);
 $maturity_date2 = date('d-M-Y',$maturity_date->sec);
+
 function dateDiff($d1, $d2)
 {
 return round(abs(strtotime($d1)-strtotime($d2))/86400);
-} 
-
+}
+ 
 $days = dateDiff($start_date2,$maturity_date2);
+
 $interest = round(($principal_amt * $interest_rate *($days/365))/100);
 
 $mat_amt = $principal_amt + $interest;
@@ -3572,8 +3573,8 @@ $excel.="
 <th>$int_tt</th>
 <th>$mat_tt</th>
 <th colspan='2'></th>
-</tr>
-</table>";
+</tr>";
+$excel.="</table>";
 
 echo $excel;
 }

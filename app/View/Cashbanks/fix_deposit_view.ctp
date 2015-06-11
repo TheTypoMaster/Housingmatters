@@ -17,22 +17,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </center>
 </div>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<!--
-<?php
-//$b_date = date('1-m-Y');
-//$c_date = date('d-m-Y');
 
-?>
-<center>
-<table border='0'>
-<tr>
-<td><input type="text" name="from" id="date1" class="m-wrap medium date-picker" data-date-format="dd-mm-yyyy" placeholder="From" style="background-color:white !important;" value="<?php echo $b_date; ?>"/></td>
-<td><input type="text" name="to" id="date2" class="m-wrap medium date-picker" data-date-format="dd-mm-yyyy" placeholder="To" style="background-color:white !important;" value="<?php echo $c_date; ?>"/></td>
-<td><button class="btn yellow" id="go" style="margin-bottom:10px;">Go</button></td>
-</tr>
-</table>
-</center>
--->
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
 $nnn = 55;
@@ -49,7 +34,7 @@ $maturity_date = $collection['fix_deposit']['maturity_date'];
 $interest_rate = $collection['fix_deposit']['interest_rate'];
 $remark = $collection['fix_deposit']['remark'];
 $reminder = $collection['fix_deposit']['reminder'];
-$tds = $collection['fix_deposit']['tds'];
+//$tds = $collection['fix_deposit']['tds'];
 $name = $collection['fix_deposit']['name'];
 $email = $collection['fix_deposit']['email'];
 $mobile = $collection['fix_deposit']['mobile'];
@@ -71,7 +56,7 @@ $society_name = $collection['society']['society_name'];
 ?>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <div style="width:100%;" class="hide_at_print">
-<span style="float:right;"><a href="fix_deposit_excel?f=<?php echo $from; ?>&t=<?php echo $to; ?>" class="btn blue" style="margin-right:80px;">Export in Excel</a></span>
+<span style="float:right;"><a href="fix_deposit_excel" class="btn blue" style="margin-right:80px;">Export in Excel</a></span>
 <span style="float:right; margin-right:1%;"><button type="button" class=" printt btn green" onclick="window.print()"><i class="icon-print"></i> Print</button></span>
 </div>
 <br /><br />
@@ -115,7 +100,7 @@ $maturity_date = $collection['fix_deposit']['maturity_date'];
 $interest_rate = $collection['fix_deposit']['interest_rate'];
 $remark = $collection['fix_deposit']['remark'];
 $reminder = $collection['fix_deposit']['reminder'];
-$tds = $collection['fix_deposit']['tds'];
+//$tds = $collection['fix_deposit']['tds'];
 $name = $collection['fix_deposit']['name'];
 $email = $collection['fix_deposit']['email'];
 $mobile = $collection['fix_deposit']['mobile'];
