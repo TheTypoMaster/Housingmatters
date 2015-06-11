@@ -74,6 +74,14 @@ else
 <br />
 
 
+
+<div id="show_bill" class="controls">
+
+</div>
+<br />
+
+
+
 <label style="font-size:14px;">Account Head<span style="color:red;">*</span></label>
 <div class="controls">
 <select   name="account_head" class="m-wrap span9 chosen" id="acn">
@@ -123,7 +131,22 @@ else
 
 
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-
+<script>
+$(document).ready(function() {
+$("#usr").live('change',function(){	
+var type = $("#go").val();	
+if(type == 1)
+{
+var value1 = document.getElementById('usr').value;
+$("#show_bill").load("bank_receipt_reference_ajax?value1=" +value1 + "");	
+}
+else
+{
+$("#show_bill").html("");
+}
+});
+});
+</script>
 <script>
 $(document).ready(function() {
 $("#go").bind('change',function(){
@@ -151,7 +174,7 @@ $(document).ready(function() {
 		m_data.append( 'tra_dat', $('#date').val());
 		m_data.append( 'amt', $('#amt').val());
 		m_data.append( 'desc', $('#narr').val());
-				
+		
 		$(".form_post").addClass("disabled");
 		$("#wait").show();
 			
@@ -263,9 +286,7 @@ $(document).ready(function() {
 		{
 		$("#result11").load("cash_bank_vali?ss=" + 12 + "");		
 		}
-		
-		
-		
+	
 		});
 		});
 		</script>

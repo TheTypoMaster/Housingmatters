@@ -31,7 +31,7 @@ foreach($result_society as $data)
 <?php ///////////////////////////////////////////////////////////////////////////////////////// ?>
 <br />
 <div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">
-<form method="post" id="contact-form">
+<form method="POST" id="contact-form" enctype="multipart/form-data">
 <div class="row-fluid">
 <div class="span6">
 
@@ -68,7 +68,7 @@ foreach($result_society as $data)
 <div>
 <span class="btn btn-file"><span class="fileupload-new">Select image</span>
 <span class="fileupload-exists">Change</span>
-<input type="file" class="default" name="sig" id="sig"></span>
+<input type="file" class="default" name="sig"></span>
 <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
 </div>
 </div>
