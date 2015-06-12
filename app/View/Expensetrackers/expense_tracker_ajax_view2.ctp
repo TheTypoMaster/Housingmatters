@@ -58,11 +58,9 @@ $amount = $collection3['expense_tracker']['amount'];
 }
 if($exp_head2 == $ex_head)
 {
-
 ?>
 <?php //echo $expense_head;  ?>
 <?php
-
 for($m=0; $m<sizeof(@$abc); $m++)
 {
 $tt[]=0;	
@@ -93,15 +91,14 @@ $total = 0;
 break;
 }}}}
 
-
-
+$hh = implode(",",$tt);
 ////////////////////////////////////////////////////////////////////////////////////////
 ?>
 <?php if($nnn == 555) { ?>
 
 <div style="width:100%;" class="hide_at_print">
 <span style="margin-left:80%;">
-<a href="expense_tracker_excel?f=<?php echo $from; ?>&t=<?php echo $to; ?>" class="btn blue">Export in Excel</a>
+<a href="expense_tracker_excel?f=<?php echo $from; ?>&t=<?php echo $to; ?>&g=<?php echo $hh; ?>" class="btn blue">Export in Excel</a>
 <button type="button" class=" printt btn green" onclick="window.print()"><i class="icon-print"></i> Print</button></span>
 </div>
 <br />	
