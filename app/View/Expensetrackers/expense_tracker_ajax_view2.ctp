@@ -1,12 +1,11 @@
 <?php
 $from = date("Y-m-d",strtotime($from));
 $to = date("Y-m-d",strtotime($to));
-
+//$tt = array();
 $start    = (new DateTime($from));
 $end      = (new DateTime($to));
 $interval = DateInterval::createFromDateString('1 month');
 $period   = new DatePeriod($start, $interval, $end);
-
 
 foreach($period as $data)
 {
@@ -23,8 +22,6 @@ $expense_arr[] = array($auto_id,$expense_month);
 }
 }
 }
-
-
 
 /////////////////////////////////////////////////////////////////////////
 foreach($cursor3 as $collection)
@@ -65,8 +62,10 @@ if($exp_head2 == $ex_head)
 ?>
 <?php //echo $expense_head;  ?>
 <?php
+
 for($m=0; $m<sizeof(@$abc); $m++)
 {
+$tt[]=0;	
 $total = 0;
 $month_name3 = $abc[$m];
 foreach($cursor3 as $collection6)
@@ -182,8 +181,10 @@ $total = $total + $amount;
 }
 	
 ?>
-<td style="text-align:center;">
-<?php echo $total; ?>
+<td style="text-align:right;">
+<?php echo $total; 
+@$tt[$m] = @$tt[$m] + $total;
+?>
 </td>
 <?php
 $total = 0;
@@ -194,6 +195,17 @@ $total = 0;
 break;
 }}}}
 ?>
+<tr>
+<th style="text-align:right;">Total</th>
+<?php
+foreach($tt as $rr)
+{
+?>
+<th style="text-align:right;"><?php echo $rr; ?></th>	
+<?php	
+}
+?>
+</tr>
 </table>
 
 <?php }
