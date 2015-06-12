@@ -4,8 +4,7 @@ echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), a
 <div style="background-color:#EFEFEF; border-top:1px solid #e6e6e6; border-bottom:1px solid #e6e6e6; padding:10px; box-shadow:5px; font-size:16px; color:#006;">
 Society Setup
 </div>
-				
-				
+			
 <div class="tabbable tabbable-custom">
 <ul class="nav nav-tabs">
 <li ><a href="<?php echo $webroot_path; ?>Hms/master_sm_wing" rel='tab'> Wing</a></li>
@@ -332,6 +331,7 @@ var ar = [];
 for(var i=2;i<=count;i++)
 {
 $("#open_bal tr:nth-child("+i+") span.report").remove();
+$("#open_bal tr:nth-child("+i+") span.report").css("background-color","#FFF;");
 var wing = $("#open_bal tr:nth-child("+i+") td:nth-child(1) select").val();
 var flat=$("#open_bal tr:nth-child("+i+") td:nth-child(2) input").val();
 var type=$("#open_bal tr:nth-child("+i+") td:nth-child(3) select").val();
@@ -372,6 +372,7 @@ var ar = [];
 for(var i=2;i<=count;i++)
 {
 $("#open_bal tr:nth-child("+i+") span.report").remove();
+$("#open_bal tr:nth-child("+i+") span.report").css("background-color","#FFF;");
 var wing = $("#open_bal tr:nth-child("+i+") td:nth-child(1) select").val();
 var flat=$("#open_bal tr:nth-child("+i+") td:nth-child(2) input").val();
 var type=$("#open_bal tr:nth-child("+i+") td:nth-child(3) select").val();

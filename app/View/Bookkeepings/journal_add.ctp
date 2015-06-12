@@ -91,12 +91,12 @@ else
 					
 					<table width="100%" >
 					<tr class="table table-bordered table-hover" style="font-size:16px;">
-					<th width="20.2%">Ledger A/c</th>
-					<th width="19.8%">Subledger</th>
+					<th width="19.8%">Ledger A/c</th>
+					<th width="19%">Subledger</th>
 					<th width="19%">Debits</th>
 					<th width="19%">Credits</th>
-					<th width="20%">Description</th>
-					<th width="2%"></th>
+					<th width="19.2%">Description</th>
+					<th width="5%"></th>
 					</tr>
 					</table>
 					
@@ -199,10 +199,10 @@ $name = $collection['ledger_account']['ledger_name'];
 
 <table width="100%">
 <tr class="table table-bordered table-hover">
-<th style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:40.1%; text-align:right;">
+<th style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:37.6%; text-align:right;">
 Total
 </th>
-<th style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:19.9%;">
+<th style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:19%;">
 <div class="control-group">
 <div class="controls">
 <input type="text" class="all_validate span12 m-wrap" style="background-color:#FFF !important; border:none !important;" id="total" style="border:none !important">
