@@ -443,6 +443,8 @@ $m_from = date("Y-m-d", strtotime($from));
 
 $m_to = date("Y-m-d", strtotime($to));
 //$m_to = new MongoDate(strtotime($m_to));
+$hh = $this->request->query('g');
+$tt = explode(",",$hh); 
 
 $s_role_id = (int)$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
@@ -494,7 +496,6 @@ $excel="
 <table border='1'>
 <tr>
 <th>Expense Head</th>";
-
 foreach ($period as $dt){
 $month_name1 = $dt->format("M-Y");
 for($p=0; $p<sizeof($expense_month_arr); $p++)
@@ -503,7 +504,6 @@ $month_name2 = $expense_month_arr[$p];
 if($month_name1 == $month_name2)
 {
 $abc[] = $month_name1;
-
 $excel.="<th style='text-align:center;'>$month_name1</th>";
 break;
 }}}
@@ -539,6 +539,7 @@ $excel.="<tr><td style='text-align:left;'>$expense_head</td>";
 for($m=0; $m<sizeof($abc); $m++)
 {
 $total = 0;
+
 $month_name3 = $abc[$m];
 $this->loadmodel('expense_tracker');
 $conditions=array("society_id"=>$s_society_id);
@@ -554,13 +555,23 @@ if($posting_date == $month_name3 && $exp_head2 == $exps_head)
 $total = $total + $amount;	
 }
 }
-
 $excel.="<td style='text-align:center;'>$total</td>";
+$tt[$m] = $tt[$m] + $total;
+
 $total = 0;
 }
 $excel.="</tr>";
 break;
 }}}}
+
+$excel.="<tr>
+<th style='text-align:right;'>Total</th>";
+foreach($tt as $rr)
+{
+$excel.="<th style='text-align:right;'>$rr</th>";
+}
+$excel.="</tr>";
+
 $excel.="</table>";
 
 echo $excel;
