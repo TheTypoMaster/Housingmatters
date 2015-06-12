@@ -199,17 +199,17 @@ $name = $collection['ledger_account']['ledger_name'];
 
 <table width="100%">
 <tr class="table table-bordered table-hover">
-<th style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:37.6%; text-align:right;">
+<th style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:33.9%; text-align:right;">
 Total
 </th>
-<th style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:19%;">
+<th style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:16.6%;">
 <div class="control-group">
 <div class="controls">
 <input type="text" class="all_validate span12 m-wrap" style="background-color:#FFF !important; border:none !important;" id="total" style="border:none !important">
 </div>
 </div>
 </th>
-<th style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:20%;">
+<th style="padding-left:5px; padding-right:5px; padding-top:5px; padding-bottom:0px; width:16.5%;">
 <div class="control-group">
 <div class="controls">
 <input type="text" class="all_validate span12 m-wrap" style="background-color:#FFF !important; border:none !important;" id="total_c" style="border:none !important">
