@@ -101,8 +101,6 @@ $conditions=array("ledger_id" => 15);
 $cursor2=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
 $this->set('cursor2',$cursor2);
 
-
-
 if(isset($this->request->data['ext_addxfdfg']))
 {
 $posting_date = $this->request->data['posting_date'];
@@ -773,8 +771,31 @@ $this->ledger->saveAll($multipleRowData);
 $output=json_encode(array('report_type'=>'publish','report'=>'Expense Voucher #'.$r.' is generated successfully'));
 die($output);
 
-	
 }
 ////////////////////////// End Expense Tracker Json ///////////////////////////////////////////////////////////
+
+////////////////////////////////// Start Expense Tracker Add Row ////////////////////////////////////////////////////////
+function expense_tracker_add_row()
+{
+$this->layout='blank';
+
+$s_society_id=(int)$this->Session->read('society_id');
+$s_user_id=(int)$this->Session->read('user_id');
+
+$count = (int)$this->request->query('con');
+$this->set('count',$count);
+
+$this->loadmodel('accounts_group');
+$conditions=array("accounts_id" => 4);
+$cursor1=$this->accounts_group->find('all',array('conditions'=>$conditions));
+$this->set('cursor1',$cursor1);
+
+$this->loadmodel('ledger_sub_account');
+$conditions=array("ledger_id" => 15);
+$cursor2=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+$this->set('cursor2',$cursor2);
+
+}
+////////////////////////////////// End Expense Tracker Add Row ////////////////////////////////////////////////////////
 }
 ?>

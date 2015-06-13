@@ -10,10 +10,49 @@ $("#fix<?php echo $id_current_page; ?>").removeClass("blue");
 $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
-
 <input type="hidden" id="fi" value="<?php echo $datef1; ?>" />
 <input type="hidden" id="ti" value="<?php echo $datet1; ?>" />
 <input type="hidden" id="cn" value="<?php echo $count; ?>" />
+<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php
+$e=0;
+foreach ($cursor1 as $collection)
+{
+$c_id =  (int)$collection['accounts_group']['auto_id'];
+//$c_name = $collection['accounts_group']['category_name'];
+$result = $this->requestAction(array('controller' => 'hms', 'action' => 'expense_tracker_fetch2'),array('pass'=>array($c_id)));
+foreach ($result as $db)
+{
+$e++;
+$g_id =  (int)$db['ledger_account']['auto_id'];
+$name = $db['ledger_account']['ledger_name'];
+$g_id_arr[]=$g_id;
+$name_arr[]=$name;
+}}
+$g_id_arr2 = implode(',',$g_id_arr);
+$name_arr2 = implode(',',$name_arr);
+
+$w=0;
+foreach ($cursor2 as $collection)
+{
+$w++;	
+$id = $collection['ledger_sub_account']['auto_id'];
+$name = $collection['ledger_sub_account']['name']; 
+$id_arr[]=$id; 
+$naam2_arr[]=$name;
+}
+$id_arr2 = implode(',',$id_arr);
+$naam2_arr2 = implode(',',$naam2_arr);
+?>
+<input type="hidden" id="count1" value="<?php echo $w; ?>" />
+<input type="hidden" id="count2" value="<?php echo $e; ?>" />
+
+
+<input type="hidden" id="g_id" value="<?php echo $g_id_arr2; ?>" />
+<input type="hidden" id="name1" value="<?php echo $name_arr2; ?>" />
+<input type="hidden" id="id1" value="<?php echo $id_arr2; ?>" />
+<input type="hidden" id="name2" value="<?php echo $naam2_arr2; ?>" />
+
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 <div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">
@@ -41,102 +80,8 @@ else
 <br />
 <form method="post">
 <div class="row-fluid">
-
-
-
-
-
-
 <div class="span6">
 
-
-<label style="font-size:14px;">Expense Head<span style="color:red;">*</span></label>
-<div class="controls">
-<select name="ex_head" class="m-wrap chosen span9" id="ex">
-<option value=""></option>
-<?php
-foreach ($cursor1 as $collection)
-{
-$c_id =  (int)$collection['accounts_group']['auto_id'];
-$c_name = $collection['accounts_group']['category_name'];
-$result = $this->requestAction(array('controller' => 'hms', 'action' => 'expense_tracker_fetch2'),array('pass'=>array($c_id)));
-foreach ($result as $db)
-{
-$g_id =  (int)$db['ledger_account']['auto_id'];
-$name = $db['ledger_account']['ledger_name'];
-?>
-<option value="<?php echo $g_id; ?>"><?php echo $name; ?></option>
-<?php }} ?>
-</select>
-<label report="ex_head" class="remove_report"></label>
-</div>
-<br />
-
-
-						
-							
-
-
-<label style="font-size:14px;">Invoice Reference<span style="color:red;">*</span></label>
-<div class="controls">	
-<input type="text" class="m-wrap span9"  name="invoice_reference" id="ref">
-<label report="inv_ref" class="remove_report"></label>
-</div>
-<br />
-
-
-
-
-
-
-
-<label style="font-size:14px;">Party Account Head<span style="color:red;">*</span></label>
-<div class="controls">	
-<select name="party_head" class="m-wrap chosen span9" id="ph">
-<option value=""></option>
-<?php
-foreach ($cursor2 as $collection)
-{
-$id = $collection['ledger_sub_account']['auto_id'];
-$name = $collection['ledger_sub_account']['name']; 
-?>                             
-<option value="<?php echo $id; ?>"><?php echo $name; ?></option>
-<?php } ?>
-</select>
-<label report="prt_head" class="remove_report"></label>
-</div>
-<br />
-
-
-
-
-<label style="font-size:14px;">Amount of Invoice<span style="color:red;">*</span></label>
-<div class="controls">
-<input type="text" class="m-wrap span9"   name="invoice_amount" id="ia">
-<label report="amt" class="remove_report"></label>
-</div>
-<br />
-
-
-<label style="font-size:14px;">Description</label>
-<div class="controls">
-<textarea  rows="4" name="description" class="m-wrap span9" style="resize:none;" id="des"></textarea>
-</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="span6">
 
 <label style="font-size:14px;">Posting Date<span style="color:red;">*</span></label>
 <div class="controls">
@@ -153,20 +98,19 @@ $name = $collection['ledger_sub_account']['name'];
 </div>
 <br />
 
-
 <label style="font-size:14px;">Date of Invoice<span style="color:red;">*</span></label>
 <div class="controls">							
 <input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="invoice_date" id="date">
 <label report="inv_dat" class="remove_report"></label>
 </div>	
 <br />
+</div>
 
-
-
-
-
-
-
+<div class="span6">
+<label style="font-size:14px;">Description</label>
+<div class="controls">
+<textarea  rows="4" name="description" class="m-wrap span9" style="resize:none;" id="des"></textarea>
+</div>
 
 
 
@@ -182,31 +126,94 @@ $name = $collection['ledger_sub_account']['name'];
 <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none"></a>
 </div>
 </div>
-
-
-
-
-
-
-
-
-
-
 </div>
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<br />
+<table class="table table-bordered" style="background-color:white;" id="tbb">
+<tr>
+<th style="text-align:center; width:24%;">Expense Head</th>
+<th style="text-align:center; width:24%;">Invoice Reference</th>
+<th style="text-align:center; width:24%;">Party Account Head</th>
+<th style="text-align:center; width:24%;">Amount of Invoice</th>
+<th style="text-align:center; width:4%;">Delete</th>
+</tr>
+<tr>
+<td style="text-align:center;">
+<select name="ex_head" class="m-wrap span12" id="ex">
+<option value="">Select</option>
+<?php
+foreach ($cursor1 as $collection)
+{
+$c_id =  (int)$collection['accounts_group']['auto_id'];
+$c_name = $collection['accounts_group']['category_name'];
+$result = $this->requestAction(array('controller' => 'hms', 'action' => 'expense_tracker_fetch2'),array('pass'=>array($c_id)));
+foreach ($result as $db)
+{
+$g_id =  (int)$db['ledger_account']['auto_id'];
+$name = $db['ledger_account']['ledger_name'];
+?>
+<option value="<?php echo $g_id; ?>"><?php echo $name; ?></option>
+<?php }} ?>
+</select>
+</td>
+<td style="text-align:center;">
+<input type="text" class="m-wrap span9" name="invoice_reference" id="ref">
+</td>
+<td style="text-align:center;">
+<select name="party_head" class="m-wrap span9" id="ph">
+<option value="">Select</option>
+<?php
+foreach ($cursor2 as $collection)
+{
+$id = $collection['ledger_sub_account']['auto_id'];
+$name = $collection['ledger_sub_account']['name']; 
+?>                             
+<option value="<?php echo $id; ?>"><?php echo $name; ?></option>
+<?php } ?>
+</select>
+</td>
+<td style="text-align:center;">
+<input type="text" class="m-wrap span9"   name="invoice_amount" id="ia">
+</td>
+<td style="text-align:center;"></td>
+</tr>
+</table>
+
+<?php //////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 </div>
-
-
-
-
 <hr/>
 <button type="submit" class="btn form_post" style="background-color: #E0619D;color:#fff;" name="ext_add" value="xyz" id="vali">Submit</button>
 <a href="<?php echo $webroot_path; ?>Expensetrackers/expense_tracker_add" style="background-color: #E0619D;color:#fff;" class="btn" rel='tab'>Reset</a>
-<div style="display:none;" id='wait'><img src="<?php echo $webroot_path; ?>as/fb_loading.gif" /> Please Wait...</div>
+<button type="button" class="btn green" id="add">Add Row</button>
+
+<div style="display:none;" id='wait'><img src="<?php echo $webroot_path; ?>as/fb_loading.gif" />Please Wait...</div>
 <br /><br />
 </form>
 </div>
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<script>
+$(document).ready(function(){
+$("#add").bind('click',function(){
+
+var count = $("#tbb tr").length;
+count++;
+
+$.ajax({
+url: 'expense_tracker_add_row?con=' + count,
+}).done(function(response) {
+$('table#tbb').append(response);
+
+});
+});
 
 
+$(".delete").live('click',function(){	
+var id = $(this).attr("id");
+$('.content_'+id).remove();
+});
+
+});
+</script> 
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 <script>
@@ -256,15 +263,11 @@ $(document).ready(function() {
 	 
 	});
 });
-
 </script>
 
 
 
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-
-
-
 
 <div id="shwd" class="hide">
 <div class="modal-backdrop fade in"></div>
@@ -284,9 +287,6 @@ $(document).ready(function() {
 </div>
 </div>
 </div>
-
-
-
 
 <script>
 		$(document).ready(function() {
