@@ -24,9 +24,10 @@ $( document ).ready( function() {
 								
 								<?php
 $i=0;
-
+$k=15;
 foreach ($result_module_type as $collection) 
 {
+$k++;
 	$i++;	
 	$module_type_id=(int)$collection["module_type"]["module_type_id"];
 	$module_type_name=$collection["module_type"]["module_type_name"];
@@ -51,7 +52,7 @@ foreach ($result_module_type as $collection)
 
 <div id="collapse_m<?php echo $i; ?>" class="accordion-body collapse" style="height: 0px;">
 		<div class="accordion-inner">
-		
+		<div class="accordion in collapse" id="accordion<?php echo $k; ?>" style="height: auto;">
 			<?php
 			$result_hm_assign_module=$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_hm_assign_module'), array('pass' => array($module_type_id)));
 			
@@ -78,7 +79,7 @@ foreach ($result_data as $collection)
 		<tr>
 		<td width="30%"><i class="<?php echo $icon ; ?>"></i> <?php echo $module_name; ?></td>
 		<td width="5%">
-		<a class="btn mini   accordion-toggle collapse"  data-toggle="collapse" data-parent="#accordion3" href="#collapse<?php echo $module_id; ?>" style="">
+		<a class="btn mini accordion-toggle collapse"  data-toggle="collapse" data-parent="#accordion<?php echo $k; ?>" href="#collapse<?php echo $module_id; ?>" style="">
 		<i class="icon-search"></i> Sub-modules
 		</a>
 		</td>
@@ -114,7 +115,6 @@ foreach ($result_data as $collection)
 				<?php
 			} ?>
 				
-				
 			</div>
 			</div>
 		</div>
@@ -122,7 +122,7 @@ foreach ($result_data as $collection)
 									
 <?php }  ?>	
 				
-				
+	</div>			
 				
 				
 				
