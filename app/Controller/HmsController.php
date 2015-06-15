@@ -9136,14 +9136,14 @@ $s_society_id=$this->Session->read('society_id');
 
 if (isset($this->request->data['add_role'])) 
 {
-$role_id=(int)$this->request->data['r_name'];
+ $role_id=(int)$this->request->data['r_name'];
 
 $this->loadmodel('hm_modules_assign');
 $conditions=array("society_id" => $s_society_id);
 $result_hm_modules_assign=$this->hm_modules_assign->find('all',array('conditions'=>$conditions));
 foreach($result_hm_modules_assign as $data)
 {
-$module_id=$data['hm_modules_assign']['module_id'];
+ $module_id=$data['hm_modules_assign']['module_id'];
 
 $this->loadmodel('sub_modules');
 $conditions=array("module_id" => $module_id);
@@ -9154,14 +9154,17 @@ $sub_module_id=(int)$data["sub_modules"]["auto_id"];
 $sub_module_name=$data["sub_modules"]["sub_module_name"];
 
 $check_box=@$this->request->data['ch'.$sub_module_id];
+
 if($check_box>0)
 {
+	
 $this->loadmodel('role_privilege');
 $conditions=array("society_id" => $s_society_id ,"role_id" => $role_id,"sub_module_id" => $sub_module_id,"module_id" => $module_id,"sub_module_id" => $sub_module_id);
 $n=$this->role_privilege->find('count',array('conditions'=>$conditions));
 
 if($n==0)
 {
+
 $this->loadmodel('role_privilege');
 $data_row = Array( Array("society_id" => $s_society_id, "role_id" => $role_id , "module_id" => $module_id,"sub_module_id" => $sub_module_id));
 $this->role_privilege->saveAll($data_row); 
@@ -9203,9 +9206,15 @@ $this->ath();
 $s_society_id=$this->Session->read('society_id');
 $s_role_id=$this->Session->read('role_id');
 
+/*
 $this->loadmodel('hm_modules_assign');
 $conditions=array("society_id" => $s_society_id);
 $this->set('result_hm_modules_assign',$this->hm_modules_assign->find('all',array('conditions'=>$conditions)));
+
+*/
+$this->loadmodel('module_type');
+$order=array('module_type.module_type_name'=>'ASC');		
+$this->set('result_module_type',$this->module_type->find('all',array('order'=>$order)));
 
 }
 
@@ -9229,6 +9238,22 @@ $conditions=array("module_id" => $main_module_id);
 return $result_sub_modules=$this->sub_modules->find('all',array('conditions'=>$conditions));
 }
 
+
+
+function fetch_hm_assign_module($mt_id)
+{
+	$this->layout='blank';
+	$this->ath();
+
+	$role_id=(int)$this->request->query('con');
+
+	$s_society_id=$this->Session->read('society_id');
+$this->loadmodel('hm_modules_assign');
+$conditions=array("society_id" => $s_society_id,'mt_id'=>$mt_id);
+return $this->hm_modules_assign->find('all',array('conditions'=>$conditions));
+
+	
+}
 function fetch_role_privileges($sub_module_id)
 {
 $this->layout='blank';
@@ -9287,6 +9312,7 @@ $result_main_module=$this->main_module->find('all');
 foreach ($result_main_module as $collection) 
 {		  
 $module_id =(int)$collection['main_module']['auto_id'];
+$mt_id =(int)$collection['main_module']['mt_id'];
 $value =@$this->request->data[$module_id];
 if($value==1)
 {
@@ -9299,7 +9325,7 @@ $n = sizeof($result1);
 if($n==0)
 {
 $this->loadmodel('hm_modules_assign');
-$this->hm_modules_assign->saveAll(array("society_id" => $society_id, "module_id" => $module_id));
+$this->hm_modules_assign->saveAll(array("society_id" => $society_id, "module_id" => $module_id,'mt_id'=>$mt_id));
 }   
 }
 else
