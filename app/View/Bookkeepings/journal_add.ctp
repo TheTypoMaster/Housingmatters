@@ -69,8 +69,6 @@ else
 </center>
 </div> 
 <?php } ?>
-
-
 <form  method="POST" onSubmit="return balance()" >			  
 <br>
 <input type="text" id="date"  name="date" class="all_validate  m-wrap m-ctrl-medium date-picker"  data-date-format="dd-mm-yyyy" style="background-color:#FFF !important;" placeholder="Transaction Date" value="<?php echo $default_date; ?>">
@@ -78,30 +76,23 @@ else
 <center>
 <div id="error_msg"></div>
 <div id="result11"></div>
-					
-					
-					
-					
-					<input type="hidden" id="t_box" name="xyz" value="2">
-					
-					<div style="padding:2px;">
-					<div style="border:solid 1px #eee;">
-					<div  style="background-color:rgba(226, 228, 255, 0.39); ">
-					
-					
-					<table width="100%" >
-					<tr class="table table-bordered table-hover" style="font-size:16px;">
-					<th width="19.8%">Ledger A/c</th>
-					<th width="19%">Subledger</th>
-					<th width="19%">Debits</th>
-					<th width="19%">Credits</th>
-					<th width="19.2%">Description</th>
-					<th width="5%"></th>
-					</tr>
-					</table>
-					
-					
-					</div>					
+
+<input type="hidden" id="t_box" name="xyz" value="2">
+<div style="padding:2px;">
+<div style="border:solid 1px #eee;">
+<div  style="background-color:rgba(226, 228, 255, 0.39); ">
+
+<table width="100%" >
+<tr class="table table-bordered table-hover" style="font-size:16px;">
+<th width="19.8%">Ledger A/c</th>
+<th width="19%">Subledger</th>
+<th width="19%">Debits</th>
+<th width="19%">Credits</th>
+<th width="19.2%">Description</th>
+<th width="5%"></th>
+</tr>
+</table>
+</div>					
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>					
 <div id="add_div" >
 <table width="100%"  id="main_table">

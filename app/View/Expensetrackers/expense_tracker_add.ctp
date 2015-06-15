@@ -130,6 +130,7 @@ else
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <br />
 <table class="table table-bordered" style="background-color:white;" id="tbb">
+<thead>
 <tr>
 <th style="text-align:center; width:24%;">Expense Head</th>
 <th style="text-align:center; width:24%;">Invoice Reference</th>
@@ -137,6 +138,7 @@ else
 <th style="text-align:center; width:24%;">Amount of Invoice</th>
 <th style="text-align:center; width:4%;">Delete</th>
 </tr>
+</thead>
 <tr>
 <td style="text-align:center;">
 <select name="ex_head" class="m-wrap span12" id="ex">
@@ -220,6 +222,27 @@ $('.content_'+id).remove();
 $(document).ready(function() { 
 	$('form').submit( function(ev){
 	ev.preventDefault();
+		
+		
+		
+		var count = $("#tbb >tbody >tr").length;
+		
+		for(var d=1; d<=count; d++)
+		{
+			
+		var ex_head=$("#tbb >tbody >tr >td:eq(d) select").val();
+		var invoice_ref=$("#tbb  tr:nth-child("+d+") td:nth-child(2) input").val();
+		var party_ac=$("#tbb  tr:nth-child("+d+") td:nth-child(3) select").val();
+		var amt_inv=$("#tbb  tr:nth-child("+d+") td:nth-child(4)  input").val();
+		
+		alert(ex_head);
+		//alert(invoice_ref);
+		//alert(party_ac);
+		//alert(amt_inv);
+		}
+		
+		
+		
 		
 		var m_data = new FormData();
 		m_data.append( 'expense_head', $('#ex').val());

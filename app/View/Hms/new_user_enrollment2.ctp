@@ -168,18 +168,15 @@ $(document).ready(function(){
 		var ar = [];
 		for(var i=1;i<=count;i++)
 		{
-			$("#url_main table tr:nth-child("+i+") span.report").remove();
-			$("#url_main table tr:nth-child("+i+") td").css("background-color", "#fff");
-			
+		$("#url_main table tr:nth-child("+i+") span.report").remove();
+		$("#url_main table tr:nth-child("+i+") td").css("background-color", "#fff");
+		
 		var n=$("#url_main table tr:nth-child("+i+")  input[name=name]").val();
 		var w=$("#url_main table tr:nth-child("+i+") td:nth-child(2) select").val();
 		var f=$("#url_main table tr:nth-child("+i+") td:nth-child(3) select").val();
 		var e=$("#url_main table tr:nth-child("+i+")  input[name=email]").val();
 		var m=$("#url_main table tr:nth-child("+i+")  input[name=mobile]").val();
-		
-		
-		
-		
+
 		var qw1='input:radio:checked';
 		var o=$("#url_main table tr:nth-child("+i+") td:nth-child(6) "+qw1).val();
 	

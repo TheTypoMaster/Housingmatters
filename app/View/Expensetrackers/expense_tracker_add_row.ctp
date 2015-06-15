@@ -1,6 +1,6 @@
 
 
-<tr class="content_<?php echo $count; ?>">
+<tr class="content_<?php echo $count; ?>" id="tr<?php echo $count; ?>">
 <td style="text-align:center;">
 <select name="ex_head" class="m-wrap span12" id="ex">
 <option value="">Select</option>

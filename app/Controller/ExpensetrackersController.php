@@ -574,10 +574,6 @@ $excel.="</table>";
 
 echo $excel;
 
-
-
-
-
 }
 ////////////////////// End Expense Tracker Excel///////////////////////////////////////////////////////////////
 
@@ -768,9 +764,9 @@ $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $r,
 $this->ledger->saveAll($multipleRowData);  
 
 
+
 $output=json_encode(array('report_type'=>'publish','report'=>'Expense Voucher #'.$r.' is generated successfully'));
 die($output);
-
 }
 ////////////////////////// End Expense Tracker Json ///////////////////////////////////////////////////////////
 
