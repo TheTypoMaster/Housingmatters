@@ -11,8 +11,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <input type="hidden" id="fi" value="<?php echo $datef1; ?>" />
 <input type="hidden" id="ti" value="<?php echo $datet1;  ?>" /> 
 <input type="hidden" id="cn" value="<?php echo $count;  ?>" /> 
-
-
+<?php
+$default_date = date('d-m-Y');
+?>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
 		
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
@@ -51,7 +52,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
         
 <div class="controls">      
 <label class="" style="font-size:14px;">Billing Date</label>    
-<input type="text" name="from" id="from" class="m-wrap medium date-picker" data-date-format="dd-mm-yyyy" placeholder="Bill Date" />
+<input type="text" name="from" id="from" class="m-wrap medium date-picker" data-date-format="dd-mm-yyyy" placeholder="Bill Date" value="<?php echo $default_date; ?>"/>
 <div id="result11"></div>
 </div>        
  <br />       
