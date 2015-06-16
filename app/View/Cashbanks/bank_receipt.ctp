@@ -49,7 +49,7 @@ else
   
 
 
-<label style="font-size:14px;">Transaction date<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Transaction date<span style="color:red;">*</span> </label>
 <div class="controls">
 <input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="date" placeholder="Transaction Date" style="background-color:white !important;" id="date" value="<?php echo $default_date; ?>">
 <label id="date"></label>
@@ -59,7 +59,7 @@ else
  
 
 
-<label  style="font-size:14px;">Receipt Mode<span style="color:red;">*</span></label>
+<label  style="font-size:14px;">Receipt Mode<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose receipt mode"> </i></label>
 <div class="controls">
 <label class="radio">
 <div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" value="Cheque" style="opacity: 0;" id="mode" class="chn"></span></div>
@@ -83,7 +83,7 @@ PG
 
  
  
-<label style="font-size:14px;">Instrument/UTR<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Instrument/UTR<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please fill Instrument/UTR"> </i></label>
 <div class="controls">
 <input type="text"  name="instruction" class="m-wrap span9" placeholder="Instrument/UTR" style="background-color:white !important;" id="ins">
 <label id="ins"></label>
@@ -93,7 +93,7 @@ PG
  
  
 
-<label style="font-size:14px;">Deposited In<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Deposited In<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select deposit bank "> </i></label>
 <div class="controls">
 <select name="bank_account" class="span9 m-wrap chosen" id="bank">
 <option value="" style="display:none;">Deposited In</option>    
@@ -125,7 +125,7 @@ $bank_ac = $db['ledger_sub_account']["name"];
 
 
 
-<label style="font-size:14px;">Received from<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Received from<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose member/non-member "> </i></label>
 <div class="controls">
 <label class="radio">
 <div class="radio" id="uniform-undefined"><span><input type="radio" name="member" class="hhh" value="1" style="opacity: 0;" id="mem"></span></div>

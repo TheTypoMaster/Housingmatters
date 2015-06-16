@@ -34,7 +34,7 @@ $default_date = date('d-m-Y');
 
   
 
-<label style="font-size:14px;">Branch<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Branch<span style="color:red;">*</span>  <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please fill branch of the bank"> </i></label>
 <div class="controls">
 <input type="text"  name="branch" class="m-wrap span9" id="brc">
 <label report="brch" class="remove_report"></label>

@@ -58,7 +58,7 @@ else
 <br />
 
 
-<label style="font-size:14px;">A/c Group<span style="color:red;">*</span></label>
+<label style="font-size:14px;">A/c Group<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select account group"> </i></label>
 <div class="controls">
 <select name="ac_type" class="m-wrap chosen span9" id="type">
 <option value="" style="display:none;">--SELECT--</option>							 
@@ -108,7 +108,7 @@ else
 
   
                           
-<label style="font-size:14px;">Mode of Payment<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Mode of Payment<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose payment mode"> </i></label>
 <div class="controls">
 <label class="radio">
 <div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" value="Cheque" style="opacity: 0;" id="mode"></span></div>
@@ -138,7 +138,7 @@ PG
 
 
 
-<label style="font-size:14px;">Bank Account<span style="color:red;">*</span></label></td>
+<label style="font-size:14px;">Bank Account<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select bank account"> </i></label></td>
 <div class="controls">
 <select name="bank_account" onchange="get_value(this.value)" class="m-wrap chosen span9" id="acb">
 <option value="" style="display:none;">Select</option>    
