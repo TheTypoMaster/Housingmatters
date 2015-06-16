@@ -5393,7 +5393,7 @@ $this->check_user_privilages();
 
 
 $this->loadmodel('regular_bill');
-$conditions=array("society_id" => $s_society_id,"aprrove_status"=>1);
+$conditions=array("society_id" => $s_society_id,"approve_status"=>1);
 $cursor1 = $this->regular_bill->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);
 
