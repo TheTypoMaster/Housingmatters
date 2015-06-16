@@ -289,13 +289,7 @@ $("#myModal3").show();
 				type: 'POST',
 			}).done(function(response) {
 				$(".content_model").html(response);
-				
-				
-				
-				
-				
-				
-				
+		
 				var count = $("#flats_main tr").length;
 		        var ar = [];
 		
