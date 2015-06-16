@@ -17,7 +17,10 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <div class="portlet-body">
 
 <div class="control-group">
-<label class="control-label">Attach csv file</label>
+<label class="control-label">Attach csv file
+  <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose csv file"> </i>
+</label> 
+
 <div class="controls">
 <input type="file" name="file" class="default">
 <button type="submit" class="btn blue import_btn">Import</button>
