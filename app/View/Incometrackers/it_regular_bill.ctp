@@ -13,7 +13,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <input type="hidden" id="cn" value="<?php echo $count; ?>" />
 <input type="hidden" id="fb" value="<?php echo @$datefb; ?>" />
 <input type="hidden" id="tb" value="<?php echo @$datetb; ?>" />
-
+<?php
+$default_date = date('d-m-Y');
+?>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php 
 foreach($socct1 as $data)
@@ -117,7 +119,7 @@ $period_id = $period_arr[1];
 
 <label style="font-size:14px;">Billing Date<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" name="from" class="m-wrap span7 date-picker" data-date-format="dd-mm-yyyy" placeholder="Bill Date" id="from" />
+<input type="text" name="from" class="m-wrap span7 date-picker" data-date-format="dd-mm-yyyy" placeholder="Bill Date" id="from" value="<?php echo $default_date; ?>"/>
 <label id="from"></label>
 <div id="result11"></div>
 </div>

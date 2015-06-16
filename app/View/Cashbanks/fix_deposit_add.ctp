@@ -13,7 +13,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <a href="<?php echo $webroot_path; ?>Cashbanks/fix_deposit_view" class="btn" rel='tab'>Active Deposits</a>
 <a href="<?php echo $webroot_path; ?>Cashbanks/matured_deposit_view" class="btn" rel='tab'>Matured Deposits</a>
 </center>	
-
+<?php
+$default_date = date('d-m-Y');
+?>
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">
 <h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Post Fix Deposit</h4>  
@@ -88,7 +90,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
  
 <label style="font-size:14px;">Start Date<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="start_date" id="std">
+<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="start_date" id="std" value="<?php echo $default_date; ?>">
 <label report="stdat" class="remove_report"></label>
 </div>
 <br />

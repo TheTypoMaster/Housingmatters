@@ -3,7 +3,9 @@
 <a href="<?php echo $webroot_path; ?>Hms/fix_asset_add" class="btn red" rel='tab'>Add</a>
 <a href="<?php echo $webroot_path; ?>Hms/fix_asset_view" class="btn blue" rel='tab'>View</a>
 </center>
- 	
+<?php
+$default_date = date('d-m-Y');
+?> 	
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////// ?>			
 <div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">
 <h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Post Fix Asset</h4>			
@@ -95,7 +97,7 @@ $vendor_name=$db['ledger_sub_account']["name"];
 
 <label style="font-size:14px;">Date of Purchase<span style="color:red;">*</span>  <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select purchase date"> </i></label>
 <div class="controls">
-<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="purchase_date" id="pur_dat">
+<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="purchase_date" id="pur_dat" value="<?php echo $default_date; ?>">
 <label report="dat" class="remove_report"></label>
 </div>
 <br />				
