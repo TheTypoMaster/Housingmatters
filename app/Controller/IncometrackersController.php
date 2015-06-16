@@ -702,7 +702,7 @@ $multipleRowData = Array( Array("regular_bill_id" => $regular_bill_id,"receipt_i
 "description"=>$description,"date"=>$current_date, "society_id"=>$s_society_id,"bill_for_user"=>$user_id,
 "g_total"=>$grand_total,"bill_daterange_from"=>$m_from,"bill_daterange_to"=>$m_to,
 "bill_html"=>"","one_time_id"=>$one,"status" => 0,  
-"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "due_amount_tax" => @$due_tax,"remaining_amount"=>$grand_total,"total_amount" => $total_amt,"pay_amount"=>"", "due_amount" => @$due_amount11,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt2));
+"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "due_amount_tax" => @$due_tax,"remaining_amount"=>$grand_total,"total_amount" => $total_amt,"pay_amount"=>"", "due_amount" => @$due_amount11,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt2,"approve_status"=>1));
 $this->regular_bill->saveAll($multipleRowData);	
 
 $ussrs[]=$user_id;
@@ -1617,7 +1617,7 @@ $multipleRowData = Array( Array("regular_bill_id" => $regular_bill_id,"receipt_i
 "description"=>$description,"date"=>$current_date, "society_id"=>$s_society_id,"bill_for_user"=>$user_id,
 "g_total"=>$grand_total,"bill_daterange_from"=>$m_from,"bill_daterange_to"=>$m_to,
 "bill_html"=>"","one_time_id"=>$one,"status" => 0,  
-"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "due_amount_tax" => @$due_tax,"remaining_amount"=>$grand_total,"total_amount" => $total_amt,"pay_amount"=>"", "due_amount" => @$due_amount11,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt2));
+"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "due_amount_tax" => @$due_tax,"remaining_amount"=>$grand_total,"total_amount" => $total_amt,"pay_amount"=>"", "due_amount" => @$due_amount11,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt2,"approve_status"=>1));
 $this->regular_bill->saveAll($multipleRowData);	
 
 ///////////////////////////////////////
@@ -5375,11 +5375,32 @@ $terms_arr[$hh] = $tems_name;
 $this->loadmodel('society');
 $this->society->updateAll(array('terms_conditions'=>$terms_arr),array("society_id" => $s_society_id));
 }
+}
+//////////////////////// End Edit Terms ////////////////////////////////////////////////////////////////
+
+//////////////////////////////////// Start Approve Bill /////////////////////////////////////////////////////////////////
+function aprrove_bill()
+{
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
+$s_society_id = (int)$this->Session->read('society_id');
+
+$this->ath();
+$this->check_user_privilages();
+
+
+$this->loadmodel('regular_bill');
+$conditions=array("society_id" => $s_society_id,"aprrove_status"=>1);
+$cursor1 = $this->regular_bill->find('all',array('conditions'=>$conditions));
+$this->set('cursor1',$cursor1);
 
 
 
 }
-//////////////////////// End Edit Terms ////////////////////////////////////////////////////////////////
+//////////////////////////////////// End Approve Bill /////////////////////////////////////////////////////////////////
 
 }
 ?>
