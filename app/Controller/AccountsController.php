@@ -952,9 +952,9 @@ $society_name = $collection['society']['society_name'];
 }
 
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
 
 
 
@@ -1013,9 +1013,9 @@ if($date >= $m_from && $date <= $m_to)
 {
 if($due_amt > 0)
 {
-$fromd = date('d-M-Y',$date_from->sec);	
-$tod = date('d-M-Y',$date_to->sec);	
-$dued = date('d-M-Y',$due_date->sec);	
+$fromd = date('d-M-Y',strtotime($date_from));	
+$tod = date('d-M-Y',strtotime($date_to));	
+$dued = date('d-M-Y',strtotime($due_date));	
 $c++;
 $grand_total = $grand_total + $total_amount;
 $total_due_amt = $total_due_amt + $due_amt;
@@ -1043,9 +1043,9 @@ if($date >= $m_from && $date <= $m_to)
 {
 if($due_amt > 0)
 {
-$fromd = date('d-M-Y',$date_from->sec);	
-$tod = date('d-M-Y',$date_to->sec);	
-$dued = date('d-M-Y',$due_date->sec);	
+$fromd = date('d-M-Y',strtotime($date_from));	
+$tod = date('d-M-Y',strtotime($date_to));	
+$dued = date('d-M-Y',strtotime($due_date));	
 $c++;
 $grand_total = $grand_total + $total_amount;
 $total_due_amt = $total_due_amt + $due_amt;
