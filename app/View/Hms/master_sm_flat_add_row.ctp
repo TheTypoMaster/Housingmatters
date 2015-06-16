@@ -22,7 +22,7 @@ $wing_name=$collection['wing']["wing_name"];
 					
 <td width="25%" style="text-align:center;">
 <select name="flat_type<?php echo $t; ?>" class="m-wrap medium" id="fltp<?php echo $t; ?>">
-<option value="">--SELECT FLAT TYPE--</option>
+<option value="">--SELECT UNIT TYPE--</option>
 <?php
 foreach($cursor4 as $collection)
 {

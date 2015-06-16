@@ -12,14 +12,14 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////// //?>
 <div class="hide_at_print">
 <div id="validate_result"></div>
-<center>
-<select class="large m-wrap chosen" tabindex="1" id="wise">
+<center> 
+<select class="large m-wrap chosen" tabindex="1" id="wise"> 
 <option value="" style="display:none;">Select Option</option>
 <option value="1">Sundry Creditors Control A/c</option>
 <option value="2">Sundry Debtors Control A/c</option>
 <option value="4">Bank Accounts</option>
 <option value="3">All</option>
-</select>
+</select> 
 </center>
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
