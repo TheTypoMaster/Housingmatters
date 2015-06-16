@@ -46,7 +46,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <tr>
 <th width="15%">Name</th>
 <th width="10%">Wing</th>
-<th width="10%">Flat</th>
+<th width="10%">Unit #</th>
 <th width="20%">Email</th>
 <th width="15%">Mobile</th>
 <th width="10%">Owner</th>

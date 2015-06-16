@@ -46,7 +46,7 @@ $wing_name = $collection['wing']['wing_name'];
 </div>
 <br />   
 
-<label style="font-size:14px;">Flat Number</label>
+<label style="font-size:14px;">Unit Number</label>
 <div id="url_main">
 <div>
 <input type="text" class="m-wrap span7" maxlength="10" id="nu">
