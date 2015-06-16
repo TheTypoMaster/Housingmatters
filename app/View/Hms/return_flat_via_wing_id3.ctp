@@ -1,6 +1,6 @@
 
-              <select style=""  class="" name="flat<?php echo $i; ?>" id="flat<?php echo $i; ?>"  data-placeholder="Choose a Category"   tabindex="1">
-                 <option value="">--Flat--</option>
+              <select style=""  class="m-wrap medium" name="flat<?php echo $i; ?>" id="flat<?php echo $i; ?>"  data-placeholder="Choose a Category"   tabindex="1">
+                 <option value="">--UNIT--</option>
                   <?php
 										
 										foreach ($result3 as $db) 

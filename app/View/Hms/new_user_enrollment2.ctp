@@ -74,7 +74,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 		</td>
 		<td id="echo_flat1" width="10%">
 		<select class="span12 m-wrap" id="flat1" name="flat" >
-		<option value="">Flat</option>
+		<option value="">Unit</option>
 		</select>
 		</td>
 		<td width="20%"><input type="text" class="span12 m-wrap textbox" name="email" id="email1" style="font-size:16px;  background-color: white !important;" placeholder="Email" value=""></td>
