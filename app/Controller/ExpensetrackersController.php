@@ -630,12 +630,7 @@ die($output);
 }
 
 if(empty($part_ac)){
-$output=json_encode(array('report_type'=>'error','text'=>'Please Select Party Account Head'.$c));
-die($output);
-}
-
-if(empty($part_ac)){
-$output=json_encode(array('report_type'=>'error','text'=>'Please Select Party Account Head'.$c));
+$output=json_encode(array('report_type'=>'error','text'=>'Please Select Party Account Head in row'.$c));
 die($output);
 }
 
@@ -679,7 +674,6 @@ $output=json_encode(array('report_type'=>'error','text'=>'The Date is not in Ope
 die($output);
 }
 }
-
 foreach($myArray as $child)
 {
 $expense_head = $child[0];
