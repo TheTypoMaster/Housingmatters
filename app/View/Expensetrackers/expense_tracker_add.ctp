@@ -78,8 +78,11 @@ else
 </div> 
 <?php } ?>
 <br />
+<div id="vvv" style="background-color:#F9F;"></div>
 <form method="post">
+
 <div class="row-fluid">
+
 <div class="span6">
 
 
@@ -130,6 +133,7 @@ else
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <br />
 <table class="table table-bordered" style="background-color:white;" id="tbb">
+<thead>
 <tr>
 <th style="text-align:center; width:24%;">Expense Head</th>
 <th style="text-align:center; width:24%;">Invoice Reference</th>
@@ -137,6 +141,8 @@ else
 <th style="text-align:center; width:24%;">Amount of Invoice</th>
 <th style="text-align:center; width:4%;">Delete</th>
 </tr>
+</thead>
+<tbody id="bdd">
 <tr>
 <td style="text-align:center;">
 <select name="ex_head" class="m-wrap span12" id="ex">
@@ -177,6 +183,7 @@ $name = $collection['ledger_sub_account']['name'];
 </td>
 <td style="text-align:center;"></td>
 </tr>
+</tbody>
 </table>
 
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
@@ -195,13 +202,13 @@ $name = $collection['ledger_sub_account']['name'];
 $(document).ready(function(){
 $("#add").bind('click',function(){
 
-var count = $("#tbb tr").length;
+var count = $("#bdd tr").length;
 count++;
 
 $.ajax({
 url: 'expense_tracker_add_row?con=' + count,
 }).done(function(response) {
-$('table#tbb').append(response);
+$('tbody#bdd').append(response);
 
 });
 });
@@ -220,48 +227,50 @@ $('.content_'+id).remove();
 $(document).ready(function() { 
 	$('form').submit( function(ev){
 	ev.preventDefault();
-		
-		var m_data = new FormData();
-		m_data.append( 'expense_head', $('#ex').val());
-		m_data.append( 'invoice_ref', $('#ref').val());
-		m_data.append( 'party', $('#ph').val());
-		m_data.append( 'amount', $('#ia').val());
-		m_data.append( 'desc', $('#des').val());
-		m_data.append( 'posting', $('#pd').val());
-		m_data.append( 'due', $('#due').val());
-		m_data.append( 'inv_date', $('#date').val());
-			
-		$(".form_post").addClass("disabled");
-		$("#wait").show();
-			
-			$.ajax({
-			url: "expense_tracker_json",
-			data: m_data,
-			processData: false,
-			contentType: false,
-			type: 'POST',
-			dataType:'json',
-			}).done(function(response) {
-				if(response.report_type=='error'){
-					$(".remove_report").html('');
-						jQuery.each(response.report, function(i, val) {
-						$("label[report="+val.label+"]").html('<span style="color:red;">'+val.text+'</span>');
-					});
-				}
-				if(response.report_type=='publish'){
-                $("#shwd").show()
-				$(".success_report").show().html(response.report);	
-				}
-			
-			$("html, body").animate({
-			scrollTop:0
-			},"slow");
-			$(".form_post").removeClass("disabled");
-			$("#wait").hide();
-			});
 
-	 
-	});
+var posting_dat=$("#pd").val();
+var due_date=$("#due").val();
+var invoice_date=$("#date").val();
+var desc=$("#des").val();		
+
+var ar=[];
+
+var count = $("#bdd tr").length;
+for(var i=1; i<=count; i++)
+{
+var ex_head=$("#bdd tr:nth-child("+i+") td:nth-child(1) select").val();
+var invoice_ref=$("#bdd tr:nth-child("+i+") td:nth-child(2) input").val();
+var party_ac=$("#bdd tr:nth-child("+i+") td:nth-child(3) select").val();
+var amt_inv=$("#bdd tr:nth-child("+i+") td:nth-child(4)  input").val();
+ar.push([ex_head,invoice_ref,party_ac,amt_inv,posting_dat,due_date,invoice_date,desc]);
+}
+
+var myJsonString = JSON.stringify(ar);
+myJsonString=encodeURIComponent(myJsonString);
+
+$.ajax({
+url: "expense_tracker_json?q="+myJsonString,
+type: 'POST',
+dataType:'json',
+}).done(function(response) {
+if(response.report_type=='error')
+{
+$("#vvv").html('<b><p style="font-size:16px; color:red;">'+response.text+'</p></b>');
+}
+if(response.report_type=='publish'){
+$("#shwd").show()
+$(".success_report").show().html(response.report);	
+}
+
+$("html, body").animate({
+scrollTop:0
+},"slow");
+$(".form_post").removeClass("disabled");
+$("#wait").hide();
+});
+
+
+});
 });
 </script>
 
@@ -340,20 +349,7 @@ $(document).ready(function() {
 		{
 		$("#result11").load("cash_bank_vali?ss=" + 12 + "");		
 		}
-		
-		
-		
+	
 		});
 		});
 		</script>	
-
-
-
-
-
-
-
-
-
-
-

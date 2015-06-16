@@ -574,69 +574,83 @@ $excel.="</table>";
 
 echo $excel;
 
-
-
-
-
 }
 ////////////////////// End Expense Tracker Excel///////////////////////////////////////////////////////////////
 
 ////////////////////////// Start Expense Tracker Json ///////////////////////////////////////////////////////////
 function expense_tracker_json()
 {
-$this->layout=null;
-$post_data=$this->request->data;
-$this->ath();
-$s_society_id=$this->Session->read('society_id');
-$s_user_id=$this->Session->read('user_id');
-$date=date('d-m-Y');
-$time = date(' h:i a', time());
-
-$expense_head = (int)$post_data['expense_head'];	
-$invoice_ref = $post_data['invoice_ref'];	
-$party_ac_head = (int)$post_data['party'];		
-$amount = $post_data['amount'];	
-$description = $post_data['desc'];		
-$posting_date = $post_data['posting'];	
-$due_date = $post_data['due'];	
-$invoice_date = $post_data['inv_date'];		
-
-$report = array();
-if(empty($expense_head)){
-		$report[]=array('label'=>'ex_head', 'text' => 'Please select Expense Head');
-	}	
+$this->layout='blank';
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id = (int)$this->Session->read('user_id');
 	
-if(empty($invoice_ref)){
-		$report[]=array('label'=>'inv_ref', 'text' => 'Please Fill Invoice Reference');
-	}		
-	
-if(empty($party_ac_head)){
-		$report[]=array('label'=>'prt_head', 'text' => 'Please Select Party Account Head');
-	}		
-if(empty($amount)){
-		$report[]=array('label'=>'amt', 'text' => 'Pleaes Fill Invoice Amount');
-	}		
-if(empty($posting_date)){
-$report[]=array('label'=>'pos_dat', 'text' => 'Please Select Posting Date');
+$q=$this->request->query('q'); 
+$myArray = json_decode($q, true);
+
+
+$c=0;
+$report=array();
+$array1 = array();
+foreach($myArray as $child)
+{
+$c++;
+$expense_head = $child[0];
+$invoice_ref = $child[1];
+$part_ac = $child[2];
+$amt_inv = $child[3];
+$posting_date = $child[4];
+$due_date = $child[5];
+$invoice_date = $child[6];
+$desc = $child[7];
+
+if(empty($posting_date))
+{
+$output=json_encode(array('report_type'=>'error','text'=>'Please Fill Posting Date'));
+die($output);
 }	
 
 if(empty($due_date)){
-$report[]=array('label'=>'du_dat', 'text' => 'Please Select Due Date');
-}
+$output=json_encode(array('report_type'=>'error','text'=>'Please Fill Due Date'));
+die($output);
+}		
 	
 if(empty($invoice_date)){
-$report[]=array('label'=>'inv_dat', 'text' => 'Please Select Invoice Date');
+$output=json_encode(array('report_type'=>'error','text'=>'Please Fill Invoice Date'));
+die($output);
 }
 
-if(!empty($amount))
-{
-if(is_numeric($amount))
+if(empty($expense_head)){
+$output=json_encode(array('report_type'=>'error','text'=>'Please Select Expense Head in row'.$c));
+die($output);
+}
+
+if(empty($invoice_ref)){
+$output=json_encode(array('report_type'=>'error','text'=>'Please Fill Invoice Reference in row'.$c));
+die($output);
+}
+
+if(empty($part_ac)){
+$output=json_encode(array('report_type'=>'error','text'=>'Please Select Party Account Head'.$c));
+die($output);
+}
+
+if(empty($part_ac)){
+$output=json_encode(array('report_type'=>'error','text'=>'Please Select Party Account Head'.$c));
+die($output);
+}
+
+if(empty($amt_inv)){
+$output=json_encode(array('report_type'=>'error','text'=>'Please Fill Amount of Invoice in row'.$c));
+die($output);
+}
+
+if(is_numeric($amt_inv))
 {
 }
 else
 {
-$report[]=array('label'=>'amt', 'text' => 'Pleaes Fill Numeric Value');
-}
+$output=json_encode(array('report_type'=>'error','text'=>'Please Fill Numeric Amount of Invoice in row'.$c));
+die($output);
 }
 	
 $date4 = date("Y-m-d", strtotime($posting_date));
@@ -659,18 +673,24 @@ else
 $abc = 555; 
 }
 }
-if(!empty($posting_date))
-{
 if($abc == 555)
 {
-$report[]=array('label'=>'pos_dat', 'text' => 'The Date is not in Open Financial Year, Please Select another Date');
-}
-}
-if(sizeof($report)>0)
-{
-$output=json_encode(array('report_type'=>'error','report'=>$report));
+$output=json_encode(array('report_type'=>'error','text'=>'The Date is not in Open Financial Year, Please Select another Date'));
 die($output);
 }
+}
+
+foreach($myArray as $child)
+{
+$expense_head = $child[0];
+$invoice_ref = $child[1];
+$part_ac = $child[2];
+$amt_inv = $child[3];
+$posting_date = $child[4];
+$due_date = $child[5];
+$invoice_date = $child[6];
+$desc = $child[7];
+
 
 $current_date = date('Y-m-d');
 //$current_date = new MongoDate(strtotime($date));
@@ -683,9 +703,6 @@ $due_date2 = date("Y-m-d", strtotime($due_date));
 
 $invoice_date2 = date("Y-m-d", strtotime($invoice_date));
 //$invoice_date2 = new MongoDate(strtotime($invoice_date2));
-
-
-
 
 
 $this->loadmodel('expense_tracker');
@@ -712,13 +729,13 @@ $r++;
 $this->loadmodel('expense_tracker');
 $multipleRowData = Array( Array("auto_id" => $i, "receipt_id" => $r, "society_id" => $s_society_id, "current_date" => $current_date, 
 "approver" => $s_user_id, "expense_head" => $expense_head, "invoice_date" => $invoice_date2, 
-"due_date" => $due_date2, "party_head" => $party_ac_head, "description" => $description, "posting_date" => $posting_date2,
-"amount" => $amount, "invoice_reference" => $invoice_ref));
+"due_date" => $due_date2, "party_head" => $part_ac, "description" => $desc, "posting_date" => $posting_date2,
+"amount" => $amt_inv, "invoice_reference" => $invoice_ref));
 $this->expense_tracker->saveAll($multipleRowData); 
 
 
 	
-$sub_account_id_p = $party_ac_head;
+$sub_account_id_p = $part_ac;
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
 $cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
@@ -737,7 +754,7 @@ $k=$last;
 $k++;
 $this->loadmodel('ledger');
 $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $r, 
-"amount" => $amount, "amount_category_id" => 2, "table_name" => "expense_tracker", "account_type" =>  1, "account_id" => $sub_account_id_p,"current_date" => $current_date, "society_id" => $s_society_id,"module_name"=>"Expense Tracker"));
+"amount" => $amt_inv, "amount_category_id" => 2, "table_name" => "expense_tracker", "account_type" =>  1, "account_id" => $sub_account_id_p,"current_date" => $current_date, "society_id" => $s_society_id,"module_name"=>"Expense Tracker"));
 $this->ledger->saveAll($multipleRowData);   
 
 
@@ -763,11 +780,12 @@ $k=$last;
 $k++;
 $this->loadmodel('ledger');
 $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $r, 
-"amount" => $amount, "amount_category_id" => 1, "table_name" => "expense_tracker", "account_type" => 2,  
+"amount" => $amt_inv, "amount_category_id" => 1, "table_name" => "expense_tracker", "account_type" => 2,  
 "account_id" => $sub_account_id_e, "current_date" => $current_date, "society_id" => $s_society_id,"module_name"=>"Expense Tracker"));
 $this->ledger->saveAll($multipleRowData);  
 
 
+}
 $output=json_encode(array('report_type'=>'publish','report'=>'Expense Voucher #'.$r.' is generated successfully'));
 die($output);
 

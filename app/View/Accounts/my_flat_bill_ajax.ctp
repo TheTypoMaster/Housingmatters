@@ -253,7 +253,7 @@ $society_id = $collection['user']['society_id'];
 
 if($date >= $from && $date <= $to)
 {
-if($s_user_id == $user_id)  
+if($s_user_id == @$user_id)  
 {
 $date = date('d-m-Y',strtotime($date));
 $total_debit = $total_debit + $amount;
