@@ -520,13 +520,28 @@ echo $excel;
 function expense_tracker_json()
 {
 $this->layout='blank';
-$s_society_id = (int)$this->Session->read('society_id');
-$s_user_id = (int)$this->Session->read('user_id');
+
+	echo $_POST["myJsonString"];
+	$file_name=$_FILES["file"]["name"];
+	$file_tmp_name =$_FILES['file']['tmp_name'];
+		$target = "expenset/";
+		$target=@$target.basename($file_name);
 	
+		move_uploaded_file($file_tmp_name,@$target);
+	
+	exit;
+	$b=$this->request->query('b');
 $q=$this->request->query('q'); 
+pr($b);
 $myArray = json_decode($q, true);
-
-
+$target = "expenset/";
+		
+		echo $file_name=@$_FILES['file']['name'];
+		$file_tmp_name =$_FILES['file']['tmp_name'];
+		$target=@$target.basename($file_name);
+		move_uploaded_file($file_tmp_name,@$target);
+		
+exit;
 $c=0;
 $report=array();
 $array1 = array();
@@ -613,6 +628,7 @@ $output=json_encode(array('report_type'=>'error','text'=>'The Date is not in Ope
 die($output);
 }
 }
+
 foreach($myArray as $child)
 {
 $expense_head = $child[0];
@@ -623,6 +639,17 @@ $posting_date = $child[4];
 $due_date = $child[5];
 $invoice_date = $child[6];
 $desc = $child[7];
+ 
+
+
+		$target = "expenset/";
+		
+		echo $file_name=@$_FILES['file']['name'];
+		$file_tmp_name =$_FILES['file']['tmp_name'];
+		$target=@$target.basename($file_name);
+		move_uploaded_file($file_tmp_name,@$target);
+		exit;
+
 
 
 $current_date = date('Y-m-d');
@@ -716,6 +743,10 @@ $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $r,
 "amount" => $amt_inv, "amount_category_id" => 1, "table_name" => "expense_tracker", "account_type" => 2,  
 "account_id" => $sub_account_id_e, "current_date" => $current_date, "society_id" => $s_society_id,"module_name"=>"Expense Tracker"));
 $this->ledger->saveAll($multipleRowData);  
+
+
+
+
 
 
 }

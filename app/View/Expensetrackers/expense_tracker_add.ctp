@@ -79,7 +79,7 @@ else
 <?php } ?>
 <br />
 <div id="vvv" style="background-color:#F9F;"></div>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
 
 <div class="row-fluid">
 
@@ -123,7 +123,7 @@ else
 <span class="btn btn-file">
 <span class="fileupload-new">Select file</span>
 <span class="fileupload-exists">Change</span>
-<input type="file" class="default" name="uploaded" id="upl">
+<input type="file" class="default" name="file" id="upl">
 </span>
 <span class="fileupload-preview"></span>
 <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none"></a>
@@ -227,32 +227,37 @@ $('.content_'+id).remove();
 $(document).ready(function() { 
 	$('form').submit( function(ev){
 	ev.preventDefault();
+	
+		var m_data = new FormData();
+		m_data.append( 'file', $('input[name=file]')[0].files[0]);
+	
 
-var posting_dat=$("#pd").val();
-var due_date=$("#due").val();
-var invoice_date=$("#date").val();
-var desc=$("#des").val();		
 
-var ar=[];
-
-var count = $("#bdd tr").length;
-for(var i=1; i<=count; i++)
-{
-var ex_head=$("#bdd tr:nth-child("+i+") td:nth-child(1) select").val();
-var invoice_ref=$("#bdd tr:nth-child("+i+") td:nth-child(2) input").val();
-var party_ac=$("#bdd tr:nth-child("+i+") td:nth-child(3) select").val();
-var amt_inv=$("#bdd tr:nth-child("+i+") td:nth-child(4)  input").val();
-ar.push([ex_head,invoice_ref,party_ac,amt_inv,posting_dat,due_date,invoice_date,desc]);
-}
-
-var myJsonString = JSON.stringify(ar);
-myJsonString=encodeURIComponent(myJsonString);
+		var ar=[];
+		var count = $("#bdd tr").length;
+		for(var i=1; i<=count; i++)
+		{
+		var ex_head=$("#bdd tr:nth-child("+i+") td:nth-child(1) select").val();
+		var invoice_ref=$("#bdd tr:nth-child("+i+") td:nth-child(2) input").val();
+		var party_ac=$("#bdd tr:nth-child("+i+") td:nth-child(3) select").val();
+		var amt_inv=$("#bdd tr:nth-child("+i+") td:nth-child(4)  input").val();
+		ar.push([ex_head,invoice_ref,party_ac,amt_inv]);
+		}
+		alert();
+		var myJsonString = JSON.stringify(ar);
+		myJsonString=encodeURIComponent(myJsonString);
+		m_data.append( 'myJsonString', myJsonString);
 
 $.ajax({
-url: "expense_tracker_json?q="+myJsonString,
+url: "expense_tracker_json",
+data:m_data,
 type: 'POST',
-dataType:'json',
+processData:false,
+contentType:false,
+//dataType:'json',
 }).done(function(response) {
+	alert(response);
+	$("#vvv").html(response);
 if(response.report_type=='error')
 {
 $("#vvv").html('<b><p style="font-size:16px; color:red;">'+response.text+'</p></b>');
