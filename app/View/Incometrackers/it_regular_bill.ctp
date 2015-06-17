@@ -95,7 +95,7 @@ if($income_head_detail == 'YES')
 <div class="row-fluid">
 <div class="span6">
 
-<label style="font-size:14px;">Billing Cycle<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Billing Cycle<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select billing cycle"> </i></label>
 <div class="controls">
 <select name="bill_p" id="bp" class="m-wrap span7 chosen">
 <option value="" style="display:none;">Select</option>
@@ -126,7 +126,7 @@ $period_id = $period_arr[1];
 <br />
 
 
-<label style="font-size:14px; color:red;">Payment Due Date<span style="color:red;">*</span></label>
+<label style="font-size:14px; color:red;">Payment Due Date<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select payment due date "> </i></label>
 <div class="controls">
 <input type="text" class="m-wrap span7 date-picker" data-date-format="dd-mm-yyyy" placeholder="Due Date" name="due_date" id="due" style="color:red; border-color:red;">
 <label id="due" ></label>
@@ -136,7 +136,7 @@ $period_id = $period_arr[1];
 
 
 
-<label class="" style="font-size:14px;">Bill For<span style="color:red;">*</span></label>
+<label class="" style="font-size:14px;">Bill For<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose bill "> </i></label>
 <div class="controls">
 <label class="radio">
 <div class="radio" id="uniform-undefined"><span><input type="radio" name="bill_for" value="1" style="opacity: 0;" id="bill_for"  onclick="wing()"></span></div>
@@ -175,7 +175,7 @@ $wing_name = $collection['wing']['wing_name'];
 <div class="span6">
 <div class="control-group">		
 <div class="controls">
-<label class="" style="font-size:14px;">Penalty</label>
+<label class="" style="font-size:14px;">Penalty <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose penalty yes/no "> </i></label>
 <label class="radio">
 <div class="radio" id="uniform-undefined"><span><input type="radio" name="pen" value="1" style="opacity: 0;" id="pen"></span></div>
 Yes
