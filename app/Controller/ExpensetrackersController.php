@@ -436,13 +436,8 @@ header ("Content-Description: Generated Report" );
 $from = $this->request->query('f');
 $to = $this->request->query('t');
 
-$m_from = date("Y-m-d", strtotime($from));
-//$m_from = new MongoDate(strtotime($m_from));
-
-$m_to = date("Y-m-d", strtotime($to));
-//$m_to = new MongoDate(strtotime($m_to));
-$hh = $this->request->query('g');
-$tt = explode(",",$hh); 
+$from = date("Y-m-d", strtotime($from));
+$to = date("Y-m-d", strtotime($to));
 
 $s_role_id = (int)$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
@@ -456,124 +451,68 @@ foreach($cursor as $collection)
 $society_name = $collection['society']['society_name'];
 }
 
-$start    = (new DateTime($from));
-$end      = (new DateTime($to));
-$interval = DateInterval::createFromDateString('1 month');
-$period   = new DatePeriod($start, $interval, $end);
 
-foreach($period as $data)
-{
-$mon1 = $data->format("M-Y");
-$this->loadmodel('expense_tracker');
-$conditions=array("society_id"=>$s_society_id);
-$cursor3 = $this->expense_tracker->find('all',array('conditions'=>$conditions));
-foreach($cursor3 as $collection)
-{
-$auto_id = (int)$collection['expense_tracker']['auto_id'];	
-$expense_date_mongo = $collection['expense_tracker']['posting_date'];
-$expense_date = date('d-m-Y',strtotime($expense_date_mongo));
-$expense_month = date("M-Y",strtotime($expense_date));
-if($expense_month == $mon1) 
-{
-$expense_arr[] = array($auto_id,$expense_month); 
-}
-}
-}
-$this->loadmodel('expense_tracker');
-$conditions=array("society_id"=>$s_society_id);
-$cursor3 = $this->expense_tracker->find('all',array('conditions'=>$conditions));
-foreach($cursor3 as $collection)
-{
-$expense_date_mongo = $collection['expense_tracker']['posting_date'];
-$expense_date = date('d-m-Y',strtotime($expense_date_mongo));
-$expense_month = date("M-Y",strtotime($expense_date));
-$expense_month_arr[] = $expense_month;
-}
-
-$excel="
-<table border='1'>
+$excel="<table border='1'>
 <tr>
-<th>Expense Head</th>";
-foreach ($period as $dt){
-$month_name1 = $dt->format("M-Y");
-for($p=0; $p<sizeof($expense_month_arr); $p++)
-{
-$month_name2 = $expense_month_arr[$p];
-if($month_name1 == $month_name2)
-{
-$abc[] = $month_name1;
-$excel.="<th style='text-align:center;'>$month_name1</th>";
-break;
-}}}
-$excel.="</tr>";
+<th style='text-align:center;' colspan='8'>$society_name Society</th>
+</tr>
+<tr>
+<th style='text-align:left;'>Voucher #</th>
+<th style='text-align:left;'>Posting Date</th>
+<th style='text-align:left;'>Due Date</th>
+<th style='text-align:left;'>Date of Invoice</th>
+<th style='text-align:left;'>Expense Head</th>
+<th style='text-align:left;'>Invoice Reference</th>
+<th style='text-align:left;'>Party Account Head</th>
+<th style='text-align:left;'>Amount</th>
+</tr>";
 $total = 0;
-$this->loadmodel('accounts_group');
-$conditions=array("accounts_id"=>4);
-$cursor2 = $this->accounts_group->find('all',array('conditions'=>$conditions));
-foreach($cursor2 as $collection)
+$this->loadmodel('expense_tracker');
+$conditions=array("society_id"=>$s_society_id);
+$cursor3 = $this->expense_tracker->find('all',array('conditions'=>$conditions));
+foreach($cursor3 as $collection)
 {
-$group_id = (int)$collection['accounts_group']['auto_id'];	
-$result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch'),array('pass'=>array($group_id)));
-foreach($result2 as $collection2)
-{
-$ex_head = (int)$collection2['ledger_account']['auto_id'];	
-$expense_head = $collection2['ledger_account']['ledger_name'];
-for($k=0; $k<sizeof(@$expense_arr); $k++)
-{
-$exp_arr1 = $expense_arr[$k];
-$auto_id2 = (int)$exp_arr1[0];
-$month5 = $exp_arr1[1];
-$result5 = $this->requestAction(array('controller' => 'hms', 'action' => 'expense_tracker_fetch'),array('pass'=>array($auto_id2)));
+$receipt_id = $collection['expense_tracker']['receipt_id'];
+$posting_date = $collection['expense_tracker']['posting_date'];
+$due_date = $collection['expense_tracker']['due_date'];
+$invoice_date = $collection['expense_tracker']['invoice_date'];
+$expense_head = (int)$collection['expense_tracker']['expense_head'];
+$invoice_reference = $collection['expense_tracker']['invoice_reference'];
+$party_account_head = (int)$collection['expense_tracker']['party_head'];
+$amount = $collection['expense_tracker']['amount'];
+
+$result5 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($expense_head)));
 foreach($result5 as $collection3)
 {
-$exp_head2 = (int)$collection3['expense_tracker']['expense_head'];
-$amount = $collection3['expense_tracker']['amount'];
+$ledger_name = $collection3['ledger_account']['ledger_name'];
 }
-if($exp_head2 == $ex_head)
-{
 
-$excel.="<tr><td style='text-align:left;'>$expense_head</td>";
-
-for($m=0; $m<sizeof($abc); $m++)
+$result6 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($party_account_head)));
+foreach($result6 as $collection4)
 {
-$total = 0;
-
-$month_name3 = $abc[$m];
-$this->loadmodel('expense_tracker');
-$conditions=array("society_id"=>$s_society_id);
-$cursor3 = $this->expense_tracker->find('all',array('conditions'=>$conditions));
-foreach($cursor3 as $collection6)
-{
-$exps_head = (int)$collection6['expense_tracker']['expense_head'];
-$posting_date = $collection6['expense_tracker']['posting_date'];
-$amount = $collection6['expense_tracker']['amount'];
-$posting_date = date('M-Y',strtotime($posting_date));
-if($posting_date == $month_name3 && $exp_head2 == $exps_head)
-{
-$total = $total + $amount;	
+$party_name = $collection4['ledger_sub_account']['name'];
 }
-}
-$excel.="<td style='text-align:center;'>$total</td>";
-$tt[$m] = $tt[$m] + $total;
-
-$total = 0;
-}
-$excel.="</tr>";
-break;
-}}}}
-
+if($posting_date >= $from && $posting_date <= $to)
+{
+$total = $total+$amount;
 $excel.="<tr>
-<th style='text-align:right;'>Total</th>";
-foreach($tt as $rr)
-{
-$excel.="<th style='text-align:right;'>$rr</th>";
-}
-$excel.="</tr>";
-
-$excel.="</table>";
+<td style='text-align:right;'>$receipt_id</td>
+<td style='text-align:left;'>$posting_date</td>
+<td style='text-align:left;'>$due_date</td>
+<td style='text-align:left;'>$invoice_date</td>
+<td style='text-align:left;'>$ledger_name</td>
+<td style='text-align:left;'>$invoice_reference</td>
+<td style='text-align:left;'>$party_name</td>
+<td style='text-align:right;'>$amount</td>
+</tr>";
+}}
+$excel.="<tr>
+<th colspan='7' style='text-align:right;'>Total</th>
+<th>$total</th>
+</tr>
+</table>";
 
 echo $excel;
-
 }
 ////////////////////// End Expense Tracker Excel///////////////////////////////////////////////////////////////
 
