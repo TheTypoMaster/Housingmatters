@@ -78,7 +78,7 @@ $default_date = date('d-m-Y');
  
  <div class="control-group">
 		<div class="controls">
-		<label class="" style="font-size:14px; color:red;">Payment Due Date</label>
+		<label class="" style="font-size:14px; color:red;">Payment Due Date <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select payment due date"> </i></label>
         <input type="text" class="span3 m-wrap  m-ctrl-medium date-picker" data-date-format="dd-mm-yyyy" placeholder="Due Date" name="due_date" id="due" style="color:red; border-color:red;">
         <label id="due" ></label>
 		 <div id="result12"></div>
