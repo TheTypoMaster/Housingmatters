@@ -269,20 +269,7 @@ $default_date = date('d-m-Y');
 			</div>
 			</div> -->
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+	
 			<div class="form-actions">
 			<button type="submit" class="btn green" value="Generate Bill" name="sub1" id="go5">Preview Bill</button>
 			<a href="it_supplimentry_bill" class="btn">Reset</a>
