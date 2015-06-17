@@ -227,33 +227,34 @@ $('.content_'+id).remove();
 $(document).ready(function() { 
 	$('form').submit( function(ev){
 	ev.preventDefault();
-	
-		var m_data = new FormData();
-		m_data.append( 'file', $('input[name=file]')[0].files[0]);
-	
 
+var m_data = new FormData();
+m_data.append( 'post', $('input[name=file]')[0].files[0]);
+m_data.append( 'due', $('input[name=file]').val());
+m_data.append( 'inv_date', $('input[name=file]')[0].files[0]);
+m_data.append( 'desc', $('input[name=file]')[0].files[0]);
+m_data.append( 'file', $('input[name=file]')[0].files[0]);
+m_data.append( 'file', $('input[name=file]')[0].files[0]);
 
-		var ar=[];
-		var count = $("#bdd tr").length;
-		for(var i=1; i<=count; i++)
-		{
-		var ex_head=$("#bdd tr:nth-child("+i+") td:nth-child(1) select").val();
-		var invoice_ref=$("#bdd tr:nth-child("+i+") td:nth-child(2) input").val();
-		var party_ac=$("#bdd tr:nth-child("+i+") td:nth-child(3) select").val();
-		var amt_inv=$("#bdd tr:nth-child("+i+") td:nth-child(4)  input").val();
-		ar.push([ex_head,invoice_ref,party_ac,amt_inv]);
-		}
-		alert();
-		var myJsonString = JSON.stringify(ar);
-		myJsonString=encodeURIComponent(myJsonString);
-		m_data.append( 'myJsonString', myJsonString);
+	
+var ar=[];
+
+var count = $("#bdd tr").length;
+for(var i=1; i<=count; i++)
+{
+var ex_head=$("#bdd tr:nth-child("+i+") td:nth-child(1) select").val();
+var invoice_ref=$("#bdd tr:nth-child("+i+") td:nth-child(2) input").val();
+var party_ac=$("#bdd tr:nth-child("+i+") td:nth-child(3) select").val();
+var amt_inv=$("#bdd tr:nth-child("+i+") td:nth-child(4)  input").val();
+ar.push([ex_head,invoice_ref,party_ac,amt_inv,posting_dat,due_date,invoice_date,desc]);
+}
+
+var myJsonString = JSON.stringify(ar);
+myJsonString=encodeURIComponent(myJsonString);
 
 $.ajax({
-url: "expense_tracker_json",
-data:m_data,
+url: "expense_tracker_json?q="+myJsonString,
 type: 'POST',
-processData:false,
-contentType:false,
 //dataType:'json',
 }).done(function(response) {
 	alert(response);
