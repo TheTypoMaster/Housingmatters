@@ -5381,22 +5381,116 @@ $this->society->updateAll(array('terms_conditions'=>$terms_arr),array("society_i
 //////////////////////////////////// Start Approve Bill /////////////////////////////////////////////////////////////////
 function aprrove_bill()
 {
+
 if($this->RequestHandler->isAjax()){
 $this->layout='blank';
 }else{
 $this->layout='session';
 }
+
 $s_society_id = (int)$this->Session->read('society_id');
 
 $this->ath();
 $this->check_user_privilages();
-
 
 $this->loadmodel('regular_bill');
 $conditions=array("society_id" => $s_society_id,"approve_status"=>1);
 $cursor1 = $this->regular_bill->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);
 
+$del_id = (int)$this->request->query('del');
+
+if(!empty($del_id))
+{
+$this->loadmodel('regular_bill');
+$conditions=array("society_id" => $s_society_id,"receipt_id"=>$del_id);
+$cursor = $this->regular_bill->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$user_id = (int)$collection['regular_bill']['bill_for_user'];
+$html = $collection['regular_bill']['bill_html'];
+$from = $collection['regular_bill']['bill_daterange_from'];
+$to = $collection['regular_bill']['bill_daterange_to'];
+$due_date = $collection['regular_bill']['due_date'];
+$grand_total = $collection['regular_bill']['g_total'];
+}
+
+$sms_from = date('dM',strtotime($from));
+$sms_to = date('dMy',strtotime($to));
+$sms_due = date('dMy',strtotime($due_date));
+
+
+$result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
+foreach ($result as $collection) 
+{
+$user_name = $collection['user']['user_name'];
+$wing_id = $collection['user']['wing'];  
+$flat_id = (int)$collection['user']['flat'];
+$tenant = (int)$collection['user']['tenant'];
+$mobile = $collection['user']['mobile'];
+$email = $collection['user']['email'];
+}	
+
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));	
+
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor = $this->society->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$sms_id = (int)$collection['society']['account_sms'];
+$email_id = (int)$collection['society']['account_email'];
+$society_name = $collection['society']['society_name'];
+}
+
+if($sms_id == 1)
+{
+
+$r_sms=$this->hms_sms_ip();
+$working_key=$r_sms->working_key;
+$sms_sender=$r_sms->sms_sender; 
+$sms='Dear '.$user_name.' '.$wing_flat.', your maintenance bill for period '.$sms_from.'-'.$sms_to.' is Rs '.$grand_total.'.Kindly pay by due '.$sms_due.'.'.$society_name.' Society';
+
+$sms1=str_replace(' ', '+', $sms);
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+}
+
+if($email_id == 1)
+{
+$from_mail_date = date('d M',strtotime($from));
+$to_mail_date = date('d M Y',strtotime($to));
+
+//$my_mail = "nikhileshvyas@yahoo.com";
+$subject = ''.$society_name.' : Maintanance bill, '.$from_mail_date.' to '.$to_mail_date.'';
+$from_name="HousingMatters";
+//$message_web = "Receipt No. :".$d_receipt_id;
+$from = "accounts@housingmatters.in";
+$reply="accounts@housingmatters.in";
+$this->send_email($email,$from,$from_name,$subject,$html,$reply);
+}
+
+$this->loadmodel('regular_bill');
+$this->regular_bill->updateAll(array("approve_status" => 2),array("receipt_id" => $del_id,"society_id"=>$s_society_id));
+
+?>
+<div class="modal-backdrop fade in"></div>
+<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+<div class="modal-header">
+<center>
+<h3 id="myModalLabel3" style="color:#999;"><b>Regular Bill Approve</b></h3>
+</center>
+</div>
+<div class="modal-body">
+<center>
+<h5><b>This Bill Approved Suceessfully</b></h5>
+</center>
+</div>
+<div class="modal-footer">
+<a href="aprrove_bill" class="btn blue">OK</a>
+</div>
+</div>
+<?php
+}
 
 
 }

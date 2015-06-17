@@ -94,14 +94,14 @@ else
 </div>
 <br />
 
-<label style="font-size:14px;">Payment Due Date<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Payment Due Date<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select due date for payment"> </i></label>
 <div class="controls">	
 <input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="due_date" id="due">
 <label report="du_dat" class="remove_report"></label>
 </div>
 <br />
 
-<label style="font-size:14px;">Date of Invoice<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Date of Invoice<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select invoice date"> </i></label>
 <div class="controls">							
 <input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="invoice_date" id="date">
 <label report="inv_dat" class="remove_report"></label>
