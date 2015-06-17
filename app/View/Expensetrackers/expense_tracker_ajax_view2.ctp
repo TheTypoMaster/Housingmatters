@@ -71,7 +71,7 @@ $total = $total+$amount;
 <td style="text-align:left;"><?php echo $invoice_reference; ?></td>
 <td style="text-align:left;"><?php echo $party_name; ?></td>
 <td style="text-align:right;"><?php echo $amount; ?></td>
-<td style="text-align:left;" class="hide_at_print"><a href="" class="hide_at_print">Download</a></td>
+<td style="text-align:left;" class="hide_at_print"><a href="<?php echo $webroot_path; ?>expenset/<?php echo $file; ?>" class="hide_at_print">Download</a></td>
 <td style="text-align:left;" class="hide_at_print"></td>
 </tr>
 <?php
