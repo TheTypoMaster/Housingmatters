@@ -624,7 +624,13 @@ $output=json_encode(array('report_type'=>'error','text'=>'The Date is not in Ope
 die($output);
 }
 }
+$file_name=@$_FILES["file"]["name"];
 
+if(empty($file_name))
+{
+$output=json_encode(array('report_type'=>'error','text'=>'Please Select Attachment'));
+die($output);
+}
 foreach($myArray as $child)
 {
 $expense_head = $child[0];
@@ -727,8 +733,6 @@ $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $r,
 "account_id" => $sub_account_id_e, "current_date" => $current_date, "society_id" => $s_society_id,"module_name"=>"Expense Tracker"));
 $this->ledger->saveAll($multipleRowData);  
 }
-
-
 
 $output=json_encode(array('report_type'=>'publish','report'=>'Expense Voucher #'.$r.' is generated successfully'));
 die($output);
