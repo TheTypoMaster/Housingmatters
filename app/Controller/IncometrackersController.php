@@ -3108,7 +3108,7 @@ for($y=0; $y<sizeof($income_head_charge); $y++)
 $total[]="";	
 $cnt++;	
 }
-$cnt = $cnt+5;
+$cnt = $cnt+6;
 /////////////////////////////////////////
 $excel="<table border='1'>
 <thead>
@@ -3118,7 +3118,8 @@ $excel="<table border='1'>
 <tr>
 <th style='text-align:left;'>Bill No.</th>
 <th style='text-align:left;'>Flat No.</th>
-<th style='text-align:left;'>Name of Resident</th>";
+<th style='text-align:left;'>Name of Resident</th>
+<th style='text-align:left;'>Area (Sq.Ft.)</th>";
 for($r=0; $r<sizeof($income_head_charge); $r++)
 {
 $abc = (int)$income_head_charge[$r];	
@@ -3152,6 +3153,12 @@ foreach ($result as $collection)
 $wing_id = $collection['user']['wing'];  
 $flat_id = (int)$collection['user']['flat'];
 $user_name = $collection['user']['user_name'];
+}
+$result5 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch2'),array('pass'=>array($flat_id,$wing_id)));	
+foreach($result5 as $collection)
+{
+$area = $collection['flat']['flat_area'];
+$unit_number = $collection['flat']['flat_name'];
 }	
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action'=>'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
 if($m_from<= $date && $m_to>= $date)
@@ -3159,7 +3166,8 @@ if($m_from<= $date && $m_to>= $date)
 $excel.="<tr>
 <td style='text-align:right;'>$bill_id</td>
 <td style='text-align:left;'>$wing_flat</td>
-<td style='text-align:left;'>$user_name</td>";
+<td style='text-align:left;'>$user_name</td>
+<td style='text-align:left;'>$area &nbsp; sq.Ft.</td>";
 $total_amt = 0;
 for($y=0; $y<sizeof($income_head_charge); $y++)
 {
@@ -3200,7 +3208,7 @@ $excel.="$total_amt2</td>
 }
 }
 $excel.="<tr>
-<th colspan='3' style='text-align:right;'>Grand Total</th>";
+<th colspan='4' style='text-align:right;'>Grand Total</th>";
 $grand_total = 0;
 for($h=0; $h<sizeof($total); $h++)
 {  
