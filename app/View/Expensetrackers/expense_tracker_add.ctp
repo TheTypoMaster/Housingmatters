@@ -132,6 +132,7 @@ else
 </div>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <br />
+
 <table class="table table-bordered" style="background-color:white;" id="tbb">
 <thead>
 <tr>
@@ -179,12 +180,13 @@ $name = $collection['ledger_sub_account']['name'];
 </select>
 </td>
 <td style="text-align:center;">
-<input type="text" class="m-wrap span9"   name="invoice_amount" id="ia">
+<input type="text" class="m-wrap span9 amt1"   name="invoice_amount" id="ia" onblur="amt_val()">
 </td>
 <td style="text-align:center;"></td>
 </tr>
 </tbody>
 </table>
+<div id="www"></div>
 
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 </div>
@@ -197,6 +199,25 @@ $name = $collection['ledger_sub_account']['name'];
 <br /><br />
 </form>
 </div>
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<script>
+function amt_val()
+{
+var cc = $("#bdd tr").length;
+for(var i=1; i<=cc; i++)
+{
+var amt = $(".amt"+ i).val();
+if(isNaN(amt))
+{
+$("#www").html('<p style="color:red;">Please Fill Numeric Amount</p>');	
+}
+else
+{
+$("#www").html('');	
+}
+}
+}
+</script> 
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <script>
 $(document).ready(function(){
