@@ -289,11 +289,12 @@ $d_receipt_id = (int)$collection['expense_tracker']['receipt_id'];
 ///////////////////////////////////////Start Expense Tracker View (Accounts)//////////////////////////////////////////
 function expense_tracker_view()
 {
-if($this->RequestHandler->isAjax()){
-		$this->layout='blank';
-	}else{
-		$this->layout='session';
-	}
+if($this->RequestHandler->isAjax())
+{
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
 	
 $this->ath();
 $this->check_user_privilages();	
@@ -363,6 +364,11 @@ $this->layout='blank';
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = $this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
+
+
+$this->ath();
+//$this->check_user_privilages();	
+
 
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
@@ -521,27 +527,37 @@ function expense_tracker_json()
 {
 $this->layout='blank';
 
-	echo $_POST["myJsonString"];
-	$file_name=$_FILES["file"]["name"];
-	$file_tmp_name =$_FILES['file']['tmp_name'];
-		$target = "expenset/";
-		$target=@$target.basename($file_name);
-	
-		move_uploaded_file($file_tmp_name,@$target);
-	
-	exit;
-	$b=$this->request->query('b');
-$q=$this->request->query('q'); 
-pr($b);
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id  = (int)$this->Session->read('user_id');
+
+$posting_date = $_POST['post'];
+$due_date = $_POST['due'];
+$invoice_date = $_POST['inv_dat'];
+$desc = $_POST['desc'];
+
+if(empty($posting_date))
+{
+$output=json_encode(array('report_type'=>'error','text'=>'Please Select Posting Date'));
+die($output);
+}
+
+if(empty($due_date))
+{
+$output=json_encode(array('report_type'=>'error','text'=>'Please Select Due Date'));
+die($output);
+}
+
+if(empty($invoice_date))
+{
+$output=json_encode(array('report_type'=>'error','text'=>'Please Select Invoice Date'));
+die($output);
+}
+
+$q = $_POST["myJsonString"]; 
 $myArray = json_decode($q, true);
-$target = "expenset/";
-		
-		echo $file_name=@$_FILES['file']['name'];
-		$file_tmp_name =$_FILES['file']['tmp_name'];
-		$target=@$target.basename($file_name);
-		move_uploaded_file($file_tmp_name,@$target);
-		
-exit;
+$q = html_entity_decode($q);
+
+$myArray = json_decode($q, true);	
 $c=0;
 $report=array();
 $array1 = array();
@@ -552,26 +568,6 @@ $expense_head = $child[0];
 $invoice_ref = $child[1];
 $part_ac = $child[2];
 $amt_inv = $child[3];
-$posting_date = $child[4];
-$due_date = $child[5];
-$invoice_date = $child[6];
-$desc = $child[7];
-
-if(empty($posting_date))
-{
-$output=json_encode(array('report_type'=>'error','text'=>'Please Fill Posting Date'));
-die($output);
-}	
-
-if(empty($due_date)){
-$output=json_encode(array('report_type'=>'error','text'=>'Please Fill Due Date'));
-die($output);
-}		
-	
-if(empty($invoice_date)){
-$output=json_encode(array('report_type'=>'error','text'=>'Please Fill Invoice Date'));
-die($output);
-}
 
 if(empty($expense_head)){
 $output=json_encode(array('report_type'=>'error','text'=>'Please Select Expense Head in row'.$c));
@@ -635,34 +631,24 @@ $expense_head = $child[0];
 $invoice_ref = $child[1];
 $part_ac = $child[2];
 $amt_inv = $child[3];
-$posting_date = $child[4];
-$due_date = $child[5];
-$invoice_date = $child[6];
-$desc = $child[7];
- 
 
 
-		$target = "expenset/";
-		
-		echo $file_name=@$_FILES['file']['name'];
-		$file_tmp_name =$_FILES['file']['tmp_name'];
-		$target=@$target.basename($file_name);
-		move_uploaded_file($file_tmp_name,@$target);
-		exit;
+$file_name=$_FILES["file"]["name"];
+$file_tmp_name =$_FILES['file']['tmp_name'];
+$target = "expenset/";
+$target=@$target.basename($file_name);
+move_uploaded_file($file_tmp_name,@$target);
+
 
 
 
 $current_date = date('Y-m-d');
-//$current_date = new MongoDate(strtotime($date));
 
 $posting_date2 = date("Y-m-d", strtotime($posting_date));
-//$posting_date2 = new MongoDate(strtotime($posting_date2));
 
 $due_date2 = date("Y-m-d", strtotime($due_date));
-//$due_date2 = new MongoDate(strtotime($due_date2));
 
 $invoice_date2 = date("Y-m-d", strtotime($invoice_date));
-//$invoice_date2 = new MongoDate(strtotime($invoice_date2));
 
 
 $this->loadmodel('expense_tracker');
@@ -690,7 +676,7 @@ $this->loadmodel('expense_tracker');
 $multipleRowData = Array( Array("auto_id" => $i, "receipt_id" => $r, "society_id" => $s_society_id, "current_date" => $current_date, 
 "approver" => $s_user_id, "expense_head" => $expense_head, "invoice_date" => $invoice_date2, 
 "due_date" => $due_date2, "party_head" => $part_ac, "description" => $desc, "posting_date" => $posting_date2,
-"amount" => $amt_inv, "invoice_reference" => $invoice_ref));
+"amount" => $amt_inv, "invoice_reference" => $invoice_ref,"attachment"=>$file_name));
 $this->expense_tracker->saveAll($multipleRowData); 
 
 
@@ -718,9 +704,6 @@ $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $r,
 $this->ledger->saveAll($multipleRowData);   
 
 
-
-
-
 $sub_account_id_e = $expense_head;
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
@@ -743,13 +726,10 @@ $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $r,
 "amount" => $amt_inv, "amount_category_id" => 1, "table_name" => "expense_tracker", "account_type" => 2,  
 "account_id" => $sub_account_id_e, "current_date" => $current_date, "society_id" => $s_society_id,"module_name"=>"Expense Tracker"));
 $this->ledger->saveAll($multipleRowData);  
-
-
-
-
-
-
 }
+
+
+
 $output=json_encode(array('report_type'=>'publish','report'=>'Expense Voucher #'.$r.' is generated successfully'));
 die($output);
 

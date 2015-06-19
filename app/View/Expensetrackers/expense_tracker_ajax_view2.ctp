@@ -42,7 +42,7 @@ $expense_head = (int)$collection['expense_tracker']['expense_head'];
 $invoice_reference = $collection['expense_tracker']['invoice_reference'];
 $party_account_head = (int)$collection['expense_tracker']['party_head'];
 $amount = $collection['expense_tracker']['amount'];
-
+$file = $collection['expense_tracker']['attachment'];
 $result5 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($expense_head)));
 foreach($result5 as $collection3)
 {
