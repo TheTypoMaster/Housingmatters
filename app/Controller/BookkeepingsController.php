@@ -151,7 +151,6 @@ $current_date = new MongoDate(strtotime($current_date));
 
 if($l_type_id == 34 || $l_type_id == 15 || $l_type_id == 33 || $l_type_id == 35)
 { 
-
 $this->loadmodel('journal');
 $order=array('journal.auto_id'=> 'DESC');
 $cursor=$this->journal->find('all',array('order' =>$order,'limit'=>1));
@@ -177,7 +176,6 @@ $this->journal->saveAll($multipleRowData);
 }
 else
 {
-
 $this->loadmodel('journal');
 $order=array('journal.auto_id'=> 'DESC');
 $cursor=$this->journal->find('all',array('order' =>$order,'limit'=>1));
@@ -1426,14 +1424,12 @@ $this->set('cursor2',$cursor2);
 //////////////////////////////// End Jounal add new /////////////////////////////////////////////////////////////
 
 ///////////////////////////////// Start journal validation///////////////////////////////////////////////////////////
-
 function journal_validation()
 {
 $this->layout='blank';
 $q=$this->request->query('q');
 $q = html_entity_decode($q);
 $date2 = $this->request->query('b');
-
 
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id  = (int)$this->Session->read('user_id');
@@ -1497,10 +1493,6 @@ if($abc == 555)
 $output = json_encode(array('type'=>'error', 'text' => 'Transaction Date is not in Financial Year'));
 die($output);
 }
-
-
-
-
 
 $myArray = json_decode($q, true);
 $c=0;
