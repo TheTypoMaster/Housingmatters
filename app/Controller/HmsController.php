@@ -11,25 +11,25 @@ var $name = 'Hms';
 
 
 function visible_subvisible($visible,$sub_visible) {
-	$s_user_id=$this->Session->read('user_id');
-	if($visible==1){	
-		$result_user=$this->all_user_deactive();
-		
-		foreach($result_user as $data){
-			$da_to[$data['user']['user_id']]=$data['user']['email'];
-			$da_user_name[]=$data['user']['user_name'];
-			$da_user_id[]=$data['user']['user_id'];
-		}
-		
-	}
-	if($visible==4){	
-		$result_user=$this->all_owner_deactive();
-		foreach($result_user as $data){
-			$da_to[$data['user']['user_id']]=$data['user']['email'];
-			$da_user_name[]=$data['user']['user_name'];
-			$da_user_id[]=$data['user']['user_id'];
-		}
-	}
+$s_user_id=$this->Session->read('user_id');
+if($visible==1){	
+$result_user=$this->all_user_deactive();
+
+foreach($result_user as $data){
+$da_to[$data['user']['user_id']]=$data['user']['email'];
+$da_user_name[]=$data['user']['user_name'];
+$da_user_id[]=$data['user']['user_id'];
+}
+
+}
+if($visible==4){	
+$result_user=$this->all_owner_deactive();
+foreach($result_user as $data){
+$da_to[$data['user']['user_id']]=$data['user']['email'];
+$da_user_name[]=$data['user']['user_name'];
+$da_user_id[]=$data['user']['user_id'];
+}
+}
 	if($visible==5){
 		$result_user=$this->all_tenant_deactive();
 		foreach($result_user as $data){
