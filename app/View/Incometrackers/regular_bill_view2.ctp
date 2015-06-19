@@ -79,6 +79,8 @@ Bill for date From :<?php echo $from; ?> To : <?php echo $to; ?>
 <th>Sr.No.</th>
 <th>Bill No.</th>
 <th>Member</th>
+<th>Unit Number</th>
+<th>Area</th>
 <?php
 for($p=0; $p<sizeof($income_head_arr); $p++)
 {
@@ -188,7 +190,9 @@ $noc_charge = @$collection5['flat_type']['noc_charge'];
 <tr>
 <td style="text-align:right;"><?php echo $sr; ?></td>
 <td style="text-align:right;"><?php echo $bill_no; ?></td>
-<td style="text-align:left;"><?php echo $user_name; ?> &nbsp;&nbsp; (<?php echo $wing_flat; ?>)</td>
+<td style="text-align:left;"><?php echo $user_name; ?></td>
+<td style="text-align:left;"><?php echo $wing_flat; ?></td>
+<td style="text-align:left;"><?php echo $sq_feet; ?> &nbsp; Sq.Ft.</td>
 <?php
 $total_amt = 0;
 $gt_amt = 0;
@@ -385,7 +389,9 @@ $noc_charge = @$collection5['flat_type']['noc_charge'];
 <tr>
 <td style="text-align:right;"><?php echo $sr; ?></td>
 <td style="text-align:right;"><?php echo $bill_no; ?></td>
-<td style="text-align:left;"><?php echo $user_name; ?> &nbsp;&nbsp; (<?php echo $wing_flat; ?>)</td>
+<td style="text-align:left;"><?php echo $user_name; ?></td>
+<td style="text-align:left;"><?php echo $wing_flat; ?></td>
+<td style="text-align:left;"><?php echo $sq_feet; ?> &nbsp; Sq.Ft.</td>
 <?php
 $total_amt = 0;
 $gt_amt = 0;
@@ -498,7 +504,7 @@ echo $gt_amt2; ?></td>
 
 ?>
 <tr>
-<th colspan="3" style="text-align:right;">Total</th>
+<th colspan="5" style="text-align:right;">Total</th>
 <?php
 for($k=0; $k<sizeof(@$total_ih); $k++)
 {
