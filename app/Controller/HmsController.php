@@ -14280,7 +14280,7 @@ $result=$this->contact_handbook->find('all',array('conditions'=>$conditions));
 		}	
 		$export.="<tr>
 		<td>".$i."</td>
-		<td>".$user_name."</td>
+		<td>".$name."</td>
 		<td>".$mobile."</td>
 		<td>".$email."</td>
 		<td>".$web."</td>
