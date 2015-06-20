@@ -298,6 +298,8 @@ $pen_per2 = (int)@$collection['society']['tax'];
 $per_type2 = (int)@$collection['society']['tax_type'];
 $society_address = $collection['society']['society_address'];
 $society_sig = $collection['society']['signature'];
+$society_email = $collection['society']['society_email'];
+$society_phone = $collection['society']['society_phone'];
 }
 $bill_for = (int)$this->request->data['bill_for'];
 $wing_arr_imp = $this->request->data['wing_ar'];
@@ -890,8 +892,8 @@ Name :
 <td style="text-align:left;">'.$monthB.''. $year.'</td>
 </tr>
 <tr>
-<td style="text-align:left;">Due Date:</td>
-<td style="text-align:left;">'.$due_date21.'</td>
+<td style="text-align:left;"><b>Due Date:</b></td>
+<td style="text-align:left;"><b>'.$due_date21.'</b></td>
 </tr>
 </table>
 </div>
@@ -947,36 +949,22 @@ $html.='</table>
 <tr>
 <td valign="top">
 <table border="0" style="width:100%;">';
-if($total_amount2 != 0)
-{
 $html.='<tr>
 <td rowspan="4"></td>
 <td style="text-align:right;">Sub-Total:</td>
 </tr>';
-}
-if($due_amt3 != 0)
-{
 $html.='<tr>
-<td style="text-align:right;">Over Due Amount:</td>
+<td style="text-align:right;">Interest:</td>
 </tr>';
-}
-if($late_amt2 != 0)
-{
 $html.='<tr>
-<td style="text-align:right;">Over Due Interest:</td>
+<td style="text-align:right;">Arrears:</td>
 </tr>';
-}
-if($grand_total != 0)
-{
-$html.='
-<tr>
+$html.='<tr>
 <th style="text-align:right;">Grand Total:</th>
 </tr>';
-}
 $html.='</table>
 </td>
 <td valign="top">';
-
 $total_amount3 = number_format($total_amount2);
 $due_amt4 = number_format($due_amt3);
 $late_amt3 = number_format($late_amt2);
@@ -987,14 +975,13 @@ $html.='<table border="0" style="width:100%;">
 $html.='
 <td style="text-align:center;">'.$total_amount3.'</td>
 </tr>';
-$html.='<tr>
-<td style="text-align:center;">'.@$due_amt4.'</td>
-</tr>';
 $html.='
 <tr>
 <td style="text-align:center;">'.@$late_amt3.'</td>
 </tr>';
-
+$html.='<tr>
+<td style="text-align:center;">'.@$due_amt4.'</td>
+</tr>';
 $html.='<tr>
 <th style="text-align:center;">'.$grand_total2.'</th>
 </tr>';
@@ -1038,9 +1025,17 @@ $html.='</table>
 
 <table border="0" style="width:100%;">
 <tr>
+<td style="text-align:left; valign:top;">
+Society-Email:'.$society_email.'
+</td>
 <td style="text-align:right;">
-<p style="font-size:16px; margin-right:10%;"><b>'.$society_name.' Society </b></p>
-<br>
+<p style="font-size:16px; margin-right:10%;"><b>'.$society_name.' Society</b></p>
+</td>
+</tr>';
+$html.='<tr>
+<td style="text-align:left;" valign="top">
+Society-Phone:'.$society_phone.'</td>
+<td style="text-align:right;">
 <img src='.$webroot_path.'sig/'.$sig_img.' height="60px;" width="130px;" style="margin-right:10%;"></img>
 </td>
 </tr>
@@ -1869,10 +1864,10 @@ $html.='</table>
 <td style="text-align:right;">Sub-Total:</td>
 </tr>
 <tr>
-<td style="text-align:right;">Over Due Amount:</td>
+<td style="text-align:right;">Interest:</td>
 </tr>
 <tr>
-<td style="text-align:right;">Over Due Interest:</td>
+<td style="text-align:right;">Arrears:</td>
 </tr>
 <tr>
 <th style="text-align:right;">Grand Total:</th>
@@ -1890,10 +1885,10 @@ $html.='
 <td style="text-align:center;">'.$total_amount3.'</td>
 </tr>
 <tr>
-<td style="text-align:center;">'.@$due_amt4.'</td>
+<td style="text-align:center;">'.@$late_amt3.'</td>
 </tr>
 <tr>
-<td style="text-align:center;">'.@$late_amt3.'</td>
+<td style="text-align:center;">'.@$due_amt4.'</td>
 </tr>
 <tr>
 <th style="text-align:center;">'.$grand_total2.'</th>
@@ -1937,9 +1932,18 @@ $html.='</table>
 
 <table border="0" style="width:100%;">
 <tr>
+<td style="text-align:left; valign:top;">
+Society-Email:'.$society_email.'
+</td>
 <td style="text-align:right;">
 <p style="font-size:18px;"><b>'.$society_name.' Society</b></p>
-<br>
+</td>
+</tr>';
+$html.='<tr>
+<td style="text-align:left;" valign="top">
+Society-Phone:'.$society_phone.'
+</td>
+<td style="text-align:right;">
 <img src='.$webroot_path.'sig/'.$sig_img.' height="60px;" width="130px;" style="margin-right:10%;"></img>
 </td>
 </tr>
