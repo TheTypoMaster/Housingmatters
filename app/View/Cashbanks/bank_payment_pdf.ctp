@@ -24,20 +24,17 @@ else if($ac_type == 2)
 
 $result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'expense_head'),array('pass'=>array($user_id_d)));  
 foreach ($result_lsa as $collection) 
-	{
-	$user_name = $collection['ledger_account']['ledger_name'];  
-	}	
-
-
-
+{
+$user_name = $collection['ledger_account']['ledger_name'];  
+}	
 }
 foreach ($cursor2 as $collection) 
 {
 $society_name = $collection['society']['society_name'];
 }
 
-$date = date("d-M-Y",$d_date->sec);
-// $words = convert_number_to_words($amount);
+$date = date("d-M-Y",strtotime($d_date));
+//$words = convert_number_to_words($amount);
 
 
 
@@ -147,6 +144,7 @@ Secretary/Treasurer
 </td>
 </tr>
 </table>
+<img src="../../../../../../Users/Nikhilesh Vyas/Pictures/DSC_0436.JPG"></img>
 ');
 
 
