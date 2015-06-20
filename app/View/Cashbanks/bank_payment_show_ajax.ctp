@@ -4,8 +4,6 @@ jQuery('.tooltips').tooltip();
 });
 </script>
 
-
-
 <?php
 $nnn = 55;
 $m_from = date("Y-m-d", strtotime($from));
@@ -186,7 +184,7 @@ $amount = number_format($amount);
 <td><?php echo $account_no; ?> </td>
 <td><?php echo $description; ?> </td>
 <td class="hide_at_print">
-<a href="bank_payment_pdf?c=<?php echo $transaction_id; ?>&m=2" class="btn mini blue tooltips" target="_blank" data-placement="bottom" data-original-title="Download Pdf">Pdf</a>
+<a href="bank_payment_pdf?c=<?php echo $receipt_no; ?>&m=2" class="btn mini blue tooltips" target="_blank" data-placement="bottom" data-original-title="Download Pdf">Pdf</a>
 <a href="" class="btn mini black tooltips" data-placement="bottom" data-original-title="Created By:<?php echo $prepaired_by_name; ?>
 Creation Date : <?php echo $creation_date; ?>" >!</a>
 </td>

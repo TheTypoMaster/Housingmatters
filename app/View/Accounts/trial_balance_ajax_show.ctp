@@ -1,10 +1,10 @@
 <?php
 
 $from = date("Y-m-d", strtotime($from_d));
-$from = new MongoDate(strtotime($from));
+//$from = new MongoDate(strtotime($from));
 
 $to = date("Y-m-d", strtotime($to_d));
-$to = new MongoDate(strtotime($to));
+//$to = new MongoDate(strtotime($to));
 ?>
 
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
