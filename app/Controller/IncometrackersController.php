@@ -195,12 +195,21 @@ $this->set('bill_period_arr',$bill_period_arr);
 ////////////////////////// Start Regular Bill View2 ////////////////////////////////////
 function regular_bill_view2()
 {
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
 $this->layout='session';
+}
+
+
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
 
 $this->ath();
+
+$webroot_path=$this->requestAction(array('controller' => 'Hms', 'action' => 'webroot_path'));
+
 
 $this->loadmodel('penalty');
 $condition=array('society_id'=>$s_society_id);
@@ -256,6 +265,7 @@ $society_reg_no = $collection['society']['society_reg_num'];
 $society_address = $collection['society']['society_address'];
 $pen_per = (int)@$collection['society']['tax'];
 $per_type = (int)@$collection['society']['tax_type'];
+$sig_img = @$collection['society']['signature'];
 }
 $this->set('pen_per',$pen_per);
 $this->set('per_type',$per_type);
@@ -268,7 +278,6 @@ $order=array('user.user_id'=> 'ASC');
 $conditions=array("society_id" => $s_society_id, "tenant" => 1,"deactive"=>0);
 $cursor1 = $this->user->find('all',array('conditions'=>$conditions,'order'=>$order));
 $this->set('cursor1',$cursor1);
-
 
 $this->loadmodel('regular_bill');
 $order=array('regular_bill.regular_bill_id'=> 'ASC');
@@ -288,6 +297,7 @@ $terms_arr = @$collection['society']['terms_conditions'];
 $pen_per2 = (int)@$collection['society']['tax'];
 $per_type2 = (int)@$collection['society']['tax_type'];
 $society_address = $collection['society']['society_address'];
+$society_sig = $collection['society']['signature'];
 }
 $bill_for = (int)$this->request->data['bill_for'];
 $wing_arr_imp = $this->request->data['wing_ar'];
@@ -714,26 +724,26 @@ unset($ussrs);
 
 ////////////////////////////////////////////
 ///////Start Bill Html Code/////////////////
-	$total_amount2 = 0;	
-	$this->loadmodel('regular_bill');
-	$conditions=array("one_time_id"=>$one,"bill_for_user"=>$user_id);
-	$cursor=$this->regular_bill->find('all',array('conditions'=>$conditions));
-	foreach($cursor as $collection)
-	{
-	$bill_no = (int)$collection['regular_bill']['regular_bill_id'];
-	$receipt_id = $collection['regular_bill']['receipt_id'];
-	$date_from = $collection['regular_bill']['bill_daterange_from'];
-	$date_to = $collection['regular_bill']['bill_daterange_to'];
-	$ih_detail2 = $collection['regular_bill']['ih_detail'];
-	$date=$collection['regular_bill']["date"];
-	$regular_bill_id=$collection['regular_bill']["regular_bill_id"];
-	$grand_total = (int)$collection['regular_bill']['g_total'];
-	$late_amt2 = (int)$collection['regular_bill']['due_amount_tax'];
-	$due_amt2 = (int)$collection['regular_bill']['total_due_amount'];
-	$due_date2 = @$collection['regular_bill']['due_date'];
-	$narration = $collection['regular_bill']['description'];
-	$billing_cycle_id = (int)$collection['regular_bill']['period_id'];
-	}
+$total_amount2 = 0;	
+$this->loadmodel('regular_bill');
+$conditions=array("one_time_id"=>$one,"bill_for_user"=>$user_id);
+$cursor=$this->regular_bill->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$bill_no = (int)$collection['regular_bill']['regular_bill_id'];
+$receipt_id = $collection['regular_bill']['receipt_id'];
+$date_from = $collection['regular_bill']['bill_daterange_from'];
+$date_to = $collection['regular_bill']['bill_daterange_to'];
+$ih_detail2 = $collection['regular_bill']['ih_detail'];
+$date=$collection['regular_bill']["date"];
+$regular_bill_id=$collection['regular_bill']["regular_bill_id"];
+$grand_total = (int)$collection['regular_bill']['g_total'];
+$late_amt2 = (int)$collection['regular_bill']['due_amount_tax'];
+$due_amt2 = (int)$collection['regular_bill']['total_due_amount'];
+$due_date2 = @$collection['regular_bill']['due_date'];
+$narration = $collection['regular_bill']['description'];
+$billing_cycle_id = (int)$collection['regular_bill']['period_id'];
+}
 $date_frm = date('M',strtotime($date_from));	
 if($billing_cycle_id == 1)
 {
@@ -1030,6 +1040,8 @@ $html.='</table>
 <tr>
 <td style="text-align:right;">
 <p style="font-size:16px; margin-right:10%;"><b>'.$society_name.' Society </b></p>
+<br>
+<img src='.$webroot_path.'sig/'.$sig_img.' height="60px;" width="130px;" style="margin-right:10%;"></img>
 </td>
 </tr>
 </table>
@@ -1927,6 +1939,8 @@ $html.='</table>
 <tr>
 <td style="text-align:right;">
 <p style="font-size:18px;"><b>'.$society_name.' Society</b></p>
+<br>
+<img src='.$webroot_path.'sig/'.$sig_img.' height="60px;" width="130px;" style="margin-right:10%;"></img>
 </td>
 </tr>
 </table>
