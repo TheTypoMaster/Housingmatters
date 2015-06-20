@@ -7,7 +7,6 @@ public $components = array(
 'Session','Cookie','RequestHandler'
 );
 var $name = 'Accounts';
-
 //////////////////////////////////////////START SETTINGS MODULE///////////////////////////////////////////////////
 
 //////////////////Start Master Ledger Sub Account Ajax  (Accounts)///////////////////////////////////////////////
@@ -2016,9 +2015,9 @@ $to = $this->request->query('t');
 $tp = (int)$this->request->query('tp');
 
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
 ////////
 if($tp == 1)
 {
