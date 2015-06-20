@@ -266,6 +266,7 @@ $society_address = $collection['society']['society_address'];
 $pen_per = (int)@$collection['society']['tax'];
 $per_type = (int)@$collection['society']['tax_type'];
 $sig_img = @$collection['society']['signature'];
+$log_img = @$collection['society']['logo'];
 }
 $this->set('pen_per',$pen_per);
 $this->set('per_type',$per_type);
@@ -842,14 +843,17 @@ $html='<center>
 <table border="0" style="width:100%;">
 <tr>
 <th style="text-align:center;">
-<p style="font-size:22px;">'.$society_name.'  Society</p>
+<p style="font-size:22px; margin-left:10%;">'.$society_name.'  Society</p>
+</th>
+<th rowspan="3" style="text-align:right; width:20%;">
+<img src='.$webroot_path.'logo/'.$log_img.' height="60px;" width="130px;"></img>
 </th>
 </tr>
 <tr>
-<th style="text-align:center;">Regn#  &nbsp;&nbsp; '.$so_reg_no.'</th>
+<th style="text-align:center; margin-left:10%;">Regn#  &nbsp;&nbsp; '.$so_reg_no.'</th>
 </tr>
 <tr>
-<th style="text-align:center;">'.$so_address.'</th>
+<th style="text-align:center; margin-left:10%;">'.$so_address.'</th>
 </tr>
 </table>
 </div>
@@ -1753,15 +1757,18 @@ $html='<center>
 <br>
 <table border="0" style="width:100%;">
 <tr>
-<th style="text-align:center;">
+<th style="text-align:center; margin-left:10%;">
 <p style="font-size:22px;">'.$society_name.'  Society</p>
+</th>
+<th rowspan="3" style="text-align:right; width:20%;">
+<img src='.$webroot_path.'logo/'.$log_img.' height="60px;" width="130px;"></img>
 </th>
 </tr>
 <tr>
-<th style="text-align:center;">Regn# &nbsp;&nbsp; '.$so_reg_no.'</th>
+<th style="text-align:center; margin-left:10%;">Regn# &nbsp;&nbsp; '.$so_reg_no.'</th>
 </tr>
 <tr>
-<th style="text-align:center;">'.$so_address.'</th>
+<th style="text-align:center; margin-left:10%;">'.$so_address.'</th>
 </tr>
 </table>
 </div>
