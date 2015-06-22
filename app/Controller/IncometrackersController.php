@@ -267,6 +267,7 @@ $pen_per = (int)@$collection['society']['tax'];
 $per_type = (int)@$collection['society']['tax_type'];
 $sig_img = @$collection['society']['signature'];
 $log_img = @$collection['society']['logo'];
+$sig_title = @$collection['society']['sig_title'];
 }
 $this->set('pen_per',$pen_per);
 $this->set('per_type',$per_type);
@@ -1041,6 +1042,12 @@ $html.='<tr>
 Society-Phone:'.$society_phone.'</td>
 <td style="text-align:right;">
 <img src='.$webroot_path.'sig/'.$sig_img.' height="60px;" width="130px;" style="margin-right:10%;"></img>
+</td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align:right;">
+<p style="font-size:14px; margin-right:10%;"><b>'.$sig_title.'</b></p>
 </td>
 </tr>
 </table>
@@ -1952,6 +1959,12 @@ Society-Phone:'.$society_phone.'
 </td>
 <td style="text-align:right;">
 <img src='.$webroot_path.'sig/'.$sig_img.' height="60px;" width="130px;" style="margin-right:10%;"></img>
+</td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align:right;">
+<p style="font-size:14px; margin-right:10%;"><b>'.$sig_title.'</b></p>
 </td>
 </tr>
 </table>
