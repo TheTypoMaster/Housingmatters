@@ -14125,7 +14125,9 @@ $this->ath();
 	$address=$this->request->data['address'];
 	$society_phone = @$this->request->data['society_phone'];
     $society_email = @$this->request->data['society_email'];	
-    $logo=$_FILES['logo']['name'];
+    $sig_title = @$this->request->data['title'];
+	
+	$logo=$_FILES['logo']['name'];
     $sig=$_FILES['sig']['name'];	
 	
 
@@ -14140,7 +14142,7 @@ $target = $target . basename($_FILES['sig']['name']) ;
 move_uploaded_file($_FILES['sig']['tmp_name'], $target);	
 
 $this->loadmodel('society');
-$this->society->updateAll(array('pan'=>$pan,'tex_number'=>$s_tax,'society_address'=>$address,'society_reg_num'=>$s_number,"society_phone"=>$society_phone,"society_email"=>$society_email,"signature"=>@$sig,"logo"=>@$logo),array('society_id'=>$s_society_id));
+$this->society->updateAll(array('pan'=>$pan,'tex_number'=>$s_tax,'society_address'=>$address,'society_reg_num'=>$s_number,"society_phone"=>$society_phone,"society_email"=>$society_email,"signature"=>@$sig,"logo"=>@$logo,"sig_title"=>$sig_title),array('society_id'=>$s_society_id));
 
 ?>
 
