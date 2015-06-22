@@ -14110,6 +14110,11 @@ $this->layout='blank';
 $this->layout='session';
 }
 $this->ath();
+
+//$webroot_path=$this->requestAction(array('controller' => 'Hms', 'action' => 'webroot_path'));
+//$this->set('webroot_path',$webroot_path);
+
+
 	$s_society_id=$this->Session->read('society_id'); 
 	$sco_n=$this->society_name($s_society_id);
 	foreach($sco_n as $data)
