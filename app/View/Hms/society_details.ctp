@@ -12,6 +12,8 @@ foreach($result_society as $data)
 @$society_phone = $data['society']['society_phone'];
 @$society_email = $data['society']['society_email'];
 $sig_title = @$data['society']['sig_title'];
+$society_logo = @$data['society']['logo'];
+$society_sig = @$data['society']['signature'];
 }
 
 
