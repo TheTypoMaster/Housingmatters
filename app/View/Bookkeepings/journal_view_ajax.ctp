@@ -93,7 +93,7 @@ $total_credit = 0;
 foreach ($cursor1 as $collection) 
 {
 $auto_id = (int)$collection['journal']['auto_id'];
-$receipt_no = $collection['journal']['receipt_id']; 
+$receipt_no = (int)$collection['journal']['receipt_id']; 
 $user_id = (int)$collection['journal']['user_id'];
 $date = $collection['journal']['transaction_date'];
 $amount = $collection['journal']['amount'];
@@ -105,6 +105,9 @@ $approver = (int)$collection['journal']['approver'];
 $current_date = $collection['journal']['current_date'];
 $creation_date = date('d-m-Y',$current_date->sec);
 $resultacc = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($approver)));
+
+$match_receipt = $receipt_no;
+
 foreach($resultacc as $collection)
 {
 $prepaired_by_name = $collection['user']['user_name'];
@@ -150,17 +153,32 @@ $date2 = date('d-m-Y',$date->sec);
 		<td><?php if($amount_category_id == 2) {
 		echo $amount; } else { echo"-"; } ?></td>
 		<td class="hide_at_print">
-		 <a href="journal_pdf?c=<?php echo $auto_id; ?>" class="btn mini purple tooltips"  data-placement="bottom" data-original-title="Download Pdf" target="_blank">Pdf</a>
-		<a href="" class="btn mini black tooltips" data-placement="bottom" data-original-title="Created By:<?php echo $prepaired_by_name; ?>
-										     Creation Date : <?php echo $creation_date; ?>" >!</a>
-		</td>
-		
-		
-		</tr>
+<a href="journal_pdf?c=<?php echo $auto_id; ?>" class="btn mini purple tooltips"  data-placement="bottom" data-original-title="Download Pdf" target="_blank">Pdf</a>
+<a href="" class="btn mini black tooltips" data-placement="bottom" data-original-title="Created By:<?php echo $prepaired_by_name; ?>
+Creation Date : <?php echo $creation_date; ?>" >!</a>
 
-		<?php
-		}}
-		?>  									  
+<a href="#a<?php echo $receipt_no; ?>" role="button" class="btn mini blue" data-toggle="modal">Reverse</a>
+
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<div id="a<?php echo $receipt_no; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true" style="display: none;">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+<h3 id="myModalLabel3">Reverse Journal Voucher</h3>
+</div>
+<div class="modal-body">
+<p>Are You sure</p>
+</div>
+<div class="modal-footer">
+<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+<a href="journal_view?r=<?php echo $receipt_no; ?>" class="btn blue">Confirm</a>
+</div>
+</div>
+<?php //////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+</td>
+</tr>
+<?php
+}}
+?>  									  
 			
 			<tr>
 			<th colspan="4">Total</th>
