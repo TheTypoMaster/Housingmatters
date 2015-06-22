@@ -436,6 +436,31 @@ $s_user_id=$this->Session->read('user_id');
 
 $this->set('s_role_id',$s_role_id);
 
+$receipt_no = (int)$this->request->query('r');
+
+if(!empty($receipt_no))
+{
+$this->loadmodel('journal');
+$conditions=array('receipt_id'=>$receipt_no);
+$this->journal->deleteAll($conditions);
+
+$this->loadmodel('ledger');
+$conditions=array('receipt_id'=>$receipt_no,"table_name"=>"journal");
+$this->ledger->deleteAll($conditions);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
