@@ -11,6 +11,7 @@ foreach($result_society as $data)
 @$society_reg_num=$data['society']['society_reg_num'];
 @$society_phone = $data['society']['society_phone'];
 @$society_email = $data['society']['society_email'];
+$sig_title = @$data['society']['sig_title'];
 }
 
 
@@ -21,7 +22,7 @@ foreach($result_society as $data)
 <li  ><a href="<?php echo $webroot_path; ?>Hms/master_sm_wing" rel='tab'> Wing</a></li>
 <li><a href="<?php echo $webroot_path; ?>Hms/flat_type" rel='tab' >Unit Number</a></li>
 <li ><a href="<?php echo $webroot_path; ?>Hms/master_sm_flat" rel='tab' >Unit Configuration</a></li>
-<!--<li><a href="<?php echo $webroot_path; ?>Hms/flat_nu_import" rel='tab' >Flat Number Import</a></li>-->
+<!--<li><a href="<?php //echo $webroot_path; ?>Hms/flat_nu_import" rel='tab' >Flat Number Import</a></li>-->
 <li class="active" ><a href="<?php echo $webroot_path; ?>Hms/society_details" rel='tab' >Society Details</a></li>
 <li><a href="<?php echo $webroot_path; ?>Hms/society_settings" rel='tab' >Society Settings</a></li>
 </ul>
@@ -42,7 +43,6 @@ foreach($result_society as $data)
 <input type="text" maxlength="10"   class="m-wrap span9" style="font-size:16px;"  name="pan" value='<?php echo $society_pan ; ?>'>
 </div>
 <br />
-
 
 <label style="font-size:14px;">Society Registrations Number<span style="color:red;">*</span></label>
 <div class="controls">
@@ -124,6 +124,17 @@ foreach($result_society as $data)
 </div>
 <br />
 
+<label style="font-size:14px;">Signature Title<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text" class="m-wrap span9" name="title" value="<?php echo @$sig_title; ?>" />
+</div>
+<br />
+
+
+
+
+
+
 </div>
 </div>
 <hr/>
@@ -156,6 +167,11 @@ $(document).ready(function(){
 				s_number: {
 				required: true,
 				},
+		
+		title: {
+				required: true,
+				},
+		
 		
 		       address: {
 				  required: true, 
