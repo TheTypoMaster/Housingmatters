@@ -40,6 +40,7 @@ View
             <th>Police NOC</th>
             <th>Remarks</th>
              <th>Permanent Address</th>
+			 <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -99,6 +100,18 @@ $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing
 			  <td><?php echo $t_police; ?></td>
             <td class="hidden-phone"><?php echo $verification; ?></td>
              <td width="20%"><?php echo $t_address; ?></td>
+			 <td>
+			 
+			 <div class="btn-group">
+                <a class="btn mini blue" href="#" data-toggle="dropdown">
+                Action
+                
+                </a>
+                <ul class="dropdown-menu">
+                <li><a href="new_tenant_edit/<?php echo $d_user_id ; ?>" rel="tab"><i class="icon-pencil"></i> Edit</a></li>
+                </ul>
+                </div>
+			 </td>
             </tr> <?php } ?>
             </tbody>
             </table>
