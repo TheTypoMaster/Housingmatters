@@ -5428,7 +5428,6 @@ $this->society->updateAll(array('terms_conditions'=>$terms_arr),array("society_i
 //////////////////////////////////// Start Approve Bill /////////////////////////////////////////////////////////////////
 function aprrove_bill()
 {
-
 if($this->RequestHandler->isAjax()){
 $this->layout='blank';
 }else{
@@ -5442,17 +5441,40 @@ $this->check_user_privilages();
 
 $this->loadmodel('regular_bill');
 $conditions=array("society_id" => $s_society_id,"approve_status"=>1);
-$cursor1 = $this->regular_bill->find('all',array('conditions'=>$conditions));
+$order=array('regular_bill.receipt_id'=> 'ASC');
+$cursor1 = $this->regular_bill->find('all',array('conditions'=>$conditions,'order' =>$order));
 $this->set('cursor1',$cursor1);
 
-$del_id = (int)$this->request->query('del');
 
-if(!empty($del_id))
+if(isset($this->request->data['sub']))
+{
+$all = @$this->request->data['all'];
+
+
+
+
+
+
+
+
+
+
+
+$r=0;
+$this->loadmodel('regular_bill');
+$conditions=array("society_id" => $s_society_id,"approve_status"=>1);
+$order=array('regular_bill.receipt_id'=> 'ASC');
+$cursor = $this->regular_bill->find('all',array('conditions'=>$conditions,'order' =>$order));
+foreach($cursor as $collection)
+{
+$r++;
+$app = (int)@$this->request->data['app'.$r];
+if($app != 0)
 {
 $this->loadmodel('regular_bill');
-$conditions=array("society_id" => $s_society_id,"receipt_id"=>$del_id);
-$cursor = $this->regular_bill->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
+$conditions=array("society_id" => $s_society_id,"approve_status"=>1,"receipt_id"=>$app);
+$cursor5 = $this->regular_bill->find('all',array('conditions'=>$conditions));
+foreach($cursor5 as $collection)
 {
 $user_id = (int)$collection['regular_bill']['bill_for_user'];
 $html = $collection['regular_bill']['bill_html'];
@@ -5461,11 +5483,9 @@ $to = $collection['regular_bill']['bill_daterange_to'];
 $due_date = $collection['regular_bill']['due_date'];
 $grand_total = $collection['regular_bill']['g_total'];
 }
-
 $sms_from = date('dM',strtotime($from));
 $sms_to = date('dMy',strtotime($to));
 $sms_due = date('dMy',strtotime($due_date));
-
 
 $result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
 foreach ($result as $collection) 
@@ -5477,9 +5497,7 @@ $tenant = (int)$collection['user']['tenant'];
 $mobile = $collection['user']['mobile'];
 $email = $collection['user']['email'];
 }	
-
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));	
-
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
 $cursor = $this->society->find('all',array('conditions'=>$conditions));
@@ -5489,10 +5507,8 @@ $sms_id = (int)$collection['society']['account_sms'];
 $email_id = (int)$collection['society']['account_email'];
 $society_name = $collection['society']['society_name'];
 }
-
 if($sms_id == 1)
 {
-
 $r_sms=$this->hms_sms_ip();
 $working_key=$r_sms->working_key;
 $sms_sender=$r_sms->sms_sender; 
@@ -5501,7 +5517,6 @@ $sms='Dear '.$user_name.' '.$wing_flat.', your maintenance bill for period '.$sm
 $sms1=str_replace(' ', '+', $sms);
 $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 }
-
 if($email_id == 1)
 {
 $from_mail_date = date('d M',strtotime($from));
@@ -5517,8 +5532,9 @@ $this->send_email($email,$from,$from_name,$subject,$html,$reply);
 }
 
 $this->loadmodel('regular_bill');
-$this->regular_bill->updateAll(array("approve_status" => 2),array("receipt_id" => $del_id,"society_id"=>$s_society_id));
-
+$this->regular_bill->updateAll(array("approve_status" => 2),array("receipt_id" => $app,"society_id"=>$s_society_id));
+}
+}
 ?>
 <div class="modal-backdrop fade in"></div>
 <div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
@@ -5529,7 +5545,7 @@ $this->regular_bill->updateAll(array("approve_status" => 2),array("receipt_id" =
 </div>
 <div class="modal-body">
 <center>
-<h5><b>This Bill Approved Suceessfully</b></h5>
+<h5><b>This Bills Approved Suceessfully</b></h5>
 </center>
 </div>
 <div class="modal-footer">
