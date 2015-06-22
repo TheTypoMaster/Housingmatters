@@ -12,7 +12,49 @@ var $name = 'Parkings';
 
 //////////////////////////////// Parking Managment System start /////////////////////
 
+function master_parking()
+{
 
+		if($this->RequestHandler->isAjax()){
+		$this->layout='blank';
+		}else{
+		$this->layout='session';
+		}	
+		 $s_society_id=$this->Session->read('society_id'); 
+		$this->ath();
+		$this->check_user_privilages();
+			if($this->request->is('post'))
+			{
+				 $parking_area1=$this->request->data['parking_area'];
+				
+				$this->loadmodel('parking_area');
+				 $parking_area_id=$this->autoincrement('parking_area','parking_area_id'); 
+				$this->parking_area->saveAll(array('society_id'=>$s_society_id,'parking_area_cat'=>$parking_area1,'parking_area_id'=>$parking_area_id));
+					
+				?>
+				
+				<!----alert-------------->
+				<div class="modal-backdrop fade in"></div>
+				<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+				<div class="modal-body" style="font-size:16px;">
+				Successfully add parking Area.
+				</div> 
+				<div class="modal-footer">
+				<a href="master_parking" class="btn green">OK</a>
+				</div>
+				</div>
+				<!----alert-------------->
+				
+				
+				<?php
+			}
+				$this->loadmodel('parking_area');
+				$conditions=array('society_id'=>$s_society_id);
+				$result_parking=$this->parking_area->find('all',array('conditions'=>$conditions));
+				$this->set('result_parking',$result_parking);
+	
+	
+}
 function sm_parking_slot()
 {
 	if($this->RequestHandler->isAjax()){
@@ -23,12 +65,16 @@ function sm_parking_slot()
 	$s_society_id=$this->Session->read('society_id'); 
 	$this->ath();
 	$this->check_user_privilages();
-	
-	
+		$this->loadmodel('parking_area');
+		$conditions=array('society_id'=>$s_society_id);
+		$result_parking=$this->parking_area->find('all',array('conditions'=>$conditions));
+		$this->set('result_parking',$result_parking);
+
 	
 	if($this->request->is('post'))
 	{
 		$this->loadmodel('parking');
+		 $parking_area=(int)$this->request->data['sel_parking'];
 		
 		 $two_slot=$this->request->data['two_slot'];
 		 $two_start=$this->request->data['two_start'];
@@ -41,7 +87,7 @@ function sm_parking_slot()
 			$j=$this->autoincrement('parking','parking_id');
 			 $to_flot= '2-'.$i ;
 			 $this->loadmodel('parking');
-			 $this->parking->saveAll(array('parking_id'=>$j,'slot_no'=>$to_flot,'type'=>2,'society_id'=>$s_society_id,'status'=>0,'stiker_number'=>$j));
+			 $this->parking->saveAll(array('parking_id'=>$j,'slot_no'=>$to_flot,'type'=>2,'society_id'=>$s_society_id,'status'=>0,'stiker_number'=>$j,'parking_area'=>$parking_area));
 		}
 		
 		for($k=$four_start;$k<$four_r; $k++)
@@ -49,7 +95,7 @@ function sm_parking_slot()
 			$j=$this->autoincrement('parking','parking_id');
 			 $fo_flot= '4-'.$k ;
 			 $this->loadmodel('parking');
-			 $this->parking->saveAll(array('parking_id'=>$j,'slot_no'=>$fo_flot,'type'=>4,'society_id'=>$s_society_id,'status'=>0,'stiker_number'=>$j));
+			 $this->parking->saveAll(array('parking_id'=>$j,'slot_no'=>$fo_flot,'type'=>4,'society_id'=>$s_society_id,'status'=>0,'stiker_number'=>$j,'parking_area'=>$parking_area));
 		}
 		
 		 //$this->response->header('location','parking_system_view');

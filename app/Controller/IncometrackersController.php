@@ -16,6 +16,7 @@ $this->layout='blank';
 }else{
 $this->layout='session';
 }
+
 $this->ath();
 $this->check_user_privilages();
 
@@ -77,11 +78,11 @@ $d_from = $collection['regular_bill']['bill_daterange_from'];
 $d_to = $collection['regular_bill']['bill_daterange_to'];
 }
 
-$this->set('d_from',@$d_from);
+//$this->set('d_from',@$d_from);
 if(!empty($d_from))
 {
-$datefb = date('Y-m-d',@$d_from->sec);
-$datetb = date('Y-m-d',@$d_to->sec);
+$datefb = date('Y-m-d',strtotime($d_from));
+$datetb = date('Y-m-d',strtotime($d_to));
 
 $this->set('datefb',$datefb);
 $this->set('datetb',$datetb);

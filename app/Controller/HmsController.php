@@ -15710,6 +15710,64 @@ New member registered into your society successfully.
 ////////////////////////////////////////////////////////// New Tenant Enrollment Start //////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+
+function new_tenant_edit($id=null)
+{
+	
+	if($this->RequestHandler->isAjax()){
+	$this->layout='blank';
+	}else{
+	$this->layout='session';
+	}
+	$id=(int)$id;
+	$s_society_id=$this->Session->read('society_id');
+	$this->ath();
+	
+	$this->loadmodel('tenant');	
+	
+$conditions1=array('user_id'=>$id);
+$result1=$this->tenant->find('all',array('conditions'=>$conditions1));	
+
+$this->set('result_tenant',$result1);
+if($this->request->is('post'))
+{
+date_default_timezone_set('Asia/kolkata');
+$date=date("d-m-Y");
+$time=date('h:i:a',time());
+$name_tenant=$this->request->data['name_tenant'];
+$address=$this->request->data['address'];
+$start_date=$this->request->data['start_date'];
+$end_date=$this->request->data['end_date'];
+$verification=$this->request->data['verification'];
+$ten_age=(int)@$this->request->data['ten_agr'];
+$pol_ver=(int)@$this->request->data['pol_ver'];
+
+$this->loadmodel('tenant');
+$this->tenant->updateAll(array("t_start_date"=>$start_date,"t_end_date"=>$end_date,"t_address"=>$address,"verification"=>$verification,'t_agreement'=>$ten_age,'t_police'=>$pol_ver),array("user_id" => $id));
+?>
+
+
+<!----alert-------------->
+<div class="modal-backdrop fade in"></div>
+<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+<div class="modal-body" style="font-size:16px;">
+Successfully Update .
+</div> 
+<div class="modal-footer">
+<a href="<?php  echo $this->webroot_path();?>hms/new_tenant_enrollment_view" class="btn green">OK</a>
+</div>
+</div>
+<!----alert-------------->
+<?php
+
+//$this->response->header('Location', 'new_tenant_enrollment_view');	
+	
+}
+	
+}
+
+
 function new_tenant_enrollment()
 {
 if($this->RequestHandler->isAjax()){
