@@ -7,7 +7,12 @@ $("#fix<?php echo $id_current_page; ?>").removeClass("blue");
 $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
+<form method="post">
 <br />
+<label class="checkbox line" style="text-align:right; margin-right:3%;">
+<div class="checker" id="uniform-undefined"><span><input type="checkbox" value="all" style="opacity: 0;" name="all" onclick="selall()"></span></div>Select All 
+</label>
+
 <table style="background-color:white;" class="m-wrap table table-bordered">
 <tr>
 <th style="text-align:left;">Bill Number</th>
@@ -16,11 +21,13 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <th style="text-align:left;">Flat area(Sq.Ft.)</th>
 <th style="text-align:left;">Unit Number</th>
 <th style="text-align:left;">Bill Amount</th>
-<th style="text-align:left;">Approval</th>
+<th style="text-align:left;">Selection</th>
 </tr>
 <?php
+$r=0;
 foreach($cursor1 as $collection)
 {
+$r++;
 $bill_number = $collection['regular_bill']['receipt_id'];
 $bill_amt = $collection['regular_bill']['remaining_amount'];
 $user_id = (int)$collection['regular_bill']['bill_for_user'];
@@ -60,9 +67,26 @@ $ten = "Tenant";
 <td style="text-align:left;"><?php echo $area; ?> &nbsp;&nbsp; Sq.Ft.</td>
 <td style="text-align:right;"><?php echo $unit_number; ?></td>
 <td style="text-align:right;"><?php echo $bill_amt; ?></td>
-<td style="text-align:left;"><a href="aprrove_bill?del=<?php echo $bill_number ?>" class="btn mini blue">Approve  <i class="icon-ok"></i></a></td>
+<td style="text-align:left;">
+<label class="checkbox line">
+<div class="checker" id="uniform-undefined"><span><input type="checkbox" value="<?php echo $bill_number; ?>" style="opacity: 0;" name="app<?php echo $r; ?>" class="chhh"></span></div> 
+</label>
+</td>
 </tr>
 <?php
 }
 ?>
 </table>
+<div style="width:100%; text-align:right;">
+<button type="submit" class="btn green" name="sub" style="margin-right:3%;">Approve</button>
+</div>
+</form>
+<script>
+function selall()
+{
+
+$(".chhh").parent('span').addClass('checked');
+$(".chhh").attr('checked','checked');
+
+}
+</script>
