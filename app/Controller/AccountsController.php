@@ -3862,8 +3862,8 @@ $this->check_user_privilages();
 $s_society_id=$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
 
-
-
+$receipt_no = (int)$this->request->query('b');
+$this->set('receipt_no',$receipt_no);
 
 
 
