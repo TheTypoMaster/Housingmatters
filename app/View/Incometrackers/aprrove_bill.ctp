@@ -7,6 +7,21 @@ $("#fix<?php echo $id_current_page; ?>").removeClass("blue");
 $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
+<?php //////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php
+$nn = 55;
+foreach($cursor1 as $collection)
+{
+$bill_number = $collection['regular_bill']['receipt_id'];
+$bill_amt = $collection['regular_bill']['remaining_amount'];
+$user_id = (int)$collection['regular_bill']['bill_for_user'];
+$nn = 555;
+}
+
+?>
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+
+<?php if($nn == 555) { ?>
 <form method="post">
 <br />
 <label class="checkbox line" style="text-align:right; margin-right:3%;">
@@ -79,6 +94,23 @@ $ten = "Tenant";
 <button type="submit" class="btn green" name="sub" style="margin-right:3%;">Approve</button>
 </div>
 </form>
+<?php } 
+if($nn == 55)
+{
+?>
+<br /><br />									  
+<center>									  
+<h3 style="color:red;"><b>No Bill Found</b></h3>									  
+</center>									  
+<br /><br />	
+<?php 
+} 
+?>
+
+
+
+
+
 <script>
 function selall()
 {
