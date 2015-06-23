@@ -100,7 +100,7 @@ if($nn == 55)
 ?>
 <br /><br />									  
 <center>									  
-<h3 style="color:red;"><b>No Bill Found</b></h3>									  
+<h3 style="color:red;"><b>No Bill Found for Approval</b></h3>									  
 </center>									  
 <br /><br />	
 <?php 
