@@ -24,6 +24,9 @@ function post_ad(){
 
 }
 
+
+
+
 function classified_ads($id=null){
 	if($this->RequestHandler->isAjax()){
 		$this->layout='blank';

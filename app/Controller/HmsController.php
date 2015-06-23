@@ -13992,7 +13992,7 @@ $reply=$from;
 <p> Name : $name </p>
 <p> Mobile : $mobile </p>
 <p> Email : $email </p>
-<p> Date of Birth : $dob </p>
+<p> Age : $dob </p>
 <p> Permanent address : $per_address </p>
 <p> Communication address : $com_address </p>
 <p> Hobbies : $hob </p>
