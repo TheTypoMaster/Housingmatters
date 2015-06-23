@@ -24,19 +24,22 @@ $default_date = date('d-m-Y');
 
 <label style="font-size:14px;">Mobile<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" class="m-wrap span9" name="mobile" />
+<input type="text" class="m-wrap span9" name="mobile" id="mob"/>
+<label id="mob"></label>
 </div>
 <br />
 
 <label style="font-size:14px;">Bill Number:<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" class="m-wrap span9" name="bill_no" value="<?php echo $receipt_no; ?>" readonly="readonly" />
+<input type="text" class="m-wrap span9" name="bill_no" value="<?php echo $receipt_no; ?>" readonly="readonly" id="bll"/>
+<label id="bll"></label>
 </div>
 <br />
 
 <label style="font-size:14px;">Pay Amount<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" class="m-wrap span9" name="amt" />
+<input type="text" class="m-wrap span9" name="amt" id="amt"/>
+<label id="amt"></label>
 </div>
 <br />
 
@@ -47,11 +50,12 @@ $default_date = date('d-m-Y');
 
 <label style="font-size:14px;">Paying Mode<span style="color:red;">*</span></label>
 <div class="controls">
-<select class="m-wrap span9" name="mode" onchange="show(this.value)">
+<select class="m-wrap span9" name="mode" onchange="show(this.value)" id="mode">
 <option value="" style="display:none;">Select</option>
 <option value="1"> By Cheque</option>
 <option value="2"> By Cash</option>
 </select>
+<label id="mode"></label>
 </div>
 <br />
 
@@ -59,21 +63,24 @@ $default_date = date('d-m-Y');
 <div id="one" class="hide">
 <label style="font-size:14px;">Cheque Number<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" name="chq_no" class="m-wrap span9" />
+<input type="text" name="chq_no" class="m-wrap span9"  id="chq"/>
+<label id="chq"></label>
 </div>
 <br />
 </div>
 
 <label style="font-size:14px;">Branch<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" name="branch" class="m-wrap span9" />
+<input type="text" name="branch" class="m-wrap span9" id="bnch"/>
+<label id="bnch"></label>
 </div>
 <br />
 
 
 <label style="font-size:14px;">Account Number<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" name="acno" class="m-wrap span9" />
+<input type="text" name="acno" class="m-wrap span9" id="acno"/>
+<label id="acno"></label>
 </div>
 <br />
 
