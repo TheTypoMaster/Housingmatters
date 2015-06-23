@@ -33,8 +33,8 @@ function substrwords($text, $maxchar, $end='...') {
 }
 ?>
 <div style='text-align:center;'>
-<a href='classified_buy' class="btn blue " role="button" rel='tab' id="cla_buy">Buy</a> 
-<a href='classified_sel' class="btn  red" rel='tab' role="button" id="cla_sel">Sell</a></div>
+<a href='classified_buy' class="btn blue " role="button" rel='tab' >Buy</a> 
+<a href='classified_sel' class="btn  red" rel='tab' role="button" >Sell</a></div>
 <?php
 $c=0;
 foreach ($result_classifieds as $classified){
