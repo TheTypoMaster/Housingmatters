@@ -25,6 +25,56 @@ function post_ad(){
 }
 
 
+function classified_buy($id=null)
+{
+	
+		if($this->RequestHandler->isAjax()){
+		$this->layout='blank';
+	}else{
+		$this->layout='session';
+	}
+	$this->check_user_privilages();
+	$this->ath();
+	$this->set('id',$id);
+	
+	$this->loadmodel('classified');
+	$conditions=array('delete'=>0,'draft'=>0,'ad_type'=>'2');
+	$order=array('classified.classified_id'=>'DESC');
+	$result_classifieds=$this->classified->find('all',array('conditions'=>$conditions,'order'=>$order));
+	$this->set('result_classifieds',$result_classifieds);
+	foreach($result_classifieds as $data){
+		$this->seen_notification(21,$data["classified"]["classified_id"]);
+	}
+	
+	
+}
+
+
+function classified_sel($id=null)
+{
+	
+		if($this->RequestHandler->isAjax()){
+		$this->layout='blank';
+	}else{
+		$this->layout='session';
+	}
+	$this->check_user_privilages();
+	$this->ath();
+	$this->set('id',$id);
+	
+	$this->loadmodel('classified');
+	$conditions=array('delete'=>0,'draft'=>0,'ad_type'=>'1');
+	$order=array('classified.classified_id'=>'DESC');
+	$result_classifieds=$this->classified->find('all',array('conditions'=>$conditions,'order'=>$order));
+	$this->set('result_classifieds',$result_classifieds);
+	foreach($result_classifieds as $data){
+		$this->seen_notification(21,$data["classified"]["classified_id"]);
+	}
+	
+	
+}
+
+
 
 
 function classified_ads($id=null){
@@ -46,6 +96,73 @@ function classified_ads($id=null){
 		$this->seen_notification(21,$data["classified"]["classified_id"]);
 	}
 }
+
+
+function view_ad_buy($id=null)
+{
+	$this->layout=null;
+	$this->ath();
+	$id=(int)$id;
+	$this->loadmodel('classified');
+	$conditions=array('classified_id'=>$id);
+	$result_classified=$this->classified->find('all',array('conditions'=>$conditions));
+	$this->set('result_classified',$result_classified);
+	
+	$this->loadmodel('classified');
+	$conditions=array('classified_id' => array('$gt'=>$id),'delete'=>0,'draft'=>0,'ad_type'=>'2');
+	$result_next=$this->classified->find('all',array('conditions'=>$conditions,'limit'=>1));
+	if(sizeof($result_next)==0){
+		$conditions=array('classified_id' => array('$gte'=>1),'delete'=>0,'draft'=>0,'ad_type'=>'2');
+		$result_next=$this->classified->find('all',array('conditions'=>$conditions,'limit'=>1));
+	}
+	$this->set('result_next',$result_next[0]["classified"]["classified_id"]);
+	
+	$this->loadmodel('classified');
+	$conditions=array('classified_id' => array('$lt'=>$id),'delete'=>0,'draft'=>0,'ad_type'=>'2');
+	$result_prv=$this->classified->find('all',array('conditions'=>$conditions,'limit'=>1));
+	if(sizeof($result_prv)==0){
+		$count_all=$this->classified->find('count');
+		
+		$conditions=array('classified_id' => array('$lte'=>$count_all),'delete'=>0,'draft'=>0,'ad_type'=>'2');
+		$result_prv=$this->classified->find('all',array('conditions'=>$conditions,'limit'=>1));
+	}
+	$this->set('result_prv',$result_next[0]["classified"]["classified_id"]);
+	
+}
+
+
+function view_ad_sel($id=null)
+{
+	$this->layout=null;
+	$this->ath();
+	$id=(int)$id;
+	$this->loadmodel('classified');
+	$conditions=array('classified_id'=>$id);
+	$result_classified=$this->classified->find('all',array('conditions'=>$conditions));
+	$this->set('result_classified',$result_classified);
+	
+	$this->loadmodel('classified');
+	$conditions=array('classified_id' => array('$gt'=>$id),'delete'=>0,'draft'=>0,'ad_type'=>'1');
+	$result_next=$this->classified->find('all',array('conditions'=>$conditions,'limit'=>1));
+	if(sizeof($result_next)==0){
+		$conditions=array('classified_id' => array('$gte'=>1),'delete'=>0,'draft'=>0,'ad_type'=>'1');
+		$result_next=$this->classified->find('all',array('conditions'=>$conditions,'limit'=>1));
+	}
+	$this->set('result_next',$result_next[0]["classified"]["classified_id"]);
+	
+	$this->loadmodel('classified');
+	$conditions=array('classified_id' => array('$lt'=>$id),'delete'=>0,'draft'=>0,'ad_type'=>'1');
+	$result_prv=$this->classified->find('all',array('conditions'=>$conditions,'limit'=>1));
+	if(sizeof($result_prv)==0){
+		$count_all=$this->classified->find('count');
+		
+		$conditions=array('classified_id' => array('$lte'=>$count_all),'delete'=>0,'draft'=>0,'ad_type'=>'1');
+		$result_prv=$this->classified->find('all',array('conditions'=>$conditions,'limit'=>1));
+	}
+	$this->set('result_prv',$result_next[0]["classified"]["classified_id"]);
+	
+}
+
 
 function view_ad_ajax($id=null){
 	$this->layout=null;
