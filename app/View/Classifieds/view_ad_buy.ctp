@@ -78,7 +78,7 @@
 			</tr>
 			<tr>
 				<td width="20%" class="tag" valign="top"><a href="#" role="button" class="btn blue" onclick="intrested_in_classified(<?php echo $classified_id; ?>)">Interested</a></td>
-				<td ></td>
+				<td > </td>
 			</tr>
 		</table>
 			<!--Ad content end-->
