@@ -24,7 +24,7 @@ $default_date = date('d-m-Y');
 
 <label style="font-size:14px;">Mobile<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" class="m-wrap span9" name="mobile" id="mob"/>
+<input type="text" class="m-wrap span9" name="mobile" id="mob" maxlength="10"/>
 <label id="mob"></label>
 </div>
 <br />
@@ -36,15 +36,8 @@ $default_date = date('d-m-Y');
 </div>
 <br />
 
-<label style="font-size:14px;">Pay Amount<span style="color:red;">*</span></label>
-<div class="controls">
-<input type="text" class="m-wrap span9" name="amt" id="amt"/>
-<label id="amt"></label>
-</div>
-<br />
 
 </div>
-
 <div class="span6">
 
 
@@ -85,13 +78,18 @@ $default_date = date('d-m-Y');
 <br />
 
 
-
+<label style="font-size:14px;">Pay Amount<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text" class="m-wrap span9" name="amt" id="amt"/>
+<label id="amt"></label>
+</div>
+<br />
 
 
 </div>
 </div>
 <button type="submit" class="btn green" name="sub" value="xyz">Submit</button>
-<a href="<?php echo $webroot_path; ?>Accounts/pay_bill" class="btn" rel='tab'>Reset</a>
+<a href="<?php echo $webroot_path; ?>Accounts/pay_bill?b=<?php echo $receipt_no; ?>" class="btn" rel='tab'>Reset</a>
 <a href="<?php echo $webroot_path; ?>Accounts/my_flat_bill" class="btn" rel='tab'>Back</a>
 </form>
 </div>

@@ -1400,8 +1400,6 @@ $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
 $this->set('s_user_id',$s_user_id);
 
-
-
 $this->loadmodel('society');
 $conditions=array("society_id"=>$s_society_id);
 $cursor = $this->society->find('all',array('conditions'=>$conditions));
@@ -1418,7 +1416,7 @@ $this->set('from',$from);
 
 
 $this->loadmodel('regular_bill');
-$conditions=array("bill_for_user" => $s_user_id,"society_id"=>$s_society_id);
+$conditions=array("bill_for_user" => $s_user_id,"society_id"=>$s_society_id,"approve_status"=>2);
 $cursor1 = $this->regular_bill->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);
 
@@ -3859,17 +3857,55 @@ $this->layout='session';
 $this->ath();
 $this->check_user_privilages();
 
-$s_society_id=$this->Session->read('society_id');
+$s_society_id=(int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
 
 $receipt_no = (int)$this->request->query('b');
 $this->set('receipt_no',$receipt_no);
 
+if(isset($this->request->data['sub']))
+{
+$transaction_date = $this->request->data['date'];
+$bank_name = $this->request->data['bank_name'];
+$mobile = $this->request->data['mobile'];
+echo $bill_receipt = (int)$this->request->data['bill_no'];
+$branch = $this->request->data['branch'];
+$account_number = $this->request->data['acno'];
+$pay_amt = $this->request->data['amt'];
+$paying_mode = (int)$this->request->data['mode'];
+if($paying_mode == 1)
+{
+$cheque_number = $this->request->data['chq_no'];
+$mode="Cheque";
+}
+else
+{
+$cheque_number = "";
+$mode="Cash";
+}
+$transaction_date = date('Y-m-d',strtotime($transaction_date));
 
-
-
-
-
+$this->loadmodel('regular_bill');
+$this->regular_bill->updateAll(array("payment_date" => $transaction_date,"bank_name"=>$bank_name,"mobile"=>$mobile,"branch"=>$branch,"account_number"=>$account_number,"pay_amount"=>$pay_amt,"pay_mode"=>$mode,"cheque_no"=>$cheque_number),array("society_id" => $s_society_id,"receipt_id"=>$bill_receipt));
+?>
+<div class="modal-backdrop fade in"></div>
+<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+<div class="modal-header">
+<center>
+<h3 id="myModalLabel3" style="color:#999;"><b>Pay Bill Detail</b></h3>
+</center>
+</div>
+<div class="modal-body">
+<center>
+<h5><b>Record Inserted Successfully</b></h5>
+</center>
+</div>
+<div class="modal-footer">
+<a href="my_flat_bill" class="btn blue">OK</a>
+</div>
+</div>
+<?php
+}
 }
 ///////////////////////////////// End pay Bill //////////////////////////////////////////////////////////////////
 
