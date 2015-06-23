@@ -10,14 +10,13 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <form method="post">
 <br />
 <label class="checkbox line" style="text-align:right; margin-right:3%;">
-<div class="checker" id="uniform-undefined"><span><input type="checkbox" value="all" style="opacity: 0;" name="all" onclick="selall()"></span></div>Select All 
+<div class="checker" id="uniform-undefined"><span><input type="checkbox" value="all" style="opacity: 0;" name="all" onclick="selall()" id="aaa"></span></div>Select All 
 </label>
 
 <table style="background-color:white;" class="m-wrap table table-bordered">
 <tr>
 <th style="text-align:left;">Bill Number</th>
 <th style="text-align:left;">Member name</th>
-<th style="text-align:left;">Tenant</th>
 <th style="text-align:left;">Flat area(Sq.Ft.)</th>
 <th style="text-align:left;">Unit Number</th>
 <th style="text-align:left;">Bill Amount</th>
@@ -63,7 +62,6 @@ $ten = "Tenant";
 <tr>
 <td style="text-align:right;"><?php echo $bill_number; ?></td>
 <td style="text-align:left;"><?php echo $user_name; ?> &nbsp;&nbsp; (<?php echo $wing_flat; ?>)</td>
-<td style="text-align:left;"><?php echo $ten; ?></td>
 <td style="text-align:left;"><?php echo $area; ?> &nbsp;&nbsp; Sq.Ft.</td>
 <td style="text-align:right;"><?php echo $unit_number; ?></td>
 <td style="text-align:right;"><?php echo $bill_amt; ?></td>
@@ -84,9 +82,15 @@ $ten = "Tenant";
 <script>
 function selall()
 {
-
+if($('#aaa').is(":checked"))
+{
 $(".chhh").parent('span').addClass('checked');
 $(".chhh").attr('checked','checked');
-
+}
+else
+{
+$(".chhh").parent('span').removeClass('checked');
+$(".chhh").removeAttr('checked','checked');
+}
 }
 </script>
