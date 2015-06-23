@@ -3846,7 +3846,32 @@ $this->ledger->saveAll($multipleRowData);
 $output=json_encode(array('report_type'=>'done','text'=>'Total Debit must be Equal to Total Credit'));
 die($output);
 }
-
 //////////////////////////// End Save Open Bal //////////////////////////////////////////////////////////
+///////////////////////////////// Start pay Bill //////////////////////////////////////////////////////////////////
+function pay_bill()
+{
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
+
+$this->ath();
+$this->check_user_privilages();
+
+$s_society_id=$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
+
+
+
+
+
+
+
+
+
+}
+///////////////////////////////// End pay Bill //////////////////////////////////////////////////////////////////
+
 }
 ?>

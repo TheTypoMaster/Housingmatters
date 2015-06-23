@@ -7,13 +7,13 @@ $m_to = date("Y-m-d", strtotime($to));
 ?>
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
-<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <div style="width:100%;" class="hide_at_print">
 <span style="margin-left:80%;">
 <a href="my_flat_bill_excel?f=<?php echo $from; ?>&t=<?php echo $to; ?>" class="btn blue">Export in Excel</a>
 <button type="button" class=" printt btn green" onclick="window.print()"><i class="icon-print"></i> Print</button></span>
 </div>
-<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <br />
 <table class="table table-bordered" style="width:100%; background-color:white;">
 <tr>
@@ -69,6 +69,7 @@ $date1 = date('d-m-Y',strtotime($date));
 <td style="text-align:center;"><?php echo $remaining_amt; ?></td>
 <td style="text-align:center;" class="hide_at_print">
 <a href="ac_statement_bill_view/<?php echo $bill_no; ?>" class="btn mini yellow" target="_blank">View Bill</a>
+<a href="pay_bill" class="btn mini blue">Pay Bill</a>
 </td>
 </tr>
 <?php
