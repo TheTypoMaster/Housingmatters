@@ -690,9 +690,6 @@ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingk
 }
 /////////////////////////////////////////////////////////////
 
-
-
-
 $current_date = date('Y-m-d');
 
 //////////////////////////////////////////////////////////////
@@ -842,20 +839,24 @@ $html='<center>
 <br><Br><br>
 <div style="width:80%; border:solid 1px; overflow:auto;">
 <br>
-<table border="0" style="width:100%;">
+<table border="0" style="width:15%; float:left;">
+<tr>
+<td>
+<img src='.$webroot_path.'logo/'.$log_img.' height="60px;" width="130px;"></img>
+</td>
+</tr>
+</table>
+<table border="0" style="width:85%;">
 <tr>
 <th style="text-align:center;">
-<p style="font-size:22px; margin-left:10%;">'.$society_name.'  Society</p>
-</th>
-<th rowspan="3" style="text-align:right; width:20%;">
-<img src='.$webroot_path.'logo/'.$log_img.' height="60px;" width="130px;"></img>
+<p style="font-size:22px; padding-right:14%;">'.$society_name.'  Society</p>
 </th>
 </tr>
 <tr>
-<th style="text-align:center; margin-left:10%;">Regn#  &nbsp;&nbsp; '.$so_reg_no.'</th>
+<th style="text-align:center; padding-right:14%;">Regn#  &nbsp;&nbsp; '.$so_reg_no.'</th>
 </tr>
 <tr>
-<th style="text-align:center; margin-left:10%;">'.$so_address.'</th>
+<th style="text-align:center; padding-right:14%;">'.$so_address.'</th>
 </tr>
 </table>
 </div>
@@ -906,8 +907,8 @@ Name :
 <div style="width:80.2%; overflow:auto;">
 <table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="0">
 <tr>
-<td style="width:80%; text-align:center;">Particulars</td>
-<td style="text-align:center;">Amount (Rs.)</td>
+<th style="width:80%; text-align:left; padding-left:2%;">Particulars</th>
+<th style="text-align:right; padding-right:1.2%;">Amount (Rs.)</th>
 <tr>
 <tr>
 <td valign="top" style="height:200px;">
@@ -930,7 +931,7 @@ else
 $ih_name = "Non Occupancy charges";
 }
 $html.='<tr>
-<td style="text-align:left;">'.$ih_name.'</td>
+<td style="text-align:left; padding-left:2%;">'.$ih_name.'</td>
 </tr>';
 }
 
@@ -944,7 +945,7 @@ $ih_det3 = $ih_detail2[$y];
 $amount = $ih_det3[1];
 $amount2 = number_format($amount);
 $html.='<tr>
-<td style="text-align:center;">'.$amount2.'</td>
+<td style="text-align:right;  padding-right:8%;">'.$amount2.'</td>
 </tr>';
 $total_amount2 = $total_amount2 + $amount;
 }
@@ -957,16 +958,16 @@ $html.='</table>
 <table border="0" style="width:100%;">';
 $html.='<tr>
 <td rowspan="4"></td>
-<td style="text-align:right;">Sub-Total:</td>
+<td style="text-align:right; padding-right:2%;">Total:</td>
 </tr>';
 $html.='<tr>
-<td style="text-align:right;">Interest:</td>
+<td style="text-align:right; padding-right:2%;">Interest:</td>
 </tr>';
 $html.='<tr>
-<td style="text-align:right;">Arrears:</td>
+<td style="text-align:right; padding-right:2%;">Arrears:</td>
 </tr>';
 $html.='<tr>
-<th style="text-align:right;">Grand Total:</th>
+<th style="text-align:right; padding-right:2%;">Due For Payment:</th>
 </tr>';
 $html.='</table>
 </td>
@@ -979,17 +980,17 @@ $grand_total2 = number_format($grand_total);
 $html.='<table border="0" style="width:100%;">
 <tr>';
 $html.='
-<td style="text-align:center;">'.$total_amount3.'</td>
+<td style="text-align:right; padding-right:8%;">'.$total_amount3.'</td>
 </tr>';
 $html.='
 <tr>
-<td style="text-align:center;">'.@$late_amt3.'</td>
+<td style="text-align:right; padding-right:8%;">'.@$late_amt3.'</td>
 </tr>';
 $html.='<tr>
-<td style="text-align:center;">'.@$due_amt4.'</td>
+<td style="text-align:right; padding-right:8%;">'.@$due_amt4.'</td>
 </tr>';
 $html.='<tr>
-<th style="text-align:center;">'.$grand_total2.'</th>
+<th style="text-align:right; padding-right:8%;">'.$grand_total2.'</th>
 </tr>';
 
 $html.='
@@ -1014,7 +1015,7 @@ $html.='
 <table border="0" style="width:100%;">
 <tr>
 <th style="text-align:left;">
-Terms And Conditions:
+Remarks:
 </th>
 </tr>';
 for($r=0; $r<sizeof($terms_arr); $r++)
@@ -1763,20 +1764,24 @@ $html='<center>
 <br><Br><br>
 <div style="width:80%; border:solid 1px; overflow:auto;">
 <br>
-<table border="0" style="width:100%;">
+<table border="0" style="width:15%; float:left;">
 <tr>
-<th style="text-align:center; margin-left:10%;">
-<p style="font-size:22px;">'.$society_name.'  Society</p>
-</th>
-<th rowspan="3" style="text-align:right; width:20%;">
+<td>
 <img src='.$webroot_path.'logo/'.$log_img.' height="60px;" width="130px;"></img>
+</td>
+</tr>
+</table>
+<table border="0" style="width:85%;">
+<tr>
+<th style="text-align:center;">
+<p style="font-size:22px; padding-right:14%;">'.$society_name.'  Society</p>
 </th>
 </tr>
 <tr>
-<th style="text-align:center; margin-left:10%;">Regn# &nbsp;&nbsp; '.$so_reg_no.'</th>
+<th style="text-align:center; padding-right:14%;">Regn# &nbsp;&nbsp; '.$so_reg_no.'</th>
 </tr>
 <tr>
-<th style="text-align:center; margin-left:10%;">'.$so_address.'</th>
+<th style="text-align:center; padding-right:14%;">'.$so_address.'</th>
 </tr>
 </table>
 </div>
@@ -1819,16 +1824,16 @@ Name :
 <td style="text-align:left;">'.$monthB.''.  $year.'</td>
 </tr>
 <tr>
-<td style="text-align:left;">Due Date:</td>
-<td style="text-align:left;">'.$due_date21.'</td>
+<td style="text-align:left;"><b>Due Date:</b></td>
+<td style="text-align:left;"><b>'.$due_date21.'</b></td>
 </tr>
 </table>
 </div>
 <div style="width:80.2%; overflow:auto;">
 <table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="0">
 <tr>
-<td style="width:80%; text-align:center;">Particulars</td>
-<td style="text-align:center;">Amount (Rs.)</td>
+<th style="width:80%; text-align:left; padding-left:2%;">Particulars</th>
+<th style="text-align:right; padding-right:1.2%;">Amount (Rs.)</th>
 <tr>
 <tr>
 <td valign="top" style="height:200px;">
@@ -1850,7 +1855,7 @@ else
 $ih_name = "Non Occupancy charges";
 }
 $html.='<tr>
-<td style="text-align:left;">'.$ih_name.'</td>
+<td style="text-align:left; padding-left:2%;">'.$ih_name.'</td>
 </tr>';
 }
 $html.='</table>
@@ -1863,7 +1868,7 @@ $ih_det3 = $ih_detail2[$y];
 $amount = $ih_det3[1];
 $amount2 = number_format($amount);
 $html.='<tr>
-<td style="text-align:center;">'.$amount2.'</td>
+<td style="text-align:right; padding-right:8%;">'.$amount2.'</td>
 </tr>';
 $total_amount2 = $total_amount2 + $amount;
 }
@@ -1876,16 +1881,16 @@ $html.='</table>
 <table border="0" style="width:100%;">
 <tr>
 <td rowspan="4"></td>
-<td style="text-align:right;">Sub-Total:</td>
+<td style="text-align:right; padding-right:2%;">Total:</td>
 </tr>
 <tr>
-<td style="text-align:right;">Interest:</td>
+<td style="text-align:right; padding-right:2%;">Interest:</td>
 </tr>
 <tr>
-<td style="text-align:right;">Arrears:</td>
+<td style="text-align:right; padding-right:2%;">Arrears:</td>
 </tr>
 <tr>
-<th style="text-align:right;">Grand Total:</th>
+<th style="text-align:right; padding-right:2%;">Due For Payment:</th>
 </tr>
 </table>
 </td>
@@ -1897,16 +1902,16 @@ $due_amt4 = number_format($due_amt3);
 $late_amt3 = number_format($late_amt2);
 $grand_total2 = number_format($grand_total);
 $html.='
-<td style="text-align:center;">'.$total_amount3.'</td>
+<td style="text-align:right; padding-right:8%;">'.$total_amount3.'</td>
 </tr>
 <tr>
-<td style="text-align:center;">'.@$late_amt3.'</td>
+<td style="text-align:right;  padding-right:8%;">'.@$late_amt3.'</td>
 </tr>
 <tr>
-<td style="text-align:center;">'.@$due_amt4.'</td>
+<td style="text-align:right;  padding-right:8%;">'.@$due_amt4.'</td>
 </tr>
 <tr>
-<th style="text-align:center;">'.$grand_total2.'</th>
+<th style="text-align:right;  padding-right:8%;">'.$grand_total2.'</th>
 </tr>
 </table>
 </td>
@@ -1929,7 +1934,7 @@ $html.='
 <table border="0" style="width:100%;">
 <tr>
 <th style="text-align:left;">
-Terms And Conditions:
+Remarks:
 </th>
 </tr>';
 for($r=0; $r<sizeof($terms_arr); $r++)
