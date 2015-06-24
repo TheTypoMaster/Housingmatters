@@ -1468,9 +1468,9 @@ header ("Content-type: application/vnd.ms-excel");
 header ("Content-Disposition: attachment; filename=".$filename.".xls");
 header ("Content-Description: Generated Report" );
 
-$s_role_id=$this->Session->read('role_id');
+$s_role_id=(int)$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
-$s_user_id=$this->Session->read('user_id');	
+$s_user_id=(int)$this->Session->read('user_id');	
 
 $this->loadmodel('ledger_sub_account');
 $conditions=array("user_id"=>$s_user_id,"society_id"=>$s_society_id);
@@ -1519,7 +1519,6 @@ Bill Detail($society_name)
 <th style='text-align:center;'>Paid Amount</th>
 <th style='text-align:center;'>Due Amount</th>
 </tr>";
-
 $nn=0;
 $gt_amt = 0;
 $gt_pay_amt = 0;
@@ -1631,7 +1630,7 @@ foreach ($result_lsa2 as $collection)
 {
 $account_no = $collection['ledger_sub_account']['name'];  
 }		
-if($date >= $from && $date <= $to)
+if($date >= $m_from && $date <= $m_to)
 {
 $tr_date = date('d-M-Y',strtotime($date));
 $total_debit = $total_debit + $amount;		
@@ -1663,7 +1662,6 @@ $excel.="<tr>
 <th colspan='2'>Received From</th>
 <th>Amount</th>
 </tr>";
-
 $n=1;
 $total_credit = 0;
 $total_debit = 0;
@@ -1729,7 +1727,9 @@ $prepaired_by_name = $collection['user']['user_name'];
 $society_id = $collection['user']['society_id'];  	
 }
 
-if($date >= $from && $date <= $to)
+if($account_type == 1)
+{
+if($date >= $m_from && $date <= $m_to)
 {
 if($s_user_id == $user_id)  
 {
@@ -1747,12 +1747,12 @@ $excel.="<tr>
 }
 }
 }
+}
 $total_debit = number_format($total_debit);
 $excel.="<tr>
 <th colspan='8' style='text-align:right;'>Grand Total</th>
 <th>$total_debit</th>
-</tr>
-</table>";
+</tr></table>";
 
 echo $excel;
 

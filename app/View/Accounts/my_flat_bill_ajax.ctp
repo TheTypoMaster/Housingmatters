@@ -64,9 +64,9 @@ $date1 = date('d-m-Y',strtotime($date));
 <td colspan="2"><?php echo $date1; ?></td>
 <td style="text-align:center;" colspan="2"><?php echo $fromm; ?>-<?php echo $tom; ?></td>
 <td style="text-align:center;"><?php echo $due; ?></td>
-<td style="text-align:center;"><?php echo $total_amount; ?></td>
-<td style="text-align:center;"><?php echo $pay_amt; ?></td>
-<td style="text-align:center;"><?php echo $remaining_amt; ?></td>
+<td style="text-align:right;"><?php echo $total_amount; ?></td>
+<td style="text-align:right;"><?php echo $pay_amt; ?></td>
+<td style="text-align:right;"><?php echo $remaining_amt; ?></td>
 <td style="text-align:center;" class="hide_at_print">
 <a href="ac_statement_bill_view/<?php echo $bill_no; ?>" class="btn mini yellow" target="_blank">View Bill</a>
 <a href="pay_bill?b=<?php echo $bill_no; ?>" class="btn mini blue">Pay Bill</a>
@@ -77,9 +77,9 @@ $date1 = date('d-m-Y',strtotime($date));
 ?>
 <tr>
 <th colspan="6" style="text-align:right;">Grand Total</th>
-<th style="text-align:center;"><?php echo $gt_amt; ?></th>
-<th style="text-align:center;"><?php echo $gt_pay_amt; ?></th>
-<th style="text-align:center;"><?php echo $due_amt; ?></th>
+<th style="text-align:right;"><?php echo $gt_amt; ?></th>
+<th style="text-align:right;"><?php echo $gt_pay_amt; ?></th>
+<th style="text-align:right;"><?php echo $due_amt; ?></th>
 <th class="hide_at_print"></th>
 </tr>
 <tr>
@@ -161,7 +161,7 @@ $total_debit = $total_debit + $amount
 
 <td><?php echo $account_no; ?> </td>
 <td><?php echo $narration; ?> </td>
-<td><?php echo $amount; ?></td>
+<td style="text-align:right;"><?php echo $amount; ?></td>
 <td class="hide_at_print"> <!--<a href="#" class="btn mini blue">Reverse</a> -->
 <a href="bank_receipt_pdf?c=<?php echo $transaction_id; ?>&m=1" class="btn mini purple  tooltips" target="_blank" data-placement="bottom" data-original-title="Download Pdf">Pdf</a>
 <a href="" class="btn mini black tooltips" data-placement="bottom" data-original-title="Created By:<?php echo $prepaired_by_name; ?>
@@ -174,7 +174,7 @@ Creation Date : <?php echo $creation_date; ?>">!</a>
 ?>	
 <tr>
 <th colspan="8" style="text-align:right;">Grand Total</th>
-<th><?php echo $total_debit; ?></th>
+<th style="text-align:right;"><?php echo $total_debit; ?></th>
 <th class="hide_at_print"></th>
 </tr>
 <tr>
@@ -265,7 +265,7 @@ $amount = number_format($amount);
 <td colspan="2"><?php echo $date; ?> </td>
 <td colspan="2"><?php echo $narration; ?> </td>
 <td colspan="2"><?php echo $user_name; ?>  &nbsp&nbsp&nbsp&nbsp<?php echo @$wing_flat; ?> </td>
-<td><?php echo $amount; ?></td>
+<td style="text-align:right;"><?php echo $amount; ?></td>
 <td class="hide_at_print">
 <a href="petty_cash_receipt_pdf?c=<?php echo $transaction_id; ?>" class="btn mini purple tooltips"  data-placement="bottom" data-original-title="Download Pdf" target="_blank">Pdf</a>
 <a class="btn mini black tooltips" data-placement="bottom"   data-original-title="Created By:<?php echo $prepaired_by_name; ?>
@@ -280,7 +280,7 @@ $total_debit = number_format($total_debit);
 ?>
 <tr>
 <th colspan="8" style="text-align:right;">Grand Total</th>
-<th><?php echo $total_debit; ?></th>
+<th style="text-align:right;"><?php echo $total_debit; ?></th>
 <th></th>
 </tr>
 </table>

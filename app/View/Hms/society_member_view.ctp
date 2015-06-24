@@ -39,7 +39,7 @@ foreach ($result_society as $collection){
 				<th>Role</th>
 				<th>Mobile</th>
 				<th>Email</th>
-				<th>Validation Pending</th>
+				<th>Validation Status</th>
 				<th>Portal joining date</th>
 				<th>Deactivate?</th>
 			</tr>
@@ -88,9 +88,18 @@ foreach ($result_society as $collection){
 				<td>
 					<?php if($profile_status!=2) { ?>  
 					<?php if(!empty($email)) { ?> 
-					<a href="#" role='button' class="btn green mini resend" id="<?php echo $user_id; ?>">Send Reminder</a> <?php } elseif(!empty($mobile)) { ?>
-					<a href="#" role='button' class="btn green mini resend_sms" id="<?php echo $user_id; ?>">Send Reminder</a> <?php } ?>
-					<?php } ?>
+					<a href="#" role='button' class="btn green mini resend" id="<?php echo $user_id; ?>"><i class=" icon-exclamation-sign"></i>  Send Reminder</a> <?php } elseif(!empty($mobile)) { ?>
+					<a href="#" role='button' class="btn green mini resend_sms" id="<?php echo $user_id; ?>"><i class=" icon-exclamation-sign"></i> Send Reminder</a> <?php } ?>
+					<?php }
+						else
+						{ ?>
+						<span> <a class="btn green mini"><i class=" icon-ok"></i>  done</a></span>
+						
+						<?php 
+						}
+
+
+					?>
 				</td>
 				<td><?php echo $date; ?></td>
 				<td><a href="#" class="btn red mini deactive_conferm tooltips" id="<?php echo $user_id; ?>" data-placement="bottom" data-original-title="Deactivate?" role="button"><i class=" icon-remove-sign"></i></a>
