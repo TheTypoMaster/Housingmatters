@@ -5571,8 +5571,35 @@ $this->check_user_privilages();
 $s_society_id=$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
 
+if(isset($this->request->data['sub']))
+{
+$ac_name = $this->request->data['acno'];
+$bank_name = $this->request->data['bank_name'];
+$branch = $this->request->data['branch'];
+$ifsc_code = $this->request->data['ifsc'];
 
 
+$this->loadmodel('society');
+$this->society->updateAll(array("ac_name" => $ac_name,"bank_name"=>$bank_name,"branch"=>$branch,"ifsc_code"=>$ifsc_code),array("society_id" => $s_society_id));
+?>
+<div class="modal-backdrop fade in"></div>
+<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+<div class="modal-header">
+<center>
+<h3 id="myModalLabel3" style="color:#999;"><b>Income Tracker</b></h3>
+</center>
+</div>
+<div class="modal-body">
+<center>
+<h5><b>Record Inserted Successfully</b></h5>
+</center>
+</div>
+<div class="modal-footer">
+<a href="neft_add" class="btn blue">OK</a>
+</div>
+</div>
+<?php
+}
 
 }
 ////////////////////////////////////////// End NEFT Add //////////////////////////////////////////////////////////////
