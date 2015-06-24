@@ -315,10 +315,33 @@ $(document).ready(function() {
 
 <!--------notification start--------------->
 <script>
-$(document).ready(function() {	
+$(document).ready(function() {
 	$(window).bind("load", function() {
 	   $('#notification_count').load('<?php echo Router::url(array('controller' => 'Hms', 'action' =>'notifications_count'), true); ?>');
 	   $('#alert_count').load('<?php echo Router::url(array('controller' => 'Hms', 'action' =>'alerts_count'), true); ?>');
+	   get_flash_message_output();
+	});
+	
+	function get_flash_message_output(){
+		$.ajax({
+			url: "<?php echo Router::url(array('controller' => 'Hms', 'action' =>'flash_output'), true); ?>",
+		}).done(function(response) {
+			$('#flash_output_div').prepend(response);
+			var h=$("#flash_div").height();
+			h=h+2;
+			
+			$("#header_div_container").css("margin-top","+="+h);
+		
+		});
+		
+		
+	}
+	
+	$(".remove_flash").live("click", function() {
+		var h=$("#flash_div").height();
+		h=h+2;
+		$("#header_div_container").css("margin-top","-="+h);
+		$("#flash_div").remove();
 	});
 	
 	setInterval(function(){ 
@@ -342,7 +365,7 @@ $(document).ready(function() {
 <body class="fixed-top">
 <!-- BEGIN HEADER -->
 <div id="loading_ajax"></div>
-	<div class="header navbar navbar-inverse navbar-fixed-top">
+	<div class="header navbar navbar-inverse navbar-fixed-top" id="flash_output_div">
 
 
 		<!-- BEGIN TOP NAVIGATION BAR -->
@@ -573,7 +596,7 @@ $(document).ready(function() {
 	
 	
 <!-- BEGIN CONTAINER -->	
-	<div class="page-container row-fluid">
+	<div class="page-container row-fluid" id="header_div_container">
 		<!-- BEGIN SIDEBAR -->
 		<div class="page-sidebar nav-collapse collapse">
 			<!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->

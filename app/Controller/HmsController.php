@@ -21766,18 +21766,31 @@ function flash_message(){
 	}else{
 		$this->layout='session';
 	}
-$this->ath();
+	$this->ath();
+	$this->loadmodel('flash');
+	$conditions=array("flash_id" => 1);
+	$result_cursor1=$this->flash->find('all',array('conditions'=>$conditions));
+	$this->set('result_cursor1',$result_cursor1);
 }
 
 function submit_flash_message(){
 	$this->layout=null;
-	echo $title=$_POST["title"];
+	$title=$_POST["title"];
 	$description=$_POST["description"];
 	$theme=$_POST["theme"];
+	$active=(int)$_POST["active"];
 	 
 	$this->loadmodel('flash');
-	$this->flash->updateAll(array("title"=> $title,"description"=>$description,"theme"=>$theme),array("flash_id"=>1));
+	$this->flash->updateAll(array("title"=> $title,"description"=>$description,"theme"=>$theme,"active"=>$active),array("flash_id"=>1));
 	echo "success";
+}
+
+function flash_output(){
+	$this->layout=null;
+	$this->loadmodel('flash');
+	$conditions=array("flash_id" => 1);
+	$result_cursor1=$this->flash->find('all',array('conditions'=>$conditions));
+	$this->set('result_cursor1',$result_cursor1);
 }
 
 //////////////end flash mesage////////////////////////

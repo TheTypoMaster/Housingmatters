@@ -1,23 +1,40 @@
+<?php
+$active=$result_cursor1[0]["flash"]["active"];
+$title=$result_cursor1[0]["flash"]["title"];
+$description=$result_cursor1[0]["flash"]["description"];
+$theme=$result_cursor1[0]["flash"]["theme"];
+?>
 <form  method="post" id="contact-form">
 <div class="portlet box blue span9">
 	<div class="portlet-title">
 		<h4><i class=" icon-tasks"></i>Create Flash Message</h4>
+			
 	</div>
 	
 	
 								
 	<div class="portlet-body">
-		<div class="alert alert-success" style="display:none;" id="success">
+	<div style="display:none;" id="success">
+		<div class="alert alert-success" >
 			<button class="close" data-dismiss="alert"></button>
-			<strong>Success!</strong> The page has been added.
+			<strong>Success!</strong> Flash Message saved successfully.
 		</div>
+	</div>
 	
-	
+		<div class="control-group">
+		  <label class="control-label">Are you want to display flash message? </label>
+		  
+			 <label class="checkbox">
+			 <div class="checker"><span><div class="checker" id="uniform-undefined"><span><input type="checkbox" value="1" name="active" id="active" style="opacity: 0;" <?php if($active==1) { echo "checked"; } ?>></span></div></span></div>
+			 if checked, flash message will be visible to every user.
+			 </label>
+		</div>
+		
 		<div class="row-fluid">
 			<div class="control-group span6">
 			  <label class="control-label">Title</label>
 			  <div class="controls">
-				<input type="text" class="span12 m-wrap" name="title" id="title" style="font-size:16px;" placeholder="Title*">
+				<input type="text" class="span12 m-wrap" name="title" id="title"  style="font-size:16px;" placeholder="Title*" value="<?php echo $title; ?>">
 				<label id="title"></label>
 			  </div>
 			</div>
@@ -25,9 +42,8 @@
 			  <label class="control-label">Select Theme</label>
 			  <div class="controls">
 				<select class="span6 m-wrap" data-placeholder="Select Theme" tabindex="1" name="theme" id="theme">
-					<option value="">Select...</option>
-					<option value="flash_blue">flash_blue</option>
-					<option value="flash_red">flash_red</option>
+					<option value="flash_blue" <?php if($theme=="flash_blue") { echo "selected"; } ?>>flash_blue</option>
+					<option value="flash_red" <?php if($theme=="flash_red") { echo "selected"; } ?>>flash_red</option>
 				</select>
 				<label id="theme"></label>
 			  </div>
@@ -37,7 +53,7 @@
 		<div class="control-group">
 		  <label class="control-label">Description</label>
 		  <div class="controls">
-			<textarea class="span9 m-wrap" rows="3" placeholder="Description*" name="description" id="description"></textarea>
+			<textarea class="span9 m-wrap" rows="3" placeholder="Description*" name="description" id="description"><?php echo $description; ?></textarea>
 			<label id="description"></label>
 		  </div>
 		</div>
@@ -79,6 +95,7 @@ $(document).ready(function() {
 	$("select[name=theme]").bind('change',function(){
 		preview();
 	});
+	preview();
 });
 </script>
 
@@ -154,11 +171,11 @@ $(document).ready(function(){
 			},
 			
 			submitHandler: function(form) {
-				alert('inside');
 				var m_data = new FormData();
 				m_data.append( 'title', $('#title').val());
 				m_data.append( 'description', $('#description').val());
 				m_data.append( 'theme', $('#theme').val());
+				m_data.append( 'active', $('#active:checked').val());
 				$.ajax({
 						url: "submit_flash_message",
 						data: m_data,
