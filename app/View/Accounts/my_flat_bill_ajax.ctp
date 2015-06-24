@@ -69,7 +69,7 @@ $date1 = date('d-m-Y',strtotime($date));
 <td style="text-align:right;"><?php echo $remaining_amt; ?></td>
 <td style="text-align:center;" class="hide_at_print">
 <a href="ac_statement_bill_view/<?php echo $bill_no; ?>" class="btn mini yellow" target="_blank">View Bill</a>
-<a href="pay_bill?b=<?php echo $bill_no; ?>" class="btn mini blue">Pay Bill</a>
+<!--<a href="pay_bill?b=<?php echo $bill_no; ?>" class="btn mini blue">Pay Bill</a>-->
 </td>
 </tr>
 <?php
