@@ -21757,6 +21757,17 @@ function flash_message(){
 $this->ath();
 }
 
+function submit_flash_message(){
+	$this->layout=null;
+	echo $title=$_POST["title"];
+	$description=$_POST["description"];
+	$theme=$_POST["theme"];
+	 
+	$this->loadmodel('flash');
+	$this->flash->updateAll(array("title"=> $title,"description"=>$description,"theme"=>$theme),array("flash_id"=>1));
+	echo "success";
+}
+
 //////////////end flash mesage////////////////////////
 
 }
