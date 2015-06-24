@@ -121,6 +121,7 @@ var key = 1;
 	<link href="<?php echo $webroot_path; ?>assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
 	<link href="<?php echo $webroot_path; ?>assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
 	<link href="<?php echo $webroot_path; ?>assets/css/style.1.css" rel="stylesheet" />
+	<link href="<?php echo $webroot_path; ?>assets/css/flash.css" rel="stylesheet" />
 	<link href="<?php echo $webroot_path; ?>assets/css/style_responsive.css" rel="stylesheet" />
 	<link href="<?php echo $webroot_path; ?>assets/css/style_default.1.css" rel="stylesheet" id="style_color" />
 	<link rel="stylesheet" type="text/css" href="<?php echo $webroot_path; ?>assets/uniform/css/uniform.default.css" />
@@ -342,6 +343,8 @@ $(document).ready(function() {
 <!-- BEGIN HEADER -->
 <div id="loading_ajax"></div>
 	<div class="header navbar navbar-inverse navbar-fixed-top">
+
+
 		<!-- BEGIN TOP NAVIGATION BAR -->
 		<div class="navbar-inner hide_at_print">
 			<div class="container-fluid" style="padding-right: 0px;">
