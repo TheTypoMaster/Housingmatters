@@ -590,6 +590,16 @@ $(document).ready(function() {
 <?php
 $result=$this->requestAction(array('controller' => 'hms', 'action' => 'menus_from_role_privileges'));
 
+if(sizeof(@$result)>0){
+	foreach($result as $data1){
+		$group_module_id[]=@$data1['role_privileges']['module_id'];
+	}
+	
+	$distinct_group_module_id = array_unique($group_module_id);
+	sort($distinct_group_module_id);
+	pr($distinct_group_module_id);
+}
+
 if(sizeof(@$result)>0)
 {
 	foreach($result as $data1)
@@ -599,8 +609,7 @@ if(sizeof(@$result)>0)
 	$result_distinct = array_unique($result_new);
 	sort($result_distinct);
 	
-	foreach($result_distinct as $data2)
-	{
+	foreach($result_distinct as $data2){
 	$module_id=$data2;
 	$result_moduletype_id=(int)$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_module_type_id'), array('pass' => array($module_id)));
 	
@@ -648,10 +657,12 @@ if(sizeof(@$result)>0)
 	}
 	
 	$result_mainmodulename=$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_mainmodulename_usermanagement'), array('pass' => array($key)));
+	
 	foreach($result_mainmodulename as $data5)
 	{
-	$module_name=$data5['main_module']['module_name'];
+	echo $module_name=$data5['main_module']['module_name'];
 	$icon=@$data5['main_module']['icon'];
+	}
 	?>
 	<li>
 		<a href="<?php echo $this->webroot.@$controller; ?>/<?php echo @$page_name; ?>" rel="tab" >
@@ -663,7 +674,6 @@ if(sizeof(@$result)>0)
 	<?php
 	}
 	
-	}
 }
 
 if(sizeof(@$result)>0)
@@ -751,6 +761,11 @@ if(@$complaints==1)
 	</a>					
 </li>
 
+<li>
+	<a href="flash_message">
+	<i class="icon-home"></i>Flash Message
+	</a>					
+</li>
 
 
 <?php } ?>

@@ -21738,5 +21738,26 @@ echo $excel;
 }
 //////////////////////////////// End Fix Asset Excel ///////////////////////////////////////////////////////
 
+
+
+
+
+
+
+
+
+///////////////start flash message////////////////////
+
+function flash_message(){
+	if($this->RequestHandler->isAjax()){
+		$this->layout='blank';
+	}else{
+		$this->layout='session';
+	}
+$this->ath();
+}
+
+//////////////end flash mesage////////////////////////
+
 }
 ?>
