@@ -25,6 +25,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <td>
 <a href="<?php echo $webroot_path; ?>Incometrackers/it_penalty" class="btn" style="font-size:16px;"  rel='tab'>Penalty Option</a>
 </td>
+<td>
+<a href="<?php echo $webroot_path; ?>Incometrackers/neft_add" class="btn" style="font-size:16px;" rel='tab'>Add NEFT</a>
+</td>
 </tr>
 </table> 
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
