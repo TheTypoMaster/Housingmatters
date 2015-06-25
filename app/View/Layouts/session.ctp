@@ -623,7 +623,51 @@ if(sizeof(@$result)>0){
 	
 	$distinct_group_module_id = array_unique($group_module_id);
 	sort($distinct_group_module_id);
-	pr($distinct_group_module_id);
+	foreach($distinct_group_module_id as $child1){
+		
+	$result_moduletype_id=(int)$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_module_type_id'), array('pass' => array($child1)));
+		
+	$complete_menu[$result_moduletype_id][]=$child1;
+	}
+	
+	foreach($complete_menu as $key=>$child2){
+		$result_module_type_info=$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_module_type_name'), array('pass' => array($key)));
+
+		foreach($result_module_type_info as $result_module_type_info_child)
+		{
+		$icon=@$result_module_type_info_child['module_type']['icon'];
+		$module_type_name=$result_module_type_info_child['module_type']['module_type_name'];
+		}
+	?>
+	<li class="has-sub">
+	<a href="javascript:;" class="">
+	<i class="<?php echo $icon; ?>"></i> <?php echo $module_type_name; ?>
+	<span class="arrow"></span>
+	</a>
+		<ul class="sub" style="display: none;">	
+		<?php foreach($child2 as $child_sub){
+			$result_mainmodulename=$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_mainmodulename_usermanagement'), array('pass' => array($child_sub)));
+
+			foreach($result_mainmodulename as $data5)
+			{
+			$module_name=$data5['main_module']['module_name'];
+			}
+			$new_array_module_group[$child_sub][]=$module_name;
+			sort($new_array_module_group);
+		} ?>
+		<?php foreach($new_array_module_group as $key=>$child_22){ ?>
+		<li>
+		<a href="/Housingmatters/Polls/polls" rel="tab">
+		<i class="icon-question-sign"></i>
+		<?php echo $child_22[0]; ?>
+		</a>					
+		</li>
+		<?php } unset($new_array_module_group); ?>
+		
+		
+		</ul>
+	</li>
+	<?php }
 }
 
 if(sizeof(@$result)>0)
