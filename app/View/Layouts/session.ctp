@@ -652,13 +652,27 @@ if(sizeof(@$result)>0){
 			{
 			$module_name=$data5['main_module']['module_name'];
 			}
-			$new_array_module_group[$child_sub][]=$module_name;
+			$new_array_module_group[]=array($module_name,$child_sub);
 			sort($new_array_module_group);
+			
 		} ?>
-		<?php foreach($new_array_module_group as $key=>$child_22){ ?>
+		<?php foreach($new_array_module_group as $child_22){ 
+			$result_page=@$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_pagename_main_module_usermanagement'), array('pass' => array($child_22[1])));
+			foreach($result_page as $data4)
+			{
+			$page_name=$data4['page']['page_name'];
+			$controller=$data4['page']['controller'];
+			}
+			
+			$result_module_name=@$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_mainmodulename_usermanagement'), array('pass' => array($child_22[1])));
+			foreach($result_module_name as $data44)
+			{
+			$main_module_icon=$data44['main_module']['icon'];
+			}
+		?>
 		<li>
-		<a href="/Housingmatters/Polls/polls" rel="tab">
-		<i class="icon-question-sign"></i>
+		<a href="<?php echo $this->webroot.@$controller; ?>/<?php echo @$page_name; ?>" rel="tab">
+		<i class="<?php echo $main_module_icon; ?>"></i>
 		<?php echo $child_22[0]; ?>
 		</a>					
 		</li>
@@ -668,90 +682,9 @@ if(sizeof(@$result)>0){
 		</ul>
 	</li>
 	<?php }
-}
+} ?>
 
-if(sizeof(@$result)>0)
-{
-	foreach($result as $data1)
-	{
-	$result_new[]=@$data1['role_privileges']['module_id'];
-	}
-	$result_distinct = array_unique($result_new);
-	sort($result_distinct);
-	
-	foreach($result_distinct as $data2){
-	$module_id=$data2;
-	$result_moduletype_id=(int)$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_module_type_id'), array('pass' => array($module_id)));
-	
-	$m_and_type_id[$module_id]=$result_moduletype_id;
-	}
-	
-	asort($m_and_type_id);
 
-	
-	foreach($m_and_type_id as $key=>$m_t_id)
-	{
-	//echo $key;
-	 $result_module_type_info=$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_module_type_name'), array('pass' => array($m_t_id)));
-	 
-	 foreach($result_module_type_info as $result_module_type_info_child)
-		{
-			$icon=@$result_module_type_info_child['module_type']['icon'];
-			$color=@$result_module_type_info_child['module_type']['color'];
-			$module_type_name=$result_module_type_info_child['module_type']['module_type_name'];
-			$color=$this->requestAction(array('controller' => 'hms', 'action' => 'rendom_color_new'), array('pass' => array()));
-		}
-	
-	$pv=@$pv;
-	if(($pv!=$m_t_id) and !empty($pv)) { echo '</ul>
-				</li>'; }
-	if((@$pv!=$m_t_id)) { echo '<li class="has-sub">
-					<a href="javascript:;" class="">
-					<i class='.$icon.'></i> '.$module_type_name.'
-					<span class="arrow"></span>
-					</a>
-					<ul class="sub" style="display: none;">'; }
-	$pv=$m_t_id;
-	
-	$result_sub_module=$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_submoduleid_usermanagement'), array('pass' => array($key)));
-	foreach($result_sub_module as $data3)
-	{
-	$sub_module_id=$data3['role_privilege']['sub_module_id'];
-	}
-	
-	$result_page=@$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_pagename_usermanagement'), array('pass' => array($sub_module_id)));
-	foreach($result_page as $data4)
-	{
-	$page_name=$data4['page']['page_name'];
-	$controller=$data4['page']['controller'];
-	}
-	
-	$result_mainmodulename=$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_mainmodulename_usermanagement'), array('pass' => array($key)));
-	
-	foreach($result_mainmodulename as $data5)
-	{
-	echo $module_name=$data5['main_module']['module_name'];
-	$icon=@$data5['main_module']['icon'];
-	}
-	?>
-	<li>
-		<a href="<?php echo $this->webroot.@$controller; ?>/<?php echo @$page_name; ?>" rel="tab" >
-		<i class="<?php echo $icon ; ?>"></i>
-		<?php echo $module_name ; ?>
-		 <span class="selected"></span>
-		</a>					
-	</li>
-	<?php
-	}
-	
-}
-
-if(sizeof(@$result)>0)
-{
-echo '</ul>
-</li>';
-}
-?>
 
 
 
