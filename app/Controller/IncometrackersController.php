@@ -5466,16 +5466,6 @@ if(isset($this->request->data['sub']))
 {
 $all = @$this->request->data['all'];
 
-
-
-
-
-
-
-
-
-
-
 $r=0;
 $this->loadmodel('regular_bill');
 $conditions=array("society_id" => $s_society_id,"approve_status"=>1);
