@@ -155,6 +155,8 @@ element
 <tr>
 <th style="text-align:center; padding-right:14%;">Sewashram Kothari Complex</th>
 </tr>
+<tr>
+<td><b>Description:</b> &nbsp; &nbsp; iasuhfukasfahfuiagfgadgasudasjgdyasdyuasvduyvafffdgdsg</td>
 </table>
 </div>
 <div style="width:80%; border:solid 1px; overflow:auto; border-top:none; border-bottom:none;">
@@ -237,10 +239,9 @@ Name :
 </tr>
 <tr>
 <td valign="top">
-<table border="1" style="width:60%; float:left;">
+<table border="1" style="width:70%; float:left;">
 <tr>
-<td style="text-align:right;">Account Name:</td>
-
+<td style="text-align:right; width:20%;">Account Name:</td>
 <td>dgdfgdfgdfgf</td>
 </tr>
 <tr>
@@ -291,18 +292,6 @@ Name :
 </td>
 </tr>
 </table>
-</div>
-<div style="width:80%; overflow:auto; border:solid 1px; border-top:none;">
-<table border="0" style="width:70%; float:left;">
-<tr>
-<th style="text-align:left;">Description:</th>
-</tr>
-<tr>
-<td style="text-align:left;">
-kjdsfhdshfjksdhfkdhskfdhfjksdhfhkshfkkdshfksdhfkhsdhf
-</td>
-</tr>
-</table> 
 </div>
 <div style="width:80%; overflow:auto; border:solid 1px; border-top:none;">
 <table border="0" style="width:100%;">
