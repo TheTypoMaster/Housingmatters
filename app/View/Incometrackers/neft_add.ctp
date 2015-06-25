@@ -131,6 +131,20 @@ element
 </script>	
 
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php 
+/*
+$d1 = "01-06-2014";
+$d2 = "15-05-2014";
+$date1 = date('Y-m-d',strtotime($d1));
+$date2 = date('Y-m-d',strtotime($d2));
+
+$date1 = date_create($date1);
+$date2 = date_create($date2);
+$interval = date_diff($date1, $date2);
+
+echo $days = $interval->format('%a');
+*/
+?>
 <!--
 <br />
 <center>
