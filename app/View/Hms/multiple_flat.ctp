@@ -17,9 +17,9 @@ Multiple Wing-Flat
 </div>
 
 <div style="width: 70%;
-margin-left: auto;">
+margin-left: auto;" >
 
-<select name="user_sel" class=' span4 sel_u chosen'>
+<select name="user_sel" class='sel_u chosen'>
 <option> Select User </option>
 <?php 
 foreach($result_user as $data)
