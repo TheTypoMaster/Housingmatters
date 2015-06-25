@@ -290,6 +290,7 @@ $this->set('cursor2',$cursor2);
 
 if(isset($this->request->data['sub']))
 {
+
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
 $cursor = $this->society->find('all',array('conditions'=>$conditions));
@@ -537,8 +538,28 @@ $from_due = $collection['regular_bill']['bill_daterange_from'];
 $cur_date = date('Y-m-d');
 //$cur_datec = new MongoDate(strtotime($cur_date));
 
+/////////////// Penalty ///////////////////
 if($penalty == 1)
 {
+
+////////////////////////////////////////
+/*
+if($due_amount11 <= 0)
+{
+$penalty = 0;
+}
+else if($due_amount11 > $bill_amt)
+{
+$sub_int1 = round(($previous_bill_amt*$pen_per2 *$days)/(100*365));
+}
+*/
+////////////////////////////////////////////////
+
+
+
+
+
+
 if($cur_date > @$due_date11)
 {
 $due_date12 = date('Y-m-d',strtotime(@$due_date11));
@@ -581,7 +602,7 @@ $this->ledger->saveAll($multipleRowData);
 }
 
 
-/////////////////////Penalty
+/////////////////////End Penalty //////////////////////////////
 
 $total_due_amount = @$due_tax + @$due_amount11;
 $grand_total = $total_amt + $total_due_amount;
