@@ -131,7 +131,6 @@ element
 </script>	
 
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-
 <!--
 <br />
 <center>
@@ -141,7 +140,7 @@ element
 <br>
 <table border="0" style="width:15%; float:left;">
 <tr>
-<td><img src="<?php echo $webroot_path; ?>logo/Pacific_Bulb_Society_logo.jpg" height="60px;" width="130px;"></img></td>
+<td><img src="<?php //echo $webroot_path; ?>logo/Pacific_Bulb_Society_logo.jpg" height="60px;" width="130px;"></img></td>
 </tr>
 </table>
 <table border="0" style="width:85%;">
@@ -238,7 +237,27 @@ Name :
 </tr>
 <tr>
 <td valign="top">
-<table border="0" style="width:100%;">
+<table border="1" style="width:60%; float:left;">
+<tr>
+<td style="text-align:right;">Account Name:</td>
+
+<td>dgdfgdfgdfgf</td>
+</tr>
+<tr>
+<td style="text-align:right;">Bank Name:</td>
+<td>fdgdfg</td>
+</tr>
+<tr>
+<td style="text-align:right;">Branch Name:</td>
+<td>dfgdfg</td>
+</tr>
+<tr>
+<td style="text-align:right;">NEFC no.:</td>
+<td>dfgdfg</td>
+</tr>
+</table>
+
+<table border="1" style="width:30%; float:right;">
 <tr>
 <td rowspan="4"></td>
 <td style="text-align:right; padding-right:2%;">Total:</td>
@@ -315,7 +334,7 @@ Society-Email:abc@gmail.com
 Society-Phone:9799463210
 </td>
 <td style="text-align:right;">
-<img src="<?php echo $webroot_path; ?>sig/RO968.jpg" height="60px;" width="130px;" style="margin-right:10%;"></img>
+<img src="<?php //echo $webroot_path; ?>sig/RO968.jpg" height="60px;" width="130px;" style="margin-right:10%;"></img>
 </td>
 </tr>
 <tr>
@@ -329,7 +348,6 @@ Society-Phone:9799463210
 </div>
 <br><br><br><br>
 </div>
-
 
 -->
 

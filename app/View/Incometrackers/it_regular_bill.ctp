@@ -117,7 +117,7 @@ $period_id = $period_arr[1];
 
 
 
-<label style="font-size:14px;">Billing Date<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Billing Start Date<span style="color:red;">*</span></label>
 <div class="controls">
 <input type="text" name="from" class="m-wrap span7 date-picker" data-date-format="dd-mm-yyyy" placeholder="Bill Date" id="from" value="<?php echo $default_date; ?>"/>
 <label id="from"></label>
@@ -136,7 +136,7 @@ $period_id = $period_arr[1];
 
 
 
-<label class="" style="font-size:14px;">Bill For<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose bill "> </i></label>
+<label class="" style="font-size:14px;">Bill For<span style="color:red;">*</span><i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose bill "> </i></label>
 <div class="controls">
 <label class="radio">
 <div class="radio" id="uniform-undefined"><span><input type="radio" name="bill_for" value="1" style="opacity: 0;" id="bill_for"  onclick="wing()"></span></div>
@@ -144,7 +144,7 @@ Wing Wise
 </label>
 <label class="radio">
 <div class="radio" id="uniform-undefined"><span><input type="radio" name="bill_for" value="2" style="opacity: 0;" id="bill_for" onclick="flat()"></span></div>
-All Flats
+All Units
 </label>
 <label id="bill_for"></label>
 </div>       
@@ -175,7 +175,7 @@ $wing_name = $collection['wing']['wing_name'];
 <div class="span6">
 <div class="control-group">		
 <div class="controls">
-<label class="" style="font-size:14px;">Penalty <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose penalty yes/no "> </i></label>
+<label class="" style="font-size:14px;">Penalty<i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose penalty yes/no "> </i></label>
 <label class="radio">
 <div class="radio" id="uniform-undefined"><span><input type="radio" name="pen" value="1" style="opacity: 0;" id="pen"></span></div>
 Yes
