@@ -269,6 +269,10 @@ $per_type = (int)@$collection['society']['tax_type'];
 $sig_img = @$collection['society']['signature'];
 $log_img = @$collection['society']['logo'];
 $sig_title = @$collection['society']['sig_title'];
+$bank_name = @$collection['society']['bank_name'];
+$bank_branch = @$collection['society']['branch'];
+$account_number = @$collection['society']['ac_name'];
+$ifsc_code = @$collection['society']['ifsc_code'];
 }
 $this->set('pen_per',$pen_per);
 $this->set('per_type',$per_type);
@@ -858,6 +862,11 @@ $html='<center>
 <tr>
 <th style="text-align:center; padding-right:14%;">'.$so_address.'</th>
 </tr>
+<tr>
+<td>
+<b>Description :</b> &nbsp;&nbsp; '.$narration.'
+</td>
+</tr>
 </table>
 </div>
 <div style="width:80%; border:solid 1px; overflow:auto; border-top:none; border-bottom:none;">
@@ -955,7 +964,25 @@ $html.='</table>
 </tr>
 <tr>
 <td valign="top">
-<table border="0" style="width:100%;">';
+<table border="0" style="width:70%; float:left;">
+<tr>
+<td style="text-align:right; width:20%;">Account Name:</td>
+<td> &nbsp;&nbsp; '.$account_number.'</td>
+</tr>
+<tr>
+<td style="text-align:right;">Bank Name:</td>
+<td> &nbsp;&nbsp; '.$bank_name .'</td>
+</tr>
+<tr>
+<td style="text-align:right;">Branch Name:</td>
+<td> &nbsp;&nbsp; '.$bank_branch .'</td>
+</tr>
+<tr>
+<td style="text-align:right;">IFSC no.:</td>
+<td> &nbsp;&nbsp; '.$ifsc_code.'</td>
+</tr>
+</table>
+<table border="0" style="width:30%;">';
 $html.='<tr>
 <td rowspan="4"></td>
 <td style="text-align:right; padding-right:2%;">Total:</td>
@@ -995,18 +1022,6 @@ $html.='<tr>
 
 $html.='
 </table>
-</td>
-</tr>
-</table>
-</div>
-<div style="width:80%; overflow:auto; border:solid 1px; border-top:none;">
-<table border="0" style="width:70%; float:left;">
-<tr>
-<th style="text-align:left;">Description:</th>
-</tr>
-<tr>
-<td style="text-align:left;">
-'.$narration.'
 </td>
 </tr>
 </table>
@@ -1783,6 +1798,11 @@ $html='<center>
 <tr>
 <th style="text-align:center; padding-right:14%;">'.$so_address.'</th>
 </tr>
+<tr>
+<td>
+<b>Description :</b> &nbsp;&nbsp; '.$narration.'
+</td>
+</tr>
 </table>
 </div>
 <div style="width:80%; border:solid 1px; overflow:auto; border-top:none; border-bottom:none;">
@@ -1878,7 +1898,25 @@ $html.='</table>
 </tr>
 <tr>
 <td valign="top">
-<table border="0" style="width:100%;">
+<table border="0" style="width:70%; float:left;">
+<tr>
+<td style="text-align:right; width:20%;">Account Name:</td>
+<td> &nbsp;&nbsp; '.$account_number.'</td>
+</tr>
+<tr>
+<td style="text-align:right;">Bank Name:</td>
+<td> &nbsp;&nbsp; '.$bank_name .'</td>
+</tr>
+<tr>
+<td style="text-align:right;">Branch Name:</td>
+<td> &nbsp;&nbsp; '.$bank_branch .'</td>
+</tr>
+<tr>
+<td style="text-align:right;">IFSC no.:</td>
+<td> &nbsp;&nbsp; '.$ifsc_code.'</td>
+</tr>
+</table>
+<table border="0" style="width:30%;">
 <tr>
 <td rowspan="4"></td>
 <td style="text-align:right; padding-right:2%;">Total:</td>
@@ -1917,18 +1955,6 @@ $html.='
 </td>
 </tr>
 </table>
-</div>
-<div style="width:80%; overflow:auto; border:solid 1px; border-top:none;">
-<table border="0" style="width:70%; float:left;">
-<tr>
-<th style="text-align:left;">Description:</th>
-</tr>
-<tr>
-<td style="text-align:left;">
-'.$narration.'
-</td>
-</tr>
-</table> 
 </div>
 <div style="width:80%; overflow:auto; border:solid 1px; border-top:none;">
 <table border="0" style="width:100%;">
@@ -1977,10 +2003,7 @@ Society-Phone:'.$society_phone.'
 <br><br><br>
 </div>
 <br><br><br><br>
-</div>
-';
-
-
+</div>';
 
 $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array("bill_html" =>$html),array("regular_bill_id" =>$regular_bill_id));	
