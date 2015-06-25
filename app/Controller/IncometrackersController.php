@@ -202,15 +202,11 @@ $this->layout='blank';
 $this->layout='session';
 }
 
-
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
-
 $this->ath();
-
 $webroot_path=$this->requestAction(array('controller' => 'Hms', 'action' => 'webroot_path'));
-
 
 $this->loadmodel('penalty');
 $condition=array('society_id'=>$s_society_id);
@@ -347,15 +343,10 @@ $dueeed = $due_date;
 $due_date_msg = $due_date;
 
 $m_from = date("Y-m-d", strtotime($from));
-//$m_from = new MongoDate(strtotime($m_from));
 
 $m_to = date("Y-m-d", strtotime($to));
-//$m_to = new MongoDate(strtotime($m_to));
 
 $due_date = date("Y-m-d", strtotime($due_date));
-//$due_date = new MongoDate(strtotime($due_date));
-
-
 
 $this->loadmodel('regular_bill');
 $order=array('regular_bill.one_time_id'=> 'DESC');
@@ -390,7 +381,6 @@ $mobile = $collection['user']['mobile'];
 $to_mail = $collection['user']['email'];
 $wing_flat = $this->wing_flat($wing_id,$flat_id);
 $maint_ch = 0;
-
 
 $this->loadmodel('flat');
 $conditions=array("society_id" => $s_society_id, "flat_id" => $flat_id, "wing_id" => $wing_id);
@@ -427,13 +417,11 @@ else
 $regular_bill_id11=$last111;
 }
 $regular_bill_id11++;
-
 $current_date11 = date('Y-m-d');
 //$current_date11 = new MongoDate(strtotime($current_date11));
 /////////////////////////////////////
 $total_amt = 0;
 $income_headd2 = array();
-
 for($s=0; $s<sizeof($income_head_arr); $s++)
 {
 $auto_id_in = (int)$income_head_arr[$s];

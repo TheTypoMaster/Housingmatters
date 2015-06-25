@@ -2852,12 +2852,12 @@ function multiple_flat()
 	}else{
 		$this->layout='session';
 	}
-	$this->ath();
-	$this->check_user_privilages();	
-	 $s_society_id=$this->Session->read('society_id');
-	$s_user_id=$this->Session->read('user_id');
-	$result=$this->all_user_deactive();
-	$this->set('result_user',$result);
+		$this->ath();
+		$this->check_user_privilages();	
+		$s_society_id=$this->Session->read('society_id');
+		$s_user_id=$this->Session->read('user_id');
+		$result=$this->all_user_deactive();
+		$this->set('result_user',$result);
 	if($this->request->is('post'))
 	{
 		
@@ -9575,7 +9575,7 @@ if($this->RequestHandler->isAjax()){
 $this->ath();
 $this->check_user_privilages();
 $this->loadmodel('user');
-$conditions1=array('society_id'=>$s_society_id);
+$conditions1=array('society_id'=>$s_society_id,'deactive'=>0);
 $result=$this->user->find('all',array('conditions'=>$conditions1));
 $this->set('result_user',$result);
 if ($this->request->is('post')) 
