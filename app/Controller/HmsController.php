@@ -17644,6 +17644,19 @@ return $this->ledger_account->find('all',array('conditions'=>$conditions));
 
 //////////////////////////////////////// End Ledger Account Fetch (Accounts)////////////////////////////////////////////////////////////////////////
 
+function ledger_fetch_new($sub_id)
+{
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');		
+
+$this->loadmodel('ledger');
+$conditions=array("society_id" => $s_society_id,"account_id" => $sub_id);
+return $this->ledger->find('all',array('conditions'=>$conditions));
+
+}
+
+
 
 //////////////////////////////////////////////Start Ledger Fetch1 (Accounts)/ ///////////////////////////////////////////////////////////////////////////
 function ledger_fetch1($sub_id)
@@ -17651,7 +17664,6 @@ function ledger_fetch1($sub_id)
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');		
-
 
 $this->loadmodel('ledger');
 $conditions=array("society_id" => $s_society_id, "account_type" => 1, "account_id" => $sub_id);

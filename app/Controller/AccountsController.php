@@ -7,6 +7,30 @@ public $components = array(
 'Session','Cookie','RequestHandler'
 );
 var $name = 'Accounts';
+
+////////////////////////  Balance Shit //////////////////////////////
+
+function balance_sheet()
+{
+	
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
+$this->layout='session';
+}	
+
+$this->loadmodel('accounts_group');	
+$result_accounts_group=$this->accounts_group->find('all');	
+$this->set('result_accounts_group',$result_accounts_group);
+
+}
+
+
+
+//////////////////////   End //////////////////////////////////////
+
+
+
 //////////////////////////////////////////START SETTINGS MODULE///////////////////////////////////////////////////
 
 //////////////////Start Master Ledger Sub Account Ajax  (Accounts)///////////////////////////////////////////////
