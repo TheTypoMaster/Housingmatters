@@ -105,7 +105,11 @@ $total_ih[] = 0;
 <?php
 foreach($cursor2 as $collection)
 {
-$bill_no = (int)$collection['regular_bill']['receipt_id'];	
+$bill_no = (int)@$collection['regular_bill']['receipt_id'];	
+}
+if(@$bill_no == 0)
+{
+$bill_no = 1000;	
 }
 
 $sr = 0;
@@ -199,11 +203,15 @@ if(!empty($ih_amt))
 {
 $ih_amt5 = $ih_amt*$multi;
 $ih_amt5 = number_format($ih_amt5);
-echo $ih_amt5; 
+?>
+<input type="text" name="ih" value="<?php echo $ih_amt5; ?>" class="m-wrap span12"/>
+<?php
 }
 else
 {
-echo "0";	
+?>
+<input type="text" name="ih" value="<?php echo "0"; ?>" class="m-wrap span12" />
+<?php 
 }
 ?></td>
 <?php //////////////////////////////////////////////////////////////////////////////////////////// ?>
@@ -242,20 +250,38 @@ $over_due_tt = $over_due_tt + @$due_amount;
 <td style="text-align:right;"><?php if(!empty($noc_amt)) { 
 $noc_amt5 = $noc_amt*$multi;
 $noc_amt5 = number_format($noc_amt5);
-echo $noc_amt5; } else { echo "0"; } ?></td>
+?>
+<input type="text" name="noc" value="<?php echo $noc_amt5; ?>" class="m-wrap span12"/>
+<?php
+} else { 
+?>
+<input type="text" name="noc" value="<?php echo "0"; ?>" class="m-wrap span12"/>
+<?php
+} ?>
+</td>
 
 
 <td style="text-align:right;"><?php 
 $total_amt5 = $total_amt*$multi;
 $curr_amt = $total_amt5;
 $total_amt5 = number_format($total_amt5);
-echo $total_amt5; ?></td>
+?>
+<input type="text" name="tt" value="<?php echo $total_amt5; ?>" class="m-wrap span12"/>
+</td>
 
 
 <td style="text-align:right;"><?php if(!empty($due_amount)) { 
 $due_amount5 = $due_amount*$multi;
 $due_amount5 = number_format(@$due_amount5);
-echo $due_amount5; } else { echo "0"; } ?></td>
+?>
+<input type="text" name="due" value="<?php echo $due_amount5; ?>" class="m-wrap span12"/>
+<?php
+} else { 
+?> 
+<input type="text" name="due" value="<?php echo "0"; ?>" class="m-wrap span12"/>
+<?php 
+} ?>
+</td>
 <?php
 ////////////////////////////////////// Start Penalty ///////////////////////	
 $penalty_amt = 0;
@@ -309,11 +335,16 @@ $penalty_amt = $penalty_amt+$subpenalty3;
 }
 ///////////////////////////////////////  End Penalty ///////////////////////	
 ?>
-<td style="text-align:right;"><?php echo $penalty_amt; ?></td>
+<td style="text-align:right;">
+<input type="text" name="penalty" value="<?php echo $penalty_amt; ?>" class="m-wrap span12"/>
+</td>
+
 <td style="text-align:right;"><?php
 $gt_amt5 = $gt_amt*$multi+$penalty_amt; 
 $gt_amt5 = number_format($gt_amt5);
-echo $gt_amt5; ?></td>
+?>
+<input type="text" name="gtt" value="<?php echo $gt_amt5; ?>" class="m-wrap span12"/>
+</td>
 </tr>
 <?php 
 }
@@ -336,7 +367,6 @@ $user_name = $collection['user']['user_name'];
 $wing_id = (int)$collection['user']['wing'];
 $flat_id = (int)$collection['user']['flat'];
 //$residing = (int)$collection['user']['residing'];
-
 
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
 
@@ -412,11 +442,15 @@ if(!empty($ih_amt))
 {
 $ih_amt2 = $ih_amt*$multi; 
 $ih_amt2 = number_format($ih_amt2);
-echo $ih_amt2; 
+?>
+<input type="text" name="gtt" value="<?php echo $ih_amt2; ?>" class="m-wrap span12"/>
+<?php
 }
 else
 {
-echo "0";	
+?>
+<input type="text" name="gtt" value="<?php echo "0"; ?>" class="m-wrap span12"/>
+<?php
 }
 ?></td>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
@@ -455,20 +489,38 @@ $over_due_tt = $over_due_tt + @$due_amount;
 <td style="text-align:right;"><?php if(!empty($noc_amt)) {
 $noc_amt2 = $noc_amt*$multi;	 
 $noc_amt2 = number_format($noc_amt2);
-echo $noc_amt2; } else { echo "0"; } ?></td>
+?>
+<input type="text" name="gtt" value="<?php echo $noc_amt2; ?>" class="m-wrap span12"/>
+<?php
+} else { 
+?>
+<input type="text" name="gtt" value="<?php echo "0"; ?>" class="m-wrap span12"/>
+<?php
+} 
+?>
+</td>
 
 
 <td style="text-align:right;"><?php 
 $total_amt2 = $total_amt*$multi;
 $curr_amt = $total_amt2;
 $total_amt2 = number_format($total_amt2);
-echo $total_amt2; ?></td>
+?>
+<input type="text" name="gtt" value="<?php echo $total_amt2; ?>" class="m-wrap span12"/>
+</td>
 
 
 <td style="text-align:right;"><?php if(!empty($due_amount)) { 
 $due_amount2 = $due_amount*$multi;
 $due_amount2 = number_format($due_amount2);
-echo $due_amount2; } else { echo "0"; } ?></td>
+?>
+<input type="text" name="gtt" value="<?php echo $due_amount2; ?>" class="m-wrap span12"/>
+<?php
+} else { 
+?>
+<input type="text" name="gtt" value="<?php echo "0"; ?>" class="m-wrap span12"/>
+<?php } ?>
+</td>
 
 
 
@@ -529,13 +581,22 @@ $penalty_amt = $penalty_amt+$subpenalty3;
 <td style="text-align:right;"><?php if(!empty($penalty_amt)) { 
 $penalty_amt = $penalty_amt*$multi;
 $due_tax = number_format($penalty_amt);
-echo $due_tax; } else { echo "0"; }?></td>
+?>
+<input type="text" name="gtt" value="<?php echo $due_tax; ?>" class="m-wrap span12"/>
+<?php
+ } else { 
+ ?>
+<input type="text" name="gtt" value="<?php  echo "0"; ?>" class="m-wrap span12"/>
+<?php }?>
+</td>
 
 
 <td style="text-align:right;"><?php
 $gt_amt2 = $gt_amt*$multi+$penalty_amt; 
 $gt_amt2 = number_format($gt_amt2);
-echo $gt_amt2; ?></td>
+?>
+<input type="text" name="gtt" value="<?php echo $gt_amt2; ?>" class="m-wrap span12"/>
+</td>
 </tr>
 <?php
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
