@@ -2854,6 +2854,7 @@ function multiple_flat()
 		$this->check_user_privilages();	
 		$s_society_id=$this->Session->read('society_id');
 		$s_user_id=$this->Session->read('user_id');
+		$this->seen_alert(105,$s_user_id);
 		$result=$this->all_user_deactive();
 		$this->set('result_user',$result);
 	if($this->request->is('post'))
@@ -14026,7 +14027,7 @@ $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
  Your profile is successfully update.
 </div> 
 <div class="modal-footer">
-<a href="profile" class="btn green">OK</a>
+<a href="dashboard" class="btn green">OK</a>
 </div>
 </div>
 <!----alert-------------->
@@ -15364,7 +15365,7 @@ function import_flat_configuration()
 			$result_flat_type_name=$this->flat_type_name->find('all',array('conditions'=>$conditions));
 			 $result_f_t_count=sizeof($result_flat_type_name);
 				if($result_f_t_count>0){
-					$flat_type_id=$result_flat_type_name[0]['flat_type_name']['auto_id'];	
+					$flat_type_id=@$result_flat_type_name[0]['flat_type_name']['auto_id'];	
 				}	 
 					
 					 $table[]=array($wing_id,$flat_name,$flat_type_id,$flat_area);

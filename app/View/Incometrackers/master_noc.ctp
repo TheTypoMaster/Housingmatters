@@ -32,7 +32,11 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </td>
 </tr>
 </table> 
-<br />            
+<div align="center">
+<a href="master_noc" class='btn red' role="button" rel='tab'>Non Occupancy Charges</a>
+<a href="master_noc_status" class='btn blue' role="button"  rel='tab'>Non Occupancy Status</a>
+</div>
+          
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>  
 <br /><br />
 <center>

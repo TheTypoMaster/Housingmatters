@@ -240,7 +240,7 @@ $(document).ready(function(){
 		var f=$("#url_main table tr:nth-child("+i+") td:nth-child(3) select").val();
 		var e=$("#url_main table tr:nth-child("+i+")  input[name=email]").val();
 		var m=$("#url_main table tr:nth-child("+i+")  input[name=mobile]").val();
-		alert(f);
+		
 		
 		
 		
