@@ -38,7 +38,6 @@ function substrwords($text, $maxchar, $end='...') {
 				$c_email = $collection['user']['email'];
 				$c_mobile = $collection['user']['mobile'];
 				$c_name = $collection['user']['user_name'];
-				$c_name=substrwords($c_name,20,'...');
 				$private_field = @$collection['user']['private'];
 				$da_dob=@$collection['user']['dob'];
 				$per_address=@$collection['user']['per_address'];
@@ -183,8 +182,8 @@ function substrwords($text, $maxchar, $end='...') {
 											
 										</tr>
 										<tr>
-											<td><label>Flat</label></td>
-											<td class="hidden-phone">(<?php echo $wing_flat ; ?> )</td>
+											<td><label>Unit</label></td>
+											<td class="hidden-phone"><?php echo $wing_flat ; ?></td>
 											
 										</tr>
 										

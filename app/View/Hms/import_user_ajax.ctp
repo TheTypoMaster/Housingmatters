@@ -29,7 +29,7 @@ foreach($table as $child){
 		$flat_id=$data["flat"]["flat_id"];
 		$flat_name=$data["flat"]["flat_name"];
 		?>
-		<option value="<?php echo $wing_id; ?>" <?php if($flat_id==$child[2]){ echo 'selected';} ?> ><?php echo $flat_name; ?></option>
+		<option value="<?php echo $flat_id; ?>" <?php if($flat_id==$child[2]){ echo 'selected';} ?> ><?php echo $flat_name; ?></option>
 		<?php } ?>
 		</select>
 		</td>

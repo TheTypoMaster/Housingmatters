@@ -135,42 +135,11 @@ foreach($result as $collection2)
 $due_amount = $collection2['regular_bill']['remaining_amount'];
 $due_date11 = $collection2['regular_bill']['due_date'];
 $from5 = $collection2['regular_bill']['bill_daterange_from'];
+$previous_bill_amt = $collection2['regular_bill']['total_amount'];
 }
 $current_date = date('Y-m-d');
 $current_date = new MongoDate(strtotime($current_date));
-if($per_type == 1)
-{
-if($penalty == 1)
-{
-if($current_date > @$due_date11)
-{
-$current_date = date('Y-m-d',$current_date->sec);
-$due_date12 = date('Y-m-d',@$due_date11->sec);
-$date1 = date_create($due_date12);
-$date2 = date_create($current_date);
-$interval = date_diff($date1, $date2);
-$days = $interval->format('%a');	
 
-$due_taxamt = round(($due_amount*$days*$pen_per)/365);
-}
-}
-}
-if($per_type == 2)
-{
-if($penalty == 1)
-{
-if($current_date > @$from5)
-{
-$current_date = date('Y-m-d',$current_date->sec);
-$date_from = date('Y-m-d',@$from5->sec);
-$date1 = date_create($date_from);
-$date2 = date_create($current_date);
-$interval = date_diff($date1, $date2);
-$days = $interval->format('%a');	
-$due_taxamt = round(($due_amount*$days*$pen_per)/365);
-}
-}
-}
 $result3 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch2'),array('pass'=>array($flat_id,$wing_id)));
 foreach($result3 as $collection3)
 {
@@ -278,6 +247,7 @@ echo $noc_amt5; } else { echo "0"; } ?></td>
 
 <td style="text-align:right;"><?php 
 $total_amt5 = $total_amt*$multi;
+$curr_amt = $total_amt5;
 $total_amt5 = number_format($total_amt5);
 echo $total_amt5; ?></td>
 
@@ -286,16 +256,64 @@ echo $total_amt5; ?></td>
 $due_amount5 = $due_amount*$multi;
 $due_amount5 = number_format(@$due_amount5);
 echo $due_amount5; } else { echo "0"; } ?></td>
+<?php
+////////////////////////////////////// Start Penalty ///////////////////////	
+$penalty_amt = 0;
+if($penalty == 1)
+{
+if($due_amount <= 0)
+{
+$penalty_amt = 0;	
+}
+
+if($due_amount > $curr_amt)
+{
+$start_date = date('Y-m-d',strtotime(@$from5));
+$due_date12 = date('Y-m-d',strtotime(@$due_date11));
+$current_start_date = date('Y-m-d',strtotime($from));           
 
 
-<td style="text-align:right;"><?php if(!empty($due_taxamt)) {
-$due_taxamt5 = $due_taxamt*$multi;	 
-$due_taxamt5 = number_format($due_taxamt5);
-echo $due_taxamt5; } else { echo "0"; }?></td>
+$date1 = date_create($due_date12);
+$date2 = date_create($start_date);
+$interval = date_diff($date1,$date2);
+$days1 = $interval->format('%a');
+	
+$subpenalty1 = round(($previous_bill_amt*$days1*$pen_per)/(365*100));
 
+$cal_amt = $due_amount-$previous_bill_amt;
+
+$date1 = date_create($start_date);
+$date2 = date_create($current_start_date);
+$interval = date_diff($date1,$date2);
+$days2 = $interval->format('%a');
+
+$subpenalty2 = round(($cal_amt*$days2*$pen_per)/(365*100));
+
+$penalty_amt = $penalty_amt+$subpenalty2+$subpenalty1;
+}
+
+if($due_amount <= $curr_amt)
+{
+$due_date12 = date('Y-m-d',strtotime(@$due_date11));
+$current_start_date = date('Y-m-d',strtotime($from));  
+
+$date1 = date_create($due_date12);
+$date2 = date_create($current_start_date);
+$interval = date_diff($date1,$date2);
+$days3 = $interval->format('%a');
+
+$subpenalty3 = round(($due_amount*$days3*$pen_per)/(365*100));
+
+$penalty_amt = $penalty_amt+$subpenalty3;
+}
+}
+///////////////////////////////////////  End Penalty ///////////////////////	
+?>
+
+<td style="text-align:right;"><?php echo $penalty_amt; ?></td>
 
 <td style="text-align:right;"><?php
-$gt_amt5 = $gt_amt*$multi; 
+$gt_amt5 = $gt_amt*$multi+$penalty_amt; 
 $gt_amt5 = number_format($gt_amt5);
 echo $gt_amt5; ?></td>
 </tr>
@@ -331,45 +349,13 @@ foreach($result as $collection2)
 $due_amount = $collection2['regular_bill']['remaining_amount'];
 $due_date11 = $collection2['regular_bill']['due_date'];
 $from5 = $collection2['regular_bill']['bill_daterange_from'];
+$previous_bill_amt = $collection2['regular_bill']['total_amount'];
 }
 
 $current_date = date('Y-m-d');
 $current_date = new MongoDate(strtotime($current_date));
-if($per_type == 1)
-{
-if($penalty == 1)
-{
-if($current_date > @$due_date11)
-{
-$current_date = date('Y-m-d',$current_date->sec);
-$due_date12 = date('Y-m-d',@$due_date11->sec);
-$date1 = date_create($due_date12);
-$date2 = date_create($current_date);
-$interval = date_diff($date1, $date2);
-$days = $interval->format('%a');	
 
-$due_taxamt = round(($due_amount*$days*$pen_per)/365);
-}
-}
-}
-if($per_type == 2)
-{
-if($penalty == 1)
-{
-if($current_date > @$from5)
-{
-$current_date = date('Y-m-d',$current_date->sec);
-$date_from = date('Y-m-d',@$from5->sec);
-$date1 = date_create($date_from);
-$date2 = date_create($current_date);
-$interval = date_diff($date1, $date2);
-$days = $interval->format('%a');	
 
-$due_taxamt = round((@$due_amount*$days*$pen_per)/365);
-	
-}
-}
-}
 $result3 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch2'),array('pass'=>array($flat_id,$wing_id)));
 foreach($result3 as $collection3)
 {
@@ -384,7 +370,6 @@ foreach($result5 as $collection5)
 $charge = @$collection5['flat_type']['charge'];
 $noc_charge = @$collection5['flat_type']['noc_charge'];
 }
-
 ?>
 <tr>
 <td style="text-align:right;"><?php echo $sr; ?></td>
@@ -477,6 +462,7 @@ echo $noc_amt2; } else { echo "0"; } ?></td>
 
 <td style="text-align:right;"><?php 
 $total_amt2 = $total_amt*$multi;
+$curr_amt = $total_amt2;
 $total_amt2 = number_format($total_amt2);
 echo $total_amt2; ?></td>
 
@@ -487,14 +473,69 @@ $due_amount2 = number_format($due_amount2);
 echo $due_amount2; } else { echo "0"; } ?></td>
 
 
-<td style="text-align:right;"><?php if(!empty($due_taxamt)) { 
-$due_taxamt2 = $due_taxamt*$multi;
-$due_taxamt2 = number_format($due_taxamt2);
-echo $due_taxamt2; } else { echo "0"; }?></td>
+
+<?php
+////////////////////////////////////// Start Penalty ///////////////////////	
+$penalty_amt = 0;
+if($penalty == 1)
+{
+if($due_amount <= 0)
+{
+$penalty_amt = 0;	
+}
+
+if($due_amount > $curr_amt)
+{
+$start_date = date('Y-m-d',strtotime(@$from5));
+$due_date12 = date('Y-m-d',strtotime(@$due_date11));
+$current_start_date = date('Y-m-d',strtotime($from));           
+
+
+$date1 = date_create($due_date12);
+$date2 = date_create($start_date);
+$interval = date_diff($date1,$date2);
+$days1 = $interval->format('%a');
+	
+$subpenalty1 = round(($previous_bill_amt*$days1*$pen_per)/(365*100));
+
+$cal_amt = $due_amount-$previous_bill_amt;
+
+$date1 = date_create($start_date);
+$date2 = date_create($current_start_date);
+$interval = date_diff($date1,$date2);
+$days2 = $interval->format('%a');
+
+$subpenalty2 = round(($cal_amt*$days2*$pen_per)/(365*100));
+
+$penalty_amt = $penalty_amt+$subpenalty2+$subpenalty1;
+}
+
+if($due_amount <= $curr_amt)
+{
+$due_date12 = date('Y-m-d',strtotime(@$due_date11));
+$current_start_date = date('Y-m-d',strtotime($from));  
+
+$date1 = date_create($due_date12);
+$date2 = date_create($current_start_date);
+$interval = date_diff($date1,$date2);
+$days3 = $interval->format('%a');
+
+$subpenalty3 = round(($due_amount*$days3*$pen_per)/(365*100));
+
+$penalty_amt = $penalty_amt+$subpenalty3;
+}
+}
+///////////////////////////////////////  End Penalty ///////////////////////	
+?>
+
+<td style="text-align:right;"><?php if(!empty($penalty_amt)) { 
+$penalty_amt = $penalty_amt*$multi;
+$due_tax = number_format($penalty_amt);
+echo $due_tax; } else { echo "0"; }?></td>
 
 
 <td style="text-align:right;"><?php
-$gt_amt2 = $gt_amt*$multi; 
+$gt_amt2 = $gt_amt*$multi+$penalty_amt; 
 $gt_amt2 = number_format($gt_amt2);
 echo $gt_amt2; ?></td>
 </tr>
