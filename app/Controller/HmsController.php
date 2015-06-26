@@ -2854,6 +2854,7 @@ function multiple_flat()
 		$this->check_user_privilages();	
 		$s_society_id=$this->Session->read('society_id');
 		$s_user_id=$this->Session->read('user_id');
+		$this->seen_alert(105,$s_user_id);
 		$result=$this->all_user_deactive();
 		$this->set('result_user',$result);
 	if($this->request->is('post'))
