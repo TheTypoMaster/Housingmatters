@@ -524,26 +524,25 @@ $result_help=$this->help_desk->find('all',array('conditions'=>$conditions));
 $this->set('result_help_desk_draft',$result_help);
 foreach($result_help as $data)
 {
-	 $att=$data['help_desk']['help_desk_file'];
+$att=$data['help_desk']['help_desk_file'];
 }
 
 if(isset($this->request->data['sub']))
 {
-	
-	$ip=$this->hms_email_ip();
-	
- $category=(int)$this->request->data['category'];
- $textarea=htmlentities($this->request->data['comment']);
-  $ticket_priority=(int)$this->request->data['priority'];
- $t=$this->autoincrement_with_society_ticket('help_desk','ticket_id');
- date_default_timezone_set('Asia/kolkata');
- $date=date("d-m-y");
- $time=date('h:i:a',time());
- $file=$this->request->form['file']['name'];
-	if(empty($file))
-	{
-	$file=$att;	
-	}
+
+$ip=$this->hms_email_ip();
+$category=(int)$this->request->data['category'];
+$textarea=htmlentities($this->request->data['comment']);
+$ticket_priority=(int)$this->request->data['priority'];
+$t=$this->autoincrement_with_society_ticket('help_desk','ticket_id');
+date_default_timezone_set('Asia/kolkata');
+$date=date("d-m-y");
+$time=date('h:i:a',time());
+$file=$this->request->form['file']['name'];
+if(empty($file))
+{
+$file=$att;	
+}
 $target = "help_desk_file/";
 $target=@$target.basename( @$this->request->form['file']['name']);
 $ok=1;
@@ -551,7 +550,6 @@ move_uploaded_file(@$this->request->form['file']['tmp_name'],@$target);
 $this->loadmodel('help_desk');
 
 $this->help_desk->updateAll(array('ticket_id'=>$t,'help_desk_draft'=>0, "society_id" => $s_society_id , "user_id" => $s_user_id, "help_desk_complain_type_id" => $category,"help_desk_description" => $textarea, "help_desk_date" =>$date,"help_desk_assign_date" =>"", "help_desk_time" =>$time, "help_desk_status" => 0, "help_desk_service_provider_id" => 0,"help_desk_file"=>$file ,"help_desk_close_comment"=>"","help_desk_close_date"=>"","ticket_priority"=>$ticket_priority),array('help_desk_id'=>$id));
-
 
 //------------------mail functinality  start SM -------------------
 $user_mail=1;

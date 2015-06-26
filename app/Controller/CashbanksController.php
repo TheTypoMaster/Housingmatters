@@ -74,7 +74,8 @@ $this->set('society_name',$society_name);
 
 function bank_receipt()
 {
-if($this->RequestHandler->isAjax()){
+if($this->RequestHandler->isAjax())
+{
 $this->layout='blank';
 }else{
 $this->layout='session';
@@ -169,7 +170,7 @@ if(isset($this->request->data['bank_receipt_add']))
 {
 $current_date = date('d-m-Y');
 $current_date = date("Y-m-d", strtotime($current_date));
- $current_date = new MongoDate(strtotime($current_date));
+$current_date = new MongoDate(strtotime($current_date));
 $date = $this->request->data['date'];
 $bill_no = (int)@$this->request->data['bill_no'];
 $date = date("Y-m-d", strtotime($date));
@@ -420,7 +421,7 @@ $d_receipt_id = (int)$collection['cash_bank']['receipt_id'];
 if($member_id == 1)
 { 
 
-$date_sms = date('d-m-Y',@$date->sec);
+$date_sms = date('d-m-Y',strtotime(@$date));
 
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
@@ -446,12 +447,11 @@ $cursor=$this->user->find('all',array('conditions'=>$conditions));
 foreach ($cursor as $collection)
 {
 $user_name_sms = $collection['user']['user_name'];
-//$mobile = $collection['user']['mobile'];	
-$mobile = "9799463210";
+$mobile = $collection['user']['mobile'];	
+//$mobile = "9799463210";
 }
 if($sms_id == 1)
 {
-	
 $r_sms=$this->hms_sms_ip();
 $working_key=$r_sms->working_key;
 $sms_sender=$r_sms->sms_sender; 	
