@@ -132,7 +132,7 @@ $maint_ch = 0;
 $result = $this->requestAction(array('controller' => 'hms', 'action' => 'regular_bill_fetch'),array('pass'=>array($user_id)));
 foreach($result as $collection2)
 {
-$due_amount = $collection2['regular_bill']['remaining_amount'];
+$due_amount = @$collection2['regular_bill']['remaining_amount'];
 $due_date11 = $collection2['regular_bill']['due_date'];
 $from5 = $collection2['regular_bill']['bill_daterange_from'];
 $previous_bill_amt = $collection2['regular_bill']['total_amount'];
@@ -261,12 +261,12 @@ echo $due_amount5; } else { echo "0"; } ?></td>
 $penalty_amt = 0;
 if($penalty == 1)
 {
-if($due_amount <= 0)
+if(@$due_amount <= 0)
 {
 $penalty_amt = 0;	
 }
 
-if($due_amount > $curr_amt)
+if(@$due_amount > $curr_amt)
 {
 $start_date = date('Y-m-d',strtotime(@$from5));
 $due_date12 = date('Y-m-d',strtotime(@$due_date11));
@@ -292,7 +292,7 @@ $subpenalty2 = round(($cal_amt*$days2*$pen_per)/(365*100));
 $penalty_amt = $penalty_amt+$subpenalty2+$subpenalty1;
 }
 
-if($due_amount <= $curr_amt)
+if(@$due_amount <= $curr_amt)
 {
 $due_date12 = date('Y-m-d',strtotime(@$due_date11));
 $current_start_date = date('Y-m-d',strtotime($from));  
@@ -302,16 +302,14 @@ $date2 = date_create($current_start_date);
 $interval = date_diff($date1,$date2);
 $days3 = $interval->format('%a');
 
-$subpenalty3 = round(($due_amount*$days3*$pen_per)/(365*100));
+$subpenalty3 = round((@$due_amount*$days3*$pen_per)/(365*100));
 
 $penalty_amt = $penalty_amt+$subpenalty3;
 }
 }
 ///////////////////////////////////////  End Penalty ///////////////////////	
 ?>
-
 <td style="text-align:right;"><?php echo $penalty_amt; ?></td>
-
 <td style="text-align:right;"><?php
 $gt_amt5 = $gt_amt*$multi+$penalty_amt; 
 $gt_amt5 = number_format($gt_amt5);
