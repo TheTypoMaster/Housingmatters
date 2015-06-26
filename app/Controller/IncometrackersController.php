@@ -290,7 +290,7 @@ $this->set('cursor2',$cursor2);
 
 if(isset($this->request->data['sub']))
 {
-
+echo "hello"; 
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
 $cursor = $this->society->find('all',array('conditions'=>$conditions));
@@ -305,7 +305,7 @@ $society_sig = $collection['society']['signature'];
 $society_email = $collection['society']['society_email'];
 $society_phone = $collection['society']['society_phone'];
 }
-$bill_for = (int)$this->request->data['bill_for'];
+$bill_for = (int)$this->request->data['bill_for']; 
 $wing_arr_imp = $this->request->data['wing_ar'];
 $from = $this->request->data['from'];
 $to = $this->request->data['to'];
@@ -437,12 +437,12 @@ if($auto_id_in == $auto_ih)
 {
 if($type == 2)
 {
-$ch_amt = $ch_amt1 * $sq_feet;
+echo $ch_amt = $ch_amt1 * $sq_feet;
 $ch_amt = $ch_amt*$multi;
 }
 else
 {
-$ch_amt = $ch_amt1;
+echo $ch_amt = $ch_amt1;
 $ch_amt = $ch_amt*$multi;
 }
 if($auto_id_in == 42)

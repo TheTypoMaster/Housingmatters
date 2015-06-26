@@ -199,11 +199,11 @@ if(!empty($ih_amt))
 {
 $ih_amt5 = $ih_amt*$multi;
 $ih_amt5 = number_format($ih_amt5);
-echo $ih_amt5; 
+echo '<input type="text" value='.$ih_amt5.' class="span12 m-wrap">';
 }
 else
 {
-echo "0";	
+echo '<input type="text" value=0 class="span12 m-wrap">';	
 }
 ?></td>
 <?php //////////////////////////////////////////////////////////////////////////////////////////// ?>
@@ -242,14 +242,18 @@ $over_due_tt = $over_due_tt + @$due_amount;
 <td style="text-align:right;"><?php if(!empty($noc_amt)) { 
 $noc_amt5 = $noc_amt*$multi;
 $noc_amt5 = number_format($noc_amt5);
-echo $noc_amt5; } else { echo "0"; } ?></td>
+echo '<input type="text" value='.$noc_amt5.' class="span12 m-wrap">';
+} else { 
+echo '<input type="text" value="0" class="span12 m-wrap">';
+} ?></td>
 
 
 <td style="text-align:right;"><?php 
 $total_amt5 = $total_amt*$multi;
 $curr_amt = $total_amt5;
 $total_amt5 = number_format($total_amt5);
-echo $total_amt5; ?></td>
+echo '<input type="text" value='.$total_amt5.' class="span12 m-wrap">';
+?></td>
 
 
 <td style="text-align:right;"><?php if(!empty($due_amount)) { 
@@ -310,12 +314,13 @@ $penalty_amt = $penalty_amt+$subpenalty3;
 ///////////////////////////////////////  End Penalty ///////////////////////	
 ?>
 
-<td style="text-align:right;"><?php echo $penalty_amt; ?></td>
+<td style="text-align:right;"><input type="text" value="<?php echo $penalty_amt; ?>" class="span12 m-wrap"></td>
 
 <td style="text-align:right;"><?php
 $gt_amt5 = $gt_amt*$multi+$penalty_amt; 
 $gt_amt5 = number_format($gt_amt5);
-echo $gt_amt5; ?></td>
+
+echo '<input type="text" value='.$gt_amt5.' class="span12 m-wrap">'; ?></td>
 </tr>
 <?php 
 }
