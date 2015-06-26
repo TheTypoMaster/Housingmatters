@@ -218,8 +218,7 @@ $(document).ready(function(){
 		var m_data = new FormData();
 		m_data.append( 'file', $('input[name=file]')[0].files[0]);
 		$.ajax({
-			url: "
-			",
+			url: "import_user_ajax",
 			data: m_data,
 			processData: false,
 			contentType: false,
