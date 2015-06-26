@@ -2901,9 +2901,13 @@ function multiple_flat()
 				$ar[]=array($w,$f);
 			}
 		}	
-										
+				$this->send_alert('<span class="label label-success"><i class="icon-user"></i></span>','you have multiple falt assign',105,$s_user_id,'multiple_flat',array($user_sel));	
+				
 		$this->loadmodel('user');
-		$this->user->updateAll(array('multiple_flat'=>$ar),array('user_id'=>$user_sel));
+		//$this->user->updateAll(array('multiple_flat'=>$ar),array('user_id'=>$user_sel));
+		
+
+		
 		?>
 		
 			<!----alert-------------->
@@ -3922,6 +3926,10 @@ $this->set('result_alerts',$this->alert->find('all',array('conditions'=>$conditi
 function send_alert($icon,$text,$module_id,$element_id,$url,$users)
 {
 $this->layout='blank';
+
+
+
+
 
 $s_society_id=$this->Session->read('society_id');
 
