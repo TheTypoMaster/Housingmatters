@@ -218,7 +218,8 @@ $(document).ready(function(){
 		var m_data = new FormData();
 		m_data.append( 'file', $('input[name=file]')[0].files[0]);
 		$.ajax({
-			url: "import_user_ajax",
+			url: "
+			",
 			data: m_data,
 			processData: false,
 			contentType: false,
@@ -240,7 +241,7 @@ $(document).ready(function(){
 		var f=$("#url_main table tr:nth-child("+i+") td:nth-child(3) select").val();
 		var e=$("#url_main table tr:nth-child("+i+")  input[name=email]").val();
 		var m=$("#url_main table tr:nth-child("+i+")  input[name=mobile]").val();
-		
+		alert(f);
 		
 		
 		
