@@ -3831,6 +3831,57 @@ $cursor2 = $this->noc_charge->find('all',array('conditions'=>$condition,'order' 
 $this->set('cursor2',$cursor2);
 
 }
+
+
+function master_noc_status()
+{
+	if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
+
+$this->ath();
+$this->check_user_privilages();
+
+
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');	
+
+$this->loadmodel('user');	
+$conditions=array('society_id'=>$s_society_id,'deactive'=>0);
+$result=$this->user->find('all',array('conditions'=>$conditions));
+$this->set('result_user',$result);	
+
+if ($this->request->is('post')) 
+{
+
+foreach($result as $data)
+{
+	 $user_id=$data['user']['user_id'];
+	  $flat_id1=(int)$data['user']['flat'];
+	  $value =(int)@$this->request->data[$user_id];
+	if($value==1)
+	{
+		
+		$this->loadmodel('flat');
+		$this->flat->updateAll(array('noc_ch_tp'=>2),array('flat_id'=>$flat_id1));
+		
+	}
+	else{
+		
+		$this->loadmodel('flat');
+		$this->flat->updateAll(array('noc_ch_tp'=>1),array('flat_id'=>$flat_id1));
+		
+	}
+		
+	
+}
+
+}
+
+}
 ///////////////////////// End master Noc (Accounts)/////////////////////////////////
 
 ////////////////////////// Start master noc view/////////////////////////////////////////////////

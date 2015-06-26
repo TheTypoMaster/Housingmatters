@@ -14027,7 +14027,7 @@ $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
  Your profile is successfully update.
 </div> 
 <div class="modal-footer">
-<a href="profile" class="btn green">OK</a>
+<a href="dashboard" class="btn green">OK</a>
 </div>
 </div>
 <!----alert-------------->
