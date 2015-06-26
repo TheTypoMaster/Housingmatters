@@ -15364,7 +15364,7 @@ function import_flat_configuration()
 			$result_flat_type_name=$this->flat_type_name->find('all',array('conditions'=>$conditions));
 			 $result_f_t_count=sizeof($result_flat_type_name);
 				if($result_f_t_count>0){
-					$flat_type_id=$result_flat_type_name[0]['flat_type_name']['auto_id'];	
+					$flat_type_id=@$result_flat_type_name[0]['flat_type_name']['auto_id'];	
 				}	 
 					
 					 $table[]=array($wing_id,$flat_name,$flat_type_id,$flat_area);
