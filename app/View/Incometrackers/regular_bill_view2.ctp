@@ -292,7 +292,7 @@ $subpenalty2 = round(($cal_amt*$days2*$pen_per)/(365*100));
 $penalty_amt = $penalty_amt+$subpenalty2+$subpenalty1;
 }
 
-if($due_amount < $curr_amt)
+if($due_amount <= $curr_amt)
 {
 $due_date12 = date('Y-m-d',strtotime(@$due_date11));
 $current_start_date = date('Y-m-d',strtotime($from));  
@@ -510,7 +510,7 @@ $subpenalty2 = round(($cal_amt*$days2*$pen_per)/(365*100));
 $penalty_amt = $penalty_amt+$subpenalty2+$subpenalty1;
 }
 
-if($due_amount < $curr_amt)
+if($due_amount <= $curr_amt)
 {
 $due_date12 = date('Y-m-d',strtotime(@$due_date11));
 $current_start_date = date('Y-m-d',strtotime($from));  
