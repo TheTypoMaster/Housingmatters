@@ -36,7 +36,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <br/>
 <form method="post">
 <div align="right">
-Select All <input type="checkbox" value="1"  style="opacity: 0;">
+Select All <input type="checkbox" value="1"  style="opacity: 0;" class="chk" id="1">
 </div>
 <table class="table table-striped table-bordered">
 <tr>
@@ -72,7 +72,7 @@ foreach($noc_flat as $dafa)
 	<label class="checkbox">
 	<div class="checker" id="uniform-undefined">
 	<span>
-	<input type="checkbox" value="1" name='<?php echo $user_id; ?>' <?php if(@$noc_type==2) { ?> checked <?php } ?> style="opacity: 0;">
+	<input type="checkbox" value="1" name='<?php echo $user_id; ?>' <?php if(@$noc_type==2) { ?> checked <?php } ?> style="opacity: 0;" class="check_all">
 	</span>
 	</div> 
 	</label>
@@ -89,3 +89,25 @@ foreach($noc_flat as $dafa)
 
 	</div>
 </form>
+
+
+<script>
+$(document).ready(function(){
+$(".chk").live('click',function(){
+var c=$(this).val();
+value = +$('#'+c).is( ':checked' );
+if(value==0)
+{
+$(".check_all").parent('span').removeClass('checked');
+$(".check_all").removeAttr('checked','checked');
+}
+else
+{
+$(".check_all").parent('span').addClass('checked');
+$(".check_all").attr('checked','checked');
+}
+});
+
+
+})
+</script>
