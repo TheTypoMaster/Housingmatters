@@ -204,13 +204,13 @@ if(!empty($ih_amt))
 $ih_amt5 = $ih_amt*$multi;
 $ih_amt5 = number_format($ih_amt5);
 ?>
-<input type="text" name="ih" value="<?php echo $ih_amt5; ?>" class="m-wrap span12"/>
+<input type="text" name="ih<?php echo $ih_id2; ?><?php echo $user_id; ?>" value="<?php echo $ih_amt5; ?>" class="m-wrap span12"/>
 <?php
 }
 else
 {
 ?>
-<input type="text" name="ih" value="<?php echo "0"; ?>" class="m-wrap span12" />
+<input type="text" name="ih<?php echo $ih_id2; ?><?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12" />
 <?php 
 }
 ?></td>
@@ -251,11 +251,11 @@ $over_due_tt = $over_due_tt + @$due_amount;
 $noc_amt5 = $noc_amt*$multi;
 $noc_amt5 = number_format($noc_amt5);
 ?>
-<input type="text" name="noc" value="<?php echo $noc_amt5; ?>" class="m-wrap span12"/>
+<input type="text" name="noc<?php echo $user_id; ?>" value="<?php echo $noc_amt5; ?>" class="m-wrap span12"/>
 <?php
 } else { 
 ?>
-<input type="text" name="noc" value="<?php echo "0"; ?>" class="m-wrap span12"/>
+<input type="text" name="noc<?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12"/>
 <?php
 } ?>
 </td>
@@ -266,7 +266,7 @@ $total_amt5 = $total_amt*$multi;
 $curr_amt = $total_amt5;
 $total_amt5 = number_format($total_amt5);
 ?>
-<input type="text" name="tt" value="<?php echo $total_amt5; ?>" class="m-wrap span12"/>
+<input type="text" name="tt<?php echo $user_id; ?>" value="<?php echo $total_amt5; ?>" class="m-wrap span12"/>
 </td>
 
 
@@ -274,11 +274,11 @@ $total_amt5 = number_format($total_amt5);
 $due_amount5 = $due_amount*$multi;
 $due_amount5 = number_format(@$due_amount5);
 ?>
-<input type="text" name="due" value="<?php echo $due_amount5; ?>" class="m-wrap span12"/>
+<input type="text" name="due<?php echo $user_id; ?>" value="<?php echo $due_amount5; ?>" class="m-wrap span12"/>
 <?php
 } else { 
 ?> 
-<input type="text" name="due" value="<?php echo "0"; ?>" class="m-wrap span12"/>
+<input type="text" name="due<?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12"/>
 <?php 
 } ?>
 </td>
@@ -336,14 +336,14 @@ $penalty_amt = $penalty_amt+$subpenalty3;
 ///////////////////////////////////////  End Penalty ///////////////////////	
 ?>
 <td style="text-align:right;">
-<input type="text" name="penalty" value="<?php echo $penalty_amt; ?>" class="m-wrap span12"/>
+<input type="text" name="penalty<?php echo $user_id; ?>" value="<?php echo $penalty_amt; ?>" class="m-wrap span12"/>
 </td>
 
 <td style="text-align:right;"><?php
 $gt_amt5 = $gt_amt*$multi+$penalty_amt; 
 $gt_amt5 = number_format($gt_amt5);
 ?>
-<input type="text" name="gtt" value="<?php echo $gt_amt5; ?>" class="m-wrap span12"/>
+<input type="text" name="gtt<?php echo $user_id; ?>" value="<?php echo $gt_amt5; ?>" class="m-wrap span12"/>
 </td>
 </tr>
 <?php 
@@ -443,13 +443,13 @@ if(!empty($ih_amt))
 $ih_amt2 = $ih_amt*$multi; 
 $ih_amt2 = number_format($ih_amt2);
 ?>
-<input type="text" name="gtt" value="<?php echo $ih_amt2; ?>" class="m-wrap span12"/>
+<input type="text" name="ih<?php echo $ih_id2; ?><?php echo $user_id; ?>" value="<?php echo $ih_amt2; ?>" class="m-wrap span12"/>
 <?php
 }
 else
 {
 ?>
-<input type="text" name="gtt" value="<?php echo "0"; ?>" class="m-wrap span12"/>
+<input type="text" name="ih<?php echo $ih_id2; ?><?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12"/>
 <?php
 }
 ?></td>
@@ -490,23 +490,22 @@ $over_due_tt = $over_due_tt + @$due_amount;
 $noc_amt2 = $noc_amt*$multi;	 
 $noc_amt2 = number_format($noc_amt2);
 ?>
-<input type="text" name="gtt" value="<?php echo $noc_amt2; ?>" class="m-wrap span12"/>
+<input type="text" name="noc<?php echo $user_id; ?>" value="<?php echo $noc_amt2; ?>" class="m-wrap span12"/>
 <?php
 } else { 
 ?>
-<input type="text" name="gtt" value="<?php echo "0"; ?>" class="m-wrap span12"/>
+<input type="text" name="noc<?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12"/>
 <?php
 } 
 ?>
 </td>
-
 
 <td style="text-align:right;"><?php 
 $total_amt2 = $total_amt*$multi;
 $curr_amt = $total_amt2;
 $total_amt2 = number_format($total_amt2);
 ?>
-<input type="text" name="gtt" value="<?php echo $total_amt2; ?>" class="m-wrap span12"/>
+<input type="text" name="tt<?php echo $user_id; ?>" value="<?php echo $total_amt2; ?>" class="m-wrap span12"/>
 </td>
 
 
@@ -514,11 +513,11 @@ $total_amt2 = number_format($total_amt2);
 $due_amount2 = $due_amount*$multi;
 $due_amount2 = number_format($due_amount2);
 ?>
-<input type="text" name="gtt" value="<?php echo $due_amount2; ?>" class="m-wrap span12"/>
+<input type="text" name="due<?php echo $user_id; ?>" value="<?php echo $due_amount2; ?>" class="m-wrap span12"/>
 <?php
 } else { 
 ?>
-<input type="text" name="gtt" value="<?php echo "0"; ?>" class="m-wrap span12"/>
+<input type="text" name="due<?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12"/>
 <?php } ?>
 </td>
 
@@ -582,11 +581,11 @@ $penalty_amt = $penalty_amt+$subpenalty3;
 $penalty_amt = $penalty_amt*$multi;
 $due_tax = number_format($penalty_amt);
 ?>
-<input type="text" name="gtt" value="<?php echo $due_tax; ?>" class="m-wrap span12"/>
+<input type="text" name="penalty<?php echo $user_id; ?>" value="<?php echo $due_tax; ?>" class="m-wrap span12"/>
 <?php
  } else { 
  ?>
-<input type="text" name="gtt" value="<?php  echo "0"; ?>" class="m-wrap span12"/>
+<input type="text" name="penalty<?php echo $user_id; ?>" value="<?php  echo "0"; ?>" class="m-wrap span12"/>
 <?php }?>
 </td>
 
@@ -595,13 +594,12 @@ $due_tax = number_format($penalty_amt);
 $gt_amt2 = $gt_amt*$multi+$penalty_amt; 
 $gt_amt2 = number_format($gt_amt2);
 ?>
-<input type="text" name="gtt" value="<?php echo $gt_amt2; ?>" class="m-wrap span12"/>
+<input type="text" name="gtt<?php echo $user_id; ?>" value="<?php echo $gt_amt2; ?>" class="m-wrap span12"/>
 </td>
 </tr>
 <?php
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 }}}
-
 ?>
 <tr>
 <th colspan="5" style="text-align:right;">Total</th>
@@ -659,11 +657,3 @@ echo $gt_gt_amt2; ?></th>
 <button type="submit" name="sub" class="btn red">Submit</button>
 </div>
 </form>
-
-
-
-
-
-
-
-
