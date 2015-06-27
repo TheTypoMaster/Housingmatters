@@ -342,7 +342,9 @@ function submit_ad(){
 			$result_user=$this->profile_picture($user_id);
 			@$user_name=@$result_user[0]['user']['user_name'];
 			@$to=@$result_user[0]['user']['email'];
-			
+			@$deactive=@$result_user[0]['user']['deactive'];
+			if($deactive==0)
+			{
 			 $message_web="<div>
 			<img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 			<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
@@ -365,7 +367,7 @@ function submit_ad(){
 		$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 		$subject="";
 		}
-		
+		}
 			
 		
 		$this->loadmodel('user');
