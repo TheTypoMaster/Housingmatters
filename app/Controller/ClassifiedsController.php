@@ -364,8 +364,11 @@ function submit_ad(){
 			</div>";
 			
 		@$subject.= '['. $society_name . ']' .' New Classified ad created';
+		if(!empty($to))
+		{
 		$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 		$subject="";
+		}
 		}
 		}
 			
