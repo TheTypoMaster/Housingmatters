@@ -2739,6 +2739,7 @@ function add_field()
 	$this->set('images',$files); 
 	$user_name="Rohit Joshi";
 	$random_otp="9877";
+	
 	// $sms='Dear '.$user_name.' Please enter your code '.$random_otp.' on the signup screen to continue your HousingMatters registration process. Thank you';
 	// $sms=''.$random_otp.' is your One Time Passcode, please enter on the signup screen to continue your HousingMatters registration process.';
 	
@@ -8735,13 +8736,14 @@ foreach($result_check as $data9)
 {
 	$user_name=$data9['user']['user_name'];
 	$deactive=$data9['user']['deactive'];
+	$one_time_sms=(int)@$data9['user']["one_time_sms"];
 }
 $n= sizeof($result_check);
 if($n>0)
 { 
 $random_otp=(string)mt_rand(1000,9999);
 
-if($deactive==0)
+if($one_time_sms==0)
 {
 
 $r_sms=$this->hms_sms_ip();
@@ -8752,7 +8754,7 @@ $r_sms=$this->hms_sms_ip();
 $sms=''.$random_otp.' is your One Time Passcode, please enter on the signup screen to continue your HousingMatters registration process.';
 $sms1=str_replace(' ', '+', $sms);
 @$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
-$this->user->updateAll(array('password'=>$random_otp,'deactive'=>2),array('user.user_id'=>$user_id));
+$this->user->updateAll(array('password'=>$random_otp,'one_time_sms'=>1),array('user.user_id'=>$user_id));
 
 }
 
