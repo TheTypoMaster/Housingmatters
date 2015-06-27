@@ -8446,7 +8446,7 @@ $random=$de_user_id.'/'.$random;
 
 
 $this->loadmodel('user');
-$this->user->updateAll(array('signup_random'=>$random),array('user.user_id'=>$user_temp_id));
+$this->user->updateAll(array('signup_random'=>$random,'one_time_sms'=>0),array('user.user_id'=>$user_temp_id));
 
 
 
@@ -9400,7 +9400,7 @@ $random=$de_user_id.'/'.$random;
 
 
 $this->loadmodel('user');
-$this->user->updateAll(array('signup_random'=>$random),array('user.user_id'=>$user_temp_id));
+$this->user->updateAll(array('signup_random'=>$random,'one_time_sms'=>0),array('user.user_id'=>$user_temp_id));
 
 
 
