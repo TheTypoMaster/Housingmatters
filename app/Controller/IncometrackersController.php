@@ -523,7 +523,6 @@ $income_headd = array(43,$noc_amt2);
 $income_headd2[] = $income_headd;
 $total_amt = $total_amt + $noc_amt2;
 }
-
 ////////////////////////////////////
 //$current_date = new MongoDate(strtotime(date("Y-m-d")));
 $this->loadmodel('regular_bill');
