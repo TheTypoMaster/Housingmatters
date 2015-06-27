@@ -2,7 +2,7 @@
 foreach ($cursor1 as $collection) 
 {
 $receipt_no = (int)$collection['cash_bank']['receipt_id'];
-$d_date = $collection['cash_bank']['transaction_date'];
+$d_date = @$collection['cash_bank']['transaction_date'];
 $today = date("d-M-Y");
 $user_id_d = $collection['cash_bank']['user_id'];
 $amount = $collection['cash_bank']['amount'];
@@ -47,7 +47,9 @@ foreach ($cursor2 as $collection)
 $society_name = $collection['society']['society_name'];
 }
 
-$date = date("d-M-Y",$d_date->sec);
+//$date = date("d-M-Y",$d_date->sec);
+//$date = $d_date;
+$date =date("d-m-Y", strtotime($d_date));
 //$words = $this->requestAction(array('controller' => 'hms', 'action'=>'convert_number_to_words'),array('pass'=>array($amount)));	
 
 
