@@ -1,3 +1,4 @@
+<form method="post">
 <?php
 if($p_id == 1)
 {
@@ -202,7 +203,6 @@ $maint_ch = $ih_amt;
 if(!empty($ih_amt))
 {
 $ih_amt5 = $ih_amt*$multi;
-$ih_amt5 = number_format($ih_amt5);
 ?>
 <input type="text" name="ih<?php echo $ih_id2; ?><?php echo $user_id; ?>" value="<?php echo $ih_amt5; ?>" class="m-wrap span12"/>
 <?php
@@ -249,7 +249,6 @@ $over_due_tt = $over_due_tt + @$due_amount;
 
 <td style="text-align:right;"><?php if(!empty($noc_amt)) { 
 $noc_amt5 = $noc_amt*$multi;
-$noc_amt5 = number_format($noc_amt5);
 ?>
 <input type="text" name="noc<?php echo $user_id; ?>" value="<?php echo $noc_amt5; ?>" class="m-wrap span12"/>
 <?php
@@ -264,7 +263,6 @@ $noc_amt5 = number_format($noc_amt5);
 <td style="text-align:right;"><?php 
 $total_amt5 = $total_amt*$multi;
 $curr_amt = $total_amt5;
-$total_amt5 = number_format($total_amt5);
 ?>
 <input type="text" name="tt<?php echo $user_id; ?>" value="<?php echo $total_amt5; ?>" class="m-wrap span12"/>
 </td>
@@ -272,7 +270,6 @@ $total_amt5 = number_format($total_amt5);
 
 <td style="text-align:right;"><?php if(!empty($due_amount)) { 
 $due_amount5 = $due_amount*$multi;
-$due_amount5 = number_format(@$due_amount5);
 ?>
 <input type="text" name="due<?php echo $user_id; ?>" value="<?php echo $due_amount5; ?>" class="m-wrap span12"/>
 <?php
@@ -341,7 +338,6 @@ $penalty_amt = $penalty_amt+$subpenalty3;
 
 <td style="text-align:right;"><?php
 $gt_amt5 = $gt_amt*$multi+$penalty_amt; 
-$gt_amt5 = number_format($gt_amt5);
 ?>
 <input type="text" name="gtt<?php echo $user_id; ?>" value="<?php echo $gt_amt5; ?>" class="m-wrap span12"/>
 </td>
@@ -374,7 +370,7 @@ $maint_ch = 0;
 $result = $this->requestAction(array('controller' => 'hms', 'action' => 'regular_bill_fetch'),array('pass'=>array($user_id)));
 foreach($result as $collection2)
 {
-$due_amount = $collection2['regular_bill']['remaining_amount'];
+$due_amount = @$collection2['regular_bill']['remaining_amount'];
 $due_date11 = $collection2['regular_bill']['due_date'];
 $from5 = $collection2['regular_bill']['bill_daterange_from'];
 $previous_bill_amt = $collection2['regular_bill']['total_amount'];
@@ -441,7 +437,6 @@ $maint_ch = $ih_amt;
 if(!empty($ih_amt))
 {
 $ih_amt2 = $ih_amt*$multi; 
-$ih_amt2 = number_format($ih_amt2);
 ?>
 <input type="text" name="ih<?php echo $ih_id2; ?><?php echo $user_id; ?>" value="<?php echo $ih_amt2; ?>" class="m-wrap span12"/>
 <?php
@@ -488,7 +483,6 @@ $over_due_tt = $over_due_tt + @$due_amount;
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <td style="text-align:right;"><?php if(!empty($noc_amt)) {
 $noc_amt2 = $noc_amt*$multi;	 
-$noc_amt2 = number_format($noc_amt2);
 ?>
 <input type="text" name="noc<?php echo $user_id; ?>" value="<?php echo $noc_amt2; ?>" class="m-wrap span12"/>
 <?php
@@ -503,7 +497,6 @@ $noc_amt2 = number_format($noc_amt2);
 <td style="text-align:right;"><?php 
 $total_amt2 = $total_amt*$multi;
 $curr_amt = $total_amt2;
-$total_amt2 = number_format($total_amt2);
 ?>
 <input type="text" name="tt<?php echo $user_id; ?>" value="<?php echo $total_amt2; ?>" class="m-wrap span12"/>
 </td>
@@ -511,7 +504,6 @@ $total_amt2 = number_format($total_amt2);
 
 <td style="text-align:right;"><?php if(!empty($due_amount)) { 
 $due_amount2 = $due_amount*$multi;
-$due_amount2 = number_format($due_amount2);
 ?>
 <input type="text" name="due<?php echo $user_id; ?>" value="<?php echo $due_amount2; ?>" class="m-wrap span12"/>
 <?php
@@ -528,12 +520,12 @@ $due_amount2 = number_format($due_amount2);
 $penalty_amt = 0;
 if($penalty == 1)
 {
-if($due_amount <= 0)
+if(@$due_amount <= 0)
 {
 $penalty_amt = 0;	
 }
 
-if($due_amount > $curr_amt)
+if(@$due_amount > $curr_amt)
 {
 $start_date = date('Y-m-d',strtotime(@$from5));
 $due_date12 = date('Y-m-d',strtotime(@$due_date11));
@@ -559,7 +551,7 @@ $subpenalty2 = round(($cal_amt*$days2*$pen_per)/(365*100));
 $penalty_amt = $penalty_amt+$subpenalty2+$subpenalty1;
 }
 
-if($due_amount <= $curr_amt)
+if(@$due_amount <= $curr_amt)
 {
 $due_date12 = date('Y-m-d',strtotime(@$due_date11));
 $current_start_date = date('Y-m-d',strtotime($from));  
@@ -569,7 +561,7 @@ $date2 = date_create($current_start_date);
 $interval = date_diff($date1,$date2);
 $days3 = $interval->format('%a');
 
-$subpenalty3 = round(($due_amount*$days3*$pen_per)/(365*100));
+$subpenalty3 = round((@$due_amount*$days3*$pen_per)/(365*100));
 
 $penalty_amt = $penalty_amt+$subpenalty3;
 }
@@ -579,9 +571,8 @@ $penalty_amt = $penalty_amt+$subpenalty3;
 
 <td style="text-align:right;"><?php if(!empty($penalty_amt)) { 
 $penalty_amt = $penalty_amt*$multi;
-$due_tax = number_format($penalty_amt);
 ?>
-<input type="text" name="penalty<?php echo $user_id; ?>" value="<?php echo $due_tax; ?>" class="m-wrap span12"/>
+<input type="text" name="penalty<?php echo $user_id; ?>" value="<?php echo $penalty_amt; ?>" class="m-wrap span12"/>
 <?php
  } else { 
  ?>
@@ -592,7 +583,6 @@ $due_tax = number_format($penalty_amt);
 
 <td style="text-align:right;"><?php
 $gt_amt2 = $gt_amt*$multi+$penalty_amt; 
-$gt_amt2 = number_format($gt_amt2);
 ?>
 <input type="text" name="gtt<?php echo $user_id; ?>" value="<?php echo $gt_amt2; ?>" class="m-wrap span12"/>
 </td>
@@ -641,7 +631,7 @@ echo $gt_gt_amt2; ?></th>
 </center>
 
 
-<form method="post">
+
 <input type="hidden" name="from" value="<?php echo $from; ?>" />
 <input type="hidden" name="due" value="<?php echo $due_date; ?>" />
 <input type="hidden" name="desc" value="<?php echo $desc; ?>" />
