@@ -20,7 +20,7 @@ function master_parking()
 		}else{
 		$this->layout='session';
 		}	
-		 $s_society_id=$this->Session->read('society_id'); 
+		 $s_society_id=(int)$this->Session->read('society_id'); 
 		$this->ath();
 		$this->check_user_privilages();
 			if($this->request->is('post'))

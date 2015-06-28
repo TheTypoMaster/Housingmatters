@@ -34,14 +34,23 @@ background-color:rgba(218, 221, 240, 0.58);
 
 
 
-
 <div>
 
-<div><span class="label label-info"style="padding:10px;font-size:16px;float:right;">Total empty four wheeler slot: <?php echo $four_n;?></span></div></br><br>
+<div>
+<span class="label label-info"style="padding:10px;font-size:16px;float:right;">Total empty four wheeler slot: <?php echo $four_n;?></span></div></br><br>
 <div><span class="label label-info"style="padding:10px;font-size:16px;float:right;">Total empty two wheeler slot: <?php echo $two_n;?></span></div>
 </div>
+
+
+<div align="center"><select class="chosen"><option></option></select></div>
+
 <!--<div><button type="button" class=" printt btn green" onclick="window.print()"><i class="icon-print"></i> Print</button></div>-->
 <br><br>
+
+
+
+
+
 <div style="overflow:auto;">
 <?php
 $i=0;
