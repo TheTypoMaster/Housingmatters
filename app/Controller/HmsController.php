@@ -338,13 +338,13 @@ $conditions=array("sub_module_id" => $sub_module_id);
 return $result=$this->page->find('all',array('conditions'=>$conditions,'limit'=>1));
 }
 
-function fetch_pagename_main_module_usermanagement($module_id) 
+function fetch_pagename_main_module_usermanagement($module_id,$sub_module_id) 
 {
 $s_society_id=$this->Session->read('society_id');
 $s_role_id=$this->Session->read('role_id');
 
 $this->loadmodel('page');
-$conditions=array("module_id" => $module_id);
+$conditions=array("module_id" => $module_id,"sub_module_id" => $sub_module_id);
 return $result=$this->page->find('all',array('conditions'=>$conditions,'limit'=>1));
 }
 

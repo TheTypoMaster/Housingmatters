@@ -656,10 +656,10 @@ if(sizeof(@$result)>0){
 			$result_role_prvg=@$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_sub_module_id_from_role_prvg'), array('pass' => array($child_22[1])));
 			foreach($result_role_prvg as $data44)
 			{
-			echo $sub_module_id=$data44['role_privilege']['sub_module_id'];
+			$sub_module_id=$data44['role_privilege']['sub_module_id'];
 			}
 			
-			$result_page=@$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_pagename_main_module_usermanagement'), array('pass' => array($child_22[1])));
+			$result_page=@$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_pagename_main_module_usermanagement'), array('pass' => array($child_22[1],$sub_module_id)));
 			foreach($result_page as $data4)
 			{
 			$page_name=$data4['page']['page_name'];
