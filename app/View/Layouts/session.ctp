@@ -650,7 +650,7 @@ if(sizeof(@$result)>0){
 			
 		} ?>
 		<?php foreach($new_array_module_group as $child_22){
-			echo $child_22[1];
+			$child_22[1];
 			$result_page=@$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_pagename_main_module_usermanagement'), array('pass' => array($child_22[1])));
 			foreach($result_page as $data4)
 			{
