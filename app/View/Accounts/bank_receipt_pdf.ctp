@@ -160,9 +160,6 @@ Secretary/Treasurer
 
 
 
-
-
-
 // ... 
 // etc. 
 // see the TCPDF examples  
