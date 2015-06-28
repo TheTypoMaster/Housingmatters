@@ -344,7 +344,7 @@ $s_society_id=$this->Session->read('society_id');
 $s_role_id=$this->Session->read('role_id');
 
 $this->loadmodel('page');
-$conditions=array("module_id" => $module_id);
+$conditions=array("module_id" => $module_id,"pick_first" => 1);
 return $result=$this->page->find('all',array('conditions'=>$conditions,'limit'=>1));
 }
 
