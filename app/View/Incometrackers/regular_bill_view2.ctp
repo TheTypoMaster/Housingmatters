@@ -30,7 +30,10 @@ $income_head_arr = @$collection['society']['income_head'];
 }
 $cur_date11 = date('d-M-Y');
 $due_date11 = date('d-M-Y',strtotime($due_date));
+
+$count5 = (int)sizeof($income_head_arr);
 ?>
+<input type="hidden" id="ccc" value="<?php echo $count5; ?>" />
 <?php //////////////////////////////////////////////////////////////////////////////////////////// ?>
 <center>
 
@@ -75,7 +78,7 @@ Bill for date From :<?php echo $from; ?> To : <?php echo $to; ?>
 </table>
 <br /><br />
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<table class="table table-bordered" style="width:100%;">
+<table class="table table-bordered" style="width:100%;" id="i_bill">
 <tr>
 <th>Sr.No.</th>
 <th>Bill No.</th>
@@ -204,13 +207,13 @@ if(!empty($ih_amt))
 {
 $ih_amt5 = $ih_amt*$multi;
 ?>
-<input type="text" name="ih<?php echo $ih_id2; ?><?php echo $user_id; ?>" value="<?php echo $ih_amt5; ?>" class="m-wrap span12"/>
+<input type="text" name="ih<?php echo $ih_id2; ?><?php echo $user_id; ?>" value="<?php echo $ih_amt5; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" />
 <?php
 }
 else
 {
 ?>
-<input type="text" name="ih<?php echo $ih_id2; ?><?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12" />
+<input type="text" name="ih<?php echo $ih_id2; ?><?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" />
 <?php 
 }
 ?></td>
@@ -242,7 +245,7 @@ $noc_tt_amt = $noc_tt_amt + @$noc_amt;
 $total_amt = $total_amt + @$noc_amt;
 $gt_amt = $gt_amt + @$due_taxamt + $total_amt + @$due_amount;
 $gt_tt_amt = $gt_tt_amt + $total_amt;
-$gt_penalty_amt = $gt_penalty_amt + @$due_taxamt;
+$gt_penalty_amt = $gt_penalty_amt+@$penalty_amt;
 $gt_gt_amt = $gt_gt_amt + $gt_amt;
 $over_due_tt = $over_due_tt + @$due_amount;
 ?>
@@ -250,11 +253,11 @@ $over_due_tt = $over_due_tt + @$due_amount;
 <td style="text-align:right;"><?php if(!empty($noc_amt)) { 
 $noc_amt5 = $noc_amt*$multi;
 ?>
-<input type="text" name="noc<?php echo $user_id; ?>" value="<?php echo $noc_amt5; ?>" class="m-wrap span12"/>
+<input type="text" name="noc<?php echo $user_id; ?>" value="<?php echo $noc_amt5; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>"/>
 <?php
 } else { 
 ?>
-<input type="text" name="noc<?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12"/>
+<input type="text" name="noc<?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>"/>
 <?php
 } ?>
 </td>
@@ -264,18 +267,18 @@ $noc_amt5 = $noc_amt*$multi;
 $total_amt5 = $total_amt*$multi;
 $curr_amt = $total_amt5;
 ?>
-<input type="text" name="tt<?php echo $user_id; ?>" value="<?php echo $total_amt5; ?>" class="m-wrap span12"/>
+<input type="text" name="tt<?php echo $user_id; ?>" value="<?php echo $total_amt5; ?>" class="m-wrap span12" readonly="readonly"/>
 </td>
 
 
 <td style="text-align:right;"><?php if(!empty($due_amount)) { 
 $due_amount5 = $due_amount*$multi;
 ?>
-<input type="text" name="due<?php echo $user_id; ?>" value="<?php echo $due_amount5; ?>" class="m-wrap span12"/>
+<input type="text" name="due<?php echo $user_id; ?>" value="<?php echo $due_amount5; ?>" class="m-wrap span12" readonly="readonly"/>
 <?php
 } else { 
 ?> 
-<input type="text" name="due<?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12"/>
+<input type="text" name="due<?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12" readonly="readonly"/>
 <?php 
 } ?>
 </td>
@@ -333,13 +336,12 @@ $penalty_amt = $penalty_amt+$subpenalty3;
 ///////////////////////////////////////  End Penalty ///////////////////////	
 ?>
 <td style="text-align:right;">
-<input type="text" name="penalty<?php echo $user_id; ?>" value="<?php echo $penalty_amt; ?>" class="m-wrap span12"/>
+<input type="text" name="penalty<?php echo $user_id; ?>" value="<?php echo $penalty_amt; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>"/>
 </td>
-
 <td style="text-align:right;"><?php
 $gt_amt5 = $gt_amt*$multi+$penalty_amt; 
 ?>
-<input type="text" name="gtt<?php echo $user_id; ?>" value="<?php echo $gt_amt5; ?>" class="m-wrap span12"/>
+<input type="text" name="gtt<?php echo $user_id; ?>" value="<?php echo $gt_amt5; ?>" class="m-wrap span12" readonly="readonly"/>
 </td>
 </tr>
 <?php 
@@ -438,13 +440,13 @@ if(!empty($ih_amt))
 {
 $ih_amt2 = $ih_amt*$multi; 
 ?>
-<input type="text" name="ih<?php echo $ih_id2; ?><?php echo $user_id; ?>" value="<?php echo $ih_amt2; ?>" class="m-wrap span12"/>
+<input type="text" name="ih<?php echo $ih_id2; ?><?php echo $user_id; ?>" value="<?php echo $ih_amt2; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>"/>
 <?php
 }
 else
 {
 ?>
-<input type="text" name="ih<?php echo $ih_id2; ?><?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12"/>
+<input type="text" name="ih<?php echo $ih_id2; ?><?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>"/>
 <?php
 }
 ?></td>
@@ -476,7 +478,7 @@ $noc_tt_amt = $noc_tt_amt + @$noc_amt;
 $total_amt = $total_amt + @$noc_amt;
 $gt_amt = $gt_amt + @$due_taxamt + $total_amt + @$due_amount;
 $gt_tt_amt = $gt_tt_amt + $total_amt;
-$gt_penalty_amt = $gt_penalty_amt + @$due_taxamt;
+$gt_penalty_amt = $gt_penalty_amt+@$penalty_amt;
 $gt_gt_amt = $gt_gt_amt + $gt_amt;
 $over_due_tt = $over_due_tt + @$due_amount;
 ?>
@@ -484,11 +486,11 @@ $over_due_tt = $over_due_tt + @$due_amount;
 <td style="text-align:right;"><?php if(!empty($noc_amt)) {
 $noc_amt2 = $noc_amt*$multi;	 
 ?>
-<input type="text" name="noc<?php echo $user_id; ?>" value="<?php echo $noc_amt2; ?>" class="m-wrap span12"/>
+<input type="text" name="noc<?php echo $user_id; ?>" value="<?php echo $noc_amt2; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>"/>
 <?php
 } else { 
 ?>
-<input type="text" name="noc<?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12"/>
+<input type="text" name="noc<?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>"/>
 <?php
 } 
 ?>
@@ -498,23 +500,20 @@ $noc_amt2 = $noc_amt*$multi;
 $total_amt2 = $total_amt*$multi;
 $curr_amt = $total_amt2;
 ?>
-<input type="text" name="tt<?php echo $user_id; ?>" value="<?php echo $total_amt2; ?>" class="m-wrap span12"/>
+<input type="text" name="tt<?php echo $user_id; ?>" value="<?php echo $total_amt2; ?>" class="m-wrap span12" readonly="readonly"/>
 </td>
 
 
 <td style="text-align:right;"><?php if(!empty($due_amount)) { 
 $due_amount2 = $due_amount*$multi;
 ?>
-<input type="text" name="due<?php echo $user_id; ?>" value="<?php echo $due_amount2; ?>" class="m-wrap span12"/>
+<input type="text" name="due<?php echo $user_id; ?>" value="<?php echo $due_amount2; ?>" class="m-wrap span12" readonly="readonly"/>
 <?php
 } else { 
 ?>
-<input type="text" name="due<?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12"/>
+<input type="text" name="due<?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12" readonly="readonly"/>
 <?php } ?>
 </td>
-
-
-
 <?php
 ////////////////////////////////////// Start Penalty ///////////////////////	
 $penalty_amt = 0;
@@ -572,11 +571,11 @@ $penalty_amt = $penalty_amt+$subpenalty3;
 <td style="text-align:right;"><?php if(!empty($penalty_amt)) { 
 $penalty_amt = $penalty_amt*$multi;
 ?>
-<input type="text" name="penalty<?php echo $user_id; ?>" value="<?php echo $penalty_amt; ?>" class="m-wrap span12"/>
+<input type="text" name="penalty<?php echo $user_id; ?>" value="<?php echo $penalty_amt; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>"/>
 <?php
  } else { 
  ?>
-<input type="text" name="penalty<?php echo $user_id; ?>" value="<?php  echo "0"; ?>" class="m-wrap span12"/>
+<input type="text" name="penalty<?php echo $user_id; ?>" value="<?php  echo "0"; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>"/>
 <?php }?>
 </td>
 
@@ -584,7 +583,7 @@ $penalty_amt = $penalty_amt*$multi;
 <td style="text-align:right;"><?php
 $gt_amt2 = $gt_amt*$multi+$penalty_amt; 
 ?>
-<input type="text" name="gtt<?php echo $user_id; ?>" value="<?php echo $gt_amt2; ?>" class="m-wrap span12"/>
+<input type="text" name="gtt<?php echo $user_id; ?>" value="<?php echo $gt_amt2; ?>" class="m-wrap span12" readonly="readonly"/>
 </td>
 </tr>
 <?php
@@ -647,3 +646,134 @@ echo $gt_gt_amt2; ?></th>
 <button type="submit" name="sub" class="btn red">Submit</button>
 </div>
 </form>
+
+<script>
+function calculation_generator(row_no){
+	$(document).ready(function() {
+		row_no++;
+		var count = $("#ccc").val();
+		var tr_count1=$('table#i_bill tr').length;
+		
+		var ih_total=0;
+		var g_total=0;
+		
+		columnTh = $("table th:contains('Maintenance charges')");
+		columnIndex = columnTh.index() + 1;
+		
+		for(var c=0;c<count;c++){
+			columnIndex=columnIndex+c;
+			
+			var qa=$('table#i_bill tr:nth-child('+row_no+') td:nth-child('+columnIndex+') input').val();
+			ih_total=parseInt(ih_total)+parseInt(qa);
+			var in_hd_total=0;
+			columnIndexqw=columnIndex-4;
+			for(var w=2;w<tr_count1;w++){ 
+				var in_hd=$('table#i_bill tr:nth-child('+w+') td:nth-child('+columnIndex+') input').val();
+				
+				in_hd_total=parseInt(in_hd_total)+parseInt(in_hd);
+				$('table#i_bill tr:nth-child('+tr_count1+') th:nth-child('+columnIndexqw+')').html(in_hd_total);
+			}
+		}
+		columnTh2 = $("table th:contains('Non Occupancy charges')");
+		columnIndex2 = columnTh2.index() + 1;
+		var noc=$('table#i_bill tr:nth-child('+row_no+') td:nth-child('+columnIndex2+') input').val();
+		ih_total=parseInt(ih_total)+parseInt(noc);
+		
+		var in_hd_total=0;
+			columnIndexqw=columnIndex2-4;
+			for(var w=2;w<tr_count1;w++){ 
+				var in_hd=$('table#i_bill tr:nth-child('+w+') td:nth-child('+columnIndex2+') input').val();
+				
+				in_hd_total=parseInt(in_hd_total)+parseInt(in_hd);
+				$('table#i_bill tr:nth-child('+tr_count1+') th:nth-child('+columnIndexqw+')').html(in_hd_total);
+			}
+		
+		columnTh3 = $("table th:contains('Current Amount')");
+		columnIndex3 = columnTh3.index() + 1;
+		$('table#i_bill tr:nth-child('+row_no+') td:nth-child('+columnIndex3+') input').val(ih_total);
+		
+		var in_hd_total=0;
+			columnIndexqw=columnIndex3-4;
+			for(var w=2;w<tr_count1;w++){ 
+				var in_hd=$('table#i_bill tr:nth-child('+w+') td:nth-child('+columnIndex3+') input').val();
+				
+				in_hd_total=parseInt(in_hd_total)+parseInt(in_hd);
+				$('table#i_bill tr:nth-child('+tr_count1+') th:nth-child('+columnIndexqw+')').html(in_hd_total);
+			}
+			
+		
+		columnTh4 = $("table th:contains('Over Due Amount')");
+		columnIndex4 = columnTh4.index() + 1;
+		var oda=$('table#i_bill tr:nth-child('+row_no+') td:nth-child('+columnIndex4+') input').val();
+		g_total=parseInt(ih_total)+parseInt(oda);
+		
+		
+		var in_hd_total=0;
+			columnIndexqw=columnIndex4-4;
+			for(var w=2;w<tr_count1;w++){ 
+				var in_hd=$('table#i_bill tr:nth-child('+w+') td:nth-child('+columnIndex4+') input').val();
+				
+				in_hd_total=parseInt(in_hd_total)+parseInt(in_hd);
+				$('table#i_bill tr:nth-child('+tr_count1+') th:nth-child('+columnIndexqw+')').html(in_hd_total);
+			}
+		
+		
+		columnTh5 = $("table th:contains('Penalty Amount')");
+		columnIndex5 = columnTh5.index() + 1;
+		var pa=$('table#i_bill tr:nth-child('+row_no+') td:nth-child('+columnIndex5+') input').val();
+		g_total=parseInt(g_total)+parseInt(pa);
+		
+		var in_hd_total=0;
+			columnIndexqw=columnIndex5-4;
+			for(var w=2;w<tr_count1;w++){ 
+				var in_hd=$('table#i_bill tr:nth-child('+w+') td:nth-child('+columnIndex5+') input').val();
+				
+				in_hd_total=parseInt(in_hd_total)+parseInt(in_hd);
+				$('table#i_bill tr:nth-child('+tr_count1+') th:nth-child('+columnIndexqw+')').html(in_hd_total);
+			}
+		
+		columnTh6 = $("table th:contains('Grand Total Amount')");
+		columnIndex6 = columnTh6.index() + 1;
+		$('table#i_bill tr:nth-child('+row_no+') td:nth-child('+columnIndex6+') input').val(g_total);
+		
+		
+		var in_hd_total=0;
+			columnIndexqw=columnIndex6-4;
+			for(var w=2;w<tr_count1;w++){ 
+				var in_hd=$('table#i_bill tr:nth-child('+w+') td:nth-child('+columnIndex6+') input').val();
+				
+				in_hd_total=parseInt(in_hd_total)+parseInt(in_hd);
+				$('table#i_bill tr:nth-child('+tr_count1+') th:nth-child('+columnIndexqw+')').html(in_hd_total);
+			}
+		
+		
+		
+	});
+}
+
+$(document).ready(function() {
+	$(".inhd").keyup(function(){
+		var row_no=$(this).attr("row_no");
+		calculation_generator(row_no);
+	});
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
