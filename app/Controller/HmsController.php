@@ -4497,23 +4497,24 @@ $email1=$collection['user_temp']['email'];
 $user_name=$collection['user_temp']['user_name'];
 $mobile1=$collection['user_temp']['mobile'];
 }
+
+$dd=explode(' ',$user_name);
+$user_name1=$dd[0];
+$user_name1=ucfirst($user_name1);
 $to=$email1;
- $message_web="<div>
+  $message_web="<div>
 <img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 <span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
 <a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
-</br><p>Dear $user_name,</p>
-We have received your registration request.<br/>
-<p>You will be notified by email once your request has been successfully</p>
-approved by your society administrator.<br/>
-<p>For any assistance, please email us on support@housingmatters.in</p><br/><br/>
-Thank you.<br/>
-HousingMatters (Support Team)<br/><br/>
+</br><p>Hi $user_name1,</p>
+<p>Thank for Signing up with Housing Matters. Your Application is under review. We will get back to you with further details within 24 Hrs.</p>
+To know more about Housing Matters, <a href='http://www.housingmatters.co.in'>Click here</a>
+<p>For any assistance, Email us on support@housingmatters.in</p><br/>
+Thank you<br/>
+HousingMatters (Support Team)<br/>
 www.housingmatters.co.in
 </div >
-
 </div>";
-
 $from_name="HousingMatters";
 $reply="support@housingmatters.in";
 
@@ -4524,7 +4525,7 @@ foreach ($result_email as $collection)
 {
 $from=$collection['email']['from'];
 }
-$subject="Registration Request";
+$subject="Lets get going with setting up your society and Housing Matters";
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
@@ -8743,7 +8744,7 @@ $conditions=array('user_id'=> $user_id,'signup_random'=>$q);
 $result_check=$this->user->find('all',array('conditions'=>$conditions));
 foreach($result_check as $data9)
 {
-	$user_name=$data9['user']['user_name'];
+	 $user_name=$data9['user']['user_name'];
 	$deactive=$data9['user']['deactive'];
 	$one_time_sms=(int)@$data9['user']["one_time_sms"];
 }
@@ -8755,13 +8756,19 @@ $random_otp=(string)mt_rand(1000,9999);
 if($one_time_sms==0)
 {
 
+$dd=explode(' ',$user_name);
+  $user_name=$dd[0];
+  $user_name=ucfirst($user_name);
 $r_sms=$this->hms_sms_ip();
   $working_key=$r_sms->working_key;
  $sms_sender=$r_sms->sms_sender; 	
 	
 //$sms='Dear '.$user_name.' Please enter your code '.$random_otp.' on the signup screen to continue your HousingMatters registration process. Thank you';
-$sms=''.$random_otp.' is your One Time Passcode, please enter on the signup screen to continue your HousingMatters registration process.';
+// $sms=''.$random_otp.' is your One Time Passcode, please enter on the signup screen to continue your HousingMatters registration process.';
+  $sms='Hi ! '.$user_name.', Use '.$random_otp.' as one time passcode and continue your Housing Matters registration process. ';
+
 $sms1=str_replace(' ', '+', $sms);
+
 @$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 $this->user->updateAll(array('password'=>$random_otp,'one_time_sms'=>1),array('user.user_id'=>$user_id));
 
