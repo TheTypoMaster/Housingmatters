@@ -496,9 +496,9 @@ $sms='New Helpdesk ticket '.$ticket_no.' - '.$category_name.' raised+by '.$user_
 $sms1=str_replace(' ', '+', $sms);
 $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');		
 $message_web="<div>
-<img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$this->webroot."as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$this->webroot."as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Dear Administrator,</p><br/>
 <p>A new helpdesk ticket is raised in your society.</p>
 <table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
@@ -540,6 +540,7 @@ $result5=$this->notification_email->find('all',array('conditions'=>$conditions7)
 $n=sizeof($result5);
 if(1==1)
 {
+	$to='abhilashlohar01@outlook.com';
 	@$subject.= '['. $society_name . ']' . '- New Helpdesk Ticket : ' . '  #   ' .$ticket_no .'';
 
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
