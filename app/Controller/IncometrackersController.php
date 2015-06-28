@@ -71,7 +71,8 @@ $this->set('count',$count);
 
 $this->loadmodel('regular_bill');
 $order=array('regular_bill.regular_bill_id'=> 'ASC');
-$cursor=$this->regular_bill->find('all',array('order' =>$order));
+$conditions=array("society_id" => $s_society_id);
+$cursor=$this->regular_bill->find('all',array('order' =>$order,'conditions'=>$conditions));
 foreach ($cursor as $collection) 
 {
 $d_from = $collection['regular_bill']['bill_daterange_from'];

@@ -352,13 +352,65 @@ Society-Phone:9799463210
 <br><br><br><br>
 </div>
 
+
+
+<table border="0" width="100%">
+<tr>
+<td>
+<br><br>
+<table width="100%">
+<tr>
+<th align="left"><p style="font-size:12px;">Receipt No:1001</p></th>
+<th align="center"><p style="font-size:20px;">RECEIPT</p></th>
+<th align="right"><p style="font-size:12px;">Date:11/11/2015</p></th>
+</tr>
+<tr>
+<th colspan="3" style="text-align:center;"><p style="font-size:18px;">for Previous Bill</p></th>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td>
+<table width="100%">
+<tr>
+<td style="width:70%;"><p style="font-size:12px;">Received with thanks from &nbsp;&nbsp;&nbsp;&nbsp;Nikhilesh Vyas</p></td>
+<td style="width:30%;" rowspan="3">
+&nbsp;<div style="width:100px; height:25px; border:solid 1px; text-align:center;">
+Shop(101)
+</div>
+
+<div style="width:100px; height:25px; border:solid 1px; text-align:center;">
+15000
+</div>
+
+
+</td>
+</tr>
+<tr>
+<td><p style="font-size:12px;">Rs (Words) only</p></td>
+</tr>
+<tr>
+<td><p style="font-size:12px;">Via &nbsp;&nbsp; Cheque &nbsp;&nbsp'.$bank_name.' Bank &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rs.</p></td>
+</tr>
+<tr>
+<td colspan="2"><p style="font-size:12px;">Payment for Bill No. 2001 &nbsp;&nbsp; dated:&nbsp; 11/11/2015&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Subject to Realization of cheque</p></td>
+</tr>
+</table>
+<table width="100%">
+<tr>
+<td style="text-align:right;"><p style="font-size:12px;">Radhe krishna Society</p></td>
+</tr>
+<tr>
+<td><p style="font-size:12px; text-align:right;">Secretary/Treasurer</p></td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+
+
 -->
-
-
-
-
-
-
 
 
 
