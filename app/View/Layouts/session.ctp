@@ -576,13 +576,6 @@ $(document).ready(function() {
 							<li><a href="<?php echo $this->webroot; ?>Hms/logout"><i class="icon-key"></i> Log Out</a></li>
 						</ul>
 					</li>
-					
-					<!--<li class="dropdown" id="header_notification_bar">
-						<a href="#" class="dropdown-toggle open_msg" data-toggle="dropdown">
-						<i class=" icon-envelope"></i>
-						<span class="badge">6</span>
-						</a>
-					</li>-->
 					<!-- END USER LOGIN DROPDOWN -->
 				</ul>
 				<!-- END TOP NAVIGATION MENU -->	
@@ -656,7 +649,8 @@ if(sizeof(@$result)>0){
 			sort($new_array_module_group);
 			
 		} ?>
-		<?php foreach($new_array_module_group as $child_22){ 
+		<?php foreach($new_array_module_group as $child_22){
+			echo $child_22[1];
 			$result_page=@$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_pagename_main_module_usermanagement'), array('pass' => array($child_22[1])));
 			foreach($result_page as $data4)
 			{
