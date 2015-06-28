@@ -540,8 +540,7 @@ $result5=$this->notification_email->find('all',array('conditions'=>$conditions7)
 $n=sizeof($result5);
 if(1==1)
 {
-	$to='abhilashlohar01@outlook.com';
-	@$subject.= '['. $society_name . ']' . '- New Helpdesk Ticket : ' . '  #   ' .$ticket_no .'';
+		@$subject.= '['. $society_name . ']' . '- New Helpdesk Ticket : ' . '  #   ' .$ticket_no .'';
 
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 $subject="";

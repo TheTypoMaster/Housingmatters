@@ -348,6 +348,15 @@ $conditions=array("module_id" => $module_id);
 return $result=$this->page->find('all',array('conditions'=>$conditions,'limit'=>1));
 }
 
+function fetch_sub_module_id_from_role_prvg($module_id){
+	$s_society_id=$this->Session->read('society_id');
+	$s_role_id=$this->Session->read('role_id');
+
+	$this->loadmodel('role_privilege');
+	$conditions=array("module_id" => $module_id,"society_id"=>$s_society_id);
+	return $result=$this->role_privilege->find('all',array('conditions'=>$conditions,'limit'=>1));
+}
+
 function fetch_mainmodulename_usermanagement($module_id) 
 {
 $s_society_id=$this->Session->read('society_id');
