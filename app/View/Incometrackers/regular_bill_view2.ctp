@@ -301,7 +301,7 @@ $current_start_date = date('Y-m-d',strtotime($from));
 
 
 $date1 = date_create($due_date12);
-$date2 = date_create($start_date);
+$date2 = date_create($current_start_date);
 $interval = date_diff($date1,$date2);
 $days1 = $interval->format('%a');
 	
@@ -346,8 +346,6 @@ foreach($result7 as $collection7)
 $transaction_date = $collection7['cash_bank']['transaction_date'];	
 $bank_amount = (int)$collection7['cash_bank']['amount'];	
 
-
-
 $bank_date = date('Y-m-d',strtotime(@$transaction_date));
 $due_date12 = date('Y-m-d',strtotime(@$due_date11));
 
@@ -362,6 +360,7 @@ $subpenalty4 = round((@$bank_amount*$days4*$pen_per)/(365*100));
 $penalty_amt = $penalty_amt+$subpenalty4;
 }
 }
+
 }
 ///////////////////////////////////////  End Penalty ///////////////////////	
 ?>
