@@ -985,7 +985,7 @@ $html.='</table>
 </div>
 </div>
 ';
-echo $html; exit;
+
 $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array("bill_html" =>$html),array("regular_bill_id" =>$regular_bill_id));	
 ////////End Bill Html Code///////////////////
