@@ -776,6 +776,10 @@ $html='<div style="width:70%;margin:auto;">
 <tr>
 <th style=" color: rgb(100, 100, 99); ">'.$so_address.'</th>
 </tr>
+</tr>
+<tr>
+<th style=" color: rgb(31, 31, 31); font-weight: 600; font-size: 12px;"><span>Email: '.$society_email.'</span> | <span>Phone : '.$society_phone.'</span</th>
+</tr>
 </table>
 </div>
 <div style="border:solid 1px; overflow:auto; border-top:none; border-bottom:none;padding:5px;">
@@ -815,7 +819,7 @@ Name :
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">Billing Period:</td>
-<td style="text-align:left;">'.$monthB.''. $year.'</td>
+<td style="text-align:left;">'.$monthB.' '. $year.'</td>
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;"><b>Due Date:</b></td>
@@ -826,10 +830,10 @@ Name :
 <div><b>Description:</b> '.$narration.'</div>
 </div>
 <div style="overflow:auto;">
-<table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="0">
+<table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="5">
 <tr>
-<th style="width:80%; text-align:left; padding-left:2%;">Particulars</th>
-<th style="text-align:right; padding-right:1.2%;">Amount (Rs.)</th>
+<th style="width:80%; text-align:left;color: rgb(4, 126, 186);">Particulars</th>
+<th style="text-align:right;color: rgb(104, 104, 103);">Amount (Rs.)</th>
 <tr>
 <tr>
 <td valign="top" style="height:200px;">
@@ -852,7 +856,7 @@ else
 $ih_name = "Non Occupancy charges";
 }
 $html.='<tr>
-<td style="text-align:left; padding-left:2%;">'.$ih_name.'</td>
+<td style="text-align:left;">'.$ih_name.'</td>
 </tr>';
 }
 
@@ -866,7 +870,7 @@ $ih_det3 = $ih_detail2[$y];
 $amount = $ih_det3[1];
 //$amount2 = number_format($amount);
 $html.='<tr>
-<td style="text-align:right;  padding-right:8%;">'.$amount.'</td>
+<td style="text-align:right;">'.$amount.'</td>
 </tr>';
 $total_amount2 = $total_amount2 + $amount;
 }
@@ -878,19 +882,22 @@ $html.='</table>
 <td valign="top">
 <table border="0" style="width:70%; float:left;">
 <tr>
-<td style="text-align:right; width:20%;">Account Name:</td>
+<td colspan="2">Check NEFT Instructions</td>
+</tr>
+<tr>
+<td><b>Account Name:</b></td>
 <td> &nbsp;&nbsp; '.$account_number.'</td>
 </tr>
 <tr>
-<td style="text-align:right;">Bank Name:</td>
+<td><b>Bank Name:</b></td>
 <td> &nbsp;&nbsp; '.$bank_name .'</td>
 </tr>
 <tr>
-<td style="text-align:right;">Branch Name:</td>
+<td><b>Branch Name:</b></td>
 <td> &nbsp;&nbsp; '.$bank_branch .'</td>
 </tr>
 <tr>
-<td style="text-align:right;">IFSC no.:</td>
+<td><b>IFSC no.:</b></td>
 <td> &nbsp;&nbsp; '.$ifsc_code.'</td>
 </tr>
 </table>
@@ -938,7 +945,7 @@ $html.='
 </tr>
 </table>
 </div>
-<div style="overflow:auto; border:solid 1px; border-top:none;">
+<div style="overflow:auto; border:solid 1px; border-top:none;border-bottom: none;padding:5px;">
 <table border="0" style="width:100%;">
 <tr>
 <th style="text-align:left;">
@@ -955,31 +962,13 @@ $html.='
 }
 $html.='</table> 
 </div>
-<div style="overflow:auto; border:solid 1px; border-top:none;">
+<div style="overflow:auto; border:solid 1px; border-top:none;padding:5px;">
 
 <table border="0" style="width:100%;">
 <tr>
-<td style="text-align:left; valign:top;">
-Society-Email:'.$society_email.'
-</td>
-<td style="text-align:right;">
-<p style="font-size:16px; margin-right:10%;"><b>'.$society_name.' Society</b></p>
-</td>
+<td style="text-align:right;">For  <b>'.$society_name.' Society</b></td>
 </tr>';
-$html.='<tr>
-<td style="text-align:left;" valign="top">
-Society-Phone:'.$society_phone.'</td>
-<td style="text-align:right;">
-<img src='.$webroot_path.'sig/'.$sig_img.' height="60px;" width="130px;" style="margin-right:10%;"></img>
-</td>
-</tr>
-<tr>
-<td></td>
-<td style="text-align:right;">
-<p style="font-size:14px; margin-right:10%;"><b>'.$sig_title.'</b></p>
-</td>
-</tr>
-</table>
+$html.='</table>
 </div>
 </div>
 </div>
@@ -1676,10 +1665,10 @@ Name :
 </table>
 </div>
 <div style="width:80.2%; overflow:auto;">
-<table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="0">
+<table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="5">
 <tr>
-<th style="width:80%; text-align:left; padding-left:2%;">Particulars</th>
-<th style="text-align:right; padding-right:1.2%;">Amount (Rs.)</th>
+<th style="width:80%; text-align:left;">Particulars</th>
+<th style="text-align:right;">Amount (Rs.)</th>
 <tr>
 <tr>
 <td valign="top" style="height:200px;">
@@ -1701,7 +1690,7 @@ else
 $ih_name = "Non Occupancy charges";
 }
 $html.='<tr>
-<td style="text-align:left; padding-left:2%;">'.$ih_name.'</td>
+<td style="text-align:left;">'.$ih_name.'</td>
 </tr>';
 }
 $html.='</table>
@@ -1714,7 +1703,7 @@ $ih_det3 = $ih_detail2[$y];
 $amount = $ih_det3[1];
 $amount2 = number_format($amount);
 $html.='<tr>
-<td style="text-align:right; padding-right:8%;">'.$amount2.'</td>
+<td style="text-align:right;">'.$amount2.'</td>
 </tr>';
 $total_amount2 = $total_amount2 + $amount;
 }
@@ -1782,7 +1771,7 @@ $html.='
 </tr>
 </table>
 </div>
-<div style="width:80%; overflow:auto; border:solid 1px; border-top:none;">
+<div style="width:80%; overflow:auto; border:solid 1px; border-top:none;padding:5px;">
 <table border="0" style="width:100%;">
 <tr>
 <th style="text-align:left;">
