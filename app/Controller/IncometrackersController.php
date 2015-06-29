@@ -72,7 +72,7 @@ $this->set('count',$count);
 $this->loadmodel('regular_bill');
 $order=array('regular_bill.regular_bill_id'=> 'ASC');
 $conditions=array("society_id" => $s_society_id);
-$cursor=$this->regular_bill->find('all',array('order' =>$order,'conditions'=>$conditions));
+$cursor=$this->regular_bill->find('all',array('conditions'=>$conditions,'order' =>$order));
 foreach ($cursor as $collection) 
 {
 $d_from = $collection['regular_bill']['bill_daterange_from'];
@@ -5338,7 +5338,6 @@ $this->set('cursor1',$cursor1);
 if(isset($this->request->data['sub']))
 {
 $all = @$this->request->data['all'];
-
 $r=0;
 $this->loadmodel('regular_bill');
 $conditions=array("society_id" => $s_society_id,"approve_status"=>1);
