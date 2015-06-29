@@ -13918,7 +13918,7 @@ if($this->request->is('post'))
  @$mobile=htmlentities($this->request->data['mobile1']); 
  @$email=htmlentities($this->request->data['email']);
  @$sex=(int)htmlentities($this->request->data['sex']);
- @$dob=htmlentities($this->request->data['dob']);
+ @$age=htmlentities($this->request->data['age']);
  @$per_address=htmlentities($this->request->data['per_address']);
  @$com_address=htmlentities($this->request->data['com_address']);
  @$hob=htmlentities($this->request->data['hob']);
@@ -13969,6 +13969,44 @@ $b_group="O-";
 	 $med_pro="No";
  }
  
+if($age==1)
+{
+$age_group="18-24";
+}
+
+if($age==2)
+{
+$age_group="25-34";
+}
+
+
+if($age==3)
+{
+$age_group="35-44";
+}
+
+if($age==4)
+{
+$age_group="45-54";
+}
+if($age==5)
+{
+$age_group="55-64";
+}
+ 
+if($age==6)
+{
+$age_group="65-74";
+}
+if($age==7)
+{
+$age_group="75-84";
+}
+if($age==8)
+{
+$age_group="85-94";
+}
+
  $result_user=$this->profile_picture($s_user_id);
  foreach($result_user as $data)
  {
@@ -14004,7 +14042,7 @@ if(empty($photo_name))
 	$ok=1;
 	move_uploaded_file(@$this->request->form['profile_photo']['tmp_name'],@$target); 
 	$this->loadmodel('user');
-$this->user->updateAll(array("user_name" => $name,"email" => $email,'mobile'=>$mobile,'sex'=>$sex,'dob'=>$dob,'per_address'=>$per_address,'comm_address'=>$com_address,'hobbies'=>$hob,'profile_pic'=>$photo_name,'blood_group'=>$blood_group,'medical_pro'=>$medical),array("user_id" => $s_user_id));
+	$this->user->updateAll(array("user_name" => $name,"email" => $email,'mobile'=>$mobile,'sex'=>$sex,'dob'=>$age,'per_address'=>$per_address,'comm_address'=>$com_address,'hobbies'=>$hob,'profile_pic'=>$photo_name,'blood_group'=>$blood_group,'medical_pro'=>$medical),array("user_id" => $s_user_id));
 
 $to=$email;
 $from_name="HousingMatters";
@@ -14018,7 +14056,7 @@ $from=$collection['email']['from'];
 }
 $reply=$from;
 
-@$message_web="<div>
+echo @$message_web="<div>
 <img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 <span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
 <a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
@@ -14026,7 +14064,7 @@ $reply=$from;
 <p> Name : $name </p>
 <p> Mobile : $mobile </p>
 <p> Email : $email </p>
-<p> Age : $dob </p>
+<p> Age : $age_group </p>
 <p> Permanent address : $per_address </p>
 <p> Communication address : $com_address </p>
 <p> Hobbies : $hob </p>

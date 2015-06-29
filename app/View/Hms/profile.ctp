@@ -345,7 +345,22 @@ $flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat
                                         <td width="55%"><span style="margin-left:40%; font-size:14px; color:#666;">Age</span></td>
                                        
                                         <td width="29%">
-										  <input type="text" name="dob" class="m-wrap" data-date-format="dd-mm-yyyy" value="<?php echo $da_dob ; ?>">
+																  
+										  
+											<select class="m-wrap m-ctrl-medium chosen" data-placeholder="Choose Age Group" name="age">
+											<option value="" style="display:none;"></option>
+											<option value="1"<?php if($da_dob==1){?>selected <?php } ?>> 18-24 </option>
+											<option value="2"> 25-34 </option>
+											<option value="3"> 35-44 </option>
+											<option value="4"> 45-54 </option>
+											<option value="5"> 55-64 </option>
+											<option value="6"> 65-74 </option>
+											<option value="7"> 75-84 </option>
+											<option value="8"> 85-94 </option>
+
+											</select> 
+										  
+										  
 										</td>
 											
 											<td width="12%">
