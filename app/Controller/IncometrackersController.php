@@ -882,10 +882,14 @@ $html.='</table>
 <td valign="top">
 <table border="0" style="width:70%; float:left;">
 <tr>
-<td colspan="2">Check NEFT Instructions</td>
+<td colspan="2">Check for NEFT Instructions</td>
 </tr>
 <tr>
 <td><b>Account Name:</b></td>
+<td> &nbsp;&nbsp; '.$account_number.'</td>
+</tr>
+<tr>
+<td><b>Account No.:</b></td>
 <td> &nbsp;&nbsp; '.$account_number.'</td>
 </tr>
 <tr>
@@ -939,10 +943,10 @@ $html.='<tr>
 <th style="text-align:right; padding-right:8%;">'.$grand_total2.'</th>
 </tr>';
 
-$html.='
-</table>
+$html.='</table>
 </td>
 </tr>
+<tr><td colspan="2"><b>Due For Payment in Words :</b> here amount</td></tr>
 </table>
 </div>
 <div style="overflow:auto; border:solid 1px; border-top:none;border-bottom: none;padding:5px;">
@@ -967,12 +971,16 @@ $html.='</table>
 <table border="0" style="width:100%;">
 <tr>
 <td style="text-align:right;">For  <b>'.$society_name.' Society</b></td>
+</tr>
+<tr>
+<td style="text-align:left;">Note: This is computer generated bill hance no signature required.</td>
 </tr>';
 $html.='</table>
 </div>
 </div>
 </div>
 ';
+
 $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array("bill_html" =>$html),array("regular_bill_id" =>$regular_bill_id));	
 ////////End Bill Html Code///////////////////
