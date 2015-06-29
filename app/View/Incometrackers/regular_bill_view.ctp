@@ -10,7 +10,8 @@
 
 
 
-
+<div style="width:80%;margin:auto;">
 <?php
 echo $bill_html;
 ?>
+</div>

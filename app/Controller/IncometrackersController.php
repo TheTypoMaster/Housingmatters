@@ -760,7 +760,7 @@ $year = date('Y',strtotime($dat2));
 $monthB = implode("-",$month2);
 
 //////////////////////////////////////////////////
-$html='<div style="width:70%;margin:auto;">
+$html='<div style="width:90%;margin:auto;">
 <div style="background-color:white; overflow:auto;">
 <div style="border:solid 1px; overflow:auto;">
 <table border="0" style="width:15%; float:left;">
