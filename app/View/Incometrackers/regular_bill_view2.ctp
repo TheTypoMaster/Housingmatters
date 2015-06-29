@@ -345,10 +345,8 @@ foreach($result7 as $collection7)
 {
 $transaction_date = $collection7['cash_bank']['transaction_date'];	
 $bank_amount = (int)$collection7['cash_bank']['amount'];	
-
 $bank_date = date('Y-m-d',strtotime(@$transaction_date));
 $due_date12 = date('Y-m-d',strtotime(@$due_date11));
-
 if($bank_date > $due_date12)
 {
 $date1 = date_create($due_date12);
@@ -358,6 +356,25 @@ $days4 = $interval->format('%a');
 
 $subpenalty4 = round((@$bank_amount*$days4*$pen_per)/(365*100));
 $penalty_amt = $penalty_amt+$subpenalty4;
+}
+}
+
+$result8 = $this->requestAction(array('controller' => 'hms', 'action' => 'petty_cash_receipt_fetch'),array('pass'=>array($bank_user_id,$pen_receipt_id)));
+foreach($result8 as $collection8)
+{
+$transaction_date = $collection8['cash_bank']['transaction_date'];	
+$bank_amount = (int)$collection8['cash_bank']['amount'];	
+$bank_date = date('Y-m-d',strtotime(@$transaction_date));
+$due_date12 = date('Y-m-d',strtotime(@$due_date11));
+if($bank_date > $due_date12)
+{
+$date1 = date_create($due_date12);
+$date2 = date_create($bank_date);
+$interval = date_diff($date1,$date2);
+$days4 = $interval->format('%a');
+
+$subpenalty5 = round((@$bank_amount*$days4*$pen_per)/(365*100));
+$penalty_amt = $penalty_amt+$subpenalty5;
 }
 }
 
@@ -405,6 +422,7 @@ $due_amount = @$collection2['regular_bill']['remaining_amount'];
 $due_date11 = $collection2['regular_bill']['due_date'];
 $from5 = $collection2['regular_bill']['bill_daterange_from'];
 $previous_bill_amt = $collection2['regular_bill']['total_amount'];
+$pen_receipt_id = (int)$collection2['regular_bill']['receipt_id'];
 }
 
 $current_date = date('Y-m-d');
@@ -561,7 +579,7 @@ $current_start_date = date('Y-m-d',strtotime($from));
 
 
 $date1 = date_create($due_date12);
-$date2 = date_create($start_date);
+$date2 = date_create($current_start_date);
 $interval = date_diff($date1,$date2);
 $days1 = $interval->format('%a');
 	
@@ -593,6 +611,51 @@ $subpenalty3 = round((@$due_amount*$days3*$pen_per)/(365*100));
 
 $penalty_amt = $penalty_amt+$subpenalty3;
 }
+
+$result6 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch3'),array('pass'=>array($user_id)));
+foreach($result6 as $collection5)
+{
+$bank_user_id = (int)$collection5['ledger_sub_account']['auto_id'];	
+}
+
+$result7 = $this->requestAction(array('controller' => 'hms', 'action' => 'bank_receipt_fetch'),array('pass'=>array($bank_user_id,$pen_receipt_id)));
+foreach($result7 as $collection7)
+{
+$transaction_date = $collection7['cash_bank']['transaction_date'];	
+$bank_amount = (int)$collection7['cash_bank']['amount'];	
+$bank_date = date('Y-m-d',strtotime(@$transaction_date));
+$due_date12 = date('Y-m-d',strtotime(@$due_date11));
+if($bank_date > $due_date12)
+{
+$date1 = date_create($due_date12);
+$date2 = date_create($bank_date);
+$interval = date_diff($date1,$date2);
+$days4 = $interval->format('%a');
+
+$subpenalty4 = round((@$bank_amount*$days4*$pen_per)/(365*100));
+$penalty_amt = $penalty_amt+$subpenalty4;
+}
+}
+
+$result8 = $this->requestAction(array('controller' => 'hms', 'action' => 'petty_cash_receipt_fetch'),array('pass'=>array($bank_user_id,$pen_receipt_id)));
+foreach($result8 as $collection8)
+{
+$transaction_date = $collection8['cash_bank']['transaction_date'];	
+$bank_amount = (int)$collection8['cash_bank']['amount'];	
+$bank_date = date('Y-m-d',strtotime(@$transaction_date));
+$due_date12 = date('Y-m-d',strtotime(@$due_date11));
+if($bank_date > $due_date12)
+{
+$date1 = date_create($due_date12);
+$date2 = date_create($bank_date);
+$interval = date_diff($date1,$date2);
+$days4 = $interval->format('%a');
+
+$subpenalty5 = round((@$bank_amount*$days4*$pen_per)/(365*100));
+$penalty_amt = $penalty_amt+$subpenalty5;
+}
+}
+
 }
 ///////////////////////////////////////  End Penalty ///////////////////////	
 ?>
