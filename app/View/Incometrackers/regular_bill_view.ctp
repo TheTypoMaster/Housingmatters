@@ -10,18 +10,7 @@
 
 
 
-<div class="view_bill">
+
 <?php
 echo $bill_html;
 ?>
-</div>
-<style>
-.view_bill{
-width:70%;margin:auto;
-}
-</style>
-<style media="print">
-.view_bill{
-width:100%;margin:auto;
-}
-</style>
