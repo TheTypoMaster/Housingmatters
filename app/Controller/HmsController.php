@@ -4727,15 +4727,15 @@ function signup_emilexits()
 {
 $this->layout='blank_signup';
 $email=$this->request->query['email'];
-//$this->loadmodel('user_temp');
-//$conditions=array("email" => $email,'reject'=>0);
-//$result3 = $this->user_temp->find('all',array('conditions'=>$conditions));
-//$n3 = sizeof($result3);
+$this->loadmodel('user_temp');
+$conditions=array("email" => $email,'reject'=>0);
+$result3 = $this->user_temp->find('all',array('conditions'=>$conditions));
+$n3 = sizeof($result3);
 $this->loadmodel('user');
 $conditions=array("email" => $email);
 $result4 = $this->user->find('all',array('conditions'=>$conditions));
 $n4 = sizeof($result4);
-$e=$n4;
+$e=$n3+$n4;
 if ($e > 0) {
 echo "false";
 } else {
@@ -4747,15 +4747,15 @@ function signup_mobileexit()
 {
 $this->layout='blank_signup';
 $mobile=$this->request->query['mobile'];
-//$this->loadmodel('user_temp');
-//$conditions=array("mobile" => $mobile,'reject'=>0);
-//$result3 = $this->user_temp->find('all',array('conditions'=>$conditions));
-//$n3 = sizeof($result3);
+$this->loadmodel('user_temp');
+$conditions=array("mobile" => $mobile,'reject'=>0);
+$result3 = $this->user_temp->find('all',array('conditions'=>$conditions));
+$n3 = sizeof($result3);
 $this->loadmodel('user');
 $conditions=array("mobile" => $mobile);
 $result4 = $this->user->find('all',array('conditions'=>$conditions));
 $n4 = sizeof($result4);
-$e=$n4;
+$e=$n3+$n4;
 
 if ($e > 0) {
 echo "false";
@@ -16641,7 +16641,7 @@ $this->layout='session';
 function regular_bill($user_id)
 {
 $this->loadmodel('regular_bill');
-$conditions=array("bill_for_user" => $user_id,"status" => 0,"approve_status" => 2);
+$conditions=array("bill_for_user" => $user_id,"status" => 0);
 return $this->regular_bill->find('all',array('conditions'=>$conditions));
 }
 ///////////////////// End Rgular Bill Fetch (Accounts)///////////////////////////////////////
@@ -19313,7 +19313,7 @@ $this->set('cursor1',$cursor1);
 function regular_bill_fetch2($user_id) 
 {
 $this->loadmodel('regular_bill');
-$conditions=array("bill_for_user" => $user_id,"approve_status" => 2);
+$conditions=array("bill_for_user" => $user_id);
 return $this->regular_bill->find('all',array('conditions'=>$conditions));
 }
 ////////////////// End Regular Bill Fetch2(Accounts)//////////////////////////////

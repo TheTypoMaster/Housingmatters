@@ -882,19 +882,22 @@ $html.='</table>
 <td valign="top">
 <table border="0" style="width:70%; float:left;">
 <tr>
-<td>Account Name:</td>
+<td colspan="2">Check NEFT Instructions</td>
+</tr>
+<tr>
+<td><b>Account Name:</b></td>
 <td> &nbsp;&nbsp; '.$account_number.'</td>
 </tr>
 <tr>
-<td>Bank Name:</td>
+<td><b>Bank Name:</b></td>
 <td> &nbsp;&nbsp; '.$bank_name .'</td>
 </tr>
 <tr>
-<td>Branch Name:</td>
+<td><b>Branch Name:</b></td>
 <td> &nbsp;&nbsp; '.$bank_branch .'</td>
 </tr>
 <tr>
-<td>IFSC no.:</td>
+<td><b>IFSC no.:</b></td>
 <td> &nbsp;&nbsp; '.$ifsc_code.'</td>
 </tr>
 </table>
