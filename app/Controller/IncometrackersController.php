@@ -1742,8 +1742,8 @@ $html.='</table>
 </tr>
 <tr>
 <td valign="top">
-$ac_num = @$collection['society']['ac_num'];
-$ifsc_code = @$collection['society']['ifsc_code'];
+$ac_num = @$collection["society"]["ac_num"];
+$ifsc_code = @$collection["society"]["ifsc_code"];
 <table border="0" style="width:70%; float:left;">
 <tr>
 <td style="text-align:right; width:20%;">Account Name:</td>
