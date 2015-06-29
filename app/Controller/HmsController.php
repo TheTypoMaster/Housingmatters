@@ -4727,15 +4727,15 @@ function signup_emilexits()
 {
 $this->layout='blank_signup';
 $email=$this->request->query['email'];
-$this->loadmodel('user_temp');
-$conditions=array("email" => $email,'reject'=>0);
-$result3 = $this->user_temp->find('all',array('conditions'=>$conditions));
-$n3 = sizeof($result3);
+//$this->loadmodel('user_temp');
+//$conditions=array("email" => $email,'reject'=>0);
+//$result3 = $this->user_temp->find('all',array('conditions'=>$conditions));
+//$n3 = sizeof($result3);
 $this->loadmodel('user');
 $conditions=array("email" => $email);
 $result4 = $this->user->find('all',array('conditions'=>$conditions));
 $n4 = sizeof($result4);
-$e=$n3+$n4;
+$e=$n4;
 if ($e > 0) {
 echo "false";
 } else {
@@ -4747,15 +4747,15 @@ function signup_mobileexit()
 {
 $this->layout='blank_signup';
 $mobile=$this->request->query['mobile'];
-$this->loadmodel('user_temp');
-$conditions=array("mobile" => $mobile,'reject'=>0);
-$result3 = $this->user_temp->find('all',array('conditions'=>$conditions));
-$n3 = sizeof($result3);
+//$this->loadmodel('user_temp');
+//$conditions=array("mobile" => $mobile,'reject'=>0);
+//$result3 = $this->user_temp->find('all',array('conditions'=>$conditions));
+//$n3 = sizeof($result3);
 $this->loadmodel('user');
 $conditions=array("mobile" => $mobile);
 $result4 = $this->user->find('all',array('conditions'=>$conditions));
 $n4 = sizeof($result4);
-$e=$n3+$n4;
+$e=$n4;
 
 if ($e > 0) {
 echo "false";
@@ -8797,13 +8797,20 @@ function verify_mobile_ajax()
 		 $user= $data['user']['user_name'];
 	}
 	
+	$dd=explode(' ',$user);
+	$user_name=$dd[0];
+	$user_name=ucfirst($user_name);
+	
 $r_sms=$this->hms_sms_ip();
 $working_key=$r_sms->working_key;
 $sms_sender=$r_sms->sms_sender; 
 	
 	 $random_otp=(string)mt_rand(1000,9999);
 //$sms='Dear '.$user.' Please enter your code '.$random_otp.' on the signup screen to continue your HousingMatters registration process. Thank you';
-$sms=''.$random_otp.' is your One Time Passcode, please enter on the signup screen to continue your HousingMatters registration process.';
+//$sms=''.$random_otp.' is your One Time Passcode, please enter on the signup screen to continue your HousingMatters registration process.';
+
+$sms='Hi ! '.$user_name.', Use '.$random_otp.' as one time passcode and continue your Housing Matters registration process. ';
+
 $sms1=str_replace(' ', '+', $sms);
 $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 $this->user->updateAll(array('password'=>$random_otp),array('user.user_id'=>$id));
@@ -16634,7 +16641,7 @@ $this->layout='session';
 function regular_bill($user_id)
 {
 $this->loadmodel('regular_bill');
-$conditions=array("bill_for_user" => $user_id,"status" => 0);
+$conditions=array("bill_for_user" => $user_id,"status" => 0,"approve_status" => 2);
 return $this->regular_bill->find('all',array('conditions'=>$conditions));
 }
 ///////////////////// End Rgular Bill Fetch (Accounts)///////////////////////////////////////
@@ -19306,7 +19313,7 @@ $this->set('cursor1',$cursor1);
 function regular_bill_fetch2($user_id) 
 {
 $this->loadmodel('regular_bill');
-$conditions=array("bill_for_user" => $user_id);
+$conditions=array("bill_for_user" => $user_id,"approve_status" => 2);
 return $this->regular_bill->find('all',array('conditions'=>$conditions));
 }
 ////////////////// End Regular Bill Fetch2(Accounts)//////////////////////////////
