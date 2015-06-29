@@ -754,11 +754,9 @@ $year = date('Y',strtotime($dat2));
 $monthB = implode("-",$month2);
 
 //////////////////////////////////////////////////
-$html='<center>
-<div style="700px; background-color:white; overflow:auto;">
-<br><Br><br>
-<div style="width:80%; border:solid 1px; overflow:auto;">
-<br>
+$html='<div style="width:70%;margin:auto;">
+<div style="background-color:white; overflow:auto;">
+<div style="border:solid 1px; overflow:auto;">
 <table border="0" style="width:15%; float:left;">
 <tr>
 <td>
@@ -766,39 +764,35 @@ $html='<center>
 </td>
 </tr>
 </table>
-<table border="0" style="width:85%;">
+<table border="0" style="width:100%;">
 <tr>
-<th style="text-align:center;">
-<p style="font-size:22px; padding-right:14%;">'.$society_name.'  Society</p>
+<th style="font-size:20px; color:rgb(0, 141, 210);">
+'.strtoupper($society_name).'  SOCIETY
 </th>
 </tr>
 <tr>
-<th style="text-align:center; padding-right:14%;">Regn#  &nbsp;&nbsp; '.$so_reg_no.'</th>
+<th style=" color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_reg_no.'</th>
 </tr>
 <tr>
-<th style="text-align:center; padding-right:14%;">'.$so_address.'</th>
-</tr>
-<tr>
-<td>
-<b>Description :</b> &nbsp;&nbsp; '.$narration.'
-</td>
+<th style=" color: rgb(100, 100, 99); ">'.$so_address.'</th>
 </tr>
 </table>
 </div>
-<div style="width:80%; border:solid 1px; overflow:auto; border-top:none; border-bottom:none;">
+<div style="border:solid 1px; overflow:auto; border-top:none; border-bottom:none;padding:5px;">
+<div>
 <table border="0" style="width:60%; float:left;">
 <tr>
-<td style="text-align:left; width:17%;">
+<td style="text-align:left; width:17%;font-weight: bold;">
 Name :
 </td>
-<td style="text-align:left;">'.$user_name.'</td>
+<td>'.$user_name.'</td>
 </tr>
 <tr>
-<td style="text-align:left;">Bill No.:</td>
+<td style="text-align:left;font-weight: bold;">Bill No.:</td>
 <td style="text-align:left;">'.$receipt_id.' </td>
 </tr>
 <tr>
-<td style="text-align:left;">Bill Date:</td>
+<td style="text-align:left;font-weight: bold;">Bill Date:</td>
 <td style="text-align:left;">'.$date.'</td>
 </tr>
 <tr>
@@ -812,24 +806,26 @@ Name :
 <td></td>
 </tr>
 <tr>
-<td style="text-align:left;">Flat/Shop No.:</td>
+<td style="text-align:left;font-weight: bold;">Flat/Shop No.:</td>
 <td style="text-align:left;">'.$wing_flat.'</td>
 </tr>
 <tr>
-<td style="text-align:left;">Area:</td>
+<td style="text-align:left;font-weight: bold;">Area:</td>
 <td style="text-align:left;">'.$flat_area.' Sq Feet</td>
 </tr>
 <tr>
-<td style="text-align:left;">Billing Period:</td>
+<td style="text-align:left;font-weight: bold;">Billing Period:</td>
 <td style="text-align:left;">'.$monthB.''. $year.'</td>
 </tr>
 <tr>
-<td style="text-align:left;"><b>Due Date:</b></td>
+<td style="text-align:left;font-weight: bold;"><b>Due Date:</b></td>
 <td style="text-align:left;"><b>'.$due_date21.'</b></td>
 </tr>
 </table>
 </div>
-<div style="width:80.2%; overflow:auto;">
+<div><b>Description:</b> '.$narration.'</div>
+</div>
+<div style="overflow:auto;">
 <table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="0">
 <tr>
 <th style="width:80%; text-align:left; padding-left:2%;">Particulars</th>
@@ -942,7 +938,7 @@ $html.='
 </tr>
 </table>
 </div>
-<div style="width:80%; overflow:auto; border:solid 1px; border-top:none;">
+<div style="overflow:auto; border:solid 1px; border-top:none;">
 <table border="0" style="width:100%;">
 <tr>
 <th style="text-align:left;">
@@ -959,7 +955,7 @@ $html.='
 }
 $html.='</table> 
 </div>
-<div style="width:80%; overflow:auto; border:solid 1px; border-top:none;">
+<div style="overflow:auto; border:solid 1px; border-top:none;">
 
 <table border="0" style="width:100%;">
 <tr>
@@ -984,9 +980,8 @@ Society-Phone:'.$society_phone.'</td>
 </td>
 </tr>
 </table>
-<br><br><br>
 </div>
-<br><br><br><br>
+</div>
 </div>
 ';
 $this->loadmodel('regular_bill');
