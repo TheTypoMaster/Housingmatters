@@ -657,7 +657,7 @@ $receipt_id = $collection['regular_bill']['receipt_id'];
 $date_from = $collection['regular_bill']['bill_daterange_from'];
 $date_to = $collection['regular_bill']['bill_daterange_to'];
 $ih_detail2 = $collection['regular_bill']['ih_detail'];
-$date=$collection['regular_bill']["date"];
+$date_c=$collection['regular_bill']["date"];
 $regular_bill_id=$collection['regular_bill']["regular_bill_id"];
 $grand_total = (int)$collection['regular_bill']['g_total'];
 $late_amt2 = (int)$collection['regular_bill']['due_amount_tax'];
@@ -692,7 +692,7 @@ $date_from = date("d-M-Y",strtotime($date_from));
 $date_to = date("d-M-Y",strtotime($date_to));
 $date_to2 = date('Y-m-d',strtotime($date_to));
 $due_date21 = date('d-M-Y',strtotime($due_date2));
-$newDate = date("d-M-Y",strtotime($date));	
+//$newDate = date("d-M-Y",strtotime($date));	
 
 $this->loadmodel('user');
 $conditions=array("user_id"=>$user_id,"society_id" => $s_society_id);
@@ -723,8 +723,9 @@ $society_name=$collection['society']["society_name"];
 $so_reg_no = $collection['society']['society_reg_num'];
 $so_address = $collection['society']['society_address'];	
 }
-$date = date('d-M-Y',strtotime($date));
-
+$date_c = date('d-M-Y',strtotime($date_c));
+$date = date('d-M-Y',strtotime($date_from));
+$datett = date('M',strtotime($date_to));
 //////////////////////////////////////////////
 $dateA =date('m',strtotime($date));
 $y = date('Y',strtotime($date));
@@ -797,7 +798,7 @@ Name :
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">Bill Date:</td>
-<td style="text-align:left;">'.$date.'</td>
+<td style="text-align:left;">'.$date_c.'</td>
 </tr>
 <tr>
 <td style="text-align:left;"></td>
@@ -819,7 +820,11 @@ Name :
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">Billing Period:</td>
+<<<<<<< HEAD
+<td style="text-align:left;">'.$datett.''. $year.'</td>
+=======
 <td style="text-align:left;">'.$monthB.' '. $year.'</td>
+>>>>>>> origin/master
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;"><b>Due Date:</b></td>
@@ -1496,7 +1501,7 @@ unset($ussrs);
 	$date_from = $collection['regular_bill']['bill_daterange_from'];
 	$date_to = $collection['regular_bill']['bill_daterange_to'];
 	$ih_detail2 = $collection['regular_bill']['ih_detail'];
-	$date=$collection['regular_bill']["date"];
+	$date_c=$collection['regular_bill']["date"];
 	$regular_bill_id=$collection['regular_bill']["regular_bill_id"];
 	$grand_total = (int)$collection['regular_bill']['g_total'];
 	$late_amt2 = (int)$collection['regular_bill']['due_amount_tax'];
@@ -1534,7 +1539,7 @@ $date_to2 = date('Y-m-d',strtotime($date_to));
 
 //$due_date = date('Y-m-d', strtotime($date_to2 .'+'. $due_days2.'day'));
 $due_date21 = date('d-M-Y',strtotime(@$due_date2));
-$newDate = date("d-M-Y",strtotime(@$date));	
+//$newDate = date("d-M-Y",strtotime(@$date));	
 
 
 $this->loadmodel('user');
@@ -1566,7 +1571,10 @@ $society_name=$collection['society']["society_name"];
 $so_reg_no = $collection['society']['society_reg_num'];
 $so_address = $collection['society']['society_address'];	
 }
-$date = date('d-M-Y',strtotime($date));
+$date_c = date('d-M-Y',strtotime($date_c));
+$date = date('d-M-Y',strtotime($date_from));
+$datett = date('M',strtotime($date_to));
+
 /////////////////////////////////////
 $dateA =date('m',strtotime($date));
 $y = date('Y',strtotime($date));
@@ -1642,7 +1650,7 @@ Name :
 </tr>
 <tr>
 <td style="text-align:left;">Bill Date :</td>
-<td style="text-align:left;">'.$date.'</td>
+<td style="text-align:left;">'.$date_c.'</td>
 </tr>
 <tr>
 <td style="text-align:left;"></td>
@@ -1664,7 +1672,7 @@ Name :
 </tr>
 <tr>
 <td style="text-align:left;">Billing Period:</td>
-<td style="text-align:left;">'.$monthB.''.  $year.'</td>
+<td style="text-align:left;">'.$datett.''.  $year.'</td>
 </tr>
 <tr>
 <td style="text-align:left;"><b>Due Date:</b></td>
@@ -5447,10 +5455,10 @@ $ac_name = $this->request->data['acno'];
 $bank_name = $this->request->data['bank_name'];
 $branch = $this->request->data['branch'];
 $ifsc_code = $this->request->data['ifsc'];
-
+$ac_number = $this->request->data['acnu'];
 
 $this->loadmodel('society');
-$this->society->updateAll(array("ac_name" => $ac_name,"bank_name"=>$bank_name,"branch"=>$branch,"ifsc_code"=>$ifsc_code),array("society_id" => $s_society_id));
+$this->society->updateAll(array("ac_name" => $ac_name,"bank_name"=>$bank_name,"branch"=>$branch,"ifsc_code"=>$ifsc_code,"ac_num"=>$ac_number),array("society_id" => $s_society_id));
 ?>
 <div class="modal-backdrop fade in"></div>
 <div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">

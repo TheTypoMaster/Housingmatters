@@ -8,15 +8,10 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
 
-
-
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////// ?>            
 <table  align="center" border="1" bordercolor="#FFFFFF" cellpadding="0">
 <tr>
 <td><a href="<?php echo $webroot_path; ?>Incometrackers/select_income_heads" class="btn" rel='tab'>Selection of Income Heads</a>
-</td>
-<td>
-<a href="<?php echo $webroot_path; ?>Incometrackers/it_setup" class="btn" style="font-size:16px;" rel='tab'>Terms & Condition</a>
 </td>
 <td>
 <a href="<?php echo $webroot_path; ?>Incometrackers/master_rate_card" class="btn" style="font-size:16px;" rel='tab'>Rate Card</a>
@@ -29,6 +24,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </td>
 <td>
 <a href="<?php echo $webroot_path; ?>Incometrackers/neft_add" class="btn" style="font-size:16px;" rel='tab'>Add NEFT</a>
+</td>
+<td>
+<a href="<?php echo $webroot_path; ?>Incometrackers/it_setup" class="btn" style="font-size:16px;" rel='tab'>Remarks</a>
 </td>
 </tr>
 </table> 
@@ -98,7 +96,7 @@ $amt = "";
 </table>
 <br />
 <div style="width:100%">
-<button type="submit" class="btn green form_post" name="sub" submit_type="sub">Submit</button>
+<button type="submit" class="btn green form_post" name="sub" submit_type="sub">Update</button>
 </div>
 <input type="hidden" value="<?php echo $n; ?>" id="cnt" />
 

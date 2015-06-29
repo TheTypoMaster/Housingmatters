@@ -15,9 +15,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <td><a href="<?php echo $webroot_path; ?>Incometrackers/select_income_heads" class="btn" rel='tab'>Selection of Income Heads</a>
 </td>
 <td>
-<a href="<?php echo $webroot_path; ?>Incometrackers/it_setup" class="btn" style="font-size:16px;" rel='tab'>Terms & Condition</a>
-</td>
-<td>
 <a href="<?php echo $webroot_path; ?>Incometrackers/master_rate_card" class="btn" style="font-size:16px;" rel='tab'>Rate Card</a>
 </td>
 <td>
@@ -28,6 +25,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </td>
 <td>
 <a href="<?php echo $webroot_path; ?>Incometrackers/neft_add" class="btn yellow" style="font-size:16px;" rel='tab'>Add NEFT</a>
+</td>
+<td>
+<a href="<?php echo $webroot_path; ?>Incometrackers/it_setup" class="btn" style="font-size:16px;" rel='tab'>Remarks</a>
 </td>
 </tr>
 </table> 
@@ -55,6 +55,17 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 </div>
 <div class="span6">
+
+
+<label style="font-size:14px;">Account Number<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text" name="acnu" class="m-wrap span9" id="acn"/>
+<label id="acn"></label>
+</div>
+<br />
+
+
+
 
 <label style="font-size:14px;">Branch<span style="color:red;">*</span></label>
 <div class="controls">
@@ -103,7 +114,13 @@ acno: {
 required: true
 },
 
+acnu : {
+	required: true,
+	number:true
+},
 
+	
+	
 bank_name: {
 required: true
 },

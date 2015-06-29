@@ -13,12 +13,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <tr>
 <td><a href="<?php echo $webroot_path; ?>Incometrackers/select_income_heads" class="btn" rel='tab'>Selection of Income Heads</a>
 </td>
-<!--<td>
-<a href="it_due_tax" class="btn" style="font-size:16px;">Due tax</a>
-</td>-->
-<td>
-<a href="<?php echo $webroot_path; ?>Incometrackers/it_setup" class="btn " style="font-size:16px;" rel='tab'>Terms & Condition</a>
-</td>
 <td>
 <a href="<?php echo $webroot_path; ?>Incometrackers/master_rate_card" class="btn" style="font-size:16px;" rel='tab'>Rate Card</a>
 </td>
@@ -31,6 +25,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <td>
 <a href="<?php echo $webroot_path; ?>Incometrackers/neft_add" class="btn" style="font-size:16px;" rel='tab'>Add NEFT</a>
 </td>
+<td>
+<a href="<?php echo $webroot_path; ?>Incometrackers/it_setup" class="btn" style="font-size:16px;" rel='tab'>Remarks</a>
+</td>
 </tr>
 </table> 
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////////?>
@@ -38,7 +35,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <center>
 <div style="width:60%; border:solid 1px #F00; background-color:white;">
 <h4 style="color:red;"><b>Penalty Option</b></h4>
-<h5 style="color:red"><b>Enter Yearly Penalty Persentage</b></h5>
+<h5 style="color:red"><b>Enter Yearly Penalty Percentage</b></h5>
 <table border="0">
 <tr>
 <td colspan="2">
@@ -67,7 +64,7 @@ From First day
 </tr>
 </table>
 <div style="">
-<button class="btn green" name="sub" style="margin-left:35%;">Submit</button>
+<button class="btn green" name="sub" style="margin-left:35%;">Update</button>
 </div>
 <br />
 </div>
