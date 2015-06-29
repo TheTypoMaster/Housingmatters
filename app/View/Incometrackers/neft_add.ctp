@@ -9,6 +9,17 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
 </div>
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php
+foreach($cursor1 as $collection)
+{
+$bank_name = $collection['society']['bank_name'];	
+$ac_num = $collection['society']['ac_num'];
+$branch = $collection['society']['branch'];
+$account_name = $collection['society']['ac_name'];
+$ifsc_code = $collection['society']['ifsc_code'];	
+}
+?>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <table  align="center" border="1" bordercolor="#FFFFFF" cellpadding="0">
 <tr>
@@ -41,14 +52,14 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 <label style="font-size:14px;">Account Name<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" class="m-wrap span9" name="acno" id="acno" value="">
+<input type="text" class="m-wrap span9" name="acno" id="acno" value="<?php echo $account_name; ?>">
 <label id="acno"></label>
 </div>
 <br />
 
 <label style="font-size:14px;">Bank Name<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" class="m-wrap span9" name="bank_name" id="bnk" />
+<input type="text" class="m-wrap span9" name="bank_name" id="bnk" value="<?php echo $bank_name; ?>"/>
 <label id="bnk"></label>
 </div>
 <br />
@@ -59,17 +70,15 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 <label style="font-size:14px;">Account Number<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" name="acnu" class="m-wrap span9" id="acn"/>
+<input type="text" name="acnu" class="m-wrap span9" id="acn" value="<?php echo $ac_num; ?>"/>
 <label id="acn"></label>
 </div>
 <br />
 
 
-
-
 <label style="font-size:14px;">Branch<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" name="branch" class="m-wrap span9" id="bnch"/>
+<input type="text" name="branch" class="m-wrap span9" id="bnch" value="<?php echo $branch; ?>"/>
 <label id="bnch"></label>
 </div>
 <br />
@@ -77,7 +86,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 <label style="font-size:14px;">IFSC Code<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" class="m-wrap span9" name="ifsc" id="cdd"/>
+<input type="text" class="m-wrap span9" name="ifsc" id="cdd" value="<?php echo $ifsc_code; ?>"/>
 <label id="cdd"></label>
 </div>
 <br />
