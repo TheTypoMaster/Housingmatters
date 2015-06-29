@@ -721,7 +721,12 @@ foreach($cursor as $collection)
 {
 $society_name=$collection['society']["society_name"];
 $so_reg_no = $collection['society']['society_reg_num'];
-$so_address = $collection['society']['society_address'];	
+$so_address = $collection['society']['society_address'];
+$bank_name = @$collection['society']['bank_name'];	
+$ac_num = @$collection['society']['ac_num'];
+$branch = @$collection['society']['branch'];
+$account_name = @$collection['society']['ac_name'];
+$ifsc_code = @$collection['society']['ifsc_code'];		
 }
 $date_c = date('d-M-Y',strtotime($date_c));
 $date = date('d-M-Y',strtotime($date_from));
@@ -887,11 +892,11 @@ $html.='</table>
 </tr>
 <tr>
 <td><b>Account Name:</b></td>
-<td> &nbsp;&nbsp; '.$account_number.'</td>
+<td> &nbsp;&nbsp; '.$account_name.'</td>
 </tr>
 <tr>
 <td><b>Account No.:</b></td>
-<td> &nbsp;&nbsp; '.$account_number.'</td>
+<td> &nbsp;&nbsp; '.$ac_num.'</td>
 </tr>
 <tr>
 <td><b>Bank Name:</b></td>
@@ -899,7 +904,7 @@ $html.='</table>
 </tr>
 <tr>
 <td><b>Branch Name:</b></td>
-<td> &nbsp;&nbsp; '.$bank_branch .'</td>
+<td> &nbsp;&nbsp; '.$branch .'</td>
 </tr>
 <tr>
 <td><b>IFSC no.:</b></td>
@@ -1566,6 +1571,11 @@ foreach($cursor as $collection)
 $society_name=$collection['society']["society_name"];
 $so_reg_no = $collection['society']['society_reg_num'];
 $so_address = $collection['society']['society_address'];	
+$bank_name = @$collection['society']['bank_name'];	
+$ac_num = @$collection['society']['ac_num'];
+$branch = @$collection['society']['branch'];
+$account_name = @$collection['society']['ac_name'];
+$ifsc_code = @$collection['society']['ifsc_code'];
 }
 $date_c = date('d-M-Y',strtotime($date_c));
 $date = date('d-M-Y',strtotime($date_from));
@@ -1725,10 +1735,12 @@ $html.='</table>
 </tr>
 <tr>
 <td valign="top">
+$ac_num = @$collection['society']['ac_num'];
+$ifsc_code = @$collection['society']['ifsc_code'];
 <table border="0" style="width:70%; float:left;">
 <tr>
 <td style="text-align:right; width:20%;">Account Name:</td>
-<td> &nbsp;&nbsp; '.$account_number.'</td>
+<td> &nbsp;&nbsp; '.$account_name.'</td>
 </tr>
 <tr>
 <td style="text-align:right;">Bank Name:</td>
@@ -1736,7 +1748,7 @@ $html.='</table>
 </tr>
 <tr>
 <td style="text-align:right;">Branch Name:</td>
-<td> &nbsp;&nbsp; '.$bank_branch .'</td>
+<td> &nbsp;&nbsp; '.$branch .'</td>
 </tr>
 <tr>
 <td style="text-align:right;">IFSC no.:</td>
