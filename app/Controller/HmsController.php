@@ -18324,36 +18324,42 @@ function n2www($num){
 $numbers10 = array('ten','twenty','thirty','fourty','fifty','sixty','seventy','eighty','ninety');
 $numbers01 = array('one','two','three','four','fife','six','seven','eight','nine','ten',
     'eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen');
+$string="";
 
 if($num == 0) {
-    echo "zero";
+    $string.="zero ";
 }
 
 $thousands = floor($num/1000);
 if($thousands != 0) {
-    echo $numbers01[$thousands-1] . " thousand ";
+    $string.= $numbers01[$thousands-1] . " thousand ";
     $num -= $thousands*1000;
 }
 
 $hundreds = floor($num/100);
 if($hundreds != 0) {
-    echo $numbers01[$hundreds-1] . " hundred ";
+    $string.= $numbers01[$hundreds-1] . " hundred ";
     $num -= $hundreds*100;
 }
 
 if($num < 20) {
     if($num != 0) {
-        echo $numbers01[$num-1];
+        $string.= $numbers01[$num-1];
     }
 } else {
+	
     $tens = floor($num/10);
-    echo $numbers10[$tens-1] . " ";
+    $string.= $numbers10[$tens-1] . " ";
     $num -= $tens*10;
 
     if($num != 0) {
-        echo $numbers01[$num-1];
+		
+        $string.= $numbers01[$num-1];
+		
     }
+	
 }
+return $string; 
 }
 
 function serial_no($number)
@@ -18373,9 +18379,9 @@ else if($str_lenth==3)
 {
 $number='0'.$number;
 }
-echo $number;
+$string.= $number;
 
-
+echo $string;
 }
 
 
