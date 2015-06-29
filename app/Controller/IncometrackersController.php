@@ -820,11 +820,7 @@ Name :
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">Billing Period:</td>
-<<<<<<< HEAD
 <td style="text-align:left;">'.$datett.''. $year.'</td>
-=======
-<td style="text-align:left;">'.$monthB.' '. $year.'</td>
->>>>>>> origin/master
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;"><b>Due Date:</b></td>
