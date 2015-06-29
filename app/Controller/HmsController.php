@@ -18395,6 +18395,29 @@ return $this->cash_bank->find('all',array('conditions'=>$conditions));
 }
 /////////////// End Terms Conditions Fetch (Accounts)//////////////////////////////////////////
 
+/////////////// Start Petty Cash receipt Fetch (Accounts)///////////////////////////////////////
+
+function petty_cash_receipt_fetch($user_id,$receipt_id) 
+{
+$this->layout='blank';
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
+	
+$this->loadmodel('cash_bank');
+$conditions=array("bill_reference"=>$receipt_id,"user_id"=>$user_id,"society_id"=>$s_society_id,"module_id"=>3);
+return $this->cash_bank->find('all',array('conditions'=>$conditions));
+}
+/////////////// End Terms Conditions Fetch (Accounts)//////////////////////////////////////////
+
+
+
+
+
+
+
+
+
 
 ////////////////// Start Regular Bill Fetch(Accounts)/////////////////////////////////////////
 function regular_bill_fetch($user_id) 
