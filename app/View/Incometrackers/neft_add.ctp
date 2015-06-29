@@ -13,11 +13,11 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <?php
 foreach($cursor1 as $collection)
 {
-$bank_name = $collection['society']['bank_name'];	
-$ac_num = $collection['society']['ac_num'];
-$branch = $collection['society']['branch'];
-$account_name = $collection['society']['ac_name'];
-$ifsc_code = $collection['society']['ifsc_code'];	
+$bank_name = @$collection['society']['bank_name'];	
+$ac_num = @$collection['society']['ac_num'];
+$branch = @$collection['society']['branch'];
+$account_name = @$collection['society']['ac_name'];
+$ifsc_code = @$collection['society']['ifsc_code'];	
 }
 ?>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
