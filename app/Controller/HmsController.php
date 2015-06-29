@@ -16641,7 +16641,7 @@ $this->layout='session';
 function regular_bill($user_id)
 {
 $this->loadmodel('regular_bill');
-$conditions=array("bill_for_user" => $user_id,"status" => 0);
+$conditions=array("bill_for_user" => $user_id,"status" => 0,"approve_status" => 2);
 return $this->regular_bill->find('all',array('conditions'=>$conditions));
 }
 ///////////////////// End Rgular Bill Fetch (Accounts)///////////////////////////////////////
@@ -19313,7 +19313,7 @@ $this->set('cursor1',$cursor1);
 function regular_bill_fetch2($user_id) 
 {
 $this->loadmodel('regular_bill');
-$conditions=array("bill_for_user" => $user_id);
+$conditions=array("bill_for_user" => $user_id,"approve_status" => 2);
 return $this->regular_bill->find('all',array('conditions'=>$conditions));
 }
 ////////////////// End Regular Bill Fetch2(Accounts)//////////////////////////////
