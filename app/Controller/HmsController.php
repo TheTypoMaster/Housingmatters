@@ -14074,7 +14074,7 @@ $reply=$from;
 <p> Medical professional : $med_pro </p>
 <br/>
 Thank you.<br/>
-HousingMatters (Support Team)<br/><br/>
+HousingMatters (Support Team)<br/>
 www.housingmatters.co.in
 </div >
 </div>";
