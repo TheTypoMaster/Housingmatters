@@ -90,6 +90,7 @@
 					@$blood_group=@$collection['user']['blood_group'];
 					$private_field=@$collection['user']['private'];
 					$multi_flat=@$collection['user']['multiple_flat'];
+					$contact_emergency3=@$collection['user']['contact_emergency'];
 					
 				 }
 				  
@@ -350,13 +351,13 @@ $flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat
 											<select class="m-wrap m-ctrl-medium chosen" data-placeholder="Choose Age Group" name="age">
 											<option value="" style="display:none;"></option>
 											<option value="1"<?php if($da_dob==1){?>selected <?php } ?>> 18-24 </option>
-											<option value="2"> 25-34 </option>
-											<option value="3"> 35-44 </option>
-											<option value="4"> 45-54 </option>
-											<option value="5"> 55-64 </option>
-											<option value="6"> 65-74 </option>
-											<option value="7"> 75-84 </option>
-											<option value="8"> 85-94 </option>
+											<option value="2" <?php if($da_dob==2){?>selected <?php } ?>> 25-34 </option>
+											<option value="3"<?php if($da_dob==3){?>selected <?php } ?>> 35-44 </option>
+											<option value="4"<?php if($da_dob==4){?>selected <?php } ?>> 45-54 </option>
+											<option value="5" <?php if($da_dob==5){?>selected <?php } ?>> 55-64 </option>
+											<option value="6" <?php if($da_dob==6){?>selected <?php } ?>> 65-74 </option>
+											<option value="7" <?php if($da_dob==7){?>selected <?php } ?>> 75-84 </option>
+											<option value="8"<?php if($da_dob==8){?>selected <?php } ?>> 85-94 </option>
 
 											</select> 
 										  
@@ -379,6 +380,46 @@ $flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat
 										</div>
 										
 									</div>
+									
+									
+									
+									
+									
+									
+									<div class="accordion-group" style="border:solid 0px white;">
+										<div class="accordion-heading" style="background-color:#FFFFFF; padding-left:10px;">
+											<table width="100%">
+                                        <tbody><tr>
+                                        <td width="55%"><span style="margin-left:40%; font-size:14px; color:#666;">Contact number Emergency</span></td>
+                                       
+                                        <td width="29%">
+																  
+										  <input type="text" class="m-wrap valid" id="cont_emergency" value="<?php echo $contact_emergency3 ; ?>" name="contact_emergency1" maxlength="10">
+											
+										  
+										  
+										</td>
+											
+										<td width="12%">
+										<div id="show_public"> </div>
+										<select class="span12 m-wrap" data-placeholder="Choose a Category" tabindex="1" name="sel_private" onchange="check_public(this.value)" id="check_id">
+										<option value="contact_emergency,0">Public</option>
+										<option value="contact_emergency,1" <?php if(@in_array('contact_emergency',$private_field)) { ?> selected <?php } ?>>Private</option>
+
+										</option></select>
+
+
+										<td>
+											
+                                        </tr>
+                                        </tbody></table>
+										</div>
+										
+									</div>
+									
+									
+									
+									
 									
 									
 									
@@ -606,7 +647,15 @@ email: {
 			//required: true,
 			email : true,
 			remote: "profile_email_check"
-	      }		  
+	      },
+
+contact_emergency1: {
+			number: true,
+			minlength: 10,
+			maxlength: 10,
+			
+	      },
+		  
 	    },
 		
 		messages: {
