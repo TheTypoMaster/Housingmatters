@@ -493,6 +493,7 @@ $sms_sender=$r_sms->sms_sender;
 $ticket_no=$t;
 $category_name=$this->help_desk_category_name($category);
 $sms='New Helpdesk ticket '.$ticket_no.' - '.$category_name.' raised+by '.$user_name.' - '.$wing_flat.' Please log into HousingMatters for further action.';
+$mobile="9887779123";
 $sms1=str_replace(' ', '+', $sms);
 ////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');		
 $message_web="<div>
