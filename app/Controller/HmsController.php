@@ -13924,6 +13924,7 @@ if($this->request->is('post'))
  @$hob=htmlentities($this->request->data['hob']);
  @$photo_name =$this->request->form['profile_photo']['name'];
  @$blood_group=htmlentities($this->request->data['blood_group']);
+ @$contact_emergency=htmlentities($this->request->data['contact_emergency1']);	
 
 if($blood_group==1)
 {
@@ -14042,7 +14043,7 @@ if(empty($photo_name))
 	$ok=1;
 	move_uploaded_file(@$this->request->form['profile_photo']['tmp_name'],@$target); 
 	$this->loadmodel('user');
-	$this->user->updateAll(array("user_name" => $name,"email" => $email,'mobile'=>$mobile,'sex'=>$sex,'dob'=>$age,'per_address'=>$per_address,'comm_address'=>$com_address,'hobbies'=>$hob,'profile_pic'=>$photo_name,'blood_group'=>$blood_group,'medical_pro'=>$medical),array("user_id" => $s_user_id));
+	$this->user->updateAll(array("user_name" => $name,"email" => $email,'mobile'=>$mobile,'sex'=>$sex,'dob'=>$age,'per_address'=>$per_address,'comm_address'=>$com_address,'hobbies'=>$hob,'profile_pic'=>$photo_name,'blood_group'=>$blood_group,'medical_pro'=>$medical,'contact_emergency'=>$contact_emergency),array("user_id" => $s_user_id));
 
 $to=$email;
 $from_name="HousingMatters";
@@ -14056,7 +14057,7 @@ $from=$collection['email']['from'];
 }
 $reply=$from;
 
-echo @$message_web="<div>
+  @$message_web="<div>
 <img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 <span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
 <a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
@@ -14064,12 +14065,13 @@ echo @$message_web="<div>
 <p> Name : $name </p>
 <p> Mobile : $mobile </p>
 <p> Email : $email </p>
-<p> Age : $age_group </p>
+<p> Age group : $age_group </p>
+<p> Contact number emergency : $contact_emergency </p>
 <p> Permanent address : $per_address </p>
 <p> Communication address : $com_address </p>
 <p> Hobbies : $hob </p>
-<p> Blood Group : $b_group </p>
-<p> medical professional : $med_pro </p>
+<p> Blood group : $b_group </p>
+<p> Medical professional : $med_pro </p>
 <br/>
 Thank you.<br/>
 HousingMatters (Support Team)<br/><br/>

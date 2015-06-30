@@ -760,7 +760,7 @@ $year = date('Y',strtotime($dat2));
 $monthB = implode("-",$month2);
 
 //////////////////////////////////////////////////
-$html='<div style="width:100%;margin:auto;">
+$html='<div style="width:70%;margin:auto;">
 <div style="background-color:white; overflow:auto;">
 <div style="border:solid 1px; overflow:auto;">
 <table border="0" style="width:15%; float:left;">
@@ -948,42 +948,35 @@ $html.='<tr>
 $html.='<tr>
 <th style="text-align:right; padding-right:8%;">'.$grand_total2.'</th>
 </tr>';
-$grand_total2 = str_replace( ',', '', $grand_total2 );
-$am_in_words=$this->n2www($grand_total2); 
+
 $html.='</table>
 </td>
 </tr>
-<tr><td colspan="2"><b>Due For Payment in Words :</b> '.$am_in_words.'</td></tr>
+<tr><td colspan="2"><b>Due For Payment in Words :</b> here amount</td></tr>
 </table>
 </div>
 <div style="overflow:auto; border:solid 1px; border-top:none;border-bottom: none;padding:5px;">
-<table border="0" width="100%">
+<table border="0" style="width:100%;">
 <tr>
-<th style="text-align:left;width:60%;">
+<th style="text-align:left;">
 Remarks:
 </th>
-<th style="text-align:right;">
-<span style="font-weight: normal;">For</span> <b>'.$society_name.' Society</b>
-</th>
 </tr>';
-$count=0;
 for($r=0; $r<sizeof($terms_arr); $r++)
 {
-$count++;
 $tems_name = $terms_arr[$r];
 $html.='
 <tr>
-<td style="text-align:left;">'.$count.'.  '.$tems_name.'</td>
-<td style="text-align:right;"></td>
+<td style="text-align:left;">'.$tems_name.'</td>
 </tr>';
 }
-$html.='</table>
+$html.='</table> 
 </div>
 <div style="overflow:auto; border:solid 1px; border-top:none;padding:5px;">
 
 <table border="0" style="width:100%;">
 <tr>
-<td style="text-align:right;"></td>
+<td style="text-align:right;">For  <b>'.$society_name.' Society</b></td>
 </tr>
 <tr>
 <td style="text-align:left;">Note: This is computer generated bill hance no signature required.</td>
@@ -1742,8 +1735,6 @@ $html.='</table>
 </tr>
 <tr>
 <td valign="top">
-$ac_num = @$collection["society"]["ac_num"];
-$ifsc_code = @$collection["society"]["ifsc_code"];
 <table border="0" style="width:70%; float:left;">
 <tr>
 <td style="text-align:right; width:20%;">Account Name:</td>
