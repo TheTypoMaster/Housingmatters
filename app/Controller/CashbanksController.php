@@ -286,22 +286,32 @@ $this->ledger->saveAll($multipleRowData);
 
 
 $this->loadmodel('regular_bill');
-$conditions=array("receipt_id" => $bill_no);
+$conditions=array("receipt_id" => $bill_no,"society_id"=>$s_society_id);
 $cursor=$this->regular_bill->find('all',array('conditions'=>$conditions));
 foreach ($cursor as $collection) 
 {
 $remain_amt = $collection['regular_bill']['remaining_amount'];
+$arrears_amt = (int)$collection['regular_bill']['arrears_amt'];
 }
+if($amount >= $arrears_amt)
+{
+$arrears_amt = 0;
+}
+else
+{
+$arrears_amt = (int)$arrears_amt - $amount;
+}
+
 $due_amt = $remain_amt - $amount;
 if($due_amt == 0)
 {
 $this->loadmodel('regular_bill');
-$this->regular_bill->updateAll(array("remaining_amount" => $due_amt, "status" => 1),array("receipt_id" => $bill_no));
+$this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"status" => 1),array("receipt_id" => $bill_no));
 }
 else
 {
 $this->loadmodel('regular_bill');
-$this->regular_bill->updateAll(array("remaining_amount" => $due_amt, "status" => 0),array("receipt_id" => $bill_no));
+$this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"status" => 0),array("receipt_id" => $bill_no));
 }
 }		
 else if($member_id == 2)
@@ -1392,7 +1402,6 @@ $account_no = $collection['ledger_sub_account']['bank_account'];
 /////////////////////////// End Bank Payment Excel ///////////////////////////////
 
 ///////////////////// Start Petty cash Receipt (Accounts)///////////////////////////
-
 function petty_cash_receipt()
 {
 if($this->RequestHandler->isAjax()){
@@ -3195,24 +3204,33 @@ $this->ledger->saveAll($multipleRowData);
 
 if($account_group == 1)
 {
+
 $this->loadmodel('regular_bill');
 $conditions=array("receipt_id" => $bill_receipt);
 $cursor=$this->regular_bill->find('all',array('conditions'=>$conditions));
 foreach ($cursor as $collection) 
 {
-$remain_amt = $collection['regular_bill']['remaining_amount'];
+$remain_amt = (int)$collection['regular_bill']['remaining_amount'];
+$arrears_amt = (int)$collection['regular_bill']['arrears_amt'];
+}
+if($amt >= $arrears_amt)
+{
+$arrears_amt = 0;
+}
+else
+{
+$arrears_amt = (int)$arrears_amt - $amt;
 }
 $due_amt = $remain_amt - $amt;
-
 if($due_amt == 0)
 {
 $this->loadmodel('regular_bill');
-$this->regular_bill->updateAll(array("remaining_amount" => $due_amt, "status" => 1),array("receipt_id" => $bill_receipt));
+$this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"status" => 1),array("receipt_id" => $bill_receipt));
 }
 else
 {
 $this->loadmodel('regular_bill');
-$this->regular_bill->updateAll(array("remaining_amount" => $due_amt, "status" => 0),array("receipt_id" => $bill_receipt));
+$this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"status" => 0),array("receipt_id" => $bill_receipt));
 }
 }
 

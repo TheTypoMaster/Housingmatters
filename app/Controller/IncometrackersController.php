@@ -422,7 +422,7 @@ $regular_bill_id11++;
 $current_date11 = date('Y-m-d');
 //$current_date11 = new MongoDate(strtotime($current_date11));
 /////////////////////////////////////
-$total_amt = 0;
+
 $income_headd2 = array();
 for($s=0; $s<sizeof($income_head_arr); $s++)
 {
@@ -452,12 +452,10 @@ $this->loadmodel('ledger');
 $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" => $ih_amt, "amount_category_id" => 2,
 "table_name" => "regular_bill", "account_type" => 2, "account_id" => $auto_id_in, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
 $this->ledger->saveAll($multipleRowData);
-$total_amt = $total_amt + $ih_amt;
 }
 ///////////////////////////////////////
 if($noc_ch_id == 2)
 {
-
 $noc_amt = (int)$this->request->data['noc'.$user_id];
 
 $this->loadmodel('ledger');
@@ -483,7 +481,6 @@ $this->ledger->saveAll($multipleRowData);
 
 $income_headd = array(43,$noc_amt);
 $income_headd2[] = $income_headd;
-$total_amt = $total_amt + $noc_amt;
 }
 ////////////////////////////////////
 //$current_date = new MongoDate(strtotime(date("Y-m-d")));
@@ -493,8 +490,11 @@ $cursor = $this->regular_bill->find('all',array('conditions'=>$conditions));
 foreach($cursor as $collection)
 {
 //$due_amount11 = (int)$collection['regular_bill']['remaining_amount'];
-$due_date11 = $collection['regular_bill']['due_date'];
-$from_due = $collection['regular_bill']['bill_daterange_from'];
+$due_date11 = @$collection['regular_bill']['due_date'];
+$from_due = @$collection['regular_bill']['bill_daterange_from'];
+$tax_arrears = (int)@$collection['regular_bill']['accumulated_tax'];
+$arrear_amt = (int)@$collection['regular_bill']['arrears_amt'];
+$pr_amt = (int)$collection['regular_bill']['current_bill_amt'];
 }
 $cur_date = date('Y-m-d');
 //$cur_datec = new MongoDate(strtotime($cur_date));
@@ -611,7 +611,9 @@ $regular_bill_id = $this->autoincrement('regular_bill','regular_bill_id');
 $wing_flat = $this->wing_flat($wing_id,$flat_id);
 
 $current_date = date('Y-m-d');
-
+$current_bill_amt = (int)$this->request->data['tt'.$user_id];
+@$tax_arrears = (int)$tax_arrears + @$penalty_amt;
+@$arrear_amt = @$arrear_amt + @$pr_amt;
 //////////////////////////////////////////////////////////////
 $this->loadmodel('regular_bill');
 $order=array('regular_bill.receipt_id'=> 'DESC');
@@ -634,11 +636,10 @@ $multipleRowData = Array( Array("regular_bill_id" => $regular_bill_id,"receipt_i
 "description"=>$description,"date"=>$current_date, "society_id"=>$s_society_id,"bill_for_user"=>$user_id,
 "g_total"=>$grand_total,"bill_daterange_from"=>$m_from,"bill_daterange_to"=>$m_to,
 "bill_html"=>"","one_time_id"=>$one,"status" => 0,  
-"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "due_amount_tax" => @$penalty_amt,"remaining_amount"=>$grand_total,"total_amount" => $total_amt,"pay_amount"=>"", "due_amount" => @$over_due_amt,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt,"approve_status"=>1));
+"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "current_tax" => @$penalty_amt,"accumulated_tax"=>@$tax_arrears,"remaining_amount"=>$grand_total,"current_bill_amt" => $current_bill_amt,"arrears_amt"=>@$arrear_amt,"pay_amount"=>"", "due_amount" => @$over_due_amt,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt,"approve_status"=>1));
 $this->regular_bill->saveAll($multipleRowData);	
 
 $ussrs[]=$user_id;
-
 
 $this->send_notification('<span class="label label-warning" ><i class="icon-money"></i></span>','New bill for your flat '.$wing_flat.' is generated ',10,$r,$this->webroot.'Incometrackers/ac_statement_bill_view/'.$r,0,$ussrs);
 unset($ussrs);
@@ -660,7 +661,7 @@ $ih_detail2 = $collection['regular_bill']['ih_detail'];
 $date_c=$collection['regular_bill']["date"];
 $regular_bill_id=$collection['regular_bill']["regular_bill_id"];
 $grand_total = (int)$collection['regular_bill']['g_total'];
-$late_amt2 = (int)$collection['regular_bill']['due_amount_tax'];
+$late_amt2 = (int)$collection['regular_bill']['current_tax'];
 $due_amt2 = (int)$collection['regular_bill']['total_due_amount'];
 $due_date2 = @$collection['regular_bill']['due_date'];
 $narration = $collection['regular_bill']['description'];
@@ -829,7 +830,7 @@ Name :
 </tr>
 </table>
 </div>
-<div><b>Description:</b> '.$narration.'</div>
+<div><b>&nbsp;Description:</b> '.$narration.'</div>
 </div>
 <div style="overflow:auto;">
 <table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="5">
@@ -884,7 +885,7 @@ $html.='</table>
 <td valign="top">
 <table border="0" style="width:70%; float:left;">
 <tr>
-<td colspan="2">Check for NEFT Instructions</td>
+<td colspan="2">Cheque/NEFT payment instructions:</td>
 </tr>
 <tr>
 <td><b>Account Name:</b></td>
@@ -949,7 +950,7 @@ $am_in_words=$this->n2www($grand_total2);
 $html.='</table>
 </td>
 </tr>
-<tr><td colspan="2"><b>Due For Payment in Words :</b> '.$am_in_words.'</td></tr>
+<tr><td colspan="2"><b>Due For Payment (in words) :</b> '.$am_in_words.'</td></tr>
 </table>
 </div>';
 
@@ -966,9 +967,11 @@ $html.='<span>'.$count.'.  '.$tems_name.'</span><br/>';
 $html.='</div>
 <div style="width:30%;float:right;">For  <b>'.$society_name.' Society</div>
 </div>
-<div align="center" style="color: #6F6D6D;border: solid 1px;border-top: dotted 1px;">Note: This is computer generated bill hance no signature required.</div>
+<div align="center" style="color: #6F6D6D;border: solid 1px;border-top: dotted 1px;">Note: This is a computer generated bill hence no signature required.</div>
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;border: solid 1px #000;border-top: none;">
-<span>Email: support.housingmatters.in</span> &nbsp;|&nbsp; <span>Phone : 7738022880</span> &nbsp;|&nbsp; <span>Website : www.housingmatters.co.in</span></div>
+<span>Your Society is empowered by HousingMatters - 
+Making Life Simpler !</span><br/>
+<span>Email: support@housingmatters.in</span> &nbsp;|&nbsp; <span>Phone : 022-41235568</span> &nbsp;|&nbsp; <span>www.housingmatters.co.in</span></div>
 
 </div>
 </div>
@@ -1335,6 +1338,9 @@ foreach($cursor as $collection)
 //$due_amount11 = (int)$collection['regular_bill']['remaining_amount'];
 $due_date11 = $collection['regular_bill']['due_date'];
 $from_due = $collection['regular_bill']['bill_daterange_from'];
+$tax_arrears = (int)@$collection['regular_bill']['accumulated_tax'];
+$arrear_amt = (int)@$collection['regular_bill']['arrears_amt'];
+$pr_amt = (int)$collection['regular_bill']['current_bill_amt'];
 }
 $cur_date = date('Y-m-d');
 //$cur_datec = new MongoDate(strtotime($cur_date));
@@ -1446,6 +1452,9 @@ $regular_bill_id = $this->autoincrement('regular_bill','regular_bill_id');
 
 $wing_flat = $this->wing_flat($wing_id,$flat_id);
 
+$current_bill_amt = (int)$this->request->data['tt'.$user_id];
+@$tax_arrears = (int)$tax_arrears + @$penalty_amt;
+@$arrear_amt = @$arrear_amt + @$pr_amt;
 
 $this->loadmodel('regular_bill');
 $order=array('regular_bill.receipt_id'=> 'DESC');
@@ -1468,8 +1477,11 @@ $multipleRowData = Array( Array("regular_bill_id" => $regular_bill_id,"receipt_i
 "description"=>$description,"date"=>$current_date, "society_id"=>$s_society_id,"bill_for_user"=>$user_id,
 "g_total"=>$grand_total,"bill_daterange_from"=>$m_from,"bill_daterange_to"=>$m_to,
 "bill_html"=>"","one_time_id"=>$one,"status" => 0,  
-"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "due_amount_tax" => @$penalty_amt,"remaining_amount"=>$grand_total,"total_amount" => $total_amt,"pay_amount"=>"", "due_amount" => @$over_due_amt,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt,"approve_status"=>1));
+"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "current_tax" => @$penalty_amt,"accumulated_tax"=>@$tax_arrears,"remaining_amount"=>$grand_total,"current_bill_amt" => $current_bill_amt,"arrears_amt"=>@$arrear_amt,"pay_amount"=>"", "due_amount" => @$over_due_amt,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt,"approve_status"=>1));
 $this->regular_bill->saveAll($multipleRowData);	
+
+
+////////////////////
 
 ///////////////////////////////////////
 $ussrs[]=$user_id;
@@ -1492,7 +1504,7 @@ unset($ussrs);
 	$date_c=$collection['regular_bill']["date"];
 	$regular_bill_id=$collection['regular_bill']["regular_bill_id"];
 	$grand_total = (int)$collection['regular_bill']['g_total'];
-	$late_amt2 = (int)$collection['regular_bill']['due_amount_tax'];
+	$late_amt2 = (int)$collection['regular_bill']['current_tax'];
 	$due_amt2 = (int)$collection['regular_bill']['total_due_amount'];
 	$due_date2 = @$collection['regular_bill']['due_date'];
 	$narration = $collection['regular_bill']['description'];
