@@ -18475,8 +18475,13 @@ return $this->cash_bank->find('all',array('conditions'=>$conditions));
 ////////////////// Start Regular Bill Fetch(Accounts)/////////////////////////////////////////
 function regular_bill_fetch($user_id) 
 {
+$this->layout='blank';
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
+
 $this->loadmodel('regular_bill');
-$conditions=array("bill_for_user" => $user_id, "status" => 0);
+$conditions=array("bill_for_user" => $user_id, "status" => 0, "society_id"=>$s_society_id);
 return $this->regular_bill->find('all',array('conditions'=>$conditions));
 }
 
