@@ -767,7 +767,7 @@ $html='<div style="width:70%;margin:auto;">
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'  SOCIETY</div>
 <div style="padding:5px;">
 	<div style="float:left;">
-	<img src='.$webroot_path.'logo/Pacific_Bulb_Society_logo.jpg height="60px;"></img>
+	<img src='.$webroot_path.'logo/'.$log_img.' height="60px;"></img>
 	</div>
 	<div style="float:right;" align="right">
 	<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_reg_no.'</span><br/>
@@ -973,7 +973,7 @@ $html.='</div>
 </div>
 </div>
 ';
-echo $html; exit;
+
 $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array("bill_html" =>$html),array("regular_bill_id" =>$regular_bill_id));	
 ////////End Bill Html Code///////////////////
