@@ -829,7 +829,7 @@ Name :
 </tr>
 </table>
 </div>
-<div><b>Description:</b> '.$narration.'</div>
+<div><b>&nbsp;Description:</b> '.$narration.'</div>
 </div>
 <div style="overflow:auto;">
 <table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="5">
@@ -884,7 +884,7 @@ $html.='</table>
 <td valign="top">
 <table border="0" style="width:70%; float:left;">
 <tr>
-<td colspan="2">Check for NEFT Instructions</td>
+<td colspan="2">Cheque/NEFT payment instructions:</td>
 </tr>
 <tr>
 <td><b>Account Name:</b></td>
@@ -949,7 +949,7 @@ $am_in_words=$this->n2www($grand_total2);
 $html.='</table>
 </td>
 </tr>
-<tr><td colspan="2"><b>Due For Payment in Words :</b> '.$am_in_words.'</td></tr>
+<tr><td colspan="2"><b>Due For Payment (in words) :</b> '.$am_in_words.'</td></tr>
 </table>
 </div>';
 
@@ -966,9 +966,11 @@ $html.='<span>'.$count.'.  '.$tems_name.'</span><br/>';
 $html.='</div>
 <div style="width:30%;float:right;">For  <b>'.$society_name.' Society</div>
 </div>
-<div align="center" style="color: #6F6D6D;border: solid 1px;border-top: dotted 1px;">Note: This is computer generated bill hance no signature required.</div>
+<div align="center" style="color: #6F6D6D;border: solid 1px;border-top: dotted 1px;">Note: This is a computer generated bill hence no signature required.</div>
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;border: solid 1px #000;border-top: none;">
-<span>Email: support.housingmatters.in</span> &nbsp;|&nbsp; <span>Phone : 7738022880</span> &nbsp;|&nbsp; <span>Website : www.housingmatters.co.in</span></div>
+<span>Your Society is empowered by HousingMatters - 
+Making Life Simpler !</span><br/>
+<span>Email: support@housingmatters.in</span> &nbsp;|&nbsp; <span>Phone : 022-41235568</span> &nbsp;|&nbsp; <span>www.housingmatters.co.in</span></div>
 
 </div>
 </div>
