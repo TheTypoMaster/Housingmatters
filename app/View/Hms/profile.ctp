@@ -140,8 +140,12 @@ $flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat
 									{
 										$ccc++;
 									}
+									if(!empty($contact_emergency3))
+									{
+										$ccc++;
+									}
 						//$progres=$ccc*100/11;
-						$progres=$ccc*100/9;
+						$progres=$ccc*100/10;
 				
 
 ?>
