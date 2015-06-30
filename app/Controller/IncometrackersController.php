@@ -760,33 +760,29 @@ $year = date('Y',strtotime($dat2));
 $monthB = implode("-",$month2);
 
 //////////////////////////////////////////////////
+//echo $log_img;
 $html='<div style="width:70%;margin:auto;">
 <div style="background-color:white; overflow:auto;">
 <div style="border:solid 1px; overflow:auto;">
+<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'  SOCIETY</div>
+<div style="padding:5px;">
+	<div style="float:left;">
+	<img src='.$webroot_path.'logo/'.$log_img.' height="60px;"></img>
+	</div>
+	<div style="float:right;" align="right">
+	<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_reg_no.'</span><br/>
+	<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_address.'</span><br/>
+	<span>Email: '.$society_email.'</span> | <span>Phone : '.$society_phone.'</span>
+	</div>
+</div>
 <table border="0" style="width:15%; float:left;">
 <tr>
 <td>
-<img src='.$webroot_path.'logo/'.$log_img.' height="60px;" width="130px;"></img>
+
 </td>
 </tr>
 </table>
-<table border="0" style="width:100%;">
-<tr>
-<th style="font-size:20px; color:rgb(0, 141, 210);">
-'.strtoupper($society_name).'  SOCIETY
-</th>
-</tr>
-<tr>
-<th style=" color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_reg_no.'</th>
-</tr>
-<tr>
-<th style=" color: rgb(100, 100, 99); ">'.$so_address.'</th>
-</tr>
-</tr>
-<tr>
-<th style=" color: rgb(31, 31, 31); font-weight: 600; font-size: 12px;"><span>Email: '.$society_email.'</span> | <span>Phone : '.$society_phone.'</span</th>
-</tr>
-</table>
+
 </div>
 <div style="border:solid 1px; overflow:auto; border-top:none; border-bottom:none;padding:5px;">
 <div>
@@ -838,8 +834,8 @@ Name :
 <div style="overflow:auto;">
 <table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="5">
 <tr>
-<th style="width:80%; text-align:left;color: rgb(4, 126, 186);">Particulars</th>
-<th style="text-align:right;color: rgb(104, 104, 103);">Amount (Rs.)</th>
+<th style="width:80%; text-align:left;color: #fff;background-color: rgb(4, 126, 186);">Particulars</th>
+<th style="text-align:right;color: #fff;background-color: rgb(104, 104, 103);">Amount (Rs.)</th>
 <tr>
 <tr>
 <td valign="top" style="height:200px;">
@@ -948,41 +944,32 @@ $html.='<tr>
 $html.='<tr>
 <th style="text-align:right; padding-right:8%;">'.$grand_total2.'</th>
 </tr>';
-
+$grand_total2 = str_replace( ',', '', $grand_total2 );
+$am_in_words=$this->n2www($grand_total2);
 $html.='</table>
 </td>
 </tr>
-<tr><td colspan="2"><b>Due For Payment in Words :</b> here amount</td></tr>
+<tr><td colspan="2"><b>Due For Payment in Words :</b> '.$am_in_words.'</td></tr>
 </table>
-</div>
-<div style="overflow:auto; border:solid 1px; border-top:none;border-bottom: none;padding:5px;">
-<table border="0" style="width:100%;">
-<tr>
-<th style="text-align:left;">
-Remarks:
-</th>
-</tr>';
+</div>';
+
+$html.='<div style="overflow:auto;border:solid 1px;border-bottom:none;padding:5px;border-top: none;">
+<div style="width:70%;float:left;">
+<span>Remarks:</span><br/>';
+$count=0;
 for($r=0; $r<sizeof($terms_arr); $r++)
 {
+$count++;
 $tems_name = $terms_arr[$r];
-$html.='
-<tr>
-<td style="text-align:left;">'.$tems_name.'</td>
-</tr>';
+$html.='<span>'.$count.'.  '.$tems_name.'</span><br/>';
 }
-$html.='</table> 
+$html.='</div>
+<div style="width:30%;float:right;">For  <b>'.$society_name.' Society</div>
 </div>
-<div style="overflow:auto; border:solid 1px; border-top:none;padding:5px;">
+<div align="center" style="color: #6F6D6D;border: solid 1px;border-top: dotted 1px;">Note: This is computer generated bill hance no signature required.</div>
+<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;border: solid 1px #000;border-top: none;">
+<span>Email: support.housingmatters.in</span> &nbsp;|&nbsp; <span>Phone : 7738022880</span> &nbsp;|&nbsp; <span>Website : www.housingmatters.co.in</span></div>
 
-<table border="0" style="width:100%;">
-<tr>
-<td style="text-align:right;">For  <b>'.$society_name.' Society</b></td>
-</tr>
-<tr>
-<td style="text-align:left;">Note: This is computer generated bill hance no signature required.</td>
-</tr>';
-$html.='</table>
-</div>
 </div>
 </div>
 ';
@@ -5399,7 +5386,7 @@ $sms_sender=$r_sms->sms_sender;
 $sms='Dear '.$user_name.' '.$wing_flat.', your maintenance bill for period '.$sms_from.'-'.$sms_to.' is Rs '.$grand_total.'.Kindly pay by due '.$sms_due.'.'.$society_name.' Society';
 
 $sms1=str_replace(' ', '+', $sms);
-$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 }
 if($email_id == 1)
 {
