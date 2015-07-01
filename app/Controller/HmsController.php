@@ -4755,7 +4755,7 @@ $this->loadmodel('user');
 $conditions=array("mobile" => $mobile);
 $result4 = $this->user->find('all',array('conditions'=>$conditions));
 $n4 = sizeof($result4);
-$e=$n3+$n4;
+$e=$n4;
 
 if ($e > 0) {
 echo "false";
@@ -18327,7 +18327,7 @@ $numbers10 = array('ten','twenty','thirty','fourty','fifty','sixty','seventy','e
 $numbers01 = array('one','two','three','four','fife','six','seven','eight','nine','ten',
     'eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen');
 $string="";
-
+$num=(int)$num;
 if($num == 0) {
     $string.="zero ";
 }
