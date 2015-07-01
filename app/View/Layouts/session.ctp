@@ -319,7 +319,13 @@ $(document).ready(function() {
 	$(window).bind("load", function() {
 	   $('#notification_count').load('<?php echo Router::url(array('controller' => 'Hms', 'action' =>'notifications_count'), true); ?>');
 	   $('#alert_count').load('<?php echo Router::url(array('controller' => 'Hms', 'action' =>'alerts_count'), true); ?>');
-	   get_flash_message_output();
+	   
+	   setTimeout(
+		  function() 
+		  {
+			get_flash_message_output();
+		  }, 5000);
+	   
 	});
 	
 	function get_flash_message_output(){
