@@ -4755,7 +4755,7 @@ $this->loadmodel('user');
 $conditions=array("mobile" => $mobile);
 $result4 = $this->user->find('all',array('conditions'=>$conditions));
 $n4 = sizeof($result4);
-$e=$n3+$n4;
+$e=$n4;
 
 if ($e > 0) {
 echo "false";
