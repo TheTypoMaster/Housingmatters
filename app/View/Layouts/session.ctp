@@ -323,7 +323,7 @@ $(document).ready(function() {
 	   setTimeout(
 		  function() 
 		  {
-			get_flash_message_output();
+			//get_flash_message_output();
 		  }, 5000);
 	   
 	});
