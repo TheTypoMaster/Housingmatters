@@ -20744,7 +20744,7 @@ foreach($myArray as $child)
 		$random=(string)mt_rand(1000,9999);
 		 $sms="".$name.", Your housing society ".$s_n." has enrolled you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
 		$sms1=str_replace(" ", '+', $sms);
-		////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+		 $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 		
 		}
 
