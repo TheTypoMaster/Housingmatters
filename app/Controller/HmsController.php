@@ -267,7 +267,7 @@ $this->redirect(array('action' => 'index'));
 }
 function beforeFilter()
 {
-Configure::write('debug', 0);
+//Configure::write('debug', 0);
 }
 
 function menus_from_role_privileges()
@@ -353,7 +353,7 @@ function fetch_sub_module_id_from_role_prvg($module_id){
 	$s_role_id=$this->Session->read('role_id');
 
 	$this->loadmodel('role_privilege');
-	$conditions=array("module_id" => $module_id,"society_id"=>$s_society_id);
+	$conditions=array("module_id" => $module_id,"society_id"=>$s_society_id,"role_id" => $s_role_id);
 	return $result=$this->role_privilege->find('all',array('conditions'=>$conditions,'limit'=>1));
 }
 
