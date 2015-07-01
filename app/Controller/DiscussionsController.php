@@ -451,7 +451,7 @@ if($this->request->is('post'))
 	foreach($result as $data)
 	{
 		$society_name=$data['society']['society_name'];
-		$dis_email_setting=$data['society']['discussion_forum_email'];
+		$dis_email_setting=@$data['society']['discussion_forum_email'];
 
 	}
 
