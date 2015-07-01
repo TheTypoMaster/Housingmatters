@@ -768,7 +768,7 @@ $html='<div style="width:70%;margin:auto;">
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'  SOCIETY</div>
 <div style="padding:5px;">
 	<div style="float:left;">
-	<img src='.$webroot_path.'logo/'.$log_img.' height="60px;"></img>
+	<img src='.$webroot_path.'logo/'.$log_img.'  height="60px" width="60px"></img>
 	</div>
 	<div style="float:right;" align="right">
 	<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_reg_no.'</span><br/>
@@ -822,7 +822,7 @@ Name :
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">Billing Period:</td>
-<td style="text-align:left;">'.$datett.''. $year.'</td>
+<td style="text-align:left;">'.$monthB.''. $year.'</td>
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;"><b>Due Date:</b></td>
@@ -1610,6 +1610,223 @@ $year = date('Y',strtotime($dat2));
 $monthB = implode("-",$month2);
 
 //////////////////////////////////////////
+$html='<div style="width:70%;margin:auto;">
+<div style="background-color:white; overflow:auto;">
+<div style="border:solid 1px; overflow:auto;">
+<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'  SOCIETY</div>
+<div style="padding:5px;">
+	<div style="float:left;">
+	<img src='.$webroot_path.'logo/'.$log_img.' height="60px" width="60px"></img>
+	</div>
+	<div style="float:right;" align="right">
+	<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_reg_no.'</span><br/>
+	<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_address.'</span><br/>
+	<span>Email: '.$society_email.'</span> | <span>Phone : '.$society_phone.'</span>
+	</div>
+</div>
+<table border="0" style="width:15%; float:left;">
+<tr>
+<td>
+
+</td>
+</tr>
+</table>
+
+</div>
+<div style="border:solid 1px; overflow:auto; border-top:none; border-bottom:none;padding:5px;">
+<div>
+<table border="0" style="width:60%; float:left;">
+<tr>
+<td style="text-align:left; width:17%;font-weight: bold;">
+Name :
+</td>
+<td>'.$user_name.'</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">Bill No.:</td>
+<td style="text-align:left;">'.$receipt_id.' </td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">Bill Date:</td>
+<td style="text-align:left;">'.$date_c.'</td>
+</tr>
+<tr>
+<td style="text-align:left;"></td>
+<td style="text-align:left;"></td>
+</tr>
+</table>
+<table border="0" style="width:39%; float:right;">
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">Flat/Shop No.:</td>
+<td style="text-align:left;">'.$wing_flat.'</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">Area:</td>
+<td style="text-align:left;">'.$flat_area.' Sq Feet</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">Billing Period:</td>
+<td style="text-align:left;">'.$monthB.''. $year.'</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;"><b>Due Date:</b></td>
+<td style="text-align:left;"><b>'.$due_date21.'</b></td>
+</tr>
+</table>
+</div>
+<div><b>&nbsp;Description:</b> '.$narration.'</div>
+</div>
+<div style="overflow:auto;">
+<table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="5">
+<tr>
+<th style="width:80%; text-align:left;color: #fff;background-color: rgb(4, 126, 186);">Particulars</th>
+<th style="text-align:right;color: #fff;background-color: rgb(104, 104, 103);">Amount (Rs.)</th>
+<tr>
+<tr>
+<td valign="top" style="height:200px;">
+<table border="0" style="width:100%;">';
+
+for($x=0; $x<sizeof($ih_detail2); $x++)
+{
+$ih_det = $ih_detail2[$x];
+$ih_id5 = (int)$ih_det[0];
+if($ih_id5 != 43)
+{
+$result7 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($ih_id5)));
+foreach($result7 as $collection)
+{
+$ih_name = $collection['ledger_account']['ledger_name'];
+}
+}
+else
+{
+$ih_name = "Non Occupancy charges";
+}
+$html.='<tr>
+<td style="text-align:left;">'.$ih_name.'</td>
+</tr>';
+}
+
+$html.='</table>
+</td>
+<td valign="top">
+<table border="0" style="width:100%;">';
+for($y=0; $y<sizeof($ih_detail2); $y++)
+{
+$ih_det3 = $ih_detail2[$y];
+$amount = $ih_det3[1];
+//$amount2 = number_format($amount);
+$html.='<tr>
+<td style="text-align:right;">'.$amount.'</td>
+</tr>';
+$total_amount2 = $total_amount2 + $amount;
+}
+$due_amt3 = $due_amt2 - $late_amt2;
+$html.='</table>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<table border="0" style="width:70%; float:left;">
+<tr>
+<td colspan="2">Cheque/NEFT payment instructions:</td>
+</tr>
+<tr>
+<td><b>Account Name:</b></td>
+<td> &nbsp;&nbsp; '.$account_name.'</td>
+</tr>
+<tr>
+<td><b>Account No.:</b></td>
+<td> &nbsp;&nbsp; '.$ac_num.'</td>
+</tr>
+<tr>
+<td><b>Bank Name:</b></td>
+<td> &nbsp;&nbsp; '.$bank_name .'</td>
+</tr>
+<tr>
+<td><b>Branch Name:</b></td>
+<td> &nbsp;&nbsp; '.$branch .'</td>
+</tr>
+<tr>
+<td><b>IFSC no.:</b></td>
+<td> &nbsp;&nbsp; '.$ifsc_code.'</td>
+</tr>
+</table>
+<table border="0" style="width:30%;">';
+$html.='<tr>
+<td rowspan="4"></td>
+<td style="text-align:right; padding-right:2%;">Total:</td>
+</tr>';
+$html.='<tr>
+<td style="text-align:right; padding-right:2%;">Interest:</td>
+</tr>';
+$html.='<tr>
+<td style="text-align:right; padding-right:2%;">Arrears:</td>
+</tr>';
+$html.='<tr>
+<th style="text-align:right; padding-right:2%;">Due For Payment:</th>
+</tr>';
+$html.='</table>
+</td>
+<td valign="top">';
+$total_amount3 = number_format($total_amount2);
+$due_amt4 = number_format($due_amt3);
+$late_amt3 = number_format($late_amt2);
+$grand_total2 = number_format($grand_total);
+
+$html.='<table border="0" style="width:100%;">
+<tr>';
+$html.='
+<td style="text-align:right; padding-right:8%;">'.$total_amount3.'</td>
+</tr>';
+$html.='
+<tr>
+<td style="text-align:right; padding-right:8%;">'.@$late_amt3.'</td>
+</tr>';
+$html.='<tr>
+<td style="text-align:right; padding-right:8%;">'.@$due_amt4.'</td>
+</tr>';
+$html.='<tr>
+<th style="text-align:right; padding-right:8%;">'.$grand_total2.'</th>
+</tr>';
+$grand_total2 = str_replace( ',', '', $grand_total2 );
+$am_in_words=$this->n2www($grand_total2);
+$html.='</table>
+</td>
+</tr>
+<tr><td colspan="2"><b>Due For Payment (in words) :</b> '.$am_in_words.'</td></tr>
+</table>
+</div>';
+
+$html.='<div style="overflow:auto;border:solid 1px;border-bottom:none;padding:5px;border-top: none;">
+<div style="width:70%;float:left;">
+<span>Remarks:</span><br/>';
+$count=0;
+for($r=0; $r<sizeof($terms_arr); $r++)
+{
+$count++;
+$tems_name = $terms_arr[$r];
+$html.='<span>'.$count.'.  '.$tems_name.'</span><br/>';
+}
+$html.='</div>
+<div style="width:30%;float:right;">For  <b>'.$society_name.' Society</div>
+</div>
+<div align="center" style="color: #6F6D6D;border: solid 1px;border-top: dotted 1px;">Note: This is a computer generated bill hence no signature required.</div>
+<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;border: solid 1px #000;border-top: none;">
+<span>Your Society is empowered by HousingMatters - 
+Making Life Simpler !</span><br/>
+<span>Email: support@housingmatters.in</span> &nbsp;|&nbsp; <span>Phone : 022-41235568</span> &nbsp;|&nbsp; <span>www.housingmatters.co.in</span></div>
+
+</div>
+</div>
+';
+
+//////////////////////////////////
+/*
 $html='<center>
 <div style="700px; background-color:white; overflow:auto;">
 <br><Br><br>
@@ -1840,7 +2057,7 @@ Society-Phone:'.$society_phone.'
 </div>
 <br><br><br><br>
 </div>';
-
+*/
 $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array("bill_html" =>$html),array("regular_bill_id" =>$regular_bill_id));	
 ////////End Bill Html Code///////////////////

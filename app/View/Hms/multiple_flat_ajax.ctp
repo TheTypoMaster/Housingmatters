@@ -11,8 +11,8 @@ foreach($result_user as $data)
  $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing,$flat)));
 }
 $r=explode('-',$wing_flat);
- $wing_name=$r[0];
- $flat_name=$r[1];
+ @$wing_name=$r[0];
+ @$flat_name=$r[1];
 
 ?>
 <br>
