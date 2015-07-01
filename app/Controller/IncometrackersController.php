@@ -920,10 +920,10 @@ $html.='<tr>
 <td style="text-align:right; padding-right:2%;">Interest:</td>
 </tr>
 <tr>
-<td style="text-align:right; padding-right:2%;">Interest Arrears:</td>
+<td style="text-align:right; padding-right:2%;">Arrears(Int.):</td>
 </tr>';
 $html.='<tr>
-<td style="text-align:right; padding-right:2%;">Arrears:</td>
+<td style="text-align:right; padding-right:2%;">Arrears(Maint.):</td>
 </tr>';
 $html.='<tr>
 <th style="text-align:right; padding-right:2%;">Due For Payment:</th>
@@ -1779,10 +1779,10 @@ $html.='<tr>
 <td style="text-align:right; padding-right:2%;">Interest:</td>
 </tr>
 <tr>
-<td style="text-align:right;">Interest Arrears:</td>
+<td style="text-align:right;">Arrears(Int.):</td>
 </tr>';
 $html.='<tr>
-<td style="text-align:right; padding-right:2%;">Arrears:</td>
+<td style="text-align:right; padding-right:2%;">Arrears(Maint.):</td>
 </tr>';
 $html.='<tr>
 <th style="text-align:right; padding-right:2%;">Due For Payment:</th>
@@ -5638,7 +5638,7 @@ $sms_sender=$r_sms->sms_sender;
 $sms='Dear '.$user_name.' '.$wing_flat.', your maintenance bill for period '.$sms_from.'-'.$sms_to.' is Rs '.$grand_total.'.Kindly pay by due '.$sms_due.'.'.$society_name.' Society';
 
 $sms1=str_replace(' ', '+', $sms);
-////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.''); 
 }
 if($email_id == 1)
 {
