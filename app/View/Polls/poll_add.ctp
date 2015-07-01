@@ -52,13 +52,23 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 		<div class="control-group">
 			<div class="controls">
 			<label class="" style="font-size:14px;">Poll will be close after<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Your poll will expire by this date and Archived"> </i></label>
-			<input type="text" class="span4 m-wrap  m-ctrl-medium date-picker" data-date-format="dd-mm-yyyy" placeholder="Please select date"  name="poll_close_date">
+			
+			<select class="span3 m-wrap " name="poll_close_date" tabindex="1" id="poll_close_date">
+				<option value="">--select--</option>
+				<option value="7">7 days</option>
+				<option value="15">15 days</option>
+				<option value="30">30 days</option>
+				<option value="60">60 days</option>
+			</select>
+			
+			<!--<input type="text" class="span4 m-wrap  m-ctrl-medium date-picker" data-date-format="dd-mm-yyyy" placeholder="Please select date"  name="poll_close_date" id="poll_close_date" > -->
+			<label id="poll_close_date"></label>
 			</div>
 		</div>
 					
 					
 		<div class="control-group">
-		  <label class="control-label">Is this secret poll?    <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="visible only to selected users"> </i> </label>
+		  <label class="control-label">Is this secret poll?   <!-- <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="visible only to selected users"> </i> --> </label>
 		  
 			 <label class="checkbox">
 			 <div class="checker" ><span><input type="checkbox" value="1" name="private" style="opacity: 0;"></span></div>
@@ -102,10 +112,12 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 		  <label class="control-label">Choices</label>
 			<div id="choice_div">
 			  <div class="controls">
-				<input type="text" name="choice1" class="span10 m-wrap" placeholder="1." >
+				<input type="text" name="choice1" class="span10 m-wrap" placeholder="1." id="choice1" >
+				<label id="choice1"></label>
 			  </div>
 			  <div class="controls">
-				<input type="text" name="choice2" class="span10 m-wrap" placeholder="2." >
+				<input type="text" name="choice2" class="span10 m-wrap" placeholder="2." id="choice2" >
+				<label id="choice2"></label>
 			  </div>
 			</div>
 			<input type="hidden" value="2" name="choice_text_box" id="choice_text_box1">
@@ -187,7 +199,7 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 			</label>
 			</div>
 			<?php } ?>
-			</div><br/>
+			</div><br/><br/>
 			<label id="requirecheck2"></label>
 			</div>
 			<!---------------end visible-------------------------------->
@@ -207,7 +219,7 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 </div>
 
 <div class="form-actions" style="margin-bottom:0px !important;">
-	<button type="submit" name="create_poll" class="btn blue" ><i class="icon-question-sign"></i> Create Poll</button>
+	<button type="submit" name="create_poll" class="btn blue pol " ><i class="icon-question-sign"></i> Create Poll</button>
 	<a href="#myModal1" role="button" class="btn yellow" id="preview" data-toggle="modal">Preview</a>
 	<!--preview-------->
 	<div id="myModal1" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true" style="display: none;">
@@ -302,4 +314,89 @@ $(document).ready(function() {
 });
 </script>
 
+<script>
 
+$.validator.addMethod('requirecheck1', function (value, element) {
+	 return $('.requirecheck1:checked').size() > 0;
+}, 'Please check at least one role.');
+$.validator.addMethod('requirecheck2', function (value, element) {
+	 return $('.requirecheck2:checked').size() > 0;
+}, 'Please check at least one wing.');
+
+$(document).ready(function(){
+			var checkboxes = $('.requirecheck1');
+			var checkbox_names = $.map(checkboxes, function(e, i) {
+				return $(e).attr("name")
+			}).join(" ");
+			
+			
+			var checkboxes2 = $('.requirecheck2');
+			var checkbox_names2 = $.map(checkboxes2, function(e, i) {
+				return $(e).attr("name")
+			}).join(" ");
+			
+			$('.pol').bind('click',function(){
+			$('.pol').html('<i class="icon-question-sign"></i> Create Poll...');
+			});
+		$('#contact-form').validate({
+			
+		
+		 errorElement: "label",
+                    //place all errors in a <div id="errors"> element
+                    errorPlacement: function(error, element) {
+                        //error.appendTo("label#errors");
+						error.appendTo('label#' + element.attr('id'));
+                    }, 
+	    groups: {
+            asdfg: checkbox_names,
+			qwerty: checkbox_names2
+        },
+		
+		
+		rules: {
+	      question: {
+	       
+	        required: true
+			
+	      },
+		  
+		  description: {
+	        required: true,
+			
+			
+	      },
+		  choice1: {
+	        required: true,
+	      },choice2: {
+	        required: true,
+			},
+		  		 
+	    },
+		messages: {
+	                topic: {
+	                    maxlength: "Maximum 100 characters only."
+	                },
+					file: {
+						accept: "File extension must be gif or jpg",
+	                    filesize: "File size must be less than 1MB."
+	                },
+					description: {
+	                    maxlength: "Max 500 characters allowed.",
+						remote:"You have enter wrong word."
+	                }
+	            },
+			highlight: function(element) {
+				$(element).closest('.control-group').removeClass('success').addClass('error');
+				
+			},
+			success: function(element) {
+				element
+				.text('OK!').addClass('valid')
+				.closest('.control-group').removeClass('error').addClass('success');
+			}
+		
+	  });
+
+}); 
+
+</script>

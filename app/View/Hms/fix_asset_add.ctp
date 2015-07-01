@@ -3,7 +3,9 @@
 <a href="<?php echo $webroot_path; ?>Hms/fix_asset_add" class="btn red" rel='tab'>Add</a>
 <a href="<?php echo $webroot_path; ?>Hms/fix_asset_view" class="btn blue" rel='tab'>View</a>
 </center>
- 	
+<?php
+$default_date = date('d-m-Y');
+?> 	
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////// ?>			
 <div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">
 <h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Post Fix Asset</h4>			
@@ -32,7 +34,7 @@ else
 <div class="row-fluid">
 <div class="span6">		
 
-<label style="font-size:14px;">Asset Category<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Asset Category<span style="color:red;">*</span>  <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select asset category"> </i></label>
 <div class="controls">
 <select name="asset_category" class="m-wrap span9 chosen" id="as_cat">
 <option value="">Select category</option>
@@ -52,7 +54,7 @@ if($auto_id != 18)
 <br />				
 
 
-<label class="" style="font-size:14px;">Name of Supplier/Vendor<span style="color:red;">*</span></label>
+<label class="" style="font-size:14px;">Name of Supplier/Vendor<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select name of supplier/vendor"> </i></label>
 <div class="controls">
 <select name="vendor" class="m-wrap span9 chosen" id="supp">
 <option value="">Select</option>
@@ -75,7 +77,7 @@ $vendor_name=$db['ledger_sub_account']["name"];
 
 
 
-<label style="font-size:14px;">Asset Name<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Asset Name<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please fill asset name"> </i> </label>
 <div class="controls">
 <input type="text" class="m-wrap span9" name="name" id="name">
 <label report="nam" class="remove_report"></label>
@@ -93,15 +95,15 @@ $vendor_name=$db['ledger_sub_account']["name"];
 </div>
 <div class="span6">	
 
-<label style="font-size:14px;">Date of Purchase<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Date of Purchase<span style="color:red;">*</span>  <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select purchase date"> </i></label>
 <div class="controls">
-<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="purchase_date" id="pur_dat">
+<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="purchase_date" id="pur_dat" value="<?php echo $default_date; ?>">
 <label report="dat" class="remove_report"></label>
 </div>
 <br />				
 
 
-<label style="font-size:14px;">Cost of Purchase<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Cost of Purchase<span style="color:red;">*</span>  <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please fill purchase of cost"> </i></label>
 <div class="controls">
 <input type="text" class="m-wrap span9"  name="cost" id="cost">
 <label report="cos" class="remove_report"></label>
@@ -119,7 +121,7 @@ $vendor_name=$db['ledger_sub_account']["name"];
 
 
 
-<label style="font-size:14px;">Maintanance Schedule<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Maintanance Schedule<span style="color:red;">*</span>  <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please fill schedule of maintanance"> </i></label>
 <div class="controls">
 <input type="text" name="schedule" class="m-wrap span9" id="main">
 <label report="man" class="remove_report"></label>

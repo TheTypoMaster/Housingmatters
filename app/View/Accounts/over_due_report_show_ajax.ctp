@@ -1,10 +1,9 @@
 <?php
-
 $from1 = date("Y-m-d", strtotime($from));
-$from1 = new MongoDate(strtotime($from1));
+//$from1 = new MongoDate(strtotime($from1));
 
 $to1 = date("Y-m-d", strtotime($to));
-$to1 = new MongoDate(strtotime($to1));
+//$to1 = new MongoDate(strtotime($to1));
 
 $result1 = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch2'),array('pass'=>array(@$user_id)));
 foreach($result1 as $collection)
@@ -12,8 +11,9 @@ foreach($result1 as $collection)
 $user_id = $collection['user']['user_id'];
 $user_name = $collection['user']['user_name'];
 }
-
 ?>
+
+
 <?php /////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php 
 $nnn = 55;
@@ -50,9 +50,7 @@ if($date >= $from1 && $date <= $to1)
 {
 if($due_amt > 0)
 {
-
 $nnn = 555;
-
 }
 }
 }
@@ -177,9 +175,9 @@ if($date >= $from1 && $date <= $to1)
 {
 if($due_amt > 0)
 {
-$fromd = date('d-M-Y',$date_from->sec);	
-$tod = date('d-M-Y',$date_to->sec);	
-$dued = date('d-M-Y',$due_date->sec);	
+$fromd = date('d-M-Y',strtotime($date_from));	
+$tod = date('d-M-Y',strtotime($date_to));	
+$dued = date('d-M-Y',strtotime($due_date));	
 $c++;
 $grand_total = $grand_total + $total_amount;
 $total_due_amt = $total_due_amt + $due_amt;
@@ -215,9 +213,9 @@ if($date >= $from1 && $date <= $to1)
 {
 if($due_amt > 0)
 {
-$fromd = date('d-M-Y',$date_from->sec);	
-$tod = date('d-M-Y',$date_to->sec);	
-$dued = date('d-M-Y',$due_date->sec);	
+$fromd = date('d-M-Y',strtotime($date_from));	
+$tod = date('d-M-Y',strtotime($date_to));	
+$dued = date('d-M-Y',strtotime($due_date));	
 $c++;
 
 $grand_total = $grand_total + $total_amount;

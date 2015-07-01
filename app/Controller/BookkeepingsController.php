@@ -25,10 +25,10 @@ $this->set('cc',$cc);
 function journal_add()
 {
 if($this->RequestHandler->isAjax()){
-		$this->layout='blank';
-	}else{
-		$this->layout='session';
-	}
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
 	
 $this->ath();
 $this->check_user_privilages();
@@ -61,10 +61,6 @@ $count = sizeof(@$datef);
 $this->set('datef1',@$datef1);
 $this->set('datet1',@$datet1);
 $this->set('count',$count);
-
-
-
-
 
 
 $this->loadmodel('journal');
@@ -155,7 +151,6 @@ $current_date = new MongoDate(strtotime($current_date));
 
 if($l_type_id == 34 || $l_type_id == 15 || $l_type_id == 33 || $l_type_id == 35)
 { 
-
 $this->loadmodel('journal');
 $order=array('journal.auto_id'=> 'DESC');
 $cursor=$this->journal->find('all',array('order' =>$order,'limit'=>1));
@@ -181,7 +176,6 @@ $this->journal->saveAll($multipleRowData);
 }
 else
 {
-
 $this->loadmodel('journal');
 $order=array('journal.auto_id'=> 'DESC');
 $cursor=$this->journal->find('all',array('order' =>$order,'limit'=>1));
@@ -316,9 +310,6 @@ foreach($cursor as $collection)
 $society_name = $collection['society']['society_name'];
 }
 
-
-
-
 $excel="<table border='1'>
 <tr>
 <th colspan='6' style='text-align:center;'>
@@ -444,6 +435,31 @@ $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
 
 $this->set('s_role_id',$s_role_id);
+
+$receipt_no = (int)$this->request->query('r');
+
+if(!empty($receipt_no))
+{
+$this->loadmodel('journal');
+$conditions=array('receipt_id'=>$receipt_no);
+$this->journal->deleteAll($conditions);
+
+$this->loadmodel('ledger');
+$conditions=array('receipt_id'=>$receipt_no,"table_name"=>"journal");
+$this->ledger->deleteAll($conditions);
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -588,6 +604,12 @@ $this->loadmodel('ledger_account');
 $cursor1=$this->ledger_account->find('all');
 $this->set('cursor1',$cursor1);
 
+
+$this->loadmodel('flat');
+$conditions=array("society_id" => $s_society_id);
+$cursor2=$this->flat->find('all',array('conditions'=>$conditions));
+$this->set('cursor2',$cursor2);
+
 }
 /////////////////////////////////////////// End Ledger (Accounts)//////////////////////////////////////////////////////////////////////////////////////
 
@@ -643,10 +665,10 @@ $main_id = (int)$this->request->query('m');
 $sub_id = (int)$this->request->query('s');
 
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
 
 if($main_id == 34 || $main_id == 15 || $main_id == 33 || $main_id == 35)
 {
@@ -722,7 +744,6 @@ $op_im_cre = $amount_o;
 }
 }
 }
-
 
 if($receipt_id != 'O_B')
 {
@@ -881,7 +902,7 @@ if(@$date >= $m_from && @$date <= $m_to)
 {
 if($account_type == 1)
 {
-$date = date('d-m-Y',$date->sec);	
+$date = date('d-m-Y',strtotime($date));	
 
 $excel.="<tr>
 <td>$date</td>
@@ -1193,7 +1214,7 @@ if(@$date >= $m_from && @$date <= $m_to)
 {
 if($account_type == 2)
 {
-$date = date('d-m-Y',$date->sec);	
+$date = date('d-m-Y',strtotime($date));	
 
 $excel.="<tr>
 <td>$date</td>
@@ -1268,7 +1289,6 @@ $excel.="$closing_balance</th>
 
 $excel.="</table>";
 }
-
 echo $excel;
 }
 //////////////////////////// End Ledger Excel (Accounts)/////////////////////////////
@@ -1282,8 +1302,10 @@ $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
 
 $this->set('s_role_id',$s_role_id);
-
-
+$type = (int)$this->request->query('type');
+$this->set('type',$type);
+if($type == 1)
+{
 $main_id = (int)$this->request->query('main_id');
 $sub_id = (int)$this->request->query('sub_id');
 $date1 = $this->request->query('date1');
@@ -1292,6 +1314,34 @@ $this->set('main_id',$main_id);
 $this->set('sub_id',$sub_id);
 $this->set('date111',$date1);
 $this->set('date222',$date2);
+$this->set('type',$type);
+}
+if($type == 2)
+{
+$main_id = 34;
+$flat_id = (int)$this->request->query('flat_id');
+$date1 = $this->request->query('date1');
+$date2 = $this->request->query('date2');
+
+$this->loadmodel('user');
+$conditions=array("society_id" => $s_society_id,"flat"=>$flat_id);
+$cursor = $this->user->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$user_id = (int)@$collection['user']['user_id'];
+}
+$result_gh = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch3'),array('pass'=>array(@$user_id)));
+foreach ($result_gh as $collection) 
+{
+$sub_id = (int)$collection['ledger_sub_account']['auto_id'];
+}	
+$this->set('main_id',$main_id);
+$this->set('sub_id',$sub_id);
+$this->set('date111',$date1);
+$this->set('date222',$date2);
+$this->set('type',$type);
+
+}
 
 $this->loadmodel('financial_year');
 $conditions=array("society_id" => $s_society_id);
@@ -1302,7 +1352,7 @@ $from = $collection['financial_year']['from'];
 $to = $collection['financial_year']['to'];
 }
 $year = date('Y');
-$date_f = $from.'-'.$year;
+$date_f = @$from.'-'.$year;
 
 $datefrom = date('Y-m-d',strtotime($date_f));
 $datefrom = new MongoDate(strtotime($datefrom));
@@ -1367,7 +1417,7 @@ foreach($cursor as $collection)
 {
 $society_name = $collection['society']['society_name'];	
 }
-$this->set('society_name',$society_name);
+$this->set('society_name',@$society_name);
 
 
 
@@ -1399,14 +1449,12 @@ $this->set('cursor2',$cursor2);
 //////////////////////////////// End Jounal add new /////////////////////////////////////////////////////////////
 
 ///////////////////////////////// Start journal validation///////////////////////////////////////////////////////////
-
 function journal_validation()
 {
 $this->layout='blank';
 $q=$this->request->query('q');
 $q = html_entity_decode($q);
 $date2 = $this->request->query('b');
-
 
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id  = (int)$this->Session->read('user_id');
@@ -1438,12 +1486,13 @@ die($output);
 
 $date4 = date("Y-m-d", strtotime($date3));
 $date4 = new MongoDate(strtotime($date4));
-
+$cnnn = 55;
 $this->loadmodel('financial_year');
-$conditions=array("society_id" => $s_society_id);
+$conditions=array("society_id" => $s_society_id,"status"=>1);
 $cursor=$this->financial_year->find('all',array('conditions'=>$conditions));
 foreach($cursor as $collection)
 {
+$cnnn = 555;
 $from = $collection['financial_year']['from'];
 $to = $collection['financial_year']['to'];
 
@@ -1458,11 +1507,18 @@ else
 $abc = 555; 
 }
 }
+
+if($cnnn == 55)
+{
+$output = json_encode(array('type'=>'error', 'text' => 'Transaction Date is not in Financial Year'));
+die($output);
+}
 if($abc == 555)
 {
 $output = json_encode(array('type'=>'error', 'text' => 'Transaction Date is not in Financial Year'));
 die($output);
 }
+
 $myArray = json_decode($q, true);
 $c=0;
 $total_debit = 0;

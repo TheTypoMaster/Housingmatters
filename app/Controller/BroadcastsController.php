@@ -126,7 +126,7 @@ $mobile_im=implode(",", $mobile);
 //$user=implode(",", $user); 
 
 $s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m;
-$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
+ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
 
 	
 
@@ -171,7 +171,7 @@ $r_sms=$this->hms_sms_ip();
  $sms_sender=$r_sms->sms_sender; 
 
 
-$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
+ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
 
 $sms_id=$this->autoincrement('sms','sms_id');
 $this->loadmodel('sms');
@@ -307,7 +307,7 @@ $r_sms=$this->hms_sms_ip();
   $working_key=$r_sms->working_key;
  $sms_sender=$r_sms->sms_sender; 
 	
-$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
+ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
 
 $sms_id=$this->autoincrement('sms','sms_id');
 $this->loadmodel('sms');

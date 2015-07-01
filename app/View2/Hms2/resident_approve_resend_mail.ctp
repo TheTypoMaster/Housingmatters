@@ -1,1 +1,0 @@
-<strong>Email sent.</strong>

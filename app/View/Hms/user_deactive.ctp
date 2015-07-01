@@ -62,16 +62,18 @@ foreach ($result_society as $collection){
 				<td><?php echo $status; ?></td>
 				<td><?php echo $mobile; ?></td>
 				<td><?php echo $email; ?></td>
-				<td><a href="#" class="btn green mini deactive tooltips" data-placement="bottom" data-original-title="Activate?" id="<?php echo $user_id; ?>" role="button"><i class=" icon-ok-sign"></i></a></td>
+				<td>
+				<a href="#" class="btn green mini deactive_conferm tooltips" data-placement="bottom" data-original-title="Activate?" id="<?php echo $user_id; ?>" role="button"><i class=" icon-ok-sign"></i></a></td>
 			</tr>
 		<?php } ?>	
 		</tbody>
 	</table>
 </div>
-
+<div class="edit_div" style=""></div>
 <script>
 $(document).ready(function() {
-	$(".deactive").bind('click', function(e){
+	$(".deactive12").live('click', function(e){
+		$(".edit_div").hide();
 		$(this).text("Wait...");
 		var id=$(this).attr("id");
 		$.ajax({
@@ -83,6 +85,17 @@ $(document).ready(function() {
 					$("tr#tr"+id).remove();
 				}, 2000);
 			});
+		return false;
+	});
+	
+	$(".deactive_conferm").off().on('click', function(e){
+		var id=$(this).attr("id");
+		$('.edit_div').show();
+		$('.edit_div').html('<div class="modal-backdrop fade in"></div><div class="modal" id="poll_edit_content"><div class="modal-body"><span style="font-size:16px;"><i class=" icon-ok-sign" style="color:green;"></i> Are you sure you want to activate user ? </div><div class="modal-footer"><a href="#" class="btn green  deactive12 tooltips" data-placement="bottom" data-original-title="Activate?" id='+id+' role="button">Yes</a><button class="btn" id="close_edit">No</button></div></div>');
+		return false;
+	});
+	$("#close_edit").live('click', function(e){
+		$('.edit_div').hide();
 	});
 });
 </script>

@@ -11,18 +11,14 @@ foreach($result_user as $data)
  $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing,$flat)));
 }
 $r=explode('-',$wing_flat);
- $wing_name=$r[0];
- $flat_name=$r[1];
+ @$wing_name=$r[0];
+ @$flat_name=$r[1];
 
 ?>
 <br>
 
-<table>
-
-<tr>
-
-<td>
-
+<div style="float:left; width: 100%;">
+<div style="padding-right: 2px;float: left;">
 <select class="sel_wing" name='sel_wing_id' id='ccf'>
 <option value=''>Select Wing</option>
 <?php
@@ -39,20 +35,20 @@ foreach($result_wing as $data)
 <?php } ?>
 </select>
 <label id='ccf'></label>
-</td>
-<td>
+</div>
+<div style="padding-right: 2px;float: left;">
 <div id='sel_flat11'>
 <select >
 <option>Select flat</option>
 </select>
 </div>
-</td>
-<td style="vertical-align: top;"><button type="submit" class="btn blue" >Submit </button></td>
-</tr>
+</div>
+<div>
+<button type="submit" class="btn blue" >Submit </button>
+</div>
+</div>
 
-
-
-</table>
+<br/>
 <table  class='table table-striped table-bordered'>
 <tr>
 <td>Wing</td>

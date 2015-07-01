@@ -60,22 +60,26 @@ function index($id=null,$list=null){
 
 	if($list==0 or empty($list))
 	{
+		
+		
 		$conditions =array( '$or' => array( 
-		array('society_id' =>$s_society_id,'delete_id' =>0,'visible' =>1),
-		array('society_id' =>$s_society_id,'delete_id' =>0,'visible' =>2,'sub_visible' =>array('$in' => array($role_id))),
-		array('society_id' =>$s_society_id,'delete_id' =>0,'visible' =>3,'sub_visible' =>array('$in' => array($wing))),
-		array('society_id' =>$s_society_id,'delete_id' =>0,'visible' =>4),
-		array('society_id' =>$s_society_id,'delete_id' =>0,'visible' =>5)
+		array('society_id' =>$s_society_id,'delete_id' =>0,'visible' =>1,'users'=>$s_user_id),
+		array('society_id' =>$s_society_id,'delete_id' =>0,'visible' =>2,'users'=>$s_user_id,'sub_visible' =>array('$in' => array($role_id))),
+		array('society_id' =>$s_society_id,'delete_id' =>0,'visible' =>3,'users'=>$s_user_id,'sub_visible' =>array('$in' => array($wing))),
+		array('society_id' =>$s_society_id,'delete_id' =>0,'visible' =>4,'users'=>$s_user_id),
+		array('society_id' =>$s_society_id,'delete_id' =>0,'visible' =>5,'users'=>$s_user_id)
 		));
+		
 	}
 	if($list==1)
 	{
+		
 		$conditions =array( '$or' => array( 
-		array('user_id' =>$s_user_id,'delete_id' =>0,'visible' =>1),
+		array('user_id' =>$s_user_id,'delete_id' =>0,'visible' =>1,),
 		array('user_id' =>$s_user_id,'delete_id' =>0,'visible' =>2,'sub_visible' =>array('$in' => array($role_id))),
 		array('user_id' =>$s_user_id,'delete_id' =>0,'visible' =>3,'sub_visible' =>array('$in' => array($wing))),
-		array('user_id' =>$s_user_id,'delete_id' =>0,'visible' =>4),
-		array('user_id' =>$s_user_id,'delete_id' =>0,'visible' =>5)
+		array('user_id' =>$s_user_id,'delete_id' =>0,'visible' =>4,),
+		array('user_id' =>$s_user_id,'delete_id' =>0,'visible' =>5,)
 		));
 	}
 	if($list==2)
@@ -447,7 +451,7 @@ if($this->request->is('post'))
 	foreach($result as $data)
 	{
 		$society_name=$data['society']['society_name'];
-		$dis_email_setting=$data['society']['discussion_forum_email'];
+		$dis_email_setting=@$data['society']['discussion_forum_email'];
 
 	}
 

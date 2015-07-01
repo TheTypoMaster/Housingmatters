@@ -7,7 +7,6 @@ $("#fix<?php echo $id_current_page; ?>").removeClass("blue");
 $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
-
 <input type="hidden" id="fi" value="<?php echo $datef1; ?>" />
 <input type="hidden" id="ti" value="<?php echo $datet1; ?>" />
 <input type="hidden" id="cn" value="<?php echo $count; ?>" />
@@ -54,7 +53,7 @@ if($zz == 0)
 <br />
 
 
-<label style="font-size:14px;">A/c Group<span style="color:red;">*</span></label>
+<label style="font-size:14px;">A/c Group<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select account group"> </i></label>
 <div class="controls">
 <select name="type" id="go" class="m-wrap span9 chosen">
 <option value="" style="display:none;">Select</option>
@@ -66,7 +65,7 @@ if($zz == 0)
 <br />
 
 
-<label style="font-size:14px;">Expense/Party A/c<span style="color:red;">*</span></label></td>
+<label style="font-size:14px;">Expense/Party A/c<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select Expense/Party A/c"> </i></label></td>
 <div class="controls" id="show_user">
 <select   name="user_id" class="m-wrap span9 chosen" id="usr">
 <option value="" style="display:none;">Select</option>
@@ -87,7 +86,7 @@ if($zz == 0)
 
 
 
-<label style="font-size:14px;">Paid From<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Paid From<span style="color:red;">*</span> </label>
 <div class="controls">
 <select   name="account_head" class="m-wrap span9 chosen" id="ach">
 <option value="" style="display:none;">Select</option>
@@ -150,7 +149,7 @@ if($zz == 0)
 
 <script>
 $(document).ready(function() {
-	$("#go").live('change',function(){
+	$("#go").bind('change',function(){
 		
 		var value1 = document.getElementById('go').value;
 		$("#show_user").load("petty_cash_payment_ajax?value1=" +value1 + "");

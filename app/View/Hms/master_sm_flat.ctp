@@ -4,21 +4,19 @@ echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), a
 <div style="background-color:#EFEFEF; border-top:1px solid #e6e6e6; border-bottom:1px solid #e6e6e6; padding:10px; box-shadow:5px; font-size:16px; color:#006;">
 Society Setup
 </div>
-				
-				
+			
 <div class="tabbable tabbable-custom">
 <ul class="nav nav-tabs">
 <li ><a href="<?php echo $webroot_path; ?>Hms/master_sm_wing" rel='tab'> Wing</a></li>
-<li><a href="<?php echo $webroot_path; ?>Hms/flat_type" rel='tab'>Flat Type</a></li>
-<li class="active"><a href="<?php echo $webroot_path; ?>Hms/master_sm_flat" rel='tab'>Flat Configuration</a></li>
+<li><a href="<?php echo $webroot_path; ?>Hms/flat_type" rel='tab'>Unit Number</a></li>
+<li class="active"><a href="<?php echo $webroot_path; ?>Hms/master_sm_flat" rel='tab'>Unit Configuration</a></li>
 <!--<li><a href="<?php echo $webroot_path; ?>Hms/flat_nu_import" rel='tab'>Flat Number Import</a></li>-->
 <li><a href="<?php echo $webroot_path; ?>Hms/society_details" rel='tab' >Society Details</a></li>
 <li><a href="<?php echo $webroot_path; ?>Hms/society_settings" rel='tab'>Society Settings</a></li>
 </ul>
 <div class="tab-content" style="min-height:300px;">
 <div class="tab-pane active" id="tab_1_1">
-
-
+<div id="done" style="overflow:auto;">
 
 <a href="#" class="btn purple" role="button" id="import">Import csv</a>
 <div id='suces'>
@@ -26,14 +24,14 @@ Society Setup
 <div id="myModal3" class="modal hide fade in" style="display: none;">
 
 <div class="modal-backdrop fade in"></div>
-	<form id="form1" method="post">
-	<div class="modal">
-		<div class="modal-header">
-			<h4 id="myModalLabel1">Import csv</h4>
-		</div>
-		<div class="modal-body">
-			<input type="file" name="file" class="default">
-			
+<form id="form1" method="post">
+<div class="modal">
+<div class="modal-header">
+<h4 id="myModalLabel1">Import csv</h4>
+</div>
+<div class="modal-body">
+<input type="file" name="file" class="default" id="image-file">
+<label id="vali"></label>			
 			<strong><a href="<?php echo $this->webroot; ?>csv_file/unit_flat/flat_import.csv" download>Click here for sample format</a></strong>
 			<br/>
 			<h4>Instruction set to import users</h4>
@@ -52,20 +50,18 @@ Society Setup
 	</div>
 	</form>
 </div>
-
-
+</div>
+<?php ///////////////////////////////////////////////////////////////////////////////////////// ?>
+<div id="url_main" style="overflow:auto;">
 <table width="100%" style="background-color:#CDD5ED;">
 <tr class="table table-bordered table-hover" style="font-size:16px;">
 <th style="text-align:center;" width="25%">Wing</th>
-<th style="text-align:center;" width="25%">Flat Number</th>
-<th style="text-align:center;" width="25%">Flat Type</th>
-<th style="text-align:center;" width="25%">Flat Area (Sq.Ft.)</th>
+<th style="text-align:center;" width="25%">Unit Number</th>
+<th style="text-align:center;" width="25%">Unit Type</th>
+<th style="text-align:center;" width="25%">Unit Area (Sq.Ft.)</th>
 </tr>
 </table>
 <form id="form2" method="post">
-<div id="url_main" >
-
-
 
 <table width="100%" id="myTable">
 <tr class="table table-bordered table-hover" id="tr1">
@@ -90,13 +86,12 @@ $wing_name=$collection['wing']["wing_name"];
 					
 <td width="25%" style="text-align:center;">
 <select name="flat_type1" class="m-wrap medium" id="fltp1">
-<option value="">--SELECT FLAT TYPE--</option>
+<option value="">--SELECT UNIT TYPE--</option>
 <?php
 foreach($cursor4 as $collection)
 {
 $auto_id = (int)$collection['flat_type_name']['auto_id'];
 $flat_type_name = $collection['flat_type_name']['flat_name'];	
-
 ?>
 <option value="<?php echo $auto_id; ?>"><?php echo $flat_type_name; ?></option>
 <?php } ?>
@@ -113,7 +108,7 @@ $flat_type_name = $collection['flat_type_name']['flat_name'];
 </table>
 
 
-</div>
+
 <br/>
 <a role="button" class="btn blue " id="add_row"><i class="icon-plus"></i> Add row</a>
 <div align="center">
@@ -121,13 +116,13 @@ $flat_type_name = $collection['flat_type_name']['flat_name'];
 </div>
 </form>
 
-
+</div>
 </div>
 </div>
 </div>
 </div>			
 
-
+<?php //////////////////////////////////////////////////////////////////////////////////////// ?>
 
 
 
@@ -147,9 +142,9 @@ $flat_type_name = $collection['flat_type_name']['flat_name'];
 					<tr>
 					<th>Sr No.</th>
 					<th>Wing</th>
-					<th>Flat-Number</th>
-                    <th>Flat Type</th>
-                    <th>Flat Area (Sq. Ft.)</th>
+					<th>Unit Number</th>
+                    <th>Unit Type</th>
+                    <th>Unit Area (Sq. Ft.)</th>
                     <th>NOC Type</th>
 					</tr>
 							</thead>
@@ -210,20 +205,24 @@ $noc_type_name = "Leased";
   
 </div>
 </div>
-	
+<script>	
+$(document).ready(function(){
 
-
+});
+</script>
 <script>
 $(document).ready(function(){
 	 $("#add_row").bind('click',function(){
 		var count = $("#myTable tr").length;
 		count++;
+		
 		$("#url_main").append();
 		$.get('master_sm_flat_add_row?con='+count, function(data){
 			content= data;
 			$('#myTable').append(content);
 		});
 	 });
+	
 	
 	 $(".delete").live('click',function(){
 		var id = $(this).attr("id");
@@ -236,6 +235,7 @@ $(document).ready(function(){
 		var i=$(this).attr('inc_id');
 		$('#echo_flat'+i).html("Loading...").load('return_flat_via_wing_id3?con2='+c+'&con1='+i);
 	 });
+	 
 	 
 	 $('form#form2').submit( function(ev){
 		ev.preventDefault();
@@ -284,16 +284,31 @@ $("#import").bind('click',function(){
 	 });
 	 
 	  $("#close_div").bind('click',function(){
-		$("#myModal3").hide();
+	  $("#myModal3").hide();
 	 });
 	$(".wing").live('change',function(){
 		var c=this.value;
 		var i=$(this).attr('inc_id');
 		$('#showflat'+i).html("Loading...").load('return_flat_via_wing_id3?con2='+c+'&con1='+i);
 	 });
+	
+	
 	$('form#form1').submit( function(ev){
 			ev.preventDefault(); 
-			
+		
+		var im_name=$("#image-file").val();
+		
+		if(im_name==""){
+		$("#vali").html("<span style='color:red;'>Please Select a Csv File</span>");	
+		return false;
+		}
+		
+		var ext = $('#image-file').val().split('.').pop().toLowerCase();
+		if($.inArray(ext, ['csv']) == -1) {
+			$("#vali").html("<span style='color:red;'>Please Select a Csv File</span>");
+			return false;
+		}
+		
 		$(".import_btn").text("Importing...");
 		var m_data = new FormData();
 		m_data.append( 'file', $('input[name=file]')[0].files[0]);
@@ -305,9 +320,101 @@ $("#import").bind('click',function(){
 			type: 'POST',
 			}).done(function(response) {
 			$("#myModal3").hide();
-			$("#url_main table").html(response);
-	 });
+			$("#url_main").html(response);
+			
+    
+	
+var insert = 1;
+var count = $("#open_bal tr").length;
+var ar = [];
+
+for(var i=2;i<=count;i++)
+{
+$("#open_bal tr:nth-child("+i+") span.report").remove();
+$("#open_bal tr:nth-child("+i+") span.report").css("background-color","#FFF;");
+var wing = $("#open_bal tr:nth-child("+i+") td:nth-child(1) select").val();
+var flat=$("#open_bal tr:nth-child("+i+") td:nth-child(2) input").val();
+var type=$("#open_bal tr:nth-child("+i+") td:nth-child(3) select").val();
+var feet=$("#open_bal tr:nth-child("+i+") td:nth-child(4) input").val();
+
+ar.push([wing,flat,type,feet,insert]);
+}
+
+var myJsonString = JSON.stringify(ar);
+myJsonString=encodeURIComponent(myJsonString);
+	
+	
+$.ajax({
+url: "save_flat_imp?q="+myJsonString,
+type: 'POST',
+dataType:'json',
+}).done(function(response) {
+if(response.report_type=='error'){
+jQuery.each(response.report, function(i, val) {
+$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").append('<span class="report" style="color:red;">'+val.text+'</span>');
+
+$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
+
+$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
+
+$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
 });
+}	
+});
+});
+
+$(".import_op").live('click',function(){
+
+var insert = 2;
+var count = $("#open_bal tr").length;
+var ar = [];
+
+for(var i=2;i<=count;i++)
+{
+$("#open_bal tr:nth-child("+i+") span.report").remove();
+$("#open_bal tr:nth-child("+i+") span.report").css("background-color","#FFF;");
+var wing = $("#open_bal tr:nth-child("+i+") td:nth-child(1) select").val();
+var flat=$("#open_bal tr:nth-child("+i+") td:nth-child(2) input").val();
+var type=$("#open_bal tr:nth-child("+i+") td:nth-child(3) select").val();
+var feet=$("#open_bal tr:nth-child("+i+") td:nth-child(4) input").val();
+
+ar.push([wing,flat,type,feet,insert]);
+}
+
+var myJsonString = JSON.stringify(ar);
+myJsonString=encodeURIComponent(myJsonString);
+	
+	
+$.ajax({
+url: "save_flat_imp?q="+myJsonString,
+type: 'POST',
+dataType:'json',
+}).done(function(response) {
+if(response.report_type=='error'){
+jQuery.each(response.report, function(i, val) {
+$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").append('<span class="report" style="color:red;">'+val.text+'</span>');
+$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
+
+$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
+
+$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
+});
+}
+if(response.report_type=='vali')
+{
+$("#vali5").html('<b style="color:red;">'+response.text+'</b>');
+}
+if(response.report_type=='done')
+{
+$("#done").html('<div class="alert alert-block alert-success fade in"><h4 class="alert-heading">Success!</h4><p>Record Inserted Successfully</p><p><a class="btn green" href="<?php echo $webroot_path; ?>Hms/master_sm_flat" rel="tab">OK</a></p></div>');
+	
+}
+});
+
+});
+
+});
+
 
 }); 
 </script>				

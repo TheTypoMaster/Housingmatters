@@ -29,9 +29,6 @@ if(rs1=== '') { $('#validate_result').html('<div style="background-color:white; 
 <tr>
 <td><a href="<?php echo $webroot_path; ?>Incometrackers/select_income_heads" class="btn" rel='tab'>Selection of Income Heads</a>
 <td>
-<a href="<?php echo $webroot_path; ?>Incometrackers/it_setup" class="btn " style="font-size:16px;" rel='tab'>Terms & Condition</a>
-</td>
-<td>
 <a href="<?php echo $webroot_path; ?>Incometrackers/master_rate_card" class="btn yellow" style="font-size:16px;" rel='tab'>Rate Card</a>
 </td>
 <td>
@@ -39,6 +36,12 @@ if(rs1=== '') { $('#validate_result').html('<div style="background-color:white; 
 </td>
 <td>
 <a href="<?php echo $webroot_path; ?>Incometrackers/it_penalty" class="btn" style="font-size:16px;" rel='tab'>Penalty Option</a>
+</td>
+<td>
+<a href="<?php echo $webroot_path; ?>Incometrackers/neft_add" class="btn" style="font-size:16px;" rel='tab'>Add NEFT</a>
+</td>
+<td>
+<a href="<?php echo $webroot_path; ?>Incometrackers/it_setup" class="btn" style="font-size:16px;" rel='tab'>Remarks</a>
 </td>
 </tr>
 </table> 
@@ -181,7 +184,7 @@ if($b == 5)
 ?>
 <input type="hidden" value="<?php echo $nn; ?>" id="typ" />
 <input type="hidden" value="<?php echo $mm; ?>" id="rss" />
-<button type="submit" name="suxgxbb" class="btn green form_post" submit_type="sub">Submit</button>
+<button type="submit" name="suxgxbb" class="btn green form_post" submit_type="sub">Update</button>
 </div>
 </center>
 </form>

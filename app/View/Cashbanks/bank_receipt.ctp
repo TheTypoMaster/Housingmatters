@@ -49,7 +49,7 @@ else
   
 
 
-<label style="font-size:14px;">Transaction date<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Transaction date<span style="color:red;">*</span> </label>
 <div class="controls">
 <input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="date" placeholder="Transaction Date" style="background-color:white !important;" id="date" value="<?php echo $default_date; ?>">
 <label id="date"></label>
@@ -59,7 +59,7 @@ else
  
 
 
-<label  style="font-size:14px;">Receipt Mode<span style="color:red;">*</span></label>
+<label  style="font-size:14px;">Receipt Mode<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose receipt mode"> </i></label>
 <div class="controls">
 <label class="radio">
 <div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" value="Cheque" style="opacity: 0;" id="mode" class="chn"></span></div>
@@ -83,16 +83,17 @@ PG
 
  
  
-<label style="font-size:14px;">Instrument/UTR<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Instrument/UTR<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please fill Instrument/UTR"> </i></label>
 <div class="controls">
 <input type="text"  name="instruction" class="m-wrap span9" placeholder="Instrument/UTR" style="background-color:white !important;" id="ins">
+<label id="ins"></label>
 </div>
 <br /> 
  
  
  
 
-<label style="font-size:14px;">Deposited In<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Deposited In<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select deposit bank "> </i></label>
 <div class="controls">
 <select name="bank_account" class="span9 m-wrap chosen" id="bank">
 <option value="" style="display:none;">Deposited In</option>    
@@ -124,7 +125,7 @@ $bank_ac = $db['ledger_sub_account']["name"];
 
 
 
-<label style="font-size:14px;">Received from<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Received from<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose member/non-member "> </i></label>
 <div class="controls">
 <label class="radio">
 <div class="radio" id="uniform-undefined"><span><input type="radio" name="member" class="hhh" value="1" style="opacity: 0;" id="mem"></span></div>
@@ -205,53 +206,7 @@ Non-Member
      
 </div>
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<?php 
-/*          
-<div class="portlet box grey" style="width:60%; margin-left:20%; margin-right:20%;">
-<div class="portlet-title">
-<h4><i class="icon-reorder"></i>Bank Receipt</h4>
-</div>
-<div class="portlet-body form">
-<form id="contact-form" method="POST" class="form-horizontal" enctype="multipart/form-data">
-<center>             
-<table  style="width:80%;"> 
-
-
-                  
-
-
-
-
-
-
-
-
-
-
-
-            
-
-
-
-</div>
-
-
-
-<br />
-
-
-</center>
-<div class="form-actions" style="background-color:#CCC;">
-<button type="submit" class="btn green" name="bank_receipt_add" value="xyz" id="vali">Submit</button>
-<a href="bank_receipt" class="btn">Reset</a>
-</div>
-</form>
-</div>
-</div>
-           
-              
-*/ ?>         
-       
+     
               
 <?php /////////////////////////////////////////////////////////////////////////////////////////////// ?>              
 
@@ -262,18 +217,14 @@ Non-Member
 
 		var value1 = document.getElementById('go').value;
 		//var date2=document.getElementById('date2').value;
-
-
 		$("#result").load("bank_receipt_reference_ajax?value1=" +value1 + "");
-
-
 		});
 
 		$("#i_head").live('change',function(){
 
 		var ss = $("[id=i_head]").val();
 
-		$("#result2").html('Loding...').load("bank_receipt_amount_ajax?ss=" +ss + "");	
+		$("#result2").html('Loading...').load("bank_receipt_amount_ajax?ss=" +ss + "");	
 
 		});
 
@@ -299,7 +250,7 @@ $(document).ready(function() {
 		//$("#div13").hide();
 		
 	
-	$("#div11").html('Loding...').load("bank_receipt_ajax?ff=" + 5 + "");
+	$("#div11").html('Loading...').load("bank_receipt_ajax?ff=" + 5 + "");
 	
 	
 	});
@@ -311,37 +262,12 @@ $(document).ready(function() {
 		
 		$("#div13").show();
 	
-	$("#div11").html('Loding...').load("bank_receipt_ajax?ff=" + 8 + "");
+	$("#div11").html('Loading...').load("bank_receipt_ajax?ff=" + 8 + "");
 	
 	});
 	
 });
 </script>		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<?php /////////////// ?>
 
  <?php ////////////////////////////////////// ?>
 
@@ -399,7 +325,9 @@ $(document).ready(function(){
 	       
 	        required: true
 	      },
-		
+		instruction: {
+			 required: true
+		         },
 		 refn: {
 	       
 	        required: true
@@ -487,33 +415,27 @@ $(document).ready(function(){
 		{
 		$("#result11").load("cash_bank_vali?ss=" + 12 + "");		
 		}
-		
-		
-		
 		});
 		});
 		</script>	
 		
-
-
 <script>
 $(document).ready(function() {
-	$(".chn").live('click',function(){
-	$('#td1').html('<label style="font-size:14px;">Receipt/NEFT No.<span style="color:red;">*</span></label><div class="controls"><input type="text" name="no" class="m-wrap span9" id="no2"><label id="no2"></label></div><br>');    
-	
-	
-	//$('#td2').html('<br><input type="text" name="no" class="m-wrap medium" id="no2"><label id="no2"></label>');   
-	});
-	
-	$(".neft").live('click',function(){
-	$('#td1').html('<label style="font-size:14px;">Receipt/NEFT No.<span style="color:red;">*</span></label><div class="controls"><input type="text" name="no" class="m-wrap span9" id="no2"><label id="no2"></label></div><br>'); 
-	});
-	
-	$(".pg").live('click',function(){
-	$('#td1').html('');    
-	//$('#td2').html('');   	
-	   
-	});
+$(".chn").live('click',function(){
+$('#td1').html('<label style="font-size:14px;">Receipt/NEFT No.<span style="color:red;">*</span></label><div class="controls"><input type="text" name="no" class="m-wrap span9" id="no2"><label id="no2"></label></div><br>');    
+
+//$('#td2').html('<br><input type="text" name="no" class="m-wrap medium" id="no2"><label id="no2"></label>');   
+});
+
+$(".neft").live('click',function(){
+$('#td1').html('<label style="font-size:14px;">Receipt/NEFT No.<span style="color:red;">*</span></label><div class="controls"><input type="text" name="no" class="m-wrap span9" id="no2"><label id="no2"></label></div><br>'); 
+});
+
+$(".pg").live('click',function(){
+$('#td1').html('');    
+//$('#td2').html('');   	
+   
+});
 });
 </script>	
 

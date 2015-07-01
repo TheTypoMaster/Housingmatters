@@ -1,5 +1,5 @@
 <?php
-if($value == 34 || $value == 15 || $value == 33 || $value == 35)
+if($value == 15 || $value == 33 || $value == 35)
 {
 ?>
 <div class="control-group">
@@ -30,3 +30,34 @@ else
 <?php	
 }
 ?>
+
+<?php
+if($value == 34)
+{
+?>
+<div class="control-group">
+<div class="controls">
+<select class="span12 m-wrap chosen" name="l_type_name<?php echo $t; ?>" id="sul<?php echo $t; ?>">
+<option value="">--SELECT--</option>
+<?php
+
+foreach ($cursor1 as $collection) 
+{
+$auto_id = (int)$collection['ledger_sub_account']['auto_id'];
+$user_id = (int)$collection['ledger_sub_account']['user_id'];
+
+$result_user = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
+	foreach ($result_user as $collection) 
+	{
+	$user_name = $collection['user']['user_name'];  
+	}
+
+?>	
+<option value="<?php echo $auto_id; ?>"><?php echo $user_name; ?></option>
+<?php } ?>
+</select>
+</div>
+</div>
+
+<?php
+}

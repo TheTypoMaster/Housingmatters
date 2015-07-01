@@ -9,19 +9,20 @@ function check_in_range($d1, $d2, $help_desk_date)
 	  // Check that user date is between start & end
 	  return (($help_desk_date >= $d1) && ($help_desk_date <= $d2));
 	}
-	
+	//pr($result_help_desk_report1);
 foreach ($result_help_desk_report1 as $collection) 
 {
-$help_desk_date=$collection['help_desk']['help_desk_date'];
-$help_desk_date=date("Y-m-d",strtotime(date("d-m-y",strtotime($help_desk_date))));
+ $help_desk_date=$collection['help_desk']['help_desk_date'];
+ $help_desk_date=date("Y-m-d",strtotime(date("d-m-y",strtotime($help_desk_date))));
 	
 	if(check_in_range($d1, $d2, $help_desk_date)==1)
 	{
-	$help_desk_result[]=$collection['help_desk']['user_id'];
+	 $help_desk_result[]=(int)$collection['help_desk']['user_id'];
 	}
 }
+ 
 if(sizeof(@$help_desk_result)==0){ $help_desk_result=array(); };
-$c = array_count_values($help_desk_result); 
+$c= array_count_values($help_desk_result); 
 @$val_max = array_search(max($c), $c);
 @$val_min = array_search(min($c), $c);
 

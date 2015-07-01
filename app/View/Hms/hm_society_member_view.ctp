@@ -123,9 +123,9 @@ if($tenant==1)
 <td>
 <?php if($profile_status!=2) { ?>  
 <?php if(!empty($email)) { ?> 
-<a href="#" role='button' class="btn green mini resend" id="<?php echo $user; ?>" element_id='<?php echo $society_id ; ?>'>Send Reminder</a> <?php } elseif(!empty($mobile)) { ?>
-<a href="#" role='button' class="btn green mini resend_sms" id="<?php echo $user; ?>" element_id='<?php echo $society_id ; ?>'>Send Reminder</a> <?php } ?>
-<?php } ?> 
+<a href="#" role='button' class="btn green mini resend" id="<?php echo $user; ?>" element_id='<?php echo $society_id ; ?>'><i class=" icon-exclamation-sign"></i> Send Reminder</a> <?php } elseif(!empty($mobile)) { ?>
+<a href="#" role='button' class="btn green mini resend_sms" id="<?php echo $user; ?>" element_id='<?php echo $society_id ; ?>'><i class=" icon-exclamation-sign"></i> Send Reminder</a> <?php } ?>
+<?php } else {?>  <span> <a class="btn green mini"><i class=" icon-ok"></i> done</a></span>   <?php } ?> 
 </td>
 <td>
 <span> <?php echo $d_date; ?></span>
@@ -155,9 +155,9 @@ if($tenant==1)
 <td>
 <?php if($profile_status!=2) { ?> 
 <?php if(!empty($email)) { ?> 
-<a href="#" role='button' class="btn green mini resend" id="<?php echo $user; ?>" element_id='<?php echo $society_id ; ?>'>Send Reminder</a> <?php } elseif(!empty($mobile)) { ?>
-<a href="#" role='button' class="btn green mini resend_sms" id="<?php echo $user; ?>" element_id='<?php echo $society_id ; ?>'>Send Reminder</a> <?php } ?>
-<?php } ?> 
+<a href="#" role='button' class="btn green mini resend" id="<?php echo $user; ?>" element_id='<?php echo $society_id ; ?>'><i class=" icon-exclamation-sign"></i> Send Reminder</a> <?php } elseif(!empty($mobile)) { ?>
+<a href="#" role='button' class="btn green mini resend_sms" id="<?php echo $user; ?>" element_id='<?php echo $society_id ; ?>'><i class=" icon-exclamation-sign"></i> Send Reminder</a> <?php } ?>
+<?php }  else {?>  <span> <a class="btn green mini"><i class=" icon-ok"></i> done</a></span>   <?php }?> 
 </td>
 <td><span> <?php echo $d_date; ?></span></td>
 </tr>

@@ -151,7 +151,7 @@ background-color:rgb(218, 236, 240);
 				$medical_pro = @$collection['user']['medical_pro'];
 				$c_flat_id = $collection['user']['flat'];
 				$c_name = $collection['user']['user_name'];
-				$c_name=substrwords($c_name,20,'...');
+				$c_name_cut=substrwords($c_name,20,'...');
 				@$profile_pic = $collection['user']['profile_pic'];
 				$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($c_wing_id,$c_flat_id)));			  
 				if(empty($profile_pic))
@@ -164,7 +164,7 @@ background-color:rgb(218, 236, 240);
 <div class="hv_b" style="overflow: auto;padding: 5px;cursor: pointer;" title="">
 <img src="<?php echo $webroot_path ; ?>/profile/<?php echo $profile_pic; ?>" style="float:left;width:25%;height:80px;"/>
 <div style="float:left;margin-left:3%;">
-<span style="font-size:22px;"><?php echo $c_name; ?> &nbsp; </span> 
+<span style="font-size:22px;"><?php echo $c_name_cut; ?> &nbsp; </span> 
 <?php if(@$medical_pro==1){ ?> <span style="float:right;color:red; font-size:18px;"> <i class="icon-plus-sign"></i> </span> <?php } ?> <br/>
 <span style="font-size:16px;"><?php echo $wing_flat ; ?></span><br>
 

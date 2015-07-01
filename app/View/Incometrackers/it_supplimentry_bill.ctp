@@ -11,8 +11,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <input type="hidden" id="fi" value="<?php echo $datef1; ?>" />
 <input type="hidden" id="ti" value="<?php echo $datet1;  ?>" /> 
 <input type="hidden" id="cn" value="<?php echo $count;  ?>" /> 
-
-
+<?php
+$default_date = date('d-m-Y');
+?>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
 		
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
@@ -51,7 +52,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
         
 <div class="controls">      
 <label class="" style="font-size:14px;">Billing Date</label>    
-<input type="text" name="from" id="from" class="m-wrap medium date-picker" data-date-format="dd-mm-yyyy" placeholder="Bill Date" />
+<input type="text" name="from" id="from" class="m-wrap medium date-picker" data-date-format="dd-mm-yyyy" placeholder="Bill Date" value="<?php echo $default_date; ?>"/>
 <div id="result11"></div>
 </div>        
  <br />       
@@ -77,7 +78,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
  
  <div class="control-group">
 		<div class="controls">
-		<label class="" style="font-size:14px; color:red;">Payment Due Date</label>
+		<label class="" style="font-size:14px; color:red;">Payment Due Date <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select payment due date"> </i></label>
         <input type="text" class="span3 m-wrap  m-ctrl-medium date-picker" data-date-format="dd-mm-yyyy" placeholder="Due Date" name="due_date" id="due" style="color:red; border-color:red;">
         <label id="due" ></label>
 		 <div id="result12"></div>
@@ -133,7 +134,13 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			foreach ($cursor1 as $collection) 
 			{
 			$auto_id = (int)$collection['ledger_sub_account']['auto_id'];
-			$user_name=$collection['ledger_sub_account']["name"];
+			$user_id = (int)$collection['ledger_sub_account']['user_id'];
+
+				$result_user = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
+				foreach ($result_user as $collection) 
+				{
+				  $user_name = $collection['user']['user_name'];  
+				}
 			?>
 			<option value="<?php echo $auto_id; ?>"><?php echo $user_name; ?></option>
 			<?php } ?>
@@ -262,20 +269,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			</div>
 			</div> -->
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+	
 			<div class="form-actions">
 			<button type="submit" class="btn green" value="Generate Bill" name="sub1" id="go5">Preview Bill</button>
 			<a href="it_supplimentry_bill" class="btn">Reset</a>

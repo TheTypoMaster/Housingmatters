@@ -1,9 +1,9 @@
 <?php
 $date1 = date("Y-m-d", strtotime($from));
-$date1 = new MongoDate(strtotime($date1));
+//$date1 = new MongoDate(strtotime($date1));
 
 $date2 = date("Y-m-d", strtotime($to));
-$date2 = new MongoDate(strtotime($date2)); 
+//$date2 = new MongoDate(strtotime($date2)); 
 ?>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
@@ -23,7 +23,7 @@ for($y=0; $y<sizeof($income_head_charge); $y++)
 $total[]="";	
 $cnt++;	
 }
-$cnt = $cnt+4;
+$cnt = $cnt+5;
 ?>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <div style="width:100%;" class="hide_at_print">
@@ -41,8 +41,9 @@ $cnt = $cnt+4;
 </tr>
 <tr>
 <th style="text-align:left;">Bill No.</th>
-<th style="text-align:left;">Flat No.</th>
+<th style="text-align:left;">Unit Number</th>
 <th style="text-align:left;">Name of Resident</th>
+<th style="text-align:left;">Area (Sq.Ft.)</th>
 <?php 
 for($r=0; $r<sizeof($income_head_charge); $r++)
 {
@@ -76,7 +77,17 @@ foreach ($result as $collection)
 $wing_id = $collection['user']['wing'];  
 $flat_id = (int)$collection['user']['flat'];
 $user_name = $collection['user']['user_name'];
-}	
+}
+
+$result5 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch2'),array('pass'=>array($flat_id,$wing_id)));	
+foreach($result5 as $collection)
+{
+$area = $collection['flat']['flat_area'];
+$unit_number = $collection['flat']['flat_name'];
+}
+
+
+	
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action'=>'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
 if($date1 <= $date && $date2 >= $date)
 {
@@ -85,11 +96,13 @@ if($date1 <= $date && $date2 >= $date)
 <td style="text-align:right;"><?php echo $bill_id; ?></td>
 <td style="text-align:left;"><?php echo $wing_flat; ?></td>
 <td style="text-align:left;"><?php echo $user_name; ?></td>
+<td style="text-align:left;"><?php echo $area; ?> Sq.Ft.</td>
 <?php
 $total_amt = 0;
 for($y=0; $y<sizeof($income_head_charge); $y++)
 {
 $income_head_arr_id = $income_head_charge[$y];	
+$nnn = 55;
 for($r=0; $r<sizeof($ih_detail2); $r++)
 {
 $ih_detail1 = $ih_detail2[$r];	
@@ -104,7 +117,15 @@ $amount2 = number_format($amount);
 echo $amount2; ?></td>
 <?php
 $total_amt=$total_amt+$amount;
+$nnn = 555;
+break;
 }
+}
+if($nnn == 55)
+{
+?>
+<td style="text-align:right;"><?php echo "0"; ?></td>
+<?php	
 }
 }
 $total_noc_amt = $total_noc_amt + $noc_amt;
@@ -122,7 +143,7 @@ echo $total_amt2; ?></td>
 }
 ?>
 <tr>
-<th colspan="3" style="text-align:right;">Grand Total</th>
+<th colspan="4" style="text-align:right;">Grand Total</th>
 <?php 
 $grand_total = 0;
 for($h=0; $h<sizeof($total); $h++)
@@ -143,7 +164,6 @@ echo $total_noc_amt2; ?></th>
 $grand_total2 = number_format($grand_total);
 echo $grand_total2; ?></th>
 </tr>
-
 </table>
 
 

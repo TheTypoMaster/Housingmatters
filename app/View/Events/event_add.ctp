@@ -60,7 +60,12 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 		</div>
 		<label report="day_type" class="remove_report"></label>
 		
-		
+		<div class="control-group">
+			 <label class="checkbox">
+			 <div class="checker"><span><div class="checker" id="uniform-undefined"><span><input type="checkbox" value="1" name="ask_no_of_member" style="opacity: 0;"></span></div></span></div>
+			 Do you want to ask how many members will attend this event from participator family to participator?   
+			 </label>
+		</div>
 		
 		
 		
@@ -86,7 +91,7 @@ $("#fix<?php echo @$id_current_page; ?>").addClass("red");
 		<div class="control-group">
   <label class="control-label">Location</label>
   <div class="controls">
-	 <input type="text" name="location" class="span8 m-wrap" maxlength="100" id="alloptions" placeholder="Location">
+	 <textarea name="location" rows="3" id="alloptions" class="span9 m-wrap" placeholder="Location"></textarea>
 	 <label report="location" class="remove_report"></label>
   </div>
 </div>
@@ -218,6 +223,8 @@ $(document).ready(function() {
 		m_data.append( 'e_name', $('input[name=e_name]').val());
 		m_data.append( 'description', $('textarea[name=description]').val());
 		var day_type=$('input:radio[name=day_type]:checked').val();
+	
+		
 		m_data.append( 'day_type', day_type);
 		if(day_type==1){
 			m_data.append( 'date_single', $('input[name=date_single]').val());
@@ -226,7 +233,7 @@ $(document).ready(function() {
 			m_data.append( 'date_to', $('input[name=date_to]').val());
 		}
 		m_data.append( 'e_time', $('input[name=e_time]').val());
-		m_data.append( 'location', $('input[name=location]').val());
+		m_data.append( 'location', $('textarea[name=location]').val());
 		
 		var visible=$('input:radio[name=visible]:checked').val();
 		m_data.append( 'visible', visible);
@@ -256,7 +263,7 @@ $(document).ready(function() {
 			m_data.append( 'sub_visible', 0);
 		}
 		
-		
+		m_data.append( 'ask_no_of_member', $('input:checkbox[name=ask_no_of_member]:checked').val());
 		$(".form_post").addClass("disabled");
 		$("#wait").show();
 			
@@ -268,7 +275,7 @@ $(document).ready(function() {
 			type: 'POST',
 			dataType:'json',
 			}).done(function(response) {
-			$("#wait").html(response);
+			//$("#wait").html(response);
 				if(response.report_type=='error'){
 					$(".remove_report").html('');
 						jQuery.each(response.report, function(i, val) {

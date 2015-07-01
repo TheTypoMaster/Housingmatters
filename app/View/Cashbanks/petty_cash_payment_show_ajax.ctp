@@ -6,11 +6,11 @@ jQuery('.tooltips').tooltip();
 
 
 <?php
-$m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+$m_from=date("Y-m-d", strtotime($from));
+//$m_from = new MongoDate(strtotime($m_from));
 
-$m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+$m_to=date("Y-m-d", strtotime($to));
+//$m_to = new MongoDate(strtotime($m_to));
 ?>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
@@ -31,35 +31,34 @@ $current_date = $collection['cash_bank']['current_date'];
 $creation_date = date('d-m-Y',$current_date->sec);
 
 $result_gh = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($prepaired_by)));
-				foreach ($result_gh as $collection) 
-				{
-				$prepaired_by_name = $collection['user']['user_name'];
-				}			
+foreach ($result_gh as $collection) 
+{
+$prepaired_by_name = $collection['user']['user_name'];
+}			
 
 
-                                    if($account_type == 1)
-									{
+if($account_type == 1)
+{
 $result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($user_id)));
-									foreach ($result_lsa as $collection) 
-									  {
-									   $user_name = $collection['ledger_sub_account']['name'];	  
-									  }
-									}
-									else if($account_type == 2)
-									{
+foreach ($result_lsa as $collection) 
+{
+$user_name = $collection['ledger_sub_account']['name'];	  
+}
+}
+else if($account_type == 2)
+{
 $result_la = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_amount'),array('pass'=>array($user_id)));
-									foreach ($result_la as $collection) 
-									  {
-									   $user_name = $collection['ledger_account']['ledger_name'];	  
-									  }
-									}      
-
+foreach ($result_la as $collection) 
+{
+$user_name = $collection['ledger_account']['ledger_name'];	  
+}
+}      
 											
 $result_amt = $this->requestAction(array('controller' => 'hms', 'action' => 'amount_category'),array('pass'=>array($amount_category_id)));
-									foreach ($result_amt as $collection) 
-									{
-									$amount_category_name = $collection['amount_category']['amount_category'];	  
-									}  
+foreach ($result_amt as $collection) 
+{
+$amount_category_name = $collection['amount_category']['amount_category'];	  
+}  
 
 									
 if($date >= $m_from && $date <= $m_to)
@@ -71,7 +70,10 @@ $nnn = 555;
 else if($s_role_id == 3)
 {
 $nnn = 555;
-}}}
+}
+}
+}
+
 ?>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
@@ -83,7 +85,7 @@ if($nnn == 555)
 <span style="float:right; margin-right:1%;"><button type="button" class=" printt btn green" onclick="window.print()"><i class="icon-print"></i> Print</button></span>
 </div>
 <br /><br />
-<table class="table table-bordered" width="100%" style="background-color:#FDFDEE;">
+<table class="table table-bordered" width="100%" style="background-color:white;">
 
 <tr>
 <th colspan="6" style="text-align:center;">
@@ -99,60 +101,58 @@ Petty Cash Payment Report  (<?php echo $society_name; ?>)
 <th colspan="4"></th>
 </tr>
 
-                                        <tr>
-                                            <th>PC Payment Vochure</th>
-											<th>Transaction Date</th>
-											 <th>Paid To</th>
-											<th>Narration</th>
-                                           
-                                            <th>Amount</th>
-                                            <th class="hide_at_print">Action </th>
-                                        </tr>
+<tr>
+<th>PC Payment Vochure</th>
+<th>Transaction Date</th>
+<th>Paid To</th>
+<th>Narration</th>
+<th>Amount</th>
+<th class="hide_at_print">Action </th>
+</tr>
 
 
 
-   <?php
-			
-			$total_debit = 0;
-			$total_credit = 0;
-			foreach ($cursor1 as $collection) 
-			{
-			$receipt_no = (int)@$collection['cash_bank']['receipt_id'];
-			$transaction_id = (int)$collection['cash_bank']['transaction_id'];	
-			$account_type = (int)$collection['cash_bank']['account_type'];
-			$user_id = (int)$collection['cash_bank']['user_id'];
-			$date = $collection['cash_bank']['transaction_date'];
-			$prepaired_by = (int)$collection['cash_bank']['prepaired_by'];   
-			$narration = $collection['cash_bank']['narration'];
-			$account_head = $collection['cash_bank']['account_head'];
-			$amount = $collection['cash_bank']['amount'];
-			$amount_category_id = (int)$collection['cash_bank']['amount_category_id'];
-            $current_date = $collection['cash_bank']['current_date'];
+<?php
+
+$total_debit = 0;
+$total_credit = 0;
+foreach ($cursor1 as $collection) 
+{
+$receipt_no = (int)@$collection['cash_bank']['receipt_id'];
+$transaction_id = (int)$collection['cash_bank']['transaction_id'];	
+$account_type = (int)$collection['cash_bank']['account_type'];
+$user_id = (int)$collection['cash_bank']['user_id'];
+$date = $collection['cash_bank']['transaction_date'];
+$prepaired_by = (int)$collection['cash_bank']['prepaired_by'];   
+$narration = $collection['cash_bank']['narration'];
+$account_head = $collection['cash_bank']['account_head'];
+$amount = $collection['cash_bank']['amount'];
+$amount_category_id = (int)$collection['cash_bank']['amount_category_id'];
+$current_date = $collection['cash_bank']['current_date'];
 $creation_date = date('d-m-Y',$current_date->sec);
 
 $result_gh = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($prepaired_by)));
-				foreach ($result_gh as $collection) 
-				{
-				$prepaired_by_name = $collection['user']['user_name'];
-				}			
+foreach ($result_gh as $collection) 
+{
+$prepaired_by_name = $collection['user']['user_name'];
+}			
 
-
-                                    if($account_type == 1)
-									{
+if($account_type == 1)
+{
 $result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($user_id)));
-									foreach ($result_lsa as $collection) 
-									  {
-									   $user_name = $collection['ledger_sub_account']['name'];	  
-									  }
-									}
-									else if($account_type == 2)
-									{
+foreach ($result_lsa as $collection) 
+{
+$user_name = $collection['ledger_sub_account']['name'];	  
+}
+}
+else if($account_type == 2)
+{
 $result_la = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_amount'),array('pass'=>array($user_id)));
-									foreach ($result_la as $collection) 
-									  {
-									   $user_name = $collection['ledger_account']['ledger_name'];	  
-									  }
-									}      
+foreach ($result_la as $collection) 
+{
+$user_name = $collection['ledger_account']['ledger_name'];	  
+}
+}      
 
 											
 $result_amt = $this->requestAction(array('controller' => 'hms', 'action' => 'amount_category'),array('pass'=>array($amount_category_id)));
@@ -166,11 +166,10 @@ $result_amt = $this->requestAction(array('controller' => 'hms', 'action' => 'amo
 									{
 									if($s_user_id == $user_id)  
 									{
-									$date = date('d-m-Y',$date->sec);     
+									$date = date('d-m-Y',strtotime($date));     
 									$total_debit = $total_debit + $amount;
                                     $amount = number_format($amount);								    ?>
 <tr>
-
 <td><?php echo $receipt_no; ?> </td>
 <td><?php echo $date; ?> </td>
 <td><?php echo $user_name; ?> </td>
@@ -188,7 +187,7 @@ $result_amt = $this->requestAction(array('controller' => 'hms', 'action' => 'amo
                                          }
 										   else if($s_role_id == 3)
 										   {
-										 $date = date('d-m-Y',$date->sec);	   
+										 $date = date('d-m-Y',strtotime($date));	   
 										 $total_debit = $total_debit + $amount;
 										  $amount = number_format($amount);
 										 ?>

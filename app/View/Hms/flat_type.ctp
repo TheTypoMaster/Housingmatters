@@ -8,8 +8,8 @@ Society Setup
 <div class="tabbable tabbable-custom">
 <ul class="nav nav-tabs">
 <li><a href="<?php echo $webroot_path; ?>Hms/master_sm_wing" rel='tab'> Wing</a></li>
-<li class="active"><a href="<?php echo $webroot_path; ?>Hms/flat_type" rel='tab'>Flat Type</a></li>
-<li><a href="<?php echo $webroot_path; ?>Hms/master_sm_flat" rel='tab'>Flat Configuration</a></li>
+<li class="active"><a href="<?php echo $webroot_path; ?>Hms/flat_type" rel='tab'>Unit Number</a></li>
+<li><a href="<?php echo $webroot_path; ?>Hms/master_sm_flat" rel='tab'>Unit Configuration</a></li>
 <!--<li><a href="<?php echo $webroot_path; ?>Hms/flat_nu_import" rel='tab'>Flat Number Import</a></li>-->
 <li><a href="<?php echo $webroot_path; ?>Hms/society_details" rel='tab'>Society Details</a></li>
 <li><a href="<?php echo $webroot_path; ?>Hms/society_settings" rel='tab'>Society Settings</a></li>
@@ -46,7 +46,7 @@ $wing_name = $collection['wing']['wing_name'];
 </div>
 <br />   
 
-<label style="font-size:14px;">Flat Number</label>
+<label style="font-size:14px;">Unit Number</label>
 <div id="url_main">
 <div>
 <input type="text" class="m-wrap span7" maxlength="10" id="nu">
@@ -63,7 +63,7 @@ $wing_name = $collection['wing']['wing_name'];
 <tr>
 <th style="text-align:center;">Sr #</th>
 <th style="text-align:center;">Wing Name</th>
-<th style="text-align:center;">Flat Number</th>
+<th style="text-align:center;">Unit Number</th>
 </tr>
 <?php
 $c=0;
@@ -253,6 +253,12 @@ $(document).ready(function() {
 <script>
 $(document).ready(function(){
 
+$(".delete").live('click',function(){
+var id = $(this).attr("del");
+$('#tr'+id).remove();
+});
+
+
 $("#import_btn").live('click',function(){
 $("#myModal3").show();
 });
@@ -283,13 +289,7 @@ $("#myModal3").show();
 				type: 'POST',
 			}).done(function(response) {
 				$(".content_model").html(response);
-				
-				
-				
-				
-				
-				
-				
+		
 				var count = $("#flats_main tr").length;
 		        var ar = [];
 		

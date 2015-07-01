@@ -13,10 +13,10 @@ $ih_arr = $collection['regular_bill']['ih_detail'];
 $n++;
 }
 
-$from = date('d-M-Y',$from_dm->sec);
-$to = date('d-M-Y',$to_dm->sec);
-$cur_date11 = date('d-M-Y',$curr_dm->sec);
-$due_date11 = date('d-M-Y',$due_dm->sec);
+$from = date('d-M-Y',strtotime($from_dm));
+$to = date('d-M-Y',strtotime($to_dm));
+$cur_date11 = date('d-M-Y',strtotime($curr_dm));
+$due_date11 = date('d-M-Y',strtotime($due_dm));
 ?>
 
 <div style="width:100%;" class="hide_at_print">

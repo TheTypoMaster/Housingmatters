@@ -1,9 +1,9 @@
 <?php
 $m_from = date("Y-m-d", strtotime($date1));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 
 $m_to = date("Y-m-d", strtotime($date2));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
 
 $nnn = 55;
 $administrative_expenses = 0;

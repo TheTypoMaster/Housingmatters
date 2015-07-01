@@ -5,10 +5,10 @@ jQuery('.tooltips').tooltip();
 </script> 
 <?php
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
 ?>
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
@@ -18,6 +18,7 @@ foreach ($cursor2 as $collection)
 $receipt_no = $collection['cash_bank']['receipt_id'];
 $transaction_id = (int)$collection['cash_bank']['transaction_id'];	
 $date = $collection['cash_bank']['transaction_date'];
+//$date= date('Y-m-d',$date->sec);
 $prepaired_by_id = (int)$collection['cash_bank']['prepaired_by'];
 $member = (int)$collection['cash_bank']['member'];
 $narration = $collection['cash_bank']['narration'];
@@ -81,7 +82,13 @@ $result_lsa2 = $this->requestAction(array('controller' => 'hms', 'action' => 'le
 foreach ($result_lsa2 as $collection) 
 {
 $account_no = $collection['ledger_sub_account']['name'];  
-}		
+}
+$start=$date;
+$end=$m_to;
+
+
+//$date=date('Y-m-d', strtotime($date."+1 days"));
+//$date = date('Y-m-d',$date->sec);
 if($date >= $m_from && $date <= $m_to)
 {
 if(@$user_id == @$s_user_id)
@@ -105,40 +112,36 @@ if($nnn == 555)
 <span style="float:right; margin-right:1%;"><button type="button" class=" printt btn green" onclick="window.print()"><i class="icon-print"></i> Print</button></span>
 </div>	
 <br />			
-			
-			
-			 <table class="table table-bordered" width="100%" style=" background-color:white;">
+
+<table class="table table-bordered" width="100%" style=" background-color:white;">
+<tr>
+<th colspan="10" style="text-align:center;">
+<p style="font-size:16px;">
+Bank Receipt Report  (<?php echo $society_name; ?>)
+</p>
+</th>
+</tr>
 
 
-					 
-					 <tr>
-					 <th colspan="10" style="text-align:center;">
-					 <p style="font-size:16px;">
-                     Bank Receipt Report  (<?php echo $society_name; ?>)
-					 </p>
-					 </th>
-					 </tr>
-					 
-					 
-                     <tr>
-                     <th>From : <?php echo $from; ?></th>
-                     <th>To : <?php echo $to; ?></th>
-                     <th colspan="8"></th>
-                     </tr>
+<tr>
+<th>From : <?php echo $from; ?></th>
+<th>To : <?php echo $to; ?></th>
+<th colspan="8"></th>
+</tr>
+     
                      
-                     
-                     <tr>
-                     <th>Receipt#</th>
-		             <th>Transaction Date </th>
-                     <th>Party Name</th>
-				     <th>Bill Reference</th>
-                     <th>Payment Mode</th>
-                     <th>Instrument/UTR</th>
-                     <th>Deposit Bank</th>
-                     <th>Narration</th>
-                     <th>Amount</th>
-                     <th class="hide_at_print">Action</th> 
-                     </tr>
+<tr>
+<th>Receipt#</th>
+<th>Transaction Date </th>
+<th>Party Name</th>
+<th>Bill Reference</th>
+<th>Payment Mode</th>
+<th>Instrument/UTR</th>
+<th>Deposit Bank</th>
+<th>Narration</th>
+<th>Amount</th>
+<th class="hide_at_print">Action</th> 
+</tr>
 					 
 					 
 					 <?php
@@ -149,6 +152,8 @@ if($nnn == 555)
 			$receipt_no = $collection['cash_bank']['receipt_id'];
 			$transaction_id = (int)$collection['cash_bank']['transaction_id'];	
 			$date = $collection['cash_bank']['transaction_date'];
+			$date21 = $collection['cash_bank']['transaction_date'];
+			//$date21= date('Y-m-d',$date21->sec);
 			$prepaired_by_id = (int)$collection['cash_bank']['prepaired_by'];
 			$member = (int)$collection['cash_bank']['member'];
 			$narration = $collection['cash_bank']['narration'];
@@ -171,19 +176,19 @@ if($nnn == 555)
 			$ref = "Bill No:".$ref;
 			}
 			
-			if($member == 2)
-			{
-			$ref = $collection['cash_bank']['bill_reference'];
-            $receiver_name = @$collection['cash_bank']['receiver_name'];
-            }
+if($member == 2)
+{
+$ref = $collection['cash_bank']['bill_reference'];
+$receiver_name = @$collection['cash_bank']['receiver_name'];
+}
 
-			$creation_date = date('d-m-Y',$current_date->sec);		
-			
-			$result_prb = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($prepaired_by_id)));
-			foreach ($result_prb as $collection) 
-			{
-			$prepaired_by_name = $collection['user']['user_name'];
-			}	
+$creation_date = date('d-m-Y',$current_date->sec);		
+
+$result_prb = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($prepaired_by_id)));
+foreach ($result_prb as $collection) 
+{
+$prepaired_by_name = $collection['user']['user_name'];
+}	
 
 if($member == 2)
 {
@@ -208,105 +213,88 @@ $result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'led
 			$flat_id = (int)$collection['user']['flat'];
 			$tenant = (int)$collection['user']['tenant'];
 			}	
-			$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));	
-			
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));	
 }			
 			
 $result_amt = $this->requestAction(array('controller' => 'hms', 'action' => 'amount_category'),array('pass'=>array($amount_category_id)));
-									foreach ($result_amt as $collection) 
-									{
-									$amount_category = $collection['amount_category']['amount_category'];  
-									}			
-			
-	$result_lsa2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($account_id)));									
-									foreach ($result_lsa2 as $collection) 
-									{
-									$account_no = $collection['ledger_sub_account']['name'];  
-									}		
-			
-			
- 
-									  
-										   if($date >= $m_from && $date <= $m_to)
-										   {
-										   if(@$user_id == @$s_user_id)
-											   {
-											   $date = date('d-m-Y',$date->sec);	
-									
-									
-									 $total_debit =  $total_debit + $amount; 
-									 $amount = number_format($amount);
-									?>
-									
-									
-									    <tr>
-                                            <td><?php echo $receipt_no; ?> </td>
-											<td><?php echo $date; ?> </td>
-                                            <td width="15%"><?php echo $narration; ?> </td>
-                                            <td><?php echo $user_name; ?> &nbsp&nbsp&nbsp&nbsp<?php echo $wing_flat; ?></td>
-                                            <td><?php echo $ref; ?> </td>
-                                            <td><?php echo $receipt_mode; ?> </td>
-                                            <td><?php echo $receipt_instruction; ?> </td>
-                                            <td><?php echo $account_no; ?> </td>
-                                            <td><?php echo $amount; ?></td>
-                                            
-                                            <td class="hide_at_print"> <!--<a href="#" class="btn mini blue">Reverse</a> -->
-                                            <a href="bank_receipt_pdf?c=<?php echo $transaction_id; ?>&m=1" class="btn mini purple  tooltips" target="_blank" data-placement="bottom" data-original-title="Download Pdf">Pdf</a>
-                                             <a href="" class="btn mini black tooltips" data-placement="bottom" data-original-title="Created By:<?php echo $prepaired_by_name; ?>
-										     Creation Date : <?php echo $creation_date; ?>">!</a>
-											  <!-- <a href="bank_receipt_edit.php?a=<?php //echo $receipt_no; ?>" class="btn mini purple">Edit</a> -->
-                                           
-                                            </td>
-										</tr>			
-			 <?php
-											}
-											else if($s_role_id == 3)
-											{
-                                            $date = date('d-m-Y',$date->sec);
-											$total_debit =  $total_debit + $amount; 
-											$amount = number_format($amount);
-											
-                                            ?>
-											<tr>
-                                            <td><?php echo $receipt_no; ?> </td>
-											<td><?php echo $date; ?> </td>
-                                           
-                                            <td><?php echo $user_name; ?> &nbsp&nbsp&nbsp&nbsp<?php echo $wing_flat; ?> </td>
-                                            <td><?php echo $ref; ?> </td>
-                                            <td><?php echo $receipt_mode; ?> </td>
-                                            <td><?php echo $receipt_instruction; ?> </td>
-                                            <td><?php echo $account_no; ?> </td>
-                                             <td width="15%"><?php echo $narration; ?> </td>
-                                            <td><?php echo $amount; ?></td>
-                                            <td class="hide_at_print">
-                                           <!-- <td><a href="#" class="btn mini blue">Reverse</a> -->
-                                           <a href="bank_receipt_pdf?c=<?php echo $transaction_id; ?>&m=1" target="_blank" class="btn mini purple tooltips" data-placement="bottom" data-original-title="Download Pdf">Pdf</a>
-                                             <a href="" class="btn mini black tooltips" data-placement="bottom" data-original-title="Created By:<?php echo $prepaired_by_name; ?>
-										     Creation Date : <?php echo $creation_date; ?>">!</a>
-                                            </td>
-										</tr>
-			
-			
-			
-			
-		<?php	}		 
-				}} ?>
-					<?php	
-                                         
-									   
-										 ?> 
+foreach ($result_amt as $collection) 
+{
+$amount_category = $collection['amount_category']['amount_category'];  
+}			
 
+$result_lsa2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($account_id)));									
+foreach ($result_lsa2 as $collection) 
+{
+$account_no = $collection['ledger_sub_account']['name'];  
+}		
+			
+			
+	//$date21=date('Y-m-d', strtotime($date21."+1 days"));
+									  
+if($date21 >= $m_from && $date21 <= $m_to)
+{
+if(@$user_id == @$s_user_id)
+{
+$date = date('d-m-Y',strtotime($date));	
+//$date=date('d-m-Y',strtotime($date."+1 days"));
+
+$total_debit =  $total_debit + $amount; 
+$amount = number_format($amount);
+?>
 <tr>
-                                        <th colspan="8"> Total</th>
-                                        <th><?php 
-										$total_debit = number_format($total_debit);
-										echo $total_debit; ?> <?php //echo "  dr"; ?></th>
-                                        <th class="hide_at_print"></th>
-                                        </tr>										 
-					</table> 
-					 
-					 
-					 
+<td><?php echo $receipt_no; ?> </td>
+<td><?php echo $date; ?> </td>
+<td><?php echo $user_name; ?> &nbsp&nbsp&nbsp&nbsp<?php echo $wing_flat; ?> </td>
+<td><?php echo $ref; ?> </td>
+<td><?php echo $receipt_mode; ?> </td>
+<td><?php echo $receipt_instruction; ?> </td>
+<td><?php echo $account_no; ?> </td>
+<td><?php echo $narration; ?> </td>
+<td><?php echo $amount; ?></td>
+<td class="hide_at_print">
+<a href="bank_receipt_pdf?c=<?php echo $transaction_id; ?>&m=1" target="_blank" class="btn mini purple tooltips" data-placement="bottom" data-original-title="Download Pdf">Pdf</a>
+<a href="" class="btn mini black tooltips" data-placement="bottom" data-original-title="Created By:<?php echo $prepaired_by_name; ?>
+Creation Date : <?php echo $creation_date; ?>">!</a>
+</td>
+</tr>		
+<?php
+}
+else if($s_role_id == 3)
+{
+$date = date('d-m-Y',strtotime($date));
+$total_debit =  $total_debit + $amount; 
+$amount = number_format($amount);
+?>
+<tr>
+<td><?php echo $receipt_no; ?> </td>
+<td><?php echo $date; ?> </td>
+<td><?php echo $user_name; ?> &nbsp&nbsp&nbsp&nbsp<?php echo $wing_flat; ?> </td>
+<td><?php echo $ref; ?> </td>
+<td><?php echo $receipt_mode; ?> </td>
+<td><?php echo $receipt_instruction; ?> </td>
+<td><?php echo $account_no; ?> </td>
+<td><?php echo $narration; ?> </td>
+<td><?php echo $amount; ?></td>
+<td class="hide_at_print">
+<a href="bank_receipt_pdf?c=<?php echo $transaction_id; ?>&m=1" target="_blank" class="btn mini purple tooltips" data-placement="bottom" data-original-title="Download Pdf">Pdf</a>
+<a href="" class="btn mini black tooltips" data-placement="bottom" data-original-title="Created By:<?php echo $prepaired_by_name; ?>
+Creation Date : <?php echo $creation_date; ?>">!</a>
+</td>
+</tr>
+<?php	
+}		 
+}
+}
+?>
+<tr>
+<th colspan="8" style="text-align:right;"> Total</th>
+<th><?php 
+$total_debit = number_format($total_debit);
+echo $total_debit; ?> <?php //echo "  dr"; ?></th>
+<th class="hide_at_print"></th>
+</tr>										 
+</table> 
+			 
 <?php 
 }
 if($nnn == 55)

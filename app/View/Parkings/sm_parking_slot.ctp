@@ -37,6 +37,24 @@ Master Parking Managment System
                         <!-- BEGIN FORM-->
                         <form  id="contact-form"  method="post" name="form" enctype="multipart/form-data" >
                          <fieldset>
+						 
+						<div class="control-group ">
+                              <div class="controls">
+                               <label class="" style="font-size:14px;"> Select Parking area </label>
+							  <select name="sel_parking" class="span6 chosen"  >
+							   <option> Select Parking area  </option>
+							  <?php 
+							  foreach($result_parking as $data)
+							  {
+								$parking_area_cat=$data['parking_area']['parking_area_cat'];
+							    $parking_area_id=$data['parking_area']['parking_area_id'];
+							  ?>
+							 <option value="<?php echo $parking_area_id ; ?>"><?php echo $parking_area_cat ; ?> </option>
+							  <?php } ?>
+							  </select>
+                              </div>
+                           </div>
+						  
                            <div class="control-group ">
                               <div class="controls">
                                <label class="" style="font-size:14px;">Number of two wheeler slot  </label>
@@ -44,6 +62,7 @@ Master Parking Managment System
 							  <input type="text" name="two_slot" class="span6" value="<?php echo @$num2 ; ?>" >
                               </div>
                            </div>
+						   
 						   <div class="control-group ">
                               <div class="controls">
                                <label class="" style="font-size:14px;"> Range start From </label>

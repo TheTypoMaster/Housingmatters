@@ -323,7 +323,7 @@ $this->layout=null;
 	}
 	
 	
-	
+	$ask_no_of_member=(int)$post_data["ask_no_of_member"];
 	
 	$report=array();
 	$e_name=htmlentities($post_data["e_name"]);
@@ -386,10 +386,22 @@ $this->layout=null;
 		
 	$event_id=$this->autoincrement('event','event_id');
 	$this->loadmodel('event');
-	$this->event->saveAll(array('event_id' => $event_id,'e_name' => $e_name, 'user_id' => $s_user_id, 'society_id' => $s_society_id, 'date_from' => $date_from , 'date_to' => $date_to, 'day_type' => $day_type, 'location' => $location,'description' => $description,'visible' => $visible,'sub_visible' => $sub_visible,'visible_user_id' => $recieve_info[2],'date' => $date,'time'=>$e_time));
+	$this->event->saveAll(array('event_id' => $event_id,'e_name' => $e_name, 'user_id' => $s_user_id, 'society_id' => $s_society_id, 'date_from' => $date_from , 'date_to' => $date_to, 'day_type' => $day_type, 'location' => $location,'description' => $description,'visible' => $visible,'sub_visible' => $sub_visible,'visible_user_id' => $recieve_info[2],'date' => $date,'time'=>$e_time,'ask_no_of_member'=>$ask_no_of_member,'no_of_member'=>0));
 
 
 	
+	$result_user_info=$this->profile_picture($s_user_id);
+	foreach($result_user_info as $collection2)
+	{
+	$user_name=$collection2["user"]["user_name"];
+	$profile_pic=$collection2["user"]["profile_pic"];
+	$wing=$collection2["user"]["wing"];
+	$flat=$collection2["user"]["flat"];
+	}
+
+	$flat_info=$this->wing_flat($wing,$flat);
+
+
 	
 	$from="Support@housingmatters.in";
 	$reply="Support@housingmatters.in";
@@ -415,9 +427,31 @@ $this->layout=null;
 	<a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 	</br><p>Hello $user_name </p>
 	<p>A new event has been created.</p>
-	<p><span>$e_name</span></p>
-	<p><span>$date_email</span></p>
-	<p><span>$location</span></p>
+	<br>
+	<div style='border:solid 1px;padding:5px;'>
+	<table width='100%' border='0'>
+			<tbody><tr>
+				<td width='60%' valign='top' align='left'>
+				<span style='font-size:22px;'>$e_name</span><br>
+				<span>$date_email</span><br>
+				<span>Time:- $e_time</span>
+				</td>
+				<td width='30%' valign='top' align='right'>
+				<span style='font-weight: 100;'>Created by: </span><span>$user_name $flat_info</span>
+				</td>
+			</tr>
+			
+			<tr>
+				<td colspan='2'>
+				<br>
+				<h4>Location:- $location</h4>
+				<p>Description:- $description</p>						
+							
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
 	<div>
 	<br/>
 	<br/>
@@ -696,6 +730,8 @@ $s_user_id=$this->Session->read('user_id');
 
 $e=(int)$this->request->query('e');
 $type=(int)$this->request->query('type');
+$this->set('e',$e);
+$this->set('type',$type);
 
 	if($type==1)
 	{
@@ -722,7 +758,7 @@ $type=(int)$this->request->query('type');
 		
 		$this->event->updateAll(array('rsvp'=>$rsvp),array('event.event_id'=>$e));
 	}
-	  echo "Thanks for participation.";
+	 // echo "Thanks for participation.";
 	}
 	
 	if($type==2)
@@ -751,6 +787,24 @@ $type=(int)$this->request->query('type');
 		
 		$this->event->updateAll(array('not_in_rsvp'=>$not_in_rsvp),array('event.event_id'=>$e));
 	}
+	
+		echo "Thanks for tell us.";
+	}
+	
+	if($type==3)
+	{
+	$no=(int)$this->request->query('no');
+	
+	$this->loadmodel('event');
+	$conditions=array("event_id" => $e);
+	$event_result=$this->event->find('all', array('conditions' => $conditions));
+	@$no_of_member=@$event_result[0]['event']['no_of_member'];
+	$no_of_member=$no_of_member+$no;
+	
+	
+		
+	$this->event->updateAll(array('no_of_member'=>$no_of_member),array('event.event_id'=>$e));
+	
 	
 		echo "Thanks for participation.";
 	}

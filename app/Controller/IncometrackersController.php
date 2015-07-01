@@ -2,6 +2,7 @@
 App::import('Controller','Hms');
 class IncometrackersController extends HmsController {
 var $helpers = array('Html', 'Form','Js');
+
 public $components = array(
 'Paginator',
 'Session','Cookie','RequestHandler'
@@ -16,6 +17,7 @@ $this->layout='blank';
 }else{
 $this->layout='session';
 }
+
 $this->ath();
 $this->check_user_privilages();
 
@@ -70,18 +72,23 @@ $this->set('count',$count);
 
 $this->loadmodel('regular_bill');
 $order=array('regular_bill.regular_bill_id'=> 'ASC');
-$cursor=$this->regular_bill->find('all',array('order' =>$order));
+$conditions=array("society_id" => $s_society_id);
+$cursor=$this->regular_bill->find('all',array('conditions'=>$conditions,'order' =>$order));
 foreach ($cursor as $collection) 
 {
 $d_from = $collection['regular_bill']['bill_daterange_from'];
 $d_to = $collection['regular_bill']['bill_daterange_to'];
 }
-$datefb = date('Y-m-d',@$d_from->sec);
-$datetb = date('Y-m-d',@$d_to->sec);
+
+//$this->set('d_from',@$d_from);
+if(!empty($d_from))
+{
+$datefb = date('Y-m-d',strtotime($d_from));
+$datetb = date('Y-m-d',strtotime($d_to));
 
 $this->set('datefb',$datefb);
 $this->set('datetb',$datetb);
-
+}
 if(isset($this->request->data['sub1']))
 {
 $from = $this->request->data['from'];
@@ -191,12 +198,17 @@ $this->set('bill_period_arr',$bill_period_arr);
 ////////////////////////// Start Regular Bill View2 ////////////////////////////////////
 function regular_bill_view2()
 {
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
 $this->layout='session';
+}
+
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
-
 $this->ath();
+$webroot_path=$this->requestAction(array('controller' => 'Hms', 'action' => 'webroot_path'));
 
 $this->loadmodel('penalty');
 $condition=array('society_id'=>$s_society_id);
@@ -252,6 +264,13 @@ $society_reg_no = $collection['society']['society_reg_num'];
 $society_address = $collection['society']['society_address'];
 $pen_per = (int)@$collection['society']['tax'];
 $per_type = (int)@$collection['society']['tax_type'];
+$sig_img = @$collection['society']['signature'];
+$log_img = @$collection['society']['logo'];
+$sig_title = @$collection['society']['sig_title'];
+$bank_name = @$collection['society']['bank_name'];
+$bank_branch = @$collection['society']['branch'];
+$account_number = @$collection['society']['ac_name'];
+$ifsc_code = @$collection['society']['ifsc_code'];
 }
 $this->set('pen_per',$pen_per);
 $this->set('per_type',$per_type);
@@ -265,7 +284,6 @@ $conditions=array("society_id" => $s_society_id, "tenant" => 1,"deactive"=>0);
 $cursor1 = $this->user->find('all',array('conditions'=>$conditions,'order'=>$order));
 $this->set('cursor1',$cursor1);
 
-
 $this->loadmodel('regular_bill');
 $order=array('regular_bill.regular_bill_id'=> 'ASC');
 $conditions=array("society_id" => $s_society_id);
@@ -274,6 +292,7 @@ $this->set('cursor2',$cursor2);
 
 if(isset($this->request->data['sub']))
 {
+
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
 $cursor = $this->society->find('all',array('conditions'=>$conditions));
@@ -284,6 +303,9 @@ $terms_arr = @$collection['society']['terms_conditions'];
 $pen_per2 = (int)@$collection['society']['tax'];
 $per_type2 = (int)@$collection['society']['tax_type'];
 $society_address = $collection['society']['society_address'];
+$society_sig = $collection['society']['signature'];
+$society_email = $collection['society']['society_email'];
+$society_phone = $collection['society']['society_phone'];
 }
 $bill_for = (int)$this->request->data['bill_for'];
 $wing_arr_imp = $this->request->data['wing_ar'];
@@ -324,15 +346,10 @@ $dueeed = $due_date;
 $due_date_msg = $due_date;
 
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
 
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
 
 $due_date = date("Y-m-d", strtotime($due_date));
-$due_date = new MongoDate(strtotime($due_date));
-
-
 
 $this->loadmodel('regular_bill');
 $order=array('regular_bill.one_time_id'=> 'DESC');
@@ -367,7 +384,6 @@ $mobile = $collection['user']['mobile'];
 $to_mail = $collection['user']['email'];
 $wing_flat = $this->wing_flat($wing_id,$flat_id);
 $maint_ch = 0;
-
 
 $this->loadmodel('flat');
 $conditions=array("society_id" => $s_society_id, "flat_id" => $flat_id, "wing_id" => $wing_id);
@@ -404,41 +420,18 @@ else
 $regular_bill_id11=$last111;
 }
 $regular_bill_id11++;
-
 $current_date11 = date('Y-m-d');
-$current_date11 = new MongoDate(strtotime($current_date11));
+//$current_date11 = new MongoDate(strtotime($current_date11));
 /////////////////////////////////////
-$total_amt = 0;
-$income_headd2 = array();
 
+$income_headd2 = array();
 for($s=0; $s<sizeof($income_head_arr); $s++)
 {
 $auto_id_in = (int)$income_head_arr[$s];
 
-for($j=0; $j<sizeof($charge); $j++)
-{
-$charge2 = $charge[$j];
-$auto_ih = (int)$charge2[0];
-$type = (int)$charge2[1];
-$ch_amt1 = $charge2[2];
-if($auto_id_in == $auto_ih)
-{
-if($type == 2)
-{
-$ch_amt = $ch_amt1 * $sq_feet;
-$ch_amt = $ch_amt*$multi;
-}
-else
-{
-$ch_amt = $ch_amt1;
-$ch_amt = $ch_amt*$multi;
-}
-if($auto_id_in == 42)
-{
-$maint_ch = $ch_amt;
-$maint_ch = $maint_ch*$multi;
-}
-$income_headd = array($auto_ih,$ch_amt);
+$ih_amt = (int)$this->request->data['ih'.$auto_id_in.$user_id];
+
+$income_headd = array($auto_id_in,$ih_amt);
 $income_headd2[] = $income_headd;
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'ASC');
@@ -457,35 +450,15 @@ $k=$last;
 }
 $k++;
 $this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" => $ch_amt, "amount_category_id" => 2,
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" => $ih_amt, "amount_category_id" => 2,
 "table_name" => "regular_bill", "account_type" => 2, "account_id" => $auto_id_in, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
 $this->ledger->saveAll($multipleRowData);
-$total_amt = $total_amt + $ch_amt;
 }
-}
-}
-
 ///////////////////////////////////////
 if($noc_ch_id == 2)
 {
-$tp_id = (int)$noc_charge[0];
-if($tp_id == 2)
-{
-$noc_amt = $noc_charge[1];
-$noc_amt2 = $noc_amt*$sq_feet;
-$noc_amt2 = $noc_amt2*$multi;
-}
-else if($tp_id == 4)
-{
-$noc_amt2 = round((10/100)*$maint_ch);
-$noc_amt2 = $noc_amt2*$multi;
-}
-else
-{
-$noc_amt = $noc_charge[1];
-$noc_amt2 = $noc_amt;
-$noc_amt2 = $noc_amt2*$multi;
-}
+$noc_amt = (int)$this->request->data['noc'.$user_id];
+
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'ASC');
 $cursor=$this->ledger->find('all',array('order' =>$order));
@@ -503,48 +476,40 @@ $k=$last;
 }
 $k++;
 $this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" => $noc_amt2, "amount_category_id" => 2,
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" => $noc_amt, "amount_category_id" => 2,
 "table_name" => "regular_bill", "account_type" => 2, "account_id" => 43, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
 $this->ledger->saveAll($multipleRowData);
 
-$income_headd = array(43,$noc_amt2);
+$income_headd = array(43,$noc_amt);
 $income_headd2[] = $income_headd;
-$total_amt = $total_amt + $noc_amt2;
 }
-
 ////////////////////////////////////
-$current_date = new MongoDate(strtotime(date("Y-m-d")));
+//$current_date = new MongoDate(strtotime(date("Y-m-d")));
 $this->loadmodel('regular_bill');
 $conditions=array("society_id" => $s_society_id,"bill_for_user"=>$user_id,"status"=>0);
 $cursor = $this->regular_bill->find('all',array('conditions'=>$conditions));
 foreach($cursor as $collection)
 {
-$due_amount11 = (int)$collection['regular_bill']['remaining_amount'];
-$due_date11 = $collection['regular_bill']['due_date'];
-$from_due = $collection['regular_bill']['bill_daterange_from'];
+//$due_amount11 = (int)$collection['regular_bill']['remaining_amount'];
+$due_date11 = @$collection['regular_bill']['due_date'];
+$from_due = @$collection['regular_bill']['bill_daterange_from'];
+$tax_arrears = (int)@$collection['regular_bill']['accumulated_tax'];
+$arrear_amt = (int)@$collection['regular_bill']['arrears_amt'];
+$pr_amt = (int)@$collection['regular_bill']['current_bill_amt'];
+$previous_penalty_amt = (int)@$collection['regular_bill']['current_tax'];
+
 }
 $cur_date = date('Y-m-d');
-$cur_datec = new MongoDate(strtotime($cur_date));
+//$cur_datec = new MongoDate(strtotime($cur_date));
 
+/////////////// Penalty ///////////////////
 if($penalty == 1)
 {
-if($cur_datec > @$due_date11)
-{
-$due_date12 = date('Y-m-d',@$due_date11->sec);
-$from_due_date = date('Y-m-d',@$from_due->sec);
-if($per_type2 == 1)
-{
-$date1 = date_create($due_date12);
-}
-else
-{
-$date1 = date_create($from_due_date);
-}
-$date2 = date_create($cur_date);
-$interval = date_diff($date1, $date2);
-$days = $interval->format('%a');
+$due_date12 = date('Y-m-d',strtotime(@$due_date11));
+$from_due_date = date('Y-m-d',strtotime(@$from_due));
 
-$due_tax = round((@$due_amount11 * $days * $pen_per2)/365);
+$penalty_amt = (int)$this->request->data['penalty'.$user_id];
+
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
 $cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
@@ -562,20 +527,19 @@ $k=$last;
 }
 $k++;
 $this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" => @$due_tax, "amount_category_id" => 2, 
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" => @$penalty_amt, "amount_category_id" => 2, 
 "table_name" => "regular_bill", "account_type"=> 2, "account_id" => 43, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
 $this->ledger->saveAll($multipleRowData);
-
-}
 }
 
+/////////////////////End Penalty //////////////////////////////
 
-/////////////////////Penalty
 
-$total_due_amount = @$due_tax + @$due_amount11;
-$grand_total = $total_amt + $total_due_amount;
+//$grand_total = $total_amt + $total_due_amount;
 
-if(@$due_amount11 > 0)
+$over_due_amt = (int)$this->request->data['due'.$user_id];
+
+if(@$over_due_amt > 0)
 {
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
@@ -594,13 +558,12 @@ $k=$last;
 }
 $k++;
 $this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" =>$due_amount11, "amount_category_id" => 2,"table_name" => "regular_bill", "account_type" => 2, "account_id" => 13, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" =>$over_due_amt, "amount_category_id" => 2,"table_name" => "regular_bill", "account_type" => 2, "account_id" => 13, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
 $this->ledger->saveAll($multipleRowData);
 }
+$total_due_amount = (int)@$penalty_amt + $over_due_amt;
 
 $current_date13 = date('Y-m-d');
-$current_date13 = new MongoDate(strtotime($current_date13));
-
 $regular_bill_id13 = (int)$this->autoincrement('regular_bill','regular_bill_id');
 
 $this->loadmodel('ledger_sub_account');
@@ -611,6 +574,7 @@ foreach($cursor as $collection)
 $l_id =  (int)$collection['ledger_sub_account']['auto_id'];
 }
 
+$grand_total = (int)$this->request->data['gtt'.$user_id];
 
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
@@ -633,6 +597,9 @@ $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_i
 "table_name" => "regular_bill", "account_type"=> 1, "account_id" => @$l_id, "current_date" => $current_date13,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
 $this->ledger->saveAll($multipleRowData);
 
+$total_amt = (int)$this->request->data['tt'.$user_id];
+
+
 
 $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array('status'=>1),array("society_id"=>$s_society_id,"bill_for_user"=>$user_id,"status"=>0));
@@ -644,37 +611,12 @@ $admin_user_id[] = $user_id;
 
 $regular_bill_id = $this->autoincrement('regular_bill','regular_bill_id');
 
-//////////////////////////////////////////////////////////////
 $wing_flat = $this->wing_flat($wing_id,$flat_id);
 
-
-
-//////////////////////////////////////////////////////////////
-$this->loadmodel('society');
-$condition=array('society_id'=>$s_society_id);
-$cursor = $this->society->find('all',array('conditions'=>$condition)); 
-foreach($cursor as $collection)
-{
-$sms_id = (int)$collection['society']['account_sms'];
-}
-if($sms_id == 1)
-{
-	
-	$r_sms=$this->hms_sms_ip();
-  $working_key=$r_sms->working_key;
- $sms_sender=$r_sms->sms_sender; 
-$sms='Dear '.$user_name.' '.$wing_flat.', your maintenance bill for period '.$sms_from.'-'.$sms_to.' is Rs '.$grand_total.'.Kindly pay by due '.$sms_due.'.'.$society_name.' Society';
-
-$sms1=str_replace(' ', '+', $sms);
-$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
-}
-/////////////////////////////////////////////////////////////
-
-
-
-
-
-
+$current_date = date('Y-m-d');
+$current_bill_amt = (int)$this->request->data['tt'.$user_id];
+@$tax_arrears = (int)@$tax_arrears + @$penalty_amt;
+@$arrear_amt = @$arrear_amt + @$pr_amt;
 //////////////////////////////////////////////////////////////
 $this->loadmodel('regular_bill');
 $order=array('regular_bill.receipt_id'=> 'DESC');
@@ -697,39 +639,39 @@ $multipleRowData = Array( Array("regular_bill_id" => $regular_bill_id,"receipt_i
 "description"=>$description,"date"=>$current_date, "society_id"=>$s_society_id,"bill_for_user"=>$user_id,
 "g_total"=>$grand_total,"bill_daterange_from"=>$m_from,"bill_daterange_to"=>$m_to,
 "bill_html"=>"","one_time_id"=>$one,"status" => 0,  
-"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "due_amount_tax" => @$due_tax,"remaining_amount"=>$grand_total,"total_amount" => $total_amt,"pay_amount"=>"", "due_amount" => @$due_amount11,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt2));
+"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "current_tax" => @$penalty_amt,"accumulated_tax"=>@$tax_arrears,"remaining_amount"=>$grand_total,"current_bill_amt" => $current_bill_amt,"arrears_amt"=>@$arrear_amt,"pay_amount"=>"", "due_amount" => @$over_due_amt,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt,"approve_status"=>1));
 $this->regular_bill->saveAll($multipleRowData);	
 
 $ussrs[]=$user_id;
 
-
-$this->send_notification('<span class="label label-warning" ><i class="icon-money"></i></span>','New bill for your flat '.$wing_flat.' is generated ',10,$r,$this->webroot_path().'Incometrackers/ac_statement_bill_view/'.$r,0,$ussrs);
+$this->send_notification('<span class="label label-warning" ><i class="icon-money"></i></span>','New bill for your flat '.$wing_flat.' is generated ',10,$r,$this->webroot.'Incometrackers/ac_statement_bill_view/'.$r,0,$ussrs);
 unset($ussrs);
 ///////////////////////////////////////
 
 ////////////////////////////////////////////
 ///////Start Bill Html Code/////////////////
-	$total_amount2 = 0;	
-	$this->loadmodel('regular_bill');
-	$conditions=array("one_time_id"=>$one,"bill_for_user"=>$user_id);
-	$cursor=$this->regular_bill->find('all',array('conditions'=>$conditions));
-	foreach($cursor as $collection)
-	{
-	$bill_no = (int)$collection['regular_bill']['regular_bill_id'];
-	$receipt_id = $collection['regular_bill']['receipt_id'];
-	$date_from = $collection['regular_bill']['bill_daterange_from'];
-	$date_to = $collection['regular_bill']['bill_daterange_to'];
-	$ih_detail2 = $collection['regular_bill']['ih_detail'];
-	$date=$collection['regular_bill']["date"];
-	$regular_bill_id=$collection['regular_bill']["regular_bill_id"];
-	$grand_total = (int)$collection['regular_bill']['g_total'];
-	$late_amt2 = (int)$collection['regular_bill']['due_amount_tax'];
-	$due_amt2 = (int)$collection['regular_bill']['total_due_amount'];
-	$due_date2 = @$collection['regular_bill']['due_date'];
-	$narration = $collection['regular_bill']['description'];
-	$billing_cycle_id = (int)$collection['regular_bill']['period_id'];
-	}
-$date_frm = date('M',$date_from->sec);	
+$total_amount2 = 0;	
+$this->loadmodel('regular_bill');
+$conditions=array("one_time_id"=>$one,"bill_for_user"=>$user_id);
+$cursor=$this->regular_bill->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$bill_no = (int)$collection['regular_bill']['regular_bill_id'];
+$receipt_id = $collection['regular_bill']['receipt_id'];
+$date_from = $collection['regular_bill']['bill_daterange_from'];
+$date_to = $collection['regular_bill']['bill_daterange_to'];
+$ih_detail2 = $collection['regular_bill']['ih_detail'];
+$date_c=$collection['regular_bill']["date"];
+$regular_bill_id=$collection['regular_bill']["regular_bill_id"];
+$grand_total = (int)$collection['regular_bill']['g_total'];
+$late_amt2 = (int)$collection['regular_bill']['current_tax'];
+$due_amt2 = (int)$collection['regular_bill']['total_due_amount'];
+$due_date2 = @$collection['regular_bill']['due_date'];
+$narration = $collection['regular_bill']['description'];
+$billing_cycle_id = (int)$collection['regular_bill']['period_id'];
+$interest_arrears = (int)$collection['regular_bill']['accumulated_tax'];
+}
+$date_frm = date('M',strtotime($date_from));	
 if($billing_cycle_id == 1)
 {
 $multi_ch = 1;
@@ -751,11 +693,11 @@ if($billing_cycle_id == 5)
 $multi_ch = 12;
 }	
 
-$date_from = date("d-M-Y", $date_from->sec);
-$date_to = date("d-M-Y", $date_to->sec);
+$date_from = date("d-M-Y",strtotime($date_from));
+$date_to = date("d-M-Y",strtotime($date_to));
 $date_to2 = date('Y-m-d',strtotime($date_to));
-$due_date21 = date('d-M-Y',@$due_date2->sec);
-$newDate = date("d-M-Y", $date->sec);	
+$due_date21 = date('d-M-Y',strtotime($due_date2));
+//$newDate = date("d-M-Y",strtotime($date));	
 
 $this->loadmodel('user');
 $conditions=array("user_id"=>$user_id,"society_id" => $s_society_id);
@@ -784,10 +726,16 @@ foreach($cursor as $collection)
 {
 $society_name=$collection['society']["society_name"];
 $so_reg_no = $collection['society']['society_reg_num'];
-$so_address = $collection['society']['society_address'];	
+$so_address = $collection['society']['society_address'];
+$bank_name = @$collection['society']['bank_name'];	
+$ac_num = @$collection['society']['ac_num'];
+$branch = @$collection['society']['branch'];
+$account_name = @$collection['society']['ac_name'];
+$ifsc_code = @$collection['society']['ifsc_code'];		
 }
-$date = date('d-M-Y',$date->sec);
-
+$date_c = date('d-M-Y',strtotime($date_c));
+$date = date('d-M-Y',strtotime($date_from));
+$datett = date('M',strtotime($date_to));
 //////////////////////////////////////////////
 $dateA =date('m',strtotime($date));
 $y = date('Y',strtotime($date));
@@ -817,44 +765,50 @@ $year = date('Y',strtotime($dat2));
 $monthB = implode("-",$month2);
 
 //////////////////////////////////////////////////
-$html='<center>
-<div style="700px; background-color:white; overflow:auto;">
-<br><Br><br>
-<div style="width:80%; border:solid 1px; overflow:auto;">
-<br>
-<table border="0" style="width:100%;">
+//echo $log_img;
+$html='<div style="width:70%;margin:auto;" class="bill_on_screen">
+<div style="background-color:white; overflow:auto;">
+<div style="border:solid 1px; overflow:auto;">
+<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'  SOCIETY</div>
+<div style="padding:5px;">
+	<div style="float:left;">
+	<img src='.$webroot_path.'logo/'.$log_img.'  height="60px" width="60px"></img>
+	</div>
+	<div style="float:right;" align="right">
+	<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_reg_no.'</span><br/>
+	<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_address.'</span><br/>
+	<span>Email: '.$society_email.'</span> | <span>Phone : '.$society_phone.'</span>
+	</div>
+</div>
+<table border="0" style="width:15%; float:left;">
 <tr>
-<th style="text-align:center;">
-<p style="font-size:22px;">'.$society_name.'  Society</p>
-</th>
-</tr>
-<tr>
-<th style="text-align:center;">'.$so_reg_no.'</th>
-</tr>
-<tr>
-<th style="text-align:center;">'.$so_address.'</th>
+<td>
+
+</td>
 </tr>
 </table>
+
 </div>
-<div style="width:80%; border:solid 1px; overflow:auto; border-top:none; border-bottom:none;">
+<div style="border:solid 1px; overflow:auto; border-top:none; border-bottom:none;padding:5px;">
+<div>
 <table border="0" style="width:60%; float:left;">
 <tr>
-<td style="text-align:left; width:17%;">
+<td style="text-align:left; width:17%;font-weight: bold;">
 Name :
 </td>
-<td style="text-align:left;">'.$user_name.'</td>
+<td>'.$user_name.'</td>
 </tr>
 <tr>
-<td style="text-align:left;">Bill No.:</td>
+<td style="text-align:left;font-weight: bold;">Bill No.:</td>
 <td style="text-align:left;">'.$receipt_id.' </td>
 </tr>
 <tr>
-<td style="text-align:left;">Bill Date:</td>
-<td style="text-align:left;">'.$date.'</td>
+<td style="text-align:left;font-weight: bold;">Bill Date:</td>
+<td style="text-align:left;">'.$date_c.'</td>
 </tr>
 <tr>
-<td style="text-align:left;">Due Date:</td>
-<td style="text-align:left;">'.$due_date21.'</td>
+<td style="text-align:left;"></td>
+<td style="text-align:left;"></td>
 </tr>
 </table>
 <table border="0" style="width:39%; float:right;">
@@ -863,24 +817,30 @@ Name :
 <td></td>
 </tr>
 <tr>
-<td style="text-align:left;">Flat/Shop No.:</td>
+<td style="text-align:left;font-weight: bold;">Flat/Shop No.:</td>
 <td style="text-align:left;">'.$wing_flat.'</td>
 </tr>
 <tr>
-<td style="text-align:left;">Area:</td>
+<td style="text-align:left;font-weight: bold;">Area:</td>
 <td style="text-align:left;">'.$flat_area.' Sq Feet</td>
 </tr>
 <tr>
-<td style="text-align:left;">Billing Period:</td>
+<td style="text-align:left;font-weight: bold;">Billing Period:</td>
 <td style="text-align:left;">'.$monthB.''. $year.'</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;"><b>Due Date:</b></td>
+<td style="text-align:left;"><b>'.$due_date21.'</b></td>
 </tr>
 </table>
 </div>
-<div style="width:80.2%; overflow:auto;">
-<table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="0">
+<div><b>&nbsp;Description:</b> '.$narration.'</div>
+</div>
+<div style="overflow:auto;">
+<table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="5">
 <tr>
-<td style="width:80%; text-align:center;">Particulars</td>
-<td style="text-align:center;">Amount (Rs.)</td>
+<th style="width:80%; text-align:left;color: #fff;background-color: rgb(4, 126, 186);">Particulars</th>
+<th style="text-align:right;color: #fff;background-color: rgb(4, 126, 186);">Amount (Rs.)</th>
 <tr>
 <tr>
 <td valign="top" style="height:200px;">
@@ -915,9 +875,9 @@ for($y=0; $y<sizeof($ih_detail2); $y++)
 {
 $ih_det3 = $ih_detail2[$y];
 $amount = $ih_det3[1];
-$amount2 = number_format($amount);
+//$amount2 = number_format($amount);
 $html.='<tr>
-<td style="text-align:center;">'.$amount2.'</td>
+<td style="text-align:right;">'.$amount.'</td>
 </tr>';
 $total_amount2 = $total_amount2 + $amount;
 }
@@ -927,117 +887,110 @@ $html.='</table>
 </tr>
 <tr>
 <td valign="top">
-<table border="0" style="width:100%;">';
-if($total_amount2 != 0)
-{
-$html.='<tr>
-<td rowspan="4"></td>
-<td style="text-align:right;">Sub-Total:</td>
-</tr>';
-}
-if($due_amt3 != 0)
-{
-$html.='<tr>
-<td style="text-align:right;">Over Due Amount:</td>
-</tr>';
-}
-if($late_amt2 != 0)
-{
-$html.='<tr>
-<td style="text-align:right;">Over Due Interest:</td>
-</tr>';
-}
-if($grand_total != 0)
-{
-$html.='
+<table border="0" style="width:60%; float:left;">
 <tr>
-<th style="text-align:right;">Grand Total:</th>
+<td colspan="2">Cheque/NEFT payment instructions:</td>
+</tr>
+<tr>
+<td><b>Account Name:</b></td>
+<td> &nbsp;&nbsp; '.$account_name.'</td>
+</tr>
+<tr>
+<td><b>Account No.:</b></td>
+<td> &nbsp;&nbsp; '.$ac_num.'</td>
+</tr>
+<tr>
+<td><b>Bank Name:</b></td>
+<td> &nbsp;&nbsp; '.$bank_name .'</td>
+</tr>
+<tr>
+<td><b>Branch Name:</b></td>
+<td> &nbsp;&nbsp; '.$branch .'</td>
+</tr>
+<tr>
+<td><b>IFSC no.:</b></td>
+<td> &nbsp;&nbsp; '.$ifsc_code.'</td>
+</tr>
+</table>
+<table border="0" style="width:40%;">';
+$html.='<tr>
+<td rowspan="5"></td>
+<td style="text-align:right; padding-right:2%;">Total:</td>
 </tr>';
-}
+$html.='<tr>
+<td style="text-align:right; padding-right:2%;">Interest:</td>
+</tr>
+<tr>
+<td style="text-align:right; padding-right:2%;">Arrears(Int.):</td>
+</tr>';
+$html.='<tr>
+<td style="text-align:right; padding-right:2%;">Arrears(Maint.):</td>
+</tr>';
+$html.='<tr>
+<th style="text-align:right; padding-right:2%;">Due For Payment:</th>
+</tr>';
 $html.='</table>
 </td>
 <td valign="top">';
+$due_amt5 = $due_amt3-$interest_arrears;
 
 $total_amount3 = number_format($total_amount2);
-$due_amt4 = number_format($due_amt3);
+$due_amt4 = number_format($due_amt5);
 $late_amt3 = number_format($late_amt2);
 $grand_total2 = number_format($grand_total);
+$interest_arrears2 = number_format($interest_arrears);
 
 $html.='<table border="0" style="width:100%;">
 <tr>';
-if($total_amount2 != 0)
-{
 $html.='
-<td style="text-align:center;">'.$total_amount3.'</td>
+<td style="text-align:right; padding-right:8%;">'.$total_amount3.'</td>
 </tr>';
-}
-if($due_amt3 != 0)
-{
-$html.='<tr>
-<td style="text-align:center;">'.@$due_amt4.'</td>
-</tr>';
-}
-if($late_amt2 != 0)
-{
 $html.='
 <tr>
-<td style="text-align:center;">'.@$late_amt3.'</td>
+<td style="text-align:right; padding-right:8%;">'.@$late_amt3.'</td>
+</tr>
+<tr>
+<td style="text-align:right; padding-right:8%;">'.@$interest_arrears2.'</td>
 </tr>';
-}
-if($grand_total != 0)
-{
 $html.='<tr>
-<th style="text-align:center;">'.$grand_total2.'</th>
+<td style="text-align:right; padding-right:8%;">'.@$due_amt4.'</td>
 </tr>';
-}
-$html.='
-</table>
+$html.='<tr>
+<th style="text-align:right; padding-right:8%;">'.$grand_total2.'</th>
+</tr>';
+$grand_total2;
+$grand_total2 = str_replace( ',', '', $grand_total2 );
+$am_in_words=$this->convert_number_to_words($grand_total2); 
+$html.='</table>
 </td>
 </tr>
+<tr><td colspan="2"><b>Due For Payment (in words) :</b> '.$am_in_words.'</td></tr>
 </table>
-</div>
-<div style="width:80%; overflow:auto; border:solid 1px; border-top:none;">
-<table border="0" style="width:70%; float:left;">
-<tr>
-<th style="text-align:left;">Description:</th>
-</tr>
-<tr>
-<td style="text-align:left;">
-'.$narration.'
-</td>
-</tr>
-</table>
-</div>
-<div style="width:80%; overflow:auto; border:solid 1px; border-top:none;">
-<table border="0" style="width:100%;">
-<tr>
-<th style="text-align:left;">
-Terms And Conditions:
-</th>
-</tr>';
+</div>';
+
+$html.='<div style="overflow:auto;border:solid 1px;border-bottom:none;padding:5px;border-top: none;">
+<div style="width:70%;float:left;">
+<span>Remarks:</span><br/>';
+$count=0;
 for($r=0; $r<sizeof($terms_arr); $r++)
 {
+$count++;
 $tems_name = $terms_arr[$r];
-$html.='
-<tr>
-<td style="text-align:left;">'.$tems_name.'</td>
-</tr>';
+$html.='<span>'.$count.'.  '.$tems_name.'</span><br/>';
 }
-$html.='</table> 
+$html.='</div>
+<div style="width:30%;float:right;">For  <b>'.$society_name.' Society</div>
 </div>
-<div style="width:80%; overflow:auto; border:solid 1px; border-top:none;">
-<br><br><br>
-<table border="0" style="width:100%;">
-<tr>
-<td style="text-align:right;">
-<p style="font-size:16px; margin-right:10%;"><b>'.$society_name.' Society </b></p>
-</td>
-</tr>
-</table>
+<div align="center" style="color: #6F6D6D;border: solid 1px;border-top: dotted 1px;">Note: This is a computer generated bill hence no signature required.</div>
+<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;border: solid 1px #000;border-top: none;">
+<span>Your Society is empowered by HousingMatters - 
+Making Life Simpler !</span><br/>
+<span>Email: support@housingmatters.in</span> &nbsp;|&nbsp; <span>Phone : 022-41235568</span> &nbsp;|&nbsp; <span>www.housingmatters.co.in</span></div>
+
 </div>
-<br><br><br><br>
 </div>
 ';
+
 $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array("bill_html" =>$html),array("regular_bill_id" =>$regular_bill_id));	
 ////////End Bill Html Code///////////////////
@@ -1250,6 +1203,7 @@ $mail_id = $collection['society']['account_email'];
 }
 if($mail_id == 1)
 {
+/*
 $from_mail_date = date('d M',strtotime($date_from));
 $to_mail_date = date('d M Y',strtotime($date_to));
 
@@ -1260,6 +1214,7 @@ $from_name="HousingMatters";
 $from = "accounts@housingmatters.in";
 $reply="accounts@housingmatters.in";
 $this->send_email($to_mail,$from,$from_name,$subject,$html,$reply);
+*/
 }
 }
 }
@@ -1321,39 +1276,17 @@ $regular_bill_id11=$last111;
 $regular_bill_id11++;
 
 $current_date11 = date('Y-m-d');
-$current_date11 = new MongoDate(strtotime($current_date11));
+//$current_date11 = new MongoDate(strtotime($current_date11));
 /////////////////////////////////////
 $total_amt = 0;
 $income_headd2 = array();
-
 for($s=0; $s<sizeof($income_head_arr); $s++)
 {
 $auto_id_in = (int)$income_head_arr[$s];
 
-for($j=0; $j<sizeof($charge); $j++)
-{
-$charge2 = $charge[$j];
-$auto_ih = (int)$charge2[0];
-$type = (int)$charge2[1];
-$ch_amt1 = $charge2[2];
-if($auto_id_in == $auto_ih)
-{
-if($type == 2)
-{
-$ch_amt = $ch_amt1 * $sq_feet;
-$ch_amt = $ch_amt*$multi;
-}
-else
-{
-$ch_amt = $ch_amt1;
-$ch_amt = $ch_amt*$multi;
-}
-if($auto_id_in == 42)
-{
-$maint_ch = $ch_amt;
-$maint_ch = $maint_ch*$multi;
-}
-$income_headd = array($auto_ih,$ch_amt);
+$ih_amt = (int)$this->request->data['ih'.$auto_id_in.$user_id];
+
+$income_headd = array($auto_id_in,$ih_amt);
 $income_headd2[] = $income_headd;
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'ASC');
@@ -1372,35 +1305,17 @@ $k=$last;
 }
 $k++;
 $this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" => $ch_amt, "amount_category_id" => 2,
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" => $ih_amt, "amount_category_id" => 2,
 "table_name" => "regular_bill", "account_type" => 2, "account_id" => $auto_id_in, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
 $this->ledger->saveAll($multipleRowData);
-$total_amt = $total_amt + $ch_amt;
-}
-}
+
 }
 
 ///////////////////////////////////////
 if($noc_ch_id == 2)
 {
-$tp_id = (int)$noc_charge[0];
-if($tp_id == 2)
-{
-$noc_amt = $noc_charge[1];
-$noc_amt2 = $noc_amt*$sq_feet;
-$noc_amt2 = $noc_amt2*$multi;
-}
-else if($tp_id == 4)
-{
-$noc_amt2 = round((10/100)*$maint_ch);
-$noc_amt2 = $noc_amt2*$multi;
-}
-else
-{
-$noc_amt = $noc_charge[1];
-$noc_amt2 = $noc_amt;
-$noc_amt2 = $noc_amt2*$multi;
-}
+$noc_amt = (int)$this->request->data['noc'.$user_id];
+
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'ASC');
 $cursor=$this->ledger->find('all',array('order' =>$order));
@@ -1418,51 +1333,39 @@ $k=$last;
 }
 $k++;
 $this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" => $noc_amt2, "amount_category_id" => 2,
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" => $noc_amt, "amount_category_id" => 2,
 "table_name" => "regular_bill", "account_type" => 2, "account_id" => 43, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
 $this->ledger->saveAll($multipleRowData);
 
-$income_headd = array(43,$noc_amt2);
+$income_headd = array(43,$noc_amt);
 $income_headd2[] = $income_headd;
-$total_amt = $total_amt + $noc_amt2;
-
 }
 
 ////////////////////////////////////
 //$tax_amount = round(($tax_per/100)*$total_amount);
-$current_date = new MongoDate(strtotime(date("Y-m-d")));
+$current_date = date('Y-m-d');
 $this->loadmodel('regular_bill');
 $conditions=array("society_id" => $s_society_id,"bill_for_user"=>$user_id,"status"=>0);
 $cursor = $this->regular_bill->find('all',array('conditions'=>$conditions));
 foreach($cursor as $collection)
 {
-$due_amount11 = (int)$collection['regular_bill']['remaining_amount'];
+//$due_amount11 = (int)$collection['regular_bill']['remaining_amount'];
 $due_date11 = $collection['regular_bill']['due_date'];
 $from_due = $collection['regular_bill']['bill_daterange_from'];
+$tax_arrears = (int)@$collection['regular_bill']['accumulated_tax'];
+$arrear_amt = (int)@$collection['regular_bill']['arrears_amt'];
+$pr_amt = (int)$collection['regular_bill']['current_bill_amt'];
+$previous_penalty_amt = (int)@$collection['regular_bill']['current_tax'];
 }
 $cur_date = date('Y-m-d');
-$cur_datec = new MongoDate(strtotime($cur_date));
+//$cur_datec = new MongoDate(strtotime($cur_date));
 
 if($penalty == 1)
 {
-if($cur_datec > @$due_date11)
-{
-$due_date12 = date('Y-m-d',@$due_date11->sec);
-$from_due_date = date('Y-m-d',@$from_due->sec);
-if($per_type2 == 1)
-{
-$date1 = date_create($due_date12);
-}
-else
-{
-$date1 = date_create($from_due_date);
-}
-$date2 = date_create($cur_date);
-$interval = date_diff($date1, $date2);
-$days = $interval->format('%a');
+$due_date12 = date('Y-m-d',strtotime(@$due_date11));
+$from_due_date = date('Y-m-d',strtotime(@$from_due));
 
-
-$due_tax = round((@$due_amount11 * $days * $pen_per2)/365);
+$penalty_amt = (int)$this->request->data['penalty'.$user_id];
 
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
@@ -1481,20 +1384,15 @@ $k=$last;
 }
 $k++;
 $this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" => @$due_tax, "amount_category_id" => 2, 
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" => @$penalty_amt, "amount_category_id" => 2, 
 "table_name" => "regular_bill", "account_type"=> 2, "account_id" => 43, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
 $this->ledger->saveAll($multipleRowData);
-
-}
 }
 
 
-/////////////////////Penalty
+$over_due_amt = (int)$this->request->data['due'.$user_id];
 
-$total_due_amount = @$due_tax + @$due_amount11;
-$grand_total = $total_amt + $total_due_amount;
-
-if(@$due_amount11 > 0)
+if(@$over_due_amt > 0)
 {
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
@@ -1513,12 +1411,13 @@ $k=$last;
 }
 $k++;
 $this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" =>$due_amount11, "amount_category_id" => 2,"table_name" => "regular_bill", "account_type" => 2, "account_id" => 13, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" =>$over_due_amt, "amount_category_id" => 2,"table_name" => "regular_bill", "account_type" => 2, "account_id" => 13, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
 $this->ledger->saveAll($multipleRowData);
 }
+$total_due_amount = (int)@$penalty_amt + $over_due_amt;
 
 $current_date13 = date('Y-m-d');
-$current_date13 = new MongoDate(strtotime($current_date13));
+//$current_date13 = new MongoDate(strtotime($current_date13));
 
 $regular_bill_id13 = (int)$this->autoincrement('regular_bill','regular_bill_id');
 
@@ -1530,6 +1429,8 @@ foreach($cursor as $collection)
 $l_id =  (int)$collection['ledger_sub_account']['auto_id'];
 }
 
+
+$grand_total = (int)$this->request->data['gtt'.$user_id];
 
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
@@ -1552,6 +1453,7 @@ $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_i
 "table_name" => "regular_bill", "account_type"=> 1, "account_id" => @$l_id, "current_date" => $current_date13,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
 $this->ledger->saveAll($multipleRowData);
 
+$total_amt = (int)$this->request->data['tt'.$user_id];
 
 $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array('status'=>1),array("society_id"=>$s_society_id,"bill_for_user"=>$user_id,"status"=>0));
@@ -1563,41 +1465,12 @@ $admin_user_id[] = $user_id;
 
 $regular_bill_id = $this->autoincrement('regular_bill','regular_bill_id');
 
-//////////////////////////////////////////////////////////////
 $wing_flat = $this->wing_flat($wing_id,$flat_id);
 
+$current_bill_amt = (int)$this->request->data['tt'.$user_id];
+@$tax_arrears = (int)$tax_arrears + @$penalty_amt;
+@$arrear_amt = @$arrear_amt + @$pr_amt;
 
-///////////////////////////
-
-//////////////////////////////////////////////////////////////
-$this->loadmodel('society');
-$condition=array('society_id'=>$s_society_id);
-$cursor = $this->society->find('all',array('conditions'=>$condition)); 
-foreach($cursor as $collection)
-{
-$sms_id = (int)$collection['society']['account_sms'];
-}
-
-if($sms_id == 1)
-{
-
-$r_sms=$this->hms_sms_ip();
-  $working_key=$r_sms->working_key;
- $sms_sender=$r_sms->sms_sender; 	
-	
-$sms='Dear '.$user_name.' '.$wing_flat.', your maintenance bill for period '.$sms_from.'-'.$sms_to.' is Rs '.$grand_total.'.Kindly pay by due '.$sms_due.'.'.$society_name.' Society';
-
-$sms1=str_replace(' ', '+', $sms);
-$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
-}
-/////////////////////////////////////////////////////////////
-
-
-
-
-
-
-//////////////////////////////////////////////////////////////
 $this->loadmodel('regular_bill');
 $order=array('regular_bill.receipt_id'=> 'DESC');
 $cursor=$this->regular_bill->find('all',array('order' =>$order,'limit'=>1));
@@ -1619,13 +1492,16 @@ $multipleRowData = Array( Array("regular_bill_id" => $regular_bill_id,"receipt_i
 "description"=>$description,"date"=>$current_date, "society_id"=>$s_society_id,"bill_for_user"=>$user_id,
 "g_total"=>$grand_total,"bill_daterange_from"=>$m_from,"bill_daterange_to"=>$m_to,
 "bill_html"=>"","one_time_id"=>$one,"status" => 0,  
-"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "due_amount_tax" => @$due_tax,"remaining_amount"=>$grand_total,"total_amount" => $total_amt,"pay_amount"=>"", "due_amount" => @$due_amount11,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt2));
+"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "current_tax" => @$penalty_amt,"accumulated_tax"=>@$tax_arrears,"remaining_amount"=>$grand_total,"current_bill_amt" => $current_bill_amt,"arrears_amt"=>@$arrear_amt,"pay_amount"=>"", "due_amount" => @$over_due_amt,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt,"approve_status"=>1));
 $this->regular_bill->saveAll($multipleRowData);	
+
+
+////////////////////
 
 ///////////////////////////////////////
 $ussrs[]=$user_id;
 
-$this->send_notification('<span class="label label-warning" ><i class="icon-money"></i></span>','New bill for your flat '.$wing_flat.' is generated ',10,$r,$this->webroot_path().'Incometrackers/ac_statement_bill_view/'.$r,0,$ussrs);
+$this->send_notification('<span class="label label-warning" ><i class="icon-money"></i></span>','New bill for your flat '.$wing_flat.' is generated ',10,$r,$this->webroot.'Incometrackers/ac_statement_bill_view/'.$r,0,$ussrs);
 unset($ussrs);
 ////////////////////////////////////////////
 ///////Start Bill Html Code/////////////////
@@ -1640,16 +1516,17 @@ unset($ussrs);
 	$date_from = $collection['regular_bill']['bill_daterange_from'];
 	$date_to = $collection['regular_bill']['bill_daterange_to'];
 	$ih_detail2 = $collection['regular_bill']['ih_detail'];
-	$date=$collection['regular_bill']["date"];
+	$date_c=$collection['regular_bill']["date"];
 	$regular_bill_id=$collection['regular_bill']["regular_bill_id"];
 	$grand_total = (int)$collection['regular_bill']['g_total'];
-	$late_amt2 = (int)$collection['regular_bill']['due_amount_tax'];
+	$late_amt2 = (int)$collection['regular_bill']['current_tax'];
 	$due_amt2 = (int)$collection['regular_bill']['total_due_amount'];
 	$due_date2 = @$collection['regular_bill']['due_date'];
 	$narration = $collection['regular_bill']['description'];
 	$billing_cycle_id = (int)$collection['regular_bill']['period_id'];
+	$interest_arrears = (int)$collection['regular_bill']['accumulated_tax'];
 	}
-$date_frm = date('M',$date_from->sec);	
+$date_frm = date('M',strtotime($date_from));	
 if($billing_cycle_id == 1)
 {
 $multi_ch = 1;
@@ -1670,21 +1547,15 @@ if($billing_cycle_id == 5)
 {
 $multi_ch = 12;
 }	
+
 	
-	
-	
-	
-	
-	
-	
-	
-$date_from = date("d-M-Y", $date_from->sec);
-$date_to = date("d-M-Y", $date_to->sec);
+$date_from = date("d-M-Y",strtotime($date_from));
+$date_to = date("d-M-Y",strtotime($date_to));
 $date_to2 = date('Y-m-d',strtotime($date_to));
 
 //$due_date = date('Y-m-d', strtotime($date_to2 .'+'. $due_days2.'day'));
-$due_date21 = date('d-M-Y',@$due_date2->sec);
-$newDate = date("d-M-Y", $date->sec);	
+$due_date21 = date('d-M-Y',strtotime(@$due_date2));
+//$newDate = date("d-M-Y",strtotime(@$date));	
 
 
 $this->loadmodel('user');
@@ -1715,8 +1586,16 @@ foreach($cursor as $collection)
 $society_name=$collection['society']["society_name"];
 $so_reg_no = $collection['society']['society_reg_num'];
 $so_address = $collection['society']['society_address'];	
+$bank_name = @$collection['society']['bank_name'];	
+$ac_num = @$collection['society']['ac_num'];
+$branch = @$collection['society']['branch'];
+$account_name = @$collection['society']['ac_name'];
+$ifsc_code = @$collection['society']['ifsc_code'];
 }
-$date = date('d-M-Y',$date->sec);
+$date_c = date('d-M-Y',strtotime($date_c));
+$date = date('d-M-Y',strtotime($date_from));
+$datett = date('M',strtotime($date_to));
+
 /////////////////////////////////////
 $dateA =date('m',strtotime($date));
 $y = date('Y',strtotime($date));
@@ -1734,7 +1613,6 @@ if($dateA == 12)
 $dateA=0;
 $y++;
 }
-
 $dateA++;
 }
 
@@ -1748,44 +1626,49 @@ $year = date('Y',strtotime($dat2));
 $monthB = implode("-",$month2);
 
 //////////////////////////////////////////
-$html='<center>
-<div style="700px; background-color:white; overflow:auto;">
-<br><Br><br>
-<div style="width:80%; border:solid 1px; overflow:auto;">
-<br>
-<table border="0" style="width:100%;">
+$html='<div style="width:70%;margin:auto;">
+<div style="background-color:white; overflow:auto;">
+<div style="border:solid 1px; overflow:auto;">
+<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'  SOCIETY</div>
+<div style="padding:5px;">
+	<div style="float:left;">
+	<img src='.$webroot_path.'logo/'.$log_img.' height="60px" width="60px"></img>
+	</div>
+	<div style="float:right;" align="right">
+	<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_reg_no.'</span><br/>
+	<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_address.'</span><br/>
+	<span>Email: '.$society_email.'</span> | <span>Phone : '.$society_phone.'</span>
+	</div>
+</div>
+<table border="0" style="width:15%; float:left;">
 <tr>
-<th style="text-align:center;">
-<p style="font-size:22px;">'.$society_name.'  Society</p>
-</th>
-</tr>
-<tr>
-<th style="text-align:center;">'.$so_reg_no.'</th>
-</tr>
-<tr>
-<th style="text-align:center;">'.$so_address.'</th>
+<td>
+
+</td>
 </tr>
 </table>
+
 </div>
-<div style="width:80%; border:solid 1px; overflow:auto; border-top:none; border-bottom:none;">
+<div style="border:solid 1px; overflow:auto; border-top:none; border-bottom:none;padding:5px;">
+<div>
 <table border="0" style="width:60%; float:left;">
 <tr>
-<td style="text-align:left; width:17%;">
+<td style="text-align:left; width:17%;font-weight: bold;">
 Name :
 </td>
-<td style="text-align:left;">'.$user_name.'</td>
+<td>'.$user_name.'</td>
 </tr>
 <tr>
-<td style="text-align:left;">Bill No. :</td>
-<td style="text-align:left;">'.$receipt_id.'</td>
+<td style="text-align:left;font-weight: bold;">Bill No.:</td>
+<td style="text-align:left;">'.$receipt_id.' </td>
 </tr>
 <tr>
-<td style="text-align:left;">Bill Date :</td>
-<td style="text-align:left;">'.$date.'</td>
+<td style="text-align:left;font-weight: bold;">Bill Date:</td>
+<td style="text-align:left;">'.$date_c.'</td>
 </tr>
 <tr>
-<td style="text-align:left;">Due Date:</td>
-<td style="text-align:left;">'.$due_date21.'</td>
+<td style="text-align:left;"></td>
+<td style="text-align:left;"></td>
 </tr>
 </table>
 <table border="0" style="width:39%; float:right;">
@@ -1794,28 +1677,35 @@ Name :
 <td></td>
 </tr>
 <tr>
-<td style="text-align:left;">Flat/Shop No. :</td>
+<td style="text-align:left;font-weight: bold;">Flat/Shop No.:</td>
 <td style="text-align:left;">'.$wing_flat.'</td>
 </tr>
 <tr>
-<td style="text-align:left;">Area:</td>
+<td style="text-align:left;font-weight: bold;">Area:</td>
 <td style="text-align:left;">'.$flat_area.' Sq Feet</td>
 </tr>
 <tr>
-<td style="text-align:left;">Billing Period:</td>
-<td style="text-align:left;">'.$monthB.''.  $year.'</td>
+<td style="text-align:left;font-weight: bold;">Billing Period:</td>
+<td style="text-align:left;">'.$monthB.''. $year.'</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;"><b>Due Date:</b></td>
+<td style="text-align:left;"><b>'.$due_date21.'</b></td>
 </tr>
 </table>
 </div>
-<div style="width:80.2%; overflow:auto;">
-<table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="0">
+<div><b>&nbsp;Description:</b> '.$narration.'</div>
+</div>
+<div style="overflow:auto;">
+<table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="5">
 <tr>
-<td style="width:80%; text-align:center;">Particulars</td>
-<td style="text-align:center;">Amount (Rs.)</td>
+<th style="width:80%; text-align:left;color: #fff;background-color: rgb(4, 126, 186);">Particulars</th>
+<th style="text-align:right;color: #fff;background-color: rgb(4, 126, 186);">Amount (Rs.)</th>
 <tr>
 <tr>
 <td valign="top" style="height:200px;">
 <table border="0" style="width:100%;">';
+
 for($x=0; $x<sizeof($ih_detail2); $x++)
 {
 $ih_det = $ih_detail2[$x];
@@ -1845,9 +1735,9 @@ for($y=0; $y<sizeof($ih_detail2); $y++)
 {
 $ih_det3 = $ih_detail2[$y];
 $amount = $ih_det3[1];
-$amount2 = number_format($amount);
+//$amount2 = number_format($amount);
 $html.='<tr>
-<td style="text-align:center;">'.$amount2.'</td>
+<td style="text-align:right;">'.$amount.'</td>
 </tr>';
 $total_amount2 = $total_amount2 + $amount;
 }
@@ -1857,19 +1747,267 @@ $html.='</table>
 </tr>
 <tr>
 <td valign="top">
-<table border="0" style="width:100%;">
+<table border="0" style="width:60%; float:left;">
+<tr>
+<td colspan="2">Cheque/NEFT payment instructions:</td>
+</tr>
+<tr>
+<td><b>Account Name:</b></td>
+<td> &nbsp;&nbsp; '.$account_name.'</td>
+</tr>
+<tr>
+<td><b>Account No.:</b></td>
+<td> &nbsp;&nbsp; '.$ac_num.'</td>
+</tr>
+<tr>
+<td><b>Bank Name:</b></td>
+<td> &nbsp;&nbsp; '.$bank_name .'</td>
+</tr>
+<tr>
+<td><b>Branch Name:</b></td>
+<td> &nbsp;&nbsp; '.$branch .'</td>
+</tr>
+<tr>
+<td><b>IFSC no.:</b></td>
+<td> &nbsp;&nbsp; '.$ifsc_code.'</td>
+</tr>
+</table>
+<table border="0" style="width:40%;">';
+$html.='<tr>
+<td rowspan="5"></td>
+<td style="text-align:right; padding-right:2%;">Total:</td>
+</tr>';
+$html.='<tr>
+<td style="text-align:right; padding-right:2%;">Interest:</td>
+</tr>
+<tr>
+<td style="text-align:right;">Arrears(Int.):</td>
+</tr>';
+$html.='<tr>
+<td style="text-align:right; padding-right:2%;">Arrears(Maint.):</td>
+</tr>';
+$html.='<tr>
+<th style="text-align:right; padding-right:2%;">Due For Payment:</th>
+</tr>';
+$html.='</table>
+</td>
+<td valign="top">';
+$due_amt5 = $due_amt3-$interest_arrears;
+
+$total_amount3 = number_format($total_amount2);
+$due_amt4 = number_format($due_amt5);
+$late_amt3 = number_format($late_amt2);
+$grand_total2 = number_format($grand_total);
+$interest_arrears2 = number_format($interest_arrears);
+
+$html.='<table border="0" style="width:100%;">
+<tr>';
+$html.='
+<td style="text-align:right; padding-right:8%;">'.$total_amount3.'</td>
+</tr>';
+$html.='
+<tr>
+<td style="text-align:right; padding-right:8%;">'.@$late_amt3.'</td>
+</tr>
+<tr>
+<td style="text-align:right; padding-right:8%;">'.@$interest_arrears2.'</td>
+</tr>';
+$html.='<tr>
+<td style="text-align:right; padding-right:8%;">'.@$due_amt4.'</td>
+</tr>';
+$html.='<tr>
+<th style="text-align:right; padding-right:8%;">'.$grand_total2.'</th>
+</tr>';
+$grand_total2 = str_replace( ',', '', $grand_total2 );
+
+$am_in_words=$this->convert_number_to_words($grand_total2); 
+$html.='</table>
+</td>
+</tr>
+<tr><td colspan="2"><b>Due For Payment (in words) :</b> '.$am_in_words.'</td></tr>
+</table>
+</div>';
+
+$html.='<div style="overflow:auto;border:solid 1px;border-bottom:none;padding:5px;border-top: none;">
+<div style="width:70%;float:left;">
+<span>Remarks:</span><br/>';
+$count=0;
+for($r=0; $r<sizeof($terms_arr); $r++)
+{
+$count++;
+$tems_name = $terms_arr[$r];
+$html.='<span>'.$count.'.  '.$tems_name.'</span><br/>';
+}
+$html.='</div>
+<div style="width:30%;float:right;">For  <b>'.$society_name.' Society</div>
+</div>
+<div align="center" style="color: #6F6D6D;border: solid 1px;border-top: dotted 1px;">Note: This is a computer generated bill hence no signature required.</div>
+<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;border: solid 1px #000;border-top: none;">
+<span>Your Society is empowered by HousingMatters - 
+Making Life Simpler !</span><br/>
+<span>Email: support@housingmatters.in</span> &nbsp;|&nbsp; <span>Phone : 022-41235568</span> &nbsp;|&nbsp; <span>www.housingmatters.co.in</span></div>
+
+</div>
+</div>
+';
+
+//////////////////////////////////
+/*
+$html='<center>
+<div style="700px; background-color:white; overflow:auto;">
+<br><Br><br>
+<div style="width:80%; border:solid 1px; overflow:auto;">
+<br>
+<table border="0" style="width:15%; float:left;">
+<tr>
+<td>
+<img src='.$webroot_path.'logo/'.$log_img.' height="60px;" width="130px;"></img>
+</td>
+</tr>
+</table>
+<table border="0" style="width:85%;">
+<tr>
+<th style="text-align:center;">
+<p style="font-size:22px; padding-right:14%;">'.$society_name.'  Society</p>
+</th>
+</tr>
+<tr>
+<th style="text-align:center; padding-right:14%;">Regn# &nbsp;&nbsp; '.$so_reg_no.'</th>
+</tr>
+<tr>
+<th style="text-align:center; padding-right:14%;">'.$so_address.'</th>
+</tr>
+<tr>
+<td>
+<b>Description :</b> &nbsp;&nbsp; '.$narration.'
+</td>
+</tr>
+</table>
+</div>
+<div style="width:80%; border:solid 1px; overflow:auto; border-top:none; border-bottom:none;">
+<table border="0" style="width:60%; float:left;">
+<tr>
+<td style="text-align:left; width:17%;">
+Name :
+</td>
+<td style="text-align:left;">'.$user_name.'</td>
+</tr>
+<tr>
+<td style="text-align:left;">Bill No. :</td>
+<td style="text-align:left;">'.$receipt_id.'</td>
+</tr>
+<tr>
+<td style="text-align:left;">Bill Date :</td>
+<td style="text-align:left;">'.$date_c.'</td>
+</tr>
+<tr>
+<td style="text-align:left;"></td>
+<td style="text-align:left;"></td>
+</tr>
+</table>
+<table border="0" style="width:39%; float:right;">
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left;">Flat/Shop No. :</td>
+<td style="text-align:left;">'.$wing_flat.'</td>
+</tr>
+<tr>
+<td style="text-align:left;">Area:</td>
+<td style="text-align:left;">'.$flat_area.' Sq Feet</td>
+</tr>
+<tr>
+<td style="text-align:left;">Billing Period:</td>
+<td style="text-align:left;">'.$datett.''.  $year.'</td>
+</tr>
+<tr>
+<td style="text-align:left;"><b>Due Date:</b></td>
+<td style="text-align:left;"><b>'.$due_date21.'</b></td>
+</tr>
+</table>
+</div>
+<div style="width:80.2%; overflow:auto;">
+<table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="5">
+<tr>
+<th style="width:80%; text-align:left;">Particulars</th>
+<th style="text-align:right;">Amount (Rs.)</th>
+<tr>
+<tr>
+<td valign="top" style="height:200px;">
+<table border="0" style="width:100%;">';
+for($x=0; $x<sizeof($ih_detail2); $x++)
+{
+$ih_det = $ih_detail2[$x];
+$ih_id5 = (int)$ih_det[0];
+if($ih_id5 != 43)
+{
+$result7 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($ih_id5)));
+foreach($result7 as $collection)
+{
+$ih_name = $collection['ledger_account']['ledger_name'];
+}
+}
+else
+{
+$ih_name = "Non Occupancy charges";
+}
+$html.='<tr>
+<td style="text-align:left;">'.$ih_name.'</td>
+</tr>';
+}
+$html.='</table>
+</td>
+<td valign="top">
+<table border="0" style="width:100%;">';
+for($y=0; $y<sizeof($ih_detail2); $y++)
+{
+$ih_det3 = $ih_detail2[$y];
+$amount = $ih_det3[1];
+$amount2 = number_format($amount);
+$html.='<tr>
+<td style="text-align:right;">'.$amount2.'</td>
+</tr>';
+$total_amount2 = $total_amount2 + $amount;
+}
+$due_amt3 = $due_amt2 - $late_amt2;
+$html.='</table>
+</td>
+</tr>
+<tr>
+<td valign="top">
+<table border="0" style="width:70%; float:left;">
+<tr>
+<td style="text-align:right; width:20%;">Account Name:</td>
+<td> &nbsp;&nbsp; '.$account_name.'</td>
+</tr>
+<tr>
+<td style="text-align:right;">Bank Name:</td>
+<td> &nbsp;&nbsp; '.$bank_name .'</td>
+</tr>
+<tr>
+<td style="text-align:right;">Branch Name:</td>
+<td> &nbsp;&nbsp; '.$branch .'</td>
+</tr>
+<tr>
+<td style="text-align:right;">IFSC no.:</td>
+<td> &nbsp;&nbsp; '.$ifsc_code.'</td>
+</tr>
+</table>
+<table border="0" style="width:30%;">
 <tr>
 <td rowspan="4"></td>
-<td style="text-align:right;">Sub-Total:</td>
+<td style="text-align:right; padding-right:2%;">Total:</td>
 </tr>
 <tr>
-<td style="text-align:right;">Over Due Amount:</td>
+<td style="text-align:right; padding-right:2%;">Interest:</td>
 </tr>
 <tr>
-<td style="text-align:right;">Over Due Interest:</td>
+<td style="text-align:right; padding-right:2%;">Arrears:</td>
 </tr>
 <tr>
-<th style="text-align:right;">Grand Total:</th>
+<th style="text-align:right; padding-right:2%;">Due For Payment:</th>
 </tr>
 </table>
 </td>
@@ -1881,39 +2019,27 @@ $due_amt4 = number_format($due_amt3);
 $late_amt3 = number_format($late_amt2);
 $grand_total2 = number_format($grand_total);
 $html.='
-<td style="text-align:center;">'.$total_amount3.'</td>
+<td style="text-align:right; padding-right:8%;">'.$total_amount3.'</td>
 </tr>
 <tr>
-<td style="text-align:center;">'.@$due_amt4.'</td>
+<td style="text-align:right;  padding-right:8%;">'.@$late_amt3.'</td>
 </tr>
 <tr>
-<td style="text-align:center;">'.@$late_amt3.'</td>
+<td style="text-align:right;  padding-right:8%;">'.@$due_amt4.'</td>
 </tr>
 <tr>
-<th style="text-align:center;">'.$grand_total2.'</th>
+<th style="text-align:right;  padding-right:8%;">'.$grand_total2.'</th>
 </tr>
 </table>
 </td>
 </tr>
 </table>
 </div>
-<div style="width:80%; overflow:auto; border:solid 1px; border-top:none;">
-<table border="0" style="width:70%; float:left;">
-<tr>
-<th style="text-align:left;">Description:</th>
-</tr>
-<tr>
-<td style="text-align:left;">
-'.$narration.'
-</td>
-</tr>
-</table> 
-</div>
-<div style="width:80%; overflow:auto; border:solid 1px; border-top:none;">
+<div style="width:80%; overflow:auto; border:solid 1px; border-top:none;padding:5px;">
 <table border="0" style="width:100%;">
 <tr>
 <th style="text-align:left;">
-Terms And Conditions:
+Remarks:
 </th>
 </tr>';
 for($r=0; $r<sizeof($terms_arr); $r++)
@@ -1928,21 +2054,36 @@ $html.='
 $html.='</table> 
 </div>
 <div style="width:80%; overflow:auto; border:solid 1px; border-top:none;">
-<br><br><br>
+
 <table border="0" style="width:100%;">
 <tr>
+<td style="text-align:left; valign:top;">
+Society-Email:'.$society_email.'
+</td>
 <td style="text-align:right;">
 <p style="font-size:18px;"><b>'.$society_name.' Society</b></p>
 </td>
+</tr>';
+$html.='<tr>
+<td style="text-align:left;" valign="top">
+Society-Phone:'.$society_phone.'
+</td>
+<td style="text-align:right;">
+<img src='.$webroot_path.'sig/'.$sig_img.' height="60px;" width="130px;" style="margin-right:10%;"></img>
+</td>
+</tr>
+<tr>
+<td></td>
+<td style="text-align:right;">
+<p style="font-size:14px; margin-right:10%;"><b>'.$sig_title.'</b></p>
+</td>
 </tr>
 </table>
+<br><br><br>
 </div>
 <br><br><br><br>
-</div>
-';
-
-
-
+</div>';
+*/
 $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array("bill_html" =>$html),array("regular_bill_id" =>$regular_bill_id));	
 ////////End Bill Html Code///////////////////
@@ -2140,31 +2281,10 @@ $html_mail.='</table>
 */
 ////////////End Html For mail/////////////////
 
-$this->loadmodel('society');
-$condition=array('society_id'=>$s_society_id);
-$cursor = $this->society->find('all',array('conditions'=>$condition)); 
-foreach($cursor as $collection)
-{
-$mail_id = $collection['society']['account_email'];
-}
-if($mail_id == 1)
-{
-$from_mail_date = date('d M',strtotime($date_from));
-$to_mail_date = date('d M Y',strtotime($date_to));
-//$my_mail = "nikhileshvyas@yahoo.com";
-$subject = ''.$society_name.' : Maintanance bill, '.$from_mail_date.' to '.$to_mail_date.'';
-$from_name="HousingMatters";
-//$message_web = "Receipt No. :".$d_receipt_id;
-$from = "accounts@housingmatters.in";
-$reply="accounts@housingmatters.in";
-$this->send_email($to_mail,$from,$from_name,$subject,$html,$reply);
 }
 }
-}
-
 ///////////////////////////////////////////////
 }
-
 ?>
 <div class="modal-backdrop fade in"></div>
 <div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
@@ -2495,10 +2615,10 @@ $s_ih = $this->request->data['ih'];
 }
 //$s_tem1 = explode(',',$s_tem);
 $s_cur_date = date('Y-m-d');
-$s_cur_date = new MongoDate(strtotime($s_cur_date));
+//$s_cur_date = new MongoDate(strtotime($s_cur_date));
 
 $s_from2 = date("Y-m-d", strtotime($s_from));
-$s_from2 = new MongoDate(strtotime($s_from2));
+//$s_from2 = new MongoDate(strtotime($s_from2));
 
 //$s_to2 = date("Y-m-d", strtotime($s_to));
 //$s_to2 = new MongoDate(strtotime($s_to2));
@@ -2648,7 +2768,7 @@ $html='<center>
 <p style="font-size:22px;">'.$society_name.' Society</p>
 </th>
 </tr>
-<td style="text-align:center;">
+<td style="text-align:center;">Regn# &nbsp; &nbsp; 
 '.$society_reg_no.'
 </td>
 </tr>
@@ -2773,7 +2893,6 @@ $html.='<tr>
 </tr>';
 $total_amount2 = $total_amount2 + $amt;
 }
-
 $gt = $total_amount2;
 $html.='</table>';
 }
@@ -2844,7 +2963,7 @@ $html.='<tr>
 $html.='</table> 
 </div>
 <div style="width:90%; border:solid 1px; border-top:none;">
-<br><br><br>
+
 <table border="0" style="width:100%;">
 <tr>
 <td style="text-align:right;">
@@ -2852,6 +2971,7 @@ $html.='</table>
 </td>
 </tr>
 </table>
+<br><br><br>
 </div>
 <br><br><br><br>
 </div>';
@@ -2879,9 +2999,6 @@ $this->adhoc_bill->updateAll(array("bill_html" =>$html),array("adhoc_bill_id" =>
 <?php
 }
 }
-
-
-
 
 //////////////////////// End supplimentry bill view2(Accounts)/////////////////////////////
 
@@ -2916,12 +3033,17 @@ else if($wise == 2)
 $user_id = (int)$this->request->query('user');
 $this->set('user_id',$user_id);
 }
+else if($wise == 3)
+{
+$bill_number = $this->request->query('user');
+$this->set('bill_number',$bill_number);
+}
 $this->set('wise',$wise);
 $this->set('from',$from);
 $this->set('to',$to);
 
 $this->loadmodel('regular_bill');
-$conditions=array("society_id"=> $s_society_id);
+$conditions=array("society_id"=> $s_society_id,"approve_status" => 2);
 $cursor1=$this->regular_bill->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);	
 
@@ -2939,8 +3061,6 @@ $this->layout='session';
 
 $this->ath();
 $this->check_user_privilages();
-
-
 
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
@@ -3078,9 +3198,9 @@ $from = $this->request->query('f');
 $to = $this->request->query('t');
 
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
 
 /////////////////////////////
 $this->loadmodel('society');
@@ -3113,7 +3233,7 @@ for($y=0; $y<sizeof($income_head_charge); $y++)
 $total[]="";	
 $cnt++;	
 }
-$cnt = $cnt+5;
+$cnt = $cnt+6;
 /////////////////////////////////////////
 $excel="<table border='1'>
 <thead>
@@ -3123,7 +3243,8 @@ $excel="<table border='1'>
 <tr>
 <th style='text-align:left;'>Bill No.</th>
 <th style='text-align:left;'>Flat No.</th>
-<th style='text-align:left;'>Name of Resident</th>";
+<th style='text-align:left;'>Name of Resident</th>
+<th style='text-align:left;'>Area (Sq.Ft.)</th>";
 for($r=0; $r<sizeof($income_head_charge); $r++)
 {
 $abc = (int)$income_head_charge[$r];	
@@ -3157,6 +3278,12 @@ foreach ($result as $collection)
 $wing_id = $collection['user']['wing'];  
 $flat_id = (int)$collection['user']['flat'];
 $user_name = $collection['user']['user_name'];
+}
+$result5 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch2'),array('pass'=>array($flat_id,$wing_id)));	
+foreach($result5 as $collection)
+{
+$area = $collection['flat']['flat_area'];
+$unit_number = $collection['flat']['flat_name'];
 }	
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action'=>'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
 if($m_from<= $date && $m_to>= $date)
@@ -3164,11 +3291,13 @@ if($m_from<= $date && $m_to>= $date)
 $excel.="<tr>
 <td style='text-align:right;'>$bill_id</td>
 <td style='text-align:left;'>$wing_flat</td>
-<td style='text-align:left;'>$user_name</td>";
+<td style='text-align:left;'>$user_name</td>
+<td style='text-align:left;'>$area &nbsp; sq.Ft.</td>";
 $total_amt = 0;
 for($y=0; $y<sizeof($income_head_charge); $y++)
 {
 $income_head_arr_id = $income_head_charge[$y];	
+$nnn = 55;
 for($r=0; $r<sizeof($ih_detail2); $r++)
 {
 $ih_detail1 = $ih_detail2[$r];	
@@ -3182,7 +3311,13 @@ $excel.="<td style='text-align:right;'>";
 $amount2 = number_format($amount);
 $excel.="$amount2</td>";
 $total_amt=$total_amt+$amount;
+$nnn = 555;
+break;
 }
+}
+if($nnn == 55)
+{
+$excel.="<td style='text-align:right;'> 0 </td>";
 }
 }
 $total_noc_amt = $total_noc_amt + $noc_amt;
@@ -3198,7 +3333,7 @@ $excel.="$total_amt2</td>
 }
 }
 $excel.="<tr>
-<th colspan='3' style='text-align:right;'>Grand Total</th>";
+<th colspan='4' style='text-align:right;'>Grand Total</th>";
 $grand_total = 0;
 for($h=0; $h<sizeof($total); $h++)
 {  
@@ -3745,6 +3880,57 @@ $cursor2 = $this->noc_charge->find('all',array('conditions'=>$condition,'order' 
 $this->set('cursor2',$cursor2);
 
 }
+
+
+function master_noc_status()
+{
+	if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
+
+$this->ath();
+$this->check_user_privilages();
+
+
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');	
+
+$this->loadmodel('user');	
+$conditions=array('society_id'=>$s_society_id,'deactive'=>0);
+$result=$this->user->find('all',array('conditions'=>$conditions));
+$this->set('result_user',$result);	
+
+if ($this->request->is('post')) 
+{
+
+foreach($result as $data)
+{
+	 $user_id=$data['user']['user_id'];
+	  $flat_id1=(int)$data['user']['flat'];
+	  $value =(int)@$this->request->data[$user_id];
+	if($value==1)
+	{
+		
+		$this->loadmodel('flat');
+		$this->flat->updateAll(array('noc_ch_tp'=>2),array('flat_id'=>$flat_id1));
+		
+	}
+	else{
+		
+		$this->loadmodel('flat');
+		$this->flat->updateAll(array('noc_ch_tp'=>1),array('flat_id'=>$flat_id1));
+		
+	}
+		
+	
+}
+
+}
+
+}
 ///////////////////////// End master Noc (Accounts)/////////////////////////////////
 
 ////////////////////////// Start master noc view/////////////////////////////////////////////////
@@ -4076,6 +4262,7 @@ echo $excel;
 function regular_bill_excel()
 {
 $s_society_id=(int)$this->Session->read('society_id');
+$s_user_id = (int)$this->Session->read('user_id');
 $this->layout="";
 $filename= "Regular_Bill";
 header ("Expires: 0");
@@ -4097,6 +4284,10 @@ else if($wise == 2)
 {
 $user_id = (int)$this->request->query('u');
 }
+else if($wise == 3)
+{
+$bill_id = $this->request->query('u');
+}
 $this->loadmodel('society');
 $conditions=array("society_id"=> $s_society_id);
 $cursor=$this->society->find('all',array('conditions'=>$conditions));
@@ -4106,9 +4297,9 @@ $society_name = $collection['society']['society_name'];
 }
 
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from1));
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to1));
 
 $excel = "<table border='1'>
 <tr>
@@ -4136,14 +4327,16 @@ $i++;
 $one_time_id =(int)$collection['regular_bill']["one_time_id"];
 $regular_bill_id=(int)$collection['regular_bill']["regular_bill_id"];
 $bill_daterange_from=$collection['regular_bill']["bill_daterange_from"];
-$bill_daterange_from2= date('d-m-Y', $bill_daterange_from->sec);
+$bill_daterange_from2= date('d-m-Y',strtotime($bill_daterange_from));
 $bill_daterange_to=$collection['regular_bill']["bill_daterange_to"];
-$bill_daterange_to2= date('d-m-Y', $bill_daterange_to->sec);
+$bill_daterange_to2= date('d-m-Y',strtotime($bill_daterange_to));
 $bill_for_user=(int)$collection['regular_bill']["bill_for_user"];
 $bill_html=$collection['regular_bill']["bill_html"];
 $g_total=$collection['regular_bill']["g_total"];
 $date=$collection['regular_bill']["date"]; 
+$date2= date('Y-m-d',strtotime($date));
 $pay_status=(int)@$collection['regular_bill']["pay_status"];
+$receipt_id = $collection['regular_bill']['receipt_id'];
 				
 $result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($bill_for_user)));				
 foreach ($result as $collection) 
@@ -4154,13 +4347,14 @@ $flat_id = (int)$collection['user']['flat'];
 $tenant = (int)$collection['user']['tenant'];
 }	
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
+
 if($wise == 2)
 {
 if($user_id == $bill_for_user)
 {
-if($m_from <= $date && $m_to >= $date)
+if($m_from <= $date2 && $m_to >= $date2)
 {
-$date = date('d-m-Y', $date->sec);						
+$date = date('d-m-Y',strtotime($date));						
 $total_amt = $total_amt + $g_total;									
 $excel.="								
 <tr>
@@ -4170,16 +4364,18 @@ $excel.="
 <td>$user_name</td>
 <td>$bill_daterange_from2</td>
 <td>$bill_daterange_to2</td>
-<td>$g_total</td>";
+<td>$g_total</td>
+</tr>";
 }
 }}
+
 else if($wise == 1)
 {
 if($wing_id == $wing)
 {
-if($m_from <= $date && $m_to >= $date)
+if($m_from <= $date2 && $m_to >= $date2)
 {
-$date = date('d-m-Y', $date->sec);						
+$date = date('d-m-Y',strtotime($date));						
 $total_amt = $total_amt + $g_total;									
 $excel.="								
 <tr>
@@ -4189,7 +4385,29 @@ $excel.="
 <td>$user_name</td>
 <td>$bill_daterange_from2</td>
 <td>$bill_daterange_to2</td>
-<td>$g_total</td>";
+<td>$g_total</td>
+</tr>";
+}
+}
+}
+else if($wise == 3)
+{
+if($bill_id == $receipt_id)
+{
+if($m_from <= $date2 && $m_to >= $date2)
+{
+$date = date('d-m-Y',strtotime($date));						
+$total_amt = $total_amt + $g_total;	
+$excel.="								
+<tr>
+<td>$i</td>
+<td>$date</td>
+<td>$wing_flat</td>
+<td>$user_name</td>
+<td>$bill_daterange_from2</td>
+<td>$bill_daterange_to2</td>
+<td>$g_total</td>
+</tr>";
 }
 }
 }
@@ -4198,12 +4416,10 @@ $excel.="
 <tr>
 <th colspan='6'>Total</th>
 <th>$total_amt</th>
-</tr>
-";
+</tr>";
 
 
 $excel.="</table>";
-
 echo $excel;
 }
 ////////////////// End Regular Bill Excel (Accounts)////////////////////////////////
@@ -4289,9 +4505,9 @@ $to = $this->request->query('t');
 $tp = $this->request->query('tp');
 
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
 
 if($tp == 1)
 {
@@ -4326,7 +4542,7 @@ $g_total=$collection['adhoc_bill']["g_total"];
 $html_bill = $collection['adhoc_bill']['bill_html'];
 $bill_date_from = $collection['adhoc_bill']['bill_daterange_from'];
 //$bill_date_to = $collection['adhoc_bill']['bill_daterange_to'];
-$bill_date_from2 = date('d-m-Y',$bill_date_from->sec);
+$bill_date_from2 = date('d-m-Y',strtotime($bill_date_from));
 //$bill_date_to2 = date('d-m-Y',$bill_date_to->sec);
 
 if($residential=="y")
@@ -4346,7 +4562,6 @@ $user_name = $collection['user']['user_name'];
 }	
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));									
 $bill_for = $wing_flat;
-
 $bill_type = "Residential";
 }
 
@@ -4361,7 +4576,7 @@ $wing_flat = "";
 if($m_from <= $date && $m_to >= $date)
 {
 $i++;
-$date = date('d-m-Y',$date->sec);
+$date = date('d-m-Y',strtotime($date));
 $grand_total = $grand_total + $g_total;
 $excel.="<tr>
 <td>$i</td>
@@ -4412,7 +4627,7 @@ $g_total=$collection['adhoc_bill']["g_total"];
 $html_bill = $collection['adhoc_bill']['bill_html'];
 $bill_date_from = $collection['adhoc_bill']['bill_daterange_from'];
 //$bill_date_to = $collection['adhoc_bill']['bill_daterange_to'];
-$bill_date_from2 = date('d-m-Y',$bill_date_from->sec);
+$bill_date_from2 = date('d-m-Y',strtotime($bill_date_from));
 //$bill_date_to2 = date('d-m-Y',$bill_date_to->sec);
 
 if($residential=="y")
@@ -4438,7 +4653,7 @@ $bill_type = "Residential";
 if($m_from <= $date && $m_to >= $date)
 {
 	$i++;
-$date = date('d-m-Y',$date->sec);
+$date = date('d-m-Y',strtotime($date));
 $grand_total = $grand_total + $g_total;
 
 $excel.="<tr>
@@ -4488,7 +4703,7 @@ $g_total=$collection['adhoc_bill']["g_total"];
 $html_bill = $collection['adhoc_bill']['bill_html'];
 $bill_date_from = $collection['adhoc_bill']['bill_daterange_from'];
 //$bill_date_to = $collection['adhoc_bill']['bill_daterange_to'];
-$bill_date_from2 = date('d-m-Y',$bill_date_from->sec);
+$bill_date_from2 = date('d-m-Y',strtotime($bill_date_from));
 //$bill_date_to2 = date('d-m-Y',$bill_date_to->sec);	
 if($residential=="n")
 {
@@ -4500,7 +4715,7 @@ $wing_flat = "";
 if($m_from <= $date && $m_to >= $date)
 {
 $i++;
-$date = date('d-m-Y',$date->sec);
+$date = date('d-m-Y',strtotime($date));
 $grand_total = $grand_total + $g_total;
 $excel.="<tr>
 <td>$i</td>
@@ -5193,9 +5408,9 @@ $to = $this->request->query('t');
 $user_id = (int)$this->request->query('u');
 
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
 
 $excel="<table border='1'>
 <tr>
@@ -5229,9 +5444,9 @@ $date = $collection['regular_bill']['date'];
 $user_id = (int)$collection['regular_bill']['bill_for_user'];
 //$bill_no = (int)$collection[''][''];
 //$bill_no = (int)$collection[''][''];
-$date_from1 = date('d-M-Y',$date_from->sec);
-$date_to1 = date('d-M-Y',$date_to->sec);
-$due_date = date('d-M-Y',$last_date->sec); 
+$date_from1 = date('d-M-Y',strtotime($date_from));
+$date_to1 = date('d-M-Y',strtotime($date_to));
+$due_date = date('d-M-Y',strtotime($last_date)); 
 
 $bill_html = $collection['regular_bill']['bill_html'];
 $receipt_id = (int)$collection['regular_bill']['receipt_id']; 
@@ -5344,11 +5559,183 @@ $terms_arr[$hh] = $tems_name;
 $this->loadmodel('society');
 $this->society->updateAll(array('terms_conditions'=>$terms_arr),array("society_id" => $s_society_id));
 }
-
-
-
 }
 //////////////////////// End Edit Terms ////////////////////////////////////////////////////////////////
+
+//////////////////////////////////// Start Approve Bill /////////////////////////////////////////////////////////////////
+function aprrove_bill()
+{
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
+
+$s_society_id = (int)$this->Session->read('society_id');
+
+$this->ath();
+$this->check_user_privilages();
+
+$this->loadmodel('regular_bill');
+$conditions=array("society_id" => $s_society_id,"approve_status"=>1);
+$order=array('regular_bill.receipt_id'=> 'ASC');
+$cursor1 = $this->regular_bill->find('all',array('conditions'=>$conditions,'order' =>$order));
+$this->set('cursor1',$cursor1);
+
+
+if(isset($this->request->data['sub']))
+{
+$all = @$this->request->data['all'];
+$r=0;
+$this->loadmodel('regular_bill');
+$conditions=array("society_id" => $s_society_id,"approve_status"=>1);
+$order=array('regular_bill.receipt_id'=> 'ASC');
+$cursor = $this->regular_bill->find('all',array('conditions'=>$conditions,'order' =>$order));
+foreach($cursor as $collection)
+{
+$r++;
+$app = (int)@$this->request->data['app'.$r];
+if($app != 0)
+{
+$this->loadmodel('regular_bill');
+$conditions=array("society_id" => $s_society_id,"approve_status"=>1,"receipt_id"=>$app);
+$cursor5 = $this->regular_bill->find('all',array('conditions'=>$conditions));
+foreach($cursor5 as $collection)
+{
+$user_id = (int)$collection['regular_bill']['bill_for_user'];
+$html = $collection['regular_bill']['bill_html'];
+$from = $collection['regular_bill']['bill_daterange_from'];
+$to = $collection['regular_bill']['bill_daterange_to'];
+$due_date = $collection['regular_bill']['due_date'];
+$grand_total = $collection['regular_bill']['g_total'];
+}
+$sms_from = date('dM',strtotime($from));
+$sms_to = date('dMy',strtotime($to));
+$sms_due = date('dMy',strtotime($due_date));
+
+$result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
+foreach ($result as $collection) 
+{
+$user_name = $collection['user']['user_name'];
+$wing_id = $collection['user']['wing'];  
+$flat_id = (int)$collection['user']['flat'];
+$tenant = (int)$collection['user']['tenant'];
+$mobile = $collection['user']['mobile'];
+$email = $collection['user']['email'];
+}	
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));	
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor = $this->society->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$sms_id = (int)$collection['society']['account_sms'];
+$email_id = (int)$collection['society']['account_email'];
+$society_name = $collection['society']['society_name'];
+}
+if($sms_id == 1)
+{
+$r_sms=$this->hms_sms_ip();
+$working_key=$r_sms->working_key;
+$sms_sender=$r_sms->sms_sender; 
+$sms='Dear '.$user_name.' '.$wing_flat.', your maintenance bill for period '.$sms_from.'-'.$sms_to.' is Rs '.$grand_total.'.Kindly pay by due '.$sms_due.'.'.$society_name.' Society';
+
+$sms1=str_replace(' ', '+', $sms);
+ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.''); 
+}
+if($email_id == 1)
+{
+$from_mail_date = date('d M',strtotime($from));
+$to_mail_date = date('d M Y',strtotime($to));
+
+//$my_mail = "nikhileshvyas@yahoo.com";
+$subject = ''.$society_name.' : Maintanance bill, '.$from_mail_date.' to '.$to_mail_date.'';
+$from_name="HousingMatters";
+//$message_web = "Receipt No. :".$d_receipt_id;
+$from = "accounts@housingmatters.in";
+$reply="accounts@housingmatters.in";
+$this->send_email($email,$from,$from_name,$subject,$html,$reply);
+}
+
+$this->loadmodel('regular_bill');
+$this->regular_bill->updateAll(array("approve_status" => 2),array("receipt_id" => $app,"society_id"=>$s_society_id));
+}
+}
+?>
+<div class="modal-backdrop fade in"></div>
+<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+<div class="modal-header">
+<center>
+<h3 id="myModalLabel3" style="color:#999;"><b>Regular Bill Approve</b></h3>
+</center>
+</div>
+<div class="modal-body">
+<center>
+<h5><b>This Bills Approved Suceessfully</b></h5>
+</center>
+</div>
+<div class="modal-footer">
+<a href="aprrove_bill" class="btn blue">OK</a>
+</div>
+</div>
+<?php
+}
+}
+//////////////////////////////////// End Approve Bill /////////////////////////////////////////////////////////////////
+////////////////////////////////////////// Start NEFT Add //////////////////////////////////////////////////////////////
+function neft_add()
+{
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
+
+$this->ath();
+$this->check_user_privilages();
+
+$s_society_id=(int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
+
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor1 = $this->society->find('all',array('conditions'=>$conditions));
+$this->set('cursor1',$cursor1);
+
+
+if(isset($this->request->data['sub']))
+{
+$ac_name = $this->request->data['acno'];
+$bank_name = $this->request->data['bank_name'];
+$branch = $this->request->data['branch'];
+$ifsc_code = $this->request->data['ifsc'];
+$ac_number = $this->request->data['acnu'];
+
+$this->loadmodel('society');
+$this->society->updateAll(array("ac_name" => $ac_name,"bank_name"=>$bank_name,"branch"=>$branch,"ifsc_code"=>$ifsc_code,"ac_num"=>$ac_number),array("society_id" => $s_society_id));
+?>
+<div class="modal-backdrop fade in"></div>
+<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+<div class="modal-header">
+<center>
+<h3 id="myModalLabel3" style="color:#999;"><b>Income Tracker</b></h3>
+</center>
+</div>
+<div class="modal-body">
+<center>
+<h5><b>Record Inserted Successfully</b></h5>
+</center>
+</div>
+<div class="modal-footer">
+<a href="neft_add" class="btn blue">OK</a>
+</div>
+</div>
+<?php
+}
+}
+////////////////////////////////////////// End NEFT Add //////////////////////////////////////////////////////////////
+
+
 
 }
 ?>

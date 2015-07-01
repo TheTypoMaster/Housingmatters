@@ -237,7 +237,7 @@ $r_sms=$this->hms_sms_ip();
  $sms='New Helpdesk ticket '.$ticket_no.' - '.$category_name.' raised+by '.$user_name.' - '.$wing_flat.' Please log into HousingMatters for further action.';
 
 $sms1=str_replace(' ', '+', $sms);
-$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');		
+ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');		
   $message_web="<div>
 <img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 <span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
@@ -493,12 +493,13 @@ $sms_sender=$r_sms->sms_sender;
 $ticket_no=$t;
 $category_name=$this->help_desk_category_name($category);
 $sms='New Helpdesk ticket '.$ticket_no.' - '.$category_name.' raised+by '.$user_name.' - '.$wing_flat.' Please log into HousingMatters for further action.';
+
 $sms1=str_replace(' ', '+', $sms);
-$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');		
+ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');		
 $message_web="<div>
-<img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<img src='$ip".$this->webroot."as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$this->webroot."as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 </br><p>Dear Administrator,</p><br/>
 <p>A new helpdesk ticket is raised in your society.</p>
 <table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
@@ -540,7 +541,7 @@ $result5=$this->notification_email->find('all',array('conditions'=>$conditions7)
 $n=sizeof($result5);
 if(1==1)
 {
-	@$subject.= '['. $society_name . ']' . '- New Helpdesk Ticket : ' . '  #   ' .$ticket_no .'';
+		@$subject.= '['. $society_name . ']' . '- New Helpdesk Ticket : ' . '  #   ' .$ticket_no .'';
 
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 $subject="";
@@ -840,11 +841,6 @@ $this->response->header('Location:help_desk_sm_close_ticket');
 
 
 
-}
-
-function assign_ticket()
-{
-$this->layout='blank';
 }
 
 
@@ -1198,6 +1194,7 @@ $this->set('ticket_id',(int)$collection['help_desk']['ticket_id']);
 $this->set('help_desk_close_date',@$collection['help_desk']['help_desk_close_date']);
 $this->set('help_desk_close_comment',@$collection['help_desk']['help_desk_close_comment']);
 $help_desk_complain_type_id=(int)$collection['help_desk']['help_desk_complain_type_id'];
+$hd_sp_id=(int)$collection['help_desk']['help_desk_service_provider_id'];
 $this->set('help_desk_complain_type_id',$help_desk_complain_type_id);
 $this->set('help_desk_date',$collection['help_desk']['help_desk_date']);
 $this->set('help_desk_time',$collection['help_desk']['help_desk_time']);
@@ -1225,10 +1222,10 @@ $result_vendor=$this->vendor->find('all',array('conditions'=>$conditions));
 $this->set('result_vendor',$result_vendor);
 foreach ($result_vendor as $collection)
 {
- $vendor_id = (int)$collection['vendor']['vendor_id'];
+    $vendor_id = (int)$collection['vendor']['vendor_id'];
 }
 
-$result_sp2=$this->fetch_service_provider_info_via_vendor_id(@$vendor_id);
+$result_sp2=$this->fetch_service_provider_info_via_vendor_id(@$hd_sp_id);
 foreach ($result_sp2 as $collection3)
 {
 $this->set('sp_name',$collection3['service_provider']['sp_name']);
@@ -1331,6 +1328,42 @@ $this->set('d2',$d2);
 	$this->set('result_help_desk_report1',$result_help_desk_report1);
 }
 
+
+
+function assign_ticket_to_sp_sms()
+{
+	$this->layout='blank';
+	 $sp_id=(int)$this->request->query('sp_id');
+	$mobile=$this->request->query('mob');
+	$hd_id=(int)$this->request->query('hd_id');
+	$date=date("d-m-y");
+	$r_sms=$this->hms_sms_ip();
+	$working_key=$r_sms->working_key;
+	$sms_sender=$r_sms->sms_sender; 
+	$s_society_id=$this->Session->read('society_id');
+	$s_user_id=$this->Session->read('user_id');
+	
+	$this->loadmodel('help_desk');
+	$conditions=array("help_desk_id" => $hd_id);
+	$result=$this->help_desk->find('all',array('conditions'=>$conditions));
+	foreach ($result as $collection) 
+	{
+		 $ticket_id=(int)$collection['help_desk']['ticket_id'];
+		 $d_user_id=(int)$collection['help_desk']['user_id'];
+	}
+	
+	
+	$sms='New Helpdesk ticket '.$ticket_id.' assign ticket to you';
+	$sms1=str_replace(' ', '+', $sms);
+	 $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+	
+	$this->loadmodel('help_desk');
+	$this->help_desk->updateAll(array("help_desk_service_provider_id" => $sp_id,"help_desk_assign_date" => $date),array("help_desk_id" => $hd_id));
+	$this->response->header('Location:help_desk_sm_open_ticket');
+}
+
+
+
 function assign_ticket_to_sp()
 {
 $this->layout='blank';
@@ -1405,7 +1438,7 @@ $result5=$this->notification_email->find('all',array('conditions'=>$conditions7)
 $n=sizeof($result5);
 if($n>0)
 {
-$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms.'');
+ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms.'');
 }
 
 $message_web="<div>

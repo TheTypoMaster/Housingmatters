@@ -51,7 +51,7 @@ else
 
 
 
-<label style="font-size:14px;">A/c Group<span style="color:red;">*</span></label>
+<label style="font-size:14px;">A/c Group<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select account group"> </i></label>
 <div class="controls">
 <select name="type" id="go" class="m-wrap span9 chosen">
 <option value="" style="display:none;">Select</option>
@@ -64,7 +64,7 @@ else
 
 
 
-<label style="font-size:14px;">Income/Party A/c<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Income/Party A/c<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select Income/Party A/c"> </i></label>
 <div class="controls" id="show_user">
 <select name="user_id" class="m-wrap span9 chosen" id="usr">
 <option value="">Select</option>
@@ -74,7 +74,15 @@ else
 <br />
 
 
-<label style="font-size:14px;">Account Head<span style="color:red;">*</span></label>
+
+<div id="show_bill" class="controls">
+
+</div>
+<br />
+
+
+
+<label style="font-size:14px;">Account Head<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select account head"> </i></label>
 <div class="controls">
 <select   name="account_head" class="m-wrap span9 chosen" id="acn">
 <option value="" style="display:none;">Select</option>
@@ -123,10 +131,27 @@ else
 
 
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-
 <script>
 $(document).ready(function() {
-$("#go").live('change',function(){
+$("#usr").live('change',function(){	
+var type = $("#go").val();
+if(type == 1)
+{
+var value1 = document.getElementById('usr').value;
+$("#show_bill").load("bank_receipt_reference_ajax?value1=" +value1 + "");
+$("#amt").attr('readonly','readonly');	
+}
+else
+{
+$("#show_bill").html("");
+$("#amt").removeAttr("readonly");
+}
+});
+});
+</script>
+<script>
+$(document).ready(function() {
+$("#go").bind('change',function(){
 var value=document.getElementById('go').value;
 {
 $("#show_user").load("petty_cash_receipt_ajax?value=" +value+ "");
@@ -143,15 +168,27 @@ $("#show_user").load("petty_cash_receipt_ajax?value=" +value+ "");
 $(document).ready(function() { 
 	$('form').submit( function(ev){
 	ev.preventDefault();
+		//var type = $("#go").val();
 		
 		var m_data = new FormData();
+		
+		
+		
+		
 		m_data.append( 'ac_gr', $('#go').val());
-		m_data.append( 'prt_ac', $('#usr').val());
 		m_data.append( 'ac_head', $('#acn').val());
 		m_data.append( 'tra_dat', $('#date').val());
+		//if(type == 2)
+		//{
 		m_data.append( 'amt', $('#amt').val());
+		//}
 		m_data.append( 'desc', $('#narr').val());
-				
+		m_data.append( 'deb', $('#ab').val());
+		//if(type == 1)
+		//{
+		m_data.append( 'bill', $('#bll').val());
+		m_data.append( 'prt_ac', $('#usr').val());
+		//}
 		$(".form_post").addClass("disabled");
 		$("#wait").show();
 			
@@ -263,9 +300,7 @@ $(document).ready(function() {
 		{
 		$("#result11").load("cash_bank_vali?ss=" + 12 + "");		
 		}
-		
-		
-		
+	
 		});
 		});
 		</script>

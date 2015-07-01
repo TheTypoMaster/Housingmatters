@@ -104,7 +104,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
                            
                             <div class="control-group ">
                               <div class="controls">
-                               <label class="" style="font-size:14px;" >Email</label>
+                               <label class="" style="font-size:14px;" >Email <i style="color:red;font-size:16px;">*</i></label>
                                  <input type="text" class="span8 m-wrap" id="email" name="email">
 								 <label id="email" ></label>
                               </div>

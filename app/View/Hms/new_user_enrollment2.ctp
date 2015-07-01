@@ -46,7 +46,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <tr>
 <th width="15%">Name</th>
 <th width="10%">Wing</th>
-<th width="10%">Flat</th>
+<th width="10%">Unit #</th>
 <th width="20%">Email</th>
 <th width="15%">Mobile</th>
 <th width="10%">Owner</th>
@@ -74,7 +74,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 		</td>
 		<td id="echo_flat1" width="10%">
 		<select class="span12 m-wrap" id="flat1" name="flat" >
-		<option value="">Flat</option>
+		<option value="">Unit</option>
 		</select>
 		</td>
 		<td width="20%"><input type="text" class="span12 m-wrap textbox" name="email" id="email1" style="font-size:16px;  background-color: white !important;" placeholder="Email" value=""></td>
@@ -93,10 +93,11 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 		<div id="no1" style="display:none;">No</div>
 		</td>
 		<td width="10%">
-		<div class="controls">
+		<div class="controls" id="residing_div1">
 		<label class="radio"><input type="radio" name="residing1"  value="1">Self Occupied</label>
 		<label class="radio"><input type="radio" name="residing1"  value="2">Leased</label>
 		</div>
+		<div id="not1" style="display:none;">No</div>
 		<div class="pull-right"><a href="#" role="button" class="btn mini black delete" id="1"><i class="icon-trash"></i> Delete</a></div>
 		</td>
 	</tr>
@@ -147,11 +148,15 @@ $(document).ready(function(){
 		
 		if(w==1){
 		$('#committe'+j).show();
+		$('#residing_div'+j).show();
 		$('#no'+j).hide();
+		$('#not'+j).hide();
 		}
 		if(w==2){
 		$('#committe'+j).hide();
+		$('#residing_div'+j).hide();
 		$('#no'+j).show();
+		$('#not'+j).show();
 		}
 	 });
 	 
@@ -163,18 +168,15 @@ $(document).ready(function(){
 		var ar = [];
 		for(var i=1;i<=count;i++)
 		{
-			$("#url_main table tr:nth-child("+i+") span.report").remove();
-			$("#url_main table tr:nth-child("+i+") td").css("background-color", "#fff");
-			
+		$("#url_main table tr:nth-child("+i+") span.report").remove();
+		$("#url_main table tr:nth-child("+i+") td").css("background-color", "#fff");
+		
 		var n=$("#url_main table tr:nth-child("+i+")  input[name=name]").val();
 		var w=$("#url_main table tr:nth-child("+i+") td:nth-child(2) select").val();
 		var f=$("#url_main table tr:nth-child("+i+") td:nth-child(3) select").val();
 		var e=$("#url_main table tr:nth-child("+i+")  input[name=email]").val();
 		var m=$("#url_main table tr:nth-child("+i+")  input[name=mobile]").val();
-		
-		
-		
-		
+
 		var qw1='input:radio:checked';
 		var o=$("#url_main table tr:nth-child("+i+") td:nth-child(6) "+qw1).val();
 	

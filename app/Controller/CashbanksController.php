@@ -74,7 +74,8 @@ $this->set('society_name',$society_name);
 
 function bank_receipt()
 {
-if($this->RequestHandler->isAjax()){
+if($this->RequestHandler->isAjax())
+{
 $this->layout='blank';
 }else{
 $this->layout='session';
@@ -82,7 +83,6 @@ $this->layout='session';
 
 $this->ath();
 $this->check_user_privilages();
-
 
 App::import('', 'sendsms.php');
 $s_role_id=$this->Session->read('role_id');
@@ -174,7 +174,7 @@ $current_date = new MongoDate(strtotime($current_date));
 $date = $this->request->data['date'];
 $bill_no = (int)@$this->request->data['bill_no'];
 $date = date("Y-m-d", strtotime($date));
-$date = new MongoDate(strtotime($date));
+//$date = new MongoDate(strtotime($date));
 $receipt_instruction = $this->request->data['instruction']; 
 $sub_account_id = (int)$this->request->data['bank_account'];
 $description = $this->request->data['description'];  
@@ -188,13 +188,11 @@ else
 {
 $cheque_no = "";
 }
-
 if($member_id == 1)
 {
 $received_from = (int)$this->request->data['recieved_from2'];
 $amount = $this->request->data['amount'];
 }
-
 if($member_id == 2)
 {
 $received_from = $this->request->data['recieved_from'];
@@ -288,22 +286,32 @@ $this->ledger->saveAll($multipleRowData);
 
 
 $this->loadmodel('regular_bill');
-$conditions=array("receipt_id" => $bill_no);
+$conditions=array("receipt_id" => $bill_no,"society_id"=>$s_society_id);
 $cursor=$this->regular_bill->find('all',array('conditions'=>$conditions));
 foreach ($cursor as $collection) 
 {
 $remain_amt = $collection['regular_bill']['remaining_amount'];
+$arrears_amt = (int)$collection['regular_bill']['arrears_amt'];
 }
+if($amount >= $arrears_amt)
+{
+$arrears_amt = 0;
+}
+else
+{
+$arrears_amt = (int)$arrears_amt - $amount;
+}
+
 $due_amt = $remain_amt - $amount;
 if($due_amt == 0)
 {
 $this->loadmodel('regular_bill');
-$this->regular_bill->updateAll(array("remaining_amount" => $due_amt, "status" => 1),array("receipt_id" => $bill_no));
+$this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"status" => 1),array("receipt_id" => $bill_no));
 }
 else
 {
 $this->loadmodel('regular_bill');
-$this->regular_bill->updateAll(array("remaining_amount" => $due_amt, "status" => 0),array("receipt_id" => $bill_no));
+$this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"status" => 0),array("receipt_id" => $bill_no));
 }
 }		
 else if($member_id == 2)
@@ -395,6 +403,7 @@ foreach ($cursor as $collection)
 {
 $d_receipt_id = (int)$collection['cash_bank']['receipt_id'];	
 }
+
 ?>
 <div class="modal-backdrop fade in"></div>
 <div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
@@ -422,7 +431,7 @@ $d_receipt_id = (int)$collection['cash_bank']['receipt_id'];
 if($member_id == 1)
 { 
 
-$date_sms = date('d-m-Y',$date->sec);
+$date_sms = date('d-m-Y',strtotime(@$date));
 
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
@@ -448,19 +457,18 @@ $cursor=$this->user->find('all',array('conditions'=>$conditions));
 foreach ($cursor as $collection)
 {
 $user_name_sms = $collection['user']['user_name'];
-//$mobile = $collection['user']['mobile'];	
-$mobile = "9799463210";
+$mobile = $collection['user']['mobile'];	
+//$mobile = "9799463210";
 }
 if($sms_id == 1)
 {
-	
 $r_sms=$this->hms_sms_ip();
 $working_key=$r_sms->working_key;
 $sms_sender=$r_sms->sms_sender; 	
 	
 $sms='Dear '.$user_name_sms.' we have received Rs '.$amount.' on '.$date_sms.' towards Society Maintanance dues. Cheque are subject to realization,Thanks '.$society_name_sms.'';
 $sms1=str_replace(' ', '+', $sms);
-$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 }
 }
 /////////////////End Sms/////////////
@@ -629,10 +637,10 @@ $from = $this->request->query('f');
 $to = $this->request->query('t');
 
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
 
 $s_society_id = (int)$this->Session->read('society_id');
 $s_role_id= (int)$this->Session->read('role_id');
@@ -721,7 +729,6 @@ if($member == 2)
 {
 $user_name = $receiver_name;
 $wing_flat = "";
-	
 }		
 else
 {			
@@ -739,41 +746,36 @@ $flat_id = (int)$collection['user']['flat'];
 $tenant = (int)$collection['user']['tenant'];
 }	
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));	
-			
 }			
-
-		
 
 $result_lsa2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($account_id)));									
 foreach ($result_lsa2 as $collection) 
 {
 $account_no = $collection['ledger_sub_account']['name'];  
 }	
-								
 
 if($date >= $m_from && $date <= $m_to)
 {
 if(@$user_id == @$s_user_id)
 {
-$date3 = date('d-m-Y',$date->sec);	
+$date3 = date('d-m-Y',strtotime($date));	
 $total_debit =  $total_debit + $amount; 
-
 
 $excel.="<tr>
 <td>$receipt_no</td>
-<td>$date3</td>
-<td>$narration</td>
-<td>$user_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$wing_flat</td>
+<td>$date2</td>
+<td>$user_name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$wing_flat</td>
 <td>$ref</td>
 <td>$receipt_mode</td>
 <td>$receipt_instruction</td>
 <td>$account_no</td>
+<td>$narration</td>
 <td>$amount</td>
 </tr>";
 }
 else if($s_role_id == 3)
 {
-$date2 = date('d-m-Y',$date->sec);
+$date2 = date('d-m-Y',strtotime($date));
 $total_debit =  $total_debit + $amount; 
 
 $excel.="											
@@ -792,7 +794,7 @@ $excel.="
 
 $excel.="
 <tr>
-<th colspan='8'> Total</th>
+<th colspan='8' style='text-align:right;'>Total</th>
 <th>$total_debit</th>
 </tr>
 <table>";
@@ -805,11 +807,10 @@ echo $excel;
 function bank_payment()
 {
 if($this->RequestHandler->isAjax()){
-		$this->layout='blank';
-	}else{
-		$this->layout='session';
-	}
-
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
 	
 $this->ath();
 $this->check_user_privilages();	
@@ -846,7 +847,7 @@ $datef[] = $date_from1;
 $datet[] = $date_to1;
 }
 
-if(!empty($datef1))
+if(!empty($datef))
 {
 $datef1 = implode(',',$datef);
 $datet1 = implode(',',$datet);
@@ -912,8 +913,7 @@ if(isset($this->request->data['bank_payment_add']))
 
 $date = $this->request->data['date'];
 $date = date("Y-m-d", strtotime($date));
-$date = new MongoDate(strtotime($date));
-
+//$date = new MongoDate(strtotime($date));
 $paid_to = (int)$this->request->data['expense_ac'];
 $invoice_reference = $this->request->data['invoice_reference'];
 $description = $this->request->data['description']; 
@@ -938,8 +938,6 @@ $current_date = date("Y-m-d", strtotime($current_date));
 $current_date = new MongoDate(strtotime($current_date)); 
 
 ///////////////////Start Insert //////////////////////////////////////
- 
-
 
 $this->loadmodel('cash_bank');
 $conditions=array("society_id" => $s_society_id,"module_id"=>2);
@@ -1166,7 +1164,7 @@ $from = $this->request->query('f');
 $to = $this->request->query('t');
 
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 
 $s_society_id = (int)$this->Session->read('society_id');
 $s_role_id=$this->Session->read('role_id');
@@ -1179,9 +1177,9 @@ foreach($cursor as $collection)
 {
 $society_name = $collection['society']['society_name'];
 }
-
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
+
 $excel = "<table border='1'>
 <tr>
 <th colspan='9' style='text-align:center;'>Bank Payment Report  ($society_name)</th>
@@ -1226,8 +1224,6 @@ $ac_type = $collection['cash_bank']['account_type'];
 
 if($ac_type == 1)
 {						
-
-
 $result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($user_id)));  
 foreach ($result_lsa as $collection) 
 {
@@ -1236,14 +1232,12 @@ $user_name = $collection['ledger_sub_account']['name'];
 }											
 else if($ac_type == 2)
 {
-
 $result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'expense_head'),array('pass'=>array($user_id)));  
 foreach ($result_lsa as $collection) 
 {
 $user_name = $collection['ledger_account']['ledger_name'];  
 }	
 }		
- 
 
 $result_lsa2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($account_id))); 					   
 foreach ($result_lsa2 as $collection) 
@@ -1251,13 +1245,11 @@ foreach ($result_lsa2 as $collection)
 $account_no = $collection['ledger_sub_account']['bank_account'];  
 }  
 
-
-
 if($date >= $m_from && $date <= $m_to)
 {
 if($s_role_id == 3)
 {
-$date = date('d-m-Y',$date->sec);
+$date = date('d-m-Y',strtotime($date));
 $excel.= "
 <tr>
 <td>$date</td>
@@ -1274,7 +1266,7 @@ $total_debit = $total_debit + $amount;
 }
 else if($user_id == $s_user_id)
 {
-$date = date('d-m-Y',$date->sec);									   
+$date = date('d-m-Y',strtotime($date));									   
 $excel.="
 <tr>
 <td>$date</td>
@@ -1301,14 +1293,9 @@ $excel.="
 </tr>
 </table>
 ";
-
 echo $excel;
 
-
-
-
 /*
-
 
 echo $from."\t";
 echo $to."\n";
@@ -1415,14 +1402,13 @@ $account_no = $collection['ledger_sub_account']['bank_account'];
 /////////////////////////// End Bank Payment Excel ///////////////////////////////
 
 ///////////////////// Start Petty cash Receipt (Accounts)///////////////////////////
-
 function petty_cash_receipt()
 {
 if($this->RequestHandler->isAjax()){
-		$this->layout='blank';
-	}else{
-		$this->layout='session';
-	}
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
 	
 $this->ath();
 $this->check_user_privilages();	
@@ -1508,9 +1494,6 @@ $account_head = (int)$this->request->data['account_head'];
 $ammount = $this->request->data['ammount'];
 $current_date = date("d-m-Y");
 $account_type = (int)$this->request->data['type'];
-
-
-
 
 $current_date = date("Y-m-d", strtotime($current_date));
 $current_date = new MongoDate(strtotime($current_date));
@@ -1714,16 +1697,13 @@ foreach ($cursor as $collection)
 $society_name = $collection['society']['society_name'];
 }
 
-
-
-
 $from = $this->request->query('f');
 $to = $this->request->query('t');
 
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
 
 $excel="<table border='1'>
 <tr>
@@ -1813,7 +1793,7 @@ if($date >= $m_from && $date <= $m_to)
 {
 if($s_role_id == 3)
 {
-$date = date('d-m-Y',$date->sec);  
+$date = date('d-m-Y',strtotime($date));  
 $total_debit = $total_debit + $amount;
 $excel.="<tr>
 <td>$receipt_no</td>
@@ -1892,10 +1872,10 @@ $this->set('cursor2',$cursor2);
 function petty_cash_payment()
 {
 if($this->RequestHandler->isAjax()){
-		$this->layout='blank';
-	}else{
-		$this->layout='session';
-	}
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
 	
 $this->ath();
 $this->check_user_privilages();	
@@ -1915,8 +1895,6 @@ foreach ($cursor as $collection)
 $tenant_c = (int)$collection['user']['tenant'];
 }
 $this->set('tenant_c',$tenant_c);
-
-
 
 $this->loadmodel('financial_year');
 $conditions=array("society_id" => $s_society_id, "status"=>1);
@@ -1974,7 +1952,7 @@ if(isset($this->request->data['ptp_add']))
 
 $date = $this->request->data['date'];
 $date = date("Y-m-d", strtotime($date));
-$date = new MongoDate(strtotime($date));
+//$date = new MongoDate(strtotime($date));
 $user_id = (int)$this->request->data['user_id'];
 $narration = $this->request->data['narration']; 
 $account_head = (int)$this->request->data['account_head'];
@@ -2255,9 +2233,9 @@ $from = $this->request->query('f');
 $to = $this->request->query('t');
 
 $m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+//$m_from = new MongoDate(strtotime($m_from));
 $m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+//$m_to = new MongoDate(strtotime($m_to));
 
 $excel="<table border='1'>
 <tr>
@@ -2324,7 +2302,7 @@ if($date >= $m_from && $date <= $m_to)
 {
 if($s_user_id == $user_id)  
 {
-$date = date('d-m-Y',$date->sec);     
+$date = date('d-m-Y',strtotime($date));     
 $total_debit = $total_debit + $amount;										
 
 $excel.="<tr>
@@ -2337,7 +2315,7 @@ $excel.="<tr>
 }
 else if($s_role_id == 3)
 {
-$date = date('d-m-Y',$date->sec);	   
+$date = date('d-m-Y',strtotime($date));     
 $total_debit = $total_debit + $amount;
 
 $excel.="<tr>
@@ -2583,7 +2561,7 @@ $maturity_date = $this->request->data['maturity_date'];
 $interest_rate = $this->request->data['interest_rate'];
 $remark = $this->request->data['remark'];
 $reminder = $this->request->data['reminder'];
-$tds = $this->request->data['tds'];
+//$tds = $this->request->data['tds'];
 $name = $this->request->data['name'];
 $email = $this->request->data['email'];
 $mobile = $this->request->data['mobile'];
@@ -2617,7 +2595,7 @@ $i=$last11;
 $i++; 
 $this->loadmodel('fix_deposit');
 $multipleRowData = Array( Array("auto_id" => $i, "bank_name" => $bank_name,  "branch" => $branch, "account_reference" => $account_reference, "prepaired_by" => $s_user_id, 
-"principal_amount" => $principal_amount, "start_date" => $start_date,"maturity_date" => $maturity_date, "interest_rate" => $interest_rate,"remark" => $remark, "reminder" => $reminder,"tds" => $tds, "name" => $name, "society_id" => $s_society_id, "email" => $email,"mobile" => $mobile, "current_date"=>$current_date));
+"principal_amount" => $principal_amount, "start_date" => $start_date,"maturity_date" => $maturity_date, "interest_rate" => $interest_rate,"remark" => $remark, "reminder" => $reminder,"name" => $name, "society_id" => $s_society_id, "email" => $email,"mobile" => $mobile, "current_date"=>$current_date));
 $this->fix_deposit->saveAll($multipleRowData);
 ?>
 
@@ -2688,6 +2666,16 @@ $s_society_id = $this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
 
 $this->set('s_role_id',$s_role_id);
+
+$this->loadmodel('fix_deposit');
+$conditions=array("society_id" => $s_society_id,"status"=>0);
+$cursor1 = $this->fix_deposit->find('all',array('conditions'=>$conditions));
+$this->set('cursor1',$cursor1);
+
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor2=$this->society->find('all',array('conditions'=>$conditions));
+$this->set('cursor2',$cursor2);
 
 
 }
@@ -2852,7 +2840,7 @@ die($output);
 }
 
 $transaction_date2 = date("Y-m-d", strtotime($transaction_date));
-$transaction_date2 = new MongoDate(strtotime($transaction_date2));
+//$transaction_date2 = new MongoDate(strtotime($transaction_date2));
 
 $date = date('Y-m-d');
 $current_date = new MongoDate(strtotime($date));
@@ -3028,31 +3016,47 @@ $account_group = (int)$post_data['ac_gr'];
 $party_account = (int)$post_data['prt_ac'];
 $account_head = (int)$post_data['ac_head'];
 $transaction_date = $post_data['tra_dat'];
+if($account_group == 2)
+{
 $amt = $post_data['amt'];
+}
 $narration = $post_data['desc'];
+if($account_group == 1)
+{
+$amt2 = $post_data['deb'];
+$bill_receipt = (int)$post_data['bill'];
+}
 
 $report = array();
-
 if(empty($account_group)){
-$report[]=array('label'=>'ac_grp', 'text' => 'Please select Expense Head');
+$report[]=array('label'=>'ac_grp', 'text' => 'Please select Account Group');
 }	
 	
 if(empty($party_account)){
-$report[]=array('label'=>'prt_ac', 'text' => 'Please select Expense Head');
+$report[]=array('label'=>'prt_ac', 'text' => 'Please select Party Account');
 }	
 
 if(empty($account_head)){
-$report[]=array('label'=>'ac_head', 'text' => 'Please select Expense Head');
+$report[]=array('label'=>'ac_head', 'text' => 'Please select Account Head');
 }	
 
 if(empty($transaction_date)){
-$report[]=array('label'=>'tr_dat', 'text' => 'Please select Expense Head');
+$report[]=array('label'=>'tr_dat', 'text' => 'Please select Transaction Date');
 }	
-
+if($account_group == 2)
+{
 if(empty($amt)){
-$report[]=array('label'=>'amt', 'text' => 'Please select Expense Head');
+$report[]=array('label'=>'amt', 'text' => 'Please Fill Amount');
 }	
-
+}
+if($account_group == 1)
+{
+if(empty($amt2)){
+$report[]=array('label'=>'amt2', 'text' => 'Please Fill Amount');
+}	
+}
+if($account_group == 2)
+{
 if(!empty($amt))
 {
 if(is_numeric($amt))
@@ -3061,6 +3065,20 @@ if(is_numeric($amt))
 else
 {
 $report[]=array('label'=>'amt', 'text' => 'Pleaes Fill Numeric Value');
+}
+}
+}
+if($account_group == 1)
+{
+if(!empty($amt2))
+{
+if(is_numeric($amt2))
+{
+}
+else
+{
+$report[]=array('label'=>'amt2', 'text' => 'Pleaes Fill Numeric Value');
+}
 }
 }
 
@@ -3100,12 +3118,15 @@ $output=json_encode(array('report_type'=>'error','report'=>$report));
 die($output);
 }
 
-
+if($account_group == 1)
+{
+$amt=(int)$amt2;
+}
 $date = date('Y-m-d');
 $current_date = new MongoDate(strtotime($date));
 
 $transaction_date2 = date("Y-m-d", strtotime($transaction_date));
-$transaction_date2 = new MongoDate(strtotime($transaction_date2));
+//$transaction_date2 = new MongoDate(strtotime($transaction_date2));
 
 
 
@@ -3133,12 +3154,8 @@ $i++;
 $this->loadmodel('cash_bank');
 $multipleRowData = Array( Array("transaction_id" => $auto, "receipt_id" => $i, "prepaired_by" => $s_user_id,
 "current_date" => $current_date, "account_type" => $account_group,"transaction_date" => $transaction_date2, "user_id" => $party_account, 
-"narration" => $narration, "account_head" => $account_head,  "amount" => $amt, "society_id" => $s_society_id,"module_id"=>3));
+"narration" => $narration, "account_head" => $account_head,  "amount" => $amt, "society_id" => $s_society_id,"module_id"=>3,"bill_reference"=>@$bill_receipt));
 $this->cash_bank->saveAll($multipleRowData);  
-
-
-
-
 
 
 $this->loadmodel('ledger');
@@ -3162,11 +3179,7 @@ $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $i,
 "amount" => $amt, "amount_category_id" => 2, "module_id" => 3, "account_type" => $account_group, "account_id" => $party_account, "current_date" => $current_date, "society_id" => $s_society_id,"table_name"=>"cash_bank","module_name"=>"Petty Cash Receipt"));
 $this->ledger->saveAll($multipleRowData); 
 
-
-
-
 $sub_account_id_a = (int)$account_head;
-
 
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
@@ -3189,7 +3202,37 @@ $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $i,
 "amount" => $amt, "amount_category_id" => 1, "module_id" => 3, "account_type" => 2, "account_id" => $sub_account_id_a, "current_date" => $current_date, "society_id" => $s_society_id,"table_name"=>"cash_bank","module_name"=>"Petty Cash Receipt"));
 $this->ledger->saveAll($multipleRowData); 
 
+if($account_group == 1)
+{
 
+$this->loadmodel('regular_bill');
+$conditions=array("receipt_id" => $bill_receipt);
+$cursor=$this->regular_bill->find('all',array('conditions'=>$conditions));
+foreach ($cursor as $collection) 
+{
+$remain_amt = (int)$collection['regular_bill']['remaining_amount'];
+$arrears_amt = (int)$collection['regular_bill']['arrears_amt'];
+}
+if($amt >= $arrears_amt)
+{
+$arrears_amt = 0;
+}
+else
+{
+$arrears_amt = (int)$arrears_amt - $amt;
+}
+$due_amt = $remain_amt - $amt;
+if($due_amt == 0)
+{
+$this->loadmodel('regular_bill');
+$this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"status" => 1),array("receipt_id" => $bill_receipt));
+}
+else
+{
+$this->loadmodel('regular_bill');
+$this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"status" => 0),array("receipt_id" => $bill_receipt));
+}
+}
 
 $this->loadmodel('cash_bank');
 $conditions=array("society_id" => $s_society_id,"module_id"=>3);
@@ -3199,7 +3242,6 @@ foreach ($cursor1 as $collection)
 {
 $d_receipt_id = (int)$collection['cash_bank']['receipt_id'];	 
 }
-
 
 $output=json_encode(array('report_type'=>'publish','report'=>'Petty Cash Receipt #'.$d_receipt_id.' is generated successfully'));
 die($output);
@@ -3227,7 +3269,7 @@ $remarks = $post_data['remark'];
 $start_date = $post_data['st_dat'];
 $mat_date = $post_data['mat_dat'];
 $int_rate = $post_data['int_rate'];
-$tds_amt = $post_data['tds_amt'];
+//$tds_amt = $post_data['tds_amt'];
 $name = $post_data['name'];
 $email = $post_data['email'];
 $mobile = $post_data['mobile'];
@@ -3239,14 +3281,6 @@ $file_size=$_FILES['file']['size'];
 $file_tmp_name=$_FILES['file']['tmp_name'];
 $file_type=$_FILES['file']['type'];
 }
-
-
-
-
-
-
-
-
 
 
 $report = array();
@@ -3299,9 +3333,9 @@ $report[]=array('label'=>'inrat', 'text' => 'Please Fill Interest Rate');
 
 
 
-if(empty($tds_amt)){
-$report[]=array('label'=>'tds', 'text' => 'Please Fill Tds Amount');
-}	
+//if(empty($tds_amt)){
+//$report[]=array('label'=>'tds', 'text' => 'Please Fill Tds Amount');
+//}	
 
 
 
@@ -3338,7 +3372,7 @@ else
 $report[]=array('label'=>'inrat', 'text' => 'Please Fill Numeric Value');
 }	
 }
-
+/*
 if(!empty($tds_amt))
 {
 if(is_numeric($tds_amt))
@@ -3349,7 +3383,7 @@ else
 $report[]=array('label'=>'tds', 'text' => 'Please Fill Numeric Value');
 }	
 }
-
+*/
 $date4 = date("Y-m-d", strtotime($start_date));
 $date4 = new MongoDate(strtotime($date4));
 
@@ -3421,7 +3455,7 @@ $i=$last11;
 $i++; 
 $this->loadmodel('fix_deposit');
 $multipleRowData = Array( Array("auto_id" => $i, "bank_name" => $bank_name,  "branch" => $branch, "account_reference" => $account_ref, "prepaired_by" => $s_user_id, 
-"principal_amount" => $principal_amt, "start_date" => $start_date2,"maturity_date" => $mat_date2, "interest_rate" => $int_rate,"remark" => $remarks, "reminder" => $remind_day,"tds" => $tds_amt, "name" => $name, "society_id" => $s_society_id, "email" => $email,"mobile" => $mobile, "current_date"=>$current_date,"file_name"=>$file_name));
+"principal_amount" => $principal_amt, "start_date" => $start_date2,"maturity_date" => $mat_date2, "interest_rate" => $int_rate,"remark" => $remarks, "reminder" => $remind_day,"name" => $name, "society_id" => $s_society_id, "email" => $email,"mobile" => $mobile, "current_date"=>$current_date,"file_name"=>$file_name,"status"=>0));
 $this->fix_deposit->saveAll($multipleRowData);
 
 $output=json_encode(array('report_type'=>'publish','report'=>'Record Inserted Successfully'));
@@ -3444,15 +3478,125 @@ $this->check_user_privilages();
 
 $s_society_id=(int)$this->Session->read('society_id');
 
-
-
-
-
-
-
-
-
 }
 ///////////////////////////////// End Matured Deposit View /////////////////////////////////////////////////
+
+////////////////////////////////// Start Fix Deposit view (Active) Excel///////////////////////////////////////////
+function fix_deposit_excel()
+{
+$this->layout="";
+$filename="Fix Deposit Excel";
+header ("Expires: 0");
+header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+header ("Cache-Control: no-cache, must-revalidate");
+header ("Pragma: no-cache");
+header ("Content-type: application/vnd.ms-excel");
+header ("Content-Disposition: attachment; filename=".$filename.".xls");
+header ("Content-Description: Generated Report" );
+
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id = (int)$this->Session->read('user_id');	
+
+//$from = $this->request->query('f');
+//$to = $this->request->query('t');
+
+$excel="<table border='1'>
+<tr>
+<th>Sr #</th>
+<th>Bank Name</th>
+<th>Branch</th>
+<th>Name</th>
+<th>E-mail</th>
+<th>Mobile</th>
+<th>A/c Reference</th>
+<th>Principal Amount</th>
+<th>Start Date</th>
+<th>Maturity Date</th>
+<th>Interest Amount</th>
+<th>Interest Rate</th>
+<th>Maturity Amount</th>
+<th>Transaction Id</th>
+<th>Remark</th>
+</tr>";
+$n=0;
+$principal_tt = 0;
+$int_tt = 0;
+$mat_tt = 0;
+$this->loadmodel('fix_deposit');
+$conditions=array("society_id" => $s_society_id,"status"=>0);
+$cursor1 = $this->fix_deposit->find('all',array('conditions'=>$conditions));
+foreach($cursor1 as $collection)
+{
+$auto_id = (int)$collection['fix_deposit']['auto_id'];	
+$bank_name = $collection['fix_deposit']['bank_name'];	
+$branch = $collection['fix_deposit']['branch'];	
+$account_ref = $collection['fix_deposit']['account_reference'];	
+$prepaired_by = $collection['fix_deposit']['prepaired_by'];	
+$principal_amt = $collection['fix_deposit']['principal_amount'];
+$start_date = $collection['fix_deposit']['start_date'];
+$maturity_date = $collection['fix_deposit']['maturity_date'];
+$interest_rate = $collection['fix_deposit']['interest_rate'];
+$remark = $collection['fix_deposit']['remark'];
+$reminder = $collection['fix_deposit']['reminder'];
+$name = $collection['fix_deposit']['name'];
+$email = $collection['fix_deposit']['email'];
+$mobile = $collection['fix_deposit']['mobile'];
+$file_name = $collection['fix_deposit']['file_name'];
+
+$n++;
+
+$start_date2 = date('d-M-Y',$start_date->sec);
+$maturity_date2 = date('d-M-Y',$maturity_date->sec);
+
+function dateDiff($d1, $d2)
+{
+return round(abs(strtotime($d1)-strtotime($d2))/86400);
+}
+ 
+$days = dateDiff($start_date2,$maturity_date2);
+
+$interest = round(($principal_amt * $interest_rate *($days/365))/100);
+
+$mat_amt = $principal_amt + $interest;
+
+$principal_tt = $principal_tt + $principal_amt;
+$int_tt = $int_tt + $interest;
+$mat_tt = $mat_tt + $mat_amt;
+
+$excel.="
+<tr>
+<td>$n</td>
+<td>$bank_name</td>
+<td>$branch</td>
+<td>$name</td>
+<td>$email</td>
+<td>$mobile</td>
+<td>$account_ref</td>
+<td>$principal_amt</td>
+<td>$start_date2</td>
+<td>$maturity_date2</td>
+<td>$interest_rate</td>
+<td>$interest</td>
+<td>$mat_amt</td>
+<td>$auto_id</td>
+<td>$remark</td>
+</tr>";
+}
+$excel.="
+<tr>
+<th colspan='7' style='text-align:right;'>Total</th>
+<th style='text-align:center;'>$principal_tt</th>
+<th colspan='3'></th>
+<th>$int_tt</th>
+<th>$mat_tt</th>
+<th colspan='2'></th>
+</tr>";
+$excel.="</table>";
+
+echo $excel;
+}
+////////////////////////////////// Start Fix Deposit view (Active) Excel///////////////////////////////////////////
+
 }
 ?>

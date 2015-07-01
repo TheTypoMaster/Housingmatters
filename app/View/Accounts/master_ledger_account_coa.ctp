@@ -14,6 +14,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <a href="<?php echo $webroot_path; ?>Accounts/master_ledger_accounts_view" class="btn" rel='tab'>Master Ledger  Account View</a>
 <a href="<?php echo $webroot_path; ?>Accounts/master_ledger_sub_account_view" class="btn" rel='tab'>Master Ledger Sub Account View</a>
 </center>
+<input type="hidden" id="yy" value="<?php echo $y; ?>" />
+<input type="hidden" id="ledger" value="<?php echo $ledger2; ?>" />
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <br />
 <center>
@@ -39,6 +41,7 @@ $name = $collection['accounts_groups']['group_name'];
 <td>
 <input type="text" name="cat_name" placeholder="Name" class="m-wrap large" style="background-color:white !important;" id="cat">
 <label id="cat"></label>
+<div id="over"></div>
 </td>
 </tr>
         
@@ -50,7 +53,7 @@ $name = $collection['accounts_groups']['group_name'];
                   
 <tr>
 <td>
-<button type="submit" name="sub" class="btn blue">Add</button>
+<button type="submit" name="sub" class="btn blue" id="vali">Add</button>
 </td>
 </tr>
 </table>
@@ -125,11 +128,44 @@ $(document).ready(function(){
 }); 
 </script>			   
 			   
-			   
-			   
-			   
-		   
-			   
+<script>			   
+$(document).ready(function(){			   
+  $("#vali").bind('click',function(){	
+
+ var ledger_name2 = $("#cat").val();	
+ string2 = ledger_name2.toLowerCase();
+
+ var ledger = $("#ledger").val();
+ var y = $("#yy").val();
+ 
+ var led = ledger.split(",");
+	var hhh = 5;
+	for(k=0; k<y; k++)
+	{
+	ledger_name = led[k];
+    string1 = ledger_name.toLowerCase();
+   
+	if(string1 == string2)
+	{
+	hhh = 555;	
+	break;
+	}
+   	}
+	
+	if(hhh == 555)
+	{
+	$("#over").html('<p style="color:red;">The Ledger Name is Already Exist,Please Select Another</p>');	
+	return false;
+	}
+	else
+	{
+	$("#over").html('<p style="color:red;"></p>');	
+	}
+	
+	
+    });
+ });
+</script>			   
 			   
 			   
 			   

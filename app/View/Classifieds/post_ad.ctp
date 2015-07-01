@@ -145,8 +145,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 				<div>
 				   <span class="btn btn-file"><span class="fileupload-new">Select image</span>
 				   <span class="fileupload-exists">Change</span>
-				   <input type="file" name="file" class="default" /></span>
+				   <input type="file" name="file" id="image-file" class="default" /></span>
 				   <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+				   <br/><span>Allowed extension: "jpg" , "jpeg", "bmp", "gif", "png" | Allowed size: 1 MB</span>
 				</div>
 			 </div>
 			 <label report="file" class="remove_report"></label>
@@ -165,7 +166,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 <hr/>
 <button type="submit" class="btn form_post" style="background-color: #1BBC9B;color:#fff;" name="publish" submit_type="publish">Publish Ad</button>
-<button type="submit" class="btn form_post" style="background-color: #1BBC9B;color:#fff;" name="draft" submit_type="draft">Save Ad as Draft</button>
+<!--<button type="submit" class="btn form_post" style="background-color: #1BBC9B;color:#fff;" name="draft" submit_type="draft">Save Ad as Draft</button>-->
 <div style="display:none;" id='wait'><img src="<?php echo $webroot_path; ?>as/fb_loading.gif" /> Please Wait...</div>
 </form>
 <!--FORM CONTENT END-->

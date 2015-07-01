@@ -10,10 +10,49 @@ $("#fix<?php echo $id_current_page; ?>").removeClass("blue");
 $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
-
 <input type="hidden" id="fi" value="<?php echo $datef1; ?>" />
 <input type="hidden" id="ti" value="<?php echo $datet1; ?>" />
 <input type="hidden" id="cn" value="<?php echo $count; ?>" />
+<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php
+$e=0;
+foreach ($cursor1 as $collection)
+{
+$c_id =  (int)$collection['accounts_group']['auto_id'];
+//$c_name = $collection['accounts_group']['category_name'];
+$result = $this->requestAction(array('controller' => 'hms', 'action' => 'expense_tracker_fetch2'),array('pass'=>array($c_id)));
+foreach ($result as $db)
+{
+$e++;
+$g_id =  (int)$db['ledger_account']['auto_id'];
+$name = $db['ledger_account']['ledger_name'];
+$g_id_arr[]=$g_id;
+$name_arr[]=$name;
+}}
+$g_id_arr2 = implode(',',$g_id_arr);
+$name_arr2 = implode(',',$name_arr);
+
+$w=0;
+foreach ($cursor2 as $collection)
+{
+$w++;	
+$id = $collection['ledger_sub_account']['auto_id'];
+$name = $collection['ledger_sub_account']['name']; 
+$id_arr[]=$id; 
+$naam2_arr[]=$name;
+}
+$id_arr2 = implode(',',$id_arr);
+$naam2_arr2 = implode(',',$naam2_arr);
+?>
+<input type="hidden" id="count1" value="<?php echo $w; ?>" />
+<input type="hidden" id="count2" value="<?php echo $e; ?>" />
+
+
+<input type="hidden" id="g_id" value="<?php echo $g_id_arr2; ?>" />
+<input type="hidden" id="name1" value="<?php echo $name_arr2; ?>" />
+<input type="hidden" id="id1" value="<?php echo $id_arr2; ?>" />
+<input type="hidden" id="name2" value="<?php echo $naam2_arr2; ?>" />
+
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 <div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">
@@ -39,21 +78,76 @@ else
 </div> 
 <?php } ?>
 <br />
-<form method="post">
+<div id="vvv" style="background-color:white;"></div>
+<form method="post" enctype="multipart/form-data">
+
 <div class="row-fluid">
-
-
-
-
-
 
 <div class="span6">
 
 
-<label style="font-size:14px;">Expense Head<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Posting Date<span style="color:red;">*</span></label>
 <div class="controls">
-<select name="ex_head" class="m-wrap chosen span9" id="ex">
-<option value=""></option>
+<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="posting_date" id="pd" value="<?php echo $todat_posting; ?>">
+<label report="pos_dat" class="remove_report"></label>
+<div id="result11"></div>
+</div>
+<br />
+
+<label style="font-size:14px;">Payment Due Date<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select due date for payment"> </i></label>
+<div class="controls">	
+<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="due_date" id="due">
+<label report="du_dat" class="remove_report"></label>
+</div>
+<br />
+
+<label style="font-size:14px;">Date of Invoice<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select invoice date"> </i></label>
+<div class="controls">							
+<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="invoice_date" id="date">
+<label report="inv_dat" class="remove_report"></label>
+</div>	
+<br />
+</div>
+
+<div class="span6">
+<label style="font-size:14px;">Description</label>
+<div class="controls">
+<textarea  rows="4" name="description" class="m-wrap span9" style="resize:none;" id="des"></textarea>
+</div>
+
+
+
+<label style="font-size:14px;">Attachment</label>
+<div class="controls">
+<div class="fileupload fileupload-new" data-provides="fileupload"><input type="hidden" value="" name="">
+<span class="btn btn-file">
+<span class="fileupload-new">Select file</span>
+<span class="fileupload-exists">Change</span>
+<input type="file" class="default" name="file" id="upl">
+</span>
+<span class="fileupload-preview"></span>
+<a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none"></a>
+</div>
+</div>
+</div>
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<br />
+
+<table class="table table-bordered" style="background-color:white;" id="tbb">
+<thead>
+<tr>
+<th style="text-align:center; width:24%;">Expense Head</th>
+<th style="text-align:center; width:24%;">Invoice Reference</th>
+<th style="text-align:center; width:24%;">Party Account Head</th>
+<th style="text-align:center; width:24%;">Amount of Invoice</th>
+<th style="text-align:center; width:4%;">Delete</th>
+</tr>
+</thead>
+<tbody id="bdd">
+<tr>
+<td style="text-align:center;">
+<select name="ex_head" class="m-wrap span12" id="ex">
+<option value="">Select</option>
 <?php
 foreach ($cursor1 as $collection)
 {
@@ -68,32 +162,13 @@ $name = $db['ledger_account']['ledger_name'];
 <option value="<?php echo $g_id; ?>"><?php echo $name; ?></option>
 <?php }} ?>
 </select>
-<label report="ex_head" class="remove_report"></label>
-</div>
-<br />
-
-
-						
-							
-
-
-<label style="font-size:14px;">Invoice Reference<span style="color:red;">*</span></label>
-<div class="controls">	
-<input type="text" class="m-wrap span9"  name="invoice_reference" id="ref">
-<label report="inv_ref" class="remove_report"></label>
-</div>
-<br />
-
-
-
-
-
-
-
-<label style="font-size:14px;">Party Account Head<span style="color:red;">*</span></label>
-<div class="controls">	
-<select name="party_head" class="m-wrap chosen span9" id="ph">
-<option value=""></option>
+</td>
+<td style="text-align:center;">
+<input type="text" class="m-wrap span9" name="invoice_reference" id="ref">
+</td>
+<td style="text-align:center;">
+<select name="party_head" class="m-wrap span9" id="ph">
+<option value="">Select</option>
 <?php
 foreach ($cursor2 as $collection)
 {
@@ -103,167 +178,133 @@ $name = $collection['ledger_sub_account']['name'];
 <option value="<?php echo $id; ?>"><?php echo $name; ?></option>
 <?php } ?>
 </select>
-<label report="prt_head" class="remove_report"></label>
+</td>
+<td style="text-align:center;">
+<input type="text" class="m-wrap span9 amt1"   name="invoice_amount" id="ia" onblur="amt_val()">
+</td>
+<td style="text-align:center;"></td>
+</tr>
+</tbody>
+</table>
+<div id="www"></div>
+
+<?php //////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 </div>
-<br />
-
-
-
-
-<label style="font-size:14px;">Amount of Invoice<span style="color:red;">*</span></label>
-<div class="controls">
-<input type="text" class="m-wrap span9"   name="invoice_amount" id="ia">
-<label report="amt" class="remove_report"></label>
-</div>
-<br />
-
-
-<label style="font-size:14px;">Description</label>
-<div class="controls">
-<textarea  rows="4" name="description" class="m-wrap span9" style="resize:none;" id="des"></textarea>
-</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="span6">
-
-<label style="font-size:14px;">Posting Date<span style="color:red;">*</span></label>
-<div class="controls">
-<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="posting_date" id="pd" value="<?php echo $todat_posting; ?>">
-<label report="pos_dat" class="remove_report"></label>
-</div>
-<br />
-
-<label style="font-size:14px;">Payment Due Date<span style="color:red;">*</span></label>
-<div class="controls">	
-<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="due_date" id="due">
-<label report="du_dat" class="remove_report"></label>
-</div>
-<br />
-
-
-<label style="font-size:14px;">Date of Invoice<span style="color:red;">*</span></label>
-<div class="controls">							
-<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="invoice_date" id="date">
-<label report="inv_dat" class="remove_report"></label>
-</div>	
-<br />
-
-
-
-
-
-
-
-
-
-
-<label style="font-size:14px;">Attachment</label>
-<div class="controls">
-<div class="fileupload fileupload-new" data-provides="fileupload"><input type="hidden" value="" name="">
-<span class="btn btn-file">
-<span class="fileupload-new">Select file</span>
-<span class="fileupload-exists">Change</span>
-<input type="file" class="default" name="uploaded" id="upl">
-</span>
-<span class="fileupload-preview"></span>
-<a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none"></a>
-</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-</div>
-</div>
-
-
-
-
 <hr/>
 <button type="submit" class="btn form_post" style="background-color: #E0619D;color:#fff;" name="ext_add" value="xyz" id="vali">Submit</button>
 <a href="<?php echo $webroot_path; ?>Expensetrackers/expense_tracker_add" style="background-color: #E0619D;color:#fff;" class="btn" rel='tab'>Reset</a>
-<div style="display:none;" id='wait'><img src="<?php echo $webroot_path; ?>as/fb_loading.gif" /> Please Wait...</div>
+<button type="button" class="btn green" id="add">Add Row</button>
+
+<div style="display:none;" id='wait'><img src="<?php echo $webroot_path; ?>as/fb_loading.gif" />Please Wait...</div>
 <br /><br />
 </form>
 </div>
+<?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<script>
+function amt_val()
+{
+var cc = $("#bdd tr").length;
+for(var i=1; i<=cc; i++)
+{
+var amt = $(".amt"+ i).val();
+if(isNaN(amt))
+{
+$("#www").html('<p style="color:red;">Please Fill Numeric Amount</p>');	
+}
+else
+{
+$("#www").html('');	
+}
+}
+}
+</script> 
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<script>
+$(document).ready(function(){
+$("#add").bind('click',function(){
+
+var count = $("#bdd tr").length;
+count++;
+
+$.ajax({
+url: 'expense_tracker_add_row?con=' + count,
+}).done(function(response) {
+$('tbody#bdd').append(response);
+
+});
+});
 
 
+$(".delete").live('click',function(){	
+var id = $(this).attr("id");
+$('.content_'+id).remove();
+});
+
+});
+</script> 
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 <script>
 $(document).ready(function() { 
 	$('form').submit( function(ev){
 	ev.preventDefault();
-		
-		var m_data = new FormData();
-		m_data.append( 'expense_head', $('#ex').val());
-		m_data.append( 'invoice_ref', $('#ref').val());
-		m_data.append( 'party', $('#ph').val());
-		m_data.append( 'amount', $('#ia').val());
-		m_data.append( 'desc', $('#des').val());
-		m_data.append( 'posting', $('#pd').val());
-		m_data.append( 'due', $('#due').val());
-		m_data.append( 'inv_date', $('#date').val());
-			
-		$(".form_post").addClass("disabled");
-		$("#wait").show();
-			
-			$.ajax({
-			url: "expense_tracker_json",
-			data: m_data,
-			processData: false,
-			contentType: false,
-			type: 'POST',
-			dataType:'json',
-			}).done(function(response) {
-				if(response.report_type=='error'){
-					$(".remove_report").html('');
-						jQuery.each(response.report, function(i, val) {
-						$("label[report="+val.label+"]").html('<span style="color:red;">'+val.text+'</span>');
-					});
-				}
-				if(response.report_type=='publish'){
-                $("#shwd").show()
-				$(".success_report").show().html(response.report);	
-				}
-			
-			$("html, body").animate({
-			scrollTop:0
-			},"slow");
-			$(".form_post").removeClass("disabled");
-			$("#wait").hide();
-			});
 
-	 
-	});
+var m_data = new FormData();
+m_data.append( 'file', $('input[name=file]')[0].files[0]);
+m_data.append( 'post', $('input[name=posting_date]').val());
+m_data.append( 'due', $('input[name=due_date]').val());
+m_data.append( 'inv_dat', $('input[name=invoice_date]').val());
+m_data.append( 'desc', $('textarea[name=description]').val());
+	
+var ar=[];
+
+var count = $("#bdd tr").length;
+for(var i=1; i<=count; i++)
+{
+var ex_head=$("#bdd tr:nth-child("+i+") td:nth-child(1) select").val();
+var invoice_ref=$("#bdd tr:nth-child("+i+") td:nth-child(2) input").val();
+var party_ac=$("#bdd tr:nth-child("+i+") td:nth-child(3) select").val();
+var amt_inv=$("#bdd tr:nth-child("+i+") td:nth-child(4)  input").val();
+ar.push([ex_head,invoice_ref,party_ac,amt_inv]);
+}
+
+var myJsonString = JSON.stringify(ar);
+
+m_data.append('myJsonString',myJsonString);
+
+$.ajax({
+url: "expense_tracker_json",
+data: m_data,
+processData: false,
+contentType: false,
+type: 'POST',
+dataType:'json',
+}).done(function(response) {
+	$("#vvv").html(response);
+if(response.report_type=='error')
+{
+$("#vvv").html('<b><p style="font-size:16px; color:red;">'+response.text+'</p></b>');
+}
+if(response.report_type=='publish'){
+$("#shwd").show()
+$(".success_report").show().html(response.report);	
+}
+
+$("html, body").animate({
+scrollTop:0
+},"slow");
+$(".form_post").removeClass("disabled");
+$("#wait").hide();
 });
 
+
+});
+});
 </script>
 
 
 
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-
-
-
 
 <div id="shwd" class="hide">
 <div class="modal-backdrop fade in"></div>
@@ -284,18 +325,59 @@ $(document).ready(function() {
 </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<script>
+		$(document).ready(function() {
+		$("#vali").live('click',function(){
+        
+		var fi = document.getElementById("fi").value;
+		var ti = document.getElementById("ti").value;
+		var cn = document.getElementById("cn").value;
+		var fe = fi.split(",");
+		var te = ti.split(",");
+		var date1 = document.getElementById("pd").value;
+		
+		var date = date1.split("-").reverse().join("-");
+				
+		var nnn = 55;
+		for(var i=0; i<cn; i++)
+		{
+		var fd = fe[i];
+		var td = te[i]
+		
+		    if(date == "")
+			{
+				nnn = 555;
+			break;	
+			}
+			else if(Date.parse(fd) <= Date.parse(date))
+		     {
+			 if(Date.parse(td) >= Date.parse(date))
+			 {
+				 nnn = 5;
+				 break;
+			 }
+			 else
+			 {
+				 
+			 }
+        	 } 
+			 }
+			 
+		
+		if(nnn == 55)
+		{
+		$("#result11").load("cash_bank_vali?ss=" + 2 + "");
+        return false;	
+		}
+		else if(nnn == 555)
+		{
+			
+		}
+		else
+		{
+		$("#result11").load("cash_bank_vali?ss=" + 12 + "");		
+		}
+	
+		});
+		});
+		</script>	

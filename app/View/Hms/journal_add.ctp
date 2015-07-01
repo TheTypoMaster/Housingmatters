@@ -124,7 +124,7 @@ document.getElementById('total_c').value = t_c;
 function aj()
 {
 alert();
-	$("this").load("journal_add_row");
+$("this").load("journal_add_row");
 }
 $(document).ready(function() {
   

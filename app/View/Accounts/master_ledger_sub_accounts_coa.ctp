@@ -14,6 +14,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <a href="<?php echo $webroot_path; ?>Accounts/master_ledger_accounts_view" class="btn" rel='tab'>Master Ledger  Account View</a>
 <a href="<?php echo $webroot_path; ?>Accounts/master_ledger_sub_account_view" class="btn" rel='tab'>Master Ledger Sub Account View</a>
 </center>
+<input type="hidden" id="ledger" value="<?php echo $ledger2; ?>" />
+<input type="hidden" id="tt" value="<?php echo $t; ?>" />
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?> 
 <br />
 <center>
@@ -28,7 +30,7 @@ foreach ($cursor1 as $collection)
 {
 $auto_id = (int)$collection['ledger_account']['auto_id'];
 $name = $collection['ledger_account']['ledger_name']; 
-if($auto_id == 33 || $auto_id == 35)
+if($auto_id == 33 || $auto_id == 35 || $auto_id == 15 || $auto_id == 34)
 {
 ?>
 <option value="<?php echo $auto_id; ?>"><?php echo $name; ?></option>
@@ -43,6 +45,7 @@ if($auto_id == 33 || $auto_id == 35)
                          <td>
 <input type="text" name="cat_name" placeholder="Name" class="m-wrap large" style="background-color:white !important;" id="cat">
 						<label id="cat"></label>
+                        <div id="over"></div>
 			            </td>
                         </tr>
 
@@ -55,7 +58,7 @@ if($auto_id == 33 || $auto_id == 35)
           
                        <tr>
                        <td>
-                       <button type="submit" name="sub" class="btn blue">Add</button>
+                       <button type="submit" name="sub" class="btn blue" id="vali">Add</button>
 			           </td>
                        </tr>
                        </table>
@@ -142,16 +145,46 @@ $(document).ready(function(){
 }); 
 </script>
 
+<script>
+$(document).ready(function(){
+ $("#vali").bind('click',function(){
+
+var sub_led = $("#cat").val();
+string1 = sub_led.toLowerCase();
+
+var t = $("#tt").val();
+var ledger1 = $("#ledger").val();
+var led = ledger1.split(",");
+
+for(var k=0; k<t; k++)
+{
+var ledger2 = led[k];
+string2 = ledger2.toLowerCase();
+
+var nn = 5;
+if(string1 === string2)
+{
+var nn = 555;
+break;	
+}
+}
+
+if(nn == 555)
+{
+$("#over").html('<p style="color:red";>The Sub ledger Name Already Exist, Please Fill Another Name</p>');
+return false;
+}
+else
+{
+$("#over").html('<p style="color:red";></p>');	
+}
 
 
 
 
-
-
-
-
-
-
+});
+});
+</script>
 
 
 

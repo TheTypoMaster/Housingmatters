@@ -32,7 +32,9 @@ function substrwords($text, $maxchar, $end='...') {
     return $output;
 }
 ?>
-
+<div style='text-align:center;'>
+<a href='classified_buy' class="btn blue " role="button" rel='tab' >Buy</a> 
+<a href='classified_sel' class="btn blue" rel='tab' role="button" >Sell</a></div>
 <?php
 $c=0;
 foreach ($result_classifieds as $classified){
@@ -246,7 +248,7 @@ $(document).ready(function() {
 		m=encodeURIComponent(m);
 		var id=$(this).attr("c_id");
 		$.ajax({
-			url: "<?php echo $webroot_path; ?>Classifieds/send_message_ajax/"+id+"/"+m,
+			url: "<?php echo $webroot_path; ?>Classifieds/send_message_ajax?con="+id +"&con1="+m
 			}).done(function(response) {
 			$("#myModal_ad123").html(response);
 			});

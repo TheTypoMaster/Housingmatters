@@ -62,7 +62,7 @@ foreach ($result_user as $collection)
 										$ccc++;
 									}
 						(int)$progres=$ccc*100/11;
-if($profile==1 && $progres<82)
+if(@$profile==1 && $progres<82)
 {
 ?>
 

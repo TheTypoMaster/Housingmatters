@@ -63,7 +63,11 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 	</div>
 						   
 	<br/>
-	<!---------------start visible-------------------------------->
+	
+		
+		<div class="row-fluid">
+		<div class="span6">
+			<!---------------start visible-------------------------------->
 			<div class="controls">
 			<label class="" style="font-size:14px;">Notice should be visible to<span style="color:red;">*</span>   <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select any one"> </i></label>
 			</div>
@@ -133,6 +137,20 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			
 			</div>
 		<!---------------end visible-------------------------------->
+		</div>
+		<div class="span6">
+			<div class="control-group">
+			<label class="checkbox">
+			<div class="checker"><span><div class="checker" id="uniform-undefined"><span><input type="checkbox" value="1" name="allowed" style="opacity: 0;" checked="checked"></span></div></span></div>
+			if checked, members can comment on this notice.
+			</label>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	
 	
 	<div class="form-actions">
 	  <button type="submit" class="btn blue form_post" name="publish" submit_type="post">Publish Notice</button>
@@ -216,6 +234,8 @@ $(document).ready(function() {
 		m_data.append( 'post_type', post_type);
 		var visible=$('input:radio[name=visible]:checked').val();
 		m_data.append( 'visible', visible);
+		m_data.append( 'allowed', $('input:checkbox[name=allowed]:checked').val());
+		
 		if(visible==2){
 			var allVals = [];
 			$('.v2:checked').each(function() {

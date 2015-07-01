@@ -1,1 +1,0 @@
-<tr><td colspan="9">Registration is approved</td></tr>

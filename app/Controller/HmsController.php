@@ -11,25 +11,25 @@ var $name = 'Hms';
 
 
 function visible_subvisible($visible,$sub_visible) {
-	$s_user_id=$this->Session->read('user_id');
-	if($visible==1){	
-		$result_user=$this->all_user_deactive();
-		
-		foreach($result_user as $data){
-			$da_to[$data['user']['user_id']]=$data['user']['email'];
-			$da_user_name[]=$data['user']['user_name'];
-			$da_user_id[]=$data['user']['user_id'];
-		}
-		
-	}
-	if($visible==4){	
-		$result_user=$this->all_owner_deactive();
-		foreach($result_user as $data){
-			$da_to[$data['user']['user_id']]=$data['user']['email'];
-			$da_user_name[]=$data['user']['user_name'];
-			$da_user_id[]=$data['user']['user_id'];
-		}
-	}
+$s_user_id=$this->Session->read('user_id');
+if($visible==1){	
+$result_user=$this->all_user_deactive();
+
+foreach($result_user as $data){
+$da_to[$data['user']['user_id']]=$data['user']['email'];
+$da_user_name[]=$data['user']['user_name'];
+$da_user_id[]=$data['user']['user_id'];
+}
+
+}
+if($visible==4){	
+$result_user=$this->all_owner_deactive();
+foreach($result_user as $data){
+$da_to[$data['user']['user_id']]=$data['user']['email'];
+$da_user_name[]=$data['user']['user_name'];
+$da_user_id[]=$data['user']['user_id'];
+}
+}
 	if($visible==5){
 		$result_user=$this->all_tenant_deactive();
 		foreach($result_user as $data){
@@ -267,7 +267,7 @@ $this->redirect(array('action' => 'index'));
 }
 function beforeFilter()
 {
-Configure::write('debug', 0);
+//Configure::write('debug', 0);
 }
 
 function menus_from_role_privileges()
@@ -336,6 +336,25 @@ $s_role_id=$this->Session->read('role_id');
 $this->loadmodel('page');
 $conditions=array("sub_module_id" => $sub_module_id);
 return $result=$this->page->find('all',array('conditions'=>$conditions,'limit'=>1));
+}
+
+function fetch_pagename_main_module_usermanagement($module_id,$sub_module_id) 
+{
+$s_society_id=$this->Session->read('society_id');
+$s_role_id=$this->Session->read('role_id');
+
+$this->loadmodel('page');
+$conditions=array("module_id" => $module_id,"sub_module_id" => $sub_module_id);
+return $result=$this->page->find('all',array('conditions'=>$conditions,'limit'=>1));
+}
+
+function fetch_sub_module_id_from_role_prvg($module_id){
+	$s_society_id=$this->Session->read('society_id');
+	$s_role_id=$this->Session->read('role_id');
+
+	$this->loadmodel('role_privilege');
+	$conditions=array("module_id" => $module_id,"society_id"=>$s_society_id,"role_id" => $s_role_id);
+	return $result=$this->role_privilege->find('all',array('conditions'=>$conditions,'limit'=>1));
 }
 
 function fetch_mainmodulename_usermanagement($module_id) 
@@ -514,26 +533,25 @@ $result_help=$this->help_desk->find('all',array('conditions'=>$conditions));
 $this->set('result_help_desk_draft',$result_help);
 foreach($result_help as $data)
 {
-	 $att=$data['help_desk']['help_desk_file'];
+$att=$data['help_desk']['help_desk_file'];
 }
 
 if(isset($this->request->data['sub']))
 {
-	
-	$ip=$this->hms_email_ip();
-	
- $category=(int)$this->request->data['category'];
- $textarea=htmlentities($this->request->data['comment']);
-  $ticket_priority=(int)$this->request->data['priority'];
- $t=$this->autoincrement_with_society_ticket('help_desk','ticket_id');
- date_default_timezone_set('Asia/kolkata');
- $date=date("d-m-y");
- $time=date('h:i:a',time());
- $file=$this->request->form['file']['name'];
-	if(empty($file))
-	{
-	$file=$att;	
-	}
+
+$ip=$this->hms_email_ip();
+$category=(int)$this->request->data['category'];
+$textarea=htmlentities($this->request->data['comment']);
+$ticket_priority=(int)$this->request->data['priority'];
+$t=$this->autoincrement_with_society_ticket('help_desk','ticket_id');
+date_default_timezone_set('Asia/kolkata');
+$date=date("d-m-y");
+$time=date('h:i:a',time());
+$file=$this->request->form['file']['name'];
+if(empty($file))
+{
+$file=$att;	
+}
 $target = "help_desk_file/";
 $target=@$target.basename( @$this->request->form['file']['name']);
 $ok=1;
@@ -541,7 +559,6 @@ move_uploaded_file(@$this->request->form['file']['tmp_name'],@$target);
 $this->loadmodel('help_desk');
 
 $this->help_desk->updateAll(array('ticket_id'=>$t,'help_desk_draft'=>0, "society_id" => $s_society_id , "user_id" => $s_user_id, "help_desk_complain_type_id" => $category,"help_desk_description" => $textarea, "help_desk_date" =>$date,"help_desk_assign_date" =>"", "help_desk_time" =>$time, "help_desk_status" => 0, "help_desk_service_provider_id" => 0,"help_desk_file"=>$file ,"help_desk_close_comment"=>"","help_desk_close_date"=>"","ticket_priority"=>$ticket_priority),array('help_desk_id'=>$id));
-
 
 //------------------mail functinality  start SM -------------------
 $user_mail=1;
@@ -610,7 +627,7 @@ $r_sms=$this->hms_sms_ip();
  $sms='New Helpdesk ticket '.$ticket_no.' - '.$category_name.' raised+by '.$user_name.' - '.$wing_flat.' Please log into HousingMatters for further action.';
 
 $sms1=str_replace(' ', '+', $sms);
-$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');		
+////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');		
   $message_web="<div>
 <img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 <span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
@@ -858,7 +875,7 @@ $ticket_no=$t;
 $category_name=$this->help_desk_category_name($category);
 $sms='New Helpdesk ticket '.$ticket_no.' - '.$category_name.' raised+by '.$user_name.' - '.$wing_flat.' Please log into HousingMatters for further action.';
 $sms1=str_replace(' ', '+', $sms);
-$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');		
+////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');		
 $message_web="<div>
 <img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 <span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
@@ -1164,12 +1181,7 @@ $this->help_desk->updateAll(array("help_desk_close_comment" => $massage_close,"h
 $this->response->header('Location:help_desk_sm_close_ticket');
 
 }
-////////////////////////////////////////////////////////
-////////////////////close ticket///////////////////////
-///////////////////////////////////////////////////////
-
-
-
+//////////////////////////////////////////////close ticket///////////////////////////////////////////////////
 }
 
 function assign_ticket()
@@ -1731,7 +1743,7 @@ $result5=$this->notification_email->find('all',array('conditions'=>$conditions7)
 $n=sizeof($result5);
 if($n>0)
 {
-$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms.'');
+////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms.'');
 }
 /*  $message_web="<div style=' padding:25px;  font-size:14px; border:1px solid #BCE8F1; width:80%; background-color: #fcf8e3;'>
 <p style='background-color:#60F;  font-size:16px; padding:10px;'><b style='color: white; '> HousingMatters</b></p><br/>
@@ -2733,7 +2745,12 @@ function add_field()
 	$this->ath();
 	$s_user_id=$this->Session->read('user_id');
 	$files = glob("profile/$s_user_id/*.*");
-	$this->set('images',$files);
+	$this->set('images',$files); 
+	$user_name="Rohit Joshi";
+	$random_otp="9877";
+	
+	// $sms='Dear '.$user_name.' Please enter your code '.$random_otp.' on the signup screen to continue your HousingMatters registration process. Thank you';
+	// $sms=''.$random_otp.' is your One Time Passcode, please enter on the signup screen to continue your HousingMatters registration process.';
 	
 }
 
@@ -2843,12 +2860,13 @@ function multiple_flat()
 	}else{
 		$this->layout='session';
 	}
-	$this->ath();
-	$this->check_user_privilages();	
-	 $s_society_id=$this->Session->read('society_id');
-	$s_user_id=$this->Session->read('user_id');
-	$result=$this->all_user_deactive();
-	$this->set('result_user',$result);
+		$this->ath();
+		$this->check_user_privilages();	
+		$s_society_id=$this->Session->read('society_id');
+		$s_user_id=$this->Session->read('user_id');
+		$this->seen_alert(105,$s_user_id);
+		$result=$this->all_user_deactive();
+		$this->set('result_user',$result);
 	if($this->request->is('post'))
 	{
 		
@@ -4272,7 +4290,7 @@ $code=mt_rand(10000,99999);
 $this->loadmodel('user_temp');
 $this->user_temp->updateAll(array('captch_otp'=>$code),array('user_temp_id'=>$user));
 $sms='Hello!+Please+enter+your+code+'.$code.'+on+the+signup+screen+to+continue+your+HousingMatters+registration+process.';
-$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms.'');
+////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms.'');
 
 }
 
@@ -4418,7 +4436,7 @@ $tenant="Tenant";
 
 $sms='Hello!+New+User+request+:+'.$user_name1.'+'.$wing_flat.'+'.$tenant.'+Please+log+into+HousingMatters+for+further+action.';
 $sms1=str_replace(' ', '+', $sms);
-$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 $to=$email;
 
  $message_web="<div>
@@ -4479,23 +4497,24 @@ $email1=$collection['user_temp']['email'];
 $user_name=$collection['user_temp']['user_name'];
 $mobile1=$collection['user_temp']['mobile'];
 }
+
+$dd=explode(' ',$user_name);
+$user_name1=$dd[0];
+$user_name1=ucfirst($user_name1);
 $to=$email1;
- $message_web="<div>
+  $message_web="<div>
 <img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 <span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
 <a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
-</br><p>Dear $user_name,</p>
-We have received your registration request.<br/>
-<p>You will be notified by email once your request has been successfully</p>
-approved by your society administrator.<br/>
-<p>For any assistance, please email us on support@housingmatters.in</p><br/><br/>
-Thank you.<br/>
-HousingMatters (Support Team)<br/><br/>
+</br><p>Hi $user_name1,</p>
+<p>Thank for Signing up with Housing Matters. Your Application is under review. We will get back to you with further details within 24 Hrs.</p>
+To know more about Housing Matters, <a href='http://www.housingmatters.co.in'>Click here</a>
+<p>For any assistance, Email us on support@housingmatters.in</p><br/>
+Thank you<br/>
+HousingMatters (Support Team)<br/>
 www.housingmatters.co.in
 </div >
-
 </div>";
-
 $from_name="HousingMatters";
 $reply="support@housingmatters.in";
 
@@ -4506,7 +4525,7 @@ foreach ($result_email as $collection)
 {
 $from=$collection['email']['from'];
 }
-$subject="Registration Request";
+$subject="Lets get going with setting up your society and Housing Matters";
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
@@ -4576,7 +4595,7 @@ $sms_sender=$r->sms_sender;
 
 $sms='New Request for Society registration into HousingMatters. Kindly approve the request.';
 $sms1=str_replace(' ', '+', $sms);
-$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 
 ////////////////////////////////////////// ////////////////////////////////////////////////////// ///////////////////////////////////////////////////////////// ////		
 $to="admin@housingmatters.in";
@@ -4736,7 +4755,7 @@ $this->loadmodel('user');
 $conditions=array("mobile" => $mobile);
 $result4 = $this->user->find('all',array('conditions'=>$conditions));
 $n4 = sizeof($result4);
-$e=$n3+$n4;
+$e=$n4;
 
 if ($e > 0) {
 echo "false";
@@ -4744,6 +4763,79 @@ echo "false";
 echo "true";
 }
 }
+
+function profile_mobile_check()
+{
+$this->layout='blank_signup';
+$s_user_id=$this->Session->read('user_id');	
+$mobile=$this->request->query['mobile1'];
+
+$this->loadmodel('user');
+$conditions=array("mobile" => $mobile,'user_id'=>$s_user_id);
+$result4 = $this->user->find('all',array('conditions'=>$conditions));
+$n4 = sizeof($result4);
+$e=$n4;
+if ($e > 0) {
+echo "true";
+} else {
+		$this->loadmodel('user_temp');
+		$conditions=array("mobile" => $mobile,'reject'=>0);
+		$result3 = $this->user_temp->find('all',array('conditions'=>$conditions));
+		$n3 = sizeof($result3);
+		$this->loadmodel('user');
+		$conditions=array("mobile" => $mobile);
+		$result4 = $this->user->find('all',array('conditions'=>$conditions));
+		$n4 = sizeof($result4);
+		$e=$n3+$n4;
+
+		if ($e > 0) {
+		echo"false";
+		} else {
+		echo"true";
+		}
+	
+}	
+
+
+
+	
+}
+
+
+
+function profile_email_check()
+{
+$this->layout='blank_signup';
+$s_user_id=$this->Session->read('user_id');
+$email=$this->request->query['email'];
+$this->loadmodel('user');
+$conditions=array("email" => $email,'user_id'=>$s_user_id);
+$result4 = $this->user->find('all',array('conditions'=>$conditions));
+$n4 = sizeof($result4);
+$e=$n4;
+if ($e > 0) {
+echo "true";
+} else {
+
+		$this->loadmodel('user_temp');
+		$conditions=array("email" => $email,'reject'=>0);
+		$result3 = $this->user_temp->find('all',array('conditions'=>$conditions));
+		$n3 = sizeof($result3);
+		$this->loadmodel('user');
+		$conditions=array("email" => $email);
+		$result4 = $this->user->find('all',array('conditions'=>$conditions));
+		$n5 = sizeof($result4);	
+		$e1=$n3+$n5;
+		if ($e1 > 0) {
+		echo "false";
+		} else {
+		echo "true";	
+		}
+
+		}
+}
+
+
 
 
 function forget() 
@@ -8096,15 +8188,30 @@ function resident_approve_reply()
 {
 $this->layout='blank';
 $subject=htmlentities($this->request->query('con1'));
-$message_web=htmlentities($this->request->query('con2'));
+$message=htmlentities($this->request->query('con2'));
+$message=nl2br($message);
 $to=htmlentities($this->request->query('con3'));
 $user_id=(int)htmlentities($this->request->query('con4'));
 $from_name="HousingMatters";
 $from="Support@housingmatters.in";
 $reply="Support@housingmatters.in";
+$ip=$this->hms_email_ip();
+$message_web="<div>
+<img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
+<a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+<br/><br/>
+<p>$message</p> 
+<br/>
+Thank you.<br/>
+HousingMatters (Support Team)<br/>
+www.housingmatters.co.in
+</div >
+</div>";
+
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 $this->loadmodel('user_temp');
-$this->user_temp->updateAll(array('reply_mail'=>$message_web),array('user_temp.user_temp_id'=>$user_id));
+$this->user_temp->updateAll(array('reply_mail'=>$message),array('user_temp.user_temp_id'=>$user_id));
 
 }
 
@@ -8186,7 +8293,7 @@ if($multiple_society==1)
 }
 
 
-$this->user->save(array('user_id' => $i, 'user_name' => $user_name,'email' => $email, 'password' => $password, 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'noc_type' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$login_id,'profile_status'=>1,'s_default'=>$s_default));
+$this->user->save(array('user_id' => $i, 'user_name' => $user_name,'email' => $email, 'password' => $password, 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'noc_type' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$login_id,'profile_status'=>1,'s_default'=>$s_default,'private'=>array('mobile','email')));
 
 $this->loadmodel('flat');
 $this->flat->updateAll(array("noc_ch_tp" =>$residing),array("flat_id" =>$flat));	
@@ -8305,7 +8412,7 @@ $r_sms=$this->hms_sms_ip();
 $random=(string)mt_rand(1000,9999);
 $sms="".$user_name.", Your housing society ".$s_n." has enrolled you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
 $sms1=str_replace(" ", '+', $sms);
-$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 $this->loadmodel('user');
 $this->user->updateAll(array('password'=>$random,'signup_random'=>$random),array('user_id'=>$user_temp_id));
 $this->loadmodel('login');
@@ -8349,7 +8456,7 @@ $random=$de_user_id.'/'.$random;
 
 
 $this->loadmodel('user');
-$this->user->updateAll(array('signup_random'=>$random),array('user.user_id'=>$user_temp_id));
+$this->user->updateAll(array('signup_random'=>$random,'one_time_sms'=>0),array('user.user_id'=>$user_temp_id));
 
 
 
@@ -8637,25 +8744,33 @@ $conditions=array('user_id'=> $user_id,'signup_random'=>$q);
 $result_check=$this->user->find('all',array('conditions'=>$conditions));
 foreach($result_check as $data9)
 {
-	$user_name=$data9['user']['user_name'];
+	 $user_name=$data9['user']['user_name'];
 	$deactive=$data9['user']['deactive'];
+	$one_time_sms=(int)@$data9['user']["one_time_sms"];
 }
 $n= sizeof($result_check);
 if($n>0)
 { 
 $random_otp=(string)mt_rand(1000,9999);
 
-if($deactive==0)
+if($one_time_sms==0)
 {
 
+$dd=explode(' ',$user_name);
+  $user_name=$dd[0];
+  $user_name=ucfirst($user_name);
 $r_sms=$this->hms_sms_ip();
   $working_key=$r_sms->working_key;
  $sms_sender=$r_sms->sms_sender; 	
 	
-$sms='Dear '.$user_name.' Please enter your code '.$random_otp.' on the signup screen to continue your HousingMatters registration process. Thank you';
+//$sms='Dear '.$user_name.' Please enter your code '.$random_otp.' on the signup screen to continue your HousingMatters registration process. Thank you';
+// $sms=''.$random_otp.' is your One Time Passcode, please enter on the signup screen to continue your HousingMatters registration process.';
+  $sms='Hi ! '.$user_name.', Use '.$random_otp.' as one time passcode and continue your Housing Matters registration process. ';
+
 $sms1=str_replace(' ', '+', $sms);
-@$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
-$this->user->updateAll(array('password'=>$random_otp,'deactive'=>2),array('user.user_id'=>$user_id));
+
+@////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+$this->user->updateAll(array('password'=>$random_otp,'one_time_sms'=>1),array('user.user_id'=>$user_id));
 
 }
 
@@ -8682,14 +8797,22 @@ function verify_mobile_ajax()
 		 $user= $data['user']['user_name'];
 	}
 	
+	$dd=explode(' ',$user);
+	$user_name=$dd[0];
+	$user_name=ucfirst($user_name);
+	
 $r_sms=$this->hms_sms_ip();
 $working_key=$r_sms->working_key;
 $sms_sender=$r_sms->sms_sender; 
 	
 	 $random_otp=(string)mt_rand(1000,9999);
-$sms='Dear '.$user.' Please enter your code '.$random_otp.' on the signup screen to continue your HousingMatters registration process. Thank you';
+//$sms='Dear '.$user.' Please enter your code '.$random_otp.' on the signup screen to continue your HousingMatters registration process. Thank you';
+//$sms=''.$random_otp.' is your One Time Passcode, please enter on the signup screen to continue your HousingMatters registration process.';
+
+$sms='Hi ! '.$user_name.', Use '.$random_otp.' as one time passcode and continue your Housing Matters registration process. ';
+
 $sms1=str_replace(' ', '+', $sms);
-$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 $this->user->updateAll(array('password'=>$random_otp),array('user.user_id'=>$id));
 
 }
@@ -8748,7 +8871,7 @@ $time=date('h:i:a',time());
 $role_id[]=3;
 $default_role_id=3;
 $this->loadmodel('user');
-$this->user->save(array('user_id' => $i, 'user_name' => $user_name,'email' => $email, 'password' =>'', 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => 2, 'wing' =>0, 'flat' =>0,'residing' => 1,'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$log_i,'s_default'=>1));
+$this->user->save(array('user_id' => $i, 'user_name' => $user_name,'email' => $email, 'password' =>'', 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => 2, 'wing' =>0, 'flat' =>0,'residing' => 1,'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$log_i,'s_default'=>1,'profile_status'=>1,'private'=>array('mobile','email')));
 
 //////////////////////////////////// End Code ////////////////////////////////////////////////////////////////////////
 
@@ -8909,7 +9032,7 @@ $login_id=$this->autoincrement('login','login_id');
 $role_id[]=3;
 $default_role_id=3;
 $this->loadmodel('user');
-$this->user->save(array('user_id' => $i, 'user_name' => $user_name,'email' => $email, 'password' => $password, 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'residing' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$login_id,'s_default'=>1));
+$this->user->save(array('user_id' => $i, 'user_name' => $user_name,'email' => $email, 'password' => $password, 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'residing' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$login_id,'s_default'=>1,'profile_status'=>1,'private'=>array('mobile','email')));
 
 //////////////////////// insert login table //////////////////////////////////////
 
@@ -9047,14 +9170,14 @@ $s_society_id=$this->Session->read('society_id');
 
 if (isset($this->request->data['add_role'])) 
 {
-$role_id=(int)$this->request->data['r_name'];
+ $role_id=(int)$this->request->data['r_name'];
 
 $this->loadmodel('hm_modules_assign');
 $conditions=array("society_id" => $s_society_id);
 $result_hm_modules_assign=$this->hm_modules_assign->find('all',array('conditions'=>$conditions));
 foreach($result_hm_modules_assign as $data)
 {
-$module_id=$data['hm_modules_assign']['module_id'];
+ $module_id=$data['hm_modules_assign']['module_id'];
 
 $this->loadmodel('sub_modules');
 $conditions=array("module_id" => $module_id);
@@ -9065,14 +9188,17 @@ $sub_module_id=(int)$data["sub_modules"]["auto_id"];
 $sub_module_name=$data["sub_modules"]["sub_module_name"];
 
 $check_box=@$this->request->data['ch'.$sub_module_id];
+
 if($check_box>0)
 {
+	
 $this->loadmodel('role_privilege');
 $conditions=array("society_id" => $s_society_id ,"role_id" => $role_id,"sub_module_id" => $sub_module_id,"module_id" => $module_id,"sub_module_id" => $sub_module_id);
 $n=$this->role_privilege->find('count',array('conditions'=>$conditions));
 
 if($n==0)
 {
+
 $this->loadmodel('role_privilege');
 $data_row = Array( Array("society_id" => $s_society_id, "role_id" => $role_id , "module_id" => $module_id,"sub_module_id" => $sub_module_id));
 $this->role_privilege->saveAll($data_row); 
@@ -9114,9 +9240,15 @@ $this->ath();
 $s_society_id=$this->Session->read('society_id');
 $s_role_id=$this->Session->read('role_id');
 
+/*
 $this->loadmodel('hm_modules_assign');
 $conditions=array("society_id" => $s_society_id);
 $this->set('result_hm_modules_assign',$this->hm_modules_assign->find('all',array('conditions'=>$conditions)));
+
+*/
+$this->loadmodel('module_type');
+$order=array('module_type.module_type_name'=>'ASC');		
+$this->set('result_module_type',$this->module_type->find('all',array('order'=>$order)));
 
 }
 
@@ -9140,6 +9272,22 @@ $conditions=array("module_id" => $main_module_id);
 return $result_sub_modules=$this->sub_modules->find('all',array('conditions'=>$conditions));
 }
 
+
+
+function fetch_hm_assign_module($mt_id)
+{
+	$this->layout='blank';
+	$this->ath();
+
+	$role_id=(int)$this->request->query('con');
+
+	$s_society_id=$this->Session->read('society_id');
+$this->loadmodel('hm_modules_assign');
+$conditions=array("society_id" => $s_society_id,'mt_id'=>$mt_id);
+return $this->hm_modules_assign->find('all',array('conditions'=>$conditions));
+
+	
+}
 function fetch_role_privileges($sub_module_id)
 {
 $this->layout='blank';
@@ -9198,6 +9346,7 @@ $result_main_module=$this->main_module->find('all');
 foreach ($result_main_module as $collection) 
 {		  
 $module_id =(int)$collection['main_module']['auto_id'];
+$mt_id =(int)$collection['main_module']['mt_id'];
 $value =@$this->request->data[$module_id];
 if($value==1)
 {
@@ -9210,7 +9359,7 @@ $n = sizeof($result1);
 if($n==0)
 {
 $this->loadmodel('hm_modules_assign');
-$this->hm_modules_assign->saveAll(array("society_id" => $society_id, "module_id" => $module_id));
+$this->hm_modules_assign->saveAll(array("society_id" => $society_id, "module_id" => $module_id,'mt_id'=>$mt_id));
 }   
 }
 else
@@ -9274,7 +9423,7 @@ $random=$de_user_id.'/'.$random;
 
 
 $this->loadmodel('user');
-$this->user->updateAll(array('signup_random'=>$random),array('user.user_id'=>$user_temp_id));
+$this->user->updateAll(array('signup_random'=>$random,'one_time_sms'=>0),array('user.user_id'=>$user_temp_id));
 
 
 
@@ -9376,7 +9525,7 @@ function hm_resident_approve_resend_sms()
 		$random=(string)mt_rand(1000,9999);
 		$sms="".$user_name.", Your housing society ".$s_n." has enrolled you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
 		$sms1=str_replace(" ", '+', $sms);
-		$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+		////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 		$this->loadmodel('user');
 		$this->user->updateAll(array('password'=>$random,'signup_random'=>$random),array('user_id'=>$user_temp_id));
 		$this->loadmodel('login');
@@ -9450,7 +9599,7 @@ if($this->RequestHandler->isAjax()){
 $this->ath();
 $this->check_user_privilages();
 $this->loadmodel('user');
-$conditions1=array('society_id'=>$s_society_id);
+$conditions1=array('society_id'=>$s_society_id,'deactive'=>0);
 $result=$this->user->find('all',array('conditions'=>$conditions1));
 $this->set('result_user',$result);
 if ($this->request->is('post')) 
@@ -9870,7 +10019,7 @@ $mobile_im=implode(",", $mobile);
 //$user=implode(",", $user); 
 
 $s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m;
-$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
+////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
 
 	
 
@@ -9915,7 +10064,7 @@ $r_sms=$this->hms_sms_ip();
  $sms_sender=$r_sms->sms_sender; 
 
 
-$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
+////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
 
 $sms_id=$this->autoincrement('sms','sms_id');
 $this->loadmodel('sms');
@@ -10051,7 +10200,7 @@ $r_sms=$this->hms_sms_ip();
   $working_key=$r_sms->working_key;
  $sms_sender=$r_sms->sms_sender; 
 	
-$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
+////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
 
 $sms_id=$this->autoincrement('sms','sms_id');
 $this->loadmodel('sms');
@@ -12157,11 +12306,39 @@ $this->set('result_user',$result);
 }
 
 
+function profile_report()
+{
+
+$this->layout='session';
+$s_society_id=$this->Session->read('society_id');
+$this->loadmodel('user');
+$conditions=array('society_id'=>$s_society_id);
+$result=$this->user->find('all',array('conditions'=>$conditions));
+$this->set('result_user',$result);
 
 
+}
 
+function profile_log($id)
+{
+	
+$this->loadmodel('profile_log');
+$conditions=array('user_id'=>$id);
+return $result=$this->profile_log->find('all',array('conditions'=>$conditions));
 
+}
 
+function profile_all_report()
+{
+	$this->layout='session';
+	$id=(int)$this->request->query('con');
+	$this->loadmodel('profile_log');
+	$conditions=array('user_id'=>$id);
+	$order=array('profile_log.profile_log_id'=> 'DESC');
+	$result=$this->profile_log->find('all',array('conditions'=>$conditions,'order'=>$order));
+	$this->set('result_profile_log',$result);
+	
+}
 function login_report_unit()
 {
 
@@ -13733,20 +13910,21 @@ foreach($result_society as $data)
 	 $society_name2=$data['society']['society_name'];
 }
 
-if(isset($this->request->data['sub']))
+if($this->request->is('post')) 
 {
 	
  @$name=htmlentities($this->request->data['name']);	
  @$medical=htmlentities($this->request->data['medical']);	
- $mobile=htmlentities($this->request->data['mobile']);
- $email=htmlentities($this->request->data['email']);
+ @$mobile=htmlentities($this->request->data['mobile1']); 
+ @$email=htmlentities($this->request->data['email']);
  @$sex=(int)htmlentities($this->request->data['sex']);
- @$dob=htmlentities($this->request->data['dob']);
+ @$age=htmlentities($this->request->data['age']);
  @$per_address=htmlentities($this->request->data['per_address']);
  @$com_address=htmlentities($this->request->data['com_address']);
  @$hob=htmlentities($this->request->data['hob']);
  @$photo_name =$this->request->form['profile_photo']['name'];
  @$blood_group=htmlentities($this->request->data['blood_group']);
+ @$contact_emergency=htmlentities($this->request->data['contact_emergency1']);	
 
 if($blood_group==1)
 {
@@ -13792,8 +13970,66 @@ $b_group="O-";
 	 $med_pro="No";
  }
  
+if($age==1)
+{
+$age_group="18-24";
+}
+
+if($age==2)
+{
+$age_group="25-34";
+}
+
+
+if($age==3)
+{
+$age_group="35-44";
+}
+
+if($age==4)
+{
+$age_group="45-54";
+}
+if($age==5)
+{
+$age_group="55-64";
+}
  
+if($age==6)
+{
+$age_group="65-74";
+}
+if($age==7)
+{
+$age_group="75-84";
+}
+if($age==8)
+{
+$age_group="85-94";
+}
+
+ $result_user=$this->profile_picture($s_user_id);
+ foreach($result_user as $data)
+ {
+	  $email1=$data['user']['email'];
+	  $mobile1=$data['user']['mobile'];
+	 
+ }
  
+ if($email==$email && $mobile==$mobile1)
+ {
+	
+	 
+ }
+ else{
+	 
+		date_default_timezone_set('Asia/Kolkata');
+		$date=date("d-m-Y");
+		$time = date(' h:i a', time());
+		$op=$this->autoincrement('profile_log','profile_log_id');
+		$this->loadmodel('profile_log');
+		$this->profile_log->saveAll(array('profile_log_id'=>$op,'user_id'=>$s_user_id,'society_id'=>$s_society_id,'email'=>$email1,'mobile'=>$mobile1,'new_email'=>$email,'new_mobile'=>$mobile,'date'=>$date,'time'=>$time));
+ }
  
  
 if(empty($photo_name))
@@ -13807,7 +14043,7 @@ if(empty($photo_name))
 	$ok=1;
 	move_uploaded_file(@$this->request->form['profile_photo']['tmp_name'],@$target); 
 	$this->loadmodel('user');
-$this->user->updateAll(array("user_name" => $name,"email" => $email,'mobile'=>$mobile,'sex'=>$sex,'dob'=>$dob,'per_address'=>$per_address,'comm_address'=>$com_address,'hobbies'=>$hob,'profile_pic'=>$photo_name,'blood_group'=>$blood_group,'medical_pro'=>$medical),array("user_id" => $s_user_id));
+	$this->user->updateAll(array("user_name" => $name,"email" => $email,'mobile'=>$mobile,'sex'=>$sex,'dob'=>$age,'per_address'=>$per_address,'comm_address'=>$com_address,'hobbies'=>$hob,'profile_pic'=>$photo_name,'blood_group'=>$blood_group,'medical_pro'=>$medical,'contact_emergency'=>$contact_emergency),array("user_id" => $s_user_id));
 
 $to=$email;
 $from_name="HousingMatters";
@@ -13821,7 +14057,7 @@ $from=$collection['email']['from'];
 }
 $reply=$from;
 
-@$message_web="<div>
+  @$message_web="<div>
 <img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 <span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
 <a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
@@ -13829,18 +14065,18 @@ $reply=$from;
 <p> Name : $name </p>
 <p> Mobile : $mobile </p>
 <p> Email : $email </p>
-<p> Date of Birth : $dob </p>
+<p> Age group : $age_group </p>
+<p> Contact number emergency : $contact_emergency </p>
 <p> Permanent address : $per_address </p>
 <p> Communication address : $com_address </p>
 <p> Hobbies : $hob </p>
-<p> Blood Group : $b_group </p>
-<p> medical professional : $med_pro </p>
+<p> Blood group : $b_group </p>
+<p> Medical professional : $med_pro </p>
 <br/>
 Thank you.<br/>
-HousingMatters (Support Team)<br/><br/>
+HousingMatters (Support Team)<br/>
 www.housingmatters.co.in
 </div >
-
 </div>";
 
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
@@ -13856,7 +14092,7 @@ $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
  Your profile is successfully update.
 </div> 
 <div class="modal-footer">
-<a href="profile" class="btn green">OK</a>
+<a href="dashboard" class="btn green">OK</a>
 </div>
 </div>
 <!----alert-------------->
@@ -13948,6 +14184,11 @@ $this->layout='blank';
 $this->layout='session';
 }
 $this->ath();
+
+//$webroot_path=$this->requestAction(array('controller' => 'Hms', 'action' => 'webroot_path'));
+//$this->set('webroot_path',$webroot_path);
+
+
 	$s_society_id=$this->Session->read('society_id'); 
 	$sco_n=$this->society_name($s_society_id);
 	foreach($sco_n as $data)
@@ -13963,9 +14204,25 @@ $this->ath();
 	$address=$this->request->data['address'];
 	$society_phone = @$this->request->data['society_phone'];
     $society_email = @$this->request->data['society_email'];	
+    $sig_title = @$this->request->data['title'];
+	
+	$logo=$_FILES['logo']['name'];
+    $sig=$_FILES['sig']['name'];	
+	
+
+
+$target = "logo/";
+$target = $target . basename( $_FILES['logo']['name']) ;
+move_uploaded_file($_FILES['logo']['tmp_name'], $target);
+
+
+$target = "sig/";
+$target = $target . basename($_FILES['sig']['name']) ;
+move_uploaded_file($_FILES['sig']['tmp_name'], $target);	
 
 $this->loadmodel('society');
-$this->society->updateAll(array('pan'=>$pan,'tex_number'=>$s_tax,'society_address'=>$address,'society_reg_num'=>$s_number,"society_phone"=>$society_phone,"society_email"=>$society_email),array('society_id'=>$s_society_id));
+$this->society->updateAll(array('pan'=>$pan,'tex_number'=>$s_tax,'society_address'=>$address,'society_reg_num'=>$s_number,"society_phone"=>$society_phone,"society_email"=>$society_email,"signature"=>@$sig,"logo"=>@$logo,"sig_title"=>$sig_title),array('society_id'=>$s_society_id));
+
 ?>
 
 <!----alert-------------->
@@ -14104,7 +14361,7 @@ $result=$this->contact_handbook->find('all',array('conditions'=>$conditions));
 		}	
 		$export.="<tr>
 		<td>".$i."</td>
-		<td>".$user_name."</td>
+		<td>".$name."</td>
 		<td>".$mobile."</td>
 		<td>".$email."</td>
 		<td>".$web."</td>
@@ -14934,18 +15191,23 @@ $r_sms=$this->hms_sms_ip();
 	
 $sms="".$name.", Your housing society  ".$s_n." has enrolled  you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
  $sms1=str_replace(" ", '+', $sms);
- $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+ ////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 
 }
 }
 
-$this->user->save(array('user_id' => $i, 'user_name' => $name,'email' => $email, 'password' => @$random, 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'residing' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$log_i,'s_default'=>1));
+$this->user->save(array('user_id' => $i, 'user_name' => $name,'email' => $email, 'password' => @$random, 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'residing' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$log_i,'s_default'=>1,'profile_status'=>1,'private'=>array('mobile','email')));
 
+
+		  $this->loadmodel('flat');
+          $this->flat->updateAll(array("noc_ch_tp" =>$residing),array("flat_id" =>$flat));
 ///////////////  Insert code ledger Sub Accounts //////////////////////
 
 $this->loadmodel('ledger_sub_account');
 $j=$this->autoincrement('ledger_sub_account','auto_id');
 $this->ledger_sub_account->save(array('auto_id'=>$j,'ledger_id'=>34,'name'=>$name,'society_id' => $society_id,'user_id'=>$i,'deactive'=>0));
+
+
 
 /////////////  End code ledger sub accounts //////////////////////////
 
@@ -15092,7 +15354,7 @@ function import_flat_configuration()
 {
 	$this->layout="blank";
 	$this->ath();
-	 $s_society_id=$this->Session->read('society_id');
+	$s_society_id=$this->Session->read('society_id');
 	
 	$this->loadmodel('wing');
 	$conditions=array("society_id" => $s_society_id);
@@ -15150,16 +15412,17 @@ function import_flat_configuration()
 			$wing_id=0;
 			$flat_id=0;
 			if($result_wing_count>0){
-				  $wing_id=$result_wing[0]['wing']['wing_id'];
+			  $wing_id=$result_wing[0]['wing']['wing_id'];
 				
-				$this->loadmodel('flat'); 
-				$conditions=array("wing_id"=>$wing_id,"flat_name"=> new MongoRegex('/^' .  $flat_name . '$/i'));
-				$result_flat=$this->flat->find('all',array('conditions'=>$conditions));
-				$result_flat_count=sizeof($result_flat);
+				//$this->loadmodel('flat'); 
+				//$conditions=array("wing_id"=>$wing_id,"flat_name"=> new MongoRegex('/^' .  $flat_name . '$/i'));
+				//$result_flat=$this->flat->find('all',array('conditions'=>$conditions));
+				//$result_flat_count=sizeof($result_flat);
 
-				if($result_flat_count>0){
-					$flat_id=$result_flat[0]['flat']['flat_id'];	
-				}
+				//if($result_flat_count>0){
+					//$flat_id=$result_flat[0]['flat']['flat_id'];	
+				//}
+			
 			}
 			
 			$this->loadmodel('flat_type_name'); 
@@ -15167,10 +15430,10 @@ function import_flat_configuration()
 			$result_flat_type_name=$this->flat_type_name->find('all',array('conditions'=>$conditions));
 			 $result_f_t_count=sizeof($result_flat_type_name);
 				if($result_f_t_count>0){
-					$flat_type_id=$result_flat_type_name[0]['flat_type_name']['auto_id'];	
+					$flat_type_id=@$result_flat_type_name[0]['flat_type_name']['auto_id'];	
 				}	 
 					
-					 $table[]=array($wing_id,$flat_id,$flat_type_id,$flat_area);
+					 $table[]=array($wing_id,$flat_name,$flat_type_id,$flat_area);
 			
 		} $i++;
 	}
@@ -15389,7 +15652,7 @@ if(empty($email))
 $random=(string)mt_rand(1000,9999);
  $sms="".$name.", Your housing society ".$s_n." has enrolled you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
 $sms1=str_replace(" ", '+', $sms);
-$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 }
 }
 
@@ -15520,6 +15783,64 @@ New member registered into your society successfully.
 
 ////////////////////////////////////////////////////////// New Tenant Enrollment Start //////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+function new_tenant_edit($id=null)
+{
+	
+	if($this->RequestHandler->isAjax()){
+	$this->layout='blank';
+	}else{
+	$this->layout='session';
+	}
+	$id=(int)$id;
+	$s_society_id=$this->Session->read('society_id');
+	$this->ath();
+	
+	$this->loadmodel('tenant');	
+	
+$conditions1=array('user_id'=>$id);
+$result1=$this->tenant->find('all',array('conditions'=>$conditions1));	
+
+$this->set('result_tenant',$result1);
+if($this->request->is('post'))
+{
+date_default_timezone_set('Asia/kolkata');
+$date=date("d-m-Y");
+$time=date('h:i:a',time());
+$name_tenant=$this->request->data['name_tenant'];
+$address=$this->request->data['address'];
+$start_date=$this->request->data['start_date'];
+$end_date=$this->request->data['end_date'];
+$verification=$this->request->data['verification'];
+$ten_age=(int)@$this->request->data['ten_agr'];
+$pol_ver=(int)@$this->request->data['pol_ver'];
+
+$this->loadmodel('tenant');
+$this->tenant->updateAll(array("t_start_date"=>$start_date,"t_end_date"=>$end_date,"t_address"=>$address,"verification"=>$verification,'t_agreement'=>$ten_age,'t_police'=>$pol_ver),array("user_id" => $id));
+?>
+
+
+<!----alert-------------->
+<div class="modal-backdrop fade in"></div>
+<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+<div class="modal-body" style="font-size:16px;">
+Successfully Update .
+</div> 
+<div class="modal-footer">
+<a href="<?php  echo $this->webroot_path();?>hms/new_tenant_enrollment_view" class="btn green">OK</a>
+</div>
+</div>
+<!----alert-------------->
+<?php
+
+//$this->response->header('Location', 'new_tenant_enrollment_view');	
+	
+}
+	
+}
+
 
 function new_tenant_enrollment()
 {
@@ -16558,14 +16879,30 @@ $s_user_id=$this->Session->read('user_id');
 
 $this->set('s_role_id',$s_role_id);
 
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor=$this->society->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$society_name = $collection['society']['society_name'];
+}
+$this->set('society_name',$society_name);
 
+$this->loadmodel('fix_asset');
+$conditions=array("society_id" => $s_society_id);
+$cursor1=$this->fix_asset->find('all',array('conditions'=>$conditions));
+$this->set('cursor1',$cursor1);
+
+
+$this->loadmodel('fix_asset');
+$conditions=array("society_id" => $s_society_id);
+$cursor2=$this->fix_asset->find('all',array('conditions'=>$conditions));
+$this->set('cursor2',$cursor2);
 
 }
+////////////////////////////// End Fix Asset View (Accounts)///////////////////////////////////////////////////////
 
-
-/////////////////////////////////////// End Fix Asset View (Accounts)////////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////Start Fix Asset Add (Accounts)////////////////////////////////////////// ////////////////////////////////////////////
+/////////////////////////////Start Fix Asset Add (Accounts)////////////////////////////////////////////////////////
 function fix_asset_add()
 {
 if($this->RequestHandler->isAjax()){
@@ -16809,6 +17146,21 @@ return $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
 }
 
 //////////////////////////////////////// End Ledger Sub Account Fetch (Accounts)///////////////////////////////////////////////////////////////////////
+
+
+//////////////////////////////////////// Start Ledger Sub Account Fetch (Accounts)///////////////////////////////////////////////////////////////////////
+function ledger_sub_account_fetch3($auto_id) 
+{
+$this->loadmodel('ledger_sub_account');
+$conditions=array("user_id" => $auto_id);
+return $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+}
+
+//////////////////////////////////////// End Ledger Sub Account Fetch (Accounts)///////////////////////////////////////////////////////////////////////
+
+
+
+
 
 
 
@@ -17366,6 +17718,19 @@ return $this->ledger_account->find('all',array('conditions'=>$conditions));
 
 //////////////////////////////////////// End Ledger Account Fetch (Accounts)////////////////////////////////////////////////////////////////////////
 
+function ledger_fetch_new($sub_id)
+{
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');		
+
+$this->loadmodel('ledger');
+$conditions=array("society_id" => $s_society_id,"account_id" => $sub_id);
+return $this->ledger->find('all',array('conditions'=>$conditions));
+
+}
+
+
 
 //////////////////////////////////////////////Start Ledger Fetch1 (Accounts)/ ///////////////////////////////////////////////////////////////////////////
 function ledger_fetch1($sub_id)
@@ -17373,7 +17738,6 @@ function ledger_fetch1($sub_id)
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');		
-
 
 $this->loadmodel('ledger');
 $conditions=array("society_id" => $s_society_id, "account_type" => 1, "account_id" => $sub_id);
@@ -17962,37 +18326,47 @@ function n2www($num){
 $numbers10 = array('ten','twenty','thirty','fourty','fifty','sixty','seventy','eighty','ninety');
 $numbers01 = array('one','two','three','four','fife','six','seven','eight','nine','ten',
     'eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen');
+$string="";
 
 if($num == 0) {
-    echo "zero";
+    $string.="zero ";
 }
 
-$thousands = floor($num/1000);
+echo $thousands = floor($num/1000);
+
 if($thousands != 0) {
-    echo $numbers01[$thousands-1] . " thousand ";
+	echo $thousands-1;
+    $string.= $numbers01[$thousands-1] . " thousand "; 
     $num -= $thousands*1000;
+	echo  $string; exit;
 }
 
 $hundreds = floor($num/100);
 if($hundreds != 0) {
-    echo $numbers01[$hundreds-1] . " hundred ";
+    $string.= $numbers01[$hundreds-1] . " hundred ";
     $num -= $hundreds*100;
 }
 
 if($num < 20) {
     if($num != 0) {
-        echo $numbers01[$num-1];
+        $string.= $numbers01[$num-1];
     }
 } else {
+	
     $tens = floor($num/10);
-    echo $numbers10[$tens-1] . " ";
+    $string.= $numbers10[$tens-1] . " ";
     $num -= $tens*10;
 
     if($num != 0) {
-        echo $numbers01[$num-1];
+		
+        $string.= $numbers01[$num-1];
+		
     }
+	
 }
+return $string; 
 }
+
 
 function serial_no($number)
 {
@@ -18011,9 +18385,9 @@ else if($str_lenth==3)
 {
 $number='0'.$number;
 }
-echo $number;
+$string.= $number;
 
-
+echo $string;
 }
 
 
@@ -18063,13 +18437,55 @@ return $this->terms_condition->find('all',array('conditions'=>$conditions));
 }
 /////////////// End Terms Conditions Fetch (Accounts)//////////////////////////////////////////
 
+/////////////// Start Bank receipt Fetch (Accounts)///////////////////////////////////////
+
+function bank_receipt_fetch($user_id,$receipt_id) 
+{
+$this->layout='blank';
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
+	
+$this->loadmodel('cash_bank');
+$conditions=array("bill_reference"=>$receipt_id,"user_id"=>$user_id,"society_id"=>$s_society_id,"module_id"=>1);
+return $this->cash_bank->find('all',array('conditions'=>$conditions));
+}
+/////////////// End Terms Conditions Fetch (Accounts)//////////////////////////////////////////
+
+/////////////// Start Petty Cash receipt Fetch (Accounts)///////////////////////////////////////
+
+function petty_cash_receipt_fetch($user_id,$receipt_id) 
+{
+$this->layout='blank';
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
+	
+$this->loadmodel('cash_bank');
+$conditions=array("bill_reference"=>$receipt_id,"user_id"=>$user_id,"society_id"=>$s_society_id,"module_id"=>3);
+return $this->cash_bank->find('all',array('conditions'=>$conditions));
+}
+/////////////// End Terms Conditions Fetch (Accounts)//////////////////////////////////////////
+
+
+
+
+
+
+
+
 
 
 ////////////////// Start Regular Bill Fetch(Accounts)/////////////////////////////////////////
 function regular_bill_fetch($user_id) 
 {
+$this->layout='blank';
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
+
 $this->loadmodel('regular_bill');
-$conditions=array("bill_for_user" => $user_id, "status" => 0);
+$conditions=array("bill_for_user" => $user_id, "status" => 0, "society_id"=>$s_society_id);
 return $this->regular_bill->find('all',array('conditions'=>$conditions));
 }
 
@@ -19321,9 +19737,9 @@ $excel="<table border='1'>
 <tr>
 <th>Sr No.</th>
 <th>Wing</th>
-<th>Flat Number</th>
-<th>Flat Type</th>
-<th>Flat Area(Sq. Ft.)</th>
+<th>Unit Number</th>
+<th>Unit Type</th>
+<th>Unit Area(Sq. Ft.)</th>
 <th>Status</th>
 </tr>";
 $q = 0;
@@ -19844,8 +20260,8 @@ function family_member_valid()
 
 $this->layout='blank';
 $q=$this->request->query('q');
-$q = html_entity_decode($q);
-$myArray = json_decode($q, true);
+ $q = html_entity_decode($q);
+ $myArray = json_decode($q, true);
 $s_society_id=$this->Session->read('society_id'); 
 $s_role_id=$this->Session->read('role_id');
 $s_user_id=$this->Session->read('user_id');
@@ -19862,7 +20278,7 @@ $s_user_id=$this->Session->read('user_id');
 	$tenant=(int)$data['user']['tenant'];
 	$wing=(int)$data['user']['wing'];
 	$flat=(int)$data['user']['flat'];
-	$residing=(int)$data['user']['residing'];
+	$residing=(int)$data['user']['noc_type'];
 
 	}
 	$result_society=$this->society_name($s_society_id);	
@@ -20016,7 +20432,7 @@ if($family_member==1 || $s_role_id==3 )
 					$random=(string)mt_rand(1000,9999);
 					$sms="".$name.", Your housing society ".$s_n." has enrolled you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
 					$sms1=str_replace(" ", '+', $sms);
-					$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+					////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 
 				}
 
@@ -20025,7 +20441,7 @@ if($family_member==1 || $s_role_id==3 )
 		  			
 			////////////////////////// insert user table //////////////////////////
 
-$this->user->saveAll(array('user_id' => $i, 'user_name' => $name,'email' => $email, 'password' =>$random, 'mobile' => $mobile,  'society_id' => $s_society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'residing' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>2,'default_role_id'=>2,'signup_random'=>$random,'family_member'=>$s_user_id,'dob'=>$dob,'relation'=>$relation,'login_id'=>$log_i,'s_default'=>1,'blood_group'=>$blood_group,'deactive'=>0));
+$this->user->saveAll(array('user_id' => $i, 'user_name' => $name,'email' => $email, 'password' =>$random, 'mobile' => $mobile,  'society_id' => $s_society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'residing' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>2,'default_role_id'=>2,'signup_random'=>$random,'family_member'=>$s_user_id,'dob'=>$dob,'relation'=>$relation,'login_id'=>$log_i,'s_default'=>1,'blood_group'=>$blood_group,'deactive'=>0,'profile_status'=>1));
 
 			////////////////////// End user table ///////////////////////////////////////////////////
 
@@ -20234,11 +20650,13 @@ foreach($myArray as $child){
 					if (empty($child[6])){
 						$report[]=array('tr'=>$c,'td'=>7, 'text' => 'Required');
 					}
+					
+					if (empty($child[7])) {
+						$report[]=array('tr'=>$c,'td'=>8, 'text' => 'Required');
+					}
 			}
 	}
-	if (empty($child[7])) {
-		$report[]=array('tr'=>$c,'td'=>8, 'text' => 'Required');
-	}
+	
 	
 	
 	
@@ -20326,13 +20744,13 @@ foreach($myArray as $child)
 		$random=(string)mt_rand(1000,9999);
 		 $sms="".$name.", Your housing society ".$s_n." has enrolled you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
 		$sms1=str_replace(" ", '+', $sms);
-		$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+		 $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 		
 		}
 
 		/////////// insert code user table ///////////////////////
 		
-		$this->user->saveAll(array('user_id' => $i, 'user_name' => $name,'email' => $email, 'password' => @$random, 'mobile' => $mobile,  'society_id' => $s_society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'noc_type' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$log_i,'s_default'=>1));
+		$this->user->saveAll(array('user_id' => $i, 'user_name' => $name,'email' => $email, 'password' => @$random, 'mobile' => $mobile,  'society_id' => $s_society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'noc_type' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$log_i,'s_default'=>1,'profile_status'=>1,'private'=>array('mobile','email')));
 	      ///////////  code end insert //////////////////////////////////
           $this->loadmodel('flat');
           $this->flat->updateAll(array("noc_ch_tp" =>$residing),array("flat_id" =>$flat));
@@ -21225,6 +21643,238 @@ die($output);
 }
 /////////////////////////////////// End Wing Json//////////////////////////////////////////////////////////////
 
+/////////////////////////////////// Start Save Flat Imp /////////////////////////////////////////////////////
+function save_flat_imp()
+{
+$this->layout='blank';
+$s_society_id = (int)$this->Session->read('society_id');
+	
+$q=$this->request->query('q'); 
+$myArray = json_decode($q, true);
+
+$c=1;
+$report=array();
+//$array1 = array();
+foreach($myArray as $child){
+
+$c++;
+if(empty($child[0])){
+$report[]=array('tr'=>$c,'td'=>1, 'text' => 'Required');
+}
+if(empty($child[1])){
+$report[]=array('tr'=>$c,'td'=>2, 'text' => 'Required');
+}
+
+if(empty($child[2])){
+$report[]=array('tr'=>$c,'td'=>3, 'text' => 'Required');
+}
+
+if(empty($child[3])){
+$report[]=array('tr'=>$c,'td'=>4, 'text' => 'Required');
+}
+
+}
+if(sizeof($report)>0){
+$output=json_encode(array('report_type'=>'error','report'=>$report));
+die($output);
+}
+
+$t=0;
+foreach($myArray as $child)
+{
+$t++;
+$wing_id = (int)$child[0];
+$flat_num = $child[1];
+$area = $child[3];
+
+
+$this->loadmodel('flat');
+$conditions=array("society_id" => $s_society_id);
+$cursor1 = $this->flat->find('all',array('conditions'=>$conditions));
+foreach($cursor1 as $collection)
+{
+$wing_id2 = (int)$collection['flat']['wing_id'];
+$flat_name2 = $collection['flat']['flat_name'];
+if($wing_id2 == $wing_id && $flat_name2 == $flat_num)
+{ 
+$nnn = 55;
+break;
+}
+else
+{
+$nnn = 555;
+}
+}
+if($nnn == 55)
+{
+$output=json_encode(array('report_type'=>'vali','text'=>'Wing and Flat Already Exist in row '.$t));
+die($output);
+}
+if(is_numeric($area))
+{
+}
+else
+{
+$output=json_encode(array('report_type'=>'vali','text'=>'Flat Area Should be Numeric in row '.$t));
+die($output);
+}
+}
+
+foreach($myArray as $child)
+{
+$wing_id5 = (int)$child[0];
+$flat_name = $child[1];
+$flat_type = (int)$child[2];
+$area = $child[3];
+$insert = (int)$child[4];
+if($insert == 2)
+{
+$mmm = 5;
+$this->loadmodel('flat_type');
+$condition=array('society_id'=>$s_society_id,"flat_type_id"=>$flat_type);
+$cursor = $this->flat_type->find('all',array('conditions'=>$condition)); 
+foreach($cursor as $collection)
+{
+$auto_id = (int)@$collection['flat_type']['auto_id'];
+$no_of_flat = (int)@$collection['flat_type']['number_of_flat'];
+$mmm = 55;
+}
+
+if($mmm == 5)
+{
+$no_of_flat = 1;
+$this->loadmodel('flat_type');
+$p=$this->autoincrement('flat_type','auto_id');
+$this->flat_type->saveAll(array("auto_id" => $p,"flat_type_id"=> $flat_type,"number_of_flat"=>$no_of_flat,"status"=>0,"society_id"=>$s_society_id));
+
+$l = (int)$this->autoincrement('flat','flat_id');
+$this->loadmodel('flat');
+$this->flat->saveAll(array("flat_id" => $l,"wing_id"=> $wing_id5,"flat_name"=>$flat_name,"flat_area"=>$area,"flat_type_id"=>$flat_type,"society_id"=>$s_society_id));
+}
+else if($mmm == 55)
+{
+$no_of_flat++;
+$this->loadmodel('flat_type');
+$this->flat_type->updateAll(array("number_of_flat"=>$no_of_flat),array("auto_id"=>$auto_id));
+
+$l = (int)$this->autoincrement('flat','flat_id');
+$this->loadmodel('flat');
+$this->flat->saveAll(array("flat_id" => $l,"wing_id"=> $wing_id5,"flat_name"=>$flat_name,"flat_area"=>$area,"flat_type_id"=>$flat_type,"society_id"=>$s_society_id));
+}
+}
+}
+
+$output=json_encode(array('report_type'=>'done','text'=>'Flat Area Should be Numeric in row '));
+die($output);
+}
+/////////////////////////////////// End Save Flat Imp /////////////////////////////////////////////////////
+
+//////////////////////////////// Start Fix Asset Excel ///////////////////////////////////////////////////////
+function fix_asset_excel()
+{
+$this->layout="";
+$filename="Fix Asset Excel";
+header ("Expires: 0");
+header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+header ("Cache-Control: no-cache, must-revalidate");
+header ("Pragma: no-cache");
+header ("Content-type: application/vnd.ms-excel");
+header ("Content-Disposition: attachment; filename=".$filename.".xls");
+header ("Content-Description: Generated Report" );
+
+$s_society_id = (int)$this->Session->read('society_id');
+
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor=$this->society->find('all',array('conditions'=>$conditions));
+foreach($cursor as $data)
+{
+$society_name = $data['society']['society_name'];
+}
+
+
+$excel="
+<table border='1'>
+<tr>
+<th style='text-align:center;' colspan='10'>$society_name Society (Fixed Assets)</th>
+</tr>
+</tr>
+<tr>
+<th>Sr.No.</th>
+<th>Asset Category</th>
+<th>Asset Name</th>
+<th>Narration</th>
+<th>Date of Purchase</th>
+<th>Cost of Purchase</th>
+<th>Supplier</th>
+<th>Warranty Period From</th>
+<th>Warranty Period From</th>
+<th>Maintanance Schedule</th>
+</tr>";
+
+$purchase_cost_tt = 0;
+$this->loadmodel('fix_asset');
+$conditions=array("society_id" => $s_society_id);
+$cursor1=$this->fix_asset->find('all',array('conditions'=>$conditions));
+foreach ($cursor1 as $collection) 
+{
+$auto_id = (int)$collection['fix_asset']['auto_id'];		
+$asset_category_id = (int)$collection['fix_asset']['asset_category_id'];
+$asset_name = $collection['fix_asset']['asset_name'];
+$narration = $collection['fix_asset']['narration'];
+$purchase_date = $collection['fix_asset']['purchase_date'];
+$purchase_cost = $collection['fix_asset']['purchase_cost'];
+$supplier = (int)$collection['fix_asset']['supplier'];
+$warranty_period_from = $collection['fix_asset']['warranty_period_from'];
+$warranty_period_to = $collection['fix_asset']['warranty_period_to'];
+$schedule = $collection['fix_asset']['schedule'];
+if(!empty($warranty_period_from) and !empty($warranty_period_to)) 
+{
+$warranty_period_from= date('d-m-Y', $warranty_period_from->sec);
+$warranty_period_to= date('d-m-Y', $warranty_period_to->sec);
+}
+else
+{
+$warranty_period_from = "";
+$warranty_period_to = "";	
+}
+$asset_category_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_amount'),array('pass'=>array($asset_category_id)));										
+foreach ($asset_category_fetch as $collection) 
+{
+$asset_category = $collection['ledger_account']['ledger_name'];
+}
+$supply = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($supplier)));									
+foreach ($supply as $collection) 
+{
+$supplier_name = $collection['ledger_sub_account']['name'];
+}
+$purchase_date = date('d-m-Y',$purchase_date->sec);
+$purchase_cost_tt = $purchase_cost_tt+$purchase_cost;	
+$excel.="<tr>
+<td>$auto_id</td>	
+<td>$asset_category</td>	
+<td>$asset_name</td>	
+<td>$narration</td>	
+<td>$purchase_date</td>	
+<td>$purchase_cost</td>	
+<td>$supplier_name</td>	
+<td>$warranty_period_from</td>	
+<td>$warranty_period_to</td>	
+<td>$schedule</td>	
+</tr>";
+} 
+$excel.="
+<tr>
+<th style='text-align:right;' colspan='5'>Total</th>
+<th>$purchase_cost_tt</th>
+<th colspan='4'></th>
+</tr>
+</table>";
+
+echo $excel;
+
+}
+//////////////////////////////// End Fix Asset Excel ///////////////////////////////////////////////////////
 
 
 
@@ -21234,9 +21884,151 @@ die($output);
 
 
 
+///////////////start flash message////////////////////
 
+function flash_message(){
+	if($this->RequestHandler->isAjax()){
+		$this->layout='blank';
+	}else{
+		$this->layout='session';
+	}
+	$this->ath();
+	$this->loadmodel('flash');
+	$conditions=array("flash_id" => 1);
+	$result_cursor1=$this->flash->find('all',array('conditions'=>$conditions));
+	$this->set('result_cursor1',$result_cursor1);
+}
 
+function submit_flash_message(){
+	$this->layout=null;
+	$title=$_POST["title"];
+	$description=$_POST["description"];
+	$theme=$_POST["theme"];
+	$active=(int)$_POST["active"];
+	 
+	$this->loadmodel('flash');
+	$this->flash->updateAll(array("title"=> $title,"description"=>$description,"theme"=>$theme,"active"=>$active),array("flash_id"=>1));
+	echo "success";
+}
 
+function flash_output(){
+	$this->layout=null;
+	$this->loadmodel('flash');
+	$conditions=array("flash_id" => 1);
+	$result_cursor1=$this->flash->find('all',array('conditions'=>$conditions));
+	$this->set('result_cursor1',$result_cursor1);
+}
 
+//////////////end flash mesage////////////////////////
+function convert_number_to_words($number) {
+            $hyphen      = '-';
+            $conjunction = ' and ';
+            $separator   = ', ';
+            $negative    = 'negative ';
+            $decimal     = ' point ';
+            $dictionary  = array(
+                0                   => 'zero',
+                1                   => 'one',
+                2                   => 'two',
+                3                   => 'three',
+                4                   => 'four',
+                5                   => 'five',
+                6                   => 'six',
+                7                   => 'seven',
+                8                   => 'eight',
+                9                   => 'nine',
+                10                  => 'ten',
+                11                  => 'eleven',
+                12                  => 'twelve',
+                13                  => 'thirteen',
+                14                  => 'fourteen',
+                15                  => 'fifteen',
+                16                  => 'sixteen',
+                17                  => 'seventeen',
+                18                  => 'eighteen',
+                19                  => 'nineteen',
+                20                  => 'twenty',
+                30                  => 'thirty',
+                40                  => 'fourty',
+                50                  => 'fifty',
+                60                  => 'sixty',
+                70                  => 'seventy',
+                80                  => 'eighty',
+                90                  => 'ninety',
+                100                 => 'hundred',
+                1000                => 'thousand',
+                1000000             => 'million',
+                1000000000          => 'billion',
+                1000000000000       => 'trillion',
+                1000000000000000    => 'quadrillion',
+                1000000000000000000 => 'quintillion'
+            );
+            
+            if (!is_numeric($number)) {
+                return false;
+            }
+            
+            if (($number >= 0 && (int) $number < 0) || (int) $number < 0 - PHP_INT_MAX) {
+                // overflow
+                trigger_error(
+                    'convert_number_to_words only accepts numbers between -' . PHP_INT_MAX . ' and ' . PHP_INT_MAX,
+                    E_USER_WARNING
+                );
+                return false;
+            }
+
+            if ($number < 0) {
+                return $negative . convert_number_to_words(abs($number));
+            }
+            
+            $string = $fraction = null;
+            
+            if (strpos($number, '.') !== false) {
+                list($number, $fraction) = explode('.', $number);
+            }
+            
+            switch (true) {
+                case $number < 21:
+                    $string = $dictionary[$number];
+                    break;
+                case $number < 100:
+                    $tens   = ((int) ($number / 10)) * 10;
+                    $units  = $number % 10;
+                    $string = $dictionary[$tens];
+                    if ($units) {
+                        $string .= $hyphen . $dictionary[$units];
+                    }
+                    break;
+                case $number < 1000:
+                    $hundreds  = $number / 100;
+                    $remainder = $number % 100;
+                    $string = $dictionary[$hundreds] . ' ' . $dictionary[100];
+                    if ($remainder) {
+                        $string .= $conjunction . $this->convert_number_to_words($remainder);
+                    }
+                    break;
+                default:
+                    $baseUnit = pow(1000, floor(log($number, 1000)));
+                    $numBaseUnits = (int) ($number / $baseUnit);
+                    $remainder = $number % $baseUnit;
+                    $string = $this->convert_number_to_words($numBaseUnits) . ' ' . $dictionary[$baseUnit];
+                    if ($remainder) {
+                        $string .= $remainder < 100 ? $conjunction : $separator;
+                        $string .= $this->convert_number_to_words($remainder);
+                    }
+                    break;
+            }
+            
+            if (null !== $fraction && is_numeric($fraction)) {
+                $string .= $decimal;
+                $words = array();
+                foreach (str_split((string) $fraction) as $number) {
+                    $words[] = $dictionary[$number];
+                }
+                $string .= implode(' ', $words);
+            }
+            
+            return $string;
+        }
 }
 ?>

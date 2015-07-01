@@ -51,6 +51,7 @@ $n_expire_date=$data['notice']['n_expire_date'];
 $n_expire_date= date('d-m-Y', $n_expire_date->sec);
 $visible=$data['notice']['visible'];
 $sub_visible=$data['notice']['sub_visible'];
+
 $visible_detail='';
 if($visible==1) 
 {
@@ -69,11 +70,13 @@ if($visible==5)
 }
 if($visible==2) 
 {
+
 	unset($role_name); 
 	$visible_show="Role wise";
 	foreach ($sub_visible as $role_id) 
 	{
-	$role_name1=$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_rolename_via_roleid'), array('pass' => array($role_id)));
+	
+	$role_name1=$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_rolename_via_roleid'), array('pass' => array((int)$role_id)));
 		if(!empty($role_name1))
 		{
 		$role_name[]=$role_name1;

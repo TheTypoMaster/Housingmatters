@@ -13,7 +13,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <a href="<?php echo $webroot_path; ?>Cashbanks/fix_deposit_view" class="btn" rel='tab'>Active Deposits</a>
 <a href="<?php echo $webroot_path; ?>Cashbanks/matured_deposit_view" class="btn" rel='tab'>Matured Deposits</a>
 </center>	
-
+<?php
+$default_date = date('d-m-Y');
+?>
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">
 <h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Post Fix Deposit</h4>  
@@ -32,7 +34,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
   
 
-<label style="font-size:14px;">Branch<span style="color:red;">*</span></label>
+<label style="font-size:14px;">Branch<span style="color:red;">*</span>  <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please fill branch of the bank"> </i></label>
 <div class="controls">
 <input type="text"  name="branch" class="m-wrap span9" id="brc">
 <label report="brch" class="remove_report"></label>
@@ -88,7 +90,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
  
 <label style="font-size:14px;">Start Date<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="start_date" id="std">
+<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="start_date" id="std" value="<?php echo $default_date; ?>">
 <label report="stdat" class="remove_report"></label>
 </div>
 <br />
@@ -111,14 +113,14 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </div>
 <br />
 
-	
+<!--
 <label style="font-size:14px;">TDS Amount<span style="color:red;">*</span></label>
 <div class="controls">
 <input type="text" name="tds" class="m-wrap span9" id="tda">
 <label report="tds" class="remove_report"></label>
 </div>
 <br />
-			
+-->			
  
  
  
@@ -195,7 +197,7 @@ $(document).ready(function() {
 		m_data.append( 'st_dat', $('#std').val());
 		m_data.append( 'mat_dat', $('#mtd').val());
 		m_data.append( 'int_rate', $('#ir').val());
-		m_data.append( 'tds_amt', $('#tda').val());
+		//m_data.append( 'tds_amt', $('#tda').val());
 		m_data.append( 'name', $('#name').val());
 		m_data.append( 'email', $('#email').val());
 		m_data.append( 'mobile', $('#mobile').val());

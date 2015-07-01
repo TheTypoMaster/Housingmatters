@@ -1,10 +1,10 @@
 <?php
 
 $from = date("Y-m-d", strtotime($from_d));
-$from = new MongoDate(strtotime($from));
+//$from = new MongoDate(strtotime($from));
 
 $to = date("Y-m-d", strtotime($to_d));
-$to = new MongoDate(strtotime($to));
+//$to = new MongoDate(strtotime($to));
 ?>
 
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
@@ -98,8 +98,6 @@ $society_name = $collection['society']['society_name'];
 		</p>
 		</th>
 		</tr>
-		
-		
 		<tr>
 		<th>Account Name</th>
 		<th>Opening Balance</th>
