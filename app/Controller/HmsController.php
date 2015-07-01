@@ -18327,7 +18327,7 @@ $numbers10 = array('ten','twenty','thirty','fourty','fifty','sixty','seventy','e
 $numbers01 = array('one','two','three','four','fife','six','seven','eight','nine','ten',
     'eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen');
 $string="";
-
+$num=(int)$num;
 if($num == 0) {
     $string.="zero ";
 }

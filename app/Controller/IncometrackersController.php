@@ -886,7 +886,7 @@ $html.='</table>
 </tr>
 <tr>
 <td valign="top">
-<table border="0" style="width:70%; float:left;">
+<table border="0" style="width:60%; float:left;">
 <tr>
 <td colspan="2">Cheque/NEFT payment instructions:</td>
 </tr>
@@ -911,9 +911,9 @@ $html.='</table>
 <td> &nbsp;&nbsp; '.$ifsc_code.'</td>
 </tr>
 </table>
-<table border="0" style="width:30%;">';
+<table border="0" style="width:40%;">';
 $html.='<tr>
-<td rowspan="4"></td>
+<td rowspan="5"></td>
 <td style="text-align:right; padding-right:2%;">Total:</td>
 </tr>';
 $html.='<tr>
@@ -1745,7 +1745,7 @@ $html.='</table>
 </tr>
 <tr>
 <td valign="top">
-<table border="0" style="width:70%; float:left;">
+<table border="0" style="width:60%; float:left;">
 <tr>
 <td colspan="2">Cheque/NEFT payment instructions:</td>
 </tr>
@@ -1770,9 +1770,9 @@ $html.='</table>
 <td> &nbsp;&nbsp; '.$ifsc_code.'</td>
 </tr>
 </table>
-<table border="0" style="width:30%;">';
+<table border="0" style="width:40%;">';
 $html.='<tr>
-<td rowspan="4"></td>
+<td rowspan="5"></td>
 <td style="text-align:right; padding-right:2%;">Total:</td>
 </tr>';
 $html.='<tr>
@@ -5729,7 +5729,6 @@ $this->society->updateAll(array("ac_name" => $ac_name,"bank_name"=>$bank_name,"b
 </div>
 <?php
 }
-
 }
 ////////////////////////////////////////// End NEFT Add //////////////////////////////////////////////////////////////
 
