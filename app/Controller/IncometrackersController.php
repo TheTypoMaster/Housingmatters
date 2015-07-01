@@ -2,6 +2,7 @@
 App::import('Controller','Hms');
 class IncometrackersController extends HmsController {
 var $helpers = array('Html', 'Form','Js');
+
 public $components = array(
 'Paginator',
 'Session','Cookie','RequestHandler'
@@ -839,7 +840,7 @@ Name :
 <table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="5">
 <tr>
 <th style="width:80%; text-align:left;color: #fff;background-color: rgb(4, 126, 186);">Particulars</th>
-<th style="text-align:right;color: #fff;background-color: rgb(104, 104, 103);">Amount (Rs.)</th>
+<th style="text-align:right;color: #fff;background-color: rgb(4, 126, 186);">Amount (Rs.)</th>
 <tr>
 <tr>
 <td valign="top" style="height:200px;">
@@ -957,8 +958,9 @@ $html.='<tr>
 $html.='<tr>
 <th style="text-align:right; padding-right:8%;">'.$grand_total2.'</th>
 </tr>';
+$grand_total2;
 $grand_total2 = str_replace( ',', '', $grand_total2 );
-$am_in_words=$this->n2www($grand_total2);
+$am_in_words=$this->convert_number_to_words($grand_total2); 
 $html.='</table>
 </td>
 </tr>
@@ -1698,7 +1700,7 @@ Name :
 <table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="5">
 <tr>
 <th style="width:80%; text-align:left;color: #fff;background-color: rgb(4, 126, 186);">Particulars</th>
-<th style="text-align:right;color: #fff;background-color: rgb(104, 104, 103);">Amount (Rs.)</th>
+<th style="text-align:right;color: #fff;background-color: rgb(4, 126, 186);">Amount (Rs.)</th>
 <tr>
 <tr>
 <td valign="top" style="height:200px;">
@@ -1817,7 +1819,8 @@ $html.='<tr>
 <th style="text-align:right; padding-right:8%;">'.$grand_total2.'</th>
 </tr>';
 $grand_total2 = str_replace( ',', '', $grand_total2 );
-$am_in_words=$this->n2www($grand_total2);
+
+$am_in_words=$this->convert_number_to_words($grand_total2); 
 $html.='</table>
 </td>
 </tr>
