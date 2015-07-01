@@ -671,6 +671,7 @@ $narration = $collection['regular_bill']['description'];
 $billing_cycle_id = (int)$collection['regular_bill']['period_id'];
 $interest_arrears = (int)$collection['regular_bill']['accumulated_tax'];
 }
+
 $date_frm = date('M',strtotime($date_from));	
 if($billing_cycle_id == 1)
 {
@@ -881,7 +882,7 @@ $html.='<tr>
 </tr>';
 $total_amount2 = $total_amount2 + $amount;
 }
-$due_amt3 = $due_amt2 - $late_amt2;
+//$due_amt3 = $due_amt2 - $late_amt2;
 $html.='</table>
 </td>
 </tr>
@@ -932,7 +933,7 @@ $html.='<tr>
 $html.='</table>
 </td>
 <td valign="top">';
-$due_amt5 = $due_amt3-$interest_arrears;
+$due_amt5 = $due_amt2-$interest_arrears;
 
 $total_amount3 = number_format($total_amount2);
 $due_amt4 = number_format($due_amt5);
@@ -1526,6 +1527,7 @@ unset($ussrs);
 	$billing_cycle_id = (int)$collection['regular_bill']['period_id'];
 	$interest_arrears = (int)$collection['regular_bill']['accumulated_tax'];
 	}
+	
 $date_frm = date('M',strtotime($date_from));	
 if($billing_cycle_id == 1)
 {
@@ -1741,7 +1743,7 @@ $html.='<tr>
 </tr>';
 $total_amount2 = $total_amount2 + $amount;
 }
-$due_amt3 = $due_amt2 - $late_amt2;
+//$due_amt3 = $due_amt2 - $late_amt2;
 $html.='</table>
 </td>
 </tr>
@@ -1792,7 +1794,7 @@ $html.='<tr>
 $html.='</table>
 </td>
 <td valign="top">';
-$due_amt5 = $due_amt3-$interest_arrears;
+$due_amt5 = (int)$due_amt2 - $interest_arrears;
 
 $total_amount3 = number_format($total_amount2);
 $due_amt4 = number_format($due_amt5);
