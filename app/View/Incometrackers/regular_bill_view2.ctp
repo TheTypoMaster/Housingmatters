@@ -381,6 +381,7 @@ $penalty_amt = $penalty_amt+$subpenalty5;
 }
 
 }
+
 ///////////////////////////////////////  End Penalty ///////////////////////	
 ?>
 <td style="text-align:right;"><input type="text" name="int_ars<?php echo $user_id; ?>" 

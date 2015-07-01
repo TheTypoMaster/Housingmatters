@@ -1,11 +1,11 @@
 Group Name,A/c  Name,Amount Type(Debit or credit),Amount(Opening balance)
 Administrative Expenses,Postage & Courier charges,,
 Administrative Expenses,Meeting & Welfare expenses,,
-Current Assets,Advance given to Vendors,,
-Contribution from Members,Non Occupancy Charges,,
+Current Assets,Advance given to Vendors,credit,1000
+Contribution from Members,Non Occupancy Charges,debit,2000
 Administrative Expenses,Audit fees,,
-Fixed Assets,Plant & Machinery,,
-Fixed Assets,Office Equipments,,
+Fixed Assets,Plant & Machinery,credit,3000
+Fixed Assets,Office Equipments,debit,4000
 Other Income,Miscellaneous income,,
 Contribution from Members,Maintenance charges,,
 Contribution from Members,Cultural Fund contribution,,
