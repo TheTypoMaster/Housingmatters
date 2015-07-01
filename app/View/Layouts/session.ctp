@@ -328,7 +328,7 @@ $(document).ready(function() {
 		}).done(function(response) {
 			$('#flash_output_div').prepend(response);
 			var h=$("#flash_div").height();
-			h=h+2;
+			h=h+0;
 			
 			$("#header_div_container").css("margin-top","+="+h);
 		
