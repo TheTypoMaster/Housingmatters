@@ -494,7 +494,9 @@ $due_date11 = @$collection['regular_bill']['due_date'];
 $from_due = @$collection['regular_bill']['bill_daterange_from'];
 $tax_arrears = (int)@$collection['regular_bill']['accumulated_tax'];
 $arrear_amt = (int)@$collection['regular_bill']['arrears_amt'];
-$pr_amt = (int)$collection['regular_bill']['current_bill_amt'];
+$pr_amt = (int)@$collection['regular_bill']['current_bill_amt'];
+$previous_penalty_amt = (int)@$collection['regular_bill']['current_tax'];
+
 }
 $cur_date = date('Y-m-d');
 //$cur_datec = new MongoDate(strtotime($cur_date));
@@ -612,7 +614,7 @@ $wing_flat = $this->wing_flat($wing_id,$flat_id);
 
 $current_date = date('Y-m-d');
 $current_bill_amt = (int)$this->request->data['tt'.$user_id];
-@$tax_arrears = (int)$tax_arrears + @$penalty_amt;
+@$tax_arrears = (int)@$tax_arrears + @$penalty_amt;
 @$arrear_amt = @$arrear_amt + @$pr_amt;
 //////////////////////////////////////////////////////////////
 $this->loadmodel('regular_bill');
@@ -666,6 +668,7 @@ $due_amt2 = (int)$collection['regular_bill']['total_due_amount'];
 $due_date2 = @$collection['regular_bill']['due_date'];
 $narration = $collection['regular_bill']['description'];
 $billing_cycle_id = (int)$collection['regular_bill']['period_id'];
+$interest_arrears = (int)$collection['regular_bill']['accumulated_tax'];
 }
 $date_frm = date('M',strtotime($date_from));	
 if($billing_cycle_id == 1)
@@ -915,6 +918,9 @@ $html.='<tr>
 </tr>';
 $html.='<tr>
 <td style="text-align:right; padding-right:2%;">Interest:</td>
+</tr>
+<tr>
+<td style="text-align:right; padding-right:2%;">Interest Arrears:</td>
 </tr>';
 $html.='<tr>
 <td style="text-align:right; padding-right:2%;">Arrears:</td>
@@ -925,10 +931,13 @@ $html.='<tr>
 $html.='</table>
 </td>
 <td valign="top">';
+$due_amt5 = $due_amt3-$interest_arrears;
+
 $total_amount3 = number_format($total_amount2);
-$due_amt4 = number_format($due_amt3);
+$due_amt4 = number_format($due_amt5);
 $late_amt3 = number_format($late_amt2);
 $grand_total2 = number_format($grand_total);
+$interest_arrears2 = number_format($interest_arrears);
 
 $html.='<table border="0" style="width:100%;">
 <tr>';
@@ -938,6 +947,9 @@ $html.='
 $html.='
 <tr>
 <td style="text-align:right; padding-right:8%;">'.@$late_amt3.'</td>
+</tr>
+<tr>
+<td style="text-align:right; padding-right:8%;">'.@$interest_arrears2.'</td>
 </tr>';
 $html.='<tr>
 <td style="text-align:right; padding-right:8%;">'.@$due_amt4.'</td>
@@ -1341,6 +1353,7 @@ $from_due = $collection['regular_bill']['bill_daterange_from'];
 $tax_arrears = (int)@$collection['regular_bill']['accumulated_tax'];
 $arrear_amt = (int)@$collection['regular_bill']['arrears_amt'];
 $pr_amt = (int)$collection['regular_bill']['current_bill_amt'];
+$previous_penalty_amt = (int)@$collection['regular_bill']['current_tax'];
 }
 $cur_date = date('Y-m-d');
 //$cur_datec = new MongoDate(strtotime($cur_date));
@@ -1509,6 +1522,7 @@ unset($ussrs);
 	$due_date2 = @$collection['regular_bill']['due_date'];
 	$narration = $collection['regular_bill']['description'];
 	$billing_cycle_id = (int)$collection['regular_bill']['period_id'];
+	$interest_arrears = (int)$collection['regular_bill']['accumulated_tax'];
 	}
 $date_frm = date('M',strtotime($date_from));	
 if($billing_cycle_id == 1)
@@ -1763,6 +1777,9 @@ $html.='<tr>
 </tr>';
 $html.='<tr>
 <td style="text-align:right; padding-right:2%;">Interest:</td>
+</tr>
+<tr>
+<td style="text-align:right;">Interest Arrears:</td>
 </tr>';
 $html.='<tr>
 <td style="text-align:right; padding-right:2%;">Arrears:</td>
@@ -1773,10 +1790,13 @@ $html.='<tr>
 $html.='</table>
 </td>
 <td valign="top">';
+$due_amt5 = $due_amt3-$interest_arrears;
+
 $total_amount3 = number_format($total_amount2);
-$due_amt4 = number_format($due_amt3);
+$due_amt4 = number_format($due_amt5);
 $late_amt3 = number_format($late_amt2);
 $grand_total2 = number_format($grand_total);
+$interest_arrears2 = number_format($interest_arrears);
 
 $html.='<table border="0" style="width:100%;">
 <tr>';
@@ -1786,6 +1806,9 @@ $html.='
 $html.='
 <tr>
 <td style="text-align:right; padding-right:8%;">'.@$late_amt3.'</td>
+</tr>
+<tr>
+<td style="text-align:right; padding-right:8%;">'.@$interest_arrears2.'</td>
 </tr>';
 $html.='<tr>
 <td style="text-align:right; padding-right:8%;">'.@$due_amt4.'</td>
