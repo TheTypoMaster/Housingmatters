@@ -766,7 +766,7 @@ $monthB = implode("-",$month2);
 
 //////////////////////////////////////////////////
 //echo $log_img;
-$html='<div style="width:70%;margin:auto;">
+$html='<div style="width:70%;margin:auto;" class="bill_on_screen">
 <div style="background-color:white; overflow:auto;">
 <div style="border:solid 1px; overflow:auto;">
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'  SOCIETY</div>
