@@ -319,11 +319,11 @@ function substrwords($text, $maxchar, $end='...') {
 											
 										</tr>
 										
-																				<tr>
+										<?php if(@$medical_pro==1){ ?><tr>
 										<td width="20%">
                                         </td>	
                                         <td>
-										<p style=" font-size:14px; color:#666;">Profession</p>
+										<p style=" font-size:14px; color:#666;">Medical Profession</p>
 										
 										</td>
 										<td width="20%">
@@ -333,7 +333,7 @@ function substrwords($text, $maxchar, $end='...') {
                                         </td>
 											
 										</tr>
-
+										<?php } ?>
 										
 									</tbody>
 								</table>

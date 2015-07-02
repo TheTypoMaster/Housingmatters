@@ -13997,15 +13997,7 @@ $age_group="55-64";
  
 if($age==6)
 {
-$age_group="65-74";
-}
-if($age==7)
-{
-$age_group="75-84";
-}
-if($age==8)
-{
-$age_group="85-94";
+$age_group="65+";
 }
 
  $result_user=$this->profile_picture($s_user_id);
@@ -14057,7 +14049,7 @@ $from=$collection['email']['from'];
 }
 $reply=$from;
 
-  @$message_web="<div>
+   @$message_web="<div>
 <img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 <span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
 <a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
