@@ -982,7 +982,7 @@ $tems_name = $terms_arr[$r];
 $html.='<span>'.$count.'.  '.$tems_name.'</span><br/>';
 }
 $html.='</div>
-<div style="width:30%;float:right;">For  <b>'.$society_name.' Society</div>
+<div style="width:30%;float:right;" align="center">For  <b>'.$society_name.' Society <br/><br/><br/><div align="center"><span style="border-top: solid 1px #424141;">'.$sig_title.'</span></div></div>
 </div>
 <div align="center" style="color: #6F6D6D;border: solid 1px;border-top: dotted 1px;">Note: This is a computer generated bill hence no signature required.</div>
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;border: solid 1px #000;border-top: none;">
@@ -1434,7 +1434,7 @@ $year = date('Y',strtotime($dat2));
 $monthB = implode("-",$month2);
 
 //////////////////////////////////////////
-$html='<div style="width:70%;margin:auto;">
+$html='<div style="width:70%;margin:auto;"  class="bill_on_screen">
 <div style="background-color:white; overflow:auto;">
 <div style="border:solid 1px; overflow:auto;">
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'  SOCIETY</div>
@@ -1647,7 +1647,7 @@ $tems_name = $terms_arr[$r];
 $html.='<span>'.$count.'.  '.$tems_name.'</span><br/>';
 }
 $html.='</div>
-<div style="width:30%;float:right;">For  <b>'.$society_name.' Society</div>
+<div style="width:30%;float:right;" align="center">For  <b>'.$society_name.' Society <br/><br/><br/><div align="center"><span style="border-top: solid 1px #424141;">'.$sig_title.'</span></div></div>
 </div>
 <div align="center" style="color: #6F6D6D;border: solid 1px;border-top: dotted 1px;">Note: This is a computer generated bill hence no signature required.</div>
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;border: solid 1px #000;border-top: none;">
