@@ -13,3 +13,17 @@
 <?php
 echo $bill_html;
 ?>
+
+<style>
+@media screen {
+    .bill_on_screen {
+       width:70%;
+    }
+}
+
+@media print {
+    .bill_on_screen {
+       width:96% !important;
+    }
+}
+</style>
