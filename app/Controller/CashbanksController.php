@@ -468,7 +468,7 @@ $sms_sender=$r_sms->sms_sender;
 	
 $sms='Dear '.$user_name_sms.' we have received Rs '.$amount.' on '.$date_sms.' towards Society Maintanance dues. Cheque are subject to realization,Thanks '.$society_name_sms.'';
 $sms1=str_replace(' ', '+', $sms);
-////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 }
 }
 /////////////////End Sms/////////////

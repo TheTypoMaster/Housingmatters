@@ -729,6 +729,7 @@ $op_im_deb = 0;
 $op_im_cre = 0;
 if($receipt_id == 'O_B')
 {
+$op_date2 = date('Y-m-d',$op_date->sec);
 if($sub_account_id == $sub_id)
 {
 if($account_type == 1)
@@ -775,10 +776,10 @@ $narration = @$collection[$table_name]['narration'];
 $remark = @$collection[$table_name]['remark'];
 }
 
-
+/*
 if($sub_account_id == $sub_id)
 {
-if(@$date1 < $m_from)
+if(@$op_date2 <= $m_from)
 {
 if($account_type == 1)
 {
@@ -794,8 +795,9 @@ $opening_balance = $opening_balance + $amount_o;
 }
 }
 }
-
-if($op_date < $m_from)
+*/
+}
+if($op_date2 <= $m_from)
 {
 $opening_balance = $opening_balance + $op_im_cre - $op_im_deb;
 }
@@ -1042,6 +1044,7 @@ $op_im_deb = 0;
 $op_im_cre = 0;
 if($receipt_id == 'O_B')
 {
+$op_date2 = date('Y-m-d',$op_date->sec);
 if($sub_account_id == $main_id)
 {
 if($account_type == 2)
@@ -1088,7 +1091,7 @@ $narration = @$collection[$table_name]['narration'];
 $remark = @$collection[$table_name]['remark'];
 }
 
-
+/*
 if($sub_account_id == $main_id)
 {
 if(@$date1 < $m_from)
@@ -1107,8 +1110,9 @@ $opening_balance = $opening_balance + $amount_o;
 }
 }
 }
-
-if($op_date < $m_from)
+*/
+}
+if($op_date2 <= $m_from)
 {
 $opening_balance = $opening_balance + $op_im_cre - $op_im_deb;
 }

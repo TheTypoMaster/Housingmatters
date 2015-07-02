@@ -528,7 +528,7 @@ $k=$last;
 $k++;
 $this->loadmodel('ledger');
 $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" => @$penalty_amt, "amount_category_id" => 2, 
-"table_name" => "regular_bill", "account_type"=> 2, "account_id" => 43, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
+"table_name" => "regular_bill", "account_type"=> 2, "account_id" => 41, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
 $this->ledger->saveAll($multipleRowData);
 }
 
@@ -644,7 +644,7 @@ $this->regular_bill->saveAll($multipleRowData);
 
 $ussrs[]=$user_id;
 
-$this->send_notification('<span class="label label-warning" ><i class="icon-money"></i></span>','New bill for your flat '.$wing_flat.' is generated ',10,$r,$this->webroot.'Incometrackers/ac_statement_bill_view/'.$r,0,$ussrs);
+//$this->send_notification('<span class="label label-warning" ><i class="icon-money"></i></span>','New bill for your flat '.$wing_flat.' is generated ',10,$5,$this->webroot.'Incometrackers/ac_statement_bill_view/'.$r,0,$ussrs);
 unset($ussrs);
 ///////////////////////////////////////
 
@@ -671,6 +671,7 @@ $narration = $collection['regular_bill']['description'];
 $billing_cycle_id = (int)$collection['regular_bill']['period_id'];
 $interest_arrears = (int)$collection['regular_bill']['accumulated_tax'];
 }
+
 $date_frm = date('M',strtotime($date_from));	
 if($billing_cycle_id == 1)
 {
@@ -776,7 +777,7 @@ $html='<div style="width:70%;margin:auto;" class="bill_on_screen">
 	</div>
 	<div style="float:right;" align="right">
 	<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_reg_no.'</span><br/>
-	<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_address.'</span><br/>
+	<span style="color: rgb(100, 100, 99); ">'.$so_address.'</span><br/>
 	<span>Email: '.$society_email.'</span> | <span>Phone : '.$society_phone.'</span>
 	</div>
 </div>
@@ -881,7 +882,7 @@ $html.='<tr>
 </tr>';
 $total_amount2 = $total_amount2 + $amount;
 }
-$due_amt3 = $due_amt2 - $late_amt2;
+//$due_amt3 = $due_amt2 - $late_amt2;
 $html.='</table>
 </td>
 </tr>
@@ -921,10 +922,10 @@ $html.='<tr>
 <td style="text-align:right; padding-right:2%;">Interest:</td>
 </tr>
 <tr>
-<td style="text-align:right; padding-right:2%;">Arrears(Int.):</td>
+<td style="text-align:right; padding-right:2%;">Arrears &nbsp; (Int.):</td>
 </tr>';
 $html.='<tr>
-<td style="text-align:right; padding-right:2%;">Arrears(Maint.):</td>
+<td style="text-align:right; padding-right:2%;">Arrears &nbsp; (Maint.):</td>
 </tr>';
 $html.='<tr>
 <th style="text-align:right; padding-right:2%;">Due For Payment:</th>
@@ -932,13 +933,15 @@ $html.='<tr>
 $html.='</table>
 </td>
 <td valign="top">';
-$due_amt5 = $due_amt3-$interest_arrears;
+$due_amt5 = $due_amt2-$interest_arrears;
 
 $total_amount3 = number_format($total_amount2);
 $due_amt4 = number_format($due_amt5);
 $late_amt3 = number_format($late_amt2);
 $grand_total2 = number_format($grand_total);
-$interest_arrears2 = number_format($interest_arrears);
+$int_show_arrears = (int)$interest_arrears - $late_amt2;
+
+$int_show_arrears2 = number_format($int_show_arrears);
 
 $html.='<table border="0" style="width:100%;">
 <tr>';
@@ -950,7 +953,7 @@ $html.='
 <td style="text-align:right; padding-right:8%;">'.@$late_amt3.'</td>
 </tr>
 <tr>
-<td style="text-align:right; padding-right:8%;">'.@$interest_arrears2.'</td>
+<td style="text-align:right; padding-right:8%;">'.@$int_show_arrears2.'</td>
 </tr>';
 $html.='<tr>
 <td style="text-align:right; padding-right:8%;">'.@$due_amt4.'</td>
@@ -960,11 +963,11 @@ $html.='<tr>
 </tr>';
 $grand_total2;
 $grand_total2 = str_replace( ',', '', $grand_total2 );
-$am_in_words=$this->convert_number_to_words($grand_total2); 
+$am_in_words=ucwords(strtolower($this->convert_number_to_words($grand_total2)));
 $html.='</table>
 </td>
 </tr>
-<tr><td colspan="2"><b>Due For Payment (in words) :</b> '.$am_in_words.'</td></tr>
+<tr><td colspan="2"><b>Due For Payment (in words) :</b> Rupees '.$am_in_words.' Only</td></tr>
 </table>
 </div>';
 
@@ -979,7 +982,7 @@ $tems_name = $terms_arr[$r];
 $html.='<span>'.$count.'.  '.$tems_name.'</span><br/>';
 }
 $html.='</div>
-<div style="width:30%;float:right;">For  <b>'.$society_name.' Society</div>
+<div style="width:30%;float:right;" align="center">For  <b>'.$society_name.' Society <br/><br/><br/><div align="center"><span style="border-top: solid 1px #424141;">'.$sig_title.'</span></div></div>
 </div>
 <div align="center" style="color: #6F6D6D;border: solid 1px;border-top: dotted 1px;">Note: This is a computer generated bill hence no signature required.</div>
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;border: solid 1px #000;border-top: none;">
@@ -996,203 +999,7 @@ $this->regular_bill->updateAll(array("bill_html" =>$html),array("regular_bill_id
 ////////End Bill Html Code///////////////////
 ////////////////////////////////////////////
 
-///////////////Bill Html for mail////////////
-/*
-$html_mail=' <center>
-<div style="width:700px; background-color:white; overflow:auto;">
 
-<br><Br><br>
-<div style="width:96%; border:solid 1px; overflow:auto; border-bottom:none;">
-<br>
-<table border="0" style="width:100%;">
-<tr>
-<th style="text-align:center;">
-<p style="font-size:22px;">'.$society_name.' Society</p>
-</th>
-</tr>
-<tr>
-<th style="text-align:center;">'.$so_reg_no.'</th>
-</tr>
-<tr>
-<th style="text-align:center;">'.$so_address.'</th>
-</tr>
-</table>
-</div>
-<div style="width:96%; border:solid 1px; overflow:auto; border-bottom:none;">
-<table border="0" style="width:65%; float:left;">
-<tr>
-<td style="text-align:left; width:20%;">
-Name :
-</td>
-<td style="text-align:left;">'.$user_name.'</td>
-</tr>
-<tr>
-<td style="text-align:left;">Bill No. :</td>
-<td style="text-align:left;">'.$receipt_id.'</td>
-</tr>
-<tr>
-<td style="text-align:left;">Bill Date :</td>
-<td style="text-align:left;">'.$date.'</td>
-</tr>
-<tr>
-<td style="text-align:left;">Due Date:</td>
-<td style="text-align:left;">'.$due_date21.'</td>
-</tr>
-</table>
-<table border="0" style="width:30%; float:right;">
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align:left;">Flat/Shop No. :</td>
-<td style="text-align:left;">'.$wing_flat.'</td>
-</tr>
-<tr>
-<td style="text-align:left;">Area:</td>
-<td style="text-align:left;">'.$flat_area.' Sq Feet</td>
-</tr>
-<tr>
-<td style="text-align:left;">Billing Period:</td>
-<td style="text-align:left;">'.$monthB.''.  $year.'</td>
-</tr>
-</table>
-</div>
-<div style="width:96.2%; overflow:auto;">
-<table border="1" style="width:100%; border:black;  border-collapse:collapse; margine-left:2px;" cellpadding="0" cellspacing="0">
-<tr>
-<td style="width:80%; text-align:center;">Particulars</td>
-<td style="text-align:center;">Amount (Rs.)</td>
-</tr>
-<tr>
-<td valign="top" style="height:200px;">
-<table border="0" style="width:100%;">';
-for($x=0; $x<sizeof($ih_detail2); $x++)
-{
-$ih_det = $ih_detail2[$x];
-$ih_id5 = (int)$ih_det[0];
-if($ih_id5 != 43)
-{
-$result7 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($ih_id5)));
-foreach($result7 as $collection)
-{
-$ih_name = $collection['ledger_account']['ledger_name'];
-}
-}
-else
-{
-$ih_name = "Non Occupancy charges";
-}
-$html_mail.='<tr>
-<td style="text-align:left;">'.$ih_name.'</td>
-</tr>';
-}
-$html_mail.='</table>
-</td>
-<td valign="top">
-<table border="0" style="width:100%;">';
-for($y=0; $y<sizeof($ih_detail2); $y++)
-{
-$ih_det3 = $ih_detail2[$y];
-$amount = $ih_det3[1];
-$amount2 = number_format($amount);
-$html_mail.='<tr>
-<td style="text-align:center;">'.$amount2.'</td>
-</tr>';
-$total_amount2 = $total_amount2 + $amount;
-}
-$due_amt3 = $due_amt2 - $late_amt2;
-$html_mail.='</table>
-</td>
-</tr>';
-$total_amount3 = number_format($total_amount2);
-$due_amt4 = number_format($due_amt3);
-$late_amt3 = number_format($late_amt2);
-$grand_total2 = number_format($grand_total);
-$html.='
-<tr>
-<td valign="top">
-<table border="0" style="width:100%;">
-<tr>
-<th rowspan="4"></th>
-<td style="text-align:right;">Sub-Total:</td>
-</tr>
-<tr>
-<td style="text-align:right;">Over Due Amount:</td>
-</tr>
-<tr>
-<td style="text-align:right;">Over Due Interest:</td>
-</tr>
-<tr>
-<th style="text-align:right;">Grand Total:</th>
-</tr>
-</table>
-</td>
-<td valign="top">
-<table border="0" style="width:100%;">
-<tr>
-<td style="text-align:center;">'.$total_amount3.'</td>
-</tr>
-<tr>
-<td style="text-align:center;">'.@$due_amt4.'</td>
-</tr>
-<tr>
-<td style="text-align:center;">'.@$late_amt3.'</td>
-</tr>
-<tr>
-<th style="text-align:center;">'.$grand_total2.'</th>
-</tr>
-</table>
-</td>
-</tr>
-</table>
-</div>
-
-
-<div style="width:96%; overflow:auto; border:solid 1px; border-top:none;">
-<table border="0" style="width:70%; float:left;">
-<tr>
-<th style="text-align:left;">Description:</th>
-</tr>
-<tr>
-<td style="text-align:left;">'.$narration.'</td>
-</tr>
-</table>
-</div>
-<div style="width:96%; overflow:auto; border:solid 1px; border-top:none;">
-<table border="0" style="width:100%;">
-<tr>
-<th style="text-align:left;">
-Terms And Conditions:
-</th>
-</tr>';
-for($r=0; $r<sizeof($terms_arr); $r++)
-{
-$tems_name = $terms_arr[$r];
-$html_mail.='
-<tr>
-<td style="text-align:left;">'.$tems_name.'</td>
-</tr>';
-}
-
-$html_mail.='</table> 
-</div>
-<div style="width:96%; overflow:auto; border:solid 1px; border-top:none;">
-<br><br><br>
-<table border="0" style="width:100%;">
-<tr>
-<td style="text-align:right;">
-
-<p style="font-size:16px;  margin-right:10%;"><b>'.$society_name.' Society</b></p>
-</td>
-</tr>
-</table>
-</div>
-<br><br><br><br>
-</div>
-';
-*/
-////////////End Html For mail/////////////////
 
 $this->loadmodel('society');
 $condition=array('society_id'=>$s_society_id);
@@ -1385,7 +1192,7 @@ $k=$last;
 $k++;
 $this->loadmodel('ledger');
 $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" => @$penalty_amt, "amount_category_id" => 2, 
-"table_name" => "regular_bill", "account_type"=> 2, "account_id" => 43, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
+"table_name" => "regular_bill", "account_type"=> 2, "account_id" => 41, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
 $this->ledger->saveAll($multipleRowData);
 }
 
@@ -1526,6 +1333,7 @@ unset($ussrs);
 	$billing_cycle_id = (int)$collection['regular_bill']['period_id'];
 	$interest_arrears = (int)$collection['regular_bill']['accumulated_tax'];
 	}
+	
 $date_frm = date('M',strtotime($date_from));	
 if($billing_cycle_id == 1)
 {
@@ -1626,7 +1434,7 @@ $year = date('Y',strtotime($dat2));
 $monthB = implode("-",$month2);
 
 //////////////////////////////////////////
-$html='<div style="width:70%;margin:auto;">
+$html='<div style="width:70%;margin:auto;"  class="bill_on_screen">
 <div style="background-color:white; overflow:auto;">
 <div style="border:solid 1px; overflow:auto;">
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'  SOCIETY</div>
@@ -1636,7 +1444,7 @@ $html='<div style="width:70%;margin:auto;">
 	</div>
 	<div style="float:right;" align="right">
 	<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_reg_no.'</span><br/>
-	<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_address.'</span><br/>
+	<span style="color: rgb(100, 100, 99); ">'.$so_address.'</span><br/>
 	<span>Email: '.$society_email.'</span> | <span>Phone : '.$society_phone.'</span>
 	</div>
 </div>
@@ -1741,7 +1549,7 @@ $html.='<tr>
 </tr>';
 $total_amount2 = $total_amount2 + $amount;
 }
-$due_amt3 = $due_amt2 - $late_amt2;
+//$due_amt3 = $due_amt2 - $late_amt2;
 $html.='</table>
 </td>
 </tr>
@@ -1781,10 +1589,10 @@ $html.='<tr>
 <td style="text-align:right; padding-right:2%;">Interest:</td>
 </tr>
 <tr>
-<td style="text-align:right;">Arrears(Int.):</td>
+<td style="text-align:right;">Arrears &nbsp; (Int.):</td>
 </tr>';
 $html.='<tr>
-<td style="text-align:right; padding-right:2%;">Arrears(Maint.):</td>
+<td style="text-align:right; padding-right:2%;">Arrears &nbsp; (Maint.):</td>
 </tr>';
 $html.='<tr>
 <th style="text-align:right; padding-right:2%;">Due For Payment:</th>
@@ -1792,13 +1600,14 @@ $html.='<tr>
 $html.='</table>
 </td>
 <td valign="top">';
-$due_amt5 = $due_amt3-$interest_arrears;
+$due_amt5 = (int)$due_amt2 - $interest_arrears;
 
 $total_amount3 = number_format($total_amount2);
 $due_amt4 = number_format($due_amt5);
 $late_amt3 = number_format($late_amt2);
 $grand_total2 = number_format($grand_total);
-$interest_arrears2 = number_format($interest_arrears);
+$int_show_arrears = (int)$interest_arrears-$late_amt2;
+$int_show_arrears2 = number_format($int_show_arrears);
 
 $html.='<table border="0" style="width:100%;">
 <tr>';
@@ -1810,7 +1619,7 @@ $html.='
 <td style="text-align:right; padding-right:8%;">'.@$late_amt3.'</td>
 </tr>
 <tr>
-<td style="text-align:right; padding-right:8%;">'.@$interest_arrears2.'</td>
+<td style="text-align:right; padding-right:8%;">'.@$int_show_arrears2.'</td>
 </tr>';
 $html.='<tr>
 <td style="text-align:right; padding-right:8%;">'.@$due_amt4.'</td>
@@ -1819,12 +1628,11 @@ $html.='<tr>
 <th style="text-align:right; padding-right:8%;">'.$grand_total2.'</th>
 </tr>';
 $grand_total2 = str_replace( ',', '', $grand_total2 );
-
-$am_in_words=$this->convert_number_to_words($grand_total2); 
+$am_in_words=ucwords(strtolower($this->convert_number_to_words($grand_total2)));
 $html.='</table>
 </td>
 </tr>
-<tr><td colspan="2"><b>Due For Payment (in words) :</b> '.$am_in_words.'</td></tr>
+<tr><td colspan="2"><b>Due For Payment (in words) :</b> Rupees '.$am_in_words.' Only</td></tr>
 </table>
 </div>';
 
@@ -1839,7 +1647,7 @@ $tems_name = $terms_arr[$r];
 $html.='<span>'.$count.'.  '.$tems_name.'</span><br/>';
 }
 $html.='</div>
-<div style="width:30%;float:right;">For  <b>'.$society_name.' Society</div>
+<div style="width:30%;float:right;" align="center">For  <b>'.$society_name.' Society <br/><br/><br/><div align="center"><span style="border-top: solid 1px #424141;">'.$sig_title.'</span></div></div>
 </div>
 <div align="center" style="color: #6F6D6D;border: solid 1px;border-top: dotted 1px;">Note: This is a computer generated bill hence no signature required.</div>
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;border: solid 1px #000;border-top: none;">
@@ -1852,238 +1660,7 @@ Making Life Simpler !</span><br/>
 ';
 
 //////////////////////////////////
-/*
-$html='<center>
-<div style="700px; background-color:white; overflow:auto;">
-<br><Br><br>
-<div style="width:80%; border:solid 1px; overflow:auto;">
-<br>
-<table border="0" style="width:15%; float:left;">
-<tr>
-<td>
-<img src='.$webroot_path.'logo/'.$log_img.' height="60px;" width="130px;"></img>
-</td>
-</tr>
-</table>
-<table border="0" style="width:85%;">
-<tr>
-<th style="text-align:center;">
-<p style="font-size:22px; padding-right:14%;">'.$society_name.'  Society</p>
-</th>
-</tr>
-<tr>
-<th style="text-align:center; padding-right:14%;">Regn# &nbsp;&nbsp; '.$so_reg_no.'</th>
-</tr>
-<tr>
-<th style="text-align:center; padding-right:14%;">'.$so_address.'</th>
-</tr>
-<tr>
-<td>
-<b>Description :</b> &nbsp;&nbsp; '.$narration.'
-</td>
-</tr>
-</table>
-</div>
-<div style="width:80%; border:solid 1px; overflow:auto; border-top:none; border-bottom:none;">
-<table border="0" style="width:60%; float:left;">
-<tr>
-<td style="text-align:left; width:17%;">
-Name :
-</td>
-<td style="text-align:left;">'.$user_name.'</td>
-</tr>
-<tr>
-<td style="text-align:left;">Bill No. :</td>
-<td style="text-align:left;">'.$receipt_id.'</td>
-</tr>
-<tr>
-<td style="text-align:left;">Bill Date :</td>
-<td style="text-align:left;">'.$date_c.'</td>
-</tr>
-<tr>
-<td style="text-align:left;"></td>
-<td style="text-align:left;"></td>
-</tr>
-</table>
-<table border="0" style="width:39%; float:right;">
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align:left;">Flat/Shop No. :</td>
-<td style="text-align:left;">'.$wing_flat.'</td>
-</tr>
-<tr>
-<td style="text-align:left;">Area:</td>
-<td style="text-align:left;">'.$flat_area.' Sq Feet</td>
-</tr>
-<tr>
-<td style="text-align:left;">Billing Period:</td>
-<td style="text-align:left;">'.$datett.''.  $year.'</td>
-</tr>
-<tr>
-<td style="text-align:left;"><b>Due Date:</b></td>
-<td style="text-align:left;"><b>'.$due_date21.'</b></td>
-</tr>
-</table>
-</div>
-<div style="width:80.2%; overflow:auto;">
-<table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="5">
-<tr>
-<th style="width:80%; text-align:left;">Particulars</th>
-<th style="text-align:right;">Amount (Rs.)</th>
-<tr>
-<tr>
-<td valign="top" style="height:200px;">
-<table border="0" style="width:100%;">';
-for($x=0; $x<sizeof($ih_detail2); $x++)
-{
-$ih_det = $ih_detail2[$x];
-$ih_id5 = (int)$ih_det[0];
-if($ih_id5 != 43)
-{
-$result7 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($ih_id5)));
-foreach($result7 as $collection)
-{
-$ih_name = $collection['ledger_account']['ledger_name'];
-}
-}
-else
-{
-$ih_name = "Non Occupancy charges";
-}
-$html.='<tr>
-<td style="text-align:left;">'.$ih_name.'</td>
-</tr>';
-}
-$html.='</table>
-</td>
-<td valign="top">
-<table border="0" style="width:100%;">';
-for($y=0; $y<sizeof($ih_detail2); $y++)
-{
-$ih_det3 = $ih_detail2[$y];
-$amount = $ih_det3[1];
-$amount2 = number_format($amount);
-$html.='<tr>
-<td style="text-align:right;">'.$amount2.'</td>
-</tr>';
-$total_amount2 = $total_amount2 + $amount;
-}
-$due_amt3 = $due_amt2 - $late_amt2;
-$html.='</table>
-</td>
-</tr>
-<tr>
-<td valign="top">
-<table border="0" style="width:70%; float:left;">
-<tr>
-<td style="text-align:right; width:20%;">Account Name:</td>
-<td> &nbsp;&nbsp; '.$account_name.'</td>
-</tr>
-<tr>
-<td style="text-align:right;">Bank Name:</td>
-<td> &nbsp;&nbsp; '.$bank_name .'</td>
-</tr>
-<tr>
-<td style="text-align:right;">Branch Name:</td>
-<td> &nbsp;&nbsp; '.$branch .'</td>
-</tr>
-<tr>
-<td style="text-align:right;">IFSC no.:</td>
-<td> &nbsp;&nbsp; '.$ifsc_code.'</td>
-</tr>
-</table>
-<table border="0" style="width:30%;">
-<tr>
-<td rowspan="4"></td>
-<td style="text-align:right; padding-right:2%;">Total:</td>
-</tr>
-<tr>
-<td style="text-align:right; padding-right:2%;">Interest:</td>
-</tr>
-<tr>
-<td style="text-align:right; padding-right:2%;">Arrears:</td>
-</tr>
-<tr>
-<th style="text-align:right; padding-right:2%;">Due For Payment:</th>
-</tr>
-</table>
-</td>
-<td valign="top">
-<table border="0" style="width:100%;">
-<tr>';
-$total_amount3 = number_format($total_amount2);
-$due_amt4 = number_format($due_amt3);
-$late_amt3 = number_format($late_amt2);
-$grand_total2 = number_format($grand_total);
-$html.='
-<td style="text-align:right; padding-right:8%;">'.$total_amount3.'</td>
-</tr>
-<tr>
-<td style="text-align:right;  padding-right:8%;">'.@$late_amt3.'</td>
-</tr>
-<tr>
-<td style="text-align:right;  padding-right:8%;">'.@$due_amt4.'</td>
-</tr>
-<tr>
-<th style="text-align:right;  padding-right:8%;">'.$grand_total2.'</th>
-</tr>
-</table>
-</td>
-</tr>
-</table>
-</div>
-<div style="width:80%; overflow:auto; border:solid 1px; border-top:none;padding:5px;">
-<table border="0" style="width:100%;">
-<tr>
-<th style="text-align:left;">
-Remarks:
-</th>
-</tr>';
-for($r=0; $r<sizeof($terms_arr); $r++)
-{
-$tems_name = $terms_arr[$r];
 
-$html.='
-<tr>
-<td style="text-align:left;">'.$tems_name.'</td>
-</tr>';
-}
-$html.='</table> 
-</div>
-<div style="width:80%; overflow:auto; border:solid 1px; border-top:none;">
-
-<table border="0" style="width:100%;">
-<tr>
-<td style="text-align:left; valign:top;">
-Society-Email:'.$society_email.'
-</td>
-<td style="text-align:right;">
-<p style="font-size:18px;"><b>'.$society_name.' Society</b></p>
-</td>
-</tr>';
-$html.='<tr>
-<td style="text-align:left;" valign="top">
-Society-Phone:'.$society_phone.'
-</td>
-<td style="text-align:right;">
-<img src='.$webroot_path.'sig/'.$sig_img.' height="60px;" width="130px;" style="margin-right:10%;"></img>
-</td>
-</tr>
-<tr>
-<td></td>
-<td style="text-align:right;">
-<p style="font-size:14px; margin-right:10%;"><b>'.$sig_title.'</b></p>
-</td>
-</tr>
-</table>
-<br><br><br>
-</div>
-<br><br><br><br>
-</div>';
-*/
 $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array("bill_html" =>$html),array("regular_bill_id" =>$regular_bill_id));	
 ////////End Bill Html Code///////////////////
@@ -5594,7 +5171,7 @@ $cursor = $this->regular_bill->find('all',array('conditions'=>$conditions,'order
 foreach($cursor as $collection)
 {
 $r++;
-$app = (int)@$this->request->data['app'.$r];
+echo $app = (int)@$this->request->data['app'.$r];
 if($app != 0)
 {
 $this->loadmodel('regular_bill');
@@ -5608,8 +5185,10 @@ $from = $collection['regular_bill']['bill_daterange_from'];
 $to = $collection['regular_bill']['bill_daterange_to'];
 $due_date = $collection['regular_bill']['due_date'];
 $grand_total = $collection['regular_bill']['g_total'];
+$receipt_id = $collection['regular_bill']['receipt_id'];
+
 }
-$sms_from = date('dM',strtotime($from));
+$sms_from = date('d-M',strtotime($from));
 $sms_to = date('dMy',strtotime($to));
 $sms_due = date('dMy',strtotime($due_date));
 
@@ -5633,6 +5212,12 @@ $sms_id = (int)$collection['society']['account_sms'];
 $email_id = (int)$collection['society']['account_email'];
 $society_name = $collection['society']['society_name'];
 }
+
+$ussrs[]=$user_id;
+
+$this->send_notification('<span class="label label-warning" ><i class="icon-money"></i></span>','New bill for your flat '.$wing_flat.' is generated ',10,$receipt_id,$this->webroot.'Incometrackers/ac_statement_bill_view/'.$receipt_id,0,$ussrs);
+unset($ussrs);
+
 if($sms_id == 1)
 {
 $r_sms=$this->hms_sms_ip();
@@ -5641,7 +5226,7 @@ $sms_sender=$r_sms->sms_sender;
 $sms='Dear '.$user_name.' '.$wing_flat.', your maintenance bill for period '.$sms_from.'-'.$sms_to.' is Rs '.$grand_total.'.Kindly pay by due '.$sms_due.'.'.$society_name.' Society';
 
 $sms1=str_replace(' ', '+', $sms);
-////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.''); 
+ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.''); 
 }
 if($email_id == 1)
 {

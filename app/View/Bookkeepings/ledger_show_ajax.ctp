@@ -10,7 +10,6 @@ $m_to = date("Y-m-d", strtotime($date222));
 $opening_balance = 0;
 $closing_balance = 0;
 $nnn = 1;
-
 ?>
 <?php
 
@@ -49,14 +48,18 @@ $cursor2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger
 									 $society_id = (int)@$collection['ledger']['society_id'];
                                      $module_name = @$collection['ledger']['module_name'];
 									 $table_name = @$collection['ledger']['table_name'];
+									 $op_date = @$collection['ledger']['op_date'];
 									 if($table_name == "cash_bank")
 									 {
 									 $module_id = (int)$collection['ledger']['module_id']; 	 
-									 }
-									 
-									 if($receipt_id == 'O_B')
-                                     continue;
-									 
+                                     }
+
+if($receipt_id == 'O_B')
+{									
+$op_date2 = date('Y-m-d',$op_date->sec);									 
+}
+if($receipt_id != 'O_B')
+{                                    
 
 if($table_name == "cash_bank")
 {
@@ -85,7 +88,7 @@ $module_date_fetch = $this->requestAction(array('controller' => 'hms', 'action' 
 										$narration = @$collection[$table_name]['narration'];
 										$remark = @$collection[$table_name]['remark'];
 										}
-
+}
 
 if($amount_category_id == 1)
 {
@@ -98,25 +101,29 @@ $amount_category = "Credit";
 
 if($sub_account_id == $sub_id)
 {
-if(@$date1 < $m_from)
+if(@$op_date2 <= $m_from)
 {
 if($account_type == 1)
 {
 if($amount_category_id == 1)
 {
 $opening_balance = $opening_balance - $amount_o;
+$nnn = 5;
 }
 else if($amount_category_id == 2)
 {
-$opening_balance = $opening_balance + $amount_o;	
+$opening_balance = $opening_balance + $amount_o;
+$nnn = 5;	
 }
 }
 }
 }
+$op_date2 = "";
 }
 ?>
 <?php
 $balance = $opening_balance;
+
 ?>
 								
 <?php
@@ -250,14 +257,19 @@ $accounts_group = $this->requestAction(array('controller' => 'hms', 'action' => 
 									$society_id = (int)@$collection['ledger']['society_id'];
                                     $table_name = @$collection['ledger']['table_name'];
 									$module_name = @$collection['ledger']['module_name'];
+									$op_date = @$collection['ledger']['op_date'];
 									if($table_name == "cash_bank")
 									{
 									$module_id = $collection['ledger']['module_id'];	
 									}
-									 if($receipt_id == 'O_B')
-                                     continue;
-                                     
 
+
+if($receipt_id == 'O_B')
+{ 
+$op_date2 = date('Y-m-d',$op_date->sec);
+}
+if($receipt_id != 'O_B')
+{                                  
 if($table_name == "cash_bank")
 {
 $module_date_fetch3 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id)));   	
@@ -285,6 +297,11 @@ $date1 = @$collection[$table_name]['date'];
 $narration = @$collection[$table_name]['narration'];
 $remark = @$collection[$table_name]['remark'];
 }
+}
+
+
+
+
 
 if($amount_category_id == 1)
 {
@@ -297,28 +314,30 @@ $amount_category = "Credit";
 									
 if($sub_account_id == $main_id)
 {
-if(@$date1 < $m_from)
+if(@$op_date2 <= $m_from)
 {
 if($account_type == 2)
 {
 if($amount_category_id == 1)
 {
 $opening_balance = $opening_balance - $amount_o;
+$nnn = 5;
 }
 else if($amount_category_id == 2)
 {
-$opening_balance = $opening_balance + $amount_o;	
+$opening_balance = $opening_balance + $amount_o;
+$nnn = 5;	
 }
 }
 }
 }
+$op_date2 = "";
 } 
 ?>
 <?php
 $balance = $opening_balance;
-?>
 
-										
+?>										
 
 <?php
 $total_debit = 0;
@@ -495,6 +514,7 @@ $cursor2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger
 									
 if($receipt_id == 'O_B')
 {
+$op_date2 = date('Y-m-d',$op_date->sec);
 if($sub_account_id == $sub_id)
 {
 if($account_type == 1)
@@ -551,9 +571,9 @@ else if($amount_category_id == 2)
 $amount_category = "Credit";		
 }
 
-								if($sub_account_id == $sub_id)
+								/*if($sub_account_id == $sub_id)
 								{
-								if(@$date1 < $m_from)
+								if(@$op_date2 < $m_from)
 								{
 								if($account_type == 1)
 								{
@@ -569,8 +589,8 @@ $amount_category = "Credit";
 								}
 								}
 								}
-								}
-								if($op_date < $m_from)
+								}*/
+								if($op_date2 <= $m_from)
 								{
 								$opening_balance = $opening_balance + $op_im_cre - $op_im_deb;
 								}
@@ -865,6 +885,7 @@ $accounts_group = $this->requestAction(array('controller' => 'hms', 'action' => 
                                     $op_im_cre = 0;
 									if($receipt_id == 'O_B')
 									{
+									$op_date2 = date('Y-m-d',$op_date->sec);
 									if($sub_account_id == $main_id)
 	                                {
                                     if($account_type == 2)
@@ -928,10 +949,10 @@ else if($amount_category_id == 1)
 $amount_category = "Credit";		
 }
 									
-									
+									/*
 									if($sub_account_id == $main_id)
 	                                {
-									if(@$date1 < $m_from)
+									if(@$op_date2 < $m_from)
 									{
 								    if($account_type == 2)
 								    {
@@ -946,10 +967,10 @@ $amount_category = "Credit";
 									}
 									}
 									}
+									*/
 									
 									
-									
-									if($op_date < $m_from)
+									if($op_date2 <= $m_from)
 									{
 									$opening_balance = $opening_balance + $op_im_cre - $op_im_deb;
 									}
