@@ -647,6 +647,21 @@ $amount_category = "Credit";
 									 $society_id = (int)@$collection['ledger']['society_id'];
                                      $table_name = @$collection['ledger']['table_name'];
 									 $module_name = @$collection['ledger']['module_name'];
+									 $pen_type = @$collection['ledger']['penalty'];
+									 if(!empty($pen_type))
+									 {
+									 if($pen_type == "NO")
+									 {
+									 $bill_type = "Maint."; 	 
+									 }
+									 else
+									 {
+									 $bill_type = "Int.";  
+									 }
+									 }
+									 
+									 
+									 
 									 if($table_name == "cash_bank")
 									 {
 									 $module_id = (int)$collection['ledger']['module_id']; 
@@ -710,7 +725,7 @@ $date = date('d-m-Y',strtotime($date));
 <tr>
 <td><?php echo $date; ?></td>
 <td><?php echo $narration; ?></td>
-<td><?php echo $module_name; ?></td>
+<td><?php echo $module_name; ?><?php  if(!empty($pen_type)) { ?> &nbsp; (<?php echo $bill_type; ?>)<?php } ?></td>
 <td><?php echo $receipt_id; ?></td>
 <td><?php if($amount_category_id == 1) { $balance = $balance - $amount;   
 $amount2 = number_format($amount);
@@ -733,7 +748,7 @@ $total_credit = $total_credit + $amount;
 $closing_balance = $op_bal2 - $total_debit + $total_credit + ($close);
 ?>
 
-<?php }}}} ?>
+<?php $pen_type=""; }}}} ?>
 <tr>
 <th colspan="4" style="text-align:right;"><b> Total </b></th>
 
