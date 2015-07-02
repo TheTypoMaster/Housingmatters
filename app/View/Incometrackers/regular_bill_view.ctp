@@ -18,7 +18,7 @@ echo $bill_html;
 
 @media print {
     .bill_on_screen {
-       width:100% !important;
+       width:96% !important;
     }
 }
 </style>
