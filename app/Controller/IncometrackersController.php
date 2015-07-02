@@ -777,7 +777,7 @@ $html='<div style="width:70%;margin:auto;" class="bill_on_screen">
 	</div>
 	<div style="float:right;" align="right">
 	<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_reg_no.'</span><br/>
-	<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_address.'</span><br/>
+	<span style="color: rgb(100, 100, 99); ">'.$so_address.'</span><br/>
 	<span>Email: '.$society_email.'</span> | <span>Phone : '.$society_phone.'</span>
 	</div>
 </div>
@@ -967,7 +967,7 @@ $am_in_words=ucwords(strtolower($this->convert_number_to_words($grand_total2)));
 $html.='</table>
 </td>
 </tr>
-<tr><td colspan="2"><b>Due For Payment (in words) :</b> '.$am_in_words.'</td></tr>
+<tr><td colspan="2"><b>Due For Payment (in words) :</b> Ruppes '.$am_in_words.' Only</td></tr>
 </table>
 </div>';
 
@@ -1444,7 +1444,7 @@ $html='<div style="width:70%;margin:auto;">
 	</div>
 	<div style="float:right;" align="right">
 	<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_reg_no.'</span><br/>
-	<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_address.'</span><br/>
+	<span style="color: rgb(100, 100, 99); ">'.$so_address.'</span><br/>
 	<span>Email: '.$society_email.'</span> | <span>Phone : '.$society_phone.'</span>
 	</div>
 </div>
@@ -1632,7 +1632,7 @@ $am_in_words=ucwords(strtolower($this->convert_number_to_words($grand_total2)));
 $html.='</table>
 </td>
 </tr>
-<tr><td colspan="2"><b>Due For Payment (in words) :</b> '.$am_in_words.' Ruppes Only</td></tr>
+<tr><td colspan="2"><b>Due For Payment (in words) :</b> Ruppes '.$am_in_words.' Only</td></tr>
 </table>
 </div>';
 
