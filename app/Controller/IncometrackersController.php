@@ -644,7 +644,7 @@ $this->regular_bill->saveAll($multipleRowData);
 
 $ussrs[]=$user_id;
 
-$this->send_notification('<span class="label label-warning" ><i class="icon-money"></i></span>','New bill for your flat '.$wing_flat.' is generated ',10,$r,$this->webroot.'Incometrackers/ac_statement_bill_view/'.$r,0,$ussrs);
+//$this->send_notification('<span class="label label-warning" ><i class="icon-money"></i></span>','New bill for your flat '.$wing_flat.' is generated ',10,$5,$this->webroot.'Incometrackers/ac_statement_bill_view/'.$r,0,$ussrs);
 unset($ussrs);
 ///////////////////////////////////////
 
@@ -967,7 +967,7 @@ $am_in_words=ucwords(strtolower($this->convert_number_to_words($grand_total2)));
 $html.='</table>
 </td>
 </tr>
-<tr><td colspan="2"><b>Due For Payment (in words) :</b> Ruppes '.$am_in_words.' Only</td></tr>
+<tr><td colspan="2"><b>Due For Payment (in words) :</b> Rupees '.$am_in_words.' Only</td></tr>
 </table>
 </div>';
 
@@ -1632,7 +1632,7 @@ $am_in_words=ucwords(strtolower($this->convert_number_to_words($grand_total2)));
 $html.='</table>
 </td>
 </tr>
-<tr><td colspan="2"><b>Due For Payment (in words) :</b> Ruppes '.$am_in_words.' Only</td></tr>
+<tr><td colspan="2"><b>Due For Payment (in words) :</b> Rupees '.$am_in_words.' Only</td></tr>
 </table>
 </div>';
 
@@ -5171,7 +5171,7 @@ $cursor = $this->regular_bill->find('all',array('conditions'=>$conditions,'order
 foreach($cursor as $collection)
 {
 $r++;
-$app = (int)@$this->request->data['app'.$r];
+echo $app = (int)@$this->request->data['app'.$r];
 if($app != 0)
 {
 $this->loadmodel('regular_bill');
@@ -5185,8 +5185,10 @@ $from = $collection['regular_bill']['bill_daterange_from'];
 $to = $collection['regular_bill']['bill_daterange_to'];
 $due_date = $collection['regular_bill']['due_date'];
 $grand_total = $collection['regular_bill']['g_total'];
+$receipt_id = $collection['regular_bill']['receipt_id'];
+
 }
-$sms_from = date('dM',strtotime($from));
+$sms_from = date('d-M',strtotime($from));
 $sms_to = date('dMy',strtotime($to));
 $sms_due = date('dMy',strtotime($due_date));
 
@@ -5210,6 +5212,12 @@ $sms_id = (int)$collection['society']['account_sms'];
 $email_id = (int)$collection['society']['account_email'];
 $society_name = $collection['society']['society_name'];
 }
+
+$ussrs[]=$user_id;
+
+$this->send_notification('<span class="label label-warning" ><i class="icon-money"></i></span>','New bill for your flat '.$wing_flat.' is generated ',10,$receipt_id,$this->webroot.'Incometrackers/ac_statement_bill_view/'.$receipt_id,0,$ussrs);
+unset($ussrs);
+
 if($sms_id == 1)
 {
 $r_sms=$this->hms_sms_ip();

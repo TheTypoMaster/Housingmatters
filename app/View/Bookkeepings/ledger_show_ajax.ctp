@@ -101,7 +101,7 @@ $amount_category = "Credit";
 
 if($sub_account_id == $sub_id)
 {
-if(@$op_date2 < $m_from)
+if(@$op_date2 <= $m_from)
 {
 if($account_type == 1)
 {
@@ -314,7 +314,7 @@ $amount_category = "Credit";
 									
 if($sub_account_id == $main_id)
 {
-if(@$op_date2 < $m_from)
+if(@$op_date2 <= $m_from)
 {
 if($account_type == 2)
 {
@@ -590,7 +590,7 @@ $amount_category = "Credit";
 								}
 								}
 								}*/
-								if($op_date2 < $m_from)
+								if($op_date2 <= $m_from)
 								{
 								$opening_balance = $opening_balance + $op_im_cre - $op_im_deb;
 								}
@@ -970,7 +970,7 @@ $amount_category = "Credit";
 									*/
 									
 									
-									if($op_date2 < $m_from)
+									if($op_date2 <= $m_from)
 									{
 									$opening_balance = $opening_balance + $op_im_cre - $op_im_deb;
 									}

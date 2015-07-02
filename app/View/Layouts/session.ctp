@@ -629,10 +629,10 @@ if(sizeof(@$result)>0){
 		
 	$complete_menu[$result_moduletype_id][]=$child1;
 	}
-	
+	ksort($complete_menu);
 	foreach($complete_menu as $key=>$child2){
 		$result_module_type_info=$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_module_type_name'), array('pass' => array($key)));
-
+		
 		foreach($result_module_type_info as $result_module_type_info_child)
 		{
 		$icon=@$result_module_type_info_child['module_type']['icon'];
