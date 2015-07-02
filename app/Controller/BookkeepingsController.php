@@ -797,6 +797,8 @@ $opening_balance = $opening_balance + $amount_o;
 }
 */
 }
+if($receipt_id == 'O_B')
+{
 if($op_date2 <= $m_from)
 {
 $opening_balance = $opening_balance + $op_im_cre - $op_im_deb;
@@ -806,7 +808,7 @@ else
 $close	= $close + $op_im_cre - $op_im_deb;
 }
 }
-
+}
 $excel.="
 <tr>
 <th colspan='3'></th>
@@ -850,6 +852,21 @@ $amount_category_id = (int)@$collection['ledger']['amount_category_id'];
 $sub_account_id = (int)@$collection['ledger']['account_id']; 
 $current_date = @$collection['ledger']['current_date'];
 $society_id = (int)@$collection['ledger']['society_id'];
+$pen_type = @$collection['ledger']['penalty'];
+if(!empty($pen_type))
+{
+if($pen_type == "NO")
+{
+$bill_type = "Maint."; 	 
+}
+else
+{
+$bill_type = "Int.";  
+}
+}
+
+
+
 if($receipt_id != 'O_B')
 {
 $table_name = $collection['ledger']['table_name'];
@@ -909,7 +926,11 @@ $date = date('d-m-Y',strtotime($date));
 $excel.="<tr>
 <td>$date</td>
 <td>$narration</td>
-<td>$module_name</td>
+<td>$module_name";
+if(!empty($pen_type)) { $excel.=" &nbsp; (";
+$excel.="$bill_type )";
+} 
+$excel.="</td>
 <td>$receipt_id</td>
 <td>";
 if($amount_category_id == 1) { $balance = $balance - $amount; 
@@ -1112,6 +1133,8 @@ $opening_balance = $opening_balance + $amount_o;
 }
 */
 }
+if($receipt_id == 'O_B')
+{
 if($op_date2 <= $m_from)
 {
 $opening_balance = $opening_balance + $op_im_cre - $op_im_deb;
@@ -1119,6 +1142,7 @@ $opening_balance = $opening_balance + $op_im_cre - $op_im_deb;
 else
 {
 $close = $close + $op_im_cre - $op_im_deb;
+}
 }
 } 
 $excel.="<tr>
