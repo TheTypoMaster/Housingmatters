@@ -922,10 +922,10 @@ $html.='<tr>
 <td style="text-align:right; padding-right:2%;">Interest:</td>
 </tr>
 <tr>
-<td style="text-align:right; padding-right:2%;">Arrears(Int.):</td>
+<td style="text-align:right; padding-right:2%;">Arrears &nbsp; (Int.):</td>
 </tr>';
 $html.='<tr>
-<td style="text-align:right; padding-right:2%;">Arrears(Maint.):</td>
+<td style="text-align:right; padding-right:2%;">Arrears &nbsp; (Maint.):</td>
 </tr>';
 $html.='<tr>
 <th style="text-align:right; padding-right:2%;">Due For Payment:</th>
@@ -1785,10 +1785,10 @@ $html.='<tr>
 <td style="text-align:right; padding-right:2%;">Interest:</td>
 </tr>
 <tr>
-<td style="text-align:right;">Arrears(Int.):</td>
+<td style="text-align:right;">Arrears &nbsp; (Int.):</td>
 </tr>';
 $html.='<tr>
-<td style="text-align:right; padding-right:2%;">Arrears(Maint.):</td>
+<td style="text-align:right; padding-right:2%;">Arrears &nbsp; (Maint.):</td>
 </tr>';
 $html.='<tr>
 <th style="text-align:right; padding-right:2%;">Due For Payment:</th>
