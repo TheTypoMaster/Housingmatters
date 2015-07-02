@@ -528,7 +528,7 @@ $k=$last;
 $k++;
 $this->loadmodel('ledger');
 $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" => @$penalty_amt, "amount_category_id" => 2, 
-"table_name" => "regular_bill", "account_type"=> 2, "account_id" => 43, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
+"table_name" => "regular_bill", "account_type"=> 2, "account_id" => 41, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
 $this->ledger->saveAll($multipleRowData);
 }
 
@@ -939,7 +939,9 @@ $total_amount3 = number_format($total_amount2);
 $due_amt4 = number_format($due_amt5);
 $late_amt3 = number_format($late_amt2);
 $grand_total2 = number_format($grand_total);
-$interest_arrears2 = number_format($interest_arrears);
+$int_show_arrears = (int)$interest_arrears - $late_amt2;
+
+$int_show_arrears2 = number_format($int_show_arrears);
 
 $html.='<table border="0" style="width:100%;">
 <tr>';
@@ -951,7 +953,7 @@ $html.='
 <td style="text-align:right; padding-right:8%;">'.@$late_amt3.'</td>
 </tr>
 <tr>
-<td style="text-align:right; padding-right:8%;">'.@$interest_arrears2.'</td>
+<td style="text-align:right; padding-right:8%;">'.@$int_show_arrears2.'</td>
 </tr>';
 $html.='<tr>
 <td style="text-align:right; padding-right:8%;">'.@$due_amt4.'</td>
@@ -1386,7 +1388,7 @@ $k=$last;
 $k++;
 $this->loadmodel('ledger');
 $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" => @$penalty_amt, "amount_category_id" => 2, 
-"table_name" => "regular_bill", "account_type"=> 2, "account_id" => 43, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
+"table_name" => "regular_bill", "account_type"=> 2, "account_id" => 41, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
 $this->ledger->saveAll($multipleRowData);
 }
 
@@ -1800,7 +1802,8 @@ $total_amount3 = number_format($total_amount2);
 $due_amt4 = number_format($due_amt5);
 $late_amt3 = number_format($late_amt2);
 $grand_total2 = number_format($grand_total);
-$interest_arrears2 = number_format($interest_arrears);
+$int_show_arrears = (int)$interest_arrears-$late_amt2;
+$int_show_arrears2 = number_format($int_show_arrears);
 
 $html.='<table border="0" style="width:100%;">
 <tr>';
@@ -1812,7 +1815,7 @@ $html.='
 <td style="text-align:right; padding-right:8%;">'.@$late_amt3.'</td>
 </tr>
 <tr>
-<td style="text-align:right; padding-right:8%;">'.@$interest_arrears2.'</td>
+<td style="text-align:right; padding-right:8%;">'.@$int_show_arrears2.'</td>
 </tr>';
 $html.='<tr>
 <td style="text-align:right; padding-right:8%;">'.@$due_amt4.'</td>
