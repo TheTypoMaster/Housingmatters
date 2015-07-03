@@ -799,8 +799,10 @@ $closing_balance = $op_bal2 - $total_debit + $total_credit + ($close);
 ?>
 
 <?php $pen_type=""; 
-   
-}}}} ?>
+
+}}}
+ $date = "";  
+} ?>
 <tr>
 <th colspan="4" style="text-align:right;"><b> Total </b></th>
 
@@ -1250,7 +1252,11 @@ $module_date_fetch4 = $this->requestAction(array('controller' => 'hms', 'action'
 										
 										 <?php
 										
-										  }}}} ?>
+										  }}}
+										  $date = "";
+										  
+										  
+										  } ?>
 							   
 							   <tr>
                                <th colspan="4" style="text-align:right;"><b> Total </b></th>
