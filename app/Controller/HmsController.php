@@ -18459,7 +18459,20 @@ return $this->cash_bank->find('all',array('conditions'=>$conditions));
 }
 /////////////// End Terms Conditions Fetch (Accounts)//////////////////////////////////////////
 
+////////////////// Start Regular Bill Fetch(Accounts)/////////////////////////////////////////
+function regular_bill_fetch7($receipt_id) 
+{
+$this->layout='blank';
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
 
+$this->loadmodel('regular_bill');
+$conditions=array("receipt_id" => $receipt_id,"society_id"=>$s_society_id);
+return $this->regular_bill->find('all',array('conditions'=>$conditions));
+}
+
+////////////////// End Regular Bill Fetch(Accounts)/////////////////////////////////////////
 
 
 
