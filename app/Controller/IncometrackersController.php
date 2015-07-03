@@ -4705,20 +4705,24 @@ if($typ2 == 1)
 foreach($myArray as $child)
 {
 
-if(empty($child[0])){
-$output = json_encode(array('type'=>'error', 'text' => 'Please Fill All Fields'));
-die($output);
+if($child[0]!=5){
+	if(empty($child[0])){
+	$output = json_encode(array('type'=>'error', 'text' => 'Please Fill All Fields'));
+	die($output);
+	}
 }	
-
+$child1=(int)$child[1];
 if($child[0] != 4)
 {
-if(empty($child[1]))
-{
-$output = json_encode(array('type'=>'error', 'text' => 'Please Fill All Fields'));
-die($output);
-}
+	if($child[0]!=5){
+		if(empty($child1))
+		{
+		$output = json_encode(array('type'=>'error', 'text' => 'Please Fill All Fields'));
+		die($output);
+		}
+	}
 
-if(is_numeric($child[1]))
+if(is_numeric($child1))
 {
 }	
 else
