@@ -3869,7 +3869,7 @@ $l=$last25;
 $l++; 
 $this->loadmodel('ledger');
 $multipleRowData = Array( Array("auto_id" => $l, "receipt_id"=>'O_B', 
-"amount"=>$penalty_amt, "amount_category_id"=>$amount_type, "account_type" => 1, "account_id"=>$k,"current_date" => $current_date,"society_id" => $s_society_id,"module_id"=>'O_B',"op_date"=>$op_date));
+"amount"=>$penalty_amt, "amount_category_id"=>$amount_type, "account_type" => 1, "account_id"=>$k,"current_date" => $current_date,"society_id" => $s_society_id,"module_id"=>'O_B',"op_date"=>$op_date,"penalty"=>"YES"));
 $this->ledger->saveAll($multipleRowData);		
 }
 }
