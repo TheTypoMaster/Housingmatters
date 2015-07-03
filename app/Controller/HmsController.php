@@ -2862,7 +2862,7 @@ function multiple_flat()
 	}
 		$this->ath();
 		$this->check_user_privilages();	
-		$s_society_id=$this->Session->read('society_id');
+		$s_society_id=(int)$this->Session->read('society_id');
 		$s_user_id=$this->Session->read('user_id');
 		$this->seen_alert(105,$s_user_id);
 		$result=$this->all_user_deactive();
@@ -2890,6 +2890,7 @@ function multiple_flat()
 		foreach($result2 as $data)
 		{
 			  $wing_id=$data['user']['wing'];
+			  $user_name=$data['user']['user_name'];
 			  $flat_id=$data['user']['flat'];
 			  @$multiple_flat=$data['user']['multiple_flat'];
 		}
@@ -2915,6 +2916,19 @@ function multiple_flat()
 										
 		$this->loadmodel('user');
 		$this->user->updateAll(array('multiple_flat'=>$ar),array('user_id'=>$user_sel));
+		
+		
+///////////////  Insert code ledger Sub Accounts //////////////////////
+
+$this->loadmodel('ledger_sub_account');
+$j=$this->autoincrement('ledger_sub_account','auto_id');
+$this->ledger_sub_account->save(array('auto_id'=>$j,'ledger_id'=>34,'name'=>$user_name,'society_id' => $s_society_id,'user_id'=>$user_sel,'deactive'=>0));
+
+/////////////  End code ledger sub accounts //////////////////////////
+		
+		
+		
+		
 		?>
 		
 			<!----alert-------------->
