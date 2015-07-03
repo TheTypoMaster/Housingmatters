@@ -3473,7 +3473,7 @@ $records;
       $ac_name=$child_ex[1];
       $amt_type=$child_ex[2];
 	  $amt=$child_ex[3];
-
+      @$pen_amt=@$child_ex[4];
 
 if($group == 'Sundry Creditors Control A/c ')
 {
@@ -3531,7 +3531,7 @@ $ledger_type = 1;
 
 
 	  
-	  $table[] = array(@$ac_name,@$amt_type,@$amt,@$auto_id,@$ledger_type,@$group_id,@$group);
+	  $table[] = array(@$ac_name,@$amt_type,@$amt,@$auto_id,@$ledger_type,@$group_id,@$group,@$pen_amt);
 	  } 
       $i++;
       }
@@ -3597,6 +3597,11 @@ $date2 = $child[5];
 $date1 = date("Y-m-d", strtotime($date2));
 $date1 = new MongoDate(strtotime($date1));
 
+
+
+
+
+
 if(empty($child[5]))
 {
 $output=json_encode(array('report_type'=>'fina','text'=>'Please Select Date'));
@@ -3638,11 +3643,18 @@ else
 $output=json_encode(array('report_type'=>'fina','text'=>'Amount (Opening Balance Should be Numeric in row '.$t));
 die($output);
 }
-
+$penalty_amt = (int)$child[6];
 //$amt_type = (int)$child[2];
-$total_debit = $total_debit + $child[2];
-
-$total_credit = $total_credit + $child[3];
+$ch2 = (int)$child[2];
+$ch3 = (int)$child[3];
+if($ch2 != 0)
+{
+$total_debit = $total_debit + $child[2] + $penalty_amt;
+}
+if($ch3 != 0)
+{
+$total_credit = $total_credit + $child[3]+ $penalty_amt;
+}
 //////////////////////////////////////////////////////////////////////
 }
 
@@ -3661,6 +3673,8 @@ $debit = $child[2];
 $credit = $child[3];
 $insert = (int)$child[4];
 $date = $child[5];
+$penalty_amt = (int)$child[6];
+
 
 $opening_bal = $opening_bal + $credit - $debit;
 if($opening_bal > 0)
@@ -3724,6 +3738,32 @@ $this->loadmodel('ledger');
 $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => 'O_B', 
 "amount" => $opening_bal, "amount_category_id"=>$amount_type, "account_type" => 1, "account_id"=>$auto_id, "current_date" => $current_date,"society_id" => $s_society_id,"module_id"=>'O_B',"op_date"=>$op_date));
 $this->ledger->saveAll($multipleRowData);
+
+
+if($penalty_amt != 0)
+{
+$this->loadmodel('ledger');
+$order=array('ledger.auto_id'=> 'DESC');
+$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last22=$collection['ledger']['auto_id'];
+}
+if(empty($last22))
+{
+$k=0;
+}	
+else
+{	
+$k=$last22;
+}
+$k++; 
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => 'O_B', 
+"amount" => $penalty_amt, "amount_category_id"=>$amount_type, "account_type" => 1, "account_id"=>$auto_id, "current_date" => $current_date,"society_id" => $s_society_id,"module_id"=>'O_B',"op_date"=>$op_date,"penalty"=>"YES"));
+$this->ledger->saveAll($multipleRowData);
+}
+
 }
 
 else if(@$ledger_type == 2)
@@ -3809,6 +3849,29 @@ $multipleRowData = Array( Array("auto_id" => $l, "receipt_id"=>'O_B',
 "amount"=>$opening_bal, "amount_category_id"=>$amount_type, "account_type" => 1, "account_id"=>$k,"current_date" => $current_date,"society_id" => $s_society_id,"module_id"=>'O_B',"op_date"=>$op_date));
 $this->ledger->saveAll($multipleRowData);	
 	
+if($penalty_amt != 0)	
+{
+$this->loadmodel('ledger');
+$order=array('ledger.auto_id'=> 'DESC');
+$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last25=$collection['ledger']['auto_id'];
+}
+if(empty($last25))
+{
+$l=0;
+}	
+else
+{	
+$l=$last25;
+}
+$l++; 
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $l, "receipt_id"=>'O_B', 
+"amount"=>$penalty_amt, "amount_category_id"=>$amount_type, "account_type" => 1, "account_id"=>$k,"current_date" => $current_date,"society_id" => $s_society_id,"module_id"=>'O_B',"op_date"=>$op_date,"penalty"=>"YES"));
+$this->ledger->saveAll($multipleRowData);		
+}
 }
 else
 {

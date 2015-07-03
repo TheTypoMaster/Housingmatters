@@ -84,7 +84,7 @@ var group = $("#open_bal tr:nth-child("+i+") td:nth-child(1) select").val();
 var ac=$("#open_bal tr:nth-child("+i+") td:nth-child(2) input").val();
 var type=$("#open_bal tr:nth-child("+i+") td:nth-child(3) input").val();
 var amt=$("#open_bal tr:nth-child("+i+") td:nth-child(4) input").val();
-
+var pen =$("#open_bal tr:nth-child("+i+") td:nth-child(5) input").val();
 ar.push([group,ac,type,amt,insert,date]);
 }
 
@@ -129,7 +129,8 @@ var group = $("#open_bal tr:nth-child("+i+") td:nth-child(1) select").val();
 var ac=$("#open_bal tr:nth-child("+i+") td:nth-child(2) input").val();
 var type=$("#open_bal tr:nth-child("+i+") td:nth-child(3) input").val();
 var amt=$("#open_bal tr:nth-child("+i+") td:nth-child(4) input").val();
-ar.push([group,ac,type,amt,insert,date]);
+var pen_amt=$("#open_bal tr:nth-child("+i+") td:nth-child(5) input").val();
+ar.push([group,ac,type,amt,insert,date,pen_amt]);
 }
 
 var myJsonString = JSON.stringify(ar);
