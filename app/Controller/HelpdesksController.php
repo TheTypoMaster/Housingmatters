@@ -1672,8 +1672,7 @@ $conditions=array("user_id"=>$s_user_id);
 $result=$this->user->find('all',array('conditions'=>$conditions));
 foreach ($result as $collection) 
 { 
-
-$email=$collection['user']["email"];
+  $email=$collection['user']["email"];
 }
 
 $message_web="<div>
