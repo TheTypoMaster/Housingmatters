@@ -109,15 +109,15 @@ background-color:rgb(218, 236, 240);
 		  }
 		  
 	</script>
-<div style="overflow:auto;">
+<div style="">
 <div id="all_dir">
 
-<div style="background-color:#EFEFEF; border-top:1px solid #e6e6e6; border-bottom:1px solid #e6e6e6; padding:2px; box-shadow:5px; font-size:16px; color:#006;overflow:auto;">
+<div style="background-color:#EFEFEF; border-top:1px solid #e6e6e6; border-bottom:1px solid #e6e6e6; padding:2px; box-shadow:5px; font-size:16px; color:#006;">
      
                 <table width="100%" >
                 <tr>
   <td width="58%" style="color:#666666; font-size:24px; padding-left:10px;"><i class="icon-book"></i> Resident Directory  <span style='font-size:18px;'> (<?php echo sizeof($result_user); ?>)<span>  </td>
-                <td width="20%" valign="bottom"><select style="" id="wing_value" onchange="search_wing_record()"><option value="0">All Wing</option>
+                <td width="20%" valign="bottom"><select style="" id="wing_value" onchange="search_wing_record()" class="chosen" width="30%;"><option value="0">All Wing</option>
                 
                  <?php  
 				                                  
@@ -136,6 +136,7 @@ background-color:rgb(218, 236, 240);
               <td width="22%" valign="bottom" style="padding-top:10px;" align="right"><div class="controls"> <i class=" icon-info-sign tooltips" data-placement="bottom" data-original-title="Name of the person whom you want to search "> </i>  <input type="text" placeholder="Name"  style="" id="get_search" onkeyup="search_record()"> </div> </td>
                 </tr>
                 </table>
+				
                  </div>
 
 
