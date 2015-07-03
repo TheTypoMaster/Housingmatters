@@ -64,6 +64,10 @@ if($table_name == "cash_bank")
 {
 $module_date_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id)));	
 }
+else if($table_name == "regular_bill")
+{
+$module_date_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch10'),array('pass'=>array($table_name,$receipt_id)));	
+}
 else
 {
 $module_date_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch'),array('pass'=>array($table_name,$receipt_id)));
@@ -97,7 +101,8 @@ else if($amount_category_id == 2)
 {
 $amount_category = "Credit";
 }
-
+if($receipt_id == 'O_B')
+{ 
 if($sub_account_id == $sub_id)
 {
 if(@$op_date2 <= $m_from)
@@ -113,6 +118,7 @@ else if($amount_category_id == 2)
 {
 $opening_balance = $opening_balance + $amount_o;
 $nnn = 5;	
+}
 }
 }
 }
@@ -152,6 +158,10 @@ continue;
 if($table_name == "cash_bank")
 {
 $module_date_fetch2 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id)));	
+}
+else if($table_name == "regular_bill")
+{
+$module_date_fetch2 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch10'),array('pass'=>array($table_name,$receipt_id)));	
 }
 else
 {
@@ -273,6 +283,10 @@ if($table_name == "cash_bank")
 {
 $module_date_fetch3 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id)));   	
 }
+else if($table_name == "regular_bill")
+{
+$module_date_fetch3 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch10'),array('pass'=>array($table_name,$receipt_id)));	
+}
 else
 {
 $module_date_fetch3 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch'),array('pass'=>array($table_name,$receipt_id)));   
@@ -310,7 +324,8 @@ else if($amount_category_id == 2)
 {
 $amount_category = "Credit";		
 }
-									
+if($receipt_id == 'O_B')
+{ 									
 if($sub_account_id == $main_id)
 {
 if(@$op_date2 <= $m_from)
@@ -326,6 +341,7 @@ else if($amount_category_id == 2)
 {
 $opening_balance = $opening_balance + $amount_o;
 $nnn = 5;	
+}
 }
 }
 }
@@ -355,16 +371,19 @@ $society_id = (int)@$collection['ledger']['society_id'];
 $table_name = @$collection['ledger']['table_name'];
 $module_name = @$collection['ledger']['module_name'];
 if($table_name == "cash_bank")
-									 {
-									 $module_id = (int)$collection['ledger']['module_id'];	 
-									 }
-									 
-									 if($receipt_id == 'O_B')
-									 continue;
+{
+$module_id = (int)$collection['ledger']['module_id'];	 
+}
+if($receipt_id == 'O_B')
+continue;
 
 if($table_name == "cash_bank")
 {
 $module_date_fetch4 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id))); 	
+}
+else if($table_name == "regular_bill")
+{
+$module_date_fetch4 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch10'),array('pass'=>array($table_name,$receipt_id)));	
 }
 else
 {
@@ -536,6 +555,10 @@ if($table_name == "cash_bank")
 {
 $module_date_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id)));	
 }
+else if($table_name == "regular_bill")
+{
+$module_date_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch10'),array('pass'=>array($table_name,$receipt_id)));	
+}
 else
 {
 $module_date_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch'),array('pass'=>array($table_name,$receipt_id)));
@@ -693,6 +716,10 @@ $wing_flat = "";
 if($table_name == "cash_bank")	
 {								
 $module_date_fetch2 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id)));									
+}
+else if($table_name == "regular_bill")
+{
+$module_date_fetch2 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch10'),array('pass'=>array($table_name,$receipt_id)));	
 }
 else
 {
@@ -954,6 +981,10 @@ if($table_name == "cash_bank")
 {
 $module_date_fetch3 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id)));	
 }
+else if($table_name == "regular_bill")
+{
+$module_date_fetch3 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch10'),array('pass'=>array($table_name,$receipt_id)));	
+}
 else
 {
 $module_date_fetch3 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch'),array('pass'=>array($table_name,$receipt_id)));   
@@ -1010,15 +1041,15 @@ $amount_category = "Credit";
 									*/
 									
 									
-									if($op_date2 <= $m_from)
-									{
-									$opening_balance = $opening_balance + $op_im_cre - $op_im_deb;
-									}
-									else
-									{
-									$close = $close + $op_im_cre - $op_im_deb;
-									}
-       								} 
+if($op_date2 <= $m_from)
+{
+$opening_balance = $opening_balance + $op_im_cre - $op_im_deb;
+}
+else
+{
+$close = $close + $op_im_cre - $op_im_deb;
+}
+} 
 
 
  ?>
@@ -1117,6 +1148,10 @@ $wing_flat = "";
 if($table_name == "cash_bank")
 {
 $module_date_fetch4 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id)));	
+}
+else if($table_name == "regular_bill")
+{
+$module_date_fetch4 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch10'),array('pass'=>array($table_name,$receipt_id)));	
 }
 else
 {

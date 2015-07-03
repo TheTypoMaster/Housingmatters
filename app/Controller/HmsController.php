@@ -17203,7 +17203,20 @@ $this->loadmodel($module_name);
 $conditions=array("receipt_id" => $receipt_id,"society_id" => $s_society_id,"module_id"=>$module_id);
 return $this->$module_name->find('all',array('conditions'=>$conditions));
 }
+
+function module_main_fetch10($module_name,$receipt_id) 
+{
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
+
+$this->loadmodel($module_name);
+$conditions=array("receipt_id" => $receipt_id, "society_id" => $s_society_id, "approve_status" => 2);
+return $this->$module_name->find('all',array('conditions'=>$conditions));
+}
+
 ////////////////////// End Module Name Fetch Date (Accounts)///////////////////////////////////////
+
 
 /////////////////////////////////// Start Module Fetch (Accounts) //////////////////////////////////
 
