@@ -2709,7 +2709,7 @@ $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
 
 $this->loadmodel('regular_bill');
-$conditions=array("society_id"=> $s_society_id);
+$conditions=array("society_id"=> $s_society_id,"approve_status"=>2);
 $cursor1=$this->regular_bill->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);	
 
