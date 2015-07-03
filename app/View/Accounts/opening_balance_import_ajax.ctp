@@ -16,6 +16,7 @@
 <th>Account Name</th>
 <th>Debit</th>
 <th>Credit</th>
+<th>Penalty</th>
 <th>Delete</th>
 </tr>
 <?php
@@ -74,6 +75,25 @@ $c = (int)strcasecmp("Credit",$type);
 <td>
 <input type="text" class="m-wrap span10" value="<?php if($c == 0) { echo $data[2]; } ?>" style="background-color:white !important;"/>
 </td>
+<?php
+
+
+?>
+<td>
+<?php
+if($group_id == 34)
+{
+$pen_amt = (int)$data[7];
+?>
+<input type="text" class="m-wrap span10" value="<?php echo $pen_amt; ?>" style="background-color:white !important;" />
+<?php } else 
+{
+?>	
+<input type="hidden" value="0" />
+<?php	
+}?>
+</td>
+
 <td><a href="#" role="button" class="btn mini red delete" del="<?php echo $j; ?>"><i class="icon-remove icon-white"></i></a></td>	
 </tr>
 <?php }} ?>
@@ -81,6 +101,7 @@ $c = (int)strcasecmp("Credit",$type);
 <th colspan="2" style="text-align:right;">Total</th>
 <th id="deb"></th>
 <th id="cre"></th>
+<th></th>
 <th></th>
 </tr>
 </table>
