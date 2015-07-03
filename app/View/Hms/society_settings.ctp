@@ -34,6 +34,7 @@ foreach($result_society as $data)
 			@$user_id=$data['society']['user_id'];
 			@$society_pan=$data['society']['pan'];
 			@$society_tax=$data['society']['tex_number'];
+			@$merge_receipt=$data['society']['merge_receipt'];
 
 
 
@@ -129,10 +130,18 @@ margin-left: 13%;' >
 </tr>
 
 
+<tr>
+<td>
+<span style='color:#3B6B96;font-size: 16px;font-weight: bold;'>11. Should invoice & last receipt be merge on bill priview ? </span><br>
+<span style='font-size:12px;'> &nbsp &nbsp <p> <input type='checkbox' name='merge_receipt' value='1' <?php if($merge_receipt==1){?> checked <?php } ?>> Check this if you want to merge invoice & last receipt on bill priview.
+ </p></span>
+</td>
+</tr>
+
 
 <tr>
 <td>
-<span style='color:#3B6B96;font-size: 16px;font-weight: bold;'>11. Should notify zero amount invoice ? </span><br>
+<span style='color:#3B6B96;font-size: 16px;font-weight: bold;'>12. Should notify zero amount invoice ? </span><br>
 <span style='font-size:12px;'> &nbsp &nbsp <p> <input type='checkbox' name='account3' value='1' <?php if($account_zero_ammount==1){?> checked <?php } ?>> Check this if you want notifications (SMS and/or Email) to be sent to members when an invoice with zero outstanding and zero charges is raised.
 
  </p></span>

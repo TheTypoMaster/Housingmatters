@@ -2662,6 +2662,7 @@ $this->layout='session';
 			@$account_email=$this->request->data['account1'];
 			@$account_sms=$this->request->data['account2'];
 			@$account_zero_ammount=$this->request->data['account3'];
+			@$merge_receipt=(int)$this->request->data['merge_receipt'];
 			@$banned_word=$this->request->data['banned'];
 			@$banned_word= explode(",",$banned_word);
 			//$society_pan=$this->request->data['pan'];
@@ -2723,7 +2724,7 @@ $this->layout='session';
 			}
 			
 			$this->loadmodel('society');
-			$this->society->updateAll(array('signup'=>$signup_auto,'help_desk'=>$help_desk,'notice'=>$notice,'document'=>$document,'discussion_forum'=>$discussion_forum,'discussion_forum_email'=>$discussion_forum_email,'poll'=>$poll,'account_email'=>$account_email,'account_sms'=>$account_sms,'account_zero_ammount'=>$account_zero_ammount,'content_moderation'=>$banned_word,'family_member'=>$family_member),array('society_id'=>$s_society_id));
+			$this->society->updateAll(array('signup'=>$signup_auto,'help_desk'=>$help_desk,'notice'=>$notice,'document'=>$document,'discussion_forum'=>$discussion_forum,'discussion_forum_email'=>$discussion_forum_email,'poll'=>$poll,'account_email'=>$account_email,'account_sms'=>$account_sms,'account_zero_ammount'=>$account_zero_ammount,'content_moderation'=>$banned_word,'family_member'=>$family_member,'merge_receipt'=>$merge_receipt),array('society_id'=>$s_society_id));
 		
 	}
 	
