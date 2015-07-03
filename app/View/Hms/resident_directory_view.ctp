@@ -71,7 +71,36 @@ function substrwords($text, $maxchar, $end='...') {
 				{
 				$owner='No';
 				}
-				
+				if($da_dob==1)
+				{
+				$age_group="18-24";
+				}
+
+				if($da_dob==2)
+				{
+				$age_group="25-34";
+				}
+
+
+				if($da_dob==3)
+				{
+				$age_group="35-44";
+				}
+
+				if($da_dob==4)
+				{
+				$age_group="45-54";
+				}
+				if($da_dob==5)
+				{
+				$age_group="55-64";
+				}
+
+				if($da_dob==6)
+				{
+				$age_group="65+";
+				}
+
 				$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($c_wing_id,$c_flat_id)));			  
 				$result_society = $this->requestAction(array('controller' => 'hms', 'action' => 'society_name'),array('pass'=>array($s_society_id)));			  
 				foreach($result_society as $data)
@@ -111,11 +140,11 @@ function substrwords($text, $maxchar, $end='...') {
 					{
 						if($user_id==$c_user_id)
 						{
-						$da_dob;
+						$age_group;
 						}
 						else
 						{
-						$da_dob="*";
+						$age_group="*";
 						}
 					
 					}	
@@ -259,20 +288,20 @@ function substrwords($text, $maxchar, $end='...') {
 											
 										</tr>
 										
-										<!--<tr>
+										<tr>
                                         <td width="20%">
                                         </td>
 										<td width="30%">
-										<p style=" font-size:14px; color:#666;">Date of Birth</p>	
+										<p style=" font-size:14px; color:#666;">Age Group</p>	
                                         </td>
 										<td width="20%">
                                         </td>
                                         <td class="hidden-phone" width="30%">
-										<?php echo $da_dob ; ?>
+										<?php echo @$age_group ; ?>
                                         </td>
 											
 											
-										</tr>-->
+										</tr>
 										
 										<?php if($role_id==3) { ?>
 										<tr>
