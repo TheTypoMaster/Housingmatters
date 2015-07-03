@@ -16,10 +16,9 @@ $nnn = 1;
 if($main_id == 34 || $main_id == 15 || $main_id == 33 || $main_id == 35)
 {
 ?>
-
 <?php
 $cursor1 = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_amount'),array('pass'=>array($main_id)));
-                                    foreach ($cursor1 as $collection) 
+                               foreach ($cursor1 as $collection) 
 									{
 								    $ledger_type_name = $collection['ledger_account']['ledger_name'];	
 									}
@@ -659,7 +658,29 @@ $amount_category = "Credit";
 									 $bill_type = "Int.";  
 									 }
 									 }
-									 
+								
+/////////////////////////////////////////////////									 
+if($module_name == "Regular Bill")								 
+{									 
+$one = $this->requestAction(array('controller' => 'hms', 'action' => 'regular_bill_fetch7'),array('pass'=>array($receipt_id)));									
+foreach($one as $dddd)									 
+{
+$bill_user_id = (int)$dddd['regular_bill']['bill_for_user'];	
+}
+$two = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($bill_user_id)));									foreach($two as $ddd)
+{
+$fl_id1 = (int)$ddd['user']['flat'];	
+$wn_id1 = (int)$ddd['user']['wing'];	
+}
+
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wn_id1,$fl_id1)));									
+								 
+}
+else
+{
+$wing_flat = "";	
+}
+/////////////////////////////////////////////////////////									 
 									 
 									 
 									 if($table_name == "cash_bank")
@@ -725,7 +746,9 @@ $date = date('d-m-Y',strtotime($date));
 <tr>
 <td><?php echo $date; ?></td>
 <td><?php echo $narration; ?></td>
-<td><?php echo $module_name; ?><?php  if(!empty($pen_type)) { ?> &nbsp; (<?php echo $bill_type; ?>)<?php } ?></td>
+<td><?php echo $module_name; ?><?php  if(!empty($pen_type)) { ?> &nbsp; (<?php echo $bill_type; ?>)<?php } ?>
+&nbsp;&nbsp; <?php if(!empty($wing_flat)) { echo $wing_flat; } ?>
+</td>
 <td><?php echo $receipt_id; ?></td>
 <td><?php if($amount_category_id == 1) { $balance = $balance - $amount;   
 $amount2 = number_format($amount);
@@ -748,7 +771,9 @@ $total_credit = $total_credit + $amount;
 $closing_balance = $op_bal2 - $total_debit + $total_credit + ($close);
 ?>
 
-<?php $pen_type=""; }}}} ?>
+<?php $pen_type=""; 
+   
+}}}} ?>
 <tr>
 <th colspan="4" style="text-align:right;"><b> Total </b></th>
 
@@ -878,7 +903,7 @@ $accounts_group = $this->requestAction(array('controller' => 'hms', 'action' => 
 									foreach ($cursor3 as $collection) 
 									{
 								    $auto_id = (int)@$collection['ledger']['auto_id'];
-								 	$account_type = (int)@$collection['ledger']['account_type'];
+								 	$account_type = @$collection['ledger']['account_type'];
 									$receipt_id = @$collection['ledger']['receipt_id']; 
 									$amount_o = @$collection['ledger']['amount'];
 									$amount_category_id = (int)@$collection['ledger']['amount_category_id'];
@@ -1062,6 +1087,32 @@ $amount_category = "Credit";
 									 if($receipt_id == 'O_B')
 									 continue;
 									
+
+
+/////////////////////////////////////////////////									 
+if($module_name == "Regular Bill")								 
+{									 
+$one = $this->requestAction(array('controller' => 'hms', 'action' => 'regular_bill_fetch7'),array('pass'=>array($receipt_id)));									
+foreach($one as $dddd)									 
+{
+$bill_user_id = (int)$dddd['regular_bill']['bill_for_user'];	
+}
+$two = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($bill_user_id)));									foreach($two as $ddd)
+{
+$fl_id1 = (int)$ddd['user']['flat'];	
+$wn_id1 = (int)$ddd['user']['wing'];	
+}
+
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wn_id1,$fl_id1)));									
+					 
+}
+else
+{
+$wing_flat = "";	
+}
+/////////////////////////////////////////////////////////	
+
+
 								
 if($table_name == "cash_bank")
 {
@@ -1099,6 +1150,17 @@ $module_date_fetch4 = $this->requestAction(array('controller' => 'hms', 'action'
 									$remark = @$collection[$table_name]['remark'];
 									}
 									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
 	if($amount_category_id == 1)
 	{
 	$amount_category = "Debit";	
@@ -1124,7 +1186,9 @@ $module_date_fetch4 = $this->requestAction(array('controller' => 'hms', 'action'
 										<tr>
 											<td><?php echo $date; ?></td>
                                             <td><?php echo $narration; ?></td>
-											<td><?php echo $module_name; ?></td>
+											<td><?php echo $module_name; ?>
+                                            &nbsp;&nbsp; <?php if(!empty($wing_flat)) { echo $wing_flat; } ?>
+                                            </td>
 											<td><?php echo $receipt_id; ?></td>
 											
 											<td><?php if($amount_category_id == 1) { $balance = $balance - $amount;   
@@ -1138,7 +1202,7 @@ $module_date_fetch4 = $this->requestAction(array('controller' => 'hms', 'action'
 										
 										
 										<?php
-									  if($amount_category_id == 1)
+									    if($amount_category_id == 1)
 										{
 										$total_debit = $total_debit + $amount;
 										}
@@ -1149,7 +1213,9 @@ $module_date_fetch4 = $this->requestAction(array('controller' => 'hms', 'action'
                                         $closing_balance = $op_bal2 - $total_debit + $total_credit + ($close);
 										?>
 										
-										 <?php }}}} ?>
+										 <?php
+										
+										  }}}} ?>
 							   
 							   <tr>
                                <th colspan="4" style="text-align:right;"><b> Total </b></th>
