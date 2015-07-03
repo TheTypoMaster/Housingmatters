@@ -276,6 +276,7 @@ $amount = number_format($amount);
 <td><?php echo $narration; ?> </td>
 <td><?php echo $amount; ?></td>
 <td class="hide_at_print">
+<a href="b_receipt_view?c=<?php echo $transaction_id; ?>&m=1" target="_blank" class="btn mini yellow">View</a>
 <a href="bank_receipt_pdf?c=<?php echo $transaction_id; ?>&m=1" target="_blank" class="btn mini purple tooltips" data-placement="bottom" data-original-title="Download Pdf">Pdf</a>
 <a href="" class="btn mini black tooltips" data-placement="bottom" data-original-title="Created By:<?php echo $prepaired_by_name; ?>
 Creation Date : <?php echo $creation_date; ?>">!</a>

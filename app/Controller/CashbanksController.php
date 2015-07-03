@@ -2401,6 +2401,34 @@ $this->set('cursor2',$cursor2);
 
 
 }
+
+function b_receipt_view()
+{
+$this->layout = 'session'; //this will use the pdf.ctp layout 
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');	
+
+$module_id = (int)$this->request->query('m');
+$trns_id = (int)$this->request->query('c');
+$this->set('trns_id',$trns_id);
+$this->set('module_id',$module_id);
+
+$this->loadmodel('cash_bank');
+$conditions=array("transaction_id" => $trns_id,"module_id"=>$module_id);
+$cursor1=$this->cash_bank->find('all',array('conditions'=>$conditions));
+$this->set('cursor1',$cursor1);
+
+
+
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor2=$this->society->find('all',array('conditions'=>$conditions));
+$this->set('cursor2',$cursor2);
+
+
+
+}
 ////////////////////////////////////////// End Bank Receipt Pdf (Accounts)////////////////////////////////////
 
 /////////////////// Start Cash Bank Vali (Accounts) ////////////////////////////////////
