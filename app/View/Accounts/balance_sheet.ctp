@@ -37,7 +37,15 @@ Balance sheet view
 			$group_name=$data['accounts_group']['group_name'];
 			$auto_id=$data['accounts_group']['auto_id'];
 			$result_ledger_account = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch'),array('pass'=>array($auto_id)));
+			?>
+			<tr style="color: rgb(78, 23, 213);">
 			
+			<td colspan="4"><?php echo $group_name ; ?></td>
+			
+			</tr>
+			
+			
+			<?php 
 			
 			foreach($result_ledger_account as $ddd)
 			{
@@ -113,7 +121,7 @@ $credit=$credit+$amount;
             ?>
              <tr>
             
-            <td><?php echo $group_name; ?></td>
+            <td></td>
 			<td><?php echo $ledger_name; ?></td>
 			<td><?php echo $debit; ?></td>
 			<td><?php echo $credit; ?></td>

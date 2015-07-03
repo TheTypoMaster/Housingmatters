@@ -48,6 +48,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 <?php
 $n = 0;
+
 foreach($cursor1 as $collection)
 {
 $noc_ch = "";	
