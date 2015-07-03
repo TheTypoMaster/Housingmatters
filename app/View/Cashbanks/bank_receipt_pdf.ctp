@@ -14,6 +14,15 @@ $receiver_name = @$collection['cash_bank']['receiver_name'];
 $receipt_mode = $collection['cash_bank']['receipt_mode'];
 $sub_account = (int)$collection['cash_bank']['account_head'];
 }
+$amount = str_replace( ',', '', $amount );
+$am_in_words=ucwords($this->requestAction(array('controller' => 'hms', 'action' => 'convert_number_to_words'), array('pass' => array($amount))));
+foreach ($cursor2 as $collection) 
+{
+$society_name = $collection['society']['society_name'];
+$society_reg_no = $collection['society']['society_reg_num'];
+$society_address = $collection['society']['society_address'];
+$sig_title = $collection['society']['sig_title'];
+}
 if($member == 2)
 {
 $user_name = $receiver_name;
@@ -42,12 +51,9 @@ foreach($result2 as $collection)
 $bank_name = $collection['ledger_sub_account']['name'];
 }
                                     
-foreach ($cursor2 as $collection) 
-{
-$society_name = $collection['society']['society_name'];
-}
 
-$date = date("d-M-Y",$d_date->sec);
+$date=date("d-m-Y", strtotime($d_date));
+//$date = date("d-M-Y",$d_date->sec);
 //$words = $this->requestAction(array('controller' => 'hms', 'action'=>'convert_number_to_words'),array('pass'=>array($amount)));	
 
 
@@ -68,92 +74,73 @@ $tcpdf->AddPage();
 // Now you position and print your page content 
 // example:  
 $tcpdf->SetTextColor(0, 0, 0); 
-$tcpdf->SetFont($textfont,'B',2); 
+$tcpdf->SetFont($textfont,'B',10); 
 $tcpdf->writeHTML('
-<table border="1" width="100%">
+<table width="100%" border="1">
 <tr>
 <td>
-<br><br><br><br>
-<table border="0" width="94%">
-<tr>
-<td align="center">
-<p style="font-size:10px;">
-Receipt No:'.$receipt_no.'</p>
-</td>
-<td align="center">
-<p style="font-size:18px;">RECEIPT</p>
-</td>
-<td align="right">
-<p style="font-size:10px;">
-Date:'.$date.'
-</p>
-</td>
-</tr>
-<tr>
-<td></td>
-<td align="center">
-<p style="font-size:12px;">
-for Previous Bill 
-</p>
-</td>
-<td></td>
-</tr>
-<tr>
-<td colspan="2">
-<br><br><br><br>
-<p style="font-size:10px;">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Received with thanks from: '.$user_name.'<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rs. (words) only 
-</p>
-</td>
-<td align="center">
-<p style="font-size:10px;">
-'.$wing_flat.'
-</p>
-</td>
-</tr>
-<tr>
-<td colspan="2">
-<p style="font-size:10px;">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Via '.$receipt_mode.'
-</p>
-</td>
-<td align="center">
-<p style="font-size:10px;">
-Rs. &nbsp;&nbsp;
-'.$amount.'
-</p>
-</td>
-</tr>
-<tr>
-<td colspan="2">
-<p style="font-size:10px;">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Payment for Bill No. '.$receipt_no.' Dated '.$date.'
-</p>
-</td>
-<td align="center">
-<p style="font-size:10px;">
-Subject to realization of Cheque
-</p>
+		<table width="100%">
+			<tr>
+				<td align="center" ><span style="font-size:14px;">'.strtoupper($society_name).' SOCIETY</span></td>
+			</tr>
+			<tr>
+				<td align="center" ><span style="font-size:10px;color:rgb(100, 100, 99);">Regn# '.$society_reg_no.'</span></td>
+			</tr>
+			<tr>
+				<td align="center" ><span style="font-size:10px;color:rgb(100, 100, 99);">Regn# '.$society_address.'</span><hr/></td>
+			</tr>
+		</table>
+		<table width="100%" cellpadding="5px">
+			<tr>
+				<td>Receipt No: '.$receipt_no.'</td>
+				<td align="right">Date: '.$date.'</td>
+			</tr>
+			<tr>
+				<td>
+				Received with thanks from: '.$user_name.' '.$wing_flat.'
+				<br/>
+				Rupees '.$am_in_words.' Only
+				<br/>
+				Via '.$receipt_mode.'
+				<br/>
+				Payment for Bill No. '.$receipt_no.' Dated '.$date.'
+				</td>
+				<td></td>
+			</tr>
+		</table>
+		<hr/>
+		<table width="100%" cellpadding="5px">
+			<tr>
+				<td><span style="font-size:16px;">Rs '.$amount.'</span><br/>Subject to realization of Cheque(s)</td>
+			</tr>
+		</table>
+		<table width="100%" cellpadding="5px">
+			<tr>
+				<td width="50%"></td>
+				<td align="right">
+				<table width="100%">
+					<tr>
+						<td align="center">
+						For '.$society_name.'
+						</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+			<td width="50%"></td>
+			<td align="right">
+			<table width="100%">
+					<tr>
+						<td align="center"><br/>'.$sig_title.'</td>
+					</tr>
+				</table>
+			</td>
+			</tr>
+		</table>
 </td>
 </tr>
-<tr>
-<td colspan="2">
-</td>
-<td align="center">
-<br><br><br><Br>
-<p style="font-size:10px;">
-For:'.$society_name.'<br>
-Secretary/Treasurer
-</p>
-<br>
-</td>
-</tr>
-</table>
-</td>
-</tr>
-</table>
-');
+</table>');
 
 
 

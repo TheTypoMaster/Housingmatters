@@ -50,7 +50,7 @@ Society Setup
 	</div>
 	</form>
 </div>
-</div>
+
 <?php ///////////////////////////////////////////////////////////////////////////////////////// ?>
 <div id="url_main" style="overflow:auto;">
 <table width="100%" style="background-color:#CDD5ED;">
@@ -116,6 +116,7 @@ $flat_type_name = $collection['flat_type_name']['flat_name'];
 </div>
 </form>
 
+</div>
 </div>
 </div>
 </div>
