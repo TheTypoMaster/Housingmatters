@@ -162,7 +162,7 @@ $this->set('cursor',$cursor2);
 
 
 $this->loadmodel('ledger_sub_account');
-$conditions=array("ledger_id" => 33);
+$conditions=array("ledger_id" => 33,"society_id"=>$s_society_id);
 $cursor3=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
 $this->set('cursor3',$cursor3);
 
