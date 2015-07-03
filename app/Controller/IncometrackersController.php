@@ -4533,6 +4533,19 @@ $bill_html = $collection['regular_bill']['bill_html'];
 
 $this->set('bill_html',$bill_html);
 
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor2_society_id=$this->society->find('all',array('conditions'=>$conditions));
+$this->set('cursor2_society_id',$cursor2_society_id);
+
+
+$this->loadmodel('cash_bank');
+$conditions=array("bill_reference"=>1004,"society_id" => $s_society_id);
+$result_receipt=$this->cash_bank->find('all',array('conditions'=>$conditions,'limit'=>2));
+$this->set('result_receipt',$result_receipt);
+
+
+
 }
 ////////////////////////////////// End Regular Bill View (Accounts)//////////////////////////////////////////
 
