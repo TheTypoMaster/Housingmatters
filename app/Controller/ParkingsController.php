@@ -11,7 +11,19 @@ public $components = array(
 var $name = 'Parkings';
 
 //////////////////////////////// Parking Managment System start /////////////////////
+function parking_area_cat($parking_id)
+{
+	
+	$this->layout=Null;	
+	$this->loadmodel("parking_area");
+	$conditions=array('parking_area_id'=>$parking_id);
+	$result_parking=$this->parking_area->find('all',array('conditions'=>$conditions));
+	foreach($result_parking as $data)
+	{
+		return $data['parking_area']['parking_area_cat'];
 
+	}
+}
 function master_parking()
 {
 
@@ -144,6 +156,13 @@ function parking_system_view()
 	$conditions1=array('society_id'=>$s_society_id);
 	$result1=$this->parking->find('all',array('conditions'=>$conditions1));
 	$this->set('result_parking',$result1);
+	
+	$this->loadmodel('parking_area');
+	$conditions6=array('society_id'=>$s_society_id);
+	$result6=$this->parking_area->find('all',array('conditions'=>$conditions6));
+	$this->set('result_parking_area',$result6);
+	
+	
 	$this->loadmodel('parking');
 	$conditions2=array('society_id'=>$s_society_id,'type'=>2,'status'=>0);
 	$result2=$this->parking->find('all',array('conditions'=>$conditions2));
