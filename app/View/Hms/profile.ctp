@@ -347,7 +347,7 @@ $flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat
 										<div class="accordion-heading" style="background-color:#FFFFFF; padding-left:10px;">
 											<table width="100%">
                                         <tbody><tr>
-                                        <td width="55%"><span style="margin-left:40%; font-size:14px; color:#666;">Age</span></td>
+                                        <td width="55%"><span style="margin-left:40%; font-size:14px; color:#666;">Age Group </span></td>
                                        
                                         <td width="29%">
 																  
