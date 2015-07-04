@@ -376,6 +376,7 @@ $conditions=array("society_id" => $s_society_id,"tenant" => 1,"deactive"=>0);
 $cursor = $this->user->find('all',array('conditions'=>$conditions,'order'=>$order));
 foreach($cursor as $collection)
 {
+$multi_flat = array();
 $user_id = (int)$collection['user']['user_id'];
 $user_name = $collection['user']['user_name'];
 $flat_id = (int)$collection['user']['flat'];
@@ -383,6 +384,25 @@ $wing_id = (int)$collection['user']['wing'];
 $mobile = $collection['user']['mobile'];
 $to_mail = $collection['user']['email'];
 $wing_flat = $this->wing_flat($wing_id,$flat_id);
+$multi_flat = @$collection['user']['multiple_flat'];
+
+$rrr = (int)sizeof($multi_flat);
+if($rrr == 0)
+{
+$multi_flat[] = array($wing_id,$flat_id);	
+}
+
+for($g=0; $g<sizeof($multi_flat); $g++)
+{
+$mul_flat2 = $multi_flat[$g];
+$wing_id = (int)$mul_flat2[0];
+$flat_id = (int)$mul_flat2[1];
+
+
+
+
+
+
 $maint_ch = 0;
 
 $this->loadmodel('flat');
@@ -486,7 +506,7 @@ $income_headd2[] = $income_headd;
 ////////////////////////////////////
 //$current_date = new MongoDate(strtotime(date("Y-m-d")));
 $this->loadmodel('regular_bill');
-$conditions=array("society_id" => $s_society_id,"bill_for_user"=>$user_id,"status"=>0);
+$conditions=array("society_id" => $s_society_id,"bill_for_user"=>$user_id,"status"=>0,"flat_id"=>$flat_id);
 $cursor = $this->regular_bill->find('all',array('conditions'=>$conditions));
 foreach($cursor as $collection)
 {
@@ -690,7 +710,7 @@ unset($ussrs);
 ///////Start Bill Html Code/////////////////
 $total_amount2 = 0;	
 $this->loadmodel('regular_bill');
-$conditions=array("one_time_id"=>$one,"bill_for_user"=>$user_id);
+$conditions=array("one_time_id"=>$one,"bill_for_user"=>$user_id,"flat_id"=>$flat_id);
 $cursor=$this->regular_bill->find('all',array('conditions'=>$conditions));
 foreach($cursor as $collection)
 {
@@ -1063,6 +1083,7 @@ $this->send_email($to_mail,$from,$from_name,$subject,$html,$reply);
 }
 }
 }
+}
 else if($bill_for == 1)
 {
 $wing_arr = explode(",",$wing_arr_imp);
@@ -1074,13 +1095,30 @@ $cursor = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fe
 
 foreach($cursor as $collection)
 {
+$multi_flat = array();
 $user_id = (int)$collection['user']['user_id'];
 $user_name = $collection['user']['user_name'];
 $flat_id = (int)$collection['user']['flat'];
 $wing_id = (int)$collection['user']['wing'];
 $mobile = $collection['user']['mobile'];
 $to_mail = $collection['user']['email'];
+$multi_flat = @$collection['user']['multiple_flat'];
+
+$rrr = (int)sizeof($multi_flat);
+if($rrr == 0)
+{
+$multi_flat[] = array($wing_id,$flat_id);	
+}
+for($g=0; $g<sizeof($multi_flat); $g++)
+{
+$mul_flat2 = $multi_flat[$g];
+$wing_id = (int)$mul_flat2[0];
+$flat_id = (int)$mul_flat2[1];
+
+
+
 $wing_flat = $this->wing_flat($wing_id,$flat_id);
+
 $maint_ch = 0;
 
 
@@ -1190,7 +1228,7 @@ $income_headd2[] = $income_headd;
 //$tax_amount = round(($tax_per/100)*$total_amount);
 $current_date = date('Y-m-d');
 $this->loadmodel('regular_bill');
-$conditions=array("society_id" => $s_society_id,"bill_for_user"=>$user_id,"status"=>0);
+$conditions=array("society_id" => $s_society_id,"bill_for_user"=>$user_id,"status"=>0,"flat_id"=>$flat_id);
 $cursor = $this->regular_bill->find('all',array('conditions'=>$conditions));
 foreach($cursor as $collection)
 {
@@ -1379,7 +1417,7 @@ unset($ussrs);
 ///////Start Bill Html Code/////////////////
 	$total_amount2 = 0;	
 	$this->loadmodel('regular_bill');
-	$conditions=array("one_time_id"=>$one,"bill_for_user"=>$user_id);
+	$conditions=array("one_time_id"=>$one,"bill_for_user"=>$user_id,"flat_id"=>$flat_id);
 	$cursor=$this->regular_bill->find('all',array('conditions'=>$conditions));
 	foreach($cursor as $collection)
 	{
@@ -1922,7 +1960,7 @@ $html_mail.='</table>
 ';
 */
 ////////////End Html For mail/////////////////
-
+}
 }
 }
 ///////////////////////////////////////////////
