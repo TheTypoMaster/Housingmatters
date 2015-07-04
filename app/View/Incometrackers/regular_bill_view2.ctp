@@ -108,13 +108,15 @@ $total_ih[] = 0;
 <th>Grand Total Amount</th>
 </tr>
 <?php
+$nnnn = 5;
 foreach($cursor2 as $collection)
 {
 $bill_no = (int)@$collection['regular_bill']['receipt_id'];	
 }
 if(@$bill_no == 0)
 {
-$bill_no = 1000;	
+$bill_no = 1000;
+$nnnn = 555;	
 }
 
 $sr = 0;
@@ -128,21 +130,33 @@ if($bill_for == 2)
 {
 foreach($cursor1 as $collection)
 {
-$multi_flat = "";
-@$bill_no++;
-$sr++;
+$multi_flat = array();
+
 $user_id = (int)$collection['user']['user_id'];
 $user_name = $collection['user']['user_name'];
 $wing_id = (int)$collection['user']['wing'];
 $flat_id = (int)$collection['user']['flat'];
 $multi_flat = @$collection['user']['multiple_flat'];
 
+$rrr = (int)sizeof($multi_flat);
+if($rrr == 0)
+{
+$multi_flat[] = array($wing_id,$flat_id);	
+}
 
+for($g=0; $g<sizeof($multi_flat); $g++)
+{
+$mul_flat2 = $multi_flat[$g];
+$wing_id = (int)$mul_flat2[0];
+$flat_id = (int)$mul_flat2[1];
+
+@$bill_no++;
+$sr++;
 
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
 
 $maint_ch = 0;
-$result = $this->requestAction(array('controller' => 'hms', 'action' => 'regular_bill_fetch'),array('pass'=>array($user_id)));
+$result = $this->requestAction(array('controller' => 'hms', 'action' => 'regular_bill_fetch10'),array('pass'=>array($user_id,$flat_id)));
 foreach($result as $collection2)
 {
 $due_amount = @$collection2['regular_bill']['remaining_amount'];
@@ -151,10 +165,10 @@ $from5 = $collection2['regular_bill']['bill_daterange_from'];
 $previous_bill_amt = (int)@$collection2['regular_bill']['current_bill_amt'];
 $pen_receipt_id = (int)@$collection2['regular_bill']['receipt_id'];
 $interest_arrears = (int)@$collection2['regular_bill']['accumulated_tax'];
-$arrears = (int)@$collection2['regular_bill']['arrears_amt'];
+$arrears = (int)$collection2['regular_bill']['arrears_amt'];
 $ggg_tt = (int)@$collection2['regular_bill']['remaining_amount'];
-$reg_fl_id = (int)@$collection2['regular_bill']['flat_id'];
 }
+
 $current_date = date('Y-m-d');
 $current_date = new MongoDate(strtotime($current_date));
 
@@ -408,6 +422,7 @@ $gt_gt_amt = $gt_gt_amt + $gt_amt;
 $over_due_tt = $over_due_tt + @$due_amount;
 $arerr_penal_amt=$arerr_penal_amt+@$interest_arrears;
 }
+}
 ?>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////  
 }
@@ -420,18 +435,36 @@ $wing_id_a = (int)$wing_arr[$m];
 $cursor1 = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch3'),array('pass'=>array($wing_id_a)));
 foreach($cursor1 as $collection)
 {
-@$bill_no++;
-$sr++;
+$multi_flat = array();	
 $user_id = (int)$collection['user']['user_id'];
 $user_name = $collection['user']['user_name'];
 $wing_id = (int)$collection['user']['wing'];
 $flat_id = (int)$collection['user']['flat'];
 //$residing = (int)$collection['user']['residing'];
+$multi_flat = @$collection['user']['multiple_flat'];
+
+$rrr = (int)sizeof($multi_flat);
+if($rrr == 0)
+{
+$multi_flat[] = array($wing_id,$flat_id);	
+}
+
+for($g=0; $g<sizeof($multi_flat); $g++)
+{
+$mul_flat2 = $multi_flat[$g];
+$wing_id = (int)$mul_flat2[0];
+$flat_id = (int)$mul_flat2[1];
+
+@$bill_no++;
+$sr++;
+
+
+
 
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
 
 $maint_ch = 0;
-$result = $this->requestAction(array('controller' => 'hms', 'action' => 'regular_bill_fetch'),array('pass'=>array($user_id)));
+$result = $this->requestAction(array('controller' => 'hms', 'action' => 'regular_bill_fetch10'),array('pass'=>array($user_id,$flat_id)));
 foreach($result as $collection2)
 {
 $due_amount = @$collection2['regular_bill']['remaining_amount'];
@@ -443,6 +476,14 @@ $interest_arrears = (int)@$collection2['regular_bill']['accumulated_tax'];
 $arrears = (int)@$collection2['regular_bill']['arrears_amt'];
 $ggg_tt = (int)@$collection2['regular_bill']['remaining_amount'];
 }
+
+
+
+
+
+
+
+
 
 $current_date = date('Y-m-d');
 $current_date = new MongoDate(strtotime($current_date));
@@ -707,7 +748,7 @@ $arerr_penal_amt=$arerr_penal_amt+@$interest_arrears;
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-}}}
+}}}}
 ?>
 <tr>
 <th colspan="5" style="text-align:right;">Total</th>
