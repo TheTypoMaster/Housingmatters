@@ -80,7 +80,7 @@ echo '<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px
 				<br/>
 				Via '.$receipt_mode.'
 				<br/>
-				Payment for Bill No. '.$receipt_no.' Dated '.$date.'
+				Payment for Bill No. '.$receipt_no.' 
 				</td>
 				<td></td>
 			</tr>

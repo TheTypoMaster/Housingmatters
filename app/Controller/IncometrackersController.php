@@ -662,6 +662,49 @@ $total_amt = (int)$this->request->data['tt'.$user_id];
 $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array('status'=>1),array("society_id"=>$s_society_id,"bill_for_user"=>$user_id,"status"=>0,"flat_id"=>$flat_id));
 
+///////////////////////////////////////////////
+$opn_principal_amt = 0;
+$opn_penlty_amt = 0;
+$this->loadmodel('ledger');
+$conditions=array("society_id" => $s_society_id,"account_id" => $l_id);
+$cursor=$this->ledger->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$receipt_id = "";
+$op_date = "";
+$op_date2 = "";
+$op_amt = "";
+$pen_type="";
+
+$receipt_id = @$collection['ledger']['receipt_id'];
+
+if($receipt_id == "O_B")
+{
+$op_date = $collection['ledger']['op_date'];
+$op_date2 = date('Y-m-d',$op_date->sec);
+$op_amt = $collection['ledger']['amount'];
+@$pen_type = @$collection['ledger']['penalty'];
+if($op_date2 <= $m_from)
+{
+if($pen_type == "YES")
+{
+$opn_penlty_amt= $opn_penlty_amt + $op_amt;
+}
+else
+{
+$opn_principal_amt= $opn_principal_amt + $op_amt;
+}
+}
+}
+}
+
+/////////////////////////////////////////////////////
+
+
+
+
+
+
 
 ///////////////////////////////////
 $admin_user_id = "";
@@ -697,7 +740,7 @@ $multipleRowData = Array( Array("regular_bill_id" => $regular_bill_id,"receipt_i
 "description"=>$description,"date"=>$current_date, "society_id"=>$s_society_id,"bill_for_user"=>$user_id,
 "g_total"=>$grand_total,"bill_daterange_from"=>$m_from,"bill_daterange_to"=>$m_to,
 "bill_html"=>"","one_time_id"=>$one,"status" => 0,  
-"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "current_tax" => @$penalty_amt,"accumulated_tax"=>@$tax_arrears,"remaining_amount"=>$grand_total,"current_bill_amt" => $current_bill_amt,"arrears_amt"=>@$arrear_amt,"pay_amount"=>"", "due_amount" => @$over_due_amt,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt,"approve_status"=>1,"flat_id"=>$flat_id));
+"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "current_tax" => @$penalty_amt,"accumulated_tax"=>@$tax_arrears,"remaining_amount"=>$grand_total,"current_bill_amt" => $current_bill_amt,"arrears_amt"=>@$arrear_amt,"pay_amount"=>"", "due_amount" => @$over_due_amt,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt,"approve_status"=>1,"flat_id"=>$flat_id,"open_penlty"=>$opn_penlty_amt,"open_amt"=>$opn_principal_amt));
 $this->regular_bill->saveAll($multipleRowData);	
 
 $ussrs[]=$user_id;
@@ -728,6 +771,9 @@ $due_date2 = @$collection['regular_bill']['due_date'];
 $narration = $collection['regular_bill']['description'];
 $billing_cycle_id = (int)$collection['regular_bill']['period_id'];
 $interest_arrears = (int)$collection['regular_bill']['accumulated_tax'];
+$open_pen_amt2 = $collection['regular_bill']['open_penlty'];
+$open_princi_amt2 = $collection['regular_bill']['open_amt'];
+
 }
 
 $date_frm = date('M',strtotime($date_from));	
@@ -992,12 +1038,16 @@ $html.='</table>
 </td>
 <td valign="top">';
 $due_amt5 = $due_amt2-$interest_arrears;
+$int_show_arrears = (int)$interest_arrears - $late_amt2;
+$grand_total = $grand_total + $open_pen_amt2 + $open_princi_amt2;
+$late_amt2 = $late_amt2 + $open_pen_amt2;
+$due_amt5 = $due_amt5 +$open_princi_amt2;
 
 $total_amount3 = number_format($total_amount2);
 $due_amt4 = number_format($due_amt5);
 $late_amt3 = number_format($late_amt2);
 $grand_total2 = number_format($grand_total);
-$int_show_arrears = (int)$interest_arrears - $late_amt2;
+
 
 $int_show_arrears2 = number_format($int_show_arrears);
 
@@ -1368,6 +1418,49 @@ $total_amt = (int)$this->request->data['tt'.$user_id];
 $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array('status'=>1),array("society_id"=>$s_society_id,"bill_for_user"=>$user_id,"status"=>0,"flat_id"=>$flat_id));
 
+///////////////////////////////////////////////
+$opn_principal_amt = 0;
+$opn_penlty_amt = 0;
+$this->loadmodel('ledger');
+$conditions=array("society_id" => $s_society_id,"account_id" => $l_id);
+$cursor=$this->ledger->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$receipt_id = "";
+$op_date = "";
+$op_date2 = "";
+$op_amt = "";
+$pen_type = "";
+
+$receipt_id = @$collection['ledger']['receipt_id'];
+
+if($receipt_id == "O_B")
+{
+$op_date = $collection['ledger']['op_date'];
+$op_date2 = date('Y-m-d',$op_date->sec);
+$op_amt = $collection['ledger']['amount'];
+@$pen_type = @$collection['ledger']['penalty'];
+if($op_date2 <= $m_from)
+{
+if($pen_type == "YES")
+{
+$opn_penlty_amt= $opn_penlty_amt + $op_amt;
+}
+else
+{
+$opn_principal_amt= $opn_principal_amt + $op_amt;
+}
+}
+}
+}
+
+/////////////////////////////////////////////////////
+
+
+
+
+
+
 
 ///////////////////////////////////
 $admin_user_id = "";
@@ -1402,7 +1495,7 @@ $multipleRowData = Array( Array("regular_bill_id" => $regular_bill_id,"receipt_i
 "description"=>$description,"date"=>$current_date, "society_id"=>$s_society_id,"bill_for_user"=>$user_id,
 "g_total"=>$grand_total,"bill_daterange_from"=>$m_from,"bill_daterange_to"=>$m_to,
 "bill_html"=>"","one_time_id"=>$one,"status" => 0,  
-"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "current_tax" => @$penalty_amt,"accumulated_tax"=>@$tax_arrears,"remaining_amount"=>$grand_total,"current_bill_amt" => $current_bill_amt,"arrears_amt"=>@$arrear_amt,"pay_amount"=>"", "due_amount" => @$over_due_amt,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt,"approve_status"=>1,"flat_id"=>$flat_id));
+"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "current_tax" => @$penalty_amt,"accumulated_tax"=>@$tax_arrears,"remaining_amount"=>$grand_total,"current_bill_amt" => $current_bill_amt,"arrears_amt"=>@$arrear_amt,"pay_amount"=>"", "due_amount" => @$over_due_amt,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt,"approve_status"=>1,"flat_id"=>$flat_id,"open_penlty"=>$opn_penlty_amt,"open_amt"=>$opn_principal_amt));
 $this->regular_bill->saveAll($multipleRowData);	
 
 
@@ -1435,6 +1528,9 @@ unset($ussrs);
 	$narration = $collection['regular_bill']['description'];
 	$billing_cycle_id = (int)$collection['regular_bill']['period_id'];
 	$interest_arrears = (int)$collection['regular_bill']['accumulated_tax'];
+	$open_pen_amt2 = $collection['regular_bill']['open_penlty'];
+	$open_princi_amt2 = $collection['regular_bill']['open_amt'];
+	
 	}
 	
 $date_frm = date('M',strtotime($date_from));	
@@ -1705,11 +1801,17 @@ $html.='</table>
 <td valign="top">';
 $due_amt5 = (int)$due_amt2 - $interest_arrears;
 
+$int_show_arrears = (int)$interest_arrears-$late_amt2;
+
+$grand_total = $grand_total + $open_pen_amt2 + $open_princi_amt2;
+$late_amt2 = $late_amt2 + $open_pen_amt2;
+$due_amt5 = $due_amt5 +$open_princi_amt2;
+
 $total_amount3 = number_format($total_amount2);
 $due_amt4 = number_format($due_amt5);
 $late_amt3 = number_format($late_amt2);
 $grand_total2 = number_format($grand_total);
-$int_show_arrears = (int)$interest_arrears-$late_amt2;
+
 $int_show_arrears2 = number_format($int_show_arrears);
 
 $html.='<table border="0" style="width:100%;">

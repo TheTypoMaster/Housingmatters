@@ -69,7 +69,7 @@ echo $bill_html;
 		<br/>
 		Via <?php echo $receipt_mode; ?>
 		<br/>
-		Payment for Bill No. <?php echo $receipt_no; ?> Dated <?php echo $date; ?>
+		Payment for Bill No. <?php echo $receipt_no; ?> 
 	</div>
 	<div style="padding:5px;float:left;width:65%;">
 	<span style="font-size:16px;"><b>Rs <?php echo $amount; ?></b></span><br/>Subject to realization of Cheque(s)

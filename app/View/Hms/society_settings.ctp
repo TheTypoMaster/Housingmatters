@@ -132,8 +132,8 @@ margin-left: 13%;' >
 
 <tr>
 <td>
-<span style='color:#3B6B96;font-size: 16px;font-weight: bold;'>11. Should invoice & last receipt be merge on bill priview ? </span><br>
-<span style='font-size:12px;'> &nbsp &nbsp <p> <input type='checkbox' name='merge_receipt' value='1' <?php if($merge_receipt==1){?> checked <?php } ?>> Check this if you want to merge invoice & last receipt on bill priview.
+<span style='color:#3B6B96;font-size: 16px;font-weight: bold;'>11. Should invoice & last receipt be merge on bill ? </span><br>
+<span style='font-size:12px;'> &nbsp &nbsp <p> <input type='checkbox' name='merge_receipt' value='1' <?php if($merge_receipt==1){?> checked <?php } ?>> Check this if you want to merge invoice & last receipt on bill .
  </p></span>
 </td>
 </tr>
