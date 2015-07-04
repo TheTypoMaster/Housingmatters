@@ -153,7 +153,7 @@ $pen_receipt_id = (int)@$collection2['regular_bill']['receipt_id'];
 $interest_arrears = (int)@$collection2['regular_bill']['accumulated_tax'];
 $arrears = (int)@$collection2['regular_bill']['arrears_amt'];
 $ggg_tt = (int)@$collection2['regular_bill']['remaining_amount'];
-
+$reg_fl_id = (int)@$collection2['regular_bill']['flat_id'];
 }
 $current_date = date('Y-m-d');
 $current_date = new MongoDate(strtotime($current_date));
