@@ -1435,8 +1435,7 @@ $this->set('op_cred',$op_cred);
 
 $this->loadmodel('ledger');
 $conditions=array("society_id" => $s_society_id);
-$order=array('ledger.created'=> 'ASC');
-$cursor3=$this->ledger->find('all',array('conditions'=>$conditions,'order'=>$order));
+$cursor3=$this->ledger->find('all',array('conditions'=>$conditions));
 $this->set('cursor3',$cursor3);
 
 $this->loadmodel('society');

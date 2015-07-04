@@ -1025,7 +1025,7 @@ $html.='</div>
 <div align="center" style="color: #6F6D6D;border: solid 1px;border-top: dotted 1px;">Note: This is a computer generated bill hence no signature required.</div>
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;border: solid 1px #000;border-top: none;">
 <span>Your Society is empowered by HousingMatters - 
-Making Life Simpler !</span><br/>
+<i>"Making Life Simpler"</i></span><br/>
 <span>Email: support@housingmatters.in</span> &nbsp;|&nbsp; <span>Phone : 022-41235568</span> &nbsp;|&nbsp; <span>www.housingmatters.co.in</span></div>
 
 </div>
@@ -1717,7 +1717,7 @@ $html.='</div>
 <div align="center" style="color: #6F6D6D;border: solid 1px;border-top: dotted 1px;">Note: This is a computer generated bill hence no signature required.</div>
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;border: solid 1px #000;border-top: none;">
 <span>Your Society is empowered by HousingMatters - 
-Making Life Simpler !</span><br/>
+<i>"Making Life Simpler"</i></span><br/>
 <span>Email: support@housingmatters.in</span> &nbsp;|&nbsp; <span>Phone : 022-41235568</span> &nbsp;|&nbsp; <span>www.housingmatters.co.in</span></div>
 
 </div>

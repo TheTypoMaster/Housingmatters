@@ -264,28 +264,28 @@ $noc_amt5 = (int)$noc_amt*$multi;
 <?php
 } else { 
 ?>
-<input type="text" name="noc<?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" readonly="readonly" style="border-color:#00F;"/>
+<input type="text" name="noc<?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" readonly="readonly" style="border: none;"/>
 <?php
 } ?>
 </td>
 
 
-<td style="text-align:right;"><?php 
+<td style="text-align:right;background-color:rgb(255, 255, 216);"><?php 
 $total_amt5 = $total_amt*$multi;
 $curr_amt = $total_amt5;
 ?>
-<input type="text" name="tt<?php echo $user_id; ?>" value="<?php echo $total_amt5; ?>" class="m-wrap span12" readonly="readonly"/>
+<input type="text" name="tt<?php echo $user_id; ?>" value="<?php echo $total_amt5; ?>" class="m-wrap span12" readonly="readonly" style="border:none;"/>
 </td>
 
 
 <td style="text-align:right;"><?php if(!empty($due_amount)) { 
 $due_amount5 = $due_amount*$multi;
 ?>
-<input type="text" name="due<?php echo $user_id; ?>" value="<?php echo $due_amount5; ?>" class="m-wrap span12" readonly="readonly"/>
+<input type="text" name="due<?php echo $user_id; ?>" value="<?php echo $due_amount5; ?>" class="m-wrap span12" readonly="readonly" style="border:none;"/>
 <?php
 } else { 
 ?> 
-<input type="text" name="due<?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12" readonly="readonly"/>
+<input type="text" name="due<?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12" readonly="readonly" style="border:none;"/>
 <?php 
 } ?>
 </td>
@@ -390,15 +390,15 @@ $penalty_amt = $penalty_amt+$subpenalty5;
 ///////////////////////////////////////  End Penalty ///////////////////////	
 ?>
 <td style="text-align:right;"><input type="text" name="int_ars<?php echo $user_id; ?>" 
-value="<?php if(!empty($interest_arrears)) { echo $interest_arrears; } else { echo "0"; } ?>" readonly="readonly" class="m-wrap span12"/></td>
+value="<?php if(!empty($interest_arrears)) { echo $interest_arrears; } else { echo "0"; } ?>" readonly="readonly" class="m-wrap span12" style="border:none;"/></td>
 
 <td style="text-align:right;">
 <input type="text" name="penalty<?php echo $user_id; ?>" value="<?php echo $penalty_amt; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>"/>
 </td>
-<td style="text-align:right;"><?php
+<td style="text-align:right;background-color:rgb(220, 234, 220);;"><?php
 $gt_amt5 = $gt_amt*$multi+$penalty_amt; 
 ?>
-<input type="text" name="gtt<?php echo $user_id; ?>" value="<?php echo $gt_amt5; ?>" class="m-wrap span12" readonly="readonly"/>
+<input type="text" name="gtt<?php echo $user_id; ?>" value="<?php echo $gt_amt5; ?>" class="m-wrap span12" readonly="readonly" style="border:none;" />
 </td>
 </tr>
 <?php
