@@ -209,7 +209,7 @@ $tp = (int)$charge3[1];
 $amtt = (int)$charge3[2];
 if($tp == 2)
 {
-$ih_amt = $amtt * $sq_feet;	
+$ih_amt = round($amtt * $sq_feet);	
 }
 else
 {
@@ -254,7 +254,7 @@ $tp_id2 = $noc_charge[0];
 if($tp_id2 == 2)
 {
 $amount = $noc_charge[1];
-$noc_amt = $amount * $sq_feet;	
+$noc_amt = round($amount*$sq_feet);	
 }
 else if($tp_id2 == 4)
 {
@@ -526,7 +526,7 @@ $tp = (int)$charge3[1];
 $amtt = (int)$charge3[2];
 if($tp == 2)
 {
-$ih_amt = $amtt * $sq_feet;	
+$ih_amt = round($amtt*$sq_feet);	
 }
 else
 {
@@ -570,7 +570,7 @@ $tp_id2 = (int)$noc_charge[0];
 if($tp_id2 == 2)
 {
 $amount = $noc_charge[1];
-$noc_amt = $amount * $sq_feet;	
+$noc_amt = round($amount * $sq_feet);	
 }
 else if($tp_id2 == 4)
 {
