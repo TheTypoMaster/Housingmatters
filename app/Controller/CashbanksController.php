@@ -456,18 +456,26 @@ $conditions=array("user_id" => $user_id_sms);
 $cursor=$this->user->find('all',array('conditions'=>$conditions));
 foreach ($cursor as $collection)
 {
-$user_name_sms = $collection['user']['user_name'];
+ $user_name_sms = $collection['user']['user_name'];
 $mobile = $collection['user']['mobile'];	
 //$mobile = "9799463210";
 }
+	$sms_user_ad=$user_name_sms;
+	$sms_cash=explode(' ',$sms_user_ad);
+	 $sms_user_ad=$sms_cash[0];
+
 if($sms_id == 1)
 {
 $r_sms=$this->hms_sms_ip();
 $working_key=$r_sms->working_key;
 $sms_sender=$r_sms->sms_sender; 	
 	
-$sms='Dear '.$user_name_sms.' we have received Rs '.$amount.' on '.$date_sms.' towards Society Maintanance dues. Cheque are subject to realization,Thanks '.$society_name_sms.'';
-$sms1=str_replace(' ', '+', $sms);
+ $sms='Dear '.$sms_user_ad.', we have received Rs '.$amount.' on '.$date_sms.' towards Society Maint. dues. Cheque are subject to realization, '.$society_name_sms.'';
+ strlen($sms);
+
+ $sms1=str_replace(' ', '+', $sms);
+
+
  $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 }
 }
