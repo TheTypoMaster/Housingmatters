@@ -815,7 +815,9 @@ echo $gt_gt_amt2; ?></th>
 function calculation_generator(row_no){
 	$(document).ready(function() {
 		row_no++;
+		
 		var count = $("#ccc").val();
+		
 		var tr_count1=$('table#i_bill tr').length;
 		
 		var ih_total=0;
@@ -825,9 +827,11 @@ function calculation_generator(row_no){
 		columnIndex = columnTh.index() + 1;
 		
 		for(var c=0;c<count;c++){
-			columnIndex=columnIndex+c;
+			
+			//columnIndex=columnIndex+c;
 			
 			var qa=$('table#i_bill tr:nth-child('+row_no+') td:nth-child('+columnIndex+') input').val();
+			
 			ih_total=parseInt(ih_total)+parseInt(qa);
 			var in_hd_total=0;
 			columnIndexqw=columnIndex-4;
@@ -837,6 +841,7 @@ function calculation_generator(row_no){
 				in_hd_total=parseInt(in_hd_total)+parseInt(in_hd);
 				$('table#i_bill tr:nth-child('+tr_count1+') th:nth-child('+columnIndexqw+')').html(in_hd_total);
 			}
+			columnIndex++;
 		}
 		columnTh2 = $("table th:contains('Non Occupancy charges')");
 		columnIndex2 = columnTh2.index() + 1;
