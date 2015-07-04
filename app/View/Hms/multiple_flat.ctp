@@ -57,6 +57,7 @@ $( document ).ready(function() {
 $(".sel_wing").live('change',function(){
 var xx=$(this).val();
 var z = encodeURIComponent(xx);
+alert(z);
 $('#sel_flat11').load('multiple_flat_ajax1?vb=' + z);
 });
 });
