@@ -3351,7 +3351,7 @@ $cursor1=$this->ledger_account->find('all');
 $this->set('cursor1',$cursor1);	
 
 $this->loadmodel('ledger_sub_account');
-$conditions=array("society_id" => $s_society_id,"delete_id"=>0);
+$conditions=array("society_id" => $s_society_id);
 $cursor2=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
 $this->set('cursor2',$cursor2);	
 
