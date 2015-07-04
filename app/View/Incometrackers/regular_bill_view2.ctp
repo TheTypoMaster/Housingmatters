@@ -206,7 +206,7 @@ for($y=0; $y<sizeof($charge); $y++)
 $charge3 = $charge[$y];	
 $ih_id7 = (int)$charge3[0];
 $tp = (int)$charge3[1];
-$amtt = (int)$charge3[2];
+$amtt = $charge3[2];
 if($tp == 2)
 {
 $ih_amt = round($amtt * $sq_feet);	
@@ -523,7 +523,7 @@ for($y=0; $y<sizeof(@$charge); $y++)
 $charge3 = $charge[$y];	
 $ih_id7 = (int)$charge3[0];
 $tp = (int)$charge3[1];
-$amtt = (int)$charge3[2];
+$amtt = $charge3[2];
 if($tp == 2)
 {
 $ih_amt = round($amtt*$sq_feet);	
