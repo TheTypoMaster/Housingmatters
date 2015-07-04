@@ -4,9 +4,9 @@
 foreach($result_user as $data)
 {
   $user_name=$data['user']['user_name'];
-  $wing=$data['user']['wing'];
-  $flat=$data['user']['flat'];
-    @$multiple_flat=$data['user']['multiple_flat'];
+  $wing=(int)$data['user']['wing'];
+  $flat=(int)$data['user']['flat'];
+  @$multiple_flat=$data['user']['multiple_flat'];
 
  $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing,$flat)));
 }
