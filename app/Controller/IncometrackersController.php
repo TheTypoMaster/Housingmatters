@@ -4528,7 +4528,8 @@ $conditions=array("regular_bill_id"=>$auto_id,"society_id" => $s_society_id);
 $cursor=$this->regular_bill->find('all',array('conditions'=>$conditions));
 foreach($cursor as $collection)
 {
-$bill_html = $collection['regular_bill']['bill_html'];	
+$bill_html = $collection['regular_bill']['bill_html'];
+$receipt_id = $collection['regular_bill']['receipt_id'];
 }
 
 $this->set('bill_html',$bill_html);
@@ -4540,7 +4541,7 @@ $this->set('cursor2_society_id',$cursor2_society_id);
 
 
 $this->loadmodel('cash_bank');
-$conditions=array("bill_reference"=>1004,"society_id" => $s_society_id);
+$conditions=array("bill_reference"=>$receipt_id,"society_id" => $s_society_id,"module_id"=1);
 $result_receipt=$this->cash_bank->find('all',array('conditions'=>$conditions,'limit'=>2));
 $this->set('result_receipt',$result_receipt);
 
