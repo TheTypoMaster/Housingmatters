@@ -660,7 +660,7 @@ $total_amt = (int)$this->request->data['tt'.$user_id];
 
 
 $this->loadmodel('regular_bill');
-$this->regular_bill->updateAll(array('status'=>1),array("society_id"=>$s_society_id,"bill_for_user"=>$user_id,"status"=>0));
+$this->regular_bill->updateAll(array('status'=>1),array("society_id"=>$s_society_id,"bill_for_user"=>$user_id,"status"=>0,"flat_id"=>$flat_id));
 
 
 ///////////////////////////////////
@@ -1366,7 +1366,7 @@ $this->ledger->saveAll($multipleRowData);
 $total_amt = (int)$this->request->data['tt'.$user_id];
 
 $this->loadmodel('regular_bill');
-$this->regular_bill->updateAll(array('status'=>1),array("society_id"=>$s_society_id,"bill_for_user"=>$user_id,"status"=>0));
+$this->regular_bill->updateAll(array('status'=>1),array("society_id"=>$s_society_id,"bill_for_user"=>$user_id,"status"=>0,"flat_id"=>$flat_id));
 
 
 ///////////////////////////////////
@@ -4580,7 +4580,7 @@ $this->set('cursor2_society_id',$cursor2_society_id);
 
 $this->loadmodel('cash_bank');
 $conditions=array("bill_reference"=>$receipt_id,"society_id" => $s_society_id,"module_id"=>1);
-$result_receipt=$this->cash_bank->find('all',array('conditions'=>$conditions,'limit'=>2));
+$result_receipt=$this->cash_bank->find('all',array('conditions'=>$conditions,'limit'=>1));
 $this->set('result_receipt',$result_receipt);
 
 
