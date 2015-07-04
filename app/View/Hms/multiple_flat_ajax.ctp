@@ -8,10 +8,10 @@ foreach($result_user as $data)
   $flat=(int)$data['user']['flat'];
   @$multiple_flat=$data['user']['multiple_flat'];
 
- $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing,$flat)));
+  $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing,$flat)));
 }
 $r=explode('-',$wing_flat);
- @$wing_name=$r[0];
+  @$wing_name1=$r[0];
  @$flat_name=$r[1];
 
 ?>
@@ -69,7 +69,7 @@ foreach($result_wing as $data)
 ?>
 <tr>
 <td>
-<?php echo $wing_name ;?>
+<?php echo $wing_name1 ;?>
 </td>
 <td>
 <?php echo $flat_name ;?>

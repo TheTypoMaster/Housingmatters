@@ -16521,7 +16521,8 @@ $this->ath();
 $s_society_id=$this->Session->read('society_id');
 if(isset($this->request->data['sub'])) 
 {
-$wing_name=$this->request->data['wing_name'];
+echo $wing_name=htmlentities($this->request->data['wing_name']);
+exit;
 //$no_of_flat = (int)$this->request->data['nu'];
 $this->loadmodel('wing');
 $i=$this->autoincrement('wing','wing_id');
@@ -21656,7 +21657,7 @@ $s_user_id=$this->Session->read('user_id');
 $date=date('d-m-Y');
 $time = date(' h:i a', time());
 
-$wing = $post_data['wing'];
+$wing = htmlentities($post_data['wing']);
 
 $report = array();
 if(empty($wing)){
