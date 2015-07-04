@@ -230,7 +230,7 @@ $visible_user_id=array_unique($visible_user_id);
 ////////////////// Email Functionality code ////////////////////////
 
 $from="Support@housingmatters.in";
-$reply="Support@housingmatters.in";
+$reply="donotreply@housingmatters.in";
 $from_name="HousingMatters";
 for($k=0;$k<sizeof($da_to);$k++)
 {
