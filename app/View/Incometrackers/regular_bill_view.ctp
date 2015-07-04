@@ -52,7 +52,7 @@ $merge_receipt = @$collection2['society']['merge_receipt'];
 echo $bill_html;
 ?>
 </b>
-<?php if($merge_receipt==1){ ?>
+<?php if($merge_receipt==1 && sizeof($result_receipt)>0){ ?>
 <div style="width:70%;margin:auto;margin-top:2px;border:solid 1px;overflow: auto;background-color:#FFF;" class="bill_on_screen">
 <div align="center"><span style="border-bottom:solid 1px;font-size:15px;font-weight:bold;">RECEIPT</span></div>
 	<div style="padding:5px;overflow: auto;">
