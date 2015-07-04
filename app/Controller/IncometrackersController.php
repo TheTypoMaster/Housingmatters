@@ -660,7 +660,7 @@ $total_amt = (int)$this->request->data['tt'.$user_id];
 
 
 $this->loadmodel('regular_bill');
-$this->regular_bill->updateAll(array('status'=>1),array("society_id"=>$s_society_id,"bill_for_user"=>$user_id,"status"=>0));
+$this->regular_bill->updateAll(array('status'=>1),array("society_id"=>$s_society_id,"bill_for_user"=>$user_id,"status"=>0,"flat_id"=>$flat_id));
 
 
 ///////////////////////////////////
@@ -1366,7 +1366,7 @@ $this->ledger->saveAll($multipleRowData);
 $total_amt = (int)$this->request->data['tt'.$user_id];
 
 $this->loadmodel('regular_bill');
-$this->regular_bill->updateAll(array('status'=>1),array("society_id"=>$s_society_id,"bill_for_user"=>$user_id,"status"=>0));
+$this->regular_bill->updateAll(array('status'=>1),array("society_id"=>$s_society_id,"bill_for_user"=>$user_id,"status"=>0,"flat_id"=>$flat_id));
 
 
 ///////////////////////////////////
@@ -2782,7 +2782,7 @@ $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
 
 $this->loadmodel('regular_bill');
-$condition=array('society_id'=>$s_society_id);
+$condition=array('society_id'=>$s_society_id,"approve_status"=>2);
 $result2=$this->regular_bill->find('all',array('conditions'=>$condition)); 
 $this->set('cursor1',$result2);
 
@@ -4568,6 +4568,9 @@ foreach($cursor as $collection)
 {
 $bill_html = $collection['regular_bill']['bill_html'];
 $receipt_id = $collection['regular_bill']['receipt_id'];
+$one_time_id = (int)$collection['regular_bill']['one_time_id'];
+$user_id = (int)$collection['regular_bill']['bill_for_user'];
+$flat_id = (int)$collection['regular_bill']['flat_id'];
 }
 
 $this->set('bill_html',$bill_html);
@@ -4578,12 +4581,22 @@ $cursor2_society_id=$this->society->find('all',array('conditions'=>$conditions))
 $this->set('cursor2_society_id',$cursor2_society_id);
 
 
+$one_time_id2 = (int)$one_time_id-1;
+
+
+
+$this->loadmodel('regular_bill');
+$conditions=array("society_id" => $s_society_id,"status"=>1,"bill_for_user"=>$user_id,"flat_id"=>$flat_id,"one_time_id"=>$one_time_id2);
+$cursor=$this->regular_bill->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+@$receipt_id2 = (int)$collection['regular_bill']['receipt_id'];
+}
+
 $this->loadmodel('cash_bank');
-$conditions=array("bill_reference"=>$receipt_id,"society_id" => $s_society_id,"module_id"=>1);
-$result_receipt=$this->cash_bank->find('all',array('conditions'=>$conditions,'limit'=>2));
+$conditions=array("bill_reference"=>@$receipt_id2,"society_id" => $s_society_id,"module_id"=>1);
+$result_receipt=$this->cash_bank->find('all',array('conditions'=>$conditions,'limit'=>1));
 $this->set('result_receipt',$result_receipt);
-
-
 
 }
 ////////////////////////////////// End Regular Bill View (Accounts)//////////////////////////////////////////

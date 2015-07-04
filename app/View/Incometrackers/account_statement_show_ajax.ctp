@@ -8,7 +8,7 @@ $m_to = date("Y-m-d", strtotime($to));
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php 
 $nnn = 55;
-$result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'regular_bill_fetch2'),array('pass'=>array($value)));	
+$result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'regular_bill_fetch33'),array('pass'=>array($value)));	
 foreach($result2 as $collection)
 {
 $bill_no = (int)$collection['regular_bill']['receipt_id'];
