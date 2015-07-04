@@ -18507,7 +18507,20 @@ return $this->regular_bill->find('all',array('conditions'=>$conditions));
 ////////////////// End Regular Bill Fetch(Accounts)/////////////////////////////////////////
 
 
+////////////////// Start Regular Bill Fetch10(Accounts)/////////////////////////////////////////
+function regular_bill_fetch10($user_id,$flat_id) 
+{
+$this->layout='blank';
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
 
+$this->loadmodel('regular_bill');
+$conditions=array("bill_for_user" => $user_id, "status" => 0, "society_id"=>$s_society_id,"flat_id"=>$flat_id);
+return $this->regular_bill->find('all',array('conditions'=>$conditions));
+}
+
+////////////////// End Regular Bill Fetch10(Accounts)/////////////////////////////////////////
 
 
 
