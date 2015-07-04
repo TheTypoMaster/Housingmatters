@@ -128,12 +128,16 @@ if($bill_for == 2)
 {
 foreach($cursor1 as $collection)
 {
+$multi_flat = "";
 @$bill_no++;
 $sr++;
 $user_id = (int)$collection['user']['user_id'];
 $user_name = $collection['user']['user_name'];
 $wing_id = (int)$collection['user']['wing'];
 $flat_id = (int)$collection['user']['flat'];
+$multi_flat = @$collection['user']['multiple_flat'];
+
+
 
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
 
@@ -259,7 +263,7 @@ $noc_amt5 = $noc_amt*$multi;
 <?php
 } else { 
 ?>
-<input type="text" name="noc<?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>"/>
+<input type="text" name="noc<?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" readonly="readonly" style="border-color:#00F;"/>
 <?php
 } ?>
 </td>
@@ -547,7 +551,7 @@ $noc_amt2 = $noc_amt*$multi;
 <?php
 } else { 
 ?>
-<input type="text" name="noc<?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>"/>
+<input type="text" name="noc<?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" readonly="readonly" style="border-color:#00F;"/>
 <?php
 } 
 ?>

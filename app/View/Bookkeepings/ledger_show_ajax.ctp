@@ -167,6 +167,7 @@ else
 {
 $module_date_fetch2 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch'),array('pass'=>array($table_name,$receipt_id)));
 }
+$date = "";
 									foreach ($module_date_fetch2 as $collection) 
 									{
 									$date = @$collection[$table_name]['transaction_date'];
@@ -389,7 +390,7 @@ else
 {
 $module_date_fetch4 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch'),array('pass'=>array($table_name,$receipt_id)));   
 }
-									
+	$date = "";								
 	foreach ($module_date_fetch4 as $collection) 
 	{
 	$date = @$collection[$table_name]['transaction_date'];
@@ -725,6 +726,7 @@ else
 {
 $module_date_fetch2 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch'),array('pass'=>array($table_name,$receipt_id)));
 }
+$date = "";  
 foreach ($module_date_fetch2 as $collection) 
 {
 $date = @$collection[$table_name]['transaction_date'];
@@ -801,7 +803,7 @@ $closing_balance = $op_bal2 - $total_debit + $total_credit + ($close);
 <?php $pen_type=""; 
 
 }}}
- $date = "";  
+ 
 } ?>
 <tr>
 <th colspan="4" style="text-align:right;"><b> Total </b></th>
@@ -1159,6 +1161,7 @@ else
 {
 $module_date_fetch4 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch'),array('pass'=>array($table_name,$receipt_id)));   
 }
+$date = "";
 									
 									foreach ($module_date_fetch4 as $collection) 
 									{
@@ -1253,7 +1256,7 @@ $module_date_fetch4 = $this->requestAction(array('controller' => 'hms', 'action'
 										 <?php
 										
 										  }}}
-										  $date = "";
+										 
 										  
 										  
 										  } ?>
