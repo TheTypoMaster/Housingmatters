@@ -4541,7 +4541,7 @@ $this->set('cursor2_society_id',$cursor2_society_id);
 
 
 $this->loadmodel('cash_bank');
-$conditions=array("bill_reference"=>$receipt_id,"society_id" => $s_society_id,"module_id"=1);
+$conditions=array("bill_reference"=>$receipt_id,"society_id" => $s_society_id,"module_id"=>1);
 $result_receipt=$this->cash_bank->find('all',array('conditions'=>$conditions,'limit'=>2));
 $this->set('result_receipt',$result_receipt);
 
