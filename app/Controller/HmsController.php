@@ -2873,8 +2873,9 @@ function multiple_flat()
 		
 		  $user_sel=(int)$this->request->data['user_sel'];
 		   $wing=(int)$this->request->data['sel_wing_id'];
-		   $flat=(int)$this->request->data['sel_flat_id'];
-		
+		    $flat=(int)$this->request->data['sel_flat_id'];
+		    $noc_charg=(int)$this->request->data['noc_charg'];
+		   
 		$this->loadmodel('user');
 		$conditions =array( '$or' => array( 
 		array("wing" => $wing, "flat" => $flat,'society_id'=>$s_society_id),
@@ -2895,7 +2896,10 @@ function multiple_flat()
 			  $flat_id=$data['user']['flat'];
 			  @$multiple_flat=$data['user']['multiple_flat'];
 		}
-		
+			$this->loadmodel('flat');
+			$this->flat->updateAll(array("noc_ch_tp" =>$noc_charg),array("flat_id" =>$flat));
+			
+			
 		if(empty($multiple_flat))
 		{	
 			$ar[]=array($wing,$flat);

@@ -43,7 +43,7 @@ Select All <input type="checkbox" value="1"  style="opacity: 0;" class="chk" id=
 <th>Sr.n.</th>
 <th>User Name</th>
 <th>Unit</th>
-<th>Status (Is leased ?) </th>
+<th>Status (Is unit given on  lease ?) </th>
 </tr>
 <?php 
 //pr($result_user);

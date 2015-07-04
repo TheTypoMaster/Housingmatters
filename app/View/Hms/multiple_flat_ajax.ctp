@@ -43,6 +43,15 @@ foreach($result_wing as $data)
 </select>
 </div>
 </div>
+<div style="padding-right: 2px;float: left;">
+<select name="noc_charg">
+<option> Select noc type</option>
+<option value="1">Self Occupied</option>
+<option value="2">Leased</option>
+</select>
+</div>
+
+
 <div>
 <button type="submit" class="btn blue" >Submit </button>
 </div>
