@@ -7823,7 +7823,7 @@ www.housingmatters.co.in
 			$s_name=$data['society']['society_name'];
 			
 		}
-	  	$reply="support@housingmatters.in";
+	  	$reply="donotreply@housingmatters.in";
 		
 		$subject="[".$s_name."]- New Poll: ".$question;
 		$from_name="HousingMatters";
@@ -16299,7 +16299,7 @@ date_default_timezone_set('Asia/Kolkata');
 $date=date("d-m-Y");
 $time = date(' h:i a', time());
 $from_name="HousingMatters";
-$reply="donotreply@housingmatters.in";
+$reply="Support@housingmatters.in";
 $from="alerts@housingmatters.in";
 $this->loadmodel('society');
 $condition=array('society_id'=>$s_society_id);

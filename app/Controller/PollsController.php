@@ -493,7 +493,8 @@ function poll_add(){
 		</div >
 		</div>";
 
-		$reply="support@housingmatters.in";
+
+		$reply="donotreply@housingmatters.in";
 		$subject="[".$s_name."]- New Poll: ".$question;
 		$from_name="HousingMatters";
 		$this->loadmodel('email');
