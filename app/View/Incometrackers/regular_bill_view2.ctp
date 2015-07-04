@@ -233,6 +233,7 @@ $n++;
 }
 }
 }
+$noc_amt ="";
 if($noc_ch_id == 2)
 {
 $tp_id2 = $noc_charge[0];
@@ -257,7 +258,7 @@ $gt_amt = $gt_amt + @$due_taxamt + $total_amt + @$due_amount;
 ?>
 
 <td style="text-align:right;"><?php if(!empty($noc_amt)) { 
-$noc_amt5 = $noc_amt*$multi;
+$noc_amt5 = (int)$noc_amt*$multi;
 ?>
 <input type="text" name="noc<?php echo $user_id; ?>" value="<?php echo $noc_amt5; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>"/>
 <?php
@@ -521,6 +522,7 @@ $n++;
 }
 }
 }
+$noc_amt ="";
 if($noc_ch_id == 2)
 {
 $tp_id2 = (int)$noc_charge[0];
