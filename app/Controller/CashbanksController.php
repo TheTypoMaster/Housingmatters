@@ -296,7 +296,7 @@ $arrears_int = $collection['regular_bill']['accumulated_tax'];
 $total_due_amt = $collection['regular_bill']['total_due_amount'];
 }
 $due_amt = $remain_amt - $amount;
-$total_due_amt = $total_due_amt - $amount;
+
 if($arrears_int <= $amount)
 {
 $amount = $amount-$arrears_int;
