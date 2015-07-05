@@ -895,7 +895,7 @@ $html='<div style="width:70%;margin:auto;" class="bill_on_screen">
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'  SOCIETY</div>
 <div style="padding:5px;">
 	<div style="float:left;">
-	<img src='.$webroot_path.'logo/'.$log_img.'  height="60px" width="60px"></img>
+	<img src='.$webroot_path.'logo/'.$log_img.'  height="60px" width="60px" class="hide_at_print"></img>
 	</div>
 	<div style="float:right;" align="right">
 	<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_reg_no.'</span><br/>
@@ -1672,7 +1672,7 @@ $html='<div style="width:70%;margin:auto;"  class="bill_on_screen">
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'  SOCIETY</div>
 <div style="padding:5px;">
 	<div style="float:left;">
-	<img src='.$webroot_path.'logo/'.$log_img.' height="60px" width="60px"></img>
+	<img src='.$webroot_path.'logo/'.$log_img.' height="60px" width="60px" class="hide_at_print"></img>
 	</div>
 	<div style="float:right;" align="right">
 	<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_reg_no.'</span><br/>
