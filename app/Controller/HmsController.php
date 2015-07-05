@@ -21981,6 +21981,31 @@ function flash_output(){
 	$this->set('result_cursor1',$result_cursor1);
 }
 
+
+
+function set_ledger_sub_acc_users(){
+			$this->layout=null;
+	
+	$this->loadmodel('user');
+	$conditions=array("society_id" => 2);
+	$result_cursor1=$this->user->find('all',array('conditions'=>$conditions));
+		foreach($result_cursor1 as $data){
+			$user_id = (int)$collection['user']['user_id'];
+			$user_name = $collection['user']['user_name'];
+			
+			
+			
+			
+			
+		$auto_id = (int)$this->autoincrement('ledger_sub_accounts','auto_id');
+		$this->loadmodel('ledger_sub_accounts');
+		$this->ledger_sub_accounts->saveAll(array("auto_id" => $auto_id,"ledger_id"=> 34,"name"=>$user_name,"society_id"=>2,"user_id"=>$user_id,"deactive"=>0));
+		}
+		
+		
+		
+	}
+
 //////////////end flash mesage////////////////////////
 function convert_number_to_words($number) {
             $hyphen      = '-';
@@ -22092,5 +22117,9 @@ function convert_number_to_words($number) {
             
             return $string;
         }
+		
+		
+		
+		
 }
 ?>
