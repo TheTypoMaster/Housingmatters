@@ -663,6 +663,15 @@ $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array('status'=>1),array("society_id"=>$s_society_id,"bill_for_user"=>$user_id,"status"=>0,"flat_id"=>$flat_id));
 
 ///////////////////////////////////////////////
+if($one == 1)
+{
+$from_due2 = date('Y-m-d',strtotime(@$from_due));
+}
+else
+{
+$from_due2 = "2000-01-01";
+$from_due2 = date('Y-m-d',strtotime($from_due2));
+}
 $opn_principal_amt = 0;
 $opn_penlty_amt = 0;
 $this->loadmodel('ledger');
@@ -684,7 +693,7 @@ $op_date = $collection['ledger']['op_date'];
 $op_date2 = date('Y-m-d',$op_date->sec);
 $op_amt = $collection['ledger']['amount'];
 @$pen_type = @$collection['ledger']['penalty'];
-if($op_date2 <= $m_from)
+if($op_date2 <= $m_from && $from_due2 > $op_date2)
 {
 if($pen_type == "YES")
 {
@@ -1419,6 +1428,17 @@ $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array('status'=>1),array("society_id"=>$s_society_id,"bill_for_user"=>$user_id,"status"=>0,"flat_id"=>$flat_id));
 
 ///////////////////////////////////////////////
+if($one == 1)
+{
+$from_due2 = date('Y-m-d',strtotime(@$from_due));
+}
+else
+{
+$from_due2 = "2000-01-01";
+$from_due2 = date('Y-m-d',strtotime($from_due2));
+}
+
+
 $opn_principal_amt = 0;
 $opn_penlty_amt = 0;
 $this->loadmodel('ledger');
@@ -1440,7 +1460,7 @@ $op_date = $collection['ledger']['op_date'];
 $op_date2 = date('Y-m-d',$op_date->sec);
 $op_amt = $collection['ledger']['amount'];
 @$pen_type = @$collection['ledger']['penalty'];
-if($op_date2 <= $m_from)
+if($op_date2 <= $m_from && $from_due2 > $op_date2)
 {
 if($pen_type == "YES")
 {
