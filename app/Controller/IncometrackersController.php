@@ -3690,9 +3690,9 @@ if ($this->request->is('post'))
 
 foreach($result as $data)
 {
-	 $user_id=$data['user']['user_id'];
-	  $flat_id1=(int)$data['user']['flat'];
-	  $value =(int)@$this->request->data[$user_id];
+	  $user_id=$data['user']['user_id'];
+	   $flat_id1=(int)$data['user']['flat'];
+	   $value =(int)@$this->request->data[$user_id];
 	if($value==1)
 	{
 		
