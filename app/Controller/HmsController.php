@@ -21990,8 +21990,8 @@ function set_ledger_sub_acc_users(){
 	$conditions=array("society_id" => 2);
 	$result_cursor1=$this->user->find('all',array('conditions'=>$conditions));
 		foreach($result_cursor1 as $data){
-			$user_id = (int)$collection['user']['user_id'];
-			$user_name = $collection['user']['user_name'];
+			$user_id = (int)$data['user']['user_id'];
+			$user_name = $data['user']['user_name'];
 			
 			
 			
