@@ -44,11 +44,12 @@ foreach($result_wing as $data)
 </div>
 </div>
 <div style="padding-right: 2px;float: left;">
-<select name="noc_charg">
-<option> Select noc type</option>
+<select name="noc_charg" id="test">
+<option value=""> Select noc type</option>
 <option value="1">Self Occupied</option>
 <option value="2">Leased</option>
 </select>
+<label id="test"></label>
 </div>
 
 

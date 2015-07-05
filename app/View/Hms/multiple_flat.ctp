@@ -92,8 +92,12 @@ $.validator.setDefaults({ ignore: ":hidden:not(select)" });
 		   sel_flat_id: {
 			 required: true,
 			
-	      }
-		 
+	      },
+		  	noc_charg: {
+			required: true,
+
+			},
+
 
            		},
 			highlight: function(element) {
