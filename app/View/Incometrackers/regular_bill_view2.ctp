@@ -167,6 +167,8 @@ $pen_receipt_id = (int)@$collection2['regular_bill']['receipt_id'];
 $interest_arrears = (int)@$collection2['regular_bill']['accumulated_tax'];
 $arrears = (int)$collection2['regular_bill']['arrears_amt'];
 $ggg_tt = (int)@$collection2['regular_bill']['remaining_amount'];
+$arr_interest_for_receipt = @$collection['regular_bill']['arrear_interest'];
+
 }
 
 $current_date = date('Y-m-d');
@@ -365,7 +367,9 @@ $result7 = $this->requestAction(array('controller' => 'hms', 'action' => 'bank_r
 foreach($result7 as $collection7)
 {
 $transaction_date = $collection7['cash_bank']['transaction_date'];	
-$bank_amount = (int)$collection7['cash_bank']['amount'];	
+$bank_amount = (int)$collection7['cash_bank']['amount'];
+$bank_amount = @$bank_amount - @$arr_interest_for_receipt;
+	
 $bank_date = date('Y-m-d',strtotime(@$transaction_date));
 $due_date12 = date('Y-m-d',strtotime(@$due_date11));
 if($bank_date > $due_date12)
@@ -384,7 +388,9 @@ $result8 = $this->requestAction(array('controller' => 'hms', 'action' => 'petty_
 foreach($result8 as $collection8)
 {
 $transaction_date = $collection8['cash_bank']['transaction_date'];	
-$bank_amount = (int)$collection8['cash_bank']['amount'];	
+$bank_amount = (int)$collection8['cash_bank']['amount'];
+$bank_amount = @$bank_amount - @$arr_interest_for_receipt;
+	
 $bank_date = date('Y-m-d',strtotime(@$transaction_date));
 $due_date12 = date('Y-m-d',strtotime(@$due_date11));
 if($bank_date > $due_date12)
@@ -475,6 +481,7 @@ $pen_receipt_id = (int)@$collection2['regular_bill']['receipt_id'];
 $interest_arrears = (int)@$collection2['regular_bill']['accumulated_tax'];
 $arrears = (int)@$collection2['regular_bill']['arrears_amt'];
 $ggg_tt = (int)@$collection2['regular_bill']['remaining_amount'];
+$arr_interest_for_receipt = @$collection['regular_bill']['arrear_interest'];
 }
 
 
@@ -681,7 +688,9 @@ $result7 = $this->requestAction(array('controller' => 'hms', 'action' => 'bank_r
 foreach($result7 as $collection7)
 {
 $transaction_date = $collection7['cash_bank']['transaction_date'];	
-$bank_amount = (int)$collection7['cash_bank']['amount'];	
+$bank_amount = (int)$collection7['cash_bank']['amount'];
+$bank_amount =$bank_amount-@$arr_interest_for_receipt;
+	
 $bank_date = date('Y-m-d',strtotime(@$transaction_date));
 $due_date12 = date('Y-m-d',strtotime(@$due_date11));
 if($bank_date > $due_date12)
@@ -700,7 +709,9 @@ $result8 = $this->requestAction(array('controller' => 'hms', 'action' => 'petty_
 foreach($result8 as $collection8)
 {
 $transaction_date = $collection8['cash_bank']['transaction_date'];	
-$bank_amount = (int)$collection8['cash_bank']['amount'];	
+$bank_amount = (int)$collection8['cash_bank']['amount'];
+$bank_amount =$bank_amount-@$arr_interest_for_receipt;
+	
 $bank_date = date('Y-m-d',strtotime(@$transaction_date));
 $due_date12 = date('Y-m-d',strtotime(@$due_date11));
 if($bank_date > $due_date12)
