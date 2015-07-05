@@ -1053,6 +1053,7 @@ $html.='<tr>
 $html.='</table>
 </td>
 <td valign="top">';
+
 $due_amt5 = $due_amt2-$interest_arrears;
 $int_show_arrears = $interest_arrears - $late_amt2;
 

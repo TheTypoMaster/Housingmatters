@@ -293,8 +293,10 @@ foreach ($cursor as $collection)
 $remain_amt = $collection['regular_bill']['remaining_amount'];
 $arrears_amt = (int)$collection['regular_bill']['arrears_amt'];
 $arrears_int = $collection['regular_bill']['accumulated_tax'];
+$total_due_amt = $collection['regular_bill']['total_due_amount'];
 }
 $due_amt = $remain_amt - $amount;
+$total_due_amt = $total_due_amt - $amount;
 if($arrears_int <= $amount)
 {
 $amount = $amount-$arrears_int;
@@ -319,12 +321,12 @@ $due_amt = $remain_amt - $amount;
 if($due_amt == 0)
 {
 $this->loadmodel('regular_bill');
-$this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"status" => 1),array("receipt_id" => $bill_no));
+$this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"status" => 1,"total_due_amount"=>$total_due_amt),array("receipt_id" => $bill_no));
 }
 else
 {
 $this->loadmodel('regular_bill');
-$this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"status" => 0),array("receipt_id" => $bill_no));
+$this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"status" => 0,"total_due_amount"=>$total_due_amt),array("receipt_id" => $bill_no));
 }
 }		
 else if($member_id == 2)
@@ -3262,8 +3264,10 @@ foreach ($cursor as $collection)
 $remain_amt = (int)$collection['regular_bill']['remaining_amount'];
 $arrears_amt = (int)$collection['regular_bill']['arrears_amt'];
 $arrears_int = $collection['regular_bill']['accumulated_tax'];
+$total_due_amt = $collection['regular_bill']['total_due_amount'];
 }
 $due_amt = $remain_amt - $amt;
+$total_due_amt = $total_due_amt-$amt;
 if($arrears_int <= $amt)
 {
 $amt = $amt-$arrears_int;
@@ -3286,12 +3290,12 @@ $arrears_amt = (int)$arrears_amt - $amt;
 if($due_amt == 0)
 {
 $this->loadmodel('regular_bill');
-$this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"status" => 1),array("receipt_id" => $bill_receipt));
+$this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"status" => 1,"total_due_amount"=>$total_due_amt),array("receipt_id" => $bill_receipt));
 }
 else
 {
 $this->loadmodel('regular_bill');
-$this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"status" => 0),array("receipt_id" => $bill_receipt));
+$this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"status" => 0,"total_due_amount"=>$total_due_amt),array("receipt_id" => $bill_receipt));
 }
 }
 
