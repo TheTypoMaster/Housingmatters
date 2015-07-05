@@ -663,14 +663,16 @@ $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array('status'=>1),array("society_id"=>$s_society_id,"bill_for_user"=>$user_id,"status"=>0,"flat_id"=>$flat_id));
 
 ///////////////////////////////////////////////
-if($one == 1)
+if($one > 1)
 {
 $from_due2 = date('Y-m-d',strtotime(@$from_due));
 }
 else
 {
+echo "yes";
 $from_due2 = "2000-01-01";
-$from_due2 = date('Y-m-d',strtotime($from_due2));
+echo $from_due2 = date('Y-m-d',strtotime($from_due2));
+
 }
 $opn_principal_amt = 0;
 $opn_penlty_amt = 0;
@@ -693,8 +695,10 @@ $op_date = $collection['ledger']['op_date'];
 $op_date2 = date('Y-m-d',$op_date->sec);
 $op_amt = $collection['ledger']['amount'];
 @$pen_type = @$collection['ledger']['penalty'];
-if($op_date2 <= $m_from && $from_due2 > $op_date2)
+if($op_date2 <= $m_from && $from_due2 < $op_date2)
 {
+
+
 if($pen_type == "YES")
 {
 $opn_penlty_amt= $opn_penlty_amt + $op_amt;
@@ -703,7 +707,7 @@ else
 {
 $opn_principal_amt= $opn_principal_amt + $op_amt;
 }
-}
+} 
 }
 }
 
@@ -725,8 +729,11 @@ $wing_flat = $this->wing_flat($wing_id,$flat_id);
 
 $current_date = date('Y-m-d');
 $current_bill_amt = (int)$this->request->data['tt'.$user_id];
-@$tax_arrears = (int)@$tax_arrears + @$penalty_amt;
-@$arrear_amt = @$arrear_amt + @$pr_amt;
+@$tax_arrears = (int)@$tax_arrears + @$penalty_amt + $opn_penlty_amt;
+@$arrear_amt = @$arrear_amt + @$pr_amt + $opn_principal_amt;
+@$total_due_amount = $total_due_amount + $opn_principal_amt+$opn_penlty_amt;
+@$grand_total = $grand_total+$opn_principal_amt+$opn_penlty_amt;
+
 //////////////////////////////////////////////////////////////
 $this->loadmodel('regular_bill');
 $order=array('regular_bill.receipt_id'=> 'DESC');
@@ -1047,10 +1054,9 @@ $html.='</table>
 </td>
 <td valign="top">';
 $due_amt5 = $due_amt2-$interest_arrears;
-$int_show_arrears = (int)$interest_arrears - $late_amt2;
-$grand_total = $grand_total + $open_pen_amt2 + $open_princi_amt2;
-$late_amt2 = $late_amt2 + $open_pen_amt2;
-$due_amt5 = $due_amt5 +$open_princi_amt2;
+$int_show_arrears = $interest_arrears - $late_amt2;
+
+
 
 $total_amount3 = number_format($total_amount2);
 $due_amt4 = number_format($due_amt5);
@@ -1428,7 +1434,7 @@ $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array('status'=>1),array("society_id"=>$s_society_id,"bill_for_user"=>$user_id,"status"=>0,"flat_id"=>$flat_id));
 
 ///////////////////////////////////////////////
-if($one == 1)
+if($one > 1)
 {
 $from_due2 = date('Y-m-d',strtotime(@$from_due));
 }
@@ -1458,9 +1464,10 @@ if($receipt_id == "O_B")
 {
 $op_date = $collection['ledger']['op_date'];
 $op_date2 = date('Y-m-d',$op_date->sec);
+$op_date2 = date('Y-m-d',strtotime($op_date2));
 $op_amt = $collection['ledger']['amount'];
 @$pen_type = @$collection['ledger']['penalty'];
-if($op_date2 <= $m_from && $from_due2 > $op_date2)
+if($op_date2 <= $m_from && $from_due2 < $op_date2)
 {
 if($pen_type == "YES")
 {
@@ -1491,8 +1498,10 @@ $regular_bill_id = $this->autoincrement('regular_bill','regular_bill_id');
 $wing_flat = $this->wing_flat($wing_id,$flat_id);
 
 $current_bill_amt = (int)$this->request->data['tt'.$user_id];
-@$tax_arrears = (int)$tax_arrears + @$penalty_amt;
-@$arrear_amt = @$arrear_amt + @$pr_amt;
+@$tax_arrears = (int)$tax_arrears + @$penalty_amt+$opn_penlty_amt;
+@$arrear_amt = @$arrear_amt + @$pr_amt+$opn_principal_amt;
+@$total_due_amount = $total_due_amount+$opn_principal_amt+$opn_penlty_amt;
+@$grand_total = $grand_total+$opn_principal_amt+$opn_penlty_amt;
 
 $this->loadmodel('regular_bill');
 $order=array('regular_bill.receipt_id'=> 'DESC');
@@ -1820,12 +1829,8 @@ $html.='</table>
 </td>
 <td valign="top">';
 $due_amt5 = (int)$due_amt2 - $interest_arrears;
-
 $int_show_arrears = (int)$interest_arrears-$late_amt2;
 
-$grand_total = $grand_total + $open_pen_amt2 + $open_princi_amt2;
-$late_amt2 = $late_amt2 + $open_pen_amt2;
-$due_amt5 = $due_amt5 +$open_princi_amt2;
 
 $total_amount3 = number_format($total_amount2);
 $due_amt4 = number_format($due_amt5);
