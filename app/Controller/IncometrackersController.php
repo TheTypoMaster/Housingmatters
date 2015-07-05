@@ -669,10 +669,10 @@ $from_due2 = date('Y-m-d',strtotime(@$from_due));
 }
 else
 {
-echo "yes";
 $from_due2 = "2000-01-01";
-echo $from_due2 = date('Y-m-d',strtotime($from_due2));
+$from_due2 = date('Y-m-d',strtotime($from_due2));
 $arrear_amt = 0;
+$tax_arrears = 0;
 }
 $opn_principal_amt = 0;
 $opn_penlty_amt = 0;
@@ -1443,6 +1443,7 @@ else
 $from_due2 = "2000-01-01";
 $from_due2 = date('Y-m-d',strtotime($from_due2));
 $arrear_amt = 0;
+$tax_arrears = 0;
 }
 
 
