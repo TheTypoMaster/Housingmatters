@@ -756,7 +756,7 @@ $multipleRowData = Array( Array("regular_bill_id" => $regular_bill_id,"receipt_i
 "description"=>$description,"date"=>$current_date, "society_id"=>$s_society_id,"bill_for_user"=>$user_id,
 "g_total"=>$grand_total,"bill_daterange_from"=>$m_from,"bill_daterange_to"=>$m_to,
 "bill_html"=>"","one_time_id"=>$one,"status" => 0,  
-"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "current_tax" => @$penalty_amt,"accumulated_tax"=>@$tax_arrears,"remaining_amount"=>$grand_total,"current_bill_amt" => $current_bill_amt,"arrears_amt"=>@$arrear_amt,"pay_amount"=>"", "due_amount" => @$over_due_amt,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt,"approve_status"=>1,"flat_id"=>$flat_id,"open_penlty"=>$opn_penlty_amt,"open_amt"=>$opn_principal_amt));
+"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "current_tax" => @$penalty_amt,"accumulated_tax"=>@$tax_arrears,"remaining_amount"=>$grand_total,"current_bill_amt" => $current_bill_amt,"arrears_amt"=>@$arrear_amt,"pay_amount"=>"", "due_amount" => @$over_due_amt,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt,"approve_status"=>1,"flat_id"=>$flat_id,"open_penlty"=>$opn_penlty_amt,"open_amt"=>$opn_principal_amt,"arrear_interest"=>@$tax_arrears));
 $this->regular_bill->saveAll($multipleRowData);	
 
 $ussrs[]=$user_id;
@@ -789,6 +789,8 @@ $billing_cycle_id = (int)$collection['regular_bill']['period_id'];
 $interest_arrears = (int)$collection['regular_bill']['accumulated_tax'];
 $open_pen_amt2 = $collection['regular_bill']['open_penlty'];
 $open_princi_amt2 = $collection['regular_bill']['open_amt'];
+$amount_arrears = $collection['regular_bill']['arrears_amt'];
+$remain_amount = $collection['regular_bill']['remaining_amount'];
 
 }
 
@@ -1060,11 +1062,9 @@ $int_show_arrears = $interest_arrears - $late_amt2;
 
 
 $total_amount3 = number_format($total_amount2);
-$due_amt4 = number_format($due_amt5);
+$due_amt4 = number_format($amount_arrears);
 $late_amt3 = number_format($late_amt2);
-$grand_total2 = number_format($grand_total);
-
-
+$grand_total2 = number_format($remain_amount);
 $int_show_arrears2 = number_format($int_show_arrears);
 
 $html.='<table border="0" style="width:100%;">
@@ -1527,7 +1527,7 @@ $multipleRowData = Array( Array("regular_bill_id" => $regular_bill_id,"receipt_i
 "description"=>$description,"date"=>$current_date, "society_id"=>$s_society_id,"bill_for_user"=>$user_id,
 "g_total"=>$grand_total,"bill_daterange_from"=>$m_from,"bill_daterange_to"=>$m_to,
 "bill_html"=>"","one_time_id"=>$one,"status" => 0,  
-"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "current_tax" => @$penalty_amt,"accumulated_tax"=>@$tax_arrears,"remaining_amount"=>$grand_total,"current_bill_amt" => $current_bill_amt,"arrears_amt"=>@$arrear_amt,"pay_amount"=>"", "due_amount" => @$over_due_amt,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt,"approve_status"=>1,"flat_id"=>$flat_id,"open_penlty"=>$opn_penlty_amt,"open_amt"=>$opn_principal_amt));
+"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "current_tax" => @$penalty_amt,"accumulated_tax"=>@$tax_arrears,"remaining_amount"=>$grand_total,"current_bill_amt" => $current_bill_amt,"arrears_amt"=>@$arrear_amt,"pay_amount"=>"", "due_amount" => @$over_due_amt,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt,"approve_status"=>1,"flat_id"=>$flat_id,"open_penlty"=>$opn_penlty_amt,"open_amt"=>$opn_principal_amt,"arrear_interest"=>@$tax_arrears));
 $this->regular_bill->saveAll($multipleRowData);	
 
 
@@ -1562,7 +1562,8 @@ unset($ussrs);
 	$interest_arrears = (int)$collection['regular_bill']['accumulated_tax'];
 	$open_pen_amt2 = $collection['regular_bill']['open_penlty'];
 	$open_princi_amt2 = $collection['regular_bill']['open_amt'];
-	
+	$arrears_amt=$collection['regular_bill']['arrears_amt'];
+	$remain_amount = $collection['regular_bill']['remaining_amount'];
 	}
 	
 $date_frm = date('M',strtotime($date_from));	
@@ -1831,14 +1832,14 @@ $html.='<tr>
 $html.='</table>
 </td>
 <td valign="top">';
-$due_amt5 = (int)$due_amt2 - $interest_arrears;
+//$due_amt5 = (int)$due_amt2 - $interest_arrears;
 $int_show_arrears = (int)$interest_arrears-$late_amt2;
 
 
 $total_amount3 = number_format($total_amount2);
-$due_amt4 = number_format($due_amt5);
+$due_amt4 = number_format($arrears_amt);
 $late_amt3 = number_format($late_amt2);
-$grand_total2 = number_format($grand_total);
+$grand_total2 = number_format($remain_amount);
 
 $int_show_arrears2 = number_format($int_show_arrears);
 
