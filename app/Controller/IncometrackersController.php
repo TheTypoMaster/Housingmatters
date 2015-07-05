@@ -119,7 +119,7 @@ $to = date('Y-m-d', strtotime("-1 days", strtotime($to)));
 }
 else if($period_id == 3)
 {
-$to = date('Y-m-d', strtotime("+4 months", strtotime($from)));
+$to = date('Y-m-d', strtotime("+3 months", strtotime($from)));
 $to = date('Y-m-d', strtotime("-1 days", strtotime($to)));
 }
 else if($period_id == 4)
@@ -327,7 +327,7 @@ $multi = 2;
 }
 if($p_id == 3)
 {
-$multi = 4;
+$multi = 3;
 }
 if($p_id == 4)
 {

@@ -10,7 +10,7 @@ $multi = 2;
 }
 if($p_id == 3)
 {
-$multi = 4;
+$multi = 3;
 }
 if($p_id == 4)
 {
