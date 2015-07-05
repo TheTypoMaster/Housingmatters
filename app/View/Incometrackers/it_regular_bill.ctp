@@ -425,7 +425,7 @@ $(document).ready(function(){
 		}
 		else if(per_tp == 3)
 		{
-		var to1 = new Date(date2).addMonths(4);  //
+		var to1 = new Date(date2).addMonths(3);  //
 		to1 = to1.setDate(to1.getDate()-1);
 		to1 =  new Date(to1);
 		var to1 = to1.toString("dd-MM-yyyy");
