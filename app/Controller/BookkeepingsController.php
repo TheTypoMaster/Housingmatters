@@ -1511,7 +1511,7 @@ if(empty($date3))
 $output = json_encode(array('type'=>'error', 'text' => 'Please Select Transaction Date'));
 die($output);
 }
-
+$trans_date = date('Y-m-d',strtotime($date3));
 $date4 = date("Y-m-d", strtotime($date3));
 $date4 = new MongoDate(strtotime($date4));
 $cnnn = 55;
@@ -1673,7 +1673,7 @@ $ii=$last;
 $ii++;
 $this->loadmodel('journal');
 $multipleRowData = Array( Array("auto_id" => $ii, "receipt_id" => $receipt_no, "account_type" => 1, 
-"ledger_type_id" => $ledger,"user_id" => $ledger_sub, "transaction_date" => $date4, 
+"ledger_type_id" => $ledger,"user_id" => $ledger_sub, "transaction_date" => $trans_date, 
 "current_date" => $current_date, "amount" => $amount, "amount_category_id" => $amount_category_id, "remark" => $desc ,
 "society_id" => $s_society_id,"approver" => $s_user_id));
 $this->journal->saveAll($multipleRowData);
@@ -1736,7 +1736,7 @@ $ii=$last;
 $ii++;
 $this->loadmodel('journal');
 $multipleRowData = Array( Array("auto_id" => $ii, "receipt_id" => $receipt_no, "account_type" => 2, "ledger_type_id" => $ledger,
-"user_id" => $ledger, "transaction_date" => $date4, "current_date" => $current_date, "amount" => $amount, 
+"user_id" => $ledger, "transaction_date" => $trans_date, "current_date" => $current_date, "amount" => $amount, 
 "amount_category_id" => $amount_category_id, "remark" => $desc , "society_id" => $s_society_id,"approver" => $s_user_id));
 $this->journal->saveAll($multipleRowData);
 
