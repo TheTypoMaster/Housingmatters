@@ -671,17 +671,27 @@ $amount_category = "Credit";
                                      $table_name = @$collection['ledger']['table_name'];
 									 $module_name = @$collection['ledger']['module_name'];
 									 $pen_type = @$collection['ledger']['penalty'];
-									 if(!empty($pen_type))
-									 {
-									 if($pen_type == "NO")
-									 {
-									 $bill_type = "Maint."; 	 
-									 }
-									 else
-									 {
-									 $bill_type = "Int.";  
-									 }
-									 }
+									 $op_date = @$collection['ledger']['op_date'];
+									if($receipt_id == "O_B")
+									{
+									$op_date2 = date('Y-m-d',$op_date->sec);	
+									}
+									
+									
+									
+if($receipt_id != "O_B")
+{								
+if(!empty($pen_type))
+{
+if($pen_type == "NO")
+{
+$bill_type = "Maint."; 	 
+}
+else
+{
+$bill_type = "Int.";  
+}
+}
 								
 /////////////////////////////////////////////////									 
 if($module_name == "Regular Bill")								 
@@ -707,12 +717,11 @@ $wing_flat = "";
 /////////////////////////////////////////////////////////									 
 									 
 									 
-									 if($table_name == "cash_bank")
-									 {
-									 $module_id = (int)$collection['ledger']['module_id']; 
-									 }
-									 if($receipt_id == 'O_B')
-									 continue;
+if($table_name == "cash_bank")
+{
+$module_id = (int)$collection['ledger']['module_id']; 
+}
+
 									
 if($table_name == "cash_bank")	
 {								
@@ -753,7 +762,7 @@ $narration = @$collection[$table_name]['description'];
 }
 $remark = @$collection[$table_name]['remark'];
 }
-
+}
 
 if($amount_category_id == 1)
 {
@@ -802,7 +811,48 @@ $closing_balance = $op_bal2 - $total_debit + $total_credit + ($close);
 
 <?php $pen_type=""; 
 
-}}}
+}}
+else
+{
+if(@$op_date2 >= $m_from && @$op_date2 <= $m_to)
+{
+if($account_type == 1)
+{
+$op_date3 = date('d-m-Y',strtotime($op_date2));
+?>
+<tr>
+<td><?php echo $op_date3; ?></td>
+<td>Opening Balance</td>
+<td>Opening Balance</td>
+<td>Opening Balance</td>
+<td><?php if($amount_category_id == 1) { $balance = $balance - $amount;   
+$amount2 = number_format($amount);
+echo $amount2; } else { echo "-"; } ?></td>
+<td><?php if($amount_category_id == 2) { $balance = $balance + $amount;  
+$amount3 = number_format($amount);
+echo $amount3; } else { echo "-"; } ?></td>
+</tr>
+<?php
+if($amount_category_id == 1)
+{
+$total_debit = $total_debit + $amount;
+}
+else if($amount_category_id == 2)
+{
+$total_credit = $total_credit + $amount;
+}
+$closing_balance = $op_bal2 - $total_debit + $total_credit;
+?>
+		
+<?php	
+}
+}
+}
+
+
+
+
+}
  
 } ?>
 <tr>
@@ -1114,16 +1164,20 @@ $close = $close + $op_im_cre - $op_im_deb;
 									 $society_id = (int)@$collection['ledger']['society_id'];
                                      $table_name = @$collection['ledger']['table_name'];                                     
 									 $module_name = @$collection['ledger']['module_name'];
+									 $op_date = @$collection['ledger']['op_date'];
 									 if($table_name == "cash_bank")
 									 {
 									 $module_id = $collection['ledger']['module_id'];	 
 									 }
 									 
-									 if($receipt_id == 'O_B')
-									 continue;
+									if($receipt_id == 'O_B')
+									{
+									$op_date2 = date('Y-m-d',$op_date->sec);
+									}
 									
 
-
+if($receipt_id != "O_B")
+{
 /////////////////////////////////////////////////									 
 if($module_name == "Regular Bill")								 
 {									 
@@ -1195,7 +1249,7 @@ $date = "";
 									
 									
 									
-									
+}
 									
 									
 									
@@ -1255,7 +1309,69 @@ $date = "";
 										
 										 <?php
 										
-										  }}}
+										  }}
+										  else
+										  {
+										if(@$op_date2 >= $m_from && @$op_date2 <= $m_to)
+										{
+										if($account_type == 2)
+										{
+											$op_date3 = date('d-m-Y',strtotime($op_date2));
+										?>	
+											
+										<tr>
+										<td><?php echo $op_date3; ?></td>
+										<td>Opening Balance</td>
+										<td>Opening Balance
+										</td>
+										<td>Opening Balance</td>
+										
+										<td><?php if($amount_category_id == 1) { $balance = $balance - $amount;   
+										$amount2 = number_format($amount);
+										echo $amount2; } else { echo "-"; } ?></td>
+										<td><?php if($amount_category_id == 2) { $balance = $balance + $amount;   
+										$amount3 = number_format($amount);
+										echo $amount3; } else { echo "-"; } ?></td>
+										</tr>
+										
+										
+										<?php
+									    if($amount_category_id == 1)
+										{
+										$total_debit = $total_debit + $amount;
+										}
+										else if($amount_category_id == 2)
+										{
+										$total_credit = $total_credit + $amount;
+										}
+                                        $closing_balance = $op_bal2 - $total_debit + $total_credit;
+										?>
+										
+										
+										
+										
+										
+										
+										
+										
+										<?php	
+											
+											
+											
+											
+											}}
+											  
+										  }
+										  
+										  
+										  
+										  
+										  
+										  
+										  
+										  
+										  
+										  }
 										 
 										  
 										  
