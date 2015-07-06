@@ -38,13 +38,18 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <div align="right">
 Select All <input type="checkbox" value="1"  style="opacity: 0;" class="chk" id="1">
 </div>
-<table class="table table-striped table-bordered">
+<div style="background-color: #fff;">
+<br/>
+<table class="table table-striped table-bordered dataTable" id="sample_1" aria-describedby="sample_1_info" >
+<thead>
 <tr>
 <th>Sr.n.</th>
 <th>User Name</th>
 <th>Unit</th>
 <th>Is unit given on  lease ?</th>
 </tr>
+</thead>
+<tbody>
 <?php 
 //pr($result_user);
 $i=0;
@@ -83,7 +88,9 @@ foreach($noc_flat as $dafa)
 }
 
 ?>
+</tbody>
 </table>
+</div>
 	<div class="">
 	<button type="submit" class="btn blue"><i class="icon-ok"></i> Update</button>
 
