@@ -21,6 +21,8 @@
 </tr>
 <?php
 $j=0;
+$tt_debit = 0;
+$tt_credit = 0;
 ?>
 <?php foreach($table as $data){ 
 $amt_type1 = "";
@@ -69,11 +71,13 @@ $auto_id = (int)$data[3];
 <?php
 $e = (int)strcasecmp("Debit",$type);
 $c = (int)strcasecmp("Credit",$type);
+$pen_amt5 = (int)$data[7];
 ?>
-<input type="text" class="m-wrap span10" value="<?php if($e == 0) { echo $data[2]; } ?>" style="background-color:white !important;"/>
+<input type="text" class="m-wrap span10" value="<?php if($e == 0) { echo $data[2]; $tt_debit = $tt_debit + $data[2] + $pen_amt5;
+} ?>" style="background-color:white !important;"/>
 </td>
 <td>
-<input type="text" class="m-wrap span10" value="<?php if($c == 0) { echo $data[2]; } ?>" style="background-color:white !important;"/>
+<input type="text" class="m-wrap span10" value="<?php if($c == 0) { echo $data[2]; $tt_credit = $tt_credit + $data[2] + $pen_amt5;} ?>" style="background-color:white !important;"/>
 </td>
 <?php
 
@@ -99,8 +103,8 @@ $pen_amt = (int)$data[7];
 <?php }} ?>
 <tr>
 <th colspan="2" style="text-align:right;">Total</th>
-<th id="deb"></th>
-<th id="cre"></th>
+<th id="deb"><?php echo $tt_debit; ?></th>
+<th id="cre"><?php echo $tt_credit; ?></th>
 <th></th>
 <th></th>
 </tr>
