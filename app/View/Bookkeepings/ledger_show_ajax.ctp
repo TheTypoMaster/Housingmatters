@@ -817,7 +817,7 @@ $total_credit = $total_credit + $amount;
 }}
 else 
 {
-if(@$op_date2 >= $m_from && @$op_date2 <= $m_to)
+if(@$op_date2 > $m_from && @$op_date2 <= $m_to)
 {
 if($account_type == 1)
 {
@@ -1318,7 +1318,7 @@ $date = "";
 										  }}
 										  else
 										  {
-										if(@$op_date2 >= $m_from && @$op_date2 <= $m_to)
+										if(@$op_date2 > $m_from && @$op_date2 <= $m_to)
 										{
 										if($account_type == 2)
 										{
