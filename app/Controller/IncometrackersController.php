@@ -970,7 +970,7 @@ Name :
 <div style="overflow:auto;">
 <table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="5">
 <tr>
-<th style="width:80%; text-align:left;color: #fff;background-color: rgb(4, 126, 186);">Particulars</th>
+<th style="width:80%; text-align:left;color: #fff;background-color: rgb(4, 126, 186);">Particulars of charges</th>
 <th style="text-align:right;color: #fff;background-color: rgb(4, 126, 186);">Amount (Rs.)</th>
 <tr>
 <tr>
@@ -1777,7 +1777,7 @@ Name :
 <div style="overflow:auto;">
 <table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="5">
 <tr>
-<th style="width:80%; text-align:left;color: #fff;background-color: rgb(4, 126, 186);">Particulars</th>
+<th style="width:80%; text-align:left;color: #fff;background-color: rgb(4, 126, 186);">Particulars of charges</th>
 <th style="text-align:right;color: #fff;background-color: rgb(4, 126, 186);">Amount (Rs.)</th>
 <tr>
 <tr>
