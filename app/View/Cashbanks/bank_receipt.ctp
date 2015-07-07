@@ -422,7 +422,7 @@ $(document).ready(function(){
 <script>
 $(document).ready(function() {
 $(".chn").live('click',function(){
-$('#td1').html('<label style="font-size:14px;">Receipt/NEFT No.<span style="color:red;">*</span></label><div class="controls"><input type="text" name="no" class="m-wrap span9" id="no2"><label id="no2"></label></div><br>');    
+$('#td1').html('<label style="font-size:14px;">Cheque No.<span style="color:red;">*</span></label><div class="controls"><input type="text" name="no" class="m-wrap span9" id="no2"><label id="no2"></label></div><br>');    
 
 //$('#td2').html('<br><input type="text" name="no" class="m-wrap medium" id="no2"><label id="no2"></label>');   
 });
