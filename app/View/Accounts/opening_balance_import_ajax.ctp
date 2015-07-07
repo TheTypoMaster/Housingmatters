@@ -87,10 +87,20 @@ $pen_amt5 = (int)$data[7];
 <?php
 if($group_id == 34)
 {
+if($e == 0) 
+{
 $pen_amt = (int)$data[7];
 ?>
 <input type="text" class="m-wrap span10" value="<?php echo $pen_amt; ?>" style="background-color:white !important;" />
-<?php } else 
+<?php 
+}
+else
+{
+?>
+<input type="hidden" value="0" />
+<?php
+}
+} else 
 {
 ?>	
 <input type="hidden" value="0" />

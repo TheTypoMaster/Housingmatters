@@ -3653,7 +3653,7 @@ $total_debit = $total_debit + $child[2] + $penalty_amt;
 }
 if($ch3 != 0)
 {
-$total_credit = $total_credit + $child[3]+ $penalty_amt;
+$total_credit = $total_credit + $child[3];
 }
 //////////////////////////////////////////////////////////////////////
 }

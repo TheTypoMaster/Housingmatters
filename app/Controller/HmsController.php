@@ -22065,7 +22065,9 @@ function convert_number_to_words($number) {
             }
 
             if ($number < 0) {
-                return $negative . convert_number_to_words(abs($number));
+			
+			$rupee= abs($number); 
+                return $this->convert_number_to_words($rupee);
             }
             
             $string = $fraction = null;
