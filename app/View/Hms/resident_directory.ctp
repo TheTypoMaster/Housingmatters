@@ -109,8 +109,8 @@ background-color:rgb(218, 236, 240);
 		  }
 		  
 	</script>
-<div style="">
-<div id="all_dir">
+
+<div id="all_dir" >
 
 <div style="background-color:#EFEFEF; border-top:1px solid #e6e6e6; border-bottom:1px solid #e6e6e6; padding:2px; box-shadow:5px; font-size:16px; color:#006;">
      
@@ -141,7 +141,7 @@ background-color:rgb(218, 236, 240);
 
 
 
-<div id="view_search"  >
+<div id="view_search" style="overflow:auto;"  >
 
  <?php
   
