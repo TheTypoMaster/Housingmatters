@@ -59,7 +59,7 @@ $date=date("d-m-Y", strtotime($d_date));
             </div>
 <?php 
 echo '<div style="width:70%;margin:auto;border:solid 1px;background-color:#FFF;" class="bill_on_screen">';
-echo '<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).' SOCIETY</div>
+echo '<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'</div>
 <div align="center" style="border-bottom:solid 1px;">
 <span style="font-size:12px;color:rgb(100, 100, 99);">Regn# '.$society_reg_no.'</span><br/>
 <span style="font-size:12px;color:rgb(100, 100, 99);">Regn# '.$society_address.'</span>
@@ -80,7 +80,7 @@ echo '<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px
 				<br/>
 				Via '.$receipt_mode.'
 				<br/>
-				Payment for Bill No. '.$receipt_no.' 
+				Payment of previous bill
 				</td>
 				<td></td>
 			</tr>
