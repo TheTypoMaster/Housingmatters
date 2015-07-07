@@ -695,10 +695,12 @@ $op_date = $collection['ledger']['op_date'];
 $op_date2 = date('Y-m-d',$op_date->sec);
 $op_amt = $collection['ledger']['amount'];
 @$pen_type = @$collection['ledger']['penalty'];
+$amoun_cat_id = (int)@$collection['ledger']['amount_category_id'];
+
 if($op_date2 <= $m_from && $from_due2 < $op_date2)
 {
-
-
+if($amoun_cat_id == 1)
+{
 if($pen_type == "YES")
 {
 $opn_penlty_amt= $opn_penlty_amt + $op_amt;
@@ -706,6 +708,12 @@ $opn_penlty_amt= $opn_penlty_amt + $op_amt;
 else
 {
 $opn_principal_amt= $opn_principal_amt + $op_amt;
+}
+}
+if($amoun_cat_id == 2)
+{
+$opn_principal_amt= $opn_principal_amt-$op_amt;
+
 }
 } 
 }
@@ -730,9 +738,9 @@ $wing_flat = $this->wing_flat($wing_id,$flat_id);
 $current_date = date('Y-m-d');
 $current_bill_amt = (int)$this->request->data['tt'.$user_id];
 @$tax_arrears = (int)@$tax_arrears + @$penalty_amt + $opn_penlty_amt;
-@$arrear_amt = @$arrear_amt + @$pr_amt + $opn_principal_amt;
-@$total_due_amount = $total_due_amount + $opn_principal_amt+$opn_penlty_amt;
-@$grand_total = $grand_total+$opn_principal_amt+$opn_penlty_amt;
+@$arrear_amt = @$arrear_amt + @$pr_amt + ($opn_principal_amt);
+@$total_due_amount = $total_due_amount + ($opn_principal_amt)+$opn_penlty_amt;
+@$grand_total = $grand_total+($opn_principal_amt)+$opn_penlty_amt;
 
 //////////////////////////////////////////////////////////////
 $this->loadmodel('regular_bill');
@@ -1062,9 +1070,29 @@ $int_show_arrears = $interest_arrears - $late_amt2;
 
 
 $total_amount3 = number_format($total_amount2);
+if($amount_arrears<0)
+{
+$amount_arrears = abs($amount_arrears);
 $due_amt4 = number_format($amount_arrears);
+$due_amt4 = "-".$due_amt4;
+}
+else
+{
+$due_amt4 = number_format($amount_arrears);
+}
+
+
 $late_amt3 = number_format($late_amt2);
+if($remain_amount<0)
+{
+$remain_amount = abs($remain_amount);
 $grand_total2 = number_format($remain_amount);
+$grand_total2 = "-".$grand_total2;
+}
+else
+{
+$grand_total2 = number_format($remain_amount);
+}
 $int_show_arrears2 = number_format($int_show_arrears);
 
 $html.='<table border="0" style="width:100%;">
@@ -1470,7 +1498,10 @@ $op_date2 = date('Y-m-d',$op_date->sec);
 $op_date2 = date('Y-m-d',strtotime($op_date2));
 $op_amt = $collection['ledger']['amount'];
 @$pen_type = @$collection['ledger']['penalty'];
+$amoun_cat_id = (int)@$collection['ledger']['amount_category_id'];
 if($op_date2 <= $m_from && $from_due2 < $op_date2)
+{
+if($amoun_cat_id == 1)
 {
 if($pen_type == "YES")
 {
@@ -1480,6 +1511,12 @@ else
 {
 $opn_principal_amt= $opn_principal_amt + $op_amt;
 }
+}
+if($amoun_cat_id == 2)
+{
+$opn_principal_amt= $opn_principal_amt - $op_amt;
+}
+
 }
 }
 }
@@ -1502,9 +1539,9 @@ $wing_flat = $this->wing_flat($wing_id,$flat_id);
 
 $current_bill_amt = (int)$this->request->data['tt'.$user_id];
 @$tax_arrears = (int)$tax_arrears + @$penalty_amt+$opn_penlty_amt;
-@$arrear_amt = @$arrear_amt + @$pr_amt+$opn_principal_amt;
-@$total_due_amount = $total_due_amount+$opn_principal_amt+$opn_penlty_amt;
-@$grand_total = $grand_total+$opn_principal_amt+$opn_penlty_amt;
+@$arrear_amt = @$arrear_amt + @$pr_amt+($opn_principal_amt);
+@$total_due_amount = $total_due_amount+($opn_principal_amt)+$opn_penlty_amt;
+@$grand_total = $grand_total+($opn_principal_amt)+$opn_penlty_amt;
 
 $this->loadmodel('regular_bill');
 $order=array('regular_bill.receipt_id'=> 'DESC');
@@ -1835,12 +1872,29 @@ $html.='</table>
 //$due_amt5 = (int)$due_amt2 - $interest_arrears;
 $int_show_arrears = (int)$interest_arrears-$late_amt2;
 
-
 $total_amount3 = number_format($total_amount2);
+if($arrears_amt < 0)
+{
+$arrears_amt = abs($arrears_amt);
 $due_amt4 = number_format($arrears_amt);
-$late_amt3 = number_format($late_amt2);
-$grand_total2 = number_format($remain_amount);
+$due_amt4 = "-".$due_amt4;
+}
+else
+{
+$due_amt4 = number_format($arrears_amt);
+}
 
+$late_amt3 = number_format($late_amt2);
+if($remain_amount < 0)
+{
+$remain_amount = abs($remain_amount);
+$grand_total2 = number_format($remain_amount);
+$grand_total2 = "-".$grand_total2;
+}
+else
+{
+$grand_total2 = number_format($remain_amount);
+}
 $int_show_arrears2 = number_format($int_show_arrears);
 
 $html.='<table border="0" style="width:100%;">
