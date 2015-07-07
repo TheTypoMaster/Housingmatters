@@ -900,10 +900,10 @@ $monthB = implode("-",$month2);
 $html='<div style="width:70%;margin:auto;" class="bill_on_screen">
 <div style="background-color:white; overflow:auto;">
 <div style="border:solid 1px; overflow:auto;">
-<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'  SOCIETY</div>
+<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'</div>
 <div style="padding:5px;">
 	<div style="float:left;">
-	<img src='.$webroot_path.'logo/'.$log_img.'  height="60px" width="60px" class="hide_at_print"></img>
+	<img src='.$webroot_path.'logo/'.$log_img.'  height="60px" width="60px" class=""></img>
 	</div>
 	<div style="float:right;" align="right">
 	<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_reg_no.'</span><br/>
@@ -1018,12 +1018,12 @@ $html.='</table>
 </tr>
 <tr>
 <td valign="top">
-<table border="0" style="width:60%; float:left;">
+<table border="0" style="width:80%; float:left;">
 <tr>
-<td colspan="2">Cheque/NEFT payment instructions:</td>
+<td colspan="2" >Cheque/NEFT payment instructions:</td>
 </tr>
 <tr>
-<td><b>Account Name:</b></td>
+<td width="25%"><b>Account Name:</b></td>
 <td> &nbsp;&nbsp; '.$account_name.'</td>
 </tr>
 <tr>
@@ -1043,20 +1043,21 @@ $html.='</table>
 <td> &nbsp;&nbsp; '.$ifsc_code.'</td>
 </tr>
 </table>
-<table border="0" style="width:40%;">';
+<table border="0" style="width:20%;">';
 $html.='<tr>
 <td rowspan="5"></td>
 <td style="text-align:right; padding-right:2%;">Total:</td>
 </tr>';
 $html.='<tr>
-<td style="text-align:right; padding-right:2%;">Interest:</td>
-</tr>
-<tr>
-<td style="text-align:right; padding-right:2%;">Arrears &nbsp; (Int.):</td>
+<td style="text-align:right; padding-right:2%;">Interest on arrears:</td>
 </tr>';
 $html.='<tr>
 <td style="text-align:right; padding-right:2%;">Arrears &nbsp; (Maint.):</td>
 </tr>';
+$html.='<tr>
+<td style="text-align:right; padding-right:2%;">Arrears &nbsp; (Int.):</td>
+</tr>';
+
 $html.='<tr>
 <th style="text-align:right; padding-right:2%;">Due For Payment:</th>
 </tr>';
@@ -1134,7 +1135,7 @@ $tems_name = $terms_arr[$r];
 $html.='<span>'.$count.'.  '.$tems_name.'</span><br/>';
 }
 $html.='</div>
-<div style="width:30%;float:right;" align="center">For  <b>'.$society_name.' Society <br/><br/><br/><div align="center"><span style="border-top: solid 1px #424141;">'.$sig_title.'</span></div></div>
+<div style="width:30%;float:right;" align="center">For  <b>'.$society_name.' <br/><br/><br/><div align="center"><span style="border-top: solid 1px #424141;">'.$sig_title.'</span></div></div>
 </div>
 <div align="center" style="color: #6F6D6D;border: solid 1px;border-top: dotted 1px;">Note: This is a computer generated bill hence no signature required.</div>
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;border: solid 1px #000;border-top: none;">
@@ -1706,10 +1707,10 @@ $monthB = implode("-",$month2);
 $html='<div style="width:70%;margin:auto;"  class="bill_on_screen">
 <div style="background-color:white; overflow:auto;">
 <div style="border:solid 1px; overflow:auto;">
-<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'  SOCIETY</div>
+<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).' </div>
 <div style="padding:5px;">
 	<div style="float:left;">
-	<img src='.$webroot_path.'logo/'.$log_img.' height="60px" width="60px" class="hide_at_print"></img>
+	<img src='.$webroot_path.'logo/'.$log_img.' height="60px" width="60px" class=""></img>
 	</div>
 	<div style="float:right;" align="right">
 	<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_reg_no.'</span><br/>
@@ -1824,12 +1825,12 @@ $html.='</table>
 </tr>
 <tr>
 <td valign="top">
-<table border="0" style="width:60%; float:left;">
+<table border="0" style="width:80%; float:left;">
 <tr>
-<td colspan="2">Cheque/NEFT payment instructions:</td>
+<td colspan="2" >Cheque/NEFT payment instructions:</td>
 </tr>
 <tr>
-<td><b>Account Name:</b></td>
+<td width="25%"><b>Account Name:</b></td>
 <td> &nbsp;&nbsp; '.$account_name.'</td>
 </tr>
 <tr>
@@ -1849,20 +1850,21 @@ $html.='</table>
 <td> &nbsp;&nbsp; '.$ifsc_code.'</td>
 </tr>
 </table>
-<table border="0" style="width:40%;">';
+<table border="0" style="width:20%;">';
 $html.='<tr>
 <td rowspan="5"></td>
 <td style="text-align:right; padding-right:2%;">Total:</td>
 </tr>';
 $html.='<tr>
-<td style="text-align:right; padding-right:2%;">Interest:</td>
-</tr>
-<tr>
-<td style="text-align:right;">Arrears &nbsp; (Int.):</td>
+<td style="text-align:right; padding-right:2%;">Interest on arrears:</td>
 </tr>';
 $html.='<tr>
 <td style="text-align:right; padding-right:2%;">Arrears &nbsp; (Maint.):</td>
 </tr>';
+$html.='<tr>
+<td style="text-align:right;">Arrears &nbsp; (Int.):</td>
+</tr>';
+
 $html.='<tr>
 <th style="text-align:right; padding-right:2%;">Due For Payment:</th>
 </tr>';
@@ -1935,7 +1937,7 @@ $tems_name = $terms_arr[$r];
 $html.='<span>'.$count.'.  '.$tems_name.'</span><br/>';
 }
 $html.='</div>
-<div style="width:30%;float:right;" align="center">For  <b>'.$society_name.' Society <br/><br/><br/><div align="center"><span style="border-top: solid 1px #424141;">'.$sig_title.'</span></div></div>
+<div style="width:30%;float:right;" align="center">For  <b>'.$society_name.' <br/><br/><br/><div align="center"><span style="border-top: solid 1px #424141;">'.$sig_title.'</span></div></div>
 </div>
 <div align="center" style="color: #6F6D6D;border: solid 1px;border-top: dotted 1px;">Note: This is a computer generated bill hence no signature required.</div>
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;border: solid 1px #000;border-top: none;">
