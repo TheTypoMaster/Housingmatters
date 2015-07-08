@@ -83,10 +83,10 @@ echo '<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px
 				Rupees '.$am_in_words.' Only
 				<br/>';
 				if($receipt_mode=="Cheque"){
-					echo 'Via '.$receipt_mode.'-<b>'.$cheque_number.'</b> drawn on <b>'.$which_bank.'</b> dated <b>'.$cheque_date.'</b>';
+					echo 'Via '.$receipt_mode.'-'.$cheque_number.' drawn on '.$which_bank.' dated '.$cheque_date;
 				}
 				else{
-					echo 'Via '.$receipt_mode.'-<b>'.$reference_number.'</b> dated <b>'.$cheque_date.'</b>';
+					echo 'Via '.$receipt_mode.'-'.$reference_number.' dated '.$cheque_date;
 				}
 				
 				
