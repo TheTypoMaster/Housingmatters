@@ -464,7 +464,7 @@ if($status1==1)
 ?>
   $.gritter.add({
                
-					title: 'Invite Member',
+					title: 'Invitations',
 					text: 'This Email is sent successfully.<p><strong> Thank you for refering us.</strong></p>',
 					sticky: false,
 					time: '10000',
