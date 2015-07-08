@@ -834,8 +834,8 @@ function calculation_generator(row_no){
 		var ih_total=0;
 		var g_total=0;
 		
-		columnTh = $("table th:contains('Maintenance charges')");
-		columnIndex = columnTh.index() + 1;
+		columnTh = $("table th:contains('Area')");
+		columnIndex = columnTh.index() + 2;
 		
 		for(var c=0;c<count;c++){
 			
@@ -865,6 +865,7 @@ function calculation_generator(row_no){
 				var in_hd=$('table#i_bill tr:nth-child('+w+') td:nth-child('+columnIndex2+') input').val();
 				
 				in_hd_total=parseInt(in_hd_total)+parseInt(in_hd);
+				
 				$('table#i_bill tr:nth-child('+tr_count1+') th:nth-child('+columnIndexqw+')').html(in_hd_total);
 			}
 		
