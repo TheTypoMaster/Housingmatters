@@ -178,16 +178,21 @@ $date = date("Y-m-d", strtotime($date));
 $receipt_instruction = $this->request->data['instruction']; 
 $sub_account_id = (int)$this->request->data['bank_account'];
 $description = $this->request->data['description'];  
-$receipt_mode = @$this->request->data['mode'];
+$receipt_mode = @$this->request->data['mode']; 
 $member_id = (int)@$this->request->data['member'];
-if($receipt_mode == 'Cheque' || $receipt_mode == 'NEFT')
+if($receipt_mode == 'Cheque')
 {
-$cheque_no = (int)$this->request->data['no'];
+$reference_number = "";
+$cheque_number = (int)$this->request->data['cheque_number'];
+$which_bank = $this->request->data['which_bank'];
 }
 else
 {
 $cheque_no = "";
+$which_bank = "";
+$reference_number = (int)$this->request->data['reference_number'];
 }
+$cheque_date = $this->request->data['cheque_date'];
 if($member_id == 1)
 {
 $received_from = (int)$this->request->data['recieved_from2'];
@@ -229,12 +234,20 @@ $i = $last22;
 }
 $auto++;
 $i++; 
+
+
+
+
+
+
+
+
 $this->loadmodel('cash_bank');
 $multipleRowData = Array( Array("transaction_id" => $auto, "receipt_id" => $i, "current_date" => $current_date, 
 "transaction_date" => $date, "prepaired_by" => $s_user_id, 
 "user_id" => $received_from, "bill_reference" => $bill_no,"narration" => $description, "receipt_mode" => $receipt_mode,
 "receipt_instruction" => $receipt_instruction, "account_head" => $sub_account_id,   
-"amount" => $amount, "amount_category_id" => 1, "society_id" => $s_society_id,"member" => $member_id,"module_id"=>1,"cheque_no"=>$cheque_no));
+"amount" => $amount, "amount_category_id" => 1, "society_id" => $s_society_id,"member" => $member_id,"module_id"=>1,"cheque_number"=>$cheque_number,"reference_number"=>$reference_number,"which_bank"=>$which_bank,"cheque_date"=>$cheque_date));
 $this->cash_bank->saveAll($multipleRowData);  
 
 
