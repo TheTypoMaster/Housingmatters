@@ -85,7 +85,7 @@ PG
 <div id="cheque_div">
 <label style="font-size:14px;">Cheque No.<span style="color:red;">*</span> </label>
 <div class="controls">
-<input type="text"  name="cheque_number" class="m-wrap span9" placeholder="Cheque No." style="background-color:white !important;" id="ins">
+<input type="text"  name="cheque_number" class="m-wrap span9 " placeholder="Cheque No." style="background-color:white !important;" id="ins">
 <label id="ins"></label>
 </div>
 
@@ -353,15 +353,7 @@ $(document).ready(function(){
 		instruction: {
 			 required: true
 		         },
-		 reference_number: {
-	        required: true
-	      },
-		  cheque_number: {
-	        required: true
-	      },
-		  which_bank: {
-	        required: true
-	      },
+		 
 		 
 		 amountn: {
 	        required: true,
