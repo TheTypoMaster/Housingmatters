@@ -91,7 +91,7 @@ PG
 
 <label style="font-size:14px;">Drawn on which bank?<span style="color:red;">*</span> </label>
 <div class="controls">
-<input type="text"  name="which_bank" class="m-wrap span9" placeholder="Drown on which bank?" style="background-color:white !important;" id="ins">
+<input type="text"  name="which_bank" class="m-wrap span9" placeholder="Drawn on which bank?" style="background-color:white !important;" id="ins">
 <label id="ins"></label>
 </div>
 
@@ -110,7 +110,7 @@ PG
 
 <label style="font-size:14px;">Date<span style="color:red;">*</span> </label>
 <div class="controls">
-<input type="text"  name="cheque_date" class="m-wrap span9 date-picker" placeholder="Cheque Date" data-date-format="dd-mm-yyyy" style="background-color:white !important;" id="ins">
+<input type="text"  name="cheque_date" class="m-wrap span9 date-picker" placeholder="Date" data-date-format="dd-mm-yyyy" style="background-color:white !important;" id="ins">
 <label id="ins"></label>
 </div>
 <br /> 
@@ -121,7 +121,7 @@ PG
 <label style="font-size:14px;">Deposited In<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select deposit bank "> </i></label>
 <div class="controls">
 <select name="bank_account" class="span9 m-wrap chosen" id="bank">
-<option value="" style="display:none;">Deposited In</option>    
+<option value="" style="display:none;">which bank?</option>    
 <?php
 foreach ($cursor3 as $db) 
 {

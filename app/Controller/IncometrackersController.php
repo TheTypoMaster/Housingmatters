@@ -938,6 +938,10 @@ Name :
 <td style="text-align:left;">'.$date_c.'</td>
 </tr>
 <tr>
+<td style="text-align:left;font-weight: bold;">Description:</td>
+<td style="text-align:left;">'.$narration.'</td>
+</tr>
+<tr>
 <td style="text-align:left;"></td>
 <td style="text-align:left;"></td>
 </tr>
@@ -965,7 +969,6 @@ Name :
 </tr>
 </table>
 </div>
-<div><b>&nbsp;Description:</b> '.$narration.'</div>
 </div>
 <div style="overflow:auto;">
 <table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="5">
@@ -1008,7 +1011,7 @@ $ih_det3 = $ih_detail2[$y];
 $amount = $ih_det3[1];
 //$amount2 = number_format($amount);
 $html.='<tr>
-<td style="text-align:right;">'.$amount.'</td>
+<td style="text-align:right;padding-right: 8%;">'.$amount.'</td>
 </tr>';
 $total_amount2 = $total_amount2 + $amount;
 }
@@ -1096,7 +1099,7 @@ $grand_total2 = number_format($remain_amount);
 }
 $int_show_arrears2 = number_format($int_show_arrears);
 
-$html.='<table border="0" style="width:100%;">
+$html.='<table border="0" style="width:100%;margin-left: 7%;">
 <tr>';
 $html.='
 <td style="text-align:right; padding-right:8%;">'.$total_amount3.'</td>
@@ -1746,6 +1749,10 @@ Name :
 <td style="text-align:left;">'.$date_c.'</td>
 </tr>
 <tr>
+<td style="text-align:left;font-weight: bold;">Description:</td>
+<td style="text-align:left;">'.$narration.'</td>
+</tr>
+<tr>
 <td style="text-align:left;"></td>
 <td style="text-align:left;"></td>
 </tr>
@@ -1771,9 +1778,10 @@ Name :
 <td style="text-align:left;font-weight: bold;"><b>Due Date:</b></td>
 <td style="text-align:left;"><b>'.$due_date21.'</b></td>
 </tr>
+
 </table>
 </div>
-<div><b>&nbsp;Description:</b> '.$narration.'</div>
+
 </div>
 <div style="overflow:auto;">
 <table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="5">
@@ -1816,7 +1824,7 @@ $ih_det3 = $ih_detail2[$y];
 $amount = $ih_det3[1];
 //$amount2 = number_format($amount);
 $html.='<tr>
-<td style="text-align:right;">'.$amount.'</td>
+<td style="text-align:right;padding-right: 8%;">'.$amount.'</td>
 </tr>';
 $total_amount2 = $total_amount2 + $amount;
 }
