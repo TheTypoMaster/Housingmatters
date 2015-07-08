@@ -12,6 +12,9 @@ $narration = $collection['cash_bank']['narration'];
 $member = (int)$collection['cash_bank']['member'];
 $receiver_name = @$collection['cash_bank']['receiver_name'];
 $receipt_mode = $collection['cash_bank']['receipt_mode'];
+$cheque_number = @$collection['cash_bank']['cheque_number'];
+$which_bank = @$collection['cash_bank']['which_bank'];
+$cheque_date = @$collection['cash_bank']['cheque_date'];
 $sub_account = (int)$collection['cash_bank']['account_head'];
 }
 $amount = str_replace( ',', '', $amount );
