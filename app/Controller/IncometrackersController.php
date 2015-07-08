@@ -1023,7 +1023,7 @@ $html.='</table>
 </tr>
 <tr>
 <td valign="top">
-<table border="0" style="width:80%; float:left;">
+<table border="0" style="width:70%; float:left;">
 <tr>
 <td colspan="2" >Cheque/NEFT payment instructions:</td>
 </tr>
@@ -1048,7 +1048,7 @@ $html.='</table>
 <td> &nbsp;&nbsp; '.$ifsc_code.'</td>
 </tr>
 </table>
-<table border="0" style="width:20%;">';
+<table border="0" style="width:30%;">';
 $html.='<tr>
 <td rowspan="5"></td>
 <td style="text-align:right; padding-right:2%;">Total:</td>
@@ -1838,7 +1838,7 @@ $html.='</table>
 </tr>
 <tr>
 <td valign="top">
-<table border="0" style="width:80%; float:left;">
+<table border="0" style="width:70%; float:left;">
 <tr>
 <td colspan="2" >Cheque/NEFT payment instructions:</td>
 </tr>
@@ -1863,7 +1863,7 @@ $html.='</table>
 <td> &nbsp;&nbsp; '.$ifsc_code.'</td>
 </tr>
 </table>
-<table border="0" style="width:20%;">';
+<table border="0" style="width:30%;">';
 $html.='<tr>
 <td rowspan="5"></td>
 <td style="text-align:right; padding-right:2%;">Total:</td>
