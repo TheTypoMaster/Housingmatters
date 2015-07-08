@@ -1011,7 +1011,7 @@ $ih_det3 = $ih_detail2[$y];
 $amount = $ih_det3[1];
 //$amount2 = number_format($amount);
 $html.='<tr>
-<td style="text-align:right;">'.$amount.'</td>
+<td style="text-align:right;padding-right: 8%;">'.$amount.'</td>
 </tr>';
 $total_amount2 = $total_amount2 + $amount;
 }
@@ -1099,7 +1099,7 @@ $grand_total2 = number_format($remain_amount);
 }
 $int_show_arrears2 = number_format($int_show_arrears);
 
-$html.='<table border="0" style="width:100%;">
+$html.='<table border="0" style="width:100%;margin-left: 7%;">
 <tr>';
 $html.='
 <td style="text-align:right; padding-right:8%;">'.$total_amount3.'</td>
@@ -1824,7 +1824,7 @@ $ih_det3 = $ih_detail2[$y];
 $amount = $ih_det3[1];
 //$amount2 = number_format($amount);
 $html.='<tr>
-<td style="text-align:right;">'.$amount.'</td>
+<td style="text-align:right;padding-right: 8%;">'.$amount.'</td>
 </tr>';
 $total_amount2 = $total_amount2 + $amount;
 }
@@ -1961,7 +1961,7 @@ $html.='</div>
 ';
 
 //////////////////////////////////
-echo $html; exit;
+
 $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array("bill_html" =>$html),array("regular_bill_id" =>$regular_bill_id));	
 ////////End Bill Html Code///////////////////
