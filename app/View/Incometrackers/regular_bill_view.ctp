@@ -13,10 +13,6 @@ if(sizeof($result_receipt)>0){
 	$member = (int)$collection['cash_bank']['member'];
 	$receiver_name = @$collection['cash_bank']['receiver_name'];
 	$receipt_mode = $collection['cash_bank']['receipt_mode'];
-	$cheque_number = @$collection['cash_bank']['cheque_number'];
-	$which_bank = @$collection['cash_bank']['which_bank'];
-	$cheque_date = @$collection['cash_bank']['cheque_date'];
-	$reference_number = @$collection['cash_bank']['reference_number'];
 	$sub_account = (int)$collection['cash_bank']['account_head'];
 	}
 	$amount = str_replace( ',', '', $amount );
@@ -69,27 +65,14 @@ echo $bill_html;
 	<div style="padding:5px;border-bottom:solid 1px;">
 		Received with thanks from: <b><?php echo $user_name; ?> <?php echo $wing_flat; ?></b>
 		<br/>
-		Rupees <?php echo $am_in_words; ?> Only<br/>
-		<?php
-		if($receipt_mode=="Cheque"){
-					echo 'Via '.$receipt_mode.'-'.$cheque_number.' drawn on '.$which_bank.' dated '.$cheque_date;
-				}
-				else{
-					echo 'Via '.$receipt_mode.'-'.$reference_number.' dated '.$cheque_date;
-				} ?>
+		Rupees <?php echo $am_in_words; ?> Only
 		<br/>
-		
+		Via <?php echo $receipt_mode; ?>
 		<br/>
-		Payment of previous bill
+		Payment for Bill No. <?php echo $receipt_no; ?> 
 	</div>
 	<div style="padding:5px;float:left;width:65%;">
-	<span style="font-size:16px;"><b>Rs <?php echo $amount; ?></b></span><br/>
-	<?php
-	if($receipt_mode=="Cheque"){
-					echo 'Subject to realization of Cheque(s)';
-				}
-				?>
-
+	<span style="font-size:16px;"><b>Rs <?php echo $amount; ?></b></span><br/>Subject to realization of Cheque(s)
 	</div>
 	<div style="float:right;width:30%;" align="center">
 	For <?php echo $society_name; ?><br/><?php echo $sig_title; ?>
