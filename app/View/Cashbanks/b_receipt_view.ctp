@@ -78,15 +78,15 @@ echo '<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px
 			</tr>
 			<tr>
 				<td>
-				Received with thanks from: '.$user_name.' '.$wing_flat.'
+				Received with thanks from:  <b>'.$user_name.' '.$wing_flat.'</b>
 				<br/>
 				Rupees '.$am_in_words.' Only
 				<br/>';
 				if($receipt_mode=="Cheque"){
-					echo 'Via '.$receipt_mode.'-<b>'.$cheque_number.'</b> drawn on <b>'.$which_bank.'</b> dated <b>'.$cheque_date.'</b>';
+					echo 'Via '.$receipt_mode.'-'.$cheque_number.' drawn on '.$which_bank.' dated '.$cheque_date;
 				}
 				else{
-					echo 'Via '.$receipt_mode.'-<b>'.$reference_number.'</b> dated <b>'.$cheque_date.'</b>';
+					echo 'Via '.$receipt_mode.'-'.$reference_number.' dated '.$cheque_date;
 				}
 				
 				
@@ -99,7 +99,7 @@ echo '<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px
 		<div style="border-bottom:solid 1px;"></div>
 		<table width="100%" cellpadding="5px">
 			<tr>
-				<td><span style="font-size:16px;">Rs '.$amount.'</span><br/>Subject to realization of Cheque(s)</td>
+				<td><span style="font-size:16px;"> <b>Rs '.$amount.'</b></span><br/>Subject to realization of Cheque(s)</td>
 			</tr>
 		</table>
 		<table width="100%" cellpadding="5px">
