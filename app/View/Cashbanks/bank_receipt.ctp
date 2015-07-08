@@ -62,7 +62,7 @@ else
 <label  style="font-size:14px;">Receipt Mode<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose receipt mode"> </i></label>
 <div class="controls">
 <label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" value="Cheque" style="opacity: 0;" id="mode" class="chn"></span></div>
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" checked="" value="Cheque" style="opacity: 0;" id="mode" class="chn"></span></div>
 Cheque
 </label>
 <label class="radio">
@@ -78,14 +78,39 @@ PG
 <br />
 
 
-<div id="td1"></div>
+
 
 
  
- 
-<label style="font-size:14px;">Instrument/UTR<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please fill Instrument/UTR"> </i></label>
+<div id="cheque_div">
+<label style="font-size:14px;">Cheque No.<span style="color:red;">*</span> </label>
 <div class="controls">
-<input type="text"  name="instruction" class="m-wrap span9" placeholder="Instrument/UTR" style="background-color:white !important;" id="ins">
+<input type="text"  name="cheque_number" class="m-wrap span9" placeholder="Cheque No." style="background-color:white !important;" id="ins">
+<label id="ins"></label>
+</div>
+
+<label style="font-size:14px;">Drown on which bank?<span style="color:red;">*</span> </label>
+<div class="controls">
+<input type="text"  name="which_bank" class="m-wrap span9" placeholder="Drown on which bank?" style="background-color:white !important;" id="ins">
+<label id="ins"></label>
+</div>
+
+
+
+</div>
+
+<div id="neft_div" style="display:none;">
+<label style="font-size:14px;">Reference/UTR #<span style="color:red;">*</span> </label>
+<div class="controls">
+<input type="text"  name="reference_number" class="m-wrap span9 ignore" placeholder="Reference/UTR #" style="background-color:white !important;" id="ins">
+<label id="ins"></label>
+</div>
+
+</div>
+
+<label style="font-size:14px;">Cheque Date<span style="color:red;">*</span> </label>
+<div class="controls">
+<input type="text"  name="cheque_date" class="m-wrap span9 date-picker" placeholder="Cheque Date" data-date-format="dd-mm-yyyy" style="background-color:white !important;" id="ins">
 <label id="ins"></label>
 </div>
 <br /> 
@@ -282,7 +307,7 @@ $(document).ready(function(){
 		$.validator.setDefaults({ ignore: ":hidden:not(select)" });
 		
 		$('#contact-form').validate({
-		
+		ignore: ".ignore",
 		errorElement: "label",
                     //place all errors in a <div id="errors"> element
                     errorPlacement: function(error, element) {
@@ -328,8 +353,13 @@ $(document).ready(function(){
 		instruction: {
 			 required: true
 		         },
-		 refn: {
-	       
+		 reference_number: {
+	        required: true
+	      },
+		  cheque_number: {
+	        required: true
+	      },
+		  which_bank: {
 	        required: true
 	      },
 		 
@@ -422,19 +452,18 @@ $(document).ready(function(){
 <script>
 $(document).ready(function() {
 $(".chn").live('click',function(){
-$('#td1').html('<label style="font-size:14px;">Cheque No.<span style="color:red;">*</span></label><div class="controls"><input type="text" name="no" class="m-wrap span9" id="no2"><label id="no2"></label></div><br>');    
-
-//$('#td2').html('<br><input type="text" name="no" class="m-wrap medium" id="no2"><label id="no2"></label>');   
+$('#cheque_div').show();    
+$('#neft_div').hide();
 });
 
 $(".neft").live('click',function(){
-$('#td1').html('<label style="font-size:14px;">Receipt/NEFT No.<span style="color:red;">*</span></label><div class="controls"><input type="text" name="no" class="m-wrap span9" id="no2"><label id="no2"></label></div><br>'); 
+$('#cheque_div').hide();    
+$('#neft_div').show(); 	
 });
 
 $(".pg").live('click',function(){
-$('#td1').html('');    
-//$('#td2').html('');   	
-   
+$('#cheque_div').hide();    
+$('#neft_div').show(); 	
 });
 });
 </script>	
