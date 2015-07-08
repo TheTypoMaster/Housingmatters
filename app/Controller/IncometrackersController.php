@@ -813,7 +813,7 @@ $multi_ch = 2;
 }
 if($billing_cycle_id == 3)
 {
-$multi_ch = 4;
+$multi_ch = 3;
 }
 if($billing_cycle_id == 4)
 {
