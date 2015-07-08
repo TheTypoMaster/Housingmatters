@@ -323,7 +323,7 @@ $amount = 0;
 
 if($amount >= $arrears_amt)
 {
-$arrears_amt = 0;
+$arrears_amt = (int)$arrears_amt - $amount;
 }
 else
 {
