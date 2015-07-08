@@ -1909,11 +1909,12 @@ $html.='
 <td style="text-align:right; padding-right:8%;">'.@$late_amt3.'</td>
 </tr>';
 $html.='<tr>
-<td style="text-align:right; padding-right:8%;">'.@$due_amt4.'</td>
-</tr>';
-$html.='<tr>
 <td style="text-align:right; padding-right:8%;">'.@$int_show_arrears2.'</td>
 </tr>';
+$html.='<tr>
+<td style="text-align:right; padding-right:8%;">'.@$due_amt4.'</td>
+</tr>';
+
 
 $html.='<tr>
 <th style="text-align:right; padding-right:8%;">'.$grand_total2.'</th>
