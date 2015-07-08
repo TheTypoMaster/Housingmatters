@@ -170,3 +170,36 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 								</table>
 							</div>
 						</div>
+						
+	<?php
+echo $status1=$this->Session->read('d_status');					
+?>						
+<script>
+$(document).ready(function(){
+<?php
+
+$status1=(int)$this->Session->read('d_status');
+if($status1==1)
+{
+
+?>
+ $.gritter.add({
+               
+					title: 'Documents',
+					text: 'Resources are published.',
+					sticky: false,
+					time: '10000',
+
+            });
+
+<?php 
+
+$this->requestAction(array('controller' => 'hms', 'action' => 'griter_notification'), array('pass' => array(6)));
+
+  }   ?>
+
+});
+
+
+
+</script>						
