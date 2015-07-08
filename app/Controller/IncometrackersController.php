@@ -697,7 +697,7 @@ $op_amt = $collection['ledger']['amount'];
 @$pen_type = @$collection['ledger']['penalty'];
 $amoun_cat_id = (int)@$collection['ledger']['amount_category_id'];
 
-if($op_date2 <= $m_from && $from_due2 < $op_date2)
+if($op_date2 <= $m_from && $one == 1)
 {
 if($amoun_cat_id == 1)
 {
@@ -1500,7 +1500,7 @@ $op_date2 = date('Y-m-d',strtotime($op_date2));
 $op_amt = $collection['ledger']['amount'];
 @$pen_type = @$collection['ledger']['penalty'];
 $amoun_cat_id = (int)@$collection['ledger']['amount_category_id'];
-if($op_date2 <= $m_from && $from_due2 < $op_date2)
+if($op_date2 <= $m_from && $one == 1)
 {
 if($amoun_cat_id == 1)
 {
