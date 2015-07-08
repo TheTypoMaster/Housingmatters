@@ -667,10 +667,26 @@ foreach($resource_res as $data)
             });
 	<?php $this->requestAction(array('controller' => 'hms', 'action' => 'reject_notification'), array('pass' => array($resource_id,4))); } } ?>
 
+<?php
 
+$status1=(int)$this->Session->read('pro_status');
+if($status1==1)
+{
 
+?>	
 
+ $.gritter.add({
+               
+               title: 'Profile',
+               text: 'Your profile is successfully update.',
+               sticky: false,
+                time: '10000',
+				
+            });
 
+<?php
+$this->requestAction(array('controller' => 'hms', 'action' => 'griter_notification'), array('pass' => array(11)));
+} ?>
 
 		   return false;
 

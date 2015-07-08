@@ -9,6 +9,19 @@ public $components = array(
 
 var $name = 'Hms';
 
+function griter_notification($id)
+{	
+	if($id==6)
+	{
+		$this->Session->delete('d_status',1);
+	}
+	if($id==11)
+	{
+		$this->Session->delete('pro_status',1);
+	}
+	
+	
+}
 
 function visible_subvisible($visible,$sub_visible) {
 $s_user_id=$this->Session->read('user_id');
@@ -14091,12 +14104,12 @@ www.housingmatters.co.in
 </div>";
 
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
-
-
+$this->Session->write('pro_status', 1);
+$this->response->header('Location', $this->webroot.'Hms/dashboard');
 
 
 ?>
-<!----alert-------------->
+<!----alert--------------
 <div class="modal-backdrop fade in"></div>
 <div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
 <div class="modal-body" style="font-size:16px;">
