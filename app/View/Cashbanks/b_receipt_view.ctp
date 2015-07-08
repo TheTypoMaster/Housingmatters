@@ -14,6 +14,7 @@ $receiver_name = @$collection['cash_bank']['receiver_name'];
 $receipt_mode = $collection['cash_bank']['receipt_mode'];
 $cheque_number = @$collection['cash_bank']['cheque_number'];
 $which_bank = @$collection['cash_bank']['which_bank'];
+$reference_number = @$collection['cash_bank']['reference_number'];
 $cheque_date = @$collection['cash_bank']['cheque_date'];
 $sub_account = (int)$collection['cash_bank']['account_head'];
 }
@@ -80,9 +81,16 @@ echo '<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px
 				Received with thanks from: '.$user_name.' '.$wing_flat.'
 				<br/>
 				Rupees '.$am_in_words.' Only
-				<br/>
-				Via '.$receipt_mode.'
-				<br/>
+				<br/>';
+				if($receipt_mode=="Cheque"){
+					echo 'Via '.$receipt_mode.'-<b>'.$cheque_number.'</b> drawn on <b>'.$which_bank.'</b> dated <b>'.$cheque_date.'</b>';
+				}
+				else{
+					echo 'Via '.$receipt_mode.'-<b>'.$reference_number.'</b> dated <b>'.$cheque_date.'</b>';
+				}
+				
+				
+				echo '<br/>
 				Payment of previous bill
 				</td>
 				<td></td>

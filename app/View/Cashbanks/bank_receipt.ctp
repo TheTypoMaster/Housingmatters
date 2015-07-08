@@ -108,7 +108,7 @@ PG
 
 </div>
 
-<label style="font-size:14px;">Cheque Date<span style="color:red;">*</span> </label>
+<label style="font-size:14px;">Date<span style="color:red;">*</span> </label>
 <div class="controls">
 <input type="text"  name="cheque_date" class="m-wrap span9 date-picker" placeholder="Cheque Date" data-date-format="dd-mm-yyyy" style="background-color:white !important;" id="ins">
 <label id="ins"></label>
