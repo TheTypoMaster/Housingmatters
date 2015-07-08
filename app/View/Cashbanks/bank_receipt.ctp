@@ -89,7 +89,7 @@ PG
 <label id="ins"></label>
 </div>
 
-<label style="font-size:14px;">Drown on which bank?<span style="color:red;">*</span> </label>
+<label style="font-size:14px;">Drawn on which bank?<span style="color:red;">*</span> </label>
 <div class="controls">
 <input type="text"  name="which_bank" class="m-wrap span9" placeholder="Drown on which bank?" style="background-color:white !important;" id="ins">
 <label id="ins"></label>
