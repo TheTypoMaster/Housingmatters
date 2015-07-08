@@ -15,14 +15,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
  <div style="background-color:#EFEFEF; border-top:1px solid #e6e6e6; border-bottom:1px solid #e6e6e6; padding:10px; box-shadow:5px; font-size:16px; color:#006;">
                <i class="icon-credit-card"></i> Invite to housingmatters <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="invite others members to join housingmatters"> </i>
                  </div>
-				<?php if(@$sm==1)
-				{ ?>
-				<div class="alert alert-success" id="showing">
-				<button class="close" data-dismiss="alert"></button>
-				<center><strong>Success!</strong> This Email is sent successfully.
-				<p><strong> Thank you for refering us.</strong></p> </center>
-				</div> 
-				<?php } ?>
+				
+				
+				
 <form method="post"  id="contact-form">			
 <div class="portlet-body" style="padding:10px;width:80%; margin-left:7%" >
 <!--BEGIN TABS-->
@@ -109,7 +104,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 				<!-- END PAGE CONTENT-->
 			</div>
 			
-	
+
 <script>
 $(document).ready(function(){
 $('#contact-form').validate({
@@ -459,5 +454,28 @@ $("table.table_2").append("<tr id=tab1"+d+"><td><input type='text'  class='m-wra
  d--;
  $("#t_box1").val(d);
   }); 
+  
+<?php
+
+$status1=(int)$this->Session->read('invite_status');
+if($status1==1)
+{
+
+?>
+  $.gritter.add({
+               
+					title: 'Invite Member',
+					text: 'This Email is sent successfully.<p><strong> Thank you for refering us.</strong></p>',
+					sticky: false,
+					time: '10000',
+
+            });
+
+
+<?php 
+$this->requestAction(array('controller' => 'hms', 'action' => 'griter_notification'), array('pass' => array(12)));
+}   
+?>
+  
 });
 </script>

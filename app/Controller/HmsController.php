@@ -19,7 +19,10 @@ function griter_notification($id)
 	{
 		$this->Session->delete('pro_status',1);
 	}
-	
+	if($id==12)
+	{
+		$this->Session->delete('invite_status',1);
+	}
 	
 }
 
@@ -16406,8 +16409,7 @@ $j= $this->autoincrement('invitation','invite_id');
 $this->invitation->saveAll(array('invite_id'=>$j,'name'=>$name_user,'email'=>$to,'user_id'=>$s_user_id,'society_id'=>$s_society_id,'date'=>$date,'time'=>$time,'subject'=>$subject));
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply); 
 }
-$sucess=1;
-$this->set('sm',$sucess);
+$this->Session->write('invite_status', 1);
 }
 }
 

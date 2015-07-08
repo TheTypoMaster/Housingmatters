@@ -1099,7 +1099,7 @@ $grand_total2 = number_format($remain_amount);
 }
 $int_show_arrears2 = number_format($int_show_arrears);
 
-$html.='<table border="0" style="width:100%;margin-left: 7%;">
+$html.='<table border="0" style="width:100%;">
 <tr>';
 $html.='
 <td style="text-align:right; padding-right:8%;">'.$total_amount3.'</td>
