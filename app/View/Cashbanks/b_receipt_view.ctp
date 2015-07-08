@@ -99,7 +99,11 @@ echo '<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px
 		<div style="border-bottom:solid 1px;"></div>
 		<table width="100%" cellpadding="5px">
 			<tr>
-				<td><span style="font-size:16px;"> <b>Rs '.$amount.'</b></span><br/>Subject to realization of Cheque(s)</td>
+				<td><span style="font-size:16px;"> <b>Rs '.$amount.'</b></span><br/>';
+				if($receipt_mode=="Cheque"){
+					echo 'Subject to realization of Cheque(s)';
+				}
+				echo '</td>
 			</tr>
 		</table>
 		<table width="100%" cellpadding="5px">

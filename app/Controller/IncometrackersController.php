@@ -938,6 +938,10 @@ Name :
 <td style="text-align:left;">'.$date_c.'</td>
 </tr>
 <tr>
+<td style="text-align:left;font-weight: bold;">Description:</td>
+<td style="text-align:left;">'.$narration.'</td>
+</tr>
+<tr>
 <td style="text-align:left;"></td>
 <td style="text-align:left;"></td>
 </tr>
@@ -965,7 +969,6 @@ Name :
 </tr>
 </table>
 </div>
-<div><b>&nbsp;Description:</b> '.$narration.'</div>
 </div>
 <div style="overflow:auto;">
 <table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="5">
@@ -1746,6 +1749,10 @@ Name :
 <td style="text-align:left;">'.$date_c.'</td>
 </tr>
 <tr>
+<td style="text-align:left;font-weight: bold;">Description:</td>
+<td style="text-align:left;">'.$narration.'</td>
+</tr>
+<tr>
 <td style="text-align:left;"></td>
 <td style="text-align:left;"></td>
 </tr>
@@ -1771,9 +1778,10 @@ Name :
 <td style="text-align:left;font-weight: bold;"><b>Due Date:</b></td>
 <td style="text-align:left;"><b>'.$due_date21.'</b></td>
 </tr>
+
 </table>
 </div>
-<div><b>&nbsp;Description:</b> '.$narration.'</div>
+
 </div>
 <div style="overflow:auto;">
 <table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="5">
@@ -1953,7 +1961,7 @@ $html.='</div>
 ';
 
 //////////////////////////////////
-
+echo $html; exit;
 $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array("bill_html" =>$html),array("regular_bill_id" =>$regular_bill_id));	
 ////////End Bill Html Code///////////////////
