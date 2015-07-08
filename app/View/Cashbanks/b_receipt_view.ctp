@@ -78,7 +78,7 @@ echo '<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px
 			</tr>
 			<tr>
 				<td>
-				Received with thanks from: '.$user_name.' '.$wing_flat.'
+				Received with thanks from:  <b>'.$user_name.' '.$wing_flat.'</b>
 				<br/>
 				Rupees '.$am_in_words.' Only
 				<br/>';
@@ -99,7 +99,7 @@ echo '<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px
 		<div style="border-bottom:solid 1px;"></div>
 		<table width="100%" cellpadding="5px">
 			<tr>
-				<td><span style="font-size:16px;">Rs '.$amount.'</span><br/>Subject to realization of Cheque(s)</td>
+				<td><span style="font-size:16px;"> <b>Rs '.$amount.'</b></span><br/>Subject to realization of Cheque(s)</td>
 			</tr>
 		</table>
 		<table width="100%" cellpadding="5px">

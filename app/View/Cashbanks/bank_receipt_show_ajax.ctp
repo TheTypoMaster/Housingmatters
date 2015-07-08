@@ -30,8 +30,8 @@ $amount_category_id = (int)$collection['cash_bank']['amount_category_id'];
 $current_date = $collection['cash_bank']['current_date'];
 if($receipt_mode == "Cheque" || $receipt_mode == "NEFT")
 {
-$cheque_no = $collection['cash_bank']['cheque_no'];	
-$receipt_mode = $receipt_mode."(".$cheque_no.")";
+$cheque_number = @$collection['cash_bank']['cheque_number'];	
+$receipt_mode = $receipt_mode."(".$cheque_number.")";
 }
 if($member == 1)
 {
@@ -165,8 +165,8 @@ Bank Receipt Report  (<?php echo $society_name; ?>)
 			$current_date = $collection['cash_bank']['current_date'];
 			if($receipt_mode == "Cheque" || $receipt_mode == "NEFT")
 			{
-			$cheque_no = $collection['cash_bank']['cheque_no'];	
-			$receipt_mode = $receipt_mode."(".$cheque_no.")";
+			$cheque_number = $collection['cash_bank']['cheque_number'];	
+			$receipt_mode = $receipt_mode."(".$cheque_number.")";
 			}
 			if($member == 1)
 			{
