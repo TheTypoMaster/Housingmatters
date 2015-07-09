@@ -35,18 +35,20 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </div>
 <br/>
 <form method="post">
-<div align="right">
-Select All <input type="checkbox" value="1"  style="opacity: 0;" class="chk" id="1">
-</div>
+
 <div style="background-color: #fff;">
 <br/>
-<table class="table table-striped table-bordered dataTable" id="sample_1" aria-describedby="sample_1_info" >
+<table class="table table-striped table-bordered dataTable" id="" aria-describedby="sample_1_info" >
 <thead>
 <tr>
 <th>Sr.n.</th>
 <th>User Name</th>
-<th>Unit</th>
-<th>Is unit given on  lease ?</th>
+<th >Unit</th>
+<th>NOC Type
+ &nbsp; 
+<label class="radio"><input type="radio"  name="" class="all_chk" value="1" ><span style="font-size:12px;">Select All (Self Occupied)</span></label>
+<label class="radio"><input type="radio"  name="" class="all_chk"  value="2" ><span style="font-size:12px;">Select All (Leased)</span></label>
+	</th>
 </tr>
 </thead>
 <tbody>
@@ -73,14 +75,9 @@ foreach($noc_flat as $dafa)
 	<td><?php echo $wing_flat ; ?></td>
 	
 	<td>
-	<div class="controls">
-	<label class="checkbox">
-	<div class="checker" id="uniform-undefined">
-	<span>
-	<input type="checkbox" value="1" name='<?php echo $user_id; ?>' <?php if(@$noc_type==2) { ?> checked <?php } ?> style="opacity: 0;" class="check_all">
-	</span>
-	</div> 
-	</label>
+	<div class="controls" id="residing_div1">
+	<label class="radio"><input type="radio" class="self_occ" name="<?php echo $user_id; ?>" <?php if(@$noc_type==1) { ?> checked <?php } ?>   value="1">Self Occupied</label>
+	<label class="radio"><input type="radio" class="leas"  name="<?php echo $user_id; ?>" <?php if(@$noc_type==2) { ?> checked <?php } ?>  value="2">Leased</label>
 	</div>
 	</td>
 	</tr>
@@ -100,18 +97,26 @@ foreach($noc_flat as $dafa)
 
 <script>
 $(document).ready(function(){
-$(".chk").live('click',function(){
-var c=$(this).val();
-value = +$('#'+c).is( ':checked' );
-if(value==0)
+$(".all_chk").bind("click",function(){
+var r=$(this).val();
+
+if(r==1)
 {
-$(".check_all").parent('span').removeClass('checked');
-$(".check_all").removeAttr('checked','checked');
+$(".self_occ").attr('checked','checked');
+$(".self_occ").parent('span').addClass('checked');
+
+$(".leas").parent('span').removeClass('checked');
+$(".leas").removeAttr('checked','checked');
+
 }
 else
 {
-$(".check_all").parent('span').addClass('checked');
-$(".check_all").attr('checked','checked');
+$(".leas").attr('checked','checked');
+$(".leas").parent('span').addClass('checked');
+
+$(".self_occ").parent('span').removeClass('checked');
+$(".self_occ").removeAttr('checked','checked');
+
 }
 });
 

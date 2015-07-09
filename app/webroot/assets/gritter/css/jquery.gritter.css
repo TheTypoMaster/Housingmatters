@@ -44,7 +44,8 @@
 }
 .gritter-item {
 	display:block;
-	background-color:purple;
+	//background-color:blue;
+	background-color: #2f96b4;
 	//background:url(../images/gritter.png) no-repeat left -40px;
 	color:#eee;
 	padding:2px 11px 8px 11px;

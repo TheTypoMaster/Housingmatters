@@ -18,8 +18,8 @@
       <div style="color:red;"><?php echo @$wrong; echo @$right;?></div>
       <div class="control-group">
 	  	<div class="controls">
-        	<div class="input-icon left">
-			<input type="password"   class="m-wrap" name="email" style="font-size:16px;" placeholder="Verification code*" >
+        	<div class="">
+			<input type="text"   class="m-wrap" name="email" style="font-size:16px;" placeholder="Verification code*" maxlength="5" >
              </div>
 		</div>
 	  </div>
@@ -48,7 +48,8 @@ $(document).ready(function(){
 	    rules: {
 	      email: {
 	       
-	        required: true,number:true
+	        required: true,
+			number:true
 			
 	      }
 	     
