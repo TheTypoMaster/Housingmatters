@@ -902,14 +902,26 @@ $html='<div style="width:70%;margin:auto;" class="bill_on_screen">
 <div style="border:solid 1px; overflow:auto;">
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'</div>
 <div style="padding:5px;">
-	<div style="float:left;">
-	<img src='.$webroot_path.'logo/'.$log_img.'  height="60px" width="60px" class=""></img>
-	</div>
+	<div style="float:left;">';
+	if(!empty($log_img)){
+		$html.='<img src='.$webroot_path.'logo/'.$log_img.'  height="45px" width="45px" class=""></img>';
+	}
+	
+	$html.='</div>
 	<div style="float:right;" align="right">
 	<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_reg_no.'</span><br/>
-	<span style="color: rgb(100, 100, 99); ">'.$so_address.'</span><br/>
-	<span>Email: '.$society_email.'</span> | <span>Phone : '.$society_phone.'</span>
-	</div>
+	<span style="color: rgb(100, 100, 99); ">'.$so_address.'</span><br/>';
+	
+	if(!empty($society_email)){
+		$html.='<span>Email: '.$society_email.'</span>';
+	}
+	if(!empty($society_email) && !empty($society_phone)){
+		$html.=' | ';
+	}
+	if(!empty($society_phone)){
+		$html.='<span>Phone : '.$society_phone.'</span>';
+	}
+	$html.='</div>
 </div>
 <table border="0" style="width:15%; float:left;">
 <tr>
@@ -1021,29 +1033,29 @@ $html.='</table>
 </tr>
 <tr>
 <td valign="top">
-<table border="0" style="width:60%; float:left;">
+<table border="0" style="width:60%; float:left;font-size: 11px;">
 <tr>
 <td colspan="2" >Cheque/NEFT payment instructions:</td>
 </tr>
 <tr>
-<td width="35%"><b>Account Name:</b></td>
-<td> &nbsp;&nbsp; '.$account_name.'</td>
+<td width="30%" valign="top"><b>Account Name:</b></td>
+<td>'.$account_name.'</td>
 </tr>
 <tr>
 <td><b>Account No.:</b></td>
-<td> &nbsp;&nbsp; '.$ac_num.'</td>
+<td>'.$ac_num.'</td>
 </tr>
 <tr>
 <td><b>Bank Name:</b></td>
-<td> &nbsp;&nbsp; '.$bank_name .'</td>
+<td>'.$bank_name .'</td>
 </tr>
 <tr>
 <td><b>Branch Name:</b></td>
-<td> &nbsp;&nbsp; '.$branch .'</td>
+<td>'.$branch .'</td>
 </tr>
 <tr>
 <td><b>IFSC no.:</b></td>
-<td> &nbsp;&nbsp; '.$ifsc_code.'</td>
+<td>'.$ifsc_code.'</td>
 </tr>
 </table>
 <table border="0" style="width:40%;">';
@@ -1713,14 +1725,25 @@ $html='<div style="width:70%;margin:auto;"  class="bill_on_screen">
 <div style="border:solid 1px; overflow:auto;">
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).' </div>
 <div style="padding:5px;">
-	<div style="float:left;">
-	<img src='.$webroot_path.'logo/'.$log_img.' height="60px" width="60px" class=""></img>
-	</div>
+	<div style="float:left;">';
+	if(!empty($log_img)){
+		$html.='<img src='.$webroot_path.'logo/'.$log_img.' height="60px" width="60px" class=""></img>';
+	}
+	
+	$html.='</div>
 	<div style="float:right;" align="right">
 	<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$so_reg_no.'</span><br/>
-	<span style="color: rgb(100, 100, 99); ">'.$so_address.'</span><br/>
-	<span>Email: '.$society_email.'</span> | <span>Phone : '.$society_phone.'</span>
-	</div>
+	<span style="color: rgb(100, 100, 99); ">'.$so_address.'</span><br/>';
+	if(!empty($society_email)){
+		$html.='<span>Email: '.$society_email.'</span>';
+	}
+	if(!empty($society_email) && !empty($society_phone)){
+		$html.=' | ';
+	}
+	if(!empty($society_phone)){
+		$html.='<span>Phone : '.$society_phone.'</span>';
+	}
+	$html.='</div>
 </div>
 <table border="0" style="width:15%; float:left;">
 <tr>
@@ -1834,29 +1857,29 @@ $html.='</table>
 </tr>
 <tr>
 <td valign="top">
-<table border="0" style="width:60%; float:left;">
+<table border="0" style="width:60%; float:left;font-size:11px;">
 <tr>
 <td colspan="2" >Cheque/NEFT payment instructions:</td>
 </tr>
 <tr>
-<td width="35%"><b>Account Name:</b></td>
-<td> &nbsp;&nbsp; '.$account_name.'</td>
+<td width="30%" valign="top"><b>Account Name:</b></td>
+<td>'.$account_name.'</td>
 </tr>
 <tr>
 <td><b>Account No.:</b></td>
-<td> &nbsp;&nbsp; '.$ac_num.'</td>
+<td>'.$ac_num.'</td>
 </tr>
 <tr>
 <td><b>Bank Name:</b></td>
-<td> &nbsp;&nbsp; '.$bank_name .'</td>
+<td>'.$bank_name .'</td>
 </tr>
 <tr>
 <td><b>Branch Name:</b></td>
-<td> &nbsp;&nbsp; '.$branch .'</td>
+<td>'.$branch .'</td>
 </tr>
 <tr>
 <td><b>IFSC no.:</b></td>
-<td> &nbsp;&nbsp; '.$ifsc_code.'</td>
+<td>'.$ifsc_code.'</td>
 </tr>
 </table>
 <table border="0" style="width:40%;">';
