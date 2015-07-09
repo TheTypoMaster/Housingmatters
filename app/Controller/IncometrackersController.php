@@ -985,7 +985,7 @@ Name :
 <div style="overflow:auto;">
 <table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="5">
 <tr>
-<th style="width:80%; text-align:left;color: #fff;background-color: rgb(4, 126, 186);">Particulars of charges</th>
+<th style="width:85%; text-align:left;color: #fff;background-color: rgb(4, 126, 186);">Particulars of charges</th>
 <th style="text-align:right;color: #fff;background-color: rgb(4, 126, 186);">Amount (Rs.)</th>
 <tr>
 <tr>
@@ -1033,7 +1033,7 @@ $html.='</table>
 </tr>
 <tr>
 <td valign="top">
-<table border="0" style="width:60%; float:left;font-size: 11px;">
+<table border="0" style="width:75%; float:left;font-size: 11px;">
 <tr>
 <td colspan="2" >Cheque/NEFT payment instructions:</td>
 </tr>
@@ -1058,7 +1058,7 @@ $html.='</table>
 <td>'.$ifsc_code.'</td>
 </tr>
 </table>
-<table border="0" style="width:40%;">';
+<table border="0" style="width:25%;">';
 $html.='<tr>
 <td rowspan="5"></td>
 <td style="text-align:right; padding-right:2%;">Total:</td>
@@ -1809,7 +1809,7 @@ Name :
 <div style="overflow:auto;">
 <table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="5">
 <tr>
-<th style="width:80%; text-align:left;color: #fff;background-color: rgb(4, 126, 186);">Particulars of charges</th>
+<th style="width:85%; text-align:left;color: #fff;background-color: rgb(4, 126, 186);">Particulars of charges</th>
 <th style="text-align:right;color: #fff;background-color: rgb(4, 126, 186);">Amount (Rs.)</th>
 <tr>
 <tr>
@@ -1857,7 +1857,7 @@ $html.='</table>
 </tr>
 <tr>
 <td valign="top">
-<table border="0" style="width:60%; float:left;font-size:11px;">
+<table border="0" style="width:75%; float:left;font-size:11px;">
 <tr>
 <td colspan="2" >Cheque/NEFT payment instructions:</td>
 </tr>
@@ -1882,7 +1882,7 @@ $html.='</table>
 <td>'.$ifsc_code.'</td>
 </tr>
 </table>
-<table border="0" style="width:40%;">';
+<table border="0" style="width:25%;">';
 $html.='<tr>
 <td rowspan="5"></td>
 <td style="text-align:right; padding-right:2%;">Total:</td>
