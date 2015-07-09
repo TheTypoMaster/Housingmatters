@@ -71,6 +71,7 @@ Bill for date From :<?php echo $from; ?> To : <?php echo $to; ?>
 <th style="text-align:left;">Sr.No.</th>
 <th style="text-align:left;">Bill No.</th>
 <th style="text-align:left;">Name of Resident</th>
+<th style="text-align:left;">Unit No.</th>
 <?php
 for($k=0; $k<sizeof($ih_arr); $k++)
 {
@@ -107,16 +108,22 @@ foreach($cursor1 as $collection)
 {
 $bill_no = (int)$collection['regular_bill']['receipt_id'];	
 $user_id = (int)$collection['regular_bill']['bill_for_user'];
-$current_amt = $collection['regular_bill']['total_amount'];
+$current_amt = $collection['regular_bill']['current_bill_amt'];
 $over_due_amt = $collection['regular_bill']['due_amount'];
-$penalty_amt = $collection['regular_bill']['due_amount_tax'];
+$penalty_amt = $collection['regular_bill']['current_tax'];
 $gt_amt = $collection['regular_bill']['g_total'];
 $ih_det = $collection['regular_bill']['ih_detail'];
 $result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));
 foreach($result2 as $collection)
 {
 $user_name = $collection['user']['user_name'];
+$wing_id = (int)$collection['user']['wing'];
+$flat_id = (int)$collection['user']['flat'];
 }
+
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
+
+
 $tt_current_amt = $tt_current_amt + $current_amt;
 $tt_over_due_amt = $tt_over_due_amt + $over_due_amt;
 $total_penalty_amt = $total_penalty_amt + $penalty_amt;
@@ -127,6 +134,7 @@ $m++;
 <td style="text-align:right;"><?php echo $m; ?></td>
 <td style="text-align:right;"><?php echo $bill_no; ?></td>
 <td style="text-align:left;"><?php echo $user_name; ?></td>
+<td style="text-align:left;"><?php echo $wing_flat; ?></td>
 <?php
 for($x=0; $x<sizeof($ih_det); $x++)
 {
@@ -182,7 +190,7 @@ echo $gt_amt; ?></td>
 </tr>
 <?php } ?>
 <tr>
-<th colspan="3" style="text-align:right;">Total</th>
+<th colspan="4" style="text-align:right;">Total</th>
 <?php
 for($v=0; $v<sizeof(@$ih_tt_amt); $v++)
 {
