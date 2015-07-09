@@ -4016,7 +4016,8 @@ $excel="<table border='1'>
 <tr>
 <th>Sr.No.</th>
 <th>Bill No.</th>
-<th>Name of Resident</th>";
+<th>Name of Resident</th>
+<th>Unit No.</th>";
 for($k=0; $k<sizeof(@$ih_arr); $k++)
 {
 $sub_arr = $ih_arr[$k];
@@ -4054,9 +4055,9 @@ foreach($cursor as $collection)
 {
 $bill_no = (int)$collection['regular_bill']['receipt_id'];	
 $user_id = (int)$collection['regular_bill']['bill_for_user'];
-$current_amt = $collection['regular_bill']['total_amount'];
+$current_amt = $collection['regular_bill']['current_bill_amt'];
 $over_due_amt = $collection['regular_bill']['due_amount'];
-$penalty_amt = $collection['regular_bill']['due_amount_tax'];
+$penalty_amt = $collection['regular_bill']['current_tax'];
 $gt_amt = $collection['regular_bill']['g_total'];
 $ih_det = $collection['regular_bill']['ih_detail'];
 
@@ -4064,7 +4065,14 @@ $result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'user_f
 foreach($result2 as $collection)
 {
 $user_name = $collection['user']['user_name'];
+$wing_id = (int)$collection['user']['wing'];
+$flat_id = (int)$collection['user']['flat'];
 }
+
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
+
+
+
 $tt_current_amt = $tt_current_amt + $current_amt;
 $tt_over_due_amt = $tt_over_due_amt + $over_due_amt;
 $total_penalty_amt = $total_penalty_amt + $penalty_amt;
@@ -4074,7 +4082,8 @@ $m++;
 $excel.="<tr>
 <td style='text-align:center;'>$m</td>
 <td style='text-align:center;'>$bill_no</td>
-<td style='text-align:center;'>$user_name</td>";
+<td style='text-align:center;'>$user_name</td>
+<td style='text-align:center;'>$wing_flat</td>";
 for($x=0; $x<sizeof(@$ih_det); $x++)
 {
 $charge3 = $ih_det[$x];
@@ -4118,7 +4127,7 @@ $excel.="
 </tr>";
 }
 $excel.="<tr>
-<th colspan='3'>Total</th>";
+<th colspan='4'>Total</th>";
 for($v=0; $v<sizeof(@$ih_tt_amt); $v++)
 {
 $tt_amt = $ih_tt_amt[$v];	
