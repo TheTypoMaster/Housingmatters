@@ -764,7 +764,7 @@ $multipleRowData = Array( Array("regular_bill_id" => $regular_bill_id,"receipt_i
 "description"=>$description,"date"=>$current_date, "society_id"=>$s_society_id,"bill_for_user"=>$user_id,
 "g_total"=>$grand_total,"bill_daterange_from"=>$m_from,"bill_daterange_to"=>$m_to,
 "bill_html"=>"","one_time_id"=>$one,"status" => 0,  
-"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "current_tax" => @$penalty_amt,"accumulated_tax"=>@$tax_arrears,"remaining_amount"=>$grand_total,"current_bill_amt" => $current_bill_amt,"arrears_amt"=>@$arrear_amt,"pay_amount"=>"", "due_amount" => @$over_due_amt,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt,"approve_status"=>1,"flat_id"=>$flat_id,"open_penlty"=>$opn_penlty_amt,"open_amt"=>$opn_principal_amt,"arrear_interest"=>@$tax_arrears));
+"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "current_tax" => @$penalty_amt,"accumulated_tax"=>@$tax_arrears,"remaining_amount"=>$grand_total,"current_bill_amt" => $current_bill_amt,"arrears_amt"=>@$arrear_amt,"pay_amount"=>"", "due_amount" => @$over_due_amt,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt,"approve_status"=>1,"flat_id"=>$flat_id,"open_penlty"=>$opn_penlty_amt,"open_amt"=>$opn_principal_amt,"arrear_interest"=>@$tax_arrears,"arrears_amt2"=>@$arrear_amt));
 $this->regular_bill->saveAll($multipleRowData);	
 
 $ussrs[]=$user_id;
@@ -1581,7 +1581,7 @@ $multipleRowData = Array( Array("regular_bill_id" => $regular_bill_id,"receipt_i
 "description"=>$description,"date"=>$current_date, "society_id"=>$s_society_id,"bill_for_user"=>$user_id,
 "g_total"=>$grand_total,"bill_daterange_from"=>$m_from,"bill_daterange_to"=>$m_to,
 "bill_html"=>"","one_time_id"=>$one,"status" => 0,  
-"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "current_tax" => @$penalty_amt,"accumulated_tax"=>@$tax_arrears,"remaining_amount"=>$grand_total,"current_bill_amt" => $current_bill_amt,"arrears_amt"=>@$arrear_amt,"pay_amount"=>"", "due_amount" => @$over_due_amt,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt,"approve_status"=>1,"flat_id"=>$flat_id,"open_penlty"=>$opn_penlty_amt,"open_amt"=>$opn_principal_amt,"arrear_interest"=>@$tax_arrears));
+"due_date" => $due_date, "total_due_amount"=> $total_due_amount, "current_tax" => @$penalty_amt,"accumulated_tax"=>@$tax_arrears,"remaining_amount"=>$grand_total,"current_bill_amt" => $current_bill_amt,"arrears_amt"=>@$arrear_amt,"pay_amount"=>"", "due_amount" => @$over_due_amt,"period_id"=>$p_id,"ih_detail"=>$income_headd2,"noc_charge"=>@$noc_amt,"approve_status"=>1,"flat_id"=>$flat_id,"open_penlty"=>$opn_penlty_amt,"open_amt"=>$opn_principal_amt,"arrear_interest"=>@$tax_arrears,"arrears_amt2"=>@$arrear_amt));
 $this->regular_bill->saveAll($multipleRowData);	
 
 
@@ -4059,6 +4059,8 @@ $excel.="<th style='text-align:center;'>$in_name</th>";
 $excel.="
 <th>Non Occupancy charges</th>
 <th>Current Amount</th>
+<th>Arrears principle</th>
+<th>Arrears Interest</th>
 <th>Over Due Amount</th>
 <th>Penalty Amount</th>
 <th>Grand Total Amount</th>
@@ -4069,8 +4071,8 @@ $tt_over_due_amt = 0;
 $total_penalty_amt = 0;
 $tt_gt_amt = 0;
 $tt_noc_amt = 0;
-
-
+$total_arrears_amt = 0;
+$total_arrears_penalty = 0;
 $this->loadmodel('regular_bill');
 $condition=array('society_id'=>$s_society_id,"one_time_id"=>$un);
 $cursor = $this->regular_bill->find('all',array('conditions'=>$condition)); 
@@ -4083,6 +4085,19 @@ $over_due_amt = $collection['regular_bill']['due_amount'];
 $penalty_amt = $collection['regular_bill']['current_tax'];
 $gt_amt = $collection['regular_bill']['g_total'];
 $ih_det = $collection['regular_bill']['ih_detail'];
+$arrears_amt = $collection['regular_bill']['arrears_amt2'];
+$accumulated_tax = $collection['regular_bill']['arrear_interest'];
+
+
+$int_show_arrears = $accumulated_tax - $penalty_amt;
+
+
+$total_arrears_amt = $total_arrears_amt + $arrears_amt;
+$total_arrears_penalty = $total_arrears_penalty + $int_show_arrears;
+
+
+
+
 
 $result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));
 foreach($result2 as $collection)
@@ -4137,6 +4152,8 @@ $excel.="<td style='text-align:center;'> 0 </td>";
 }
 $excel.="
 <td style='text-align:center;'>$current_amt</td>
+<td style='text-align:center;'>$arrears_amt</td>
+<td style='text-align:center;'>$int_show_arrears</td>
 <td style='text-align:center;'>";
 if(!empty($over_due_amt)) { $excel.="$over_due_amt";
 } else { $excel.="0"; } 
@@ -4158,6 +4175,10 @@ $excel.="<th>$tt_amt</th>";
 }
 $excel.="<th>$tt_noc_amt</th>
 <th>$tt_current_amt</th>
+
+<th>$total_arrears_amt</th>
+<th>$total_arrears_penalty</th>
+
 <th>$tt_over_due_amt</th>
 <th>$total_penalty_amt</th>
 <th>$tt_gt_amt</th>
