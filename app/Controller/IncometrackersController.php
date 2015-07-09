@@ -1033,7 +1033,7 @@ $html.='</table>
 </tr>
 <tr>
 <td valign="top">
-<table border="0" style="width:60%; float:left;font-size: 12px;">
+<table border="0" style="width:60%; float:left;font-size: 11px;">
 <tr>
 <td colspan="2" >Cheque/NEFT payment instructions:</td>
 </tr>
@@ -1857,7 +1857,7 @@ $html.='</table>
 </tr>
 <tr>
 <td valign="top">
-<table border="0" style="width:60%; float:left;font-size:12px;">
+<table border="0" style="width:60%; float:left;font-size:11px;">
 <tr>
 <td colspan="2" >Cheque/NEFT payment instructions:</td>
 </tr>
