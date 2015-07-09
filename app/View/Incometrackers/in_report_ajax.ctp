@@ -90,12 +90,11 @@ $ih_tt_amt[] = 0;
 <th style="text-align:left;"><?php echo $in_name; ?></th>
 <?php }} ?>
 <th style="text-align:left;">Non Occupancy charges</th>
-<th style="text-align:left;">Current Amount</th>
-<th style="text-align:left;">Arrears principle</th>
-<th style="text-align:left;">Arrears Interest</th>
-<th style="text-align:left;">Over Due Amount</th>
-<th style="text-align:left;">Penalty Amount</th>
-<th style="text-align:left;">Grand Total Amount</th>
+<th style="text-align:left;">Total</th>
+<th style="text-align:left;">Interest on Arrears</th>
+<th style="text-align:left;">Arrears (Maint.)</th>
+<th style="text-align:left;">Arrears (Int.)</th>
+<th style="text-align:left;">Due For Payment</th>
 </tr>
 
 <?php
@@ -194,19 +193,16 @@ if($n == 5)
 $current_amt = number_format($current_amt);
 echo $current_amt; ?></td>
 
+
+<td style="text-align:right;"><?php if(!empty($over_due_amt)) { 
+$penalty_amt = number_format($penalty_amt);
+echo $penalty_amt; } else { echo "0"; } ?></td>
 <td style="text-align:right;"><?php 
 $arrears_amt2 = number_format($arrears_amt);
 echo $arrears_amt2; ?></td>
 <td style="text-align:right;"><?php 
 $int_show_arrears2 = number_format($int_show_arrears);
 echo $int_show_arrears2; ?></td>
-
-<td style="text-align:right;"><?php if(!empty($over_due_amt)) { 
-$over_due_amt = number_format($over_due_amt);
-echo $over_due_amt; } else { echo "0"; } ?></td>
-<td style="text-align:right;"><?php if(!empty($over_due_amt)) { 
-$penalty_amt = number_format($penalty_amt);
-echo $penalty_amt; } else { echo "0"; } ?></td>
 <td style="text-align:right;"><?php 
 $gt_amt = number_format($gt_amt);
 echo $gt_amt; ?></td>
@@ -232,6 +228,10 @@ $tt_current_amt = number_format($tt_current_amt);
 echo $tt_current_amt; ?></th>
 
 <th style="text-align:right;"><?php 
+$total_penalty_amt = number_format($total_penalty_amt);
+echo $total_penalty_amt; ?></th>
+
+<th style="text-align:right;"><?php 
 $total_arrears_amt2 = number_format($total_arrears_amt);
 echo $total_arrears_amt2; ?></th>
 
@@ -239,12 +239,7 @@ echo $total_arrears_amt2; ?></th>
 $total_arrears_penalty2 = number_format($total_arrears_penalty);
 echo $total_arrears_penalty2; ?></th>
 
-<th style="text-align:right;"><?php 
-$tt_over_due_amt = number_format($tt_over_due_amt);
-echo $tt_over_due_amt; ?></th>
-<th style="text-align:right;"><?php 
-$total_penalty_amt = number_format($total_penalty_amt);
-echo $total_penalty_amt; ?></th>
+
 <th style="text-align:right;"><?php 
 $tt_gt_amt = number_format($tt_gt_amt);
 echo $tt_gt_amt; ?></th>

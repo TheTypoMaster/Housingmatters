@@ -4058,12 +4058,11 @@ $excel.="<th style='text-align:center;'>$in_name</th>";
 }}
 $excel.="
 <th>Non Occupancy charges</th>
-<th>Current Amount</th>
-<th>Arrears principle</th>
-<th>Arrears Interest</th>
-<th>Over Due Amount</th>
-<th>Penalty Amount</th>
-<th>Grand Total Amount</th>
+<th>Total</th>
+<th>Interest on Arrears</th>
+<th>Arrears (Maint.)</th>
+<th>Arrears (Int.)</th>
+<th>Due For Payment</th>
 </tr>";
 $m=0;
 $tt_current_amt = 0;
@@ -4152,17 +4151,13 @@ $excel.="<td style='text-align:center;'> 0 </td>";
 }
 $excel.="
 <td style='text-align:center;'>$current_amt</td>
-<td style='text-align:center;'>$arrears_amt</td>
-<td style='text-align:center;'>$int_show_arrears</td>
-<td style='text-align:center;'>";
-if(!empty($over_due_amt)) { $excel.="$over_due_amt";
-} else { $excel.="0"; } 
-$excel.="</td>
 <td style='text-align:center;'>";
 if(!empty($over_due_amt)) { $excel.="$penalty_amt";
 } else { $excel.="0"; } 
 $excel.="
 </td>
+<td style='text-align:center;'>$arrears_amt</td>
+<td style='text-align:center;'>$int_show_arrears</td>
 <td style='text-align:center;'>$gt_amt</td>
 </tr>";
 }
@@ -4175,12 +4170,9 @@ $excel.="<th>$tt_amt</th>";
 }
 $excel.="<th>$tt_noc_amt</th>
 <th>$tt_current_amt</th>
-
+<th>$total_penalty_amt</th>
 <th>$total_arrears_amt</th>
 <th>$total_arrears_penalty</th>
-
-<th>$tt_over_due_amt</th>
-<th>$total_penalty_amt</th>
 <th>$tt_gt_amt</th>
 </tr>
 </table>";
