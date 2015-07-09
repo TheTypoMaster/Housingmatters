@@ -4894,8 +4894,8 @@ if($n>0)
 $random=mt_rand(10000,99999);
 $this->loadmodel('user');
 $this->user->updateAll(array('password'=>$random),array('user.email'=>$to));
-$from_name=$username;
-$subject="Password";
+$from_name="HousingMatters Support Team";
+$subject="Password reset code";
 
 
 

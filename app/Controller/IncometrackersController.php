@@ -3811,18 +3811,17 @@ foreach($result as $data)
 {
 	  $user_id=$data['user']['user_id'];
 	   $flat_id1=(int)$data['user']['flat'];
-	   $value =(int)@$this->request->data[$user_id];
+	   $value =@$this->request->data[$user_id]; 
 	if($value==1)
 	{
-		
-		$this->loadmodel('flat');
-		$this->flat->updateAll(array('noc_ch_tp'=>2),array('flat_id'=>$flat_id1));
-		
-	}
-	else{
-		
 		$this->loadmodel('flat');
 		$this->flat->updateAll(array('noc_ch_tp'=>1),array('flat_id'=>$flat_id1));
+		
+	}
+	if($value==2)
+	{
+		$this->loadmodel('flat');
+		$this->flat->updateAll(array('noc_ch_tp'=>2),array('flat_id'=>$flat_id1));
 		
 	}
 		
