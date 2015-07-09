@@ -91,6 +91,8 @@ $ih_tt_amt[] = 0;
 <?php }} ?>
 <th style="text-align:left;">Non Occupancy charges</th>
 <th style="text-align:left;">Current Amount</th>
+<th style="text-align:left;">Arrears principle</th>
+<th style="text-align:left;">Arrears Interest</th>
 <th style="text-align:left;">Over Due Amount</th>
 <th style="text-align:left;">Penalty Amount</th>
 <th style="text-align:left;">Grand Total Amount</th>
@@ -104,6 +106,8 @@ $tt_over_due_amt = 0;
 $total_penalty_amt = 0;
 $tt_gt_amt = 0;
 $tt_noc_amt = 0;
+$total_arrears_amt = 0;
+$total_arrears_penalty = 0;
 foreach($cursor1 as $collection)
 {
 $bill_no = (int)$collection['regular_bill']['receipt_id'];	
@@ -113,6 +117,17 @@ $over_due_amt = $collection['regular_bill']['due_amount'];
 $penalty_amt = $collection['regular_bill']['current_tax'];
 $gt_amt = $collection['regular_bill']['g_total'];
 $ih_det = $collection['regular_bill']['ih_detail'];
+$arrears_amt = $collection['regular_bill']['arrears_amt2'];
+$accumulated_tax = $collection['regular_bill']['arrear_interest'];
+
+
+$int_show_arrears = $accumulated_tax - $penalty_amt;
+
+
+$total_arrears_amt = $total_arrears_amt + $arrears_amt;
+$total_arrears_penalty = $total_arrears_penalty + $int_show_arrears;
+
+
 $result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));
 foreach($result2 as $collection)
 {
@@ -178,6 +193,14 @@ if($n == 5)
 <td style="text-align:right;"><?php 
 $current_amt = number_format($current_amt);
 echo $current_amt; ?></td>
+
+<td style="text-align:right;"><?php 
+$arrears_amt2 = number_format($arrears_amt);
+echo $arrears_amt2; ?></td>
+<td style="text-align:right;"><?php 
+$int_show_arrears2 = number_format($int_show_arrears);
+echo $int_show_arrears2; ?></td>
+
 <td style="text-align:right;"><?php if(!empty($over_due_amt)) { 
 $over_due_amt = number_format($over_due_amt);
 echo $over_due_amt; } else { echo "0"; } ?></td>
@@ -207,6 +230,15 @@ echo $tt_noc_amt; ?></th>
 <th style="text-align:right;"><?php 
 $tt_current_amt = number_format($tt_current_amt);
 echo $tt_current_amt; ?></th>
+
+<th style="text-align:right;"><?php 
+$total_arrears_amt2 = number_format($total_arrears_amt);
+echo $total_arrears_amt2; ?></th>
+
+<th style="text-align:right;"><?php 
+$total_arrears_penalty2 = number_format($total_arrears_penalty);
+echo $total_arrears_penalty2; ?></th>
+
 <th style="text-align:right;"><?php 
 $tt_over_due_amt = number_format($tt_over_due_amt);
 echo $tt_over_due_amt; ?></th>
