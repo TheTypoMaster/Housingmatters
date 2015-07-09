@@ -985,7 +985,7 @@ Name :
 <div style="overflow:auto;">
 <table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="5">
 <tr>
-<th style="width:80%; text-align:left;color: #fff;background-color: rgb(4, 126, 186);">Particulars of charges</th>
+<th style="width:85%; text-align:left;color: #fff;background-color: rgb(4, 126, 186);">Particulars of charges</th>
 <th style="text-align:right;color: #fff;background-color: rgb(4, 126, 186);">Amount (Rs.)</th>
 <tr>
 <tr>
@@ -1033,7 +1033,7 @@ $html.='</table>
 </tr>
 <tr>
 <td valign="top">
-<table border="0" style="width:60%; float:left;font-size: 11px;">
+<table border="0" style="width:75%; float:left;font-size: 11px;">
 <tr>
 <td colspan="2" >Cheque/NEFT payment instructions:</td>
 </tr>
@@ -1058,7 +1058,7 @@ $html.='</table>
 <td>'.$ifsc_code.'</td>
 </tr>
 </table>
-<table border="0" style="width:40%;">';
+<table border="0" style="width:25%;">';
 $html.='<tr>
 <td rowspan="5"></td>
 <td style="text-align:right; padding-right:2%;">Total:</td>
@@ -1153,7 +1153,7 @@ $html.='<span>'.$count.'.  '.$tems_name.'</span><br/>';
 $html.='</div>
 <div style="width:30%;float:right;" align="center">For  <b>'.$society_name.' <br/><br/><br/><div align="center"><span style="border-top: solid 1px #424141;">'.$sig_title.'</span></div></div>
 </div>
-<div align="center" style="color: #6F6D6D;border: solid 1px;border-top: dotted 1px;">Note: This is a computer generated bill hence no signature required.</div>
+<div align="center" style="color: #6F6D6D;border: solid 1px black;border-top: dotted 1px;">Note: This is a computer generated bill hence no signature required.</div>
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;border: solid 1px #000;border-top: none;">
 <span>Your Society is empowered by HousingMatters - 
 <i>"Making Life Simpler"</i></span><br/>
@@ -1809,7 +1809,7 @@ Name :
 <div style="overflow:auto;">
 <table border="1" style="width:100%; margine-left:2px; border-collapse:collapse;" cellspacing="0" cellpadding="5">
 <tr>
-<th style="width:80%; text-align:left;color: #fff;background-color: rgb(4, 126, 186);">Particulars of charges</th>
+<th style="width:85%; text-align:left;color: #fff;background-color: rgb(4, 126, 186);">Particulars of charges</th>
 <th style="text-align:right;color: #fff;background-color: rgb(4, 126, 186);">Amount (Rs.)</th>
 <tr>
 <tr>
@@ -1857,7 +1857,7 @@ $html.='</table>
 </tr>
 <tr>
 <td valign="top">
-<table border="0" style="width:60%; float:left;font-size:11px;">
+<table border="0" style="width:75%; float:left;font-size:11px;">
 <tr>
 <td colspan="2" >Cheque/NEFT payment instructions:</td>
 </tr>
@@ -1882,7 +1882,7 @@ $html.='</table>
 <td>'.$ifsc_code.'</td>
 </tr>
 </table>
-<table border="0" style="width:40%;">';
+<table border="0" style="width:25%;">';
 $html.='<tr>
 <td rowspan="5"></td>
 <td style="text-align:right; padding-right:2%;">Total:</td>
@@ -1973,7 +1973,7 @@ $html.='<span>'.$count.'.  '.$tems_name.'</span><br/>';
 $html.='</div>
 <div style="width:30%;float:right;" align="center">For  <b>'.$society_name.' <br/><br/><br/><div align="center"><span style="border-top: solid 1px #424141;">'.$sig_title.'</span></div></div>
 </div>
-<div align="center" style="color: #6F6D6D;border: solid 1px;border-top: dotted 1px;">Note: This is a computer generated bill hence no signature required.</div>
+<div align="center" style="color: #6F6D6D;border: solid 1px black;border-top: dotted 1px;">Note: This is a computer generated bill hence no signature required.</div> 
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;border: solid 1px #000;border-top: none;">
 <span>Your Society is empowered by HousingMatters - 
 <i>"Making Life Simpler"</i></span><br/>
