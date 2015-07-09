@@ -1153,7 +1153,7 @@ $html.='<span>'.$count.'.  '.$tems_name.'</span><br/>';
 $html.='</div>
 <div style="width:30%;float:right;" align="center">For  <b>'.$society_name.' <br/><br/><br/><div align="center"><span style="border-top: solid 1px #424141;">'.$sig_title.'</span></div></div>
 </div>
-<div align="center" style="color: #6F6D6D;border: solid 1px;border-top: dotted 1px;">Note: This is a computer generated bill hence no signature required.</div>
+<div align="center" style="color: #6F6D6D;border: solid 1px black;border-top: dotted 1px;">Note: This is a computer generated bill hence no signature required.</div>
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;border: solid 1px #000;border-top: none;">
 <span>Your Society is empowered by HousingMatters - 
 <i>"Making Life Simpler"</i></span><br/>
@@ -1973,7 +1973,7 @@ $html.='<span>'.$count.'.  '.$tems_name.'</span><br/>';
 $html.='</div>
 <div style="width:30%;float:right;" align="center">For  <b>'.$society_name.' <br/><br/><br/><div align="center"><span style="border-top: solid 1px #424141;">'.$sig_title.'</span></div></div>
 </div>
-<div align="center" style="color: #6F6D6D;border: solid 1px;border-top: dotted 1px;">Note: This is a computer generated bill hence no signature required.</div>
+<div align="center" style="color: #6F6D6D;border: solid 1px black;border-top: dotted 1px;">Note: This is a computer generated bill hence no signature required.</div> 
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;border: solid 1px #000;border-top: none;">
 <span>Your Society is empowered by HousingMatters - 
 <i>"Making Life Simpler"</i></span><br/>
