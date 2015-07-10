@@ -424,9 +424,9 @@ $gt_amt5 = $gt_amt+$penalty_amt;
 </td>
 </tr>
 <?php
-$gt_tt_amt = $gt_tt_amt + $total_amt;
+$gt_tt_amt = $gt_tt_amt + $total_amt5;
 $gt_penalty_amt = $gt_penalty_amt+@$penalty_amt;
-$gt_gt_amt = $gt_gt_amt + $gt_amt;
+$gt_gt_amt = $gt_gt_amt + $gt_amt5;
 $over_due_tt = $over_due_tt + @$due_amount;
 $arerr_penal_amt=$arerr_penal_amt+@$interest_arrears;
 }
@@ -754,9 +754,9 @@ $gt_amt2 = $gt_amt+$penalty_amt;
 </td>
 </tr>
 <?php
-$gt_tt_amt = $gt_tt_amt + $total_amt;
+$gt_tt_amt = $gt_tt_amt + $total_amt2;
 $gt_penalty_amt = $gt_penalty_amt+@$penalty_amt;
-$gt_gt_amt = $gt_gt_amt + $gt_amt;
+$gt_gt_amt = $gt_gt_amt + $gt_amt2;
 $over_due_tt = $over_due_tt + @$due_amount;
 $arerr_penal_amt=$arerr_penal_amt+@$interest_arrears;
 
@@ -783,23 +783,23 @@ $noc_tt_amt2 = $noc_tt_amt*$multi;
 $noc_tt_amt2 = number_format($noc_tt_amt2);
 echo $noc_tt_amt2; ?></th>
 <th style="text-align:right;"><?php 
-$gt_tt_amt2 = $gt_tt_amt*$multi;
+$gt_tt_amt2 = $gt_tt_amt;
 $gt_tt_amt2 = number_format($gt_tt_amt2);
 echo $gt_tt_amt2; ?></th>
 <th style="text-align:right;"><?php 
-$over_due_tt2 = $over_due_tt*$multi;
+$over_due_tt2 = $over_due_tt;
 $over_due_tt2 = number_format($over_due_tt2);
 echo $over_due_tt2; ?></th>
 <th style="text-align:right;"><?php 
-$arerr_penal_amt = $arerr_penal_amt*$multi;
+$arerr_penal_amt = $arerr_penal_amt;
 $arerr_penal_amt = number_format($arerr_penal_amt);
 echo $arerr_penal_amt; ?></th>
 <th style="text-align:right;"><?php 
-$gt_penalty_amt2 = $gt_penalty_amt*$multi;
+$gt_penalty_amt2 = $gt_penalty_amt;
 $gt_penalty_amt2 = number_format($gt_penalty_amt2);
 echo $gt_penalty_amt2; ?></th>
 <th style="text-align:right;"><?php 
-$gt_gt_amt2 = $gt_gt_amt*$multi;
+$gt_gt_amt2 = $gt_gt_amt;
 $gt_gt_amt2 = number_format($gt_gt_amt2);
 echo $gt_gt_amt2; ?></th>
 </tr>
