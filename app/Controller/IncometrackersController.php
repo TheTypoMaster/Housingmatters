@@ -4172,7 +4172,7 @@ $excel.="<td style='text-align:center;'> 0 </td>";
 $excel.="
 <td style='text-align:center;'>$current_amt</td>
 <td style='text-align:center;'>";
-if(!empty($over_due_amt)) { $excel.="$penalty_amt";
+if(!empty($penalty_amt)) { $excel.="$penalty_amt";
 } else { $excel.="0"; } 
 $excel.="
 </td>
