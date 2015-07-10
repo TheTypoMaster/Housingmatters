@@ -989,7 +989,7 @@ Name :
 <th style="text-align:right;color: #fff;background-color: rgb(4, 126, 186);">Amount (Rs.)</th>
 <tr>
 <tr>
-<td valign="top" style="height:200px;">
+<td valign="top" >
 <table border="0" style="width:100%;">';
 
 for($x=0; $x<sizeof($ih_detail2); $x++)
@@ -1012,7 +1012,9 @@ $html.='<tr>
 <td style="text-align:left;">'.$ih_name.'</td>
 </tr>';
 }
-
+$html.='<tr>
+<td style="text-align:left;"><br/><br/></td>
+</tr>';
 $html.='</table>
 </td>
 <td valign="top">
@@ -1028,6 +1030,9 @@ $html.='<tr>
 $total_amount2 = $total_amount2 + $amount;
 }
 //$due_amt3 = $due_amt2 - $late_amt2;
+$html.='<tr>
+<td style="text-align:left;"><br/><br/></td>
+</tr>';
 $html.='</table>
 </td>
 </tr>
@@ -1141,7 +1146,7 @@ $html.='</table>
 </div>';
 
 $html.='<div style="overflow:auto;border:solid 1px;border-bottom:none;padding:5px;border-top: none;">
-<div style="width:70%;float:left;">
+<div style="width:70%;float:left;font-size: 11px;line-height: 15px;">
 <span>Remarks:</span><br/>';
 $count=0;
 for($r=0; $r<sizeof($terms_arr); $r++)
@@ -1813,7 +1818,7 @@ Name :
 <th style="text-align:right;color: #fff;background-color: rgb(4, 126, 186);">Amount (Rs.)</th>
 <tr>
 <tr>
-<td valign="top" style="height:200px;">
+<td valign="top">
 <table border="0" style="width:100%;">';
 
 for($x=0; $x<sizeof($ih_detail2); $x++)
@@ -1836,7 +1841,9 @@ $html.='<tr>
 <td style="text-align:left;">'.$ih_name.'</td>
 </tr>';
 }
-
+$html.='<tr>
+<td style="text-align:left;"><br/><br/></td>
+</tr>';
 $html.='</table>
 </td>
 <td valign="top">
@@ -1852,6 +1859,9 @@ $html.='<tr>
 $total_amount2 = $total_amount2 + $amount;
 }
 //$due_amt3 = $due_amt2 - $late_amt2;
+$html.='<tr>
+<td style="text-align:left;"><br/><br/></td>
+</tr>';
 $html.='</table>
 </td>
 </tr>
@@ -1961,7 +1971,7 @@ $html.='</table>
 </div>';
 
 $html.='<div style="overflow:auto;border:solid 1px;border-bottom:none;padding:5px;border-top: none;">
-<div style="width:70%;float:left;">
+<div style="width:70%;float:left;font-size: 11px;line-height: 15px;">
 <span>Remarks:</span><br/>';
 $count=0;
 for($r=0; $r<sizeof($terms_arr); $r++)
