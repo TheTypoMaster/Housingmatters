@@ -5684,11 +5684,11 @@ $conditions=array("society_id" => $s_society_id);
 $cursor1 = $this->society->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);
 
-/*
+
 $this->loadmodel('ledger');
 $conditions=array('ledger.receipt_id'=> array('$ne' => 'O_B'));
 $this->ledger->deleteAll($conditions);
-*/
+
 
 
 if(isset($this->request->data['sub']))
