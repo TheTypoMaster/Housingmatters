@@ -270,7 +270,9 @@ $noc_amt = $amount;
 }
 $noc_tt_amt = $noc_tt_amt + @$noc_amt;
 $total_amt = $total_amt + @$noc_amt;
-$gt_amt = $gt_amt + @$due_taxamt + $total_amt + @$due_amount;
+$gt_amt = $gt_amt + $total_amt;
+$gt_amt = $gt_amt*$multi;
+$gt_amt = $gt_amt + @$due_amount;
 ?>
 
 <td style="text-align:right;"><?php if(!empty($noc_amt)) { 
@@ -295,7 +297,7 @@ $curr_amt = $total_amt5;
 
 
 <td style="text-align:right;"><?php if(!empty($due_amount)) { 
-$due_amount5 = $due_amount*$multi;
+$due_amount5 = $due_amount;
 ?>
 <input type="text" name="due<?php echo $user_id; ?>" value="<?php echo $due_amount5; ?>" class="m-wrap span12" readonly="readonly" style="border:none;"/>
 <?php
@@ -416,7 +418,7 @@ value="<?php if(!empty($interest_arrears)) { echo $interest_arrears; } else { ec
 <input type="text" name="penalty<?php echo $user_id; ?>" value="<?php echo $penalty_amt; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>"/>
 </td>
 <td style="text-align:right;background-color:rgb(220, 234, 220);;"><?php
-$gt_amt5 = $gt_amt*$multi+$penalty_amt; 
+$gt_amt5 = $gt_amt+$penalty_amt; 
 ?>
 <input type="text" name="gtt<?php echo $user_id; ?>" value="<?php echo $gt_amt5; ?>" class="m-wrap span12" readonly="readonly" style="border:none;" />
 </td>
@@ -591,7 +593,8 @@ $noc_amt = $amount;
 }
 $noc_tt_amt = $noc_tt_amt + @$noc_amt;
 $total_amt = $total_amt + @$noc_amt;
-$gt_amt = $gt_amt + @$due_taxamt + $total_amt + @$due_amount;
+$gt_amt = $gt_amt*$multi;
+$gt_amt = $gt_amt + @$due_amount;
 ?>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <td style="text-align:right;"><?php if(!empty($noc_amt)) {
@@ -616,7 +619,7 @@ $curr_amt = $total_amt2;
 
 
 <td style="text-align:right;"><?php if(!empty($due_amount)) { 
-$due_amount2 = $due_amount*$multi;
+$due_amount2 = $due_amount;
 ?>
 <input type="text" name="due<?php echo $user_id; ?>" value="<?php echo $due_amount2; ?>" class="m-wrap span12" readonly="readonly"/>
 <?php
@@ -745,7 +748,7 @@ value="<?php if(!empty($interest_arrears)) { echo $interest_arrears; } else { ec
 
 
 <td style="text-align:right;"><?php
-$gt_amt2 = $gt_amt*$multi+$penalty_amt; 
+$gt_amt2 = $gt_amt+$penalty_amt; 
 ?>
 <input type="text" name="gtt<?php echo $user_id; ?>" value="<?php echo $gt_amt2; ?>" class="m-wrap span12" readonly="readonly"/>
 </td>
