@@ -1137,11 +1137,17 @@ $html.='<tr>
 </tr>';
 $grand_total2;
 $grand_total2 = str_replace( ',', '', $grand_total2 );
+if($grand_total2<0){
+$write_am_word="Nil";
+}else{
 $am_in_words=ucwords(strtolower($this->convert_number_to_words($grand_total2)));
+$write_am_word="Rupees ".$am_in_words." Only";
+}
+
 $html.='</table>
 </td>
 </tr>
-<tr><td colspan="2"><b>Due For Payment (in words) :</b> Rupees '.$am_in_words.' Only</td></tr>
+<tr><td colspan="2"><b>Due For Payment (in words) :</b> '.$write_am_word.'</td></tr>
 </table>
 </div>';
 
@@ -1962,11 +1968,16 @@ $html.='<tr>
 <th style="text-align:right; padding-right:8%;">'.$grand_total2.'</th>
 </tr>';
 $grand_total2 = str_replace( ',', '', $grand_total2 );
+if($grand_total2<0){
+$write_am_word="Nil";
+}else{
 $am_in_words=ucwords(strtolower($this->convert_number_to_words($grand_total2)));
+$write_am_word="Rupees ".$am_in_words." Only";
+}
 $html.='</table>
 </td>
 </tr>
-<tr><td colspan="2"><b>Due For Payment (in words) :</b> Rupees '.$am_in_words.' Only</td></tr>
+<tr><td colspan="2"><b>Due For Payment (in words) :</b> '.$write_am_word.'</td></tr>
 </table>
 </div>';
 
