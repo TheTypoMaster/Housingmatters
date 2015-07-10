@@ -194,7 +194,7 @@ $current_amt = number_format($current_amt);
 echo $current_amt; ?></td>
 
 
-<td style="text-align:right;"><?php if(!empty($over_due_amt)) { 
+<td style="text-align:right;"><?php if(!empty($penalty_amt)) { 
 $penalty_amt = number_format($penalty_amt);
 echo $penalty_amt; } else { echo "0"; } ?></td>
 <td style="text-align:right;"><?php 

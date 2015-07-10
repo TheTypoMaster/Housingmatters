@@ -19,8 +19,6 @@ $bill_date = date('d-m-Y',strtotime(@$bill_date));
 $bill_due_date = date('d-m-Y',strtotime(@$bill_due_date));
 }
 
-if(@$remain_amt > 0)
-{
 ?>
 
 Receipt Applied towards following bill:
@@ -50,11 +48,6 @@ Receipt Applied towards following bill:
 <input type="hidden" value="<?php echo $bill_no; ?>" name="bill_no" id="bll" />
 <label report="amt2" class="remove_report"></label>
 <?php
-}
-else
-{
-echo "<h3 style='color:red;'>No Amount Due</h3>";	
-}
 
 
 

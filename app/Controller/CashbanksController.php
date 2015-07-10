@@ -329,16 +329,14 @@ else
 {
 $arrears_amt = (int)$arrears_amt - $amount;
 }
-if($due_amt == 0)
-{
+
 $this->loadmodel('regular_bill');
-$this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"status" => 1,"total_due_amount"=>$total_due_amt),array("receipt_id" => $bill_no));
-}
-else
-{
-$this->loadmodel('regular_bill');
-$this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"status" => 0,"total_due_amount"=>$total_due_amt),array("receipt_id" => $bill_no));
-}
+$this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"total_due_amount"=>$total_due_amt),array("receipt_id" => $bill_no));
+
+
+//$this->loadmodel('regular_bill');
+//$this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"total_due_amount"=>$total_due_amt),array("receipt_id" => $bill_no));
+
 }		
 else if($member_id == 2)
 {
