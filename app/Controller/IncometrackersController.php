@@ -5685,6 +5685,10 @@ $cursor1 = $this->society->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);
 
 
+
+
+
+
 if(isset($this->request->data['sub']))
 {
 $ac_name = $this->request->data['acno'];
