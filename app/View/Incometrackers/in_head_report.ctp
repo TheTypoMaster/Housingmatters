@@ -36,7 +36,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 		   $unic_id = (int)$collection['regular_bill']['one_time_id'];
 		   if($abc == $unic_id)
 		   continue;
-		   $abc = $unic_id;
+		   $abc = (int)$unic_id;
 		   $from = date('d-m-Y',strtotime($date_from));
 		   $to = date('d-m-Y',strtotime($date_to));
 		   ?>

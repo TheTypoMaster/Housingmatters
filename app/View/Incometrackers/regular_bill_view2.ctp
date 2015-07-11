@@ -167,7 +167,8 @@ $pen_receipt_id = (int)@$collection2['regular_bill']['receipt_id'];
 $interest_arrears = (int)@$collection2['regular_bill']['accumulated_tax'];
 $arrears = (int)$collection2['regular_bill']['arrears_amt'];
 $ggg_tt = (int)@$collection2['regular_bill']['remaining_amount'];
-$arr_interest_for_receipt = @$collection['regular_bill']['arrear_interest'];
+$arr_interest_for_receipt = @$collection2['regular_bill']['arrear_interest'];
+$due_for_payment = (int)@$collection2['regular_bill']['g_total'];
 
 }
 
@@ -371,6 +372,23 @@ foreach($result7 as $collection7)
 $transaction_date = $collection7['cash_bank']['transaction_date'];	
 $bank_amount = (int)$collection7['cash_bank']['amount'];
 $bank_amount = @$bank_amount - @$arr_interest_for_receipt;
+$arr_interest_for_receipt = 0;
+if($due_for_payment >=$bank_amount)
+{
+$due_for_payment = $due_for_payment - $bank_amount;
+$bank_amount = $bank_amount;	
+}
+else
+{
+$bank_amount = $due_for_payment;	
+}
+
+
+
+
+
+
+
 	
 $bank_date = date('Y-m-d',strtotime(@$transaction_date));
 $due_date12 = date('Y-m-d',strtotime(@$due_date11));
@@ -391,7 +409,18 @@ foreach($result8 as $collection8)
 {
 $transaction_date = $collection8['cash_bank']['transaction_date'];	
 $bank_amount = (int)$collection8['cash_bank']['amount'];
-$bank_amount = @$bank_amount - @$arr_interest_for_receipt;
+$bank_amount = @$bank_amount - @$$arr_interest_for_receipt;
+$arr_interest_for_receipt = 0;
+if($due_for_payment >=$bank_amount)
+{
+$due_for_payment = $due_for_payment - $bank_amount;
+$bank_amount = $bank_amount;	
+}
+else
+{
+$bank_amount = $due_for_payment;	
+}
+
 	
 $bank_date = date('Y-m-d',strtotime(@$transaction_date));
 $due_date12 = date('Y-m-d',strtotime(@$due_date11));
@@ -424,9 +453,9 @@ $gt_amt5 = $gt_amt+$penalty_amt;
 </td>
 </tr>
 <?php
-$gt_tt_amt = $gt_tt_amt + $total_amt;
+$gt_tt_amt = $gt_tt_amt + $total_amt5;
 $gt_penalty_amt = $gt_penalty_amt+@$penalty_amt;
-$gt_gt_amt = $gt_gt_amt + $gt_amt;
+$gt_gt_amt = $gt_gt_amt + $gt_amt5;
 $over_due_tt = $over_due_tt + @$due_amount;
 $arerr_penal_amt=$arerr_penal_amt+@$interest_arrears;
 }
@@ -483,7 +512,8 @@ $pen_receipt_id = (int)@$collection2['regular_bill']['receipt_id'];
 $interest_arrears = (int)@$collection2['regular_bill']['accumulated_tax'];
 $arrears = (int)@$collection2['regular_bill']['arrears_amt'];
 $ggg_tt = (int)@$collection2['regular_bill']['remaining_amount'];
-$arr_interest_for_receipt = @$collection['regular_bill']['arrear_interest'];
+$arr_interest_for_receipt = @$collection2['regular_bill']['arrear_interest'];
+$due_for_payment = (int)@$collection2['regular_bill']['g_total'];
 }
 
 
@@ -693,6 +723,17 @@ foreach($result7 as $collection7)
 $transaction_date = $collection7['cash_bank']['transaction_date'];	
 $bank_amount = (int)$collection7['cash_bank']['amount'];
 $bank_amount =$bank_amount-@$arr_interest_for_receipt;
+$arr_interest_for_receipt = 0;
+if($due_for_payment >=$bank_amount)
+{
+@$due_for_payment = @$due_for_payment -$bank_amount; 
+$bank_amount = (int)$bank_amount;	
+}
+else
+{
+$bank_amount = (int)$due_for_payment;	
+}
+
 	
 $bank_date = date('Y-m-d',strtotime(@$transaction_date));
 $due_date12 = date('Y-m-d',strtotime(@$due_date11));
@@ -714,6 +755,17 @@ foreach($result8 as $collection8)
 $transaction_date = $collection8['cash_bank']['transaction_date'];	
 $bank_amount = (int)$collection8['cash_bank']['amount'];
 $bank_amount =$bank_amount-@$arr_interest_for_receipt;
+$arr_interest_for_receipt = 0;
+if($due_for_payment >=$bank_amount)
+{
+@$due_for_payment = @$due_for_payment -$bank_amount; 
+$bank_amount = (int)$bank_amount;	
+}
+else
+{
+$bank_amount = (int)$due_for_payment;	
+}
+
 	
 $bank_date = date('Y-m-d',strtotime(@$transaction_date));
 $due_date12 = date('Y-m-d',strtotime(@$due_date11));
@@ -754,9 +806,9 @@ $gt_amt2 = $gt_amt+$penalty_amt;
 </td>
 </tr>
 <?php
-$gt_tt_amt = $gt_tt_amt + $total_amt;
+$gt_tt_amt = $gt_tt_amt + $total_amt2;
 $gt_penalty_amt = $gt_penalty_amt+@$penalty_amt;
-$gt_gt_amt = $gt_gt_amt + $gt_amt;
+$gt_gt_amt = $gt_gt_amt + $gt_amt2;
 $over_due_tt = $over_due_tt + @$due_amount;
 $arerr_penal_amt=$arerr_penal_amt+@$interest_arrears;
 
@@ -783,23 +835,23 @@ $noc_tt_amt2 = $noc_tt_amt*$multi;
 $noc_tt_amt2 = number_format($noc_tt_amt2);
 echo $noc_tt_amt2; ?></th>
 <th style="text-align:right;"><?php 
-$gt_tt_amt2 = $gt_tt_amt*$multi;
+$gt_tt_amt2 = $gt_tt_amt;
 $gt_tt_amt2 = number_format($gt_tt_amt2);
 echo $gt_tt_amt2; ?></th>
 <th style="text-align:right;"><?php 
-$over_due_tt2 = $over_due_tt*$multi;
+$over_due_tt2 = $over_due_tt;
 $over_due_tt2 = number_format($over_due_tt2);
 echo $over_due_tt2; ?></th>
 <th style="text-align:right;"><?php 
-$arerr_penal_amt = $arerr_penal_amt*$multi;
+$arerr_penal_amt = $arerr_penal_amt;
 $arerr_penal_amt = number_format($arerr_penal_amt);
 echo $arerr_penal_amt; ?></th>
 <th style="text-align:right;"><?php 
-$gt_penalty_amt2 = $gt_penalty_amt*$multi;
+$gt_penalty_amt2 = $gt_penalty_amt;
 $gt_penalty_amt2 = number_format($gt_penalty_amt2);
 echo $gt_penalty_amt2; ?></th>
 <th style="text-align:right;"><?php 
-$gt_gt_amt2 = $gt_gt_amt*$multi;
+$gt_gt_amt2 = $gt_gt_amt;
 $gt_gt_amt2 = number_format($gt_gt_amt2);
 echo $gt_gt_amt2; ?></th>
 </tr>
