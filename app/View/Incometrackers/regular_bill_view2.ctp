@@ -167,7 +167,7 @@ $pen_receipt_id = (int)@$collection2['regular_bill']['receipt_id'];
 $interest_arrears = (int)@$collection2['regular_bill']['accumulated_tax'];
 $arrears = (int)$collection2['regular_bill']['arrears_amt'];
 $ggg_tt = (int)@$collection2['regular_bill']['remaining_amount'];
-$arr_interest_for_receipt = @$collection['regular_bill']['arrear_interest'];
+$arr_interest_for_receipt = @$collection2['regular_bill']['arrear_interest'];
 $due_for_payment = (int)@$collection2['regular_bill']['g_total'];
 
 }
@@ -371,10 +371,11 @@ foreach($result7 as $collection7)
 {
 $transaction_date = $collection7['cash_bank']['transaction_date'];	
 $bank_amount = (int)$collection7['cash_bank']['amount'];
-$bank_amount = @$bank_amount - @$interest_arrears;
+$bank_amount = @$bank_amount - @$arr_interest_for_receipt;
+$arr_interest_for_receipt = 0;
 if($due_for_payment >=$bank_amount)
 {
-	$due_for_payment = $due_for_payment - $bank_amount;
+$due_for_payment = $due_for_payment - $bank_amount;
 $bank_amount = $bank_amount;	
 }
 else
@@ -408,7 +409,8 @@ foreach($result8 as $collection8)
 {
 $transaction_date = $collection8['cash_bank']['transaction_date'];	
 $bank_amount = (int)$collection8['cash_bank']['amount'];
-$bank_amount = @$bank_amount - @$interest_arrears;
+$bank_amount = @$bank_amount - @$$arr_interest_for_receipt;
+$arr_interest_for_receipt = 0;
 if($due_for_payment >=$bank_amount)
 {
 $due_for_payment = $due_for_payment - $bank_amount;
@@ -510,7 +512,7 @@ $pen_receipt_id = (int)@$collection2['regular_bill']['receipt_id'];
 $interest_arrears = (int)@$collection2['regular_bill']['accumulated_tax'];
 $arrears = (int)@$collection2['regular_bill']['arrears_amt'];
 $ggg_tt = (int)@$collection2['regular_bill']['remaining_amount'];
-$arr_interest_for_receipt = @$collection['regular_bill']['arrear_interest'];
+$arr_interest_for_receipt = @$collection2['regular_bill']['arrear_interest'];
 $due_for_payment = (int)@$collection2['regular_bill']['g_total'];
 }
 
@@ -720,7 +722,8 @@ foreach($result7 as $collection7)
 {
 $transaction_date = $collection7['cash_bank']['transaction_date'];	
 $bank_amount = (int)$collection7['cash_bank']['amount'];
-$bank_amount =$bank_amount-@$interest_arrears;
+$bank_amount =$bank_amount-@$arr_interest_for_receipt;
+$arr_interest_for_receipt = 0;
 if($due_for_payment >=$bank_amount)
 {
 @$due_for_payment = @$due_for_payment -$bank_amount; 
@@ -751,7 +754,8 @@ foreach($result8 as $collection8)
 {
 $transaction_date = $collection8['cash_bank']['transaction_date'];	
 $bank_amount = (int)$collection8['cash_bank']['amount'];
-$bank_amount =$bank_amount-@$interest_arrears;
+$bank_amount =$bank_amount-@$arr_interest_for_receipt;
+$arr_interest_for_receipt = 0;
 if($due_for_payment >=$bank_amount)
 {
 @$due_for_payment = @$due_for_payment -$bank_amount; 
