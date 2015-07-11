@@ -12,6 +12,10 @@ if(sizeof($result_receipt)>0){
 	$narration = $collection['cash_bank']['narration'];
 	$member = (int)$collection['cash_bank']['member'];
 	$receiver_name = @$collection['cash_bank']['receiver_name'];
+	$cheque_number = @$collection['cash_bank']['cheque_number'];
+$which_bank = @$collection['cash_bank']['which_bank'];
+$reference_number = @$collection['cash_bank']['reference_number'];
+$cheque_date = @$collection['cash_bank']['cheque_date'];
 	$receipt_mode = $collection['cash_bank']['receipt_mode'];
 	$sub_account = (int)$collection['cash_bank']['account_head'];
 	}
@@ -56,7 +60,7 @@ echo $bill_html;
 ?>
 </b>
 <?php if(@$merge_receipt==1 && sizeof($result_receipt)>0){ ?>
-<div style="width:70%;margin:auto;margin-top:2px;border:solid 1px;overflow: auto;background-color:#FFF;" class="bill_on_screen">
+<div style="width:80%;margin:auto;margin-top:2px;border:solid 1px;overflow: auto;background-color:#FFF;" class="bill_on_screen">
 <div align="center"><span style="border-bottom:solid 1px;font-size:15px;font-weight:bold;">RECEIPT</span></div>
 	<div style="padding:5px;overflow: auto;">
 		<div style="float:left;"><b>Receipt No: </b><?php echo $receipt_no; ?></div>
@@ -67,12 +71,24 @@ echo $bill_html;
 		<br/>
 		Rupees <?php echo $am_in_words; ?> Only
 		<br/>
-		Via <?php echo $receipt_mode; ?>
-		<br/>
-		Payment for Bill No. <?php echo $receipt_no; ?> 
+        <?php
+		if($receipt_mode=="Cheque"){
+			echo 'Via '.$receipt_mode.'-'.$cheque_number.' drawn on '.$which_bank.' dated '.$cheque_date;
+		}
+		else{
+			echo 'Via '.$receipt_mode.'-'.$reference_number.' dated '.$cheque_date;
+		}
+		?>
+        <br/>
+		Payment of previous bill
 	</div>
 	<div style="padding:5px;float:left;width:65%;">
-	<span style="font-size:16px;"><b>Rs <?php echo $amount; ?></b></span><br/>Subject to realization of Cheque(s)
+	<span style="font-size:16px;"><b>Rs <?php echo $amount; ?></b></span><br/>
+	<?php
+		if($receipt_mode=="Cheque"){
+			echo 'Subject to realization of Cheque(s)';
+		}
+    ?>
 	</div>
 	<div style="float:right;width:30%;" align="center">
 	For <?php echo $society_name; ?><br/><?php echo $sig_title; ?>

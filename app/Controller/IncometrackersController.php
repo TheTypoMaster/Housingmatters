@@ -897,7 +897,7 @@ $monthB = implode("-",$month2);
 
 //////////////////////////////////////////////////
 //echo $log_img;
-$html='<div style="width:70%;margin:auto;" class="bill_on_screen">
+$html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 <div style="background-color:white; overflow:auto;">
 <div style="border:solid 1px; overflow:auto;">
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'</div>
@@ -1168,7 +1168,7 @@ $html.='</div>
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;border: solid 1px #000;border-top: none;">
 <span>Your Society is empowered by HousingMatters - 
 <i>"Making Life Simpler"</i></span><br/>
-<span>Email: support@housingmatters.in</span> &nbsp;|&nbsp; <span>Phone : 022-41235568</span> &nbsp;|&nbsp; <span>www.housingmatters.co.in</span></div>
+<span style="color:#FFF;">Email: support@housingmatters.in</span> &nbsp;|&nbsp; <span>Phone : 022-41235568</span> &nbsp;|&nbsp; <span style="color:#FFF;">www.housingmatters.co.in</span></div>
 
 </div>
 </div>
@@ -1731,7 +1731,7 @@ $year = date('Y',strtotime($dat2));
 $monthB = implode("-",$month2);
 
 //////////////////////////////////////////
-$html='<div style="width:70%;margin:auto;"  class="bill_on_screen">
+$html='<div style="width:80%;margin:auto;"  class="bill_on_screen">
 <div style="background-color:white; overflow:auto;">
 <div style="border:solid 1px; overflow:auto;">
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).' </div>
@@ -1998,7 +1998,7 @@ $html.='</div>
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;border: solid 1px #000;border-top: none;">
 <span>Your Society is empowered by HousingMatters - 
 <i>"Making Life Simpler"</i></span><br/>
-<span>Email: support@housingmatters.in</span> &nbsp;|&nbsp; <span>Phone : 022-41235568</span> &nbsp;|&nbsp; <span>www.housingmatters.co.in</span></div>
+<span style="color:#FFF;">Email: support@housingmatters.in</span> &nbsp;|&nbsp; <span>Phone : 022-41235568</span> &nbsp;|&nbsp; <span style="color:#FFF;">www.housingmatters.co.in</span></div>
 
 </div>
 </div>
@@ -5585,8 +5585,8 @@ $grand_total = $collection['regular_bill']['g_total'];
 $receipt_id = $collection['regular_bill']['receipt_id'];
 
 }
-$sms_from = date('d-M',strtotime($from));
-$sms_to = date('dMy',strtotime($to));
+$sms_from = date('dM',strtotime($from));
+$sms_to = date('dM-y',strtotime($to));
 $sms_due = date('dMy',strtotime($due_date));
 
 $result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
@@ -5620,7 +5620,7 @@ if($sms_id == 1)
 $r_sms=$this->hms_sms_ip();
 $working_key=$r_sms->working_key;
 $sms_sender=$r_sms->sms_sender; 
-$sms='Dear '.$user_name.' '.$wing_flat.', your maintenance bill for period '.$sms_from.'-'.$sms_to.' is Rs '.$grand_total.'.Kindly pay by due '.$sms_due.'.'.$society_name.' Society';
+$sms='Dear '.$user_name.' '.$wing_flat.', your maintenance bill for period '.$sms_from.'-'.$sms_to.' is Rs '.$grand_total.'.Kindly pay by due '.$sms_due.'.'.$society_name.'';
 
 $sms1=str_replace(' ', '+', $sms);
  ////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.''); 
@@ -5631,7 +5631,7 @@ $from_mail_date = date('d M',strtotime($from));
 $to_mail_date = date('d M Y',strtotime($to));
 
 //$my_mail = "nikhileshvyas@yahoo.com";
-$subject = ''.$society_name.' : Maintanance bill, '.$from_mail_date.' to '.$to_mail_date.'';
+$subject = ''.$society_name.' : Maintenance bill, '.$from_mail_date.' to '.$to_mail_date.'';
 $from_name="HousingMatters";
 //$message_web = "Receipt No. :".$d_receipt_id;
 $from = "accounts@housingmatters.in";
@@ -5689,7 +5689,7 @@ $this->loadmodel('ledger');
 $conditions=array('ledger.receipt_id'=> array('$ne' => 'O_B'));
 $this->ledger->deleteAll($conditions);
 */
-/*
+
 $this->loadmodel('cash_bank');
 $conditions=array("society_id" => $s_society_id,"module_id"=>1);
 $cursor = $this->cash_bank->find('all',array('conditions'=>$conditions));
@@ -5790,7 +5790,7 @@ $this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt
 }
 
 
-*/
+
 
 
 
