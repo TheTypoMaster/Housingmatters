@@ -162,11 +162,11 @@ foreach($result as $collection2)
 $due_amount = @$collection2['regular_bill']['remaining_amount'];
 $due_date11 = $collection2['regular_bill']['due_date'];
 $from5 = $collection2['regular_bill']['bill_daterange_from'];
-$previous_bill_amt = (int)@$collection2['regular_bill']['current_bill_amt'];
-$pen_receipt_id = (int)@$collection2['regular_bill']['receipt_id'];
-$interest_arrears = (int)@$collection2['regular_bill']['accumulated_tax'];
-$arrears = (int)$collection2['regular_bill']['arrears_amt'];
-$ggg_tt = (int)@$collection2['regular_bill']['remaining_amount'];
+$previous_bill_amt = @$collection2['regular_bill']['current_bill_amt'];
+$pen_receipt_id = @$collection2['regular_bill']['receipt_id'];
+$interest_arrears = @$collection2['regular_bill']['accumulated_tax'];
+$arrears = $collection2['regular_bill']['arrears_amt'];
+$ggg_tt = @$collection2['regular_bill']['remaining_amount'];
 $arr_interest_for_receipt = @$collection2['regular_bill']['arrear_interest'];
 $due_for_payment = (int)@$collection2['regular_bill']['g_total'];
 
@@ -380,7 +380,14 @@ $bank_amount = $bank_amount;
 }
 else
 {
-$bank_amount = $due_for_payment;	
+if($due_for_payment>0)
+{
+$bank_amount = $due_for_payment;
+}
+else
+{
+$bank_amount = 0;	
+}
 }
 
 
@@ -418,7 +425,14 @@ $bank_amount = $bank_amount;
 }
 else
 {
-$bank_amount = $due_for_payment;	
+if($due_for_payment>0)
+{
+$bank_amount = $due_for_payment;
+}
+else
+{
+$bank_amount = 0;	
+}	
 }
 
 	
@@ -731,7 +745,14 @@ $bank_amount = (int)$bank_amount;
 }
 else
 {
-$bank_amount = (int)$due_for_payment;	
+if($due_for_payment>0)
+{
+$bank_amount = $due_for_payment;
+}
+else
+{
+$bank_amount = 0;	
+}	
 }
 
 	
@@ -763,7 +784,14 @@ $bank_amount = (int)$bank_amount;
 }
 else
 {
-$bank_amount = (int)$due_for_payment;	
+if($due_for_payment>0)
+{
+$bank_amount = $due_for_payment;
+}
+else
+{
+$bank_amount = 0;	
+}
 }
 
 	
