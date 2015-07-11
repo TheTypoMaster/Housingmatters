@@ -5585,8 +5585,8 @@ $grand_total = $collection['regular_bill']['g_total'];
 $receipt_id = $collection['regular_bill']['receipt_id'];
 
 }
-$sms_from = date('d-M',strtotime($from));
-$sms_to = date('dMy',strtotime($to));
+$sms_from = date('dM',strtotime($from));
+$sms_to = date('dM-y',strtotime($to));
 $sms_due = date('dMy',strtotime($due_date));
 
 $result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
@@ -5620,7 +5620,7 @@ if($sms_id == 1)
 $r_sms=$this->hms_sms_ip();
 $working_key=$r_sms->working_key;
 $sms_sender=$r_sms->sms_sender; 
-$sms='Dear '.$user_name.' '.$wing_flat.', your maintenance bill for period '.$sms_from.'-'.$sms_to.' is Rs '.$grand_total.'.Kindly pay by due '.$sms_due.'.'.$society_name.' Society';
+$sms='Dear '.$user_name.' '.$wing_flat.', your maintenance bill for period '.$sms_from.'-'.$sms_to.' is Rs '.$grand_total.'.Kindly pay by due '.$sms_due.'.'.$society_name.'';
 
 $sms1=str_replace(' ', '+', $sms);
  ////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.''); 
