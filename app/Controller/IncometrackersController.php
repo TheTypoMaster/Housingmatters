@@ -5689,7 +5689,7 @@ $this->loadmodel('ledger');
 $conditions=array('ledger.receipt_id'=> array('$ne' => 'O_B'));
 $this->ledger->deleteAll($conditions);
 */
-
+/*
 $this->loadmodel('cash_bank');
 $conditions=array("society_id" => $s_society_id,"module_id"=>1);
 $cursor = $this->cash_bank->find('all',array('conditions'=>$conditions));
@@ -5790,7 +5790,7 @@ $this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt
 }
 
 
-
+*/
 
 
 
