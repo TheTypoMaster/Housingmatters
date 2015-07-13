@@ -90,7 +90,11 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 											
                                            	
 </tr>
-  <?php } ?>
+  <?php }  
+
+
+
+  ?>
 
 	</tbody>
 	</table>
@@ -103,3 +107,33 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 	</div>
 	<!-- END PAGE -->	 	
 	</div>
+	
+	<?php echo $status=$this->Session->read('help_desk_draft_status');
+  ?>
+	
+	
+	<script>
+$(document).ready(function() {
+<?php
+$status=$this->Session->read('help_desk_draft_status');
+
+if($status==1)
+{
+?>
+$.gritter.add({
+
+			title: '<i class="icon-headphones"></i> Helpdesks',
+			text: 'Your Ticket has been saved in draft folder.',
+			sticky: false,
+			time: '10000',
+
+			});
+			
+<?php
+$this->requestAction(array('controller' => 'hms', 'action' => 'griter_notification'), array('pass' => array(1)));
+
+}
+?>			
+
+});
+</script>

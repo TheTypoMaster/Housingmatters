@@ -669,7 +669,7 @@ foreach($resource_res as $data)
 
 <?php
 
-$status1=(int)$this->Session->read('pro_status');
+$status1=(int)$this->Session->read('profile_status');
 if($status1==1)
 {
 
@@ -677,7 +677,7 @@ if($status1==1)
 
  $.gritter.add({
                
-               title: 'Profile',
+               title: '<i class="icon-user"></i> Profile',
                text: 'Your profile is successfully update.',
                sticky: false,
                 time: '10000',
@@ -685,8 +685,15 @@ if($status1==1)
             });
 
 <?php
-$this->requestAction(array('controller' => 'hms', 'action' => 'griter_notification'), array('pass' => array(11)));
-} ?>
+$this->requestAction(array('controller' => 'hms', 'action' => 'griter_notification'), array('pass' => array(101)));
+} 
+
+
+
+
+?>
+
+
 
 
 

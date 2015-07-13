@@ -306,8 +306,6 @@ $time=$collection["discussion_post"]["time"];
 
 
 <div id="delete_topic_result"></div>
-
- 
  <script>
 
 
@@ -520,7 +518,49 @@ var s=$('#search_topic_box').val();
 $('#topics_list').html('<div style="border:solid 2px #F4F8FF; padding:5px;" align="center"><img src="<?php echo $webroot_path ; ?>/as/windows.gif" /></div>').load('<?php echo $webroot_path; ?>Discussions/discussion_search_topic?s='+s);
 }
 </script>
+<script>
+$(document).ready(function(){
+<?php
+$status=$this->Session->read('discussion_forum_status');
+$status2=$this->Session->read('discussion_forum_status1');
+if($status==1)
+{
 
+?>	
+	
+$.gritter.add({
+
+			title: '<i class="icon-comments"></i> Discussions',
+			text: 'Your discussion topic has been generated.',
+			sticky: false,
+			time: '10000',
+
+			});
+<?php
+$this->requestAction(array('controller' => 'hms', 'action' => 'griter_notification'), array('pass' => array(3)));
+}
+if($status2==2)
+{
+
+?>
+
+$.gritter.add({
+
+			title: '<i class="icon-comments"></i> Discussions',
+			text: 'Discussion Forum are sent for approval.',
+			sticky: false,
+			time: '10000',
+
+			});
+
+<?php
+$this->requestAction(array('controller' => 'hms', 'action' => 'griter_notification'), array('pass' => array(3)));
+
+}
+?>			
+});
+
+</script>
 
 
 

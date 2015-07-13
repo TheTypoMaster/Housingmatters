@@ -261,14 +261,14 @@ if($discussion_forum1==1 && $s_role_id!=3)
 	
 $this->send_notification('<span class="label" style="background-color:#269abc;"><i class="icon-comment"></i></span>','Approval request for discussion <b>'.$topic.'</b> created by',3,$discussion_post_id,$this->webroot.'Hms/discussion_forum_approval',$s_user_id,$s_duser_id);		
 		
-
-
+		$this->Session->write('discussion_forum_status1',2);
+		$this->response->header('Location', $this->webroot.'Discussions/index');
 
 	
 	?>
                 
 
-				<!----alert-------------->
+				<!----alert--------------
 				<div class="modal-backdrop fade in"></div>
 				<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
 				<div class="modal-body" style="font-size:16px;">
@@ -515,6 +515,9 @@ if($this->request->is('post'))
 
 	////////////////////////////////////////////End Mail Functionality //////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////
+	
+	
+	$this->Session->write('discussion_forum_status',1);
 	$this->redirect(array('controller' => 'Discussions','action' => 'index'));
 
 	}

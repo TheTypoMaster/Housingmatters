@@ -256,9 +256,13 @@ function poll_add(){
 					
 					
 		$poll_id=$this->send_notification('<span class="label" style="background-color:#46b8da;"><i class="icon-question-sign"></i></span>','Approval request for Poll <b>'.$question.'</b> created by',7,$poll_id,$this->webroot.'Hms/poll_approve',$s_user_id,$s_duser_id);
-				
+			
+		$this->Session->write('poll_status1',2);
+		$this->response->header('Location', $this->webroot.'Polls/polls');	
+
+			
 				?>
-		<!----alert-------------->
+		<!----alert--------------
 		<div id="submit_success">
 		<div class="modal-backdrop fade in"></div>
 		<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
@@ -509,8 +513,12 @@ function poll_add(){
 		{
 		  $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
 		}
+		
+		$this->Session->write('poll_status',1);
+		$this->response->header('Location', $this->webroot.'Polls/polls');	
+		
 		?>
-		<!----alert-------------->
+		<!----alert--------------
 		<div id="submit_success">
 		<div class="modal-backdrop fade in"></div>
 		<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">

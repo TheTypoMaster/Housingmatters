@@ -82,8 +82,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 
 
-
-
 <script>
 $(document).ready(function() {
 	$("#back").live('click',function(){
@@ -118,4 +116,29 @@ function view_ticket(id,status)
 <link href="<?php echo $this->webroot ; ?>/as/reply.css" rel="stylesheet" />
 <?php $a=1; ?>
 
+<script>
+$(document).ready(function() {
+<?php
+$status=$this->Session->read('help_desk_status');
+$sts=(int)$status[0];
+$t=$status[1];
+if($sts==1)
+{
+?>
+$.gritter.add({
 
+			title: '<i class="icon-headphones"></i> Helpdesks',
+			text: '<p>Your Ticket has been generated.</p><p>Your Ticket Id is: #<?php echo $t; ?> .</p>',
+			sticky: false,
+			time: '10000',
+
+			});
+			
+<?php
+$this->requestAction(array('controller' => 'hms', 'action' => 'griter_notification'), array('pass' => array(1)));
+
+}
+?>			
+
+});
+</script>

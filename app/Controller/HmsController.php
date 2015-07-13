@@ -11,18 +11,77 @@ var $name = 'Hms';
 
 function griter_notification($id)
 {	
-	if($id==6)
+
+//////////////// Destroy Session_code start ///////////////////////
+
+////////////////// Start document /////////////////////////
+
+	if($id==4)
 	{
-		$this->Session->delete('d_status',1);
+		$this->Session->delete('document_status');
+		$this->Session->delete('document_status1');
 	}
-	if($id==11)
+	
+//////////////////// end ///////////////////////////
+
+////////////////// Start Profile /////////////////////////
+
+	if($id==101)
 	{
-		$this->Session->delete('pro_status',1);
+		$this->Session->delete('profile_status');
 	}
-	if($id==12)
+	
+//////////////////// end ///////////////////////////
+
+////////////////// Start Invitation /////////////////////////
+	
+	if($id==17)
 	{
-		$this->Session->delete('invite_status',1);
+		$this->Session->delete('invite_status');
 	}
+
+//////////////////// end ///////////////////////////
+
+////////////////// Start Poll /////////////////////////	
+
+	if($id==7)
+	{
+		$this->Session->delete('poll_status');
+		$this->Session->delete('poll_status1');
+	}
+	
+//////////////////// end ///////////////////////////	
+
+
+////////////////// Start Poll /////////////////////////	
+
+	if($id==1)
+	{
+		$this->Session->delete('help_desk_status');
+		$this->Session->delete('help_desk_draft_status');
+		
+	}
+	
+//////////////////// end ///////////////////////////
+
+
+///////////////// Start discussion forum /////////////////
+
+if($id==3)
+	{
+		$this->Session->delete('discussion_forum_status');
+		$this->Session->delete('discussion_forum_status1');
+		
+	}
+	
+
+
+
+/////////////////////  End ///////////////////////////////
+
+
+
+/////////////////////// End session_code //////////////////
 	
 }
 
@@ -283,7 +342,7 @@ $this->redirect(array('action' => 'index'));
 }
 function beforeFilter()
 {
-Configure::write('debug', 0);
+//Configure::write('debug', 0);
 }
 
 function menus_from_role_privileges()
@@ -14107,7 +14166,7 @@ www.housingmatters.co.in
 </div>";
 
 $this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
-$this->Session->write('pro_status', 1);
+$this->Session->write('profile_status', 1);
 $this->response->header('Location', $this->webroot.'Hms/dashboard');
 
 
@@ -16159,12 +16218,16 @@ $time=date('h:i:a',time());
 $i=$this->autoincrement('feedback','feedback_id');
 $this->loadmodel('feedback');
 $this->feedback->saveAll(array("feedback_id" => $i,"feedback_subject" => $subject,"feedback_date"=>$date,"feedback_category"=>$feedback_cat_id,"user_id"=>$s_user_id,"feedback_time"=>$time,"feedback_message"=>$message_web,"society_id"=>$s_society_id,"feedback_des"=>$message,'delete_id'=>0));
-$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);			
+$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
+
+$this->Session->write('feedback_status',1);
+$this->response->header('Location', $this->webroot.'Hms/dashboard');		
+	
 ?>     
 
 
 
-<!----alert-------------->
+<!----alert--------------
 <div class="modal-backdrop fade in"></div>
 <div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
 <div class="modal-body" style="font-size:16px;">

@@ -13,7 +13,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
   setTimeout( function(){$('#showing1').hide();} , 2000);
 </script>
  <div style="background-color:#EFEFEF; border-top:1px solid #e6e6e6; border-bottom:1px solid #e6e6e6; padding:10px; box-shadow:5px; font-size:16px; color:#006;">
-               <i class="icon-credit-card"></i> Invite to housingmatters <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="invite others members to join housingmatters"> </i>
+               <i class="icon-credit-card"></i> Invite to HousingMatters <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="invite others members to join housingmatters"> </i>
                  </div>
 				
 				
@@ -464,7 +464,7 @@ if($status1==1)
 ?>
   $.gritter.add({
                
-					title: 'Invitations',
+					title: '<i class="icon-credit-card"></i> Invitations',
 					text: 'This Email is sent successfully.<p><strong> Thank you for refering us.</strong></p>',
 					sticky: false,
 					time: '10000',
@@ -473,7 +473,7 @@ if($status1==1)
 
 
 <?php 
-$this->requestAction(array('controller' => 'hms', 'action' => 'griter_notification'), array('pass' => array(12)));
+$this->requestAction(array('controller' => 'hms', 'action' => 'griter_notification'), array('pass' => array(17)));
 }   
 ?>
   
