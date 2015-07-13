@@ -80,6 +80,20 @@ if($id==3)
 /////////////////////  End ///////////////////////////////
 
 
+///////////////// Start Feedback /////////////////
+
+if($id==102)
+	{
+		$this->Session->delete('feedback_status');
+		
+		
+	}
+	
+
+
+
+/////////////////////  End ///////////////////////////////
+
 
 /////////////////////// End session_code //////////////////
 	
@@ -8838,7 +8852,7 @@ $conditions=array('user_id'=> $user_id,'signup_random'=>$q);
 $result_check=$this->user->find('all',array('conditions'=>$conditions));
 foreach($result_check as $data9)
 {
-	 $user_name=$data9['user']['user_name'];
+	$user_name=$data9['user']['user_name'];
 	$deactive=$data9['user']['deactive'];
 	$one_time_sms=(int)@$data9['user']["one_time_sms"];
 }

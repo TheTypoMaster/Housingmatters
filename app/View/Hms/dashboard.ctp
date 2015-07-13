@@ -689,13 +689,24 @@ $this->requestAction(array('controller' => 'hms', 'action' => 'griter_notificati
 } 
 
 
-
-
+$status5=(int)$this->Session->read('feedback_status');
+if($status5==1)
+{
 ?>
 
+ $.gritter.add({
+               
+               title: '<i class="icon-phone-sign"></i> Feedback',
+               text: '<p>Thank you for getting in touch with us.</p><p>We shall Respond to you within 24 hours.</p>',
+               sticky: false,
+                time: '10000',
+				
+            });
 
-
-
+<?php
+$this->requestAction(array('controller' => 'hms', 'action' => 'griter_notification'), array('pass' => array(102)));
+}
+?>
 
 
 		   return false;
