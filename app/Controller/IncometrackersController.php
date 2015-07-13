@@ -867,8 +867,13 @@ $ifsc_code = @$collection['society']['ifsc_code'];
 $date_c = date('d-M-Y',strtotime($date_c));
 $date = date('d-M-Y',strtotime($date_from));
 $datett = date('M',strtotime($date_to));
+
+$dd1 = date('M',strtotime($date_from));
+$dd2 = date('M',strtotime($date_to));
+$dd3 = array($dd1,$dd2);
+$monthB = implode("-",$dd3);
 //////////////////////////////////////////////
-$dateA =date('m',strtotime($date));
+$dateA = date('m',strtotime($date));
 $y = date('Y',strtotime($date));
 $datt = array();
 $multi_ch2 = $multi_ch+1;
@@ -893,7 +898,7 @@ $dat2 = $datt[$r];
 $month2[] = date('M',strtotime($dat2));	
 $year = date('Y',strtotime($dat2));
 }
-$monthB = implode("-",$month2);
+
 
 //////////////////////////////////////////////////
 //echo $log_img;
@@ -973,7 +978,7 @@ Name :
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">Billing Period:</td>
-<td style="text-align:left;">'.$monthB.''. $year.'</td>
+<td style="text-align:left;">'.$monthB.'&nbsp;'. $year.'</td>
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;"><b>Due Date:</b></td>
@@ -1701,6 +1706,11 @@ $date_c = date('d-M-Y',strtotime($date_c));
 $date = date('d-M-Y',strtotime($date_from));
 $datett = date('M',strtotime($date_to));
 
+$dd1 = date('M',strtotime($date_from));
+$dd2 = date('M',strtotime($date_to));
+$dd3 = array($dd1,$dd2);
+$monthB = implode("-",$dd3);
+
 /////////////////////////////////////
 $dateA =date('m',strtotime($date));
 $y = date('Y',strtotime($date));
@@ -1728,7 +1738,7 @@ $dat2 = $datt[$r];
 $month2[] = date('M',strtotime($dat2));	
 $year = date('Y',strtotime($dat2));
 }
-$monthB = implode("-",$month2);
+//$monthB = implode("-",$month2);
 
 //////////////////////////////////////////
 $html='<div style="width:80%;margin:auto;"  class="bill_on_screen">
@@ -1806,7 +1816,7 @@ Name :
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;">Billing Period:</td>
-<td style="text-align:left;">'.$monthB.''. $year.'</td>
+<td style="text-align:left;">'.$monthB.'&nbsp;'. $year.'</td>
 </tr>
 <tr>
 <td style="text-align:left;font-weight: bold;"><b>Due Date:</b></td>
