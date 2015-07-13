@@ -27,7 +27,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </div>
 </div>
 
-<strong><a href="<?php echo $this->webroot; ?>csv_file/demo/Opening Balance Import.csv" download="">Click here for sample format</a></strong>
+<strong><a href="open_excel" download="" target="_blank">Click here for sample format</a></strong>
 <br>
 <h4>Instruction set to import users</h4>
 <ol>

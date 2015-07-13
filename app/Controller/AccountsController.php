@@ -3376,7 +3376,11 @@ $this->ath();
 $this->check_user_privilages();
 
 $this->loadmodel('ledger_account');
-$cursor2=$this->ledger_account->find('all');
+$conditions = array( '$or' => array( 
+	array('society_id' =>$s_society_id),
+	array('society_id' =>0)
+	));
+$cursor2=$this->ledger_account->find('all',array('conditions'=>$conditions));
 $this->set('cursor2',$cursor2);	
 
 
@@ -3995,6 +3999,81 @@ $this->regular_bill->updateAll(array("payment_date" => $transaction_date,"bank_n
 }
 }
 ///////////////////////////////// End pay Bill //////////////////////////////////////////////////////////////////
+
+////////////////////// Start Opening Balance  Excel Export ///////////////////////////////////////////////////////////
+function open_excel()
+{
+$this->layout="";
+$filename="Opening Balance Import";
+header ("Expires: 0");
+header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+header ("Cache-Control: no-cache, must-revalidate");
+header ("Pragma: no-cache");
+header ("Content-type: application/vnd.ms-excel");
+header ("Content-Disposition: attachment; filename=".$filename.".xls");
+header ("Content-Description: Generated Report" );
+
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id = (int)$this->Session->read('user_id');
+
+
+$excel = "Group Name \t A/c name \t Amount Type(Debit or Credit) \t Amount(Opening Balance) \t Penalty \n";
+
+$this->loadmodel('ledger_accounts');
+$conditions = array( '$or' => array( 
+	array('society_id' =>$s_society_id),
+	array('society_id' =>0)
+	));
+$cursor = $this->ledger_accounts->find('all',array('conditions'=>$conditions));
+foreach($cursor as $collection)
+{
+$group_id = (int)$collection['ledger_accounts']['group_id'];
+$ledger_name = $collection['ledger_accounts']['ledger_name'];
+
+$result_ag = $this->requestAction(array('controller' => 'hms', 'action' => 'accounts_group'),array('pass'=>array($group_id)));
+foreach ($result_ag as $collection) 
+{
+$accounts_id = (int)$collection['accounts_group']['accounts_id'];	
+$group_name = $collection['accounts_group']['group_name'];	
+}
+
+$excel.= "$group_name \t $ledger_name  \n";
+
+}
+
+$this->loadmodel('ledger_sub_account');
+$conditions=array("society_id" => $s_society_id);
+$result1 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+foreach($result1 as $data)
+{
+$ledger_id = (int)$data['ledger_sub_account']['ledger_id'];
+$name = $data['ledger_sub_account']['name'];
+
+$result_la = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account'),array('pass'=>array($ledger_id)));
+foreach ($result_la as $collection) 
+{
+//$group_id = (int)$collection['ledger_account']['group_id'];	
+$ledger_name = $collection['ledger_account']['ledger_name'];	
+}
+$excel.= "$ledger_name \t $name  \n";
+
+
+}
+
+
+
+
+
+
+
+
+
+echo $excel;
+
+
+}
+////////////////////// End Opening Balance  Excel Export ///////////////////////////////////////////////////////////
 
 }
 ?>
