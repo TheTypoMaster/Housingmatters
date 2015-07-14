@@ -3535,7 +3535,7 @@ $message_web="<div>
 <p>You can receive important SMS & emails from your committee.</p>
 <br/>				
 <p><b>
-<a href='$ip".$this->webroot."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
+<a href='$ip".$this->webroot."/hms/send_sms_for_verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
 <br/>
 <p>Pls add www.housingmatters.co.in in your favorite bookmarks for future use.</p>
 <p>Regards,</p>	
@@ -8430,7 +8430,7 @@ $message_web="<div>
 <p>Congratulations! Welcome to HousingMatters...making life simpler for</p>
 <p>managing your housing society affairs.</p><br/>
 <p>Your registration request has been successfully approved.</p><br/>
-<p><a href='$ip".$this->webroot."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters</p>
+<p><a href='$ip".$this->webroot."/hms/send_sms_for_verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters</p>
 <p>For any assistance, please email us on support@housingmatters.in</p>
 <p>alternatively, feel free to get in touch via our online chat support.</p><br/>
 Thank you.<br/>
@@ -8599,7 +8599,7 @@ $message_web="<div>
 
 
 
-<p><b><a href='$ip".$this->webroot."/hms/verify_mobile?q=$random' target='_blank'><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'>Click here</button></a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
+<p><b><a href='$ip".$this->webroot."/hms/send_sms_for_verify_mobile?q=$random' target='_blank'><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'>Click here</button></a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
 
 
 <p>Regards,</p>
@@ -8800,7 +8800,65 @@ exit;
 
 }
 
+function send_sms_for_verify_mobile(){
+	$this->layout=null;
+	$q=$this->request->query['q'];
 
+	$q_new=explode('/',$q);
+	$q_new[0];
+
+	$user_id=(int)$this->decode($q_new[0],'housingmatters');
+	$randm=$q_new[1];
+	
+	$this->loadmodel('user');
+	$conditions=array('user_id'=> $user_id); 
+	$result_user=$this->user->find('all',array('conditions'=>$conditions));
+	foreach ($result_user as $collection) 
+	{
+	$mobile=$collection['user']["mobile"];
+	}
+	
+	$this->loadmodel('user');
+	$conditions=array('user_id'=> $user_id,'signup_random'=>$q);
+	$result_check=$this->user->find('all',array('conditions'=>$conditions));
+	foreach($result_check as $data9)
+	{
+		$user_name=$data9['user']['user_name'];
+		$deactive=$data9['user']['deactive'];
+		$one_time_sms=(int)@$data9['user']["one_time_sms"];
+	}
+	$n= sizeof($result_check);
+	if($n>0){ 
+	$random_otp=(string)mt_rand(1000,9999);
+
+
+
+	$dd=explode(' ',$user_name);
+	  $user_name=$dd[0];
+	  $user_name=ucfirst($user_name);
+	$r_sms=$this->hms_sms_ip();
+	  $working_key=$r_sms->working_key;
+	 $sms_sender=$r_sms->sms_sender; 	
+		
+	//$sms='Dear '.$user_name.' Please enter your code '.$random_otp.' on the signup screen to continue your HousingMatters registration process. Thank you';
+	// $sms=''.$random_otp.' is your One Time Passcode, please enter on the signup screen to continue your HousingMatters registration process.';
+	  $sms='Hi ! '.$user_name.', Use '.$random_otp.' as one time passcode and continue your Housing Matters registration process. ';
+
+	$sms1=str_replace(' ', '+', $sms);
+
+	@$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+	$this->user->updateAll(array('password'=>$random_otp,'one_time_sms'=>1),array('user.user_id'=>$user_id));
+
+	
+	$this->response->header('Location', 'verify_mobile?q='.$q.' ');
+	}
+	else
+	{
+	echo "Sorry, you have used this link.This link is one time login link.";	
+	exit;
+	}
+
+}
 function verify_mobile()
 {
 
@@ -8847,7 +8905,8 @@ $this->set('error', '<label style="color:red;">you have entered incorrect code</
 
 }
 
-$this->loadmodel('user');
+
+/*$this->loadmodel('user');
 $conditions=array('user_id'=> $user_id,'signup_random'=>$q);
 $result_check=$this->user->find('all',array('conditions'=>$conditions));
 foreach($result_check as $data9)
@@ -8878,7 +8937,7 @@ $r_sms=$this->hms_sms_ip();
 $sms1=str_replace(' ', '+', $sms);
 
 @////sms-closed//// ////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
-$this->user->updateAll(array('password'=>$random_otp,'one_time_sms'=>1),array('user.user_id'=>$user_id));
+//$this->user->updateAll(array('password'=>$random_otp,'one_time_sms'=>1),array('user.user_id'=>$user_id));
 
 }
 
@@ -8887,7 +8946,7 @@ else
 {
 echo "Sorry, you have used this link.This link is one time login link.";	
 exit;
-}
+}*/
 
 }
 
@@ -8994,7 +9053,7 @@ $message_web="<div>
 <a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 <br/><br/>Login-Id: $email<br/>
 <p> Password: <b>
-<a href='$ip".$this->webroot."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p> <br/>
+<a href='$ip".$this->webroot."/hms/send_sms_for_verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p> <br/>
 Congratulations your registration request has been successfully approved  <br/>
 <br/>
 Thank you.<br/>
@@ -9112,7 +9171,7 @@ $message_web="<div>
 <a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 <br/><br/>Login-Id: $email<br/>
 <p> Password: <b>
-<a href='$ip".$this->webroot."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p><br>
+<a href='$ip".$this->webroot."/hms/send_sms_for_verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p><br>
 Congratulations your registration request has been successfully approved  <br/>
 <br/>
 Thank you.<br/>
@@ -9566,7 +9625,7 @@ $message_web="<div>
 
 
 
-<p><b><a href='$ip".$this->webroot."/hms/verify_mobile?q=$random' target='_blank'><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'>Click here</button></a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
+<p><b><a href='$ip".$this->webroot."/hms/send_sms_for_verify_mobile?q=$random' target='_blank'><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'>Click here</button></a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
 
 
 <p>Regards,</p>
@@ -14881,7 +14940,7 @@ $this->login->save(array('login_id'=>$log_i,'user_name'=>$email,'password'=>$ran
 <p>You can log & track complaints, start new discussions, check your dues, post classifieds and many more in the portal.</p>
 <p>You can receive important SMS & emails from your committee.</p>
 <br/>				
-<p><b><a href='$ip".$this->webroot."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
+<p><b><a href='$ip".$this->webroot."/hms/send_sms_for_verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
 <br/>
 <p>Pls add www.housingmatters.co.in in your favorite bookmarks for future use.</p>
 <p>Regards,</p>	
@@ -15328,7 +15387,7 @@ $login_user=$email;
 <p>You can receive important SMS & emails from your committee.</p>
 <br/>				
 <p><b>
-<a href='$ip".$this->webroot."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
+<a href='$ip".$this->webroot."/hms/send_sms_for_verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
 <br/>
 <p>Pls add www.housingmatters.co.in in your favorite bookmarks for future use.</p>
 <p>Regards,</p>	
@@ -15787,7 +15846,7 @@ $message_web="<div>
 <p>You can receive important SMS & emails from your committee.</p>
 <br/>				
 <p><b>
-<a href='http://123.63.2.150:8080".$this->webroot."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
+<a href='http://123.63.2.150:8080".$this->webroot."/hms/send_sms_for_verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
 <br/>
 <p>Pls add www.housingmatters.co.in in your favorite bookmarks for future use.</p>
 <p>Regards,</p>	
@@ -20617,7 +20676,7 @@ if(!empty($email) && !empty($mobile))
 			<p>You can log & track complaints, start new discussions, check your dues, post classifieds and many more in the portal.</p>
 			<p>You can receive important SMS & emails from your committee.</p>
 			<br/>				
-			<p><b><a href='$ip".$this->webroot."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
+			<p><b><a href='$ip".$this->webroot."/hms/send_sms_for_verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
 			<br/>
 			<p>Pls add www.housingmatters.co.in in your favorite bookmarks for future use.</p>
 			<p>Regards,</p>	
@@ -20935,7 +20994,7 @@ foreach($myArray as $child)
 		<p>You can receive important SMS & emails from your committee.</p>
 		<br/>				
 		<p><b>
-		<a href='$ip".$this->webroot."/hms/verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
+		<a href='$ip".$this->webroot."/hms/send_sms_for_verify_mobile?q=$random'>Click here</a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
 		<br/>
 		<p>Pls add www.housingmatters.co.in in your favorite bookmarks for future use.</p>
 		<p>Regards,</p>	
