@@ -313,7 +313,7 @@ $due_amount5 = $due_amount;
 $penalty_amt = 0;
 if($penalty == 1)
 {
-$due_amtttt =(int)@$ggg_tt - @$interest_arrears;
+$due_amtttt =(int)(@$ggg_tt) - (@$interest_arrears);
 //$due_amtttt = (int)$arrears+$previous_bill_amt;	
 if(@$arrears <= 0)
 {

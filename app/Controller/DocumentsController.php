@@ -120,12 +120,13 @@ function resource_add()
 				
 				
 $this->send_notification('<span class="label label-warning" ><i class="icon-folder-open"></i></span>','Approval request for  document <b>'.$resource_title.'</b> created by',4,$i,$this->webroot.'Hms/resource_approval',$s_user_id,$s_duser_id);
-				
+			$this->Session->write('document_status1', 2);
+			$this->response->header('Location', $this->webroot.'Documents/resource_view');	
 				
 				?>
                 
 
-				<!----alert-------------->
+				<!----alert--------------
 				<div class="modal-backdrop fade in"></div>
 				<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
 				<div class="modal-body" style="font-size:16px;">
@@ -404,7 +405,7 @@ $subject="";
 
 $this->send_notification('<span class="label label-warning" ><i class="icon-folder-open"></i></span>','New document <b>'.$resource_title.'</b> submitted by',4,$i,$this->webroot.'Documents/resource_view',$s_user_id,$da_user_id);
 
-$this->Session->write('d_status', 1);
+$this->Session->write('document_status', 1);
 $this->response->header('Location', $this->webroot.'Documents/resource_view');
 	
 ?>

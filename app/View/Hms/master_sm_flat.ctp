@@ -32,7 +32,7 @@ Society Setup
 <div class="modal-body">
 <input type="file" name="file" class="default" id="image-file">
 <label id="vali"></label>			
-			<strong><a href="<?php echo $this->webroot; ?>csv_file/unit_flat/flat_import.csv" download>Click here for sample format</a></strong>
+			<strong><a href="unit_config" download>Click here for sample format</a></strong>
 			<br/>
 			<h4>Instruction set to import users</h4>
 			<ol>

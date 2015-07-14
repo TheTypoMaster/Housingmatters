@@ -226,7 +226,7 @@ if (typeof val != "undefined")
 
 function submit_vote_cbox(p_id,type)
 {
-$(document).ready(function() {
+$(document).ready(function() { 
 //alert(p_id);
 	var allVals = [];
      $('#checkdiv'+p_id+' :checked').each(function() {
@@ -243,9 +243,46 @@ $(document).ready(function() {
 			$( "#poll"+p_id).addClass('animated fadeInDown');
 		});
 	 }
-			
-		
+	
 });
 }
+
+
+$(document).ready(function() {
+<?php
+
+$status1=(int)$this->Session->read('poll_status');
+$status2=(int)$this->Session->read('poll_status1');
+if($status1==1)
+{
+?>
+$.gritter.add({
+
+			title: '<i class="icon-question-sign"></i> Polls',
+			text: 'Your Poll has been created.',
+			sticky: false,
+			time: '10000',
+
+			});
+<?php
+
+$this->requestAction(array('controller' => 'hms', 'action' => 'griter_notification'), array('pass' => array(7)));
+}
+if($status2==2)
+{
+?>	
+		$.gritter.add({
+
+					title: '<i class="icon-question-sign"></i> Polls',
+					text: 'Polls are sent for approval.',
+					sticky: false,
+					time: '10000',
+
+					});
+			
+	<?php 
+$this->requestAction(array('controller' => 'hms', 'action' => 'griter_notification'), array('pass' => array(7)));
+} ?>
+});
 </script>
 

@@ -171,33 +171,53 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 							</div>
 						</div>
 						
-	<?php
-echo $status1=$this->Session->read('d_status');					
-?>						
+					
 <script>
 $(document).ready(function(){
 <?php
 
-$status1=(int)$this->Session->read('d_status');
+$status1=(int)$this->Session->read('document_status');
+$status2=(int)$this->Session->read('document_status1');
 if($status1==1)
 {
 
 ?>
- $.gritter.add({
-               
-					title: 'Documents',
-					text: 'Resources are published.',
-					sticky: false,
-					time: '10000',
+			$.gritter.add({
 
-            });
+			title: '<i class="icon-file"></i> Documents',
+			text: 'Documents are published.',
+			sticky: false,
+			time: '10000',
+
+			});
 
 <?php 
 
-$this->requestAction(array('controller' => 'hms', 'action' => 'griter_notification'), array('pass' => array(6)));
+$this->requestAction(array('controller' => 'hms', 'action' => 'griter_notification'), array('pass' => array(4)));
 
-  }   ?>
+  }   
 
+		if($status2==2)
+		{
+
+		?>
+			$.gritter.add({
+
+			title: '<i class="icon-file"></i> Documents',
+			text: 'Documents are sent for approval.',
+			sticky: false,
+			time: '10000',
+
+			});
+
+		<?php 
+
+		$this->requestAction(array('controller' => 'hms', 'action' => 'griter_notification'), array('pass' => array(4)));
+
+		}   ?>
+
+  
+  
 });
 
 

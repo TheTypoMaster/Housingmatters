@@ -621,8 +621,13 @@ $subject="";
 
 ///////////////////////////////////////////////////////////////End Mail functionality ..../////////////////////////////////////////////////////////////////
 
+
+$aar=array(1,$t);
+$this->Session->write('help_desk_status',$aar);
+$this->response->header('Location', $this->webroot.'Helpdesks/help_desk_r_open_ticket');
+
 ?>
-<!----alert-------------->
+<!----alert--------------
 <div class="modal-backdrop fade in"></div>
 <div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
 <div class="modal-body" style="font-size:16px;">
@@ -657,8 +662,15 @@ $j=$this->autoincrement('help_desk','help_desk_id');
 $this->loadmodel('help_desk');
 $this->help_desk->saveAll(array("help_desk_id" => $j, "ticket_id" => 0, "society_id" => $s_society_id , "user_id" => $s_user_id, "help_desk_complain_type_id" => $category,"help_desk_description" => $textarea, "help_desk_date" =>$date,"help_desk_assign_date" =>"", "help_desk_time" =>$time, "help_desk_status" => 0, "help_desk_service_provider_id" => 0,"help_desk_file"=>$file ,"help_desk_close_comment"=>"","help_desk_close_date"=>"","ticket_priority"=>$ticket_priority,'help_desk_draft'=>1));
 
+
+$this->Session->write('help_desk_draft_status',1);
+$this->response->header('Location', $this->webroot.'Helpdesks/help_desk_r_draft_ticket');
+
+
+
+
 ?>
-<!----alert-------------->
+<!----alert--------------
 <div class="modal-backdrop fade in"></div>
 <div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
 <div class="modal-body" style="font-size:16px;">
