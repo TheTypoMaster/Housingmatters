@@ -2841,8 +2841,7 @@ function add_field()
 	
 	// $sms='Dear '.$user_name.' Please enter your code '.$random_otp.' on the signup screen to continue your HousingMatters registration process. Thank you';
 	// $sms=''.$random_otp.' is your One Time Passcode, please enter on the signup screen to continue your HousingMatters registration process.';
-	
-<<<<<<< HEAD
+
 	
 
 
@@ -2874,10 +2873,11 @@ $this->notification_email->saveAll(array("notification_id" => $lo, "module_id" =
 
 	
 */	
+
+
+
 	
-	
-=======
->>>>>>> origin/master
+
 }
 
 
