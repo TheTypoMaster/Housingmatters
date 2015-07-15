@@ -1001,6 +1001,7 @@ for($x=0; $x<sizeof($ih_detail2); $x++)
 {
 $ih_det = $ih_detail2[$x];
 $ih_id5 = (int)$ih_det[0];
+$ammmt = $ih_det[1];
 if($ih_id5 != 43)
 {
 $result7 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($ih_id5)));
@@ -1013,9 +1014,12 @@ else
 {
 $ih_name = "Non Occupancy charges";
 }
+if($ammmt != 0)
+{
 $html.='<tr>
 <td style="text-align:left;">'.$ih_name.'</td>
 </tr>';
+}
 }
 $html.='<tr>
 <td style="text-align:left;"><br/><br/></td>
@@ -1028,11 +1032,14 @@ for($y=0; $y<sizeof($ih_detail2); $y++)
 {
 $ih_det3 = $ih_detail2[$y];
 $amount = $ih_det3[1];
+if($amount != 0 )
+{
 //$amount2 = number_format($amount);
 $html.='<tr>
 <td style="text-align:right;padding-right: 8%;">'.$amount.'</td>
 </tr>';
 $total_amount2 = $total_amount2 + $amount;
+}
 }
 //$due_amt3 = $due_amt2 - $late_amt2;
 $html.='<tr>
@@ -1841,6 +1848,7 @@ for($x=0; $x<sizeof($ih_detail2); $x++)
 {
 $ih_det = $ih_detail2[$x];
 $ih_id5 = (int)$ih_det[0];
+$ammmt = $ih_det[1];
 if($ih_id5 != 43)
 {
 $result7 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($ih_id5)));
@@ -1853,9 +1861,12 @@ else
 {
 $ih_name = "Non Occupancy charges";
 }
+if($ammmt != 0)
+{
 $html.='<tr>
 <td style="text-align:left;">'.$ih_name.'</td>
 </tr>';
+}
 }
 $html.='<tr>
 <td style="text-align:left;"><br/><br/></td>
@@ -1869,10 +1880,13 @@ for($y=0; $y<sizeof($ih_detail2); $y++)
 $ih_det3 = $ih_detail2[$y];
 $amount = $ih_det3[1];
 //$amount2 = number_format($amount);
+if($amount != 0)
+{
 $html.='<tr>
 <td style="text-align:right;padding-right: 8%;">'.$amount.'</td>
 </tr>';
 $total_amount2 = $total_amount2 + $amount;
+}
 }
 //$due_amt3 = $due_amt2 - $late_amt2;
 $html.='<tr>
