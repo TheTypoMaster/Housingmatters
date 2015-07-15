@@ -44,14 +44,14 @@ foreach($result_user as $data)
 	 $noc_flat1= $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch'),array('pass'=>array($flat12)));
 foreach($noc_flat1 as $dafa)
 {
-	$noc_type1=@$dafa['flat']['noc_ch_tp'];
+	@$noc_type1=@$dafa['flat']['noc_ch_tp'];
 }
-if($noc_type1==1)
+if(@$noc_type1==1)
 {
 
 $z++;
 }
-if($noc_type1==2)
+if(@$noc_type1==2)
 {
 $j++;
 }
