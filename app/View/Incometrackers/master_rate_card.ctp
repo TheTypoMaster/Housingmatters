@@ -237,7 +237,9 @@ $(document).ready(function() {
 				}
 				if(response.type=='succ'){
 				$("#shwd").show();
+				
 				$(".success_report").show().html(response.text);
+				
 			    }
 				
 				if(response.type=='okk'){
