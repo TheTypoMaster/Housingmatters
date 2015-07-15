@@ -2834,7 +2834,6 @@ function add_field()
 	$this->layout="session";
 	$this->ath();
 	$s_user_id=$this->Session->read('user_id');
-	
 	$files = glob("profile/$s_user_id/*.*");
 	$this->set('images',$files); 
 	$user_name="Rohit Joshi";
@@ -2842,38 +2841,6 @@ function add_field()
 	
 	// $sms='Dear '.$user_name.' Please enter your code '.$random_otp.' on the signup screen to continue your HousingMatters registration process. Thank you';
 	// $sms=''.$random_otp.' is your One Time Passcode, please enter on the signup screen to continue your HousingMatters registration process.';
-	
-	
-
-
-//////////////// End all checked code   //////////////////////////
-
-		
-////////////////Notification email user all checked code  //////////////////////////
-$this->loadmodel('user');
-$result_user=$this->user->find('all');
-
-
-foreach($result_user as $data)
-{
-$user_id=$data['user']['user_id'];	
-
-$this->loadmodel('email');	
-$conditions=array('notification_id'=>1);
-$result_email=$this->email->find('all',array('conditions'=>$conditions));
-foreach($result_email as $data)
-{
-$auto_id = (int)$data['email']['auto_id'];
-$this->loadmodel('notification_email');
-$lo=$this->autoincrement('notification_email','notification_id');
-$this->notification_email->saveAll(array("notification_id" => $lo, "module_id" => $auto_id , "user_id" => $user_id,'chk_status'=>0));
-
-}
-}
-
-	
-	
-	
 	
 }
 
