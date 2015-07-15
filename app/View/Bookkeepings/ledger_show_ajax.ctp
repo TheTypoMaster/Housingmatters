@@ -733,7 +733,8 @@ $amount_category = "Credit";
 									</tr>
                                     <?php
 									//$arrr1 = array();
-									/* 
+									$total_debit = 0;
+                                    $total_credit = 0;
 									foreach ($cursor3 as $collection) 
 									{
 									 $date = "";
@@ -877,7 +878,7 @@ if($dddd2 >= $dddd1)
 $arrr2[] = $sub_arr1;
 }
 }
-*/
+
 ksort($arrr1);
 /////////////////////////////////////////////////////////////////////////////////	
 $total_debit = 0;
@@ -905,10 +906,7 @@ else
 {
 $op_date2 = $t_date;	
 }
-
-
-
-
+*/
 
 
 
@@ -999,7 +997,7 @@ $total_credit = $total_credit + $amount;
 }
 }
 }
-
+									
 $closing_balance = $op_bal2 - $total_debit + $total_credit;
 
  ?>

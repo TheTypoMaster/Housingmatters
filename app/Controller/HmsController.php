@@ -2834,7 +2834,6 @@ function add_field()
 	$this->layout="session";
 	$this->ath();
 	$s_user_id=$this->Session->read('user_id');
-	
 	$files = glob("profile/$s_user_id/*.*");
 	$this->set('images',$files); 
 	$user_name="Rohit Joshi";
@@ -2843,6 +2842,7 @@ function add_field()
 	// $sms='Dear '.$user_name.' Please enter your code '.$random_otp.' on the signup screen to continue your HousingMatters registration process. Thank you';
 	// $sms=''.$random_otp.' is your One Time Passcode, please enter on the signup screen to continue your HousingMatters registration process.';
 	
+<<<<<<< HEAD
 	
 
 
@@ -2876,6 +2876,8 @@ $this->notification_email->saveAll(array("notification_id" => $lo, "module_id" =
 */	
 	
 	
+=======
+>>>>>>> origin/master
 }
 
 

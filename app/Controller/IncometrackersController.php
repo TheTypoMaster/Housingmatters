@@ -5053,7 +5053,7 @@ $child1=(int)$child[1];
 if($child[0] != 4)
 {
 	if($child[0]!=5){
-		if(empty($child1))
+		if(empty($child1) && $child1 != 0)
 		{
 		$output = json_encode(array('type'=>'error', 'text' => 'Please Fill All Fields'));
 		die($output);
@@ -5128,7 +5128,7 @@ $output = json_encode(array('type'=>'error', 'text' => 'Please Fill All Fields')
 die($output);
 }	
 
-if(empty($child[1])){
+if(empty($child[1]) && $child[1] != 0){
 $output = json_encode(array('type'=>'error', 'text' => 'Please Fill All Fields'));
 die($output);
 }
