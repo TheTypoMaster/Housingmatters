@@ -605,543 +605,6 @@ $this->response->header('Location:help_desk_r_draft_ticket');
 }
 
 
-function help_desk_send_to_sm()
-{
-$this->layout='session';
-$this->ath();
-$s_society_id= $this->Session->read('society_id');
-$s_user_id= $this->Session->read('user_id');
-$id=(int)$this->request->query('id');
-$this->loadmodel('help_desk_category');
-$order=array('help_desk_category.help_desk_category_name'=> 'ASC');					
-$result=$this->help_desk_category->find('all',array('order'=>$order));					
-$this->set('result_help_desk_category',$result);
-$this->loadmodel('help_desk');
-$conditions=array('help_desk_id'=>$id);
-$result_help=$this->help_desk->find('all',array('conditions'=>$conditions));	
-$this->set('result_help_desk_draft',$result_help);
-foreach($result_help as $data)
-{
-$att=$data['help_desk']['help_desk_file'];
-}
-
-if(isset($this->request->data['sub']))
-{
-
-$ip=$this->hms_email_ip();
-$category=(int)$this->request->data['category'];
-$textarea=htmlentities($this->request->data['comment']);
-$ticket_priority=(int)$this->request->data['priority'];
-$t=$this->autoincrement_with_society_ticket('help_desk','ticket_id');
-date_default_timezone_set('Asia/kolkata');
-$date=date("d-m-y");
-$time=date('h:i:a',time());
-$file=$this->request->form['file']['name'];
-if(empty($file))
-{
-$file=$att;	
-}
-$target = "help_desk_file/";
-$target=@$target.basename( @$this->request->form['file']['name']);
-$ok=1;
-move_uploaded_file(@$this->request->form['file']['tmp_name'],@$target); 
-$this->loadmodel('help_desk');
-
-$this->help_desk->updateAll(array('ticket_id'=>$t,'help_desk_draft'=>0, "society_id" => $s_society_id , "user_id" => $s_user_id, "help_desk_complain_type_id" => $category,"help_desk_description" => $textarea, "help_desk_date" =>$date,"help_desk_assign_date" =>"", "help_desk_time" =>$time, "help_desk_status" => 0, "help_desk_service_provider_id" => 0,"help_desk_file"=>$file ,"help_desk_close_comment"=>"","help_desk_close_date"=>"","ticket_priority"=>$ticket_priority),array('help_desk_id'=>$id));
-
-//------------------mail functinality  start SM -------------------
-$user_mail=1;
-if($user_mail==1)	
-{
-$this->loadmodel('society');
-$conditions12=array('society_id'=>$s_society_id);
-$result1=$this->society->find('all',array('conditions'=>$conditions12));
-
-foreach ($result1 as $collection) 
-{
-$user=$collection['society']["user_id"];
-$society_name=$collection['society']["society_name"];
-}
-$this->loadmodel('user');
-$conditions2=array("user_id"=>$user);
-$result_user=$this->user->find('all',array('conditions'=>$conditions2));
-foreach ($result_user as $collection) 
-{
-$to=$collection['user']["email"];
-$mobile=$collection['user']["mobile"];
-}
-
-$this->loadmodel('user');
-$conditions3=array("user_id"=>$s_user_id);
-$result3=$this->user->find('all',array('conditions'=>$conditions3));
-foreach ($result3 as $collection) 
-{
-$user_name=$collection['user']["user_name"];
-$reply=$collection['user']["email"];
-$wing=(int)$collection['user']["wing"];
-$flat=(int)$collection['user']["flat"];
-$da_society_id=(int)$collection['user']['society_id'];
-}
-
-$this->loadmodel('wing');
-$conditions4=array("wing_id"=>$wing);
-$result_wing=$this->wing->find('all',array('conditions'=>$conditions4));
-foreach ($result_wing as $collection) 
-{
-$wing_name=$collection['wing']["wing_name"];
-}
-$this->loadmodel('flat');
-$conditions5=array("flat_id"=>$flat);
-$result_flat=$this->flat->find('all',array('conditions'=>$conditions5));
-foreach ($result_flat as $collection) 
-{
-$flat_name=$collection['flat']["flat_name"];
-}
-@$wing_flat=$wing_name.'-'.$flat_name;
-
-if($ticket_priority==1)
-{
-$ticket_priority="Urgent";
-}
-else
-{
-$ticket_priority="Normal";
-}
- $ticket_no=$t;
- $i=$id;
- $category_name=$this->help_desk_category_name($category);
-$r_sms=$this->hms_sms_ip();
-  $working_key=$r_sms->working_key;
- $sms_sender=$r_sms->sms_sender; 
- $sms='New Helpdesk ticket '.$ticket_no.' - '.$category_name.' raised+by '.$user_name.' - '.$wing_flat.' Please log into HousingMatters for further action.';
-
-$sms1=str_replace(' ', '+', $sms);
-////sms-closed//// ////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');		
-  $message_web="<div>
-<img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
-</br><p>Dear Administrator,</p><br/>
-<p>A new helpdesk ticket is raised in your society.</p>
-<table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
-<tr class='tr_heading' style='background-color:#00A0E3;color:white;'>
-<td>HelpDesk Ticket</td>
-<td>Priority </td>
-<td>Posted by</td>
-<td>Flat #</td>
-</tr>
-<tr class='tr_content' style=background-color:#E9E9E9;'>
-<td>$ticket_no</td>
-<td>$ticket_priority</td>
-<td>$user_name</td>
-<td>$wing_flat</td>
-</tr>
-</table>
-<div>
-<p style='font-size:16px;'> <strong>Ticket Description:</strong></p>
-<p style='font-size:15px;'>$textarea</p><br/>
-<center><p>To view the ticket or post response
-<a href='$ip".$this->webroot."hms' ><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
-HousingMatters (Support Team)<br/>
-www.housingmatters.co.in
-</div>
-</div>";
-
-$from_name="HousingMatters";
-$this->loadmodel('email');
-$conditions6=array("auto_id"=>1);
-$result4=$this->email->find('all',array('conditions'=>$conditions6));
-foreach ($result4 as $collection) 
-{
-$from=$collection['email']["from"];
-
-}
-$this->loadmodel('notification_email');
-$conditions7=array("module_id" =>1,"user_id"=>$user,'chk_status'=>0);
-$result5=$this->notification_email->find('all',array('conditions'=>$conditions7));
-$n=sizeof($result5);
-if(1==1)
-{
-@$subject.= ''. $society_name . '' . '- New Helpdesk Ticket ' . '  #   ' .$ticket_no .'';
-$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
-$subject="";
-}
-}	
-/////////////////////////////////// end sm mailfunctionality ////////////////////////
-
-$user_will_get[]=$user;
-$this->recent_activities('icon-barcode',$s_user_id,'lodge a new ticket','help_desk_sm_view?id='.$i.'&status=0',$user_will_get,1);
-
-
-
-///////////////////////// Send Mail User ///////////////////////////	
-
-$this->loadmodel('help_desk_category');
-$conditions=array("help_desk_category_id" => $category);
-$cursor=$this->help_desk_category->find('all',array('conditions'=>$conditions));
-foreach ($cursor as $collection2) 
-{
-$help_desk_category_name=$collection2['help_desk_category']['help_desk_category_name'];
-}
-$user_d[]=$user;
-$this->send_notification('<span class="label" style="background-color:#d43f3a;"><i class="icon-plus"></i></span>','New Help-desk ticket# <b>'.$t.'-'.$help_desk_category_name.'</b> lodged by',1,$i,$this->webroot.Helpdesks/'help_desk_sm_view/'.$i.'&/0',$s_user_id,$user_d);
-
-$user_mail=2;
-if($user_mail==2)	
-{
-$to=$reply;
-$from_name="HousingMatters";
-$reply="donotreply@housingmatters.in";
-$society_name_user=$this->society_name($da_society_id);
-
-  $message_web="<div>
-<img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
-
-</br><p>Dear $user_name,</p><br/>
-<p>Please find below details of new helpdesk ticket raised by you.</p>
-<table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
-<tr class='tr_heading' style='background-color:#00A0E3;color:white;'>
-<td>HelpDesk Ticket</td>
-<td>Priority </td>
-<td>Description</td>
-
-</tr>
-<tr class='tr_content' style=background-color:#E9E9E9;'>
-<td>$ticket_no</td>
-<td>$ticket_priority</td>
-<td>$textarea</td>
-</tr>
-</table>
-<div>
-<br/>
-<center><p>To view status update or respond
-<a href='$ip' ><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
-Thank you.<br/>
-HousingMatters (Support Team)<br/>
-www.housingmatters.co.in
-</div ><br/>
-</div>";
-$this->loadmodel('notification_email');
-$conditions8=array("module_id" =>1,"user_id"=>$s_user_id);
-$result6=$this->notification_email->find('all',array('conditions'=>$conditions8));
-$s=sizeof($result6);
-if($s>0)
-{
-@$subject.= ''. $society_name . '' . '- New Helpdesk Ticket ' . '  #  ' .$ticket_no .'';
-$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
-$subject="";
-}	
-}
-
-///////////////////////////////////////////////////////////////End Mail functionality ..../////////////////////////////////////////////////////////////////
-
-?>
-<!----alert-------------->
-<div class="modal-backdrop fade in"></div>
-<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-<div class="modal-body" style="font-size:16px;">
-Your Ticket has been generated.<br/>
-Your Ticket Id is: #<?php echo $t; ?> .
-</div> 
-<div class="modal-footer">
-<a href="help_desk_r_open_ticket" class="btn green">OK</a>
-</div>
-</div>
-<!----alert-------------->
-<?php	
-}
-	
-}
-
-
-function help_desk_genarate_ticket()
-{	
-$this->layout='session';
-$this->ath();
-$this->check_user_privilages();
-
-$s_society_id= $this->Session->read('society_id');
-$s_user_id= $this->Session->read('user_id');
-
-$this->loadmodel('help_desk_category');
-$order=array('help_desk_category.help_desk_category_name'=> 'ASC');					
-$result=$this->help_desk_category->find('all',array('order'=>$order));					
-$this->set('result_help_desk_category',$result);
-
-if(isset($this->request->data['sub']))
-{
-	
-	$ip=$this->hms_email_ip();
-	
-$category=(int)$this->request->data['category'];
-$textarea=htmlentities($this->request->data['description']);
-$ticket_priority=(int)$this->request->data['priority'];
-$i=$this->autoincrement('help_desk','help_desk_id');
-$t=$this->autoincrement_with_society_ticket('help_desk','ticket_id');
-date_default_timezone_set('Asia/kolkata');
-$date=date("d-m-y");
-$time=date('h:i:a',time());
-$file=$this->request->form['file']['name'];
-$target = "help_desk_file/";
-$target=@$target.basename( @$this->request->form['file']['name']);
-$ok=1;
-move_uploaded_file(@$this->request->form['file']['tmp_name'],@$target); 
-
-
-
-$this->loadmodel('help_desk');
-$this->help_desk->saveAll(array("help_desk_id" => $i, "ticket_id" => $t, "society_id" => $s_society_id , "user_id" => $s_user_id, "help_desk_complain_type_id" => $category,"help_desk_description" => $textarea, "help_desk_date" =>$date,"help_desk_assign_date" =>"", "help_desk_time" =>$time, "help_desk_status" => 0, "help_desk_service_provider_id" => 0,"help_desk_file"=>$file ,"help_desk_close_comment"=>"","help_desk_close_date"=>"","ticket_priority"=>$ticket_priority,'help_desk_draft'=>0));
-
-
-
-
-
-
-//////////////////////////////////////////////////////////////  Mail Functionality starting /////////////////////////////////////////////////////////////////
-//------------------mail functinality  start SM -------------------
-$user_mail=1;
-if($user_mail==1)	
-{
-$this->loadmodel('society');
-$conditions12=array('society_id'=>$s_society_id);
-$result1=$this->society->find('all',array('conditions'=>$conditions12));
-
-foreach ($result1 as $collection) 
-{
-$user=$collection['society']["user_id"];
-$society_name=$collection['society']["society_name"];
-}
-$this->loadmodel('user');
-$conditions2=array("user_id"=>$user);
-$result_user=$this->user->find('all',array('conditions'=>$conditions2));
-foreach ($result_user as $collection) 
-{
-$to=$collection['user']["email"];
-$mobile=$collection['user']["mobile"];
-}
-$this->loadmodel('user');
-$conditions3=array("user_id"=>$s_user_id);
-$result3=$this->user->find('all',array('conditions'=>$conditions3));
-foreach ($result3 as $collection) 
-{
-$user_name=$collection['user']["user_name"];
-$reply=$collection['user']["email"];
-$wing=(int)$collection['user']["wing"];
-$flat=(int)$collection['user']["flat"];
-$da_society_id=(int)$collection['user']['society_id'];
-}
-$this->loadmodel('wing');
-$conditions4=array("wing_id"=>$wing);
-$result_wing=$this->wing->find('all',array('conditions'=>$conditions4));
-foreach ($result_wing as $collection) 
-{
-$wing_name=$collection['wing']["wing_name"];
-}
-$this->loadmodel('flat');
-$conditions5=array("flat_id"=>$flat);
-$result_flat=$this->flat->find('all',array('conditions'=>$conditions5));
-foreach ($result_flat as $collection) 
-{
-$flat_name=$collection['flat']["flat_name"];
-}
-@$wing_flat=$wing_name.'-'.$flat_name;
-if($ticket_priority==1)
-{
-$ticket_priority="Urgent";
-}
-else
-{
-$ticket_priority="Normal";
-}
-
-$r_sms=$this->hms_sms_ip();
-$working_key=$r_sms->working_key;
-$sms_sender=$r_sms->sms_sender; 
-
-$ticket_no=$t;
-$category_name=$this->help_desk_category_name($category);
-$sms='New Helpdesk ticket '.$ticket_no.' - '.$category_name.' raised+by '.$user_name.' - '.$wing_flat.' Please log into HousingMatters for further action.';
-$sms1=str_replace(' ', '+', $sms);
-////sms-closed//// ////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');		
-$message_web="<div>
-<img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
-</br><p>Dear Administrator,</p><br/>
-<p>A new helpdesk ticket is raised in your society.</p>
-<table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
-<tr class='tr_heading' style='background-color:#00A0E3;color:white;'>
-<td>HelpDesk Ticket</td>
-<td>Priority </td>
-<td>Posted by</td>
-<td>Flat #</td>
-</tr>
-<tr class='tr_content' style=background-color:#E9E9E9;'>
-<td>$ticket_no</td>
-<td>$ticket_priority</td>
-<td>$user_name</td>
-<td>$wing_flat</td>
-</tr>
-</table>
-<div>
-<p style='font-size:16px;'> <strong>Ticket Description:</strong></p>
-<p style='font-size:15px;'>$textarea</p><br/>
-<center><p>To view the ticket or post response
-<a href='$ip".$this->webroot."hms' ><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
-HousingMatters (Support Team)<br/>
-www.housingmatters.co.in
-</div>
-</div>";
-
-$from_name="HousingMatters";
-$this->loadmodel('email');
-$conditions6=array("auto_id"=>1);
-$result4=$this->email->find('all',array('conditions'=>$conditions6));
-foreach ($result4 as $collection) 
-{
-$from=$collection['email']["from"];
-
-}
-$this->loadmodel('notification_email');
-$conditions7=array("module_id" =>1,"user_id"=>$user,'chk_status'=>0);
-$result5=$this->notification_email->find('all',array('conditions'=>$conditions7));
-$n=sizeof($result5);
-if(1==1)
-{
-@$subject.= ''. $society_name . '' . '- New Helpdesk Ticket ' . '  #   ' .$ticket_no .'';
-$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
-$subject="";
-}
-}	
-/////////////////////////////////// end sm mailfunctionality ////////////////////////
-$user_will_get[]=$user;
-$this->recent_activities('icon-barcode',$s_user_id,'lodge a new ticket','help_desk_sm_view?id='.$i.'&status=0',$user_will_get,1);
-
-///////////////////////// Send Mail User ///////////////////////////	
-
-$this->loadmodel('help_desk_category');
-$conditions=array("help_desk_category_id" => $category);
-$cursor=$this->help_desk_category->find('all',array('conditions'=>$conditions));
-foreach ($cursor as $collection2) 
-{
-$help_desk_category_name=$collection2['help_desk_category']['help_desk_category_name'];
-}
-
-$user_d[]=$user;
-$this->send_notification('<span class="label" style="background-color:#d43f3a;"><i class="icon-plus"></i></span>','New Help-desk ticket# <b>'.$t.'-'.$help_desk_category_name.'</b> lodged by',1,$i,'help_desk_sm_view?id='.$i.'&status=0',$s_user_id,$user_d);
-
-
-$user_mail=2;
-if($user_mail==2)	
-{
-$to=$reply;
-$from_name="HousingMatters";
-$reply="donotreply@housingmatters.in";
-$society_name_user=$this->society_name($da_society_id);
-
-$message_web="<div>
-<img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
-
-</br><p>Dear $user_name,</p><br/>
-<p>Please find below details of new helpdesk ticket raised by you.</p>
-<table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
-<tr class='tr_heading' style='background-color:#00A0E3;color:white;'>
-<td>HelpDesk Ticket</td>
-<td>Priority </td>
-<td>Description</td>
-
-</tr>
-<tr class='tr_content' style=background-color:#E9E9E9;'>
-<td>$ticket_no</td>
-<td>$ticket_priority</td>
-<td>$textarea</td>
-
-</tr>
-</table>
-<div>
-<br/>
-<center><p>To view status update or respond
-<a href='$ip' ><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'> Click Here </button></a></p></center><br/>
-Thank you.<br/>
-HousingMatters (Support Team)<br/>
-www.housingmatters.co.in
-</div ><br/>
-</div>";
-
-
-
-$this->loadmodel('notification_email');
-$conditions8=array("module_id" =>1,"user_id"=>$s_user_id);
-$result6=$this->notification_email->find('all',array('conditions'=>$conditions8));
-$s=sizeof($result6);
-if($s>0)
-{
-@$subject.= ''. $society_name . '' . '- New Helpdesk Ticket ' . '  #  ' .$ticket_no .'';
-$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
-$subject="";
-}	
-
-}
-
-///////////////////////////////////////////////////////////////End Mail functionality ..../////////////////////////////////////////////////////////////////
-
-?>
-<!----alert-------------->
-<div class="modal-backdrop fade in"></div>
-<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-<div class="modal-body" style="font-size:16px;">
-Your Ticket has been generated.<br/>
-Your Ticket Id is: #<?php echo $t; ?> .
-</div> 
-<div class="modal-footer">
-<a href="help_desk_r_open_ticket" class="btn green">OK</a>
-</div>
-</div>
-<!----alert-------------->
-<?php	
-}
-
-if(isset($this->request->data['draft']))
-{
-
-$category=(int)$this->request->data['category'];
-//@$file= $this->response->data['file_up']['name'];
-$textarea=htmlentities($this->request->data['description']);
-$ticket_priority=(int)$this->request->data['priority'];
-date_default_timezone_set('Asia/kolkata');
-$date=date("d-m-y");
-$time=date('h:i:a',time());
-$file=$this->request->form['file']['name'];
-$target = "help_desk_file/";
-$target=@$target.basename( @$this->request->form['file']['name']);
-$ok=1;
-move_uploaded_file(@$this->request->form['file']['tmp_name'],@$target); 
-$j=$this->autoincrement('help_desk','help_desk_id');
-$this->loadmodel('help_desk');
-$this->help_desk->saveAll(array("help_desk_id" => $j, "ticket_id" => 0, "society_id" => $s_society_id , "user_id" => $s_user_id, "help_desk_complain_type_id" => $category,"help_desk_description" => $textarea, "help_desk_date" =>$date,"help_desk_assign_date" =>"", "help_desk_time" =>$time, "help_desk_status" => 0, "help_desk_service_provider_id" => 0,"help_desk_file"=>$file ,"help_desk_close_comment"=>"","help_desk_close_date"=>"","ticket_priority"=>$ticket_priority,'help_desk_draft'=>1));
-
-?>
-<!----alert-------------->
-<div class="modal-backdrop fade in"></div>
-<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-<div class="modal-body" style="font-size:16px;">
-Your Ticket has been saved in draft folder.
-</div> 
-<div class="modal-footer">
-<a href="help_desk_r_draft_ticket" class="btn green">OK</a>
-</div>
-</div>
-<!----alert-------------->
-<?php
-}
-
-
-}
-
 
 
 
@@ -1759,143 +1222,6 @@ $this->set('d2',$d2);
 	$result_help_desk_report1=$this->help_desk->find('all',array('conditions'=>$conditions));
 	$this->set('result_help_desk_report1',$result_help_desk_report1);
 }
-
-function assign_ticket_to_sp()
-{
-$this->layout='blank';
-$this->ath();
-$sp_id=(int)$this->request->query('sp_id');
-$msg=$this->request->query('msg');
-$hd_id=(int)$this->request->query('hd_id');
-$s_society_id=$this->Session->read('society_id');
-$s_user_id=$this->Session->read('user_id');
-$date=date("d-m-y");
-$this->loadmodel('help_desk');
-$conditions=array("help_desk_id" => $hd_id);
-$result=$this->help_desk->find('all',array('conditions'=>$conditions));
-foreach ($result as $collection) 
-{
-$ticket_id=(int)$collection['help_desk']['ticket_id'];
-$d_user_id=(int)$collection['help_desk']['user_id'];
-}
-$this->loadmodel('service_provider');
-$conditions=array("sp_id" => $sp_id,"society_id" => $s_society_id);
-$result_sp=$this->service_provider->find('all',array('conditions'=>$conditions));
-foreach ($result_sp as $collection) 
-{
-$sp_id=(int)$collection['service_provider']['sp_id']; 
-$sp_name=$collection['service_provider']['sp_name'];
-$sp_email=$collection['service_provider']['sp_email'];
-$mobile=$collection['service_provider']['sp_mobile'];
-$sp_user_id=$collection['service_provider']['user_id'];
-$sp_society_id=(int)$collection['service_provider']['society_id'];
-}
-$to= $sp_email;
-$sms="Assign Ticket";
-$sms1=str_replace(' ', '+', $sms);
-$from_name="HousingMatters";
-$this->loadmodel('email');
-$conditions=array("auto_id" => 1);
-$result_email=$this->email->find('all',array('conditions'=>$conditions));
-foreach ($result_email as $collection2) 
-{
-$from=$collection2['email']['from'];
-$sub=$collection2['email']['subject'];
-}
-$this->loadmodel('society');
-$conditions=array("society_id"=>$sp_society_id);
-$result_society=$this->society->find('all',array('conditions'=>$conditions));
-foreach ($result_society as $collection3) 
-{
-$society_name=$collection3['society']['society_name'];
-$society_user_id=(int)$collection3['society']['user_id'];
-}
-
-$ip=$this->hms_email_ip();
-
-$r_sms=$this->hms_sms_ip();
-  $working_key=$r_sms->working_key;
- $sms_sender=$r_sms->sms_sender; 
-$this->loadmodel('user');
-$conditions=array("user_id"=>$society_user_id);
-$result_user=$this->user->find('all',array('conditions'=>$conditions));
-foreach ($result_user as $collection4) 
-{
-$adm_user_name=$collection4['user']['user_name'];
-$adm_mobile=$collection4['user']['mobile'];
-$reply=$collection4['user']['email'];
-}
-@$subject.= ''. $society_name . '' . ' New Helpdesk Ticket #'. '' .$ticket_id.'';
-$this->loadmodel('notification_email');
-$conditions7=array("module_id" =>1,"user_id"=>$sp_user_id,'chk_status'=>1);
-$result5=$this->notification_email->find('all',array('conditions'=>$conditions7));
-$n=sizeof($result5);
-if($n>0)
-{
-////sms-closed//// ////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms.'');
-}
-/*  $message_web="<div style=' padding:25px;  font-size:14px; border:1px solid #BCE8F1; width:80%; background-color: #fcf8e3;'>
-<p style='background-color:#60F;  font-size:16px; padding:10px;'><b style='color: white; '> HousingMatters</b></p><br/>
-<p>Dear $sp_name,</p><br/>
-<p>Please find below details of our helpdesk ticket for your prompt action.</p>
-<table border='1' cellpadding='10' width='100%;'  style='margin-bottom:2px; ' >
-<tr bgcolor='#717BD7'>
-<td ><b style='color: white; '>HelpDesk Ticket</b></td>
-<td><b style='color: white; '>Description </b></td>
-</tr>
-<tr bgcolor='#717BD7'>
-<td ><b style=' '>$ticket_id</b></td>
-<td><b style=' '>$msg</b></td>
-</tr>
-</table><br/>
-
-<p style='font-size:15px;'>Please quote the Helpdesk ticket number in your correspondence.</p><br/><br/>
-<p>For $society_name </p>
-<p>$adm_user_name</p>
-<p>$adm_mobile</p>
-<br/></div>"; */
-$message_web="<div>
-<img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
-<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
-<a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
-</br><p>Dear  $sp_name,</p><br/>
-<p>Please find below details of our helpdesk ticket for your prompt action.</p>
-<table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
-<tr class='tr_heading' style='background-color:#00A0E3;color:white;'>
-<td>HelpDesk Ticket</td>
-<td>Description </td>
-</tr>
-<tr class='tr_content' style=background-color:#E9E9E9;'>
-<td>$ticket_id</td>
-<td>$msg</td>
-</tr>
-</table>
-<div>
-<p style='font-size:15px;'>Please quote the Helpdesk ticket number in your correspondence.</p><br/><br/>
-<p>For $society_name </p>
-<p>$adm_user_name</p>
-<p>$adm_mobile</p>
-<br/>
-Thank you.<br/>
-HousingMatters (Support Team)<br/><br/>
-www.housingmatters.co.in
-</div>
-</div>";
-$this->send_email($to,$from,$from_name,$subject,$message_web,$reply);
-$subject="";
-$this->loadmodel('help_desk');
-$this->help_desk->updateAll(array("help_desk_service_provider_id" => $sp_id,"help_desk_assign_date" => $date),array("help_desk_id" => $hd_id));
-
-$da_user_id[]=$d_user_id;
-$this->send_notification('<span class="label" style="background-color:#eea236;"><i class="icon-share"></i></span>','Your help-desk ticket#<b>'.$ticket_id.'</b> assigned to '.$sp_name,1,$hd_id,'help_desk_r_view?id='.$hd_id.'&status=0',$s_user_id,$da_user_id);
-
-$this->response->header('Location:help_desk_sm_open_ticket');
-}
-
-
-
-
-
 
 
 function save_reply_resident()
@@ -4387,59 +3713,6 @@ $this->response->header('Location', 'sign_up_next?user='.$i.' ');
 }
 }
 
-function sign_up_otp()
-{
-$this->layout='without_session';
-App::import('', 'sendsms.php');
-$user=(int)$this->request->query['user'];
-$mob=$this->request->query['mobile'];
-$try=@$this->request->query['try'];
-$this->set('us',$user);
-$this->set('mo',$mob);
-if (isset($this->request->data['login'])) 
-{
-$captch=(int)htmlentities($this->request->data['name']);
-$this->loadmodel('user_temp');
-$conditions=array("captch_otp" => $captch);
-$result2 = $this->user_temp->find('all',array('conditions'=>$conditions));
-$n2 = sizeof($result2);
-if($n2>0)
-{
-?><script>
-location="sign_up_next?user=<?php echo $user; ?>";
-</script> <?php 	
-}
-else
-{
-$this->set('error', '<label style="color:red;">you have entered incorrect code</label>');
-}
-}
-
-
-if(!empty($try))
-{
-	
-$r=$this->hms_sms_ip();
-$working_key=$r->working_key;
-$sms_sender=$r->sms_sender; 	
-$this->loadmodel('user_temp');
-$conditions=array('user_temp_id'=>$user);
-$result_user_temp=$this->user_temp->find('all',array('conditions'=>$conditions));
-foreach ($result_user_temp as $collection) 
-{
-$mobile=@$collection['user_temp']["mobile"];
-}
-
-$code=mt_rand(10000,99999);
-$this->loadmodel('user_temp');
-$this->user_temp->updateAll(array('captch_otp'=>$code),array('user_temp_id'=>$user));
-$sms='Hello!+Please+enter+your+code+'.$code.'+on+the+signup+screen+to+continue+your+HousingMatters+registration+process.';
-////sms-closed//// ////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms.'');
-
-}
-
-
-}
 
 
 
@@ -4580,7 +3853,7 @@ $tenant="Tenant";
 
 $sms='Hello!+New+User+request+:+'.$user_name1.'+'.$wing_flat.'+'.$tenant.'+Please+log+into+HousingMatters+for+further+action.';
 $sms1=str_replace(' ', '+', $sms);
-////sms-closed//// ////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 $to=$email;
 
  $message_web="<div>
@@ -4739,7 +4012,7 @@ $sms_sender=$r->sms_sender;
 
 $sms='New Request for Society registration into HousingMatters. Kindly approve the request.';
 $sms1=str_replace(' ', '+', $sms);
-////sms-closed//// ////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 
 ////////////////////////////////////////// ////////////////////////////////////////////////////// ///////////////////////////////////////////////////////////// ////		
 $to="admin@housingmatters.in";
@@ -8556,7 +7829,7 @@ $r_sms=$this->hms_sms_ip();
 $random=(string)mt_rand(1000,9999);
 $sms="".$user_name.", Your housing society ".$s_n." has enrolled you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
 $sms1=str_replace(" ", '+', $sms);
-////sms-closed//// ////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 $this->loadmodel('user');
 $this->user->updateAll(array('password'=>$random,'signup_random'=>$random),array('user_id'=>$user_temp_id));
 $this->loadmodel('login');
@@ -8972,7 +8245,7 @@ $r_sms=$this->hms_sms_ip();
 
 $sms1=str_replace(' ', '+', $sms);
 
-@////sms-closed//// ////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+@// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 //$this->user->updateAll(array('password'=>$random_otp,'one_time_sms'=>1),array('user.user_id'=>$user_id));
 
 }
@@ -9728,7 +9001,7 @@ function hm_resident_approve_resend_sms()
 		$random=(string)mt_rand(1000,9999);
 		$sms="".$user_name.", Your housing society ".$s_n." has enrolled you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
 		$sms1=str_replace(" ", '+', $sms);
-		////sms-closed//// ////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+		$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 		$this->loadmodel('user');
 		$this->user->updateAll(array('password'=>$random,'signup_random'=>$random),array('user_id'=>$user_temp_id));
 		$this->loadmodel('login');
@@ -10222,7 +9495,7 @@ $mobile_im=implode(",", $mobile);
 //$user=implode(",", $user); 
 
 $s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m;
-////sms-closed//// ////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
+ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
 
 	
 
@@ -10267,7 +9540,7 @@ $r_sms=$this->hms_sms_ip();
  $sms_sender=$r_sms->sms_sender; 
 
 
-////sms-closed//// ////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
 
 $sms_id=$this->autoincrement('sms','sms_id');
 $this->loadmodel('sms');
@@ -10403,7 +9676,7 @@ $r_sms=$this->hms_sms_ip();
   $working_key=$r_sms->working_key;
  $sms_sender=$r_sms->sms_sender; 
 	
-////sms-closed//// ////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
+ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
 
 $sms_id=$this->autoincrement('sms','sms_id');
 $this->loadmodel('sms');
@@ -15386,7 +14659,7 @@ $r_sms=$this->hms_sms_ip();
 	
 $sms="".$name.", Your housing society  ".$s_n." has enrolled  you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
  $sms1=str_replace(" ", '+', $sms);
- ////sms-closed//// ////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 
 }
 }
@@ -15847,7 +15120,7 @@ if(empty($email))
 $random=(string)mt_rand(1000,9999);
  $sms="".$name.", Your housing society ".$s_n." has enrolled you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
 $sms1=str_replace(" ", '+', $sms);
-////sms-closed//// ////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 }
 }
 
@@ -20684,7 +19957,7 @@ if($family_member==1 || $s_role_id==3 )
 					$random=(string)mt_rand(1000,9999);
 					$sms="".$name.", Your housing society ".$s_n." has enrolled you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
 					$sms1=str_replace(" ", '+', $sms);
-					////sms-closed//// ////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+					 $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 
 				}
 
@@ -20996,7 +20269,7 @@ foreach($myArray as $child)
 		$random=(string)mt_rand(1000,9999);
 		 $sms="".$name.", Your housing society ".$s_n." has enrolled you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
 		$sms1=str_replace(" ", '+', $sms);
-		 ////sms-closed//// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+	$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 		
 		}
 
