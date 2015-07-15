@@ -34,6 +34,32 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <a href="master_noc_status" class='btn red' role="button"  rel='tab'>Non Occupancy Status</a>
 </div>
 <br/>
+<div align="center">
+<?php 
+$z=0;$j=0;
+foreach($result_user as $data)
+{
+	
+	$flat=(int)$data['user']['flat'];
+	 $noc_flat= $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch'),array('pass'=>array($flat)));
+foreach($noc_flat as $dafa)
+{
+	$noc_type=$dafa['flat']['noc_ch_tp'];
+}
+if($noc_type==1)
+{
+
+$z++;
+}
+else
+{
+$j++;
+}
+}
+?>
+Self Occupied <span class="label label-info"><?php echo $z; ?></span> 
+Leased <span class="label label-info"><?php echo $j; ?></span>
+</div>
 <form method="post">
 
 <div style="background-color: #fff;">
@@ -68,6 +94,7 @@ foreach($noc_flat as $dafa)
 {
 	$noc_type=$dafa['flat']['noc_ch_tp'];
 }
+
 	?>
 	<tr>
 	<td><?php echo $i ; ?></td>
@@ -93,8 +120,7 @@ foreach($noc_flat as $dafa)
 
 	</div>
 </form>
-
-
+<?php echo $z; ?>
 <script>
 $(document).ready(function(){
 $(".all_chk").bind("click",function(){
