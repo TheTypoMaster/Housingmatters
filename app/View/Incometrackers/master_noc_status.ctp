@@ -34,19 +34,19 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <a href="master_noc_status" class='btn red' role="button"  rel='tab'>Non Occupancy Status</a>
 </div>
 <br/>
-<div align="center">
+<div align="right">
 <?php 
 $z=0;$j=0;
 foreach($result_user as $data)
 {
 	
-	$flat=(int)$data['user']['flat'];
-	 $noc_flat= $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch'),array('pass'=>array($flat)));
-foreach($noc_flat as $dafa)
+	$flat12=(int)$data['user']['flat'];
+	 $noc_flat1= $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch'),array('pass'=>array($flat12)));
+foreach($noc_flat1 as $dafa)
 {
-	$noc_type=$dafa['flat']['noc_ch_tp'];
+	$noc_type1=$dafa['flat']['noc_ch_tp'];
 }
-if($noc_type==1)
+if($noc_type1==1)
 {
 
 $z++;
@@ -57,8 +57,8 @@ $j++;
 }
 }
 ?>
-Self Occupied <span class="label label-info"><?php echo $z; ?></span> 
-Leased <span class="label label-info"><?php echo $j; ?></span>
+<span class="label label-info"> Number of Self Occupied flats <span style="font-size:15px;"><?php echo $z; ?> </span> </span> 
+<span class="label label-info"> Number of Leased flats <span style="font-size:15px;"><?php echo $j; ?> </span></span>
 </div>
 <form method="post">
 

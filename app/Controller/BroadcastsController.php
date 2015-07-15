@@ -512,7 +512,7 @@ $ex = explode(",", $data);
 $user[]=$ex[0];
 $to=$ex[1];
 //echo $email[$i];
-$this->send_email($to,'support@housingmatters.in','HousingMatters',$subject,$message_web,'support@housingmatters.in');
+$this->send_email($to,'support@housingmatters.in','HousingMatters',$subject,$message_web,'donotreply@housingmatters.in');
 }
 $email_id=$this->autoincrement('email_communication','email_id');
 $this->loadmodel('email_communication');
@@ -545,7 +545,7 @@ $result_user_info=$this->requestAction(array('controller' => 'hms', 'action' => 
 foreach ($result_user_info as $collection2) 
 {
 $to=$collection2["user"]["email"];
-$this->send_email($to,'support@housingmatters.in','HousingMatters',$subject,$message_web,'support@housingmatters.in');
+$this->send_email($to,'support@housingmatters.in','HousingMatters',$subject,$message_web,'donotreply@housingmatters.in');
 }
 }
 
@@ -683,7 +683,7 @@ if(!empty($ex[0])) { $to=$ex[0]; }
 
 
 //echo $email[$i];
-$this->send_email($to,'support@housingmatters.in','HousingMatters',$subject,$message_web,'support@housingmatters.in');
+$this->send_email($to,'support@housingmatters.in','HousingMatters',$subject,$message_web,'donotreply@housingmatters.in');
 }
 
 

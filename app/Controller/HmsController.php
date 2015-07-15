@@ -2850,6 +2850,7 @@ function add_field()
 
 		
 ////////////////Notification email user all checked code  //////////////////////////
+/*
 $this->loadmodel('user');
 $result_user=$this->user->find('all');
 
@@ -2872,7 +2873,7 @@ $this->notification_email->saveAll(array("notification_id" => $lo, "module_id" =
 }
 
 	
-	
+*/	
 	
 	
 }
