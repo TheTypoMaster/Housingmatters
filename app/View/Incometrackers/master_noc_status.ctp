@@ -51,7 +51,7 @@ if($noc_type1==1)
 
 $z++;
 }
-else
+if($noc_type1==2)
 {
 $j++;
 }
