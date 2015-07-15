@@ -86,6 +86,7 @@ Bill for date From :<?php echo $from; ?> To : <?php echo $to; ?>
 <th>Unit Number</th>
 <th>Area</th>
 <?php
+$b=0;
 for($p=0; $p<sizeof($income_head_arr); $p++)
 {
 $income_head_arr_id = (int)$income_head_arr[$p];
@@ -96,15 +97,24 @@ $ih_name = $collection['ledger_account']['ledger_name'];
 }
 $total_ih[] = 0;	
 ?>
-<th><?php echo $ih_name; ?></th>
+<th><?php echo $ih_name; ?>
+<?php
+$b++;
+?>
+<input type="text" class="m-wrap span12" id="head<?php echo $b; ?>" onkeyup="chng1()">
+</th>
 <?php
 }
 ?>
-<th>Non Occupancy charges</th>
+<th>Non Occupancy charges
+<input type="text" class="m-wrap span12" id="nnc" onkeyup="chng1()">
+</th>
 <th>Current Amount</th>
 <th>Over Due Amount</th>
 <th>Interest Arrears</th>
-<th>Penalty Amount</th>
+<th>Penalty Amount
+<input type="text" class="m-wrap span12" id="ppn" onkeyup="chng1()">
+</th>
 <th>Grand Total Amount</th>
 </tr>
 <?php
@@ -128,8 +138,10 @@ $over_due_tt = 0;
 $arerr_penal_amt = 0;
 if($bill_for == 2)
 {
+$c=0;	
 foreach($cursor1 as $collection)
 {
+$c++;
 $multi_flat = array();
 
 $user_id = (int)$collection['user']['user_id'];
@@ -201,6 +213,7 @@ $noc_charge = @$collection5['flat_type']['noc_charge'];
 $total_amt = 0;
 $gt_amt = 0;
 $n=0;
+$r=0;
 for($q=0; $q<sizeof($income_head_arr); $q++)
 {
 $ih_id2 = (int)$income_head_arr[$q];	
@@ -233,14 +246,16 @@ $maint_ch = $ih_amt;
 if(!empty($ih_amt))
 {
 $ih_amt5 = $ih_amt*$multi;
+$r++;
 ?>
-<input type="text" name="ih<?php echo $ih_id2; ?><?php echo $user_id; ?>" value="<?php echo $ih_amt5; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" />
+<input type="text" name="ih<?php echo $ih_id2; ?><?php echo $user_id; ?>" value="<?php echo $ih_amt5; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" id="head2<?php echo $r; ?><?php echo $c; ?>" />
 <?php
 }
 else
 {
+$r++;
 ?>
-<input type="text" name="ih<?php echo $ih_id2; ?><?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" />
+<input type="text" name="ih<?php echo $ih_id2; ?><?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" id="head2<?php echo $r; ?><?php echo $c; ?>"/>
 <?php 
 }
 ?></td>
@@ -279,7 +294,7 @@ $gt_amt = $gt_amt + @$due_amount;
 <td style="text-align:right;"><?php if(!empty($noc_amt)) { 
 $noc_amt5 = (int)$noc_amt*$multi;
 ?>
-<input type="text" name="noc<?php echo $user_id; ?>" value="<?php echo $noc_amt5; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>"/>
+<input type="text" name="noc<?php echo $user_id; ?>" value="<?php echo $noc_amt5; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" id="nnc2<?php echo $c; ?>"/>
 <?php
 } else { 
 ?>
@@ -458,7 +473,7 @@ $penalty_amt = $penalty_amt+$subpenalty5;
 value="<?php if(!empty($interest_arrears)) { echo $interest_arrears; } else { echo "0"; } ?>" readonly="readonly" class="m-wrap span12" style="border:none;"/></td>
 
 <td style="text-align:right;">
-<input type="text" name="penalty<?php echo $user_id; ?>" value="<?php echo $penalty_amt; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>"/>
+<input type="text" name="penalty<?php echo $user_id; ?>" value="<?php echo $penalty_amt; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" id="ppn2<?php echo $c; ?>"/>
 </td>
 <td style="text-align:right;background-color:rgb(220, 234, 220);;"><?php
 $gt_amt5 = $gt_amt+$penalty_amt; 
@@ -567,6 +582,7 @@ $noc_charge = @$collection5['flat_type']['noc_charge'];
 $total_amt = 0;
 $gt_amt = 0;
 $n=0;
+$r=0;
 for($q=0; $q<sizeof($income_head_arr); $q++)
 {
 $ih_id2 = (int)$income_head_arr[$q];	
@@ -598,15 +614,17 @@ $maint_ch = $ih_amt;
 <td style="text-align:right;"><?php
 if(!empty($ih_amt))
 {
-$ih_amt2 = $ih_amt*$multi; 
+$ih_amt2 = $ih_amt*$multi;
+$r++; 
 ?>
-<input type="text" name="ih<?php echo $ih_id2; ?><?php echo $user_id; ?>" value="<?php echo $ih_amt2; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>"/>
+<input type="text" name="ih<?php echo $ih_id2; ?><?php echo $user_id; ?>" value="<?php echo $ih_amt2; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" id="head2<?php echo $r; ?><?php echo $c; ?>"/>
 <?php
 }
 else
 {
+$r++; 
 ?>
-<input type="text" name="ih<?php echo $ih_id2; ?><?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>"/>
+<input type="text" name="ih<?php echo $ih_id2; ?><?php echo $user_id; ?>" value="<?php echo "0"; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" id="head2<?php echo $r; ?><?php echo $c; ?>"/>
 <?php
 }
 ?></td>
@@ -644,7 +662,7 @@ $gt_amt = $gt_amt + @$due_amount;
 <td style="text-align:right;"><?php if(!empty($noc_amt)) {
 $noc_amt2 = $noc_amt*$multi;	 
 ?>
-<input type="text" name="noc<?php echo $user_id; ?>" value="<?php echo $noc_amt2; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>"/>
+<input type="text" name="noc<?php echo $user_id; ?>" value="<?php echo $noc_amt2; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" id="nnc2<?php echo $c; ?>"/>
 <?php
 } else { 
 ?>
@@ -822,7 +840,7 @@ value="<?php if(!empty($interest_arrears)) { echo $interest_arrears; } else { ec
 <?php
  } else { 
  ?>
-<input type="text" name="penalty<?php echo $user_id; ?>" value="<?php  echo "0"; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>"/>
+<input type="text" name="penalty<?php echo $user_id; ?>" value="<?php  echo "0"; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" id="ppn2<?php echo $c; ?>"/>
 <?php }?>
 </td>
 
@@ -898,12 +916,19 @@ echo $gt_gt_amt2; ?></th>
 <input type="hidden" name="bill_for" value="<?php echo $bill_for; ?>" />
 <input type="hidden" name="wing_ar" value="<?php echo $wing_arr_im; ?>" />
 
+
+
+<input type="hidden" value="<?php echo $b; ?>" id="cnt1" />
+<input type="hidden" value="<?php echo $c; ?>" id="cnt2" />
 <br />
 <div style="width:100%;">
 <a href="it_regular_bill" class="btn green"  style="margin-left:70%;"><i class="icon-arrow-left"></i>Back</a>
 <button type="submit" name="sub" class="btn red">Submit</button>
 </div>
 </form>
+
+
+
 
 <script>
 function calculation_generator(row_no){
@@ -1024,7 +1049,39 @@ $(document).ready(function() {
 </script>
 
 
+<script>
+function chng1()
+{
+var cnt1 = $("#cnt1").val();
+var cnt2 = $("#cnt2").val();
 
+for(var h=1; h<=cnt1; h++)
+{
+var value = $("#head" + h).val();	
+for(var j=1; j<=cnt2; j++)
+{
+$("#head2" + h + j).val(value);	
+	
+}
+}
+var noc_val = $("#nnc").val();
+
+for(var j=1; j<=cnt2; j++)
+{
+$("#nnc2" + j).val(noc_val);	
+	
+}
+var penalty = $("#ppn").val();
+
+for(var j=1; j<=cnt2; j++)
+{
+$("#ppn2" + j).val(penalty);	
+}
+
+
+	
+}
+</script>
 
 
 

@@ -576,7 +576,7 @@ else if($main_id == 7 || $main_id == 8)
 
 $this->loadmodel('ledger_account');
 $order=array('ledger_account.auto_id'=> 'DESC');
-$cursor=$this->ledger_account->find('all',array('order' =>$order));
+$cursor=$this->ledger_account->find('all',array('order' =>$order,'limit'=>1));
 foreach ($cursor as $collection) 
 {
 $last=$collection['ledger_account']["auto_id"];
