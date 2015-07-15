@@ -38,19 +38,20 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <h5 style="color:red"><b>Enter Yearly Penalty Percentage</b></h5>
 <table border="0">
 <tr>
-<td colspan="2">
+<td colspan="2"><!--
 <label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="type" value="1" style="opacity: 0;" id="type" <?php if($tax_type == 1) { ?> checked="checked" <?php } ?>></span></div>
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="type" value="1" style="opacity: 0;" id="type" <?php //if($tax_type == 1) { ?> checked="checked" <?php //} ?>></span></div>
 From Due Date
 </label>
 
 
 <label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="type" value="2" style="opacity: 0;" id="type" <?php if($tax_type == 2) { ?> checked="checked" <?php } ?>></span></div>
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="type" value="2" style="opacity: 0;" id="type" <?php //if($tax_type == 2) { ?> checked="checked" <?php //} ?>></span></div>
 From First day
 </label>
 <label id="type"></label>
-<br />
+<br />-->
+<input type="hidden" value="1" name="type" />
 </td>
 </tr>
 <tr>

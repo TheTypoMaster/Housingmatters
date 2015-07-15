@@ -57,7 +57,6 @@ $op_date2 = date('Y-m-d',$op_date->sec);
 
 if($receipt_id != 'O_B')
 {                                    
-
 if($table_name == "cash_bank")
 {
 $module_date_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id)));	
@@ -132,14 +131,16 @@ $balance = $opening_balance;
 <?php
 $total_debit = 0;
 $total_credit = 0;
+$arrr1 = array();
 foreach ($cursor3 as $collection) 
 {
+
 $date = "";
 $op_date2 = "";
 $op_date = "";
 $auto_id = (int)@$collection['ledger']['auto_id'];
 $account_type = (int)@$collection['ledger']['account_type'];
-$receipt_id = (int)@$collection['ledger']['receipt_id']; 
+$receipt_id = @$collection['ledger']['receipt_id']; 
 $amount = @$collection['ledger']['amount'];
 $amount_category_id = (int)@$collection['ledger']['amount_category_id'];
 $module_id = (int)@$collection['ledger']['module_id'];
@@ -148,13 +149,48 @@ $current_date = @$collection['ledger']['current_date'];
 $society_id = (int)@$collection['ledger']['society_id'];
 $module_name = @$collection['ledger']['module_name'];
 $table_name = @$collection['ledger']['table_name'];
- $op_date = @$collection['ledger']['op_date'];
+$op_date = @$collection['ledger']['op_date'];
+ $pen_type = @$collection['ledger']['penalty'];
    if($receipt_id == "O_B")
    {
    $op_date2 = date('Y-m-d',$op_date->sec);	
    }
+if($receipt_id != "O_B")
+{								
+if(!empty($pen_type))
+{
+if($pen_type == "NO")
+{
+$bill_type = "Maint."; 	 
+}
+else
+{
+$bill_type = "Int.";  
+}
+}
+								
+/////////////////////////////////////////////////									 
+if($module_name == "Regular Bill")								 
+{									 
+$one = $this->requestAction(array('controller' => 'hms', 'action' => 'regular_bill_fetch7'),array('pass'=>array($receipt_id)));									
+foreach($one as $dddd)									 
+{
+$bill_user_id = (int)$dddd['regular_bill']['bill_for_user'];	
+}
+$two = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($bill_user_id)));									foreach($two as $ddd)
+{
+$fl_id1 = (int)$ddd['user']['flat'];	
+$wn_id1 = (int)$ddd['user']['wing'];	
+}
 
-									
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wn_id1,$fl_id1)));									
+								 
+}
+else
+{
+$wing_flat = "";	
+}
+}
 if($receipt_id != "O_B")
 {								
 if($table_name == "cash_bank")
@@ -212,6 +248,8 @@ if(@$date >= $m_from && @$date <= $m_to)
 {
 if($account_type == 1)
 {
+
+$arrr1[$date] = array(@$narration,@$module_name,@$pen_type,@$bill_type,@$wing_flat,@$amount,@$amount_category_id,@$account_type,@$sub_account_id,1);
 $nnn = 5;
 ?>
 
@@ -234,6 +272,7 @@ if(@$op_date2 > $m_from && @$op_date2 <= $m_to)
 {
 if($account_type == 1)
 {
+$arrr1[$op_date2] = array(@$narration,@$module_name,@$pen_type,@$bill_type,@$wing_flat,@$amount,@$amount_category_id,@$account_type,@$sub_account_id,2);
 $nnn = 5;
 
 }}}
@@ -513,7 +552,7 @@ $closing_balance = 0;
 if($main_id == 34 || $main_id == 15 || $main_id == 33 || $main_id == 35)
 {
 ?>
-<table class="table table-bordered" style="width:100%; background-color:#FDFDEE;">
+<table id="mytable" class="table table-bordered" style="width:100%; background-color:#FDFDEE;">
 <?php
 $cursor1 = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_amount'),array('pass'=>array($main_id)));
                                     foreach ($cursor1 as $collection) 
@@ -693,8 +732,8 @@ $amount_category = "Credit";
 									<th>Credit</th>
 									</tr>
                                     <?php
-									$total_debit = 0;
-									$total_credit = 0;
+									//$arrr1 = array();
+									/* 
 									foreach ($cursor3 as $collection) 
 									{
 									 $date = "";
@@ -805,6 +844,74 @@ $remark = @$collection[$table_name]['remark'];
 }
 
 
+
+									
+
+
+/*
+if(@$date >= $m_from && @$date <= $m_to)
+{
+if($account_type == 1)
+{
+	
+}}
+////////////////////////////////////////////////////////////
+/*$arrr2[] = "";
+for($t=0; $t<sizeof($arrr1); $t++)
+{
+$sub_arr1 = $arrr1[$t];
+$dataaaa = $sub_arr1[0];
+$oppppp = $sub_arr1[1];
+if(!empty($dataaaa))
+{
+$dddd1 = $dataaaa;	
+}
+if(!empty($oppppp))
+{
+$dddd1 = $oppppp;	
+}
+$ddddd2 = $dddd1;
+
+if($dddd2 >= $dddd1)
+{
+$arrr2[] = $sub_arr1;
+}
+}
+*/
+ksort($arrr1);
+/////////////////////////////////////////////////////////////////////////////////	
+$total_debit = 0;
+$total_credit = 0;
+foreach($arrr1 as $t_date=>$values)
+{
+$date = "";
+$op_date2 = "";
+$narration = $values[0];
+$module_name = $values[1];
+$pen_type = $values[2];
+$bill_type = $values[3];
+$wing_flat = $values[4];
+$amount = $values[5];
+$amount_category_id = $values[6];
+$account_type = $values[7];
+$sub_account_id = $values[8];
+$type = $values[9];
+
+if($type == 1)
+{
+$date = $t_date; 	
+}
+else
+{
+$op_date2 = $t_date;	
+}
+
+
+
+
+
+
+
 if($amount_category_id == 1)
 {
 $amount_category = "Debit";	
@@ -813,14 +920,14 @@ else if($amount_category_id == 2)
 {
 $amount_category = "Credit";		
 }
-									
+
+
 if($sub_account_id == $sub_id)
 {
 if(@$date >= $m_from && @$date <= $m_to)
 {
 if($account_type == 1)
 {
-	
 $date = date('d-m-Y',strtotime($date));	
 ?>
 <tr>
@@ -892,6 +999,7 @@ $total_credit = $total_credit + $amount;
 }
 }
 }
+
 $closing_balance = $op_bal2 - $total_debit + $total_credit;
 
  ?>
@@ -965,7 +1073,7 @@ else
 ?>
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
- <table class="table table-bordered" style="width:100%; background-color:#FDFDEE;">
+ <table id="mytable" class="table table-bordered" style="width:100%; background-color:#FDFDEE;">
                                     
 									<?php
                                     
@@ -1506,3 +1614,41 @@ else if($nnn == 1)
 <?php 
 }
 ?>	
+
+
+
+<script>
+function sortTable(f,n){
+  var rows = $('#mytable tbody  tr').get();
+
+  rows.sort(function(a, b) {
+
+  var A = $(a).children('td').eq(n).text().toUpperCase();
+  var B = $(b).children('td').eq(n).text().toUpperCase();
+
+  if(A < B) {
+    return -1*f;
+  }
+  if(A > B) {
+    return 1*f;
+  }
+  return 0;
+  });
+
+  $.each(rows, function(index, row) {
+    $('#mytable').children('tbody').append(row);
+  });
+}
+var f_sl = 1;
+var f_nm = 1;
+$("#sl").click(function(){
+    f_sl *= -1;
+    var n = $(this).prevAll().length;
+    sortTable(f_sl,n);
+});
+$("#nm").click(function(){
+    f_nm *= -1;
+    var n = $(this).prevAll().length;
+    sortTable(f_nm,n);
+});
+</script>
