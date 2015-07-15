@@ -4057,8 +4057,6 @@ foreach ($result_la as $collection)
 $ledger_name = $collection['ledger_account']['ledger_name'];	
 }
 $excel.= "$ledger_name \t $name  \n";
-
-
 }
 
 

@@ -28,35 +28,33 @@ $cursor2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger
 								    $user_name = $collection['ledger_sub_account']['name'];	
 									}
 									
-					?>              
-					
-			
-									<?php
-                                   
-                                     $opening_balance = 0;
-									 foreach ($cursor3 as $collection) 
-									 {
-                                     $auto_id = (int)@$collection['ledger']['auto_id'];
-									 $account_type = (int)@$collection['ledger']['account_type'];
-									 $receipt_id = (int)@$collection['ledger']['receipt_id']; 
-                                     $amount_o = @$collection['ledger']['amount'];
-					                 $amount_category_id = (int)@$collection['ledger']['amount_category_id'];
-									 $module_id = (int)@$collection['ledger']['module_id'];
-									 $sub_account_id = (int)@$collection['ledger']['account_id']; 
-									 $current_date = @$collection['ledger']['current_date'];
-									 $society_id = (int)@$collection['ledger']['society_id'];
-                                     $module_name = @$collection['ledger']['module_name'];
-									 $table_name = @$collection['ledger']['table_name'];
-									 $op_date = @$collection['ledger']['op_date'];
-									 if($table_name == "cash_bank")
-									 {
-									 $module_id = (int)$collection['ledger']['module_id']; 	 
-                                     }
+?>              
+<?php
+$opening_balance = 0;
+foreach ($cursor3 as $collection) 
+{
+$auto_id = (int)@$collection['ledger']['auto_id'];
+$account_type = (int)@$collection['ledger']['account_type'];
+$receipt_id = (int)@$collection['ledger']['receipt_id']; 
+$amount_o = @$collection['ledger']['amount'];
+$amount_category_id = (int)@$collection['ledger']['amount_category_id'];
+$module_id = (int)@$collection['ledger']['module_id'];
+$sub_account_id = (int)@$collection['ledger']['account_id']; 
+$current_date = @$collection['ledger']['current_date'];
+$society_id = (int)@$collection['ledger']['society_id'];
+$module_name = @$collection['ledger']['module_name'];
+$table_name = @$collection['ledger']['table_name'];
+$op_date = @$collection['ledger']['op_date'];
+if($table_name == "cash_bank")
+{
+$module_id = (int)$collection['ledger']['module_id']; 	 
+}
 
 if($receipt_id == 'O_B')
 {									
 $op_date2 = date('Y-m-d',$op_date->sec);									 
 }
+
 if($receipt_id != 'O_B')
 {                                    
 
@@ -73,24 +71,24 @@ else
 $module_date_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch'),array('pass'=>array($table_name,$receipt_id)));
 }
  		
-										foreach ($module_date_fetch as $collection) 
-										{
-										$date1 = @$collection[$table_name]['transaction_date'];
-										if(empty($date1))
-										{
-										$date1 = @$collection[$table_name]['posting_date'];	
-										}
-										if(empty($date1))
-										{
-										$date1 = @$collection[$table_name]['purchase_date'];	
-										}
-										if(empty($date1))
-										{
-										$date1 = @$collection[$table_name]['date'];	
-										}
-										$narration = @$collection[$table_name]['narration'];
-										$remark = @$collection[$table_name]['remark'];
-										}
+foreach ($module_date_fetch as $collection) 
+{
+$date1 = @$collection[$table_name]['transaction_date'];
+if(empty($date1))
+{
+$date1 = @$collection[$table_name]['posting_date'];	
+}
+if(empty($date1))
+{
+$date1 = @$collection[$table_name]['purchase_date'];	
+}
+if(empty($date1))
+{
+$date1 = @$collection[$table_name]['date'];	
+}
+$narration = @$collection[$table_name]['narration'];
+$remark = @$collection[$table_name]['remark'];
+}
 }
 
 if($amount_category_id == 1)
@@ -136,7 +134,9 @@ $total_debit = 0;
 $total_credit = 0;
 foreach ($cursor3 as $collection) 
 {
-
+$date = "";
+$op_date2 = "";
+$op_date = "";
 $auto_id = (int)@$collection['ledger']['auto_id'];
 $account_type = (int)@$collection['ledger']['account_type'];
 $receipt_id = (int)@$collection['ledger']['receipt_id']; 
@@ -148,12 +148,19 @@ $current_date = @$collection['ledger']['current_date'];
 $society_id = (int)@$collection['ledger']['society_id'];
 $module_name = @$collection['ledger']['module_name'];
 $table_name = @$collection['ledger']['table_name'];
+ $op_date = @$collection['ledger']['op_date'];
+   if($receipt_id == "O_B")
+   {
+   $op_date2 = date('Y-m-d',$op_date->sec);	
+   }
+
+									
+if($receipt_id != "O_B")
+{								
 if($table_name == "cash_bank")
 {
 $module_id = (int)@$collection['ledger']['module_id']; 	 
 }
-if($receipt_id == 'O_B')
-continue;
 
 if($table_name == "cash_bank")
 {
@@ -168,24 +175,25 @@ else
 $module_date_fetch2 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch'),array('pass'=>array($table_name,$receipt_id)));
 }
 $date = "";
-									foreach ($module_date_fetch2 as $collection) 
-									{
-									$date = @$collection[$table_name]['transaction_date'];
-									if(empty($date))
-									{
-									$date = @$collection[$table_name]['posting_date'];	
-									}
-									if(empty($date))
-									{
-									$date = @$collection[$table_name]['purchase_date'];	
-									}
-									if(empty($date))
-									{
-									$date = @$collection[$table_name]['date'];	
-									}
-									$narration = @$collection[$table_name]['narration'];
-									$remark = @$collection[$table_name]['remark'];
-									}
+foreach ($module_date_fetch2 as $collection) 
+{
+$date = @$collection[$table_name]['transaction_date'];
+if(empty($date))
+{
+$date = @$collection[$table_name]['posting_date'];	
+}
+if(empty($date))
+{
+$date = @$collection[$table_name]['purchase_date'];	
+}
+if(empty($date))
+{
+$date = @$collection[$table_name]['date'];	
+}
+$narration = @$collection[$table_name]['narration'];
+$remark = @$collection[$table_name]['remark'];
+}
+}
 
 if($amount_category_id == 1)
 {
@@ -219,7 +227,17 @@ $total_credit = $total_credit + $amount;
 $closing_balance = $opening_balance - $total_debit + $total_credit;
 ?>
 <?php 
-}}}} 
+}}
+else 
+{
+if(@$op_date2 > $m_from && @$op_date2 <= $m_to)
+{
+if($account_type == 1)
+{
+$nnn = 5;
+
+}}}
+}}
 ?>
 										
 										
@@ -360,6 +378,9 @@ $total_debit = 0;
 $total_credit = 0;
 foreach ($cursor3 as $collection) 
 {
+$date = "";
+$op_date2 = "";
+$op_date = "";
 $auto_id = (int)@$collection['ledger']['auto_id'];
 $account_type = (int)@$collection['ledger']['account_type'];
 $receipt_id = (int)@$collection['ledger']['receipt_id']; 
@@ -371,12 +392,19 @@ $current_date = @$collection['ledger']['current_date'];
 $society_id = (int)@$collection['ledger']['society_id'];
 $table_name = @$collection['ledger']['table_name'];
 $module_name = @$collection['ledger']['module_name'];
+$op_date = @$collection['ledger']['op_date'];
+if($receipt_id == 'O_B')
+{
+$op_date2 = date('Y-m-d',$op_date->sec);
+}
+
+if($receipt_id != 'O_B')
+{									
 if($table_name == "cash_bank")
 {
 $module_id = (int)$collection['ledger']['module_id'];	 
 }
-if($receipt_id == 'O_B')
-continue;
+
 
 if($table_name == "cash_bank")
 {
@@ -409,7 +437,7 @@ $module_date_fetch4 = $this->requestAction(array('controller' => 'hms', 'action'
 	$narration = @$collection[$table_name]['narration'];
 	$remark = @$collection[$table_name]['remark'];
 	}
-	
+}
 if($amount_category_id == 1)
 {
 $amount_category = "Debit";	
@@ -445,7 +473,17 @@ $total_credit = $total_credit + $amount;
 $closing_balance = $opening_balance - $total_debit + $total_credit;
 ?>
 
-<?php }}}} ?>
+<?php }}
+
+else
+{
+if(@$op_date2 > $m_from && @$op_date2 <= $m_to)
+{
+if($account_type == 2)
+{
+$op_date3 = date('d-m-Y',strtotime($op_date2));
+$nnn = 5;
+}}}}} ?>
                             
 								
 	<?php } ?>								 
@@ -675,10 +713,10 @@ $amount_category = "Credit";
 									 $module_name = @$collection['ledger']['module_name'];
 									 $pen_type = @$collection['ledger']['penalty'];
 									 $op_date = @$collection['ledger']['op_date'];
-									if($receipt_id == "O_B")
-									{
-									$op_date2 = date('Y-m-d',$op_date->sec);	
-									}
+										if($receipt_id == "O_B")
+										{
+										$op_date2 = date('Y-m-d',$op_date->sec);	
+										}
 									
 									
 if($receipt_id != "O_B")
@@ -799,7 +837,7 @@ echo $amount2; } else { echo "-"; } ?></td>
 $amount3 = number_format($amount);
 echo $amount3; } else { echo "-"; } ?></td>
 </tr>
-                                       
+          
 
 <?php
 if($amount_category_id == 1)

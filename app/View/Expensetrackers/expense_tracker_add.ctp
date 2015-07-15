@@ -41,8 +41,15 @@ $name = $collection['ledger_sub_account']['name'];
 $id_arr[]=$id; 
 $naam2_arr[]=$name;
 }
-$id_arr2 = implode(',',$id_arr);
-$naam2_arr2 = implode(',',$naam2_arr);
+if(!empty($id_arr))
+{
+@$id_arr2 = implode(',',@$id_arr);
+}
+
+if(!empty($naam2_arr))
+{
+@$naam2_arr2 = implode(',',@$naam2_arr);
+}
 ?>
 <input type="hidden" id="count1" value="<?php echo $w; ?>" />
 <input type="hidden" id="count2" value="<?php echo $e; ?>" />
@@ -50,8 +57,8 @@ $naam2_arr2 = implode(',',$naam2_arr);
 
 <input type="hidden" id="g_id" value="<?php echo $g_id_arr2; ?>" />
 <input type="hidden" id="name1" value="<?php echo $name_arr2; ?>" />
-<input type="hidden" id="id1" value="<?php echo $id_arr2; ?>" />
-<input type="hidden" id="name2" value="<?php echo $naam2_arr2; ?>" />
+<input type="hidden" id="id1" value="<?php echo @$id_arr2; ?>" />
+<input type="hidden" id="name2" value="<?php echo @$naam2_arr2; ?>" />
 
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
