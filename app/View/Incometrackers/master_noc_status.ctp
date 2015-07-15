@@ -120,7 +120,7 @@ foreach($noc_flat as $dafa)
 
 	</div>
 </form>
-<?php echo $z; ?>
+
 <script>
 $(document).ready(function(){
 $(".all_chk").bind("click",function(){
