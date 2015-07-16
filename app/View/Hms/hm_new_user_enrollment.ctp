@@ -209,7 +209,7 @@ foreach ($result_wing as $db)
 </td>
 </tr>   
 
-<tr><td>           
+<!--<tr><td>           
 <div class="control-group">
 <label class="control-label" style="font-size:16px;">Residing </label>
 <div class="controls">
@@ -223,7 +223,7 @@ foreach ($result_wing as $db)
 </label>  
 </div>
 </div>
-</td></tr>
+</td></tr>-->
 <tr><td> 
 <div  >
 <button type="submit" name="login" class="btn blue pull" onMouseOver="emilexits()" style="width:40%;  font-size:16px;">Submit</button>

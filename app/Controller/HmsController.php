@@ -14664,11 +14664,11 @@ $sms="".$name.", Your housing society  ".$s_n." has enrolled  you in HousingMatt
 }
 }
 
-$this->user->save(array('user_id' => $i, 'user_name' => $name,'email' => $email, 'password' => @$random, 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'residing' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$log_i,'s_default'=>1,'profile_status'=>1,'private'=>array('mobile','email')));
+$this->user->save(array('user_id' => $i, 'user_name' => $name,'email' => $email, 'password' => @$random, 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$log_i,'s_default'=>1,'profile_status'=>1,'private'=>array('mobile','email')));
 
 
-		  $this->loadmodel('flat');
-          $this->flat->updateAll(array("noc_ch_tp" =>$residing),array("flat_id" =>$flat));
+		  //$this->loadmodel('flat');
+          //$this->flat->updateAll(array("noc_ch_tp" =>$residing),array("flat_id" =>$flat));
 ///////////////  Insert code ledger Sub Accounts //////////////////////
 
 $this->loadmodel('ledger_sub_account');
@@ -14683,7 +14683,7 @@ $this->ledger_sub_account->save(array('auto_id'=>$j,'ledger_id'=>34,'name'=>$nam
 	
 if(!empty($email) && !empty($mobile))
 {
-$login_user=$email;
+@$login_user=$email;
   $message_web="<div>
 <img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 <span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
@@ -14710,7 +14710,7 @@ www.housingmatters.co.in
 		
 if(!empty($email) && empty($mobile))
 {
-$login_user=$email;	
+@$login_user=$email;	
  $message_web="<div>
 <img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 <span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
@@ -14764,7 +14764,7 @@ $this->notification_email->saveAll(array("notification_id" => $lo, "module_id" =
 
 
 $this->loadmodel('login');
-$this->login->save(array('login_id'=>$log_i,'user_name'=>$login_user,'password'=>$random,'signup_random'=>$random,'mobile'=>$mobile));
+$this->login->save(array('login_id'=>$log_i,'user_name'=>@$login_user,'password'=>$random,'signup_random'=>$random,'mobile'=>$mobile));
 
 ?>
 <!----alert-------------->
