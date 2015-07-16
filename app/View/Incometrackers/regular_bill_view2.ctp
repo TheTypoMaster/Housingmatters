@@ -473,7 +473,18 @@ $penalty_amt = $penalty_amt+$subpenalty5;
 value="<?php if(!empty($interest_arrears)) { echo $interest_arrears; } else { echo "0"; } ?>" readonly="readonly" class="m-wrap span12" style="border:none;"/></td>
 
 <td style="text-align:right;">
+<?php
+if($penalty == 1)
+{ ?>
 <input type="text" name="penalty<?php echo $user_id; ?>" value="<?php echo $penalty_amt; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" id="ppn2<?php echo $c; ?>"/>
+<?php }
+else
+{
+?>
+<input type="text" name="penalty<?php echo $user_id; ?>" value="0" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" readonly="readonly">
+<?php
+}
+?>
 </td>
 <td style="text-align:right;background-color:rgb(220, 234, 220);;"><?php
 $gt_amt5 = $gt_amt+$penalty_amt; 
@@ -837,13 +848,14 @@ $penalty_amt = $penalty_amt+$subpenalty5;
 ?>
 <td style="text-align:right;"><input type="text" name="int_ars<?php echo $user_id; ?>" 
 value="<?php if(!empty($interest_arrears)) { echo $interest_arrears; } else { echo "0"; } ?>" readonly="readonly" class="m-wrap span12"/></td>
-<td style="text-align:right;"><?php if(!empty($penalty_amt)) { 
+<td style="text-align:right;"><?php if($penalty == 1)
+{ 
 ?>
 <input type="text" name="penalty<?php echo $user_id; ?>" value="<?php echo $penalty_amt; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" id="ppn2<?php echo $c; ?>"/>
 <?php
- } else { 
- ?>
-<input type="text" name="penalty<?php echo $user_id; ?>" value="<?php  echo "0"; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" />
+} else { 
+?>
+<input type="text" name="penalty<?php echo $user_id; ?>" value="<?php  echo "0"; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" readonly="readonly"/>
 <?php }?>
 </td>
 
