@@ -14871,8 +14871,8 @@ function import_flat_configuration()
 	foreach($test as $child){ 
 		if($i>0){
 			
-					$child_ex=explode(',',$child[0]);
-					  $wing_name=$child_ex[0];
+					 $child_ex=explode(',',$child[0]);
+					 $wing_name=$child_ex[0];
 					 $flat_name=$child_ex[1];
 					 $flat_type=$child_ex[2];
 					 $flat_area=$child_ex[3];
