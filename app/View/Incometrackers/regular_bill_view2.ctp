@@ -839,11 +839,11 @@ $penalty_amt = $penalty_amt+$subpenalty5;
 value="<?php if(!empty($interest_arrears)) { echo $interest_arrears; } else { echo "0"; } ?>" readonly="readonly" class="m-wrap span12"/></td>
 <td style="text-align:right;"><?php if(!empty($penalty_amt)) { 
 ?>
-<input type="text" name="penalty<?php echo $user_id; ?>" value="<?php echo $penalty_amt; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>"/>
+<input type="text" name="penalty<?php echo $user_id; ?>" value="<?php echo $penalty_amt; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" id="ppn2<?php echo $c; ?>"/>
 <?php
  } else { 
  ?>
-<input type="text" name="penalty<?php echo $user_id; ?>" value="<?php  echo "0"; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" id="ppn2<?php echo $c; ?>"/>
+<input type="text" name="penalty<?php echo $user_id; ?>" value="<?php  echo "0"; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" />
 <?php }?>
 </td>
 
