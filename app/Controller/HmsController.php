@@ -14904,8 +14904,9 @@ function import_flat_configuration()
 					 $flat_name=$child_ex[1];
 					 $flat_type=$child_ex[2];
 					 $flat_area=$child_ex[3];
-					 
-					 $this->loadmodel('wing'); 
+			if(!empty($flat_type) && !empty($flat_area))
+            {			
+			$this->loadmodel('wing'); 
 			$conditions=array("society_id"=>$s_society_id,"wing_name"=> new MongoRegex('/^' .  $wing_name . '$/i'));
 			$result_wing=$this->wing->find('all',array('conditions'=>$conditions));
 			 $result_wing_count=sizeof($result_wing);
@@ -14937,7 +14938,7 @@ function import_flat_configuration()
 				}	 
 					
 					 $table[]=array($wing_id,$flat_name,$flat_type_id,$flat_area);
-			
+			}
 		} $i++;
 	}
 	
@@ -21287,6 +21288,22 @@ $flat_name = $child[1];
 $flat_type = (int)$child[2];
 $area = $child[3];
 $insert = (int)$child[4];
+
+
+$this->loadmodel('flat');
+$conditions=array("society_id" => $s_society_id);
+$cursor1 = $this->flat->find('all',array('conditions'=>$conditions));
+foreach($cursor1 as $collection)
+{
+$wing_id2 = (int)$collection['flat']['wing_id'];
+$flat_name2 = $collection['flat']['flat_name'];
+$flat_id = (int)$collection['flat']['flat_id'];
+if($flat_name2 == $flat_name)
+{ 
+$wing_id5 = (int)$wing_id2;
+$flat_id5 = (int)$flat_id;
+}
+}
 if($insert == 2)
 {
 $mmm = 5;
@@ -21303,13 +21320,15 @@ $mmm = 55;
 if($mmm == 5)
 {
 $no_of_flat = 1;
+
 $this->loadmodel('flat_type');
 $p=$this->autoincrement('flat_type','auto_id');
 $this->flat_type->saveAll(array("auto_id" => $p,"flat_type_id"=> $flat_type,"number_of_flat"=>$no_of_flat,"status"=>0,"society_id"=>$s_society_id));
 
-$l = (int)$this->autoincrement('flat','flat_id');
+
 $this->loadmodel('flat');
-$this->flat->saveAll(array("flat_id" => $l,"wing_id"=> $wing_id5,"flat_name"=>$flat_name,"flat_area"=>$area,"flat_type_id"=>$flat_type,"society_id"=>$s_society_id));
+$this->flat->updateAll(array("flat_area"=>$area,"flat_type_id"=>$flat_type),array("flat_id" => $flat_id5,"society_id"=>$s_society_id));		
+
 }
 else if($mmm == 55)
 {
@@ -21317,10 +21336,20 @@ $no_of_flat++;
 $this->loadmodel('flat_type');
 $this->flat_type->updateAll(array("number_of_flat"=>$no_of_flat),array("auto_id"=>$auto_id));
 
+$this->loadmodel('flat');
+$this->flat->updateAll(array("flat_area"=>$area,"flat_type_id"=>$flat_type),array("flat_id" => $flat_id5,"society_id"=>$s_society_id));	
+
+}
+
+
+
+
+/*
 $l = (int)$this->autoincrement('flat','flat_id');
 $this->loadmodel('flat');
 $this->flat->saveAll(array("flat_id" => $l,"wing_id"=> $wing_id5,"flat_name"=>$flat_name,"flat_area"=>$area,"flat_type_id"=>$flat_type,"society_id"=>$s_society_id));
 }
+*/
 }
 }
 

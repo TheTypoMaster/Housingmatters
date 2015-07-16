@@ -319,7 +319,7 @@ for(var i=2;i<=count;i++)
 {
 $("#open_bal tr:nth-child("+i+") span.report").remove();
 $("#open_bal tr:nth-child("+i+") span.report").css("background-color","#FFF;");
-var wing = $("#open_bal tr:nth-child("+i+") td:nth-child(1) select").val();
+var wing = $("#open_bal tr:nth-child("+i+") td:nth-child(1) input").val();
 var flat=$("#open_bal tr:nth-child("+i+") td:nth-child(2) input").val();
 var type=$("#open_bal tr:nth-child("+i+") td:nth-child(3) select").val();
 var feet=$("#open_bal tr:nth-child("+i+") td:nth-child(4) input").val();
@@ -360,7 +360,7 @@ for(var i=2;i<=count;i++)
 {
 $("#open_bal tr:nth-child("+i+") span.report").remove();
 $("#open_bal tr:nth-child("+i+") span.report").css("background-color","#FFF;");
-var wing = $("#open_bal tr:nth-child("+i+") td:nth-child(1) select").val();
+var wing = $("#open_bal tr:nth-child("+i+") td:nth-child(1) input").val();
 var flat=$("#open_bal tr:nth-child("+i+") td:nth-child(2) input").val();
 var type=$("#open_bal tr:nth-child("+i+") td:nth-child(3) select").val();
 var feet=$("#open_bal tr:nth-child("+i+") td:nth-child(4) input").val();

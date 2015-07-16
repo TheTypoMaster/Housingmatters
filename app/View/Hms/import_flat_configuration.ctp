@@ -1,5 +1,6 @@
 <div>
 <div id="vali5"></div>
+<div id="ttt"></div>
 <table class="m-wrap table table-bordered" id="open_bal">
 <tr>
 <th>Wing</th>
@@ -15,19 +16,35 @@ $i++;
 ?>
 <tr id="tr<?php echo $i; ?>">
 <td>
+<!--
 <select class="span10 m-wrap wing" id="wing2" name="wing" inc_id="<?php echo $i; ?>">
 <option value="">Select</option>
-<?php 
+<?php
+// 
+//foreach($result_wing as $data) { 
+//$wing_id=$data["wing"]["wing_id"];
+//$wing_name=$data["wing"]["wing_name"];
+?>
+<option value="<?php //echo $wing_id; ?>" <?php //if($wing_id==$child[0]){ echo 'selected';} ?> ><?php //echo $wing_name; ?></option>
+<?php //} ?>
+</select>
+
+-->
+<?php
 foreach($result_wing as $data) { 
 $wing_id=$data["wing"]["wing_id"];
 $wing_name=$data["wing"]["wing_name"];
+if($wing_id==$child[0])
+{
 ?>
-<option value="<?php echo $wing_id; ?>" <?php if($wing_id==$child[0]){ echo 'selected';} ?> ><?php echo $wing_name; ?></option>
-<?php } ?>
-</select>
+<input type="text" class="m-wrap span10" value="<?php echo $wing_name; ?>" style="background-color:white !important;" readonly="readonly" />
+
+<?php
+}}
+?>
 </td>
 <td>
-<input type="text" class="m-wrap span10" value="<?php echo $child[1]; ?>" style="background-color:white !important;" />
+<input type="text" class="m-wrap span10" value="<?php echo $child[1]; ?>" style="background-color:white !important;" readonly="readonly"/>
 </td>
 		
 <td id="echo_flat_type<?php echo $i; ?>">
