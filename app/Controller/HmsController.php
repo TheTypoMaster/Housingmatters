@@ -495,7 +495,12 @@ return @$data['user']['role_id'];
 }	
 }
 
-
+function fetch_all_flat_via_wing_id($wing){
+	$this->loadmodel('flat');
+	$conditions=array("wing_id" => $wing);
+	$order=array('flat.flat_name'=> 'ASC');
+	return $this->flat->find('all',array('conditions'=>$conditions,'order' =>$order));
+} 
 
 
 ///////////////////////////////////////////////// Help Desk  Model Start //////////////////////////////////// //////////////////////////////////////////
@@ -16092,8 +16097,8 @@ $this->flat->updateAll(array("flat_area"=>$area,"noc_ch_type"=>$noc_type,"flat_t
 
 $this->loadmodel('wing');
 $condition=array('society_id'=>$s_society_id);
-$result=$this->wing->find('all',array('conditions'=>$condition)); 
-$this->set('user_wing',$result);
+$result_wing=$this->wing->find('all',array('conditions'=>$condition)); 
+$this->set('user_wing',$result_wing);
 
 $this->loadmodel('flat_type');
 $condition=array('society_id'=>$s_society_id);
@@ -21614,7 +21619,8 @@ foreach($result_wing as $wing){
 	
 	$this->loadmodel('flat');
 	$conditions=array("wing_id" => $wing_id);
-	$result_flat = $this->flat->find('all',array('conditions'=>$conditions));
+	$order=array("flat.flat_name" => "ASC");
+	$result_flat = $this->flat->find('all',array('conditions'=>$conditions,'order'=>$order));
 	foreach($result_flat as $flat){
 		$flat_name = $flat['flat']['flat_name'];
 		$excel.= "$wing_name,$flat_name  \n";
