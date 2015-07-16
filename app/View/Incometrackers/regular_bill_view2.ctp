@@ -495,12 +495,15 @@ $arerr_penal_amt=$arerr_penal_amt+@$interest_arrears;
 else if($bill_for == 1)
 {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+$c=0;
 for($m=0; $m<sizeof($wing_arr); $m++)
 {
 $wing_id_a = (int)$wing_arr[$m];	
 $cursor1 = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch3'),array('pass'=>array($wing_id_a)));
+
 foreach($cursor1 as $collection)
 {
+$c++;
 $multi_flat = array();	
 $user_id = (int)$collection['user']['user_id'];
 $user_name = $collection['user']['user_name'];
@@ -1058,30 +1061,35 @@ var cnt2 = $("#cnt2").val();
 for(var h=1; h<=cnt1; h++)
 {
 var value = $("#head" + h).val();	
+if(value != "")
+{
 for(var j=1; j<=cnt2; j++)
 {
 $("#head2" + h + j).val(value);	
-	
+}
 }
 }
 var noc_val = $("#nnc").val();
-
+if(noc_val != "")
+{
 for(var j=1; j<=cnt2; j++)
 {
 $("#nnc2" + j).val(noc_val);	
-	
+}
 }
 var penalty = $("#ppn").val();
 
+if(penalty != "")
+{
 for(var j=1; j<=cnt2; j++)
 {
 $("#ppn2" + j).val(penalty);	
 }
-
+}
 var tr_count1=$('table#i_bill tr').length;
-alert(tr_count1);
 
-for(var t=2; t<tr_count1; t++){
+
+for(var t=1; t<tr_count1; t++){
 	calculation_generator(t);
 }
 	
