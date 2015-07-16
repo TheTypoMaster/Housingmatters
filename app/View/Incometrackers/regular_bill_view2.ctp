@@ -1078,7 +1078,12 @@ for(var j=1; j<=cnt2; j++)
 $("#ppn2" + j).val(penalty);	
 }
 
+var tr_count1=$('table#i_bill tr').length;
+alert(tr_count1);
 
+for(var t=2; t<tr_count1; t++){
+	calculation_generator(t);
+}
 	
 }
 </script>
