@@ -20176,9 +20176,9 @@ foreach($myArray as $child){
 						$report[]=array('tr'=>$c,'td'=>7, 'text' => 'Required');
 					}
 					
-					if (empty($child[7])) {
+					/*if (empty($child[7])) {
 						$report[]=array('tr'=>$c,'td'=>8, 'text' => 'Required');
-					}
+					}*/
 			}
 	}
 	

@@ -51,7 +51,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <th width="15%">Mobile</th>
 <th width="10%">Owner</th>
 <th width="10%">Committee</th>
-<th width="10%">NOC Type</th>
+<th width="10%">Action</th>
 </tr>
 </table>
 <form method="post" id="form2">
@@ -93,11 +93,11 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 		<div id="no1" style="display:none;">No</div>
 		</td>
 		<td width="10%">
-		<div class="controls" id="residing_div1">
+		<!--<div class="controls" id="residing_div1">
 		<label class="radio"><input type="radio" name="residing1"  value="1">Self Occupied</label>
 		<label class="radio"><input type="radio" name="residing1"  value="2">Leased</label>
 		</div>
-		<div id="not1" style="display:none;">No</div>
+		<div id="not1" style="display:none;">No</div>-->
 		<div class="pull-right"><a href="#" role="button" class="btn mini black delete" id="1"><i class="icon-trash"></i> Delete</a></div>
 		</td>
 	</tr>

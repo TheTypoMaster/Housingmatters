@@ -33,11 +33,11 @@ $wing_name=$data["wing"]["wing_name"];
 <div id="no<?php echo $h; ?>" style="display:none;">No</div>
 </td>
 <td>
-<div class="controls" id="residing_div<?php echo $h; ?>">
+<!--<div class="controls" id="residing_div<?php echo $h; ?>">
     <label class="radio line"><input type="radio" name="residing<?php echo $h; ?>" value="1">Self Occupied</label>
     <label class="radio line"><input type="radio" name="residing<?php echo $h; ?>" value="2">Leased</label>
 </div>
-<div id="not<?php echo $h; ?>" style="display:none;">No</div>
+<div id="not<?php echo $h; ?>" style="display:none;">No</div>-->
 <div class="pull-right"><a href="#" role="button" class="btn mini black delete" id="<?php echo $h; ?>"><i class="icon-trash"></i> Delete</a></div>
 </td>
 </tr>
