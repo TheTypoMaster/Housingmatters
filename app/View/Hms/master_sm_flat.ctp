@@ -146,57 +146,43 @@ $flat_type_name = $collection['flat_type_name']['flat_name'];
 					<th>Unit Number</th>
                     <th>Unit Type</th>
                     <th>Unit Area (Sq. Ft.)</th>
-                    <th>NOC Type</th>
 					</tr>
 							</thead>
 							<tbody>
 							<?php
 							$q=0;
-	                        foreach($cursor1 as $collection)
+	                        foreach($user_wing as $collection)
 	                        {
 							$q++;						
-							$wing_id = (int)$collection['flat']['wing_id'];
-							$flat_name = $collection['flat']['flat_name'];
-							$flat_type_id = (int)@$collection['flat']['flat_type_id'];
-							$sqfeet = (int)@$collection['flat']['flat_area'];
-							$noc_type = (int)@$collection['flat']['noc_ch_tp'];
+							$wing_id = (int)$collection['wing']['wing_id'];
+							$wing_name = $collection['wing']['wing_name'];
 							
-							
-$wing_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_fetch'),array('pass'=>array($wing_id)));	
-foreach($wing_fetch as $collection)
-{							
-$wing_name = $collection['wing']['wing_name'];							
-}
-$fl_tp = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_fetch2'),array('pass'=>array($flat_type_id)));		
-foreach($fl_tp as $collection)
-{
-$flat_type_id2 = (int)$collection['flat_type']['flat_type_id'];
-}
+							$result_flat = $this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_all_flat_via_wing_id'),array('pass'=>array(@$wing_id)));	
+							foreach($result_flat as $data){
+								$flat_name = $data['flat']['flat_name'];
+								$flat_area = (int)@$data['flat']['flat_area'];
+								$flat_type_id = (int)@$data['flat']['flat_type_id'];
+								
+								$fl_tp = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_fetch2'),array('pass'=>array($flat_type_id)));		
+								foreach($fl_tp as $collection)
+								{
+								$flat_type_id2 = (int)$collection['flat_type']['flat_type_id'];
+								}
 
-$fl_tp2 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_name_fetch'),array('pass'=>array(@$flat_type_id2)));		
-foreach($fl_tp2 as $collection)
-{
-$flat_type = $collection['flat_type_name']['flat_name'];
-}
-if($noc_type == 1)
-{
-$noc_type_name = "Self Occupied";	
-}
-else if($noc_type == 2)
-{
-$noc_type_name = "Leased";
-}
-
-?>
-<tr>
-<td><?php echo $q; ?></td>
-<td><?php echo $wing_name; ?></td>
-<td><?php echo $flat_name; ?></td>
-<td><?php if($sqfeet == 0) { echo "null"; } else { echo $flat_type; } ?></td>
-<td><?php if($sqfeet == 0) { echo "null"; } else { echo $sqfeet; } ?></td>
-<td><?php if($noc_type == 0) { echo "not defined"; } else { echo $noc_type_name;  } ?> </td>
-</tr>
-<?php } ?>
+								$fl_tp2 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_name_fetch'),array('pass'=>array(@$flat_type_id2)));		
+								foreach($fl_tp2 as $collection)
+								{
+								$flat_type_name = $collection['flat_type_name']['flat_name'];
+								}
+								?>
+							<tr>
+							<td><?php echo $q; ?></td>
+							<td><?php echo $wing_name; ?></td>
+							<td><?php echo $flat_name; ?></td>
+							<td><?php if($flat_type_id == 0) { echo "-"; } else { echo $flat_type_name; } ?></td>
+							<td><?php if($flat_area == 0) { echo "-"; } else { echo $flat_area; } ?></td>
+							</tr>
+							<?php } } ?>
 </tbody>
 </table>
 

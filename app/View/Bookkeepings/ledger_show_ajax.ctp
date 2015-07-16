@@ -249,7 +249,7 @@ if(@$date >= $m_from && @$date <= $m_to)
 if($account_type == 1)
 {
 
-$arrr1[$date] = array(@$narration,@$module_name,@$pen_type,@$bill_type,@$wing_flat,@$amount,@$amount_category_id,@$account_type,@$sub_account_id,1);
+$arrr1[] = array("transaction_date"=>strtotime($date),"narration"=>@$narration,"module_name"=>@$module_name,"pen_type"=>@$pen_type,"bill_type"=>@$bill_type,"wing_flat"=>@$wing_flat,"amount"=>@$amount,"amount_category_id"=>@$amount_category_id,"account_type"=>@$account_type,"sub_account_id"=>@$sub_account_id,"type"=>1);
 $nnn = 5;
 ?>
 
@@ -272,7 +272,7 @@ if(@$op_date2 > $m_from && @$op_date2 <= $m_to)
 {
 if($account_type == 1)
 {
-$arrr1[$op_date2] = array(@$narration,@$module_name,@$pen_type,@$bill_type,@$wing_flat,@$amount,@$amount_category_id,@$account_type,@$sub_account_id,2);
+$arrr1[] = array("transaction_date"=>strtotime($op_date2),"narration"=>@$narration,"module_name"=>@$module_name,"pen_type"=>@$pen_type,"bill_type"=>@$bill_type,"wing_flat"=>@$wing_flat,"amount"=>@$amount,"amount_category_id"=>@$amount_category_id,"account_type"=>@$account_type,"sub_account_id"=>@$sub_account_id,"type"=>1);
 $nnn = 5;
 
 }}}
@@ -733,8 +733,8 @@ $amount_category = "Credit";
 									</tr>
                                     <?php
 									//$arrr1 = array();
-									$total_debit = 0;
-                                    $total_credit = 0;
+									
+									/*
 									foreach ($cursor3 as $collection) 
 									{
 									 $date = "";
@@ -857,56 +857,62 @@ if($account_type == 1)
 	
 }}
 ////////////////////////////////////////////////////////////
-/*$arrr2[] = "";
-for($t=0; $t<sizeof($arrr1); $t++)
-{
-$sub_arr1 = $arrr1[$t];
-$dataaaa = $sub_arr1[0];
-$oppppp = $sub_arr1[1];
-if(!empty($dataaaa))
-{
-$dddd1 = $dataaaa;	
-}
-if(!empty($oppppp))
-{
-$dddd1 = $oppppp;	
-}
-$ddddd2 = $dddd1;
 
-if($dddd2 >= $dddd1)
+for($k=0; $k<sizeof($arrr1); $k++)
 {
-$arrr2[] = $sub_arr1;
+$l= (int)$k+1;	
+$sub_arr1 = $arrr1[$k];
+$sub_arr2 = $arrr1[$l];
+$dddd1 = $sub_arr1[0];
+$dddd2 = $sub_arr2[0];
+if($dddd1 > $dddd2)
+{
+$arrr1[$k] = $sub_arr2;
+$arrr1[$l] = $sub_arr1;
 }
 }
+*/
 
-ksort($arrr1);
+
+function cmp_by_optionNumber($a, $b) {
+return $a["transaction_date"] - $b["transaction_date"];
+}
+usort($arrr1, "cmp_by_optionNumber");
+
+
 /////////////////////////////////////////////////////////////////////////////////	
 $total_debit = 0;
 $total_credit = 0;
-foreach($arrr1 as $t_date=>$values)
+for($t=0; $t<sizeof($arrr1); $t++)
 {
+$arrr2 = $arrr1[$t];	
+$arrr1[] = array("transaction_date"=>strtotime($op_date2),"narration"=>@$narration,"module_name"=>@$module_name,"pen_type"=>@$pen_type,"bill_type"=>@$bill_type,"wing_flat"=>@$wing_flat,"amount"=>@$amount,"amount_category_id"=>@$amount_category_id,"account_type"=>@$account_type,"sub_account_id"=>@$sub_account_id,"type"=>1);
+$nnn = 5;	
+	
+	
+	
 $date = "";
 $op_date2 = "";
-$narration = $values[0];
-$module_name = $values[1];
-$pen_type = $values[2];
-$bill_type = $values[3];
-$wing_flat = $values[4];
-$amount = $values[5];
-$amount_category_id = $values[6];
-$account_type = $values[7];
-$sub_account_id = $values[8];
-$type = $values[9];
+$narration = $arrr2['narration'];
+$module_name = $arrr2['module_name'];
+$pen_type = $arrr2['pen_type'];
+$bill_type = $arrr2['bill_type'];
+$wing_flat = $arrr2['wing_flat'];
+$amount = $arrr2['amount'];
+$amount_category_id = $arrr2['amount_category_id'];
+$account_type = $arrr2['account_type'];
+$sub_account_id = $arrr2['sub_account_id'];
+$type = (int)$arrr2['type'];
 
 if($type == 1)
 {
-$date = $t_date; 	
+$date = $arrr2['transaction_date']; 	
 }
 else
 {
-$op_date2 = $t_date;	
+$op_date2 = $arrr2['transaction_date'];	
 }
-*/
+
 
 
 

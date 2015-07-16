@@ -495,7 +495,12 @@ return @$data['user']['role_id'];
 }	
 }
 
-
+function fetch_all_flat_via_wing_id($wing){
+	$this->loadmodel('flat');
+	$conditions=array("wing_id" => $wing);
+	$order=array('flat.flat_name'=> 'ASC');
+	return $this->flat->find('all',array('conditions'=>$conditions,'order' =>$order));
+} 
 
 
 ///////////////////////////////////////////////// Help Desk  Model Start //////////////////////////////////// //////////////////////////////////////////
@@ -14894,8 +14899,8 @@ function import_flat_configuration()
 	foreach($test as $child){ 
 		if($i>0){
 			
-					$child_ex=explode(',',$child[0]);
-					  $wing_name=$child_ex[0];
+					 $child_ex=explode(',',$child[0]);
+					 $wing_name=$child_ex[0];
 					 $flat_name=$child_ex[1];
 					 $flat_type=$child_ex[2];
 					 $flat_area=$child_ex[3];
@@ -14927,6 +14932,8 @@ function import_flat_configuration()
 			 $result_f_t_count=sizeof($result_flat_type_name);
 				if($result_f_t_count>0){
 					$flat_type_id=@$result_flat_type_name[0]['flat_type_name']['auto_id'];	
+				}else{
+					$flat_type_id=0;
 				}	 
 					
 					 $table[]=array($wing_id,$flat_name,$flat_type_id,$flat_area);
@@ -16118,8 +16125,8 @@ $this->flat->updateAll(array("flat_area"=>$area,"noc_ch_type"=>$noc_type,"flat_t
 
 $this->loadmodel('wing');
 $condition=array('society_id'=>$s_society_id);
-$result=$this->wing->find('all',array('conditions'=>$condition)); 
-$this->set('user_wing',$result);
+$result_wing=$this->wing->find('all',array('conditions'=>$condition)); 
+$this->set('user_wing',$result_wing);
 
 $this->loadmodel('flat_type');
 $condition=array('society_id'=>$s_society_id);
@@ -21620,7 +21627,7 @@ header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
 header ("Cache-Control: no-cache, must-revalidate");
 header ("Pragma: no-cache");
 header ("Content-type: application/vnd.ms-excel");
-header ("Content-Disposition: attachment; filename=".$filename.".xls");
+header ("Content-Disposition: attachment; filename=".$filename.".csv");
 header ("Content-Description: Generated Report" );
 
 $s_role_id=$this->Session->read('role_id');
@@ -21628,23 +21635,25 @@ $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id = (int)$this->Session->read('user_id');
 
 
-$excel = "Wing \t Flat Number \t Flat Type \t Flat Area (Sq. Ft.) \n";
+$excel = "Wing,Flat Number,Flat Type,Flat Area (Sq. Ft.) \n";
 
 
-$this->loadmodel('flat');
+$this->loadmodel('wing');
 $conditions=array("society_id" => $s_society_id);
-$result1 = $this->flat->find('all',array('conditions'=>$conditions));
-foreach($result1 as $data)
-{
-$flat_name = $data['flat']['flat_name'];
-$wing = (int)$data['flat']['wing_id'];
+$result_wing = $this->wing->find('all',array('conditions'=>$conditions));
+foreach($result_wing as $wing){
+	$wing_id = $wing['wing']['wing_id'];
+	$wing_name = $wing['wing']['wing_name'];
+	
+	$this->loadmodel('flat');
+	$conditions=array("wing_id" => $wing_id);
+	$order=array("flat.flat_name" => "ASC");
+	$result_flat = $this->flat->find('all',array('conditions'=>$conditions,'order'=>$order));
+	foreach($result_flat as $flat){
+		$flat_name = $flat['flat']['flat_name'];
+		$excel.= "$wing_name,$flat_name  \n";
+	}
 
-$result_la = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_fetch'),array('pass'=>array($wing)));
-foreach ($result_la as $collection) 
-{
-$wing_name = $collection['wing']['wing_name'];
-}
-$excel.= "$wing_name \t $flat_name  \n";
 
 
 }

@@ -4010,7 +4010,7 @@ header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
 header ("Cache-Control: no-cache, must-revalidate");
 header ("Pragma: no-cache");
 header ("Content-type: application/vnd.ms-excel");
-header ("Content-Disposition: attachment; filename=".$filename.".xls");
+header ("Content-Disposition: attachment; filename=".$filename.".csv");
 header ("Content-Description: Generated Report" );
 
 $s_role_id=$this->Session->read('role_id');
@@ -4018,7 +4018,7 @@ $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id = (int)$this->Session->read('user_id');
 
 
-$excel = "Group Name \t A/c name \t Amount Type(Debit or Credit) \t Amount(Opening Balance) \t Penalty \n";
+$excel = "Group Name,A/c name,wing,unit,Amount Type(Debit or Credit),Amount(Opening Balance),Penalty\n";
 
 $this->loadmodel('ledger_accounts');
 $conditions = array( '$or' => array( 
@@ -4038,7 +4038,7 @@ $accounts_id = (int)$collection['accounts_group']['accounts_id'];
 $group_name = $collection['accounts_group']['group_name'];	
 }
 
-$excel.= "$group_name \t $ledger_name  \n";
+$excel.= "$group_name,$ledger_name\n";
 
 }
 
@@ -4050,13 +4050,34 @@ foreach($result1 as $data)
 $ledger_id = (int)$data['ledger_sub_account']['ledger_id'];
 $name = $data['ledger_sub_account']['name'];
 
+if($ledger_id==34){
+	$user_id = $data['ledger_sub_account']['user_id'];
+	$profile_picture = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));foreach($profile_picture as $collection){
+		$wing = $collection['user']['wing'];
+		$flat = $collection['user']['flat'];
+	}
+	$wing_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_fetch'),array('pass'=>array($wing)));
+	foreach($wing_fetch as $collection){
+		$wing_name = $collection['wing']['wing_name'];
+	}
+	$flat_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch'),array('pass'=>array($flat)));
+	foreach($flat_fetch as $collection){
+		$flat_name = $collection['flat']['flat_name'];
+	}
+}
+
 $result_la = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account'),array('pass'=>array($ledger_id)));
 foreach ($result_la as $collection) 
 {
 //$group_id = (int)$collection['ledger_account']['group_id'];	
 $ledger_name = $collection['ledger_account']['ledger_name'];	
 }
-$excel.= "$ledger_name \t $name  \n";
+if($ledger_id==34){
+	$excel.= "$ledger_name,$name,$wing_name,$flat_name\n";
+}else{
+	$excel.= "$ledger_name,$name\n";
+}
+
 }
 
 

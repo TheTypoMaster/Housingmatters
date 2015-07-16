@@ -473,7 +473,18 @@ $penalty_amt = $penalty_amt+$subpenalty5;
 value="<?php if(!empty($interest_arrears)) { echo $interest_arrears; } else { echo "0"; } ?>" readonly="readonly" class="m-wrap span12" style="border:none;"/></td>
 
 <td style="text-align:right;">
+<?php
+if($penalty == 1)
+{ ?>
 <input type="text" name="penalty<?php echo $user_id; ?>" value="<?php echo $penalty_amt; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" id="ppn2<?php echo $c; ?>"/>
+<?php }
+else
+{
+?>
+<input type="text" name="penalty<?php echo $user_id; ?>" value="0" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" readonly="readonly">
+<?php
+}
+?>
 </td>
 <td style="text-align:right;background-color:rgb(220, 234, 220);;"><?php
 $gt_amt5 = $gt_amt+$penalty_amt; 
@@ -495,12 +506,15 @@ $arerr_penal_amt=$arerr_penal_amt+@$interest_arrears;
 else if($bill_for == 1)
 {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+$c=0;
 for($m=0; $m<sizeof($wing_arr); $m++)
 {
 $wing_id_a = (int)$wing_arr[$m];	
 $cursor1 = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch3'),array('pass'=>array($wing_id_a)));
+
 foreach($cursor1 as $collection)
 {
+$c++;
 $multi_flat = array();	
 $user_id = (int)$collection['user']['user_id'];
 $user_name = $collection['user']['user_name'];
@@ -834,13 +848,14 @@ $penalty_amt = $penalty_amt+$subpenalty5;
 ?>
 <td style="text-align:right;"><input type="text" name="int_ars<?php echo $user_id; ?>" 
 value="<?php if(!empty($interest_arrears)) { echo $interest_arrears; } else { echo "0"; } ?>" readonly="readonly" class="m-wrap span12"/></td>
-<td style="text-align:right;"><?php if(!empty($penalty_amt)) { 
+<td style="text-align:right;"><?php if($penalty == 1)
+{ 
 ?>
-<input type="text" name="penalty<?php echo $user_id; ?>" value="<?php echo $penalty_amt; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>"/>
+<input type="text" name="penalty<?php echo $user_id; ?>" value="<?php echo $penalty_amt; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" id="ppn2<?php echo $c; ?>"/>
 <?php
- } else { 
- ?>
-<input type="text" name="penalty<?php echo $user_id; ?>" value="<?php  echo "0"; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" id="ppn2<?php echo $c; ?>"/>
+} else { 
+?>
+<input type="text" name="penalty<?php echo $user_id; ?>" value="<?php  echo "0"; ?>" class="m-wrap span12 inhd" row_no="<?php echo $sr; ?>" readonly="readonly"/>
 <?php }?>
 </td>
 
@@ -1058,30 +1073,35 @@ var cnt2 = $("#cnt2").val();
 for(var h=1; h<=cnt1; h++)
 {
 var value = $("#head" + h).val();	
+if(value != "")
+{
 for(var j=1; j<=cnt2; j++)
 {
 $("#head2" + h + j).val(value);	
-	
+}
 }
 }
 var noc_val = $("#nnc").val();
-
+if(noc_val != "")
+{
 for(var j=1; j<=cnt2; j++)
 {
 $("#nnc2" + j).val(noc_val);	
-	
+}
 }
 var penalty = $("#ppn").val();
 
+if(penalty != "")
+{
 for(var j=1; j<=cnt2; j++)
 {
 $("#ppn2" + j).val(penalty);	
 }
-
+}
 var tr_count1=$('table#i_bill tr').length;
-alert(tr_count1);
 
-for(var t=2; t<tr_count1; t++){
+
+for(var t=1; t<tr_count1; t++){
 	calculation_generator(t);
 }
 	

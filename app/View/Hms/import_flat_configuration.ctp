@@ -37,6 +37,7 @@ $wing_name=$data["wing"]["wing_name"];
 foreach($result_flat_type as $data) { 
 $flat_type_id=$data["flat_type_name"]["auto_id"];
 $flat_type_name=$data["flat_type_name"]["flat_name"];
+
 ?>
 <option value="<?php echo $flat_type_id; ?>" <?php if($flat_type_id==$child[2]){ echo 'selected';} ?> ><?php echo $flat_type_name; ?></option>
 <?php } ?>

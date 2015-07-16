@@ -1770,5 +1770,7 @@ $output = json_encode(array('type'=>'succ', 'text' => 'New Journal Entry Inserte
 
 ///////////////////////////////// Start journal validation///////////////////////////////////////////////////////////
 
+
+
 }
 ?>

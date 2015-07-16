@@ -3671,6 +3671,29 @@ $excel.="</table>";
 echo $excel;
 }
 ////////////////////////////////// Start Fix Deposit view (Active) Excel///////////////////////////////////////////
+/////////////////////////////////// Start Edit PCP //////////////////////////////////////////////////////////////
+function edit_pcp()
+{
+$this->layout="session";
+
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id = (int)$this->Session->read('user_id');	
+
+
+$rr_id = (int)$this->request->query('r');
+
+$this->loadmodel('cash_bank');
+$conditions=array("society_id" => $s_society_id,"module_id"=>4,"receipt_id"=>$rr_id);
+$cursor1 = $this->cash_bank->find('all',array('conditions'=>$conditions));
+$this->set('cursor1',$cursor1);
+
+
+
+
+}
+/////////////////////////////////// End Edit PCP //////////////////////////////////////////////////////////////
+
 
 }
 ?>
