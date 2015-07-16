@@ -54,7 +54,7 @@ break;
 
 if($income_head_detail == 'YES')
 {
-$charge_count = sizeof($charge);
+$charge_count = sizeof(@$charge);
 $society_income_head_count = sizeof($society_income_head);
 if($charge_count != $society_income_head_count)
 {
@@ -63,7 +63,7 @@ $income_head_detail = "NOT";
 }
 if($income_head_detail == 'YES')
 {
-for($t=0; $t<sizeof($charge); $t++)
+for($t=0; $t<sizeof(@$charge); $t++)
 {
 $charge2 = $charge[$t];
 $income_head_arr[] = $charge2[0];
