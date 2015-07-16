@@ -3749,10 +3749,10 @@ $committe=2;
 }
 $wing=(int)$this->request->data['wing'];
 $flat=(int)$this->request->data['flat'];
-$residing=(int)$this->request->data['residing'];
+//$residing=(int)$this->request->data['residing'];
 $this->loadmodel('user_temp');
 $this->user_temp->updateAll(array("society_id" => $society_id,"committee" => $committe, 
-'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'residing'=> $residing,"role"=>2,"complete_signup"=>1,'multiple_society'=>0),array("user_temp.user_temp_id" => $user));
+'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,"role"=>2,"complete_signup"=>1,'multiple_society'=>0),array("user_temp.user_temp_id" => $user));
 
 
 $this->loadmodel('user_temp');
@@ -7668,7 +7668,7 @@ $wing=(int)$collection['user_temp']['wing'];
 $flat=(int)$collection['user_temp']['flat'];
 $committee=(int)$collection['user_temp']['committee'];
 $tenant=(int)$collection['user_temp']['tenant'];
-$residing=(int)$collection['user_temp']['residing'];
+//$residing=(int)$collection['user_temp']['residing'];
   @$login_id=(int)$collection['user_temp']['login_id'];
   @$multiple_society=$collection['user_temp']['multiple_society'];
 }
@@ -7710,10 +7710,10 @@ if($multiple_society==1)
 }
 
 
-$this->user->save(array('user_id' => $i, 'user_name' => $user_name,'email' => $email, 'password' => $password, 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'noc_type' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$login_id,'profile_status'=>1,'s_default'=>$s_default,'private'=>array('mobile','email')));
+$this->user->save(array('user_id' => $i, 'user_name' => $user_name,'email' => $email, 'password' => $password, 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$login_id,'profile_status'=>1,'s_default'=>$s_default,'private'=>array('mobile','email')));
 
-$this->loadmodel('flat');
-$this->flat->updateAll(array("noc_ch_tp" =>$residing),array("flat_id" =>$flat));	
+//$this->loadmodel('flat');
+//$this->flat->updateAll(array("noc_ch_tp" =>$residing),array("flat_id" =>$flat));	
 
 
 
@@ -14683,7 +14683,7 @@ $this->ledger_sub_account->save(array('auto_id'=>$j,'ledger_id'=>34,'name'=>$nam
 	
 if(!empty($email) && !empty($mobile))
 {
-@$login_user=$email;
+$login_user=$email;
   $message_web="<div>
 <img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 <span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
@@ -14710,7 +14710,7 @@ www.housingmatters.co.in
 		
 if(!empty($email) && empty($mobile))
 {
-@$login_user=$email;	
+$login_user=$email;	
  $message_web="<div>
 <img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 <span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>

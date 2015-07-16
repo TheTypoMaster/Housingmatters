@@ -151,18 +151,9 @@ $society_name=$db['society']["society_name"];
 </div>
 </div>
 
-<div class="control-group">
-<!-- <div class="controls">
-<select style="width:100%;" class="m-wrap" name="residing"  data-placeholder="Choose a Category"   tabindex="1">
-<option value="">--Residing--</option>
-<option value="1">Yes</option>
-<option value="2">No</option>
-</select>
-</div>
-</div>-->
-<hr>
 
 
+<!--
 <div class="control-group">
 <label class="control-label" style="font-size:16px;">NOC Type </label>
 <div class="controls">
@@ -175,7 +166,7 @@ $society_name=$db['society']["society_name"];
 <span style="font-size:16px;">Leased</span>
 </label>  
 </div>
-</div>
+</div>-->
 
 <div class="form-actions">
 <a href="sign_up_next?user=<?php echo $user_id; ?>" class="btn" style="font-size:16px;">Back</a>
