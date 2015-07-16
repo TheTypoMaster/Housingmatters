@@ -14621,7 +14621,7 @@ $email=$this->request->data['email'];
 $mobile=$this->request->data['mobile'];
 $wing=(int)$this->request->data['wing'];
 $flat=(int)$this->request->data['flat'];
-$residing=(int)$this->request->data['residing'];
+//$residing=(int)$this->request->data['residing'];
 $tenant=(int)$this->request->data['tenant'];
 if($tenant==1)
 {
@@ -20275,10 +20275,10 @@ foreach($myArray as $child)
 
 		/////////// insert code user table ///////////////////////
 		
-		$this->user->saveAll(array('user_id' => $i, 'user_name' => $name,'email' => $email, 'password' => @$random, 'mobile' => $mobile,  'society_id' => $s_society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'noc_type' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$log_i,'s_default'=>1,'profile_status'=>1,'private'=>array('mobile','email')));
+		$this->user->saveAll(array('user_id' => $i, 'user_name' => $name,'email' => $email, 'password' => @$random, 'mobile' => $mobile,  'society_id' => $s_society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$log_i,'s_default'=>1,'profile_status'=>1,'private'=>array('mobile','email')));
 	      ///////////  code end insert //////////////////////////////////
-          $this->loadmodel('flat');
-          $this->flat->updateAll(array("noc_ch_tp" =>$residing),array("flat_id" =>$flat));
+         // $this->loadmodel('flat');
+         // $this->flat->updateAll(array("noc_ch_tp" =>$residing),array("flat_id" =>$flat));
 		 
 		 
 		 
