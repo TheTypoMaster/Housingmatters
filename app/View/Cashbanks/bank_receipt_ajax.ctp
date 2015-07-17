@@ -20,11 +20,11 @@ $wing_id = $collection['user']['wing'];
 $flat_id = (int)$collection['user']['flat'];
 $tenant = (int)$collection['user']['tenant'];
 }	
-$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));									
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat_new'),array('pass'=>array($wing_id,$flat_id)));									
 if($tenant == 1)
 {
 ?>
-<option value="<?php echo $auto_id; ?>"><?php echo $name; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $wing_flat; ?><?php  ?></option>
+<option value="<?php echo $auto_id; ?>"><?php echo $name; ?> (<?php echo $wing_flat; ?>)<?php  ?></option>
 <?php }} ?>
 </select>
 <label id="go"></label>

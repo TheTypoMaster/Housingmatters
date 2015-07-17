@@ -18,11 +18,11 @@ $wing_id = $collection['user']['wing'];
 $flat_id = (int)$collection['user']['flat'];
 $tenant = (int)$collection['user']['tenant'];
 }	
-$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));									
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat_new'),array('pass'=>array($wing_id,$flat_id)));									
 if($tenant == 1)
 {
 ?>
-<option value="<?php echo $auto_id; ?>"><?php echo $user_name; ?> &nbsp&nbsp&nbsp&nbsp(<?php echo $wing_flat; ?>) </option>
+<option value="<?php echo $auto_id; ?>"><?php echo $user_name; ?> (<?php echo $wing_flat; ?>) </option>
 <?php }} ?>
 </select>
 <label report="prt_ac" class="remove_report"></label>
