@@ -150,11 +150,11 @@ $society_id = (int)@$collection['ledger']['society_id'];
 $module_name = @$collection['ledger']['module_name'];
 $table_name = @$collection['ledger']['table_name'];
 $op_date = @$collection['ledger']['op_date'];
- $pen_type = @$collection['ledger']['penalty'];
-   if($receipt_id == "O_B")
-   {
-   $op_date2 = date('Y-m-d',$op_date->sec);	
-   }
+$pen_type = @$collection['ledger']['penalty'];
+if($receipt_id == "O_B")
+{
+$op_date2 = date('Y-m-d',$op_date->sec);	
+}
 if($receipt_id != "O_B")
 {								
 if(!empty($pen_type))
@@ -248,7 +248,6 @@ if(@$date >= $m_from && @$date <= $m_to)
 {
 if($account_type == 1)
 {
-
 $arrr1[] = array("transaction_date"=>strtotime($date),"narration"=>@$narration,"module_name"=>@$module_name,"pen_type"=>@$pen_type,"bill_type"=>@$bill_type,"wing_flat"=>@$wing_flat,"amount"=>@$amount,"amount_category_id"=>@$amount_category_id,"account_type"=>@$account_type,"sub_account_id"=>@$sub_account_id,"type"=>1);
 $nnn = 5;
 ?>
@@ -885,32 +884,31 @@ $total_debit = 0;
 $total_credit = 0;
 for($t=0; $t<sizeof($arrr1); $t++)
 {
-$arrr2 = $arrr1[$t];	
-$arrr1[] = array("transaction_date"=>strtotime($op_date2),"narration"=>@$narration,"module_name"=>@$module_name,"pen_type"=>@$pen_type,"bill_type"=>@$bill_type,"wing_flat"=>@$wing_flat,"amount"=>@$amount,"amount_category_id"=>@$amount_category_id,"account_type"=>@$account_type,"sub_account_id"=>@$sub_account_id,"type"=>1);
-$nnn = 5;	
-	
-	
+//$arrr2 = $arrr1[$t];
+
 	
 $date = "";
 $op_date2 = "";
-$narration = $arrr2['narration'];
-$module_name = $arrr2['module_name'];
-$pen_type = $arrr2['pen_type'];
-$bill_type = $arrr2['bill_type'];
-$wing_flat = $arrr2['wing_flat'];
-$amount = $arrr2['amount'];
-$amount_category_id = $arrr2['amount_category_id'];
-$account_type = $arrr2['account_type'];
-$sub_account_id = $arrr2['sub_account_id'];
-$type = (int)$arrr2['type'];
+$narration = $arrr1[$t]['narration'];
+$module_name = $arrr1[$t]['module_name'];
+$pen_type = $arrr1[$t]['pen_type'];
+$bill_type = $arrr1[$t]['bill_type'];
+$wing_flat = $arrr1[$t]['wing_flat'];
+$amount = $arrr1[$t]['amount'];
+$amount_category_id = $arrr1[$t]['amount_category_id'];
+$account_type = (int)$arrr1[$t]['account_type'];
+$sub_account_id = (int)$arrr1[$t]['sub_account_id'];
+$type = (int)$arrr1[$t]['type'];
 
 if($type == 1)
 {
-$date = $arrr2['transaction_date']; 	
+$date = date('Y-m-d',$arrr1[$t]['transaction_date']); 
+//$date = date('Y-m-d',strtotime($date));	
 }
 else
 {
-$op_date2 = $arrr2['transaction_date'];	
+$op_date2 = date('Y-m-d',$arrr1[$t]['transaction_date']);	
+//$op_date2 = date('Y-m-d',strtotime($op_date2));
 }
 
 
