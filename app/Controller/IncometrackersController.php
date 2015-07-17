@@ -398,11 +398,6 @@ $mul_flat2 = $multi_flat[$g];
 $wing_id = (int)$mul_flat2[0];
 $flat_id = (int)$mul_flat2[1];
 
-
-
-
-
-
 $maint_ch = 0;
 
 $this->loadmodel('flat');
@@ -450,7 +445,8 @@ for($s=0; $s<sizeof($income_head_arr); $s++)
 $auto_id_in = (int)$income_head_arr[$s];
 
 $ih_amt = (int)$this->request->data['ih'.$auto_id_in.$user_id];
-
+if($ih_amt != 0)
+{
 $income_headd = array($auto_id_in,$ih_amt);
 $income_headd2[] = $income_headd;
 $this->loadmodel('ledger');
@@ -474,11 +470,13 @@ $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_i
 "table_name" => "regular_bill", "account_type" => 2, "account_id" => $auto_id_in, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
 $this->ledger->saveAll($multipleRowData);
 }
+}
 ///////////////////////////////////////
 if($noc_ch_id == 2)
 {
 $noc_amt = (int)$this->request->data['noc'.$user_id];
-
+if($noc_amt != 0)
+{
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'ASC');
 $cursor=$this->ledger->find('all',array('order' =>$order));
@@ -499,9 +497,10 @@ $this->loadmodel('ledger');
 $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" => $noc_amt, "amount_category_id" => 2,
 "table_name" => "regular_bill", "account_type" => 2, "account_id" => 43, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
 $this->ledger->saveAll($multipleRowData);
-
+}
 $income_headd = array(43,$noc_amt);
 $income_headd2[] = $income_headd;
+
 }
 ////////////////////////////////////
 //$current_date = new MongoDate(strtotime(date("Y-m-d")));
@@ -529,7 +528,8 @@ $due_date12 = date('Y-m-d',strtotime(@$due_date11));
 $from_due_date = date('Y-m-d',strtotime(@$from_due));
 
 $penalty_amt = (int)$this->request->data['penalty'.$user_id];
-
+if($penalty_amt != 0)
+{ 
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
 $cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
@@ -550,15 +550,7 @@ $this->loadmodel('ledger');
 $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" => @$penalty_amt, "amount_category_id" => 2, 
 "table_name" => "regular_bill", "account_type"=> 2, "account_id" => 41, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
 $this->ledger->saveAll($multipleRowData);
-
-
-
-
-
-
-
-
-
+}
 }
 
 /////////////////////End Penalty //////////////////////////////
@@ -607,7 +599,8 @@ $l_id =  (int)$collection['ledger_sub_account']['auto_id'];
 $current_bill_amt2 = (int)$this->request->data['tt'.$user_id];
 
 $grand_total = (int)$this->request->data['gtt'.$user_id];
-
+if($current_bill_amt2 != 0)
+{
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
 $cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
@@ -628,9 +621,11 @@ $this->loadmodel('ledger');
 $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" => $current_bill_amt2, "amount_category_id" => 1, 
 "table_name" => "regular_bill", "account_type"=> 1, "account_id" => @$l_id, "current_date" => $current_date13,"society_id" => $s_society_id,"module_name"=>"Regular Bill","penalty"=>"NO"));
 $this->ledger->saveAll($multipleRowData);
-
+}
 
 if($penalty == 1)
+{
+if($penalty_amt != 0)
 {
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
@@ -652,7 +647,7 @@ $this->loadmodel('ledger');
 $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" => @$penalty_amt, "amount_category_id" => 1, 
 "table_name" => "regular_bill", "account_type"=> 1, "account_id" => @$l_id, "current_date" => $current_date13,"society_id" => $s_society_id,"module_name"=>"Regular Bill","penalty"=>"YES"));
 $this->ledger->saveAll($multipleRowData);
-
+}
 }
 
 $total_amt = (int)$this->request->data['tt'.$user_id];
@@ -1305,6 +1300,9 @@ $ih_amt = (int)$this->request->data['ih'.$auto_id_in.$user_id];
 
 $income_headd = array($auto_id_in,$ih_amt);
 $income_headd2[] = $income_headd;
+
+if($ih_amt != 0)
+{
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'ASC');
 $cursor=$this->ledger->find('all',array('order' =>$order));
@@ -1325,14 +1323,15 @@ $this->loadmodel('ledger');
 $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" => $ih_amt, "amount_category_id" => 2,
 "table_name" => "regular_bill", "account_type" => 2, "account_id" => $auto_id_in, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
 $this->ledger->saveAll($multipleRowData);
-
+}
 }
 
 ///////////////////////////////////////
 if($noc_ch_id == 2)
 {
 $noc_amt = (int)$this->request->data['noc'.$user_id];
-
+if($noc_amt != 0)
+{
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'ASC');
 $cursor=$this->ledger->find('all',array('order' =>$order));
@@ -1353,7 +1352,7 @@ $this->loadmodel('ledger');
 $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" => $noc_amt, "amount_category_id" => 2,
 "table_name" => "regular_bill", "account_type" => 2, "account_id" => 43, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
 $this->ledger->saveAll($multipleRowData);
-
+}
 $income_headd = array(43,$noc_amt);
 $income_headd2[] = $income_headd;
 }
@@ -1383,7 +1382,8 @@ $due_date12 = date('Y-m-d',strtotime(@$due_date11));
 $from_due_date = date('Y-m-d',strtotime(@$from_due));
 
 $penalty_amt = (int)$this->request->data['penalty'.$user_id];
-
+if($penalty_amt != 0)
+{
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
 $cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
@@ -1405,7 +1405,7 @@ $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_i
 "table_name" => "regular_bill", "account_type"=> 2, "account_id" => 41, "current_date" => $current_date11,"society_id" => $s_society_id,"module_name"=>"Regular Bill"));
 $this->ledger->saveAll($multipleRowData);
 }
-
+}
 
 $over_due_amt = (int)$this->request->data['due'.$user_id];
 /*
@@ -1450,6 +1450,9 @@ $l_id =  (int)$collection['ledger_sub_account']['auto_id'];
 $current_bill_amt2 = (int)$this->request->data['tt'.$user_id];
 $grand_total = (int)$this->request->data['gtt'.$user_id];
 
+
+if($current_bill_amt2 != 0)
+{
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
 $cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
@@ -1470,8 +1473,10 @@ $this->loadmodel('ledger');
 $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_id11, "amount" => $current_bill_amt2, "amount_category_id" => 1, 
 "table_name" => "regular_bill", "account_type"=> 1, "account_id" => @$l_id, "current_date" => $current_date13,"society_id" => $s_society_id,"module_name"=>"Regular Bill","penalty"=>"NO"));
 $this->ledger->saveAll($multipleRowData);
-
+}
 if($penalty == 1)
+{
+if($penalty_amt != 0)
 {
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
@@ -1494,7 +1499,7 @@ $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $regular_bill_i
 "table_name" => "regular_bill", "account_type"=> 1, "account_id" => @$l_id, "current_date" => $current_date13,"society_id" => $s_society_id,"module_name"=>"Regular Bill","penalty"=>"YES"));
 $this->ledger->saveAll($multipleRowData);
 }
-
+}
 
 
 $total_amt = (int)$this->request->data['tt'.$user_id];
