@@ -280,15 +280,19 @@ function content_moderation_society($content_check)
 {
 	$content_check=explode(' ',$content_check);
 	$s_society_id=$this->Session->read('society_id');
+	
 	$this->loadmodel('society');
 	$conditions=array('society_id'=>$s_society_id);
 	$result1=$this->society->find('all',array('conditions'=>$conditions));
 	foreach($result1 as $data)
 	{
-		  $content=$data['society']['content_moderation'];
+		  $content=@$data['society']['content_moderation'];
 
 	}
-	    $content=array_map('trim',$content);
+	if(!empty($content)){
+		 $content=array_map('trim',$content);
+	
+	   
 		foreach($content_check as $c_moda)
 		{	
 		
@@ -301,6 +305,7 @@ function content_moderation_society($content_check)
 				
 				
 			
+		}
 		}
 	
 		return 1;
