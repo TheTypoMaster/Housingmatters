@@ -3754,7 +3754,8 @@ $current_date = new MongoDate(strtotime($current_date));
 
 $op_date = date('Y-m-d',strtotime($date));
 $op_date = new MongoDate(strtotime($op_date));
-
+if($opening_bal != 0)
+{
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
 $cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
@@ -3775,7 +3776,7 @@ $this->loadmodel('ledger');
 $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => 'O_B', 
 "amount" => $opening_bal, "amount_category_id"=>$amount_type, "account_type" => 1, "account_id"=>$auto_id, "current_date" => $current_date,"society_id" => $s_society_id,"module_id"=>'O_B',"op_date"=>$op_date));
 $this->ledger->saveAll($multipleRowData);
-
+}
 
 if($penalty_amt != 0)
 {
@@ -3810,7 +3811,8 @@ $current_date = new MongoDate(strtotime($current_date));
 
 $op_date = date('Y-m-d',strtotime($date));
 $op_date = new MongoDate(strtotime($op_date));
-
+if($opening_bal != 0)
+{
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
 $cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
@@ -3832,13 +3834,14 @@ $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => 'O_B',
 "amount" => $opening_bal, "amount_category_id"=>$amount_type, "account_type" => 2, "account_id"=>$auto_id, "current_date" => $current_date,"society_id" => $s_society_id,"module_id"=>'O_B',"op_date"=>$op_date));
 $this->ledger->saveAll($multipleRowData);
 }
-
+}
 }
 else
 {
     if($group_id == 15 || $group_id == 34 || $group_id == 33 || $group_id == 35)
     {
-
+if($opening_bal != 0)
+{
 $this->loadmodel('ledger_sub_account');
 $order=array('ledger_sub_account.auto_id'=> 'DESC');
 $cursor=$this->ledger_sub_account->find('all',array('order' =>$order,'limit'=>1));
@@ -3910,9 +3913,11 @@ $multipleRowData = Array( Array("auto_id" => $l, "receipt_id"=>'O_B',
 $this->ledger->saveAll($multipleRowData);		
 }
 }
+}
 else
 {
-
+if($opening_bal != 0)
+{
 $this->loadmodel('ledger_account');
 $order=array('ledger_account.auto_id'=> 'DESC');
 $cursor=$this->ledger_account->find('all',array('order' =>$order,'limit'=>1));
@@ -3961,8 +3966,7 @@ $multipleRowData = Array( Array("auto_id" => $l, "receipt_id"=>'O_B',
 $this->ledger->saveAll($multipleRowData);
 }
 }
-
-
+}
 }
 }
 $output=json_encode(array('report_type'=>'done','text'=>'Total Debit must be Equal to Total Credit'));
