@@ -204,7 +204,7 @@ $result_amt = $this->requestAction(array('controller' => 'hms', 'action' => 'amo
 										   data-placement="bottom" data-original-title="Download Pdf" >Pdf</a>
                                           <a class="btn mini black tooltips" data-placement="bottom" data-original-title="Created By:<?php echo $prepaired_by_name; ?>
 										   Creation Date : <?php echo $creation_date; ?>">!</a>
-	<a href="edit_pcp.ctp?r=<?php echo $receipt_no; ?>" class="btn mini purple">Edit</a> 									  
+	<a href="edit_pcp/<?php echo $receipt_no; ?>" rel='tab' class="btn mini purple">Edit</a> 									  
 										  
 										  </td>
                                           </tr>
