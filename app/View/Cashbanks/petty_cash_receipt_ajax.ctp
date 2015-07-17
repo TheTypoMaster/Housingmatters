@@ -22,7 +22,7 @@ $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing
 if($tenant == 1)
 {
 ?>
-<option value="<?php echo $auto_id; ?>"><?php echo $user_name; ?> (<?php echo $wing_flat; ?>) </option>
+<option value="<?php echo $auto_id; ?>"><?php echo $user_name; ?> <?php echo $wing_flat; ?> </option>
 <?php }} ?>
 </select>
 <label report="prt_ac" class="remove_report"></label>
