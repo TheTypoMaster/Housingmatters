@@ -250,7 +250,7 @@ $multipleRowData = Array( Array("transaction_id" => $auto, "receipt_id" => $i, "
 "amount" => $amount, "amount_category_id" => 1, "society_id" => $s_society_id,"member" => $member_id,"module_id"=>1,"cheque_number"=>$cheque_number,"reference_number"=>$reference_number,"which_bank"=>$which_bank,"cheque_date"=>$cheque_date));
 $this->cash_bank->saveAll($multipleRowData);  
 
-
+$trns_id=(int)$auto;
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
 $cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
@@ -309,7 +309,7 @@ $arrears_int = $collection['regular_bill']['accumulated_tax'];
 $total_due_amt = $collection['regular_bill']['total_due_amount'];
 }
 $due_amt = $remain_amt - $amount;
-$total_due_amt = $total_due_amt - $amount;
+@$total_due_amt = $total_due_amt - $amount;
 if($arrears_int <= $amount)
 {
 $amount = $amount-$arrears_int;
@@ -367,7 +367,7 @@ $multipleRowData = Array( Array("transaction_id" => $auto, "receipt_id" => $i, "
 "transaction_date" => $date, "prepaired_by" => $s_user_id, 
 "user_id" => 32, "bill_reference" => $reference,"narration" => $description, "receipt_mode" => $receipt_mode,
 "receipt_instruction" => $receipt_instruction, "account_head" => $sub_account_id,   
-"amount" => $amount, "amount_category_id" => 1, "society_id" => $s_society_id,"member" => $member_id,"receiver_name" => $received_from,"module_id"=>1,"cheque_no"=>$cheque_no));
+"amount" => $amount, "amount_category_id" => 1, "society_id" => $s_society_id,"member" => $member_id,"receiver_name" => $received_from,"module_id"=>1,"cheque_no"=>@$cheque_no));
 $this->cash_bank->saveAll($multipleRowData);  
 
 
@@ -505,152 +505,175 @@ $sms_sender=$r_sms->sms_sender;
 }
 /////////////////End Sms/////////////
 
-/////////////// Start MAIL ///////////
-
-$this->loadmodel('user');
-$conditions=array("user_id" => $received_from);
-$cursor=$this->user->find('all',array('conditions'=>$conditions));
-foreach ($cursor as $collection)
-{
-//$to = $collection['user']['email'];	
-}
-$to = "nikhileshvyas@yahoo.com";
+/////////////// Start MAIL /////////////////////////
 
 $auto_id = (int)$auto;
 
-$this->loadmodel('bank_receipt');
-$conditions=array("transaction_id" => $auto_id);
-$cursor=$this->bank_receipt->find('all',array('conditions'=>$conditions));
+$this->loadmodel('cash_bank');
+$conditions=array("transaction_id" => $auto_id,'society_id'=>$s_society_id,'module_id'=>1);
+$cursor=$this->cash_bank->find('all',array('conditions'=>$conditions));
 foreach ($cursor as $collection)
 {
-$receipt_no = (int)$collection['bank_receipt']['receipt_id'];
-$d_date = $collection['bank_receipt']['transaction_date'];
-$today = date("d-M-Y");
-$user_id = $collection['bank_receipt']['user_id'];
-$amount = $collection['bank_receipt']['amount'];
-$society_id = (int)$collection['bank_receipt']['society_id'];
-$bill_reference = $collection['bank_receipt']['bill_reference'];
-$narration = $collection['bank_receipt']['narration'];
-$member = (int)$collection['bank_receipt']['member'];
-$receipt_mode = $collection['bank_receipt']['receipt_mode'];
-$bank_id = (int)$collection['bank_receipt']['sub_account_id'];
+
+$member = (int)$collection['cash_bank']['member']; 
+
 }
 if(@$member == 1)
 {
 
-$resultlsa = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($bank_id)));
-foreach ($resultlsa as $collection) 
+
+$this->loadmodel('cash_bank');
+$conditions=array("transaction_id" => $trns_id,"module_id"=>1);
+$cursor1=$this->cash_bank->find('all',array('conditions'=>$conditions));
+foreach ($cursor1 as $collection) 
 {
-$bank_name = @$collection['ledger_sub_account']['name'];
+$receipt_no = (int)$collection['cash_bank']['receipt_id'];
+$d_date = $collection['cash_bank']['transaction_date'];
+$today = date("d-M-Y");
+$user_id_d = $collection['cash_bank']['user_id'];
+$amount = $collection['cash_bank']['amount'];
+$society_id = (int)$collection['cash_bank']['society_id'];
+$bill_reference = $collection['cash_bank']['bill_reference'];
+$narration = $collection['cash_bank']['narration'];
+$member = (int)$collection['cash_bank']['member'];
+$receiver_name = @$collection['cash_bank']['receiver_name'];
+$receipt_mode = $collection['cash_bank']['receipt_mode'];
+$cheque_number = @$collection['cash_bank']['cheque_number'];
+$which_bank = @$collection['cash_bank']['which_bank'];
+$reference_number = @$collection['cash_bank']['reference_number'];
+$cheque_date = @$collection['cash_bank']['cheque_date'];
+$sub_account = (int)$collection['cash_bank']['account_head'];
 }
-
-
-
-$resultlsa = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($user_id)));
-foreach ($resultlsa as $collection) 
-{
-$user_id_m = (int)@$collection['ledger_sub_account']['user_id'];
-}
-
-
-
-$resultmail = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id_m)));
-foreach ($resultmail as $collection) 
-{
-$wing_id = $collection['user']['wing'];  
-$flat_id = (int)$collection['user']['flat'];
-$tenant = (int)$collection['user']['tenant'];
-$user_name = $collection['user']['user_name'];
-}	
-$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array(@$wing_id,@$flat_id)));	
-
-$this->loadmodel('society');
-$conditions=array("society_id" => $society_id);
-$cursor=$this->society->find('all',array('conditions'=>$conditions));
-foreach ($cursor as $collection)
+$amount = str_replace( ',', '', $amount );
+$am_in_words=ucwords($this->convert_number_to_words($amount));
+$coursor55=$this->society_name($s_society_id);
+foreach ($coursor55 as $collection) 
 {
 $society_name = $collection['society']['society_name'];
-}
-
-$date = date("d-M-Y",$d_date->sec);
-//$words = $this->convert_number_to_words($amount);
-
-$message_mail = '<table border="0" width="100%">
-<tr>
-<td>
-<br><br>
-<table width="100%">
-<tr>
-<th align="left"><p style="font-size:12px;">Receipt No:'.$receipt_no.'</p></th>
-<th align="center"><p style="font-size:20px;">RECEIPT</p></th>
-<th align="right"><p style="font-size:12px;">Date:'.$date.'</p></th>
-</tr>
-<tr>
-<th colspan="3" style="text-align:center;"><p style="font-size:18px;">for Previous Bill</p></th>
-</tr>
-</table>
-</td>
-</tr>
-<tr>
-<td>
-<table width="100%">
-<tr>
-<td style="width:70%;"><p style="font-size:12px;">Received with thanks from &nbsp;&nbsp;&nbsp;&nbsp;'.$user_name.'</p></td>
-<td style="width:30%;" rowspan="3">
-&nbsp;<div style="width:100px; height:25px; border:solid 1px; text-align:center;">
-'.$wing_flat.'
-</div>
-
-<div style="width:100px; height:25px; border:solid 1px; text-align:center;">
-'.$amount.'
-</div>
-
-
-</td>
-</tr>
-<tr>
-<td><p style="font-size:12px;">Rs (Words) only</p></td>
-</tr>
-<tr>
-<td><p style="font-size:12px;">Via &nbsp;&nbsp;'.$receipt_mode.'&nbsp;&nbsp'.$bank_name.' Bank &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rs.</p></td>
-</tr>
-<tr>
-<td colspan="2"><p style="font-size:12px;">Payment for Bill No.'.$receipt_no.' &nbsp;&nbsp; dated:&nbsp;'.$date.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Subject to Realization of cheque</p></td>
-</tr>
-</table>
-<table width="100%">
-<tr>
-<td style="text-align:right;"><p style="font-size:12px;">'.$society_name.'</p></td>
-</tr>
-<tr>
-<td><p style="font-size:12px; text-align:right;">Secretary/Treasurer</p></td>
-</tr>
-</table>
-</td>
-</tr>
-</table>
-';
-$this->loadmodel('society');
-$conditions=array("society_id" => $s_society_id);
-$cursor=$this->society->find('all',array('conditions'=>$conditions));
-foreach ($cursor as $collection)
-{
+$society_reg_no = $collection['society']['society_reg_num'];
+$society_address = $collection['society']['society_address'];
+$sig_title = $collection['society']['sig_title'];
 $mail_id = $collection['society']['account_email'];
 }
+if($member == 2)
+{
+$user_name = $receiver_name;
+$wing_flat = "";
+}
+else
+{
+$result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($user_id_d)));
+foreach($result_lsa as $collection)
+{
+$user_id = (int)$collection['ledger_sub_account']['user_id'];
+}
+$result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
+											foreach ($result as $collection) 
+											{
+											$wing_id = $collection['user']['wing'];  
+											$flat_id = (int)$collection['user']['flat'];
+											$tenant = (int)$collection['user']['tenant'];
+											$user_name = $collection['user']['user_name'];
+											$to = $collection['user']['email'];
+											}	
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action'=>'wing_flat'),array('pass'=>array($wing_id,$flat_id)));									
+}  
+$result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($sub_account))); 
+foreach($result2 as $collection)
+{
+$bank_name = $collection['ledger_sub_account']['name'];
+}
+                                    
+
+$date=date("d-m-Y", strtotime($d_date));
+
+ $message_mail='<div style="width:70%;margin:auto;border:solid 1px;background-color:#FFF;" class="bill_on_screen">';
+$message_mail.='<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'</div>
+<div align="center" style="border-bottom:solid 1px;">
+<span style="font-size:12px;color:rgb(100, 100, 99);">Regn# '.$society_reg_no.'</span><br/>
+<span style="font-size:12px;color:rgb(100, 100, 99);">Regn# '.$society_address.'</span>
+</div>
+<table width="100%" >
+<tr>
+<td>
+		<table width="100%" cellpadding="5px">
+			<tr>
+				<td>Receipt No: '.$receipt_no.'</td>
+				<td align="right">Date: '.$date.'</td>
+			</tr>
+			<tr>
+				<td>
+				Received with thanks from:  <b>'.$user_name.' '.$wing_flat.'</b>
+				<br/>
+				Rupees '.$am_in_words.' Only
+				<br/>';
+				if($receipt_mode=="Cheque"){
+					$message_mail.= 'Via '.$receipt_mode.'-'.$cheque_number.' drawn on '.$which_bank.' dated '.$cheque_date;
+				}
+				else{
+					$message_mail.= 'Via '.$receipt_mode.'-'.$reference_number.' dated '.$cheque_date;
+				}
+				
+				
+				$message_mail.= '<br/>
+				Payment of previous bill
+				</td>
+				<td></td>
+			</tr>
+		</table>
+		<div style="border-bottom:solid 1px;"></div>
+		<table width="100%" cellpadding="5px">
+			<tr>
+				<td><span style="font-size:16px;"> <b>Rs '.$amount.'</b></span><br/>';
+				if($receipt_mode=="Cheque"){
+					$message_mail.= 'Subject to realization of Cheque(s)';
+				}
+				$message_mail.= '</td>
+			</tr>
+		</table>
+		<table width="100%" cellpadding="5px">
+			<tr>
+				<td width="50%"></td>
+				<td align="right">
+				<table width="100%">
+					<tr>
+						<td align="center">
+						For '.$society_name.'
+						</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+			<td width="50%"></td>
+			<td align="right">
+			<table width="100%">
+					<tr>
+						<td align="center"><br/>'.$sig_title.'</td>
+					</tr>
+				</table>
+			</td>
+			</tr>
+		</table>
+</td>
+</tr>
+</table>';
+
+ $message_mail.='</div>';
 if($mail_id == 1)
 {
-//$to = "nikhileshvyas@yahoo.com";
+
 $subject = "Bank Receipt";
 $from_name="HousingMatters";
-//$message_web = "Receipt No. :".$d_receipt_id;
 $from = "accounts@housingmatters.in";
 $reply="accounts@housingmatters.in";
-$this->smtpmailer($to,$from,$from_name,$subject,$message_mail,$reply);
+$this->send_email($to,$from,$from_name,$subject,$message_mail,$reply);
+}
+
 }
 }
 }
-}
-//////////////////////// End bank receipt ////////////////////////////////////////////
+//////////////////////// End bank receipt email code ////////////////////////////////////////////
 
 ////////////////// Start Bank receipt Excel (Accounts)/////////////////////////////
 function bank_receipt_excel()

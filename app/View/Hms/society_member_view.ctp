@@ -140,7 +140,7 @@ $(document).ready(function() {
 </script>
 <script>
 $(document).ready(function() {
-	 $(".resend").live('click',function(){
+	 $(".resend").bind('click',function(){
 		var id=$(this).attr('id');
 		
 		$(this).html('Sending Email...').load( 'resident_approve_resend_mail?con=' + id, function() {

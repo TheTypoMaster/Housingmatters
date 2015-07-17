@@ -97,7 +97,7 @@ else
 
 <label style="font-size:14px;">Transaction Date<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="date" id="date" value="<?php echo $default_date; ?>">
+<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="date" id="date" data-date-start-date="+0d" value="<?php echo $default_date; ?>">
 <label report="tr_dat" class="remove_report"></label>
 <div id="result11"></div>
 </div>

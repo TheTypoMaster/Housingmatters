@@ -190,8 +190,8 @@ $current_date = new MongoDate(strtotime($current_date));
 $result3 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch2'),array('pass'=>array($flat_id,$wing_id)));
 foreach($result3 as $collection3)
 {
-$flat_type_id = (int)$collection3['flat']['flat_type_id'];
-$sq_feet = (int)$collection3['flat']['flat_area'];
+$flat_type_id = (int)@$collection3['flat']['flat_type_id'];
+$sq_feet = (int)@$collection3['flat']['flat_area'];
 $noc_ch_id = (int)@$collection3['flat']['noc_ch_tp'];
 }
 

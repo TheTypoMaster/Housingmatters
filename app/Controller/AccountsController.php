@@ -3475,9 +3475,9 @@ $records;
 	  $child_ex=explode(',',$child[0]);
       $group=$child_ex[0];
       $ac_name=$child_ex[1];
-      $amt_type=$child_ex[2];
-	  $amt=$child_ex[3];
-      @$pen_amt=@$child_ex[4];
+      $amt_type=$child_ex[4];
+	  $amt=$child_ex[5];
+      @$pen_amt=@$child_ex[6];
 
 if($group == 'Sundry Creditors Control A/c ')
 {
@@ -3530,12 +3530,45 @@ $result_sac2=$this->ledger_sub_account->find('all',array('conditions'=>$conditio
 foreach($result_sac2 as $collection2)
 {
 $auto_id = (int)$collection2['ledger_sub_account']['auto_id'];
+if($group_id == 34)
+{
+////////////////
+$wing_name = $child_ex[2];
+$flat_name = $child_ex[3];
+
+
+$this->loadmodel('flat');
+$conditions=array("society_id" => $s_society_id);
+$cursor1 = $this->flat->find('all',array('conditions'=>$conditions));
+foreach($cursor1 as $collection)
+{
+$wing_id2 = (int)$collection['flat']['wing_id'];
+$flat_name2 = $collection['flat']['flat_name'];
+$flat_id2 = (int)$collection['flat']['flat_id'];
+if($flat_name2 == $flat_name)
+{ 
+$wing = (int)$wing_id2;
+$flat = (int)$flat_id2;
+}
+}
+///////////////
+$user_id = (int)$collection2['ledger_sub_account']['user_id'];
+
+$hhhhhh = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));
+foreach($hhhhhh as $fff)
+{
+$wing_id = (int)$fff['user']['wing'];
+$flat_id = (int)$fff['user']['flat'];
+}
+}
+if($flat_id == $flat)
+break;
 $ledger_type = 1;
 }
 
 
-	  
-	  $table[] = array(@$ac_name,@$amt_type,@$amt,@$auto_id,@$ledger_type,@$group_id,@$group,@$pen_amt);
+ $table[] = array(@$ac_name,@$amt_type,@$amt,@$auto_id,@$ledger_type,@$group_id,@$group,@$pen_amt);
+
 	  } 
       $i++;
       }
@@ -3721,7 +3754,8 @@ $current_date = new MongoDate(strtotime($current_date));
 
 $op_date = date('Y-m-d',strtotime($date));
 $op_date = new MongoDate(strtotime($op_date));
-
+if($opening_bal != 0)
+{
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
 $cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
@@ -3742,7 +3776,7 @@ $this->loadmodel('ledger');
 $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => 'O_B', 
 "amount" => $opening_bal, "amount_category_id"=>$amount_type, "account_type" => 1, "account_id"=>$auto_id, "current_date" => $current_date,"society_id" => $s_society_id,"module_id"=>'O_B',"op_date"=>$op_date));
 $this->ledger->saveAll($multipleRowData);
-
+}
 
 if($penalty_amt != 0)
 {
@@ -3777,7 +3811,8 @@ $current_date = new MongoDate(strtotime($current_date));
 
 $op_date = date('Y-m-d',strtotime($date));
 $op_date = new MongoDate(strtotime($op_date));
-
+if($opening_bal != 0)
+{
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
 $cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
@@ -3799,13 +3834,14 @@ $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => 'O_B',
 "amount" => $opening_bal, "amount_category_id"=>$amount_type, "account_type" => 2, "account_id"=>$auto_id, "current_date" => $current_date,"society_id" => $s_society_id,"module_id"=>'O_B',"op_date"=>$op_date));
 $this->ledger->saveAll($multipleRowData);
 }
-
+}
 }
 else
 {
     if($group_id == 15 || $group_id == 34 || $group_id == 33 || $group_id == 35)
     {
-
+if($opening_bal != 0)
+{
 $this->loadmodel('ledger_sub_account');
 $order=array('ledger_sub_account.auto_id'=> 'DESC');
 $cursor=$this->ledger_sub_account->find('all',array('order' =>$order,'limit'=>1));
@@ -3877,9 +3913,11 @@ $multipleRowData = Array( Array("auto_id" => $l, "receipt_id"=>'O_B',
 $this->ledger->saveAll($multipleRowData);		
 }
 }
+}
 else
 {
-
+if($opening_bal != 0)
+{
 $this->loadmodel('ledger_account');
 $order=array('ledger_account.auto_id'=> 'DESC');
 $cursor=$this->ledger_account->find('all',array('order' =>$order,'limit'=>1));
@@ -3928,8 +3966,7 @@ $multipleRowData = Array( Array("auto_id" => $l, "receipt_id"=>'O_B',
 $this->ledger->saveAll($multipleRowData);
 }
 }
-
-
+}
 }
 }
 $output=json_encode(array('report_type'=>'done','text'=>'Total Debit must be Equal to Total Credit'));

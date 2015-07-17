@@ -165,7 +165,7 @@ Bank Receipt Report  (<?php echo $society_name; ?>)
 			$current_date = $collection['cash_bank']['current_date'];
 			if($receipt_mode == "Cheque" || $receipt_mode == "NEFT")
 			{
-			$cheque_number = $collection['cash_bank']['cheque_number'];	
+			$cheque_number = @$collection['cash_bank']['cheque_number'];	
 			$receipt_mode = $receipt_mode."(".$cheque_number.")";
 			}
 			if($member == 1)

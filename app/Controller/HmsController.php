@@ -7890,7 +7890,7 @@ $password=$collection['user']['password'];
 $wing=(int)$collection['user']['wing'];
 $flat=(int)$collection['user']['flat'];
 $tenant=(int)$collection['user']['tenant'];
-$residing=(int)$collection['user']['residing'];
+//$residing=(int)$collection['user']['residing'];
 
 }
 ///////////end fetch data ////////////////////
@@ -8380,7 +8380,7 @@ $time=date('h:i:a',time());
 $role_id[]=3;
 $default_role_id=3;
 $this->loadmodel('user');
-$this->user->save(array('user_id' => $i, 'user_name' => $user_name,'email' => $email, 'password' =>'', 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => 2, 'wing' =>0, 'flat' =>0,'residing' => 1,'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$log_i,'s_default'=>1,'profile_status'=>1,'private'=>array('mobile','email')));
+$this->user->save(array('user_id' => $i, 'user_name' => $user_name,'email' => $email, 'password' =>'', 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => 2, 'wing' =>0, 'flat' =>0,'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$log_i,'s_default'=>1,'profile_status'=>1,'private'=>array('mobile','email')));
 
 //////////////////////////////////// End Code ////////////////////////////////////////////////////////////////////////
 
@@ -8493,7 +8493,7 @@ $wing=(int)$collection['user_temp']['wing'];
 $flat=(int)$collection['user_temp']['flat'];
 $committee=(int)$collection['user_temp']['committee'];
 $tenant=(int)$collection['user_temp']['tenant'];
-$residing=(int)$collection['user_temp']['residing'];
+//$residing=(int)$collection['user_temp']['residing'];
 } 
 $ip=$this->hms_email_ip();
 
@@ -8541,7 +8541,7 @@ $login_id=$this->autoincrement('login','login_id');
 $role_id[]=3;
 $default_role_id=3;
 $this->loadmodel('user');
-$this->user->save(array('user_id' => $i, 'user_name' => $user_name,'email' => $email, 'password' => $password, 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'residing' => $residing, 'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$login_id,'s_default'=>1,'profile_status'=>1,'private'=>array('mobile','email')));
+$this->user->save(array('user_id' => $i, 'user_name' => $user_name,'email' => $email, 'password' => $password, 'mobile' => $mobile,  'society_id' => $society_id, 'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'date' => $date, 'time' => $time,"profile_pic"=>'blank.jpg','sex'=>'','role_id'=>$role_id,'default_role_id'=>$default_role_id,'signup_random'=>$random,'deactive'=>0,'login_id'=>$login_id,'s_default'=>1,'profile_status'=>1,'private'=>array('mobile','email')));
 
 //////////////////////// insert login table //////////////////////////////////////
 
