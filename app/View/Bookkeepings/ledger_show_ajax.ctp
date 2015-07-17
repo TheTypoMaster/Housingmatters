@@ -414,6 +414,7 @@ $balance = $opening_balance;
 <?php
 $total_debit = 0;
 $total_credit = 0;
+$arrr2 = array();
 foreach ($cursor3 as $collection) 
 {
 $date = "";
@@ -431,10 +432,44 @@ $society_id = (int)@$collection['ledger']['society_id'];
 $table_name = @$collection['ledger']['table_name'];
 $module_name = @$collection['ledger']['module_name'];
 $op_date = @$collection['ledger']['op_date'];
+/////////////////////////
+if($table_name == "cash_bank")
+{
+$module_id = $collection['ledger']['module_id'];	 
+}
+
 if($receipt_id == 'O_B')
 {
 $op_date2 = date('Y-m-d',$op_date->sec);
 }
+									
+
+if($receipt_id != "O_B")
+{
+/////////////////////////////////////////////////									 
+if($module_name == "Regular Bill")								 
+{									 
+$one = $this->requestAction(array('controller' => 'hms', 'action' => 'regular_bill_fetch7'),array('pass'=>array($receipt_id)));									
+foreach($one as $dddd)									 
+{
+$bill_user_id = (int)$dddd['regular_bill']['bill_for_user'];	
+}
+$two = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($bill_user_id)));									foreach($two as $ddd)
+{
+$fl_id1 = (int)$ddd['user']['flat'];	
+$wn_id1 = (int)$ddd['user']['wing'];	
+}
+
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wn_id1,$fl_id1)));									
+
+}
+else
+{
+$wing_flat = "";	
+}
+}
+
+//////////////////////////////
 
 if($receipt_id != 'O_B')
 {									
@@ -492,13 +527,9 @@ if(@$date >= $m_from && @$date <= $m_to)
 {
 if($account_type == 2)
 {
+$arrr2[] = array("transaction_date"=>strtotime($date),"narration"=>@$narration,"module_name"=>@$module_name,"pen_type"=>@$pen_type,"bill_type"=>@$bill_type,"wing_flat"=>@$wing_flat,"amount"=>@$amount,"amount_category_id"=>@$amount_category_id,"account_type"=>@$account_type,"sub_account_id"=>@$sub_account_id,"type"=>1);	
 $nnn = 5;
-												
-
 ?>
-
-
-
 <?php
 if($amount_category_id == 1)
 {
@@ -519,7 +550,9 @@ if(@$op_date2 > $m_from && @$op_date2 <= $m_to)
 {
 if($account_type == 2)
 {
-$op_date3 = date('d-m-Y',strtotime($op_date2));
+
+$arrr2[] = array("transaction_date"=>strtotime($op_date2),"narration"=>@$narration,"module_name"=>@$module_name,"pen_type"=>@$pen_type,"bill_type"=>@$bill_type,"wing_flat"=>@$wing_flat,"amount"=>@$amount,"amount_category_id"=>@$amount_category_id,"account_type"=>@$account_type,"sub_account_id"=>@$sub_account_id,"type"=>2);
+
 $nnn = 5;
 }}}}} ?>
                             
@@ -1301,6 +1334,7 @@ $close = $close + $op_im_cre - $op_im_deb;
 								
 									$total_debit = 0;
 									$total_credit = 0;
+									/*
 									foreach ($cursor3 as $collection) 
 									{
 										 $date = "";
@@ -1404,19 +1438,48 @@ $date = "";
 									
 									
 }
+*/
+function cmp_by_optionNumber($a, $b) {
+return $a["transaction_date"] - $b["transaction_date"];
+}
+usort($arrr2, "cmp_by_optionNumber");									
+//////////////////////////////////////////////////////////////									
+$total_debit = 0;
+$total_credit = 0;	
+for($t=0; $t<sizeof($arrr2); $t++)
+{
+//$arrr2 = $arrr1[$t];
+$date = "";
+$op_date2 = "";
+$narration = $arrr2[$t]['narration'];
+$module_name = $arrr2[$t]['module_name'];
+$pen_type = $arrr2[$t]['pen_type'];
+$bill_type = $arrr2[$t]['bill_type'];
+$wing_flat = $arrr2[$t]['wing_flat'];
+$amount = $arrr2[$t]['amount'];
+$amount_category_id = $arrr2[$t]['amount_category_id'];
+$account_type = (int)$arrr2[$t]['account_type'];
+$sub_account_id = (int)$arrr2[$t]['sub_account_id'];
+$type = (int)$arrr2[$t]['type'];
+if($type == 1)
+{
+$date = date('Y-m-d',$arrr2[$t]['transaction_date']); 
+//$date = date('Y-m-d',strtotime($date));	
+}
+else
+{
+$op_date2 = date('Y-m-d',$arrr2[$t]['transaction_date']);	
+//$op_date2 = date('Y-m-d',strtotime($op_date2));
+}
 									
-									
-									
-									
-									
-	if($amount_category_id == 1)
-	{
-	$amount_category = "Debit";	
-	}
-	else if($amount_category_id == 2)
-	{
-	$amount_category = "Credit";	
-	}
+if($amount_category_id == 1)
+{
+$amount_category = "Debit";	
+}
+else if($amount_category_id == 2)
+{
+$amount_category = "Credit";	
+}
 								
 									
 									if($sub_account_id == $main_id)
@@ -1426,7 +1489,7 @@ $date = "";
 											if($account_type == 2)
 											{
 										
-											 //$date = date('d-m-Y',$date->sec);	
+											 $date = date('d-m-Y',$date->sec);	
                                          
  										    
 									 	?>
@@ -1476,8 +1539,7 @@ $date = "";
 										<tr>
 										<td><?php echo $op_date3; ?></td>
 										<td>Opening Balance</td>
-										<td>Opening Balance
-										</td>
+										<td>Opening Balance</td>
 										<td>Opening Balance</td>
 										
 										<td><?php if($amount_category_id == 1) { $balance = $balance - $amount;   
@@ -1498,40 +1560,11 @@ $date = "";
 										$total_credit = $total_credit + $amount;
 										}
                                        
-										?>
-										
-										
-										
-										
-										
-										
-										
-										
-										<?php	
-											
-											
-											
-											
-											}}
-											  
-										  }
-										  
-										  
-										  
-										  
-										  
-										  
-										  
-										  
-										  
-										  }
-										 
-										  
-										  
-										  } 
-										  
-										   $closing_balance = $op_bal2 - $total_debit + $total_credit;
-										  ?>
+?>
+<?php	
+}}}}} 
+$closing_balance = $op_bal2 - $total_debit + $total_credit;
+?>
 							   
 							   <tr>
                                <th colspan="4" style="text-align:right;"><b> Total </b></th>
@@ -1543,8 +1576,7 @@ $date = "";
 							   echo $total_credit; ?> <?php //echo "    cr"; ?></th>
                                
                                 </tr>
-								
-								 <tr>
+								<tr>
                                 <th style="text-align:center;">Opening Balance:</th>
                                 <th style="text-align:center;">Total Debits
 								
