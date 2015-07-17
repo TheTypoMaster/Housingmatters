@@ -4,6 +4,9 @@ $m_from = date("Y-m-d", strtotime($date111));
 
 $m_to = date("Y-m-d", strtotime($date222));
 //$m_to = new MongoDate(strtotime($m_to));
+function cmp_by_optionNumber($a, $b) {
+return $a["transaction_date"] - $b["transaction_date"];
+}
 ?>
 
 <?php
@@ -26,7 +29,7 @@ $cursor2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger
                                     foreach ($cursor2 as $collection) 
 									{
 								    $user_name = $collection['ledger_sub_account']['name'];	
-									}
+									} 
 									
 ?>              
 <?php
@@ -69,8 +72,8 @@ else
 {
 $module_date_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch'),array('pass'=>array($table_name,$receipt_id)));
 }
- 		
-foreach ($module_date_fetch as $collection) 
+ 	
+foreach($module_date_fetch as $collection) 
 {
 $date1 = @$collection[$table_name]['transaction_date'];
 if(empty($date1))
@@ -90,48 +93,51 @@ $remark = @$collection[$table_name]['remark'];
 }
 }
 
+
 if($amount_category_id == 1)
 {
 $amount_category = "Debit";	
 }
-else if($amount_category_id == 2)
+elseif($amount_category_id == 2)
 {
 $amount_category = "Credit";
 }
+
 if($receipt_id == 'O_B')
-{ 
-if($sub_account_id == $sub_id)
-{
-if(@$op_date2 <= $m_from)
-{
-if($account_type == 1)
-{
-if($amount_category_id == 1)
-{
-$opening_balance = $opening_balance - $amount_o;
-$nnn = 5;
-}
-else if($amount_category_id == 2)
-{
-$opening_balance = $opening_balance + $amount_o;
-$nnn = 5;	
-}
-}
-}
-}
-}
+{  
+	if($sub_account_id == $sub_id)
+	{ 
+		if(@$op_date2 <= $m_from)
+		{ 
+			if($account_type == 1)
+			{ 
+				if($amount_category_id == 1)
+				{ 
+					$opening_balance = $opening_balance - $amount_o;
+					$nnn = 5;
+				}
+				else if($amount_category_id == 2)
+				{ 
+					$opening_balance = $opening_balance + $amount_o;
+					$nnn = 5;	
+				}
+			} 
+		} 
+	}exit;
+
+} ///////////////////////////////	
 $op_date2 = "";
-}
+}  
 ?>
-<?php
+<?php 
 $balance = $opening_balance;
 
 ?>
 								
-<?php
+<?php 
 $total_debit = 0;
 $total_credit = 0;
-$arrr1 = array();
+$arrr1 = array(); 
 foreach ($cursor3 as $collection) 
 {
 
@@ -252,7 +258,7 @@ $arrr1[] = array("transaction_date"=>strtotime($date),"narration"=>@$narration,"
 $nnn = 5;
 ?>
 
-<?php
+<?php 
 if($amount_category_id == 1)
 {
 $total_debit = $total_debit + $amount;
@@ -411,7 +417,7 @@ $balance = $opening_balance;
 
 ?>										
 
-<?php
+<?php 
 $total_debit = 0;
 $total_credit = 0;
 $arrr2 = array();
@@ -616,7 +622,7 @@ $cursor2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger
 <th colspan="4"></th>
 </tr>
 							
-					<?php
+					<?php 
                     $close = 0;
                     $opening_balance = 0;
                     foreach ($cursor3 as $collection) 
@@ -906,9 +912,7 @@ $arrr1[$l] = $sub_arr1;
 */
 
 
-function cmp_by_optionNumber($a, $b) {
-return $a["transaction_date"] - $b["transaction_date"];
-}
+
 usort($arrr1, "cmp_by_optionNumber");
 
 
@@ -1438,10 +1442,11 @@ $date = "";
 									
 									
 }
-*/
+
+
 function cmp_by_optionNumber($a, $b) {
 return $a["transaction_date"] - $b["transaction_date"];
-}
+}*/
 usort($arrr2, "cmp_by_optionNumber");									
 //////////////////////////////////////////////////////////////									
 $total_debit = 0;
@@ -1489,8 +1494,8 @@ $amount_category = "Credit";
 											if($account_type == 2)
 											{
 										
-											 $date = date('d-m-Y',$date->sec);	
-                                         
+											 //$date = date('d-m-Y',$date->sec);	
+                                         $date = date('d-m-Y',strtotime($date));
  										    
 									 	?>
 										
