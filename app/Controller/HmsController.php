@@ -4314,11 +4314,8 @@ if($n>0)
 $random=mt_rand(10000,99999);
 $this->loadmodel('user');
 $this->user->updateAll(array('password'=>$random),array('user.email'=>$to));
-$from_name=$username;
-$subject="Password";
-
-
-
+$from_name="HousingMatters Support Team";
+$subject="Password reset code";
 $message_web="<div>
 <img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 <span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
@@ -14502,7 +14499,7 @@ $this->set('result_society',$result);
 		$society_id=(int)$this->request->data['society'];
 		$wing=(int)$this->request->data['wing'];
 		$flat=(int)$this->request->data['flat'];
-		$residing=(int)$this->request->data['residing'];
+		//$residing=(int)$this->request->data['residing'];
 		$tenant=(int)$this->request->data['tenant'];
 		if($tenant==1)
 		{
@@ -14528,7 +14525,7 @@ $this->set('result_society',$result);
 	
 $i=$this->autoincrement('user_temp','user_temp_id');
 $this->loadmodel('user_temp');
-$this->user_temp->save(array('user_temp_id'=>$i,'user_name'=>$user_name,'email'=>$email,'mobile'=>$mobile,'password'=>'',"society_id" => $society_id,"committee" => $committee,'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,'residing' => $residing,"role"=>2,"complete_signup"=>1,'reject'=>0,'login_id'=>$login_id,'date'=>$date,'time'=>$time,'multiple_society'=>1));
+$this->user_temp->save(array('user_temp_id'=>$i,'user_name'=>$user_name,'email'=>$email,'mobile'=>$mobile,'password'=>'',"society_id" => $society_id,"committee" => $committee,'tenant' => $tenant, 'wing' => $wing, 'flat' => $flat,"role"=>2,"complete_signup"=>1,'reject'=>0,'login_id'=>$login_id,'date'=>$date,'time'=>$time,'multiple_society'=>1));
 if($tenant==1)
 {
 $owner="Yes";

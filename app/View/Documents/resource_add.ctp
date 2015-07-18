@@ -247,7 +247,7 @@ $.validator.setDefaults({ ignore: ":hidden:not(select)" });
 	      },
 		  file: {
 	       
-	        //required: true,
+	        required: true,
 			filesize: 2097152
 	      },
 		  
