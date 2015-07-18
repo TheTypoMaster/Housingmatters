@@ -462,7 +462,7 @@ $conditions=array("society_id" => $s_society_id);
 $cursor=$this->society->find('all',array('conditions'=>$conditions));
 foreach ($cursor as $collection)
 {
-$sms_id = $collection['society']['account_sms'];
+$sms_id = (int)$collection['society']['account_sms'];
 $society_name_sms = $collection['society']['society_name'];
 }
 
@@ -482,14 +482,14 @@ foreach ($cursor as $collection)
 {
  $user_name_sms = $collection['user']['user_name'];
 //$mobile = $collection['user']['mobile'];	
-//$mobile = "9799463210";
-}
 $mobile = "9799463210";
+}
+//$mobile = "9799463210";
 	$sms_user_ad=$user_name_sms;
 	$sms_cash=explode(' ',$sms_user_ad);
 	 $sms_user_ad=$sms_cash[0];
 
-if(1 == 1)
+if($sms_id == 1)
 {
 $r_sms=$this->hms_sms_ip();
 $working_key=$r_sms->working_key;
@@ -575,9 +575,9 @@ $result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile
 											$flat_id = (int)$collection['user']['flat'];
 											$tenant = (int)$collection['user']['tenant'];
 											$user_name = $collection['user']['user_name'];
-											//$to = $collection['user']['email'];
+											$to = $collection['user']['email'];
 											}	
-											$to = "nikhileshvyas4455@gmail.com";
+											//$to = "nikhileshvyas4455@gmail.com";
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action'=>'wing_flat'),array('pass'=>array($wing_id,$flat_id)));									
 }  
 $result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($sub_account))); 
@@ -662,7 +662,7 @@ $message_mail.='<div align="center" style="background-color: rgb(0, 141, 210);pa
 </table>';
 
  $message_mail.='</div>';
-if(1 == 1)
+if($mail_id == 1)
 {
 
 $subject = "Bank Receipt";
