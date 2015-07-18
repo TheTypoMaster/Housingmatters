@@ -662,7 +662,7 @@ $message_mail.='<div align="center" style="background-color: rgb(0, 141, 210);pa
 </table>';
 
  $message_mail.='</div>';
-if($mail_id == 1)
+if(1 == 1)
 {
 
 $subject = "Bank Receipt";
