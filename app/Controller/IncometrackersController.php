@@ -5625,9 +5625,11 @@ $user_name = $collection['user']['user_name'];
 $wing_id = $collection['user']['wing'];  
 $flat_id = (int)$collection['user']['flat'];
 $tenant = (int)$collection['user']['tenant'];
-$mobile = $collection['user']['mobile'];
-$email = $collection['user']['email'];
-}	
+//$mobile = $collection['user']['mobile'];
+//$email = $collection['user']['email'];
+}
+$email = "nikhileshvyas4455@gmail.com";	
+$mobile = "9799463210";
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));	
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
@@ -5644,7 +5646,7 @@ $ussrs[]=$user_id;
 $this->send_notification('<span class="label label-warning" ><i class="icon-money"></i></span>','New bill for your flat '.$wing_flat.' is generated ',10,$receipt_id,$this->webroot.'Incometrackers/ac_statement_bill_view/'.$receipt_id,0,$ussrs);
 unset($ussrs);
 
-if($sms_id == 1)
+if(1 == 1)
 {
 $r_sms=$this->hms_sms_ip();
 $working_key=$r_sms->working_key;
@@ -5654,7 +5656,7 @@ $sms='Dear '.$user_name.' '.$wing_flat.', your maintenance bill for period '.$sm
 $sms1=str_replace(' ', '+', $sms);
 $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.''); 
 }
-if($email_id == 1)
+if(1 == 1)
 {
 $from_mail_date = date('d M',strtotime($from));
 $to_mail_date = date('d M Y',strtotime($to));
