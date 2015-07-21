@@ -1,4 +1,6 @@
 <?php
+if($type == 1 && !empty($value1))
+{
 foreach ($cursor1 as $collection)
 {
 $user_id = (int)$collection['ledger_sub_account']['user_id'];
@@ -47,10 +49,21 @@ Receipt Applied towards following bill:
 
 <input type="hidden" value="<?php echo $bill_no; ?>" name="bill_no" id="bll" />
 <label report="amt2" class="remove_report"></label>
+
 <?php
-
-
-
+}
+if($type == 2)
+{
+?>	
+<label style="font-size:14px;">Amount<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text" name="aammtt" class="m-wrap span9" id="mmm" />
+</div>
+<label report="mmm"></label>
+<br />	
+<?php	
+}
+?>
 
 
 

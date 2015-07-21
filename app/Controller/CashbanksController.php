@@ -2403,6 +2403,8 @@ $s_society_id = $this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
 
 $value1 = (int)$this->request->query('value1');
+$type = (int)$this->request->query('t');
+$this->set('type',$type);
 $this->set('value1',$value1);
 
 $this->loadmodel('ledger_sub_account');

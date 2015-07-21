@@ -238,11 +238,12 @@ Non-Member
 
 		<script>
 		$(document).ready(function() {
-		$("#go").live('change',function(){
-
+		$("#ttt").live('click',function(){
+        
+		var type = $('#ttt:checked').val();
 		var value1 = document.getElementById('go').value;
 		//var date2=document.getElementById('date2').value;
-		$("#result").load("bank_receipt_reference_ajax?value1=" +value1 + "");
+		$("#result").load("bank_receipt_reference_ajax?value1=" +value1+ "&t=" +type+ "");
 		});
 
 		$("#i_head").live('change',function(){
@@ -321,7 +322,12 @@ $(document).ready(function(){
 	        required: true
 	      },
 		  
-		  
+		  aammtt: {
+			required: true  
+		  },
+		rr_type : {
+		required: true  	
+		},
 				  
 		   bank_account: {
 	       
