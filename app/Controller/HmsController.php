@@ -21367,7 +21367,6 @@ $auto_id2 = (int)$auto_id22;
 $no_of_flat2 = (int)$no_of_flat22;
 }
 
-$no_of_flat2 = (int)$no_of_flat2 - 1;
 if($no_of_flat2 == 0)
 {
 $this->loadmodel('flat_type');
@@ -21406,9 +21405,6 @@ $this->loadmodel('flat');
 $this->flat->updateAll(array("flat_area"=>$area,"flat_type_id"=>$flat_type),array("flat_id" => $flat_id5,"society_id"=>$s_society_id));	
 }
 }
-
-
-
 /*
 $l = (int)$this->autoincrement('flat','flat_id');
 $this->loadmodel('flat');
