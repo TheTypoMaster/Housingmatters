@@ -599,14 +599,14 @@ $society_name = $collection['society']['society_name'];
 }
 ?>
 <tr>
-<th colspan="5" style="text-align:center;">
+<th colspan="7" style="text-align:center;">
 <p style="font-size:15px;"><?php echo $society_name; ?> Society
 </p>
 </th>
 </tr>
 
 <tr>
-<th colspan="5" style="text-align:center;">
+<th colspan="7" style="text-align:center;">
 <p style="font-size:15px;">
 Trial balance For The Period <?php echo $from_d; ?> to <?php echo $to_d; ?>
 </p>
@@ -616,6 +616,8 @@ Trial balance For The Period <?php echo $from_d; ?> to <?php echo $to_d; ?>
 		
 		<tr>
 		<th>Account Name</th>
+        <th>Wing</th>
+        <th>Unit Number</th>
 		<th>Opening Balance</th>
 		<th>Debit</th>
 		<th>Credit</th>
@@ -623,14 +625,35 @@ Trial balance For The Period <?php echo $from_d; ?> to <?php echo $to_d; ?>
 		</tr>
 
 		<?php
-		$grand_total_debit = 0;
-		$grand_total_credit = 0;
-        $grand_total_opening_balance = 0;
-		$grand_total_closing_balance = 0;
+$grand_total_debit = 0;
+$grand_total_credit = 0;
+$grand_total_opening_balance = 0;
+$grand_total_closing_balance = 0;
 foreach($cursor4 as $collection)
 {
 $auto_id11 = (int)$collection['ledger_sub_account']['auto_id'];
 $account_name = $collection['ledger_sub_account']['name'];
+$user_id = (int)$collection['ledger_sub_account']['user_id'];
+
+$ccccc1 = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array(@$user_id)));		
+foreach($ccccc1 as $collection)
+{
+$wing_id = (int)$collection['user']['wing'];
+$flat_id = (int)$collection['user']['flat'];
+}
+
+$ccccc2 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch'),array('pass'=>array(@$flat_id)));		
+foreach($ccccc2 as $collection)
+{
+$flat_name = $collection['flat']['flat_name'];
+}
+
+$ccccc3 = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_fetch'),array('pass'=>array(@$wing_id)));		
+foreach($ccccc3 as $collection)
+{
+$wing_name = $collection['wing']['wing_name'];
+}
+
 $total_debit1 = 0;
 $total_credit1 = 0;
 $total_opening_balance = 0;
@@ -767,6 +790,8 @@ $total_closing_balance = $total_closing_balance + $amount1;
 <td>          
 <?php echo $account_name; ?>
 </td>
+<td><?php echo $wing_name; ?></td>
+<td><?php echo $flat_name; ?></td>
 <td><?php 
 		if($total_opening_balance > 0)
 		{
@@ -806,7 +831,7 @@ $total_closing_balance = $total_closing_balance + $amount1;
 		<?php }} ?>
 		
 		<tr>
-		<th>Total</th>
+		<th colspan="3">Total</th>
 		<th><?php 
 		if($grand_total_opening_balance > 0)
 		{
