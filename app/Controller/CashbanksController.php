@@ -196,7 +196,16 @@ $cheque_date = $this->request->data['cheque_date'];
 if($member_id == 1)
 {
 $received_from = (int)$this->request->data['recieved_from2'];
+$rr_type = (int)$this->request->data['rr_type'];
+if($rr_type == 1)
+{
 $amount = $this->request->data['amount'];
+}
+if($rr_type == 2)
+{
+$amount = $this->request->data['aammtt'];
+}
+
 }
 if($member_id == 2)
 {
@@ -247,7 +256,7 @@ $multipleRowData = Array( Array("transaction_id" => $auto, "receipt_id" => $i, "
 "transaction_date" => $date, "prepaired_by" => $s_user_id, 
 "user_id" => $received_from, "bill_reference" => $bill_no,"narration" => $description, "receipt_mode" => $receipt_mode,
 "receipt_instruction" => $receipt_instruction, "account_head" => $sub_account_id,   
-"amount" => $amount, "amount_category_id" => 1, "society_id" => $s_society_id,"member" => $member_id,"module_id"=>1,"cheque_number"=>$cheque_number,"reference_number"=>$reference_number,"which_bank"=>$which_bank,"cheque_date"=>$cheque_date));
+"amount" => $amount, "amount_category_id" => 1, "society_id" => $s_society_id,"member" => $member_id,"module_id"=>1,"cheque_number"=>$cheque_number,"reference_number"=>$reference_number,"which_bank"=>$which_bank,"cheque_date"=>$cheque_date,"receipt_for_type"=>$rr_type));
 $this->cash_bank->saveAll($multipleRowData);  
 
 $trns_id=(int)$auto;

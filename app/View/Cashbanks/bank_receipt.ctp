@@ -325,9 +325,10 @@ $(document).ready(function(){
 		  aammtt: {
 			required: true  
 		  },
-		rr_type : {
-		required: true  	
-		},
+		
+		 rr_type : {
+		   required: true  	
+		  },
 				  
 		   bank_account: {
 	       
