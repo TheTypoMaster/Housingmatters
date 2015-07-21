@@ -46,6 +46,15 @@ if(rs1=== '') { $('#validate_result').html('<div style="background-color:white; 
 </tr>
 </table> 
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+
+<div class="alert alert-error hide" id="mgg">
+<button class="close" data-dismiss="alert"></button>
+<center>
+<strong>Record Updated Successfully</strong>
+</center>
+</div>
+
+
 <form method="post">
 <center>
 <br /><Br />
@@ -173,7 +182,7 @@ if($b == 5)
 </div>
 <div class="modal-footer">
 <a href="<?php echo $webroot_path; ?>Incometrackers/master_rate_card" class="btn blue" rel='tab'>No</a>
-<button type="submit" class="btn blue form_post" submit_type="con">Yes</button>
+<button type="submit" class="btn blue form_post" submit_type="con" onclick="mssg()">Yes</button>
 </div>
 </div>
 </div> 
@@ -255,13 +264,14 @@ $(document).ready(function() {
 </script>
 
 		
+<script>
+function mssg()
+{
 
-
-
-
-
-
-
+$("#mgg").show();
+setTimeout( function(){$('#mgg').hide();} , 3000);
+}
+</script>
 
 
 

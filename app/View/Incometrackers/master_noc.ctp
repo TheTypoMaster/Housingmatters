@@ -34,7 +34,13 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <a href="master_noc" class='btn red' role="button" rel='tab'>Non Occupancy Charges</a>
 <a href="master_noc_status" class='btn blue' role="button"  rel='tab'>Non Occupancy Status</a>
 </div>
-          
+
+<div class="alert alert-error hide" id="mgg">
+<button class="close" data-dismiss="alert"></button>
+<center>
+<strong>Record Updated Successfully</strong>
+</center>
+</div>        
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>  
 <br /><br />
 <center>
@@ -116,7 +122,7 @@ $amt = "";
 </div>
 <div class="modal-footer">
 <a href="<?php echo $webroot_path; ?>Incometrackers/master_noc" class="btn blue" rel='tab'>No</a>
-<button type="submit" class="btn blue form_post" submit_type="con">Yes</button>
+<button type="submit" class="btn blue form_post" submit_type="con" onclick="mssg()">Yes</button>
 </div>
 </div>
 </div> 
@@ -221,7 +227,13 @@ $(document).ready(function() {
 
 </script>
 
-
+<script>
+function mssg()
+{
+$("#mgg").show();
+setTimeout( function(){$('#mgg').hide();} , 3000);
+}
+</script>
 
 
 

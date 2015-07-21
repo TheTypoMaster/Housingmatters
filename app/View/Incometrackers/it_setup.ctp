@@ -32,14 +32,14 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </table> 
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">
-<h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i>Add New Terms and Condition</h4>
+<h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i>Add New Remarks</h4>
 
 <div class="row-fluid">
 <div class="span5">
 <form  method="post" id="contact-form">
-<label style="font-size:14px;" >Terms & Conditions<span style="color:red;">*</span></label>
+<label style="font-size:14px;" >Remarks<span style="color:red;">*</span></label>
 <div class="controls">
-<textarea class="span9 m-wrap" name="terms" style="resize:none;" rows="4" id="tem" placeholder="Please Type Terms & Condition"></textarea>
+<textarea class="span9 m-wrap" name="terms" style="resize:none;" rows="4" id="tem" placeholder="Please Type Remarks"></textarea>
 <label id="tem"></label>
 </div>
 <br />
