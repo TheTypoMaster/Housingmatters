@@ -13,7 +13,7 @@ $n_message=$data['notice']['n_message'];
 $n_attachment=$data['notice']['n_attachment'];
 $n_date=$data['notice']['n_date'];
 $n_time=$data['notice']['n_time'];
-$allowed=$data['notice']['allowed'];
+$allowed=@$data['notice']['allowed'];
 }
 ?>
 
