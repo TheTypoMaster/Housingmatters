@@ -21352,6 +21352,7 @@ else if($ww == 5)
 {
 if($flat_tttdd != $flat_type)
 {
+
 $this->loadmodel('flat_type');
 $condition=array('society_id'=>$s_society_id,"flat_type_id"=>$flat_tttdd);
 $cursor = $this->flat_type->find('all',array('conditions'=>$condition)); 
@@ -21366,7 +21367,9 @@ $bbbb = (int)$auto_id22;
 $auto_id2 = (int)$auto_id22;
 $no_of_flat2 = (int)$no_of_flat22;
 }
+}
 
+$no_of_flat2 = $no_of_flat2 - 1;
 if($no_of_flat2 == 0)
 {
 $this->loadmodel('flat_type');
@@ -21378,11 +21381,8 @@ else
 $this->loadmodel('flat_type');
 $this->flat_type->updateAll(array("number_of_flat"=>$no_of_flat2),array("auto_id"=>$auto_id2));
 }
-}
-else
-{
-$hhh = 555;
-}
+
+
 if($mmm == 5)
 {
 $no_of_flat = 1;
@@ -21395,12 +21395,10 @@ $this->flat->updateAll(array("flat_area"=>$area,"flat_type_id"=>$flat_type),arra
 }
 else if($mmm == 55)
 {
-if($hhh == 555)
-{
 $no_of_flat++;
 $this->loadmodel('flat_type');
 $this->flat_type->updateAll(array("number_of_flat"=>$no_of_flat),array("auto_id"=>$auto_id));
-}
+
 $this->loadmodel('flat');
 $this->flat->updateAll(array("flat_area"=>$area,"flat_type_id"=>$flat_type),array("flat_id" => $flat_id5,"society_id"=>$s_society_id));	
 }
