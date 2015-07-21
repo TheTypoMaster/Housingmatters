@@ -33,6 +33,7 @@ $nn = 555;
 <th style="text-align:left;">Bill Number</th>
 <th style="text-align:left;">Member name</th>
 <th style="text-align:left;">Flat area(Sq.Ft.)</th>
+<th style="text-align:left;">Wing Name</th>
 <th style="text-align:left;">Unit Number</th>
 <th style="text-align:left;">Bill Amount</th>
 <th style="text-align:left;">Selection</th>
@@ -64,6 +65,14 @@ $area = $collection['flat']['flat_area'];
 $unit_number = $collection['flat']['flat_name'];
 }
 
+$result6 = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_fetch'),array('pass'=>array($wing_id)));	
+foreach($result6 as $data)
+{
+$wing_name = $data['wing']['wing_name'];	
+}
+
+
+
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));	
 if($tenant == 1)
 {
@@ -76,8 +85,9 @@ $ten = "Tenant";
 ?>
 <tr>
 <td style="text-align:right;"><?php echo $bill_number; ?></td>
-<td style="text-align:left;"><?php echo $user_name; ?> &nbsp;&nbsp; (<?php echo $wing_flat; ?>)</td>
+<td style="text-align:left;"><?php echo $user_name; ?></td>
 <td style="text-align:left;"><?php echo $area; ?> &nbsp;&nbsp; Sq.Ft.</td>
+<td style="text-align:left;"><?php echo $wing_name; ?></td>
 <td style="text-align:right;"><?php echo $unit_number; ?></td>
 <td style="text-align:right;"><?php echo $bill_amt; ?></td>
 <td style="text-align:left;">

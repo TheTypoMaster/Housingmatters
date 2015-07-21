@@ -20771,7 +20771,7 @@ $p=$this->autoincrement('flat_type','auto_id');
 $this->flat_type->saveAll(array("auto_id" => $p,"flat_type_id"=> $flat_type5,"number_of_flat"=>$no_of_flat,"status"=>0,"society_id"=>$s_society_id));
 
 $this->loadmodel('flat');
-$this->flat->updateAll(array("flat_area"=>$flat_area5,"flat_type_id"=>$p),array("flat_id"=>$flat_id5));
+$this->flat->updateAll(array("flat_area"=>$flat_area5,"flat_type_id"=>$flat_type5),array("flat_id"=>$flat_id5));
 }
 else if($qqq == 55)
 {
@@ -20780,7 +20780,7 @@ $this->loadmodel('flat_type');
 $this->flat_type->updateAll(array("number_of_flat"=>$no_of_flat),array("auto_id"=>$auto_id));
 
 $this->loadmodel('flat');
-$this->flat->updateAll(array("flat_area"=>$flat_area5,"flat_type_id"=>$auto_id),array("flat_id"=>$flat_id5));
+$this->flat->updateAll(array("flat_area"=>$flat_area5,"flat_type_id"=>$flat_type5),array("flat_id"=>$flat_id5));
 }
 
 }
@@ -21329,7 +21329,7 @@ $output=json_encode(array('report_type'=>'vali','text'=>'Flat Area Should be Num
 die($output);
 }
 }
-
+$bbbb = "pp";
 foreach($myArray as $child)
 {
 $wing_id5 = (int)$child[0];
@@ -21338,7 +21338,7 @@ $flat_type = (int)$child[2];
 $area = $child[3];
 $insert = (int)$child[4];
 
-
+$ww = 5;
 $this->loadmodel('flat');
 $conditions=array("society_id" => $s_society_id);
 $cursor1 = $this->flat->find('all',array('conditions'=>$conditions));
@@ -21347,10 +21347,18 @@ foreach($cursor1 as $collection)
 $wing_id2 = (int)$collection['flat']['wing_id'];
 $flat_name2 = $collection['flat']['flat_name'];
 $flat_id = (int)$collection['flat']['flat_id'];
+$flat_area = (int)$collection['flat']['flat_area'];
+$flat_ttt_ppp = (int)$collection['flat']['flat_type_id'];
+
 if($flat_name2 == $flat_name)
 { 
 $wing_id5 = (int)$wing_id2;
 $flat_id5 = (int)$flat_id;
+$flat_tttdd = (int)$flat_ttt_ppp;
+if($flat_area == 0)
+{
+$ww = 555;
+}
 }
 }
 if($insert == 2)
@@ -21365,19 +21373,17 @@ $auto_id = (int)@$collection['flat_type']['auto_id'];
 $no_of_flat = (int)@$collection['flat_type']['number_of_flat'];
 $mmm = 55;
 }
-
+if($ww == 555)
+{
 if($mmm == 5)
 {
 $no_of_flat = 1;
-
 $this->loadmodel('flat_type');
 $p=$this->autoincrement('flat_type','auto_id');
 $this->flat_type->saveAll(array("auto_id" => $p,"flat_type_id"=> $flat_type,"number_of_flat"=>$no_of_flat,"status"=>0,"society_id"=>$s_society_id));
 
-
 $this->loadmodel('flat');
 $this->flat->updateAll(array("flat_area"=>$area,"flat_type_id"=>$flat_type),array("flat_id" => $flat_id5,"society_id"=>$s_society_id));		
-
 }
 else if($mmm == 55)
 {
@@ -21387,12 +21393,68 @@ $this->flat_type->updateAll(array("number_of_flat"=>$no_of_flat),array("auto_id"
 
 $this->loadmodel('flat');
 $this->flat->updateAll(array("flat_area"=>$area,"flat_type_id"=>$flat_type),array("flat_id" => $flat_id5,"society_id"=>$s_society_id));	
-
+}
+}
+else if($ww == 5)
+{
+if($flat_tttdd != $flat_type)
+{
+$ggg = 5;
+$this->loadmodel('flat_type');
+$condition=array('society_id'=>$s_society_id,"flat_type_id"=>$flat_tttdd);
+$cursor = $this->flat_type->find('all',array('conditions'=>$condition)); 
+foreach($cursor as $collection)
+{
+$auto_id22 = (int)@$collection['flat_type']['auto_id'];
+$no_of_flat22 = (int)@$collection['flat_type']['number_of_flat'];
+}
+if($bbbb != $auto_id22)
+{
+$bbbb = (int)$auto_id22;
+$auto_id2 = (int)$auto_id22;
+$no_of_flat2 = (int)$no_of_flat22;
+}
+}
+else
+{
+$ggg = 555;
+}
+$no_of_flat2 = $no_of_flat2 - 1;
+if($no_of_flat2 == 0)
+{
+$this->loadmodel('flat_type');
+$conditions=array('flat_type.auto_id'=>$auto_id2);
+$this->flat_type->deleteAll($conditions);
+}
+else
+{
+$this->loadmodel('flat_type');
+$this->flat_type->updateAll(array("number_of_flat"=>$no_of_flat2),array("auto_id"=>$auto_id2));
 }
 
 
+if($mmm == 5)
+{
+$no_of_flat = 1;
+$this->loadmodel('flat_type');
+$p=$this->autoincrement('flat_type','auto_id');
+$this->flat_type->saveAll(array("auto_id" => $p,"flat_type_id"=> $flat_type,"number_of_flat"=>$no_of_flat,"status"=>0,"society_id"=>$s_society_id));
 
-
+$this->loadmodel('flat');
+$this->flat->updateAll(array("flat_area"=>$area,"flat_type_id"=>$flat_type),array("flat_id" => $flat_id5,"society_id"=>$s_society_id));		
+}
+else if($mmm == 55)
+{
+if($ggg == 5)
+{
+$no_of_flat++;
+$this->loadmodel('flat_type');
+$this->flat_type->updateAll(array("number_of_flat"=>$no_of_flat),array("auto_id"=>$auto_id));
+}
+$this->loadmodel('flat');
+$this->flat->updateAll(array("flat_area"=>$area,"flat_type_id"=>$flat_type),array("flat_id" => $flat_id5,"society_id"=>$s_society_id));	
+}
+}
 /*
 $l = (int)$this->autoincrement('flat','flat_id');
 $this->loadmodel('flat');

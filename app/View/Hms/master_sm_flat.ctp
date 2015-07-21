@@ -163,13 +163,9 @@ $flat_type_name = $collection['flat_type_name']['flat_name'];
 								$flat_area = (int)@$data['flat']['flat_area'];
 								$flat_type_id = (int)@$data['flat']['flat_type_id'];
 								
-								$fl_tp = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_fetch2'),array('pass'=>array($flat_type_id)));		
-								foreach($fl_tp as $collection)
-								{
-								$flat_type_id2 = (int)$collection['flat_type']['flat_type_id'];
-								}
+								
 
-								$fl_tp2 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_name_fetch'),array('pass'=>array(@$flat_type_id2)));		
+								$fl_tp2 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_name_fetch'),array('pass'=>array(@$flat_type_id)));		
 								foreach($fl_tp2 as $collection)
 								{
 								$flat_type_name = $collection['flat_type_name']['flat_name'];
