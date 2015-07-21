@@ -211,11 +211,28 @@ required: true,
 },
 flat: {
 required: true,
+
+ remote: {
+        url: "flat_aleready_exits",
+        type: "post",
+        data: {
+          society: function() {
+             return $("#soc_wing").val();
+			 return $("#flat").val();
+			}
+			
+			}
+			}
 },
 residing: {
 required: true,
 }
 },
+messages: {
+	           flat: {
+	                    remote: "Flat is Already Exist."
+	                }
+	            },
 highlight: function(element) {
 $(element).closest('.control-group').removeClass('success').addClass('error');
 },

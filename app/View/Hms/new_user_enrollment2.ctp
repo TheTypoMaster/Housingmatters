@@ -40,7 +40,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 	</form>
 </div>
 
-								
+<div id="report_id"></div>								
 <div id="report"></div>
 <table class="table table-bordered">
 <tr>
@@ -113,6 +113,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </div>
 <script>
 $(document).ready(function(){
+
 	 $("#add_row").bind('click',function(){
 		var count = $("#myTable tr").length;
 		count++;
@@ -202,7 +203,9 @@ $(document).ready(function(){
 				});
 			}
 			if(response.report_type=='already_error'){
-				$("#report").html(response.text);
+				$("#report_id").html("<div class='alert alert-block alert-success fade in'><p>"+response.text+"</p></div>");
+				setTimeout( function(){$('#report_id').html('');} , 5000);
+				
 			}
 			if(response.report_type=='success'){
 				$("#report_success_pop").html("<div class='alert alert-block alert-success fade in'><h4 class='alert-heading'>Success!</h4><p>"+response.text+"</p><p><a class='btn green' href='<?php echo $webroot_path; ?>Hms/society_member_view' rel='tab' role='button'>Ok</a></p></div>");
@@ -269,7 +272,8 @@ $(document).ready(function(){
 				});
 			}
 			if(response.report_type=='already_error'){
-				$("#report").html(response.text);
+				$("#report_id").html("<div class='alert alert-block alert-success fade in'><p>"+response.text+"</p></div>");
+				setTimeout( function(){$('#report_id').html('');} , 5000);
 			}
 			$(".import_btn").text("Import");
 		});
@@ -281,4 +285,5 @@ $(document).ready(function(){
 			});
 	});
 });
+
 </script>

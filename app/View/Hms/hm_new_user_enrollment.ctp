@@ -278,6 +278,17 @@ required: true,
 },
 flat: {
 required: true,
+remote: {
+        url: "flat_aleready_exits",
+        type: "post",
+        data: {
+          society: function() {
+             return $( "#soc_wing" ).val();
+			 return $( "#flat" ).val();
+			}
+			
+			}
+			}
 },
 mobile: {
 
@@ -295,6 +306,9 @@ messages: {
 	                },
 					 mobile: {
 	                    remote: "Mobile-No is Already Exist."
+	                },
+					flat: {
+	                    remote: "Flat is Already Exist."
 	                }
 	            },
 highlight: function(element) {
