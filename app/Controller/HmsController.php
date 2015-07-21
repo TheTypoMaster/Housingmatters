@@ -20724,7 +20724,7 @@ $p=$this->autoincrement('flat_type','auto_id');
 $this->flat_type->saveAll(array("auto_id" => $p,"flat_type_id"=> $flat_type5,"number_of_flat"=>$no_of_flat,"status"=>0,"society_id"=>$s_society_id));
 
 $this->loadmodel('flat');
-$this->flat->updateAll(array("flat_area"=>$flat_area5,"flat_type_id"=>$p),array("flat_id"=>$flat_id5));
+$this->flat->updateAll(array("flat_area"=>$flat_area5,"flat_type_id"=>$flat_type5),array("flat_id"=>$flat_id5));
 }
 else if($qqq == 55)
 {
@@ -20733,7 +20733,7 @@ $this->loadmodel('flat_type');
 $this->flat_type->updateAll(array("number_of_flat"=>$no_of_flat),array("auto_id"=>$auto_id));
 
 $this->loadmodel('flat');
-$this->flat->updateAll(array("flat_area"=>$flat_area5,"flat_type_id"=>$auto_id),array("flat_id"=>$flat_id5));
+$this->flat->updateAll(array("flat_area"=>$flat_area5,"flat_type_id"=>$flat_type5),array("flat_id"=>$flat_id5));
 }
 
 }
