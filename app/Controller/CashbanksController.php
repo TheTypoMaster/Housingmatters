@@ -2497,6 +2497,17 @@ $this->set('cursor2',$cursor2);
 
 
 }
+
+function b_receipt_edit(){
+	if($this->RequestHandler->isAjax()){
+	$this->layout='blank';
+	}else{
+	$this->layout='session';
+	}
+	
+	$this->ath();
+	
+}
 ////////////////////////////////////////// End Bank Receipt Pdf (Accounts)////////////////////////////////////
 
 /////////////////// Start Cash Bank Vali (Accounts) ////////////////////////////////////
