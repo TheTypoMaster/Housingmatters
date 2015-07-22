@@ -20264,6 +20264,16 @@ foreach($myArray as $child){
 	  $mobile_no1[]=$child[4];
 	  $mobile_no2[]=$child[4];
 	}
+	
+	
+	if((sizeof(@$email_addrs1)>0) && (sizeof(@$email_addrs2)>0)){
+	$email_addrs1 = array_unique($email_addrs1);
+	if(sizeof(@$email_addrs1)!=sizeof(@$email_addrs2)){
+	$output = json_encode(array('report_type'=>'already_error', 'text' => 'Email should not be same in two or more rows.'));
+        die($output);
+}
+}
+
 }
 
 if(sizeof($report)>0){
