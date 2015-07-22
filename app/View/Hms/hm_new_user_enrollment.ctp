@@ -279,7 +279,7 @@ required: true,
 flat: {
 required: true,
 remote: {
-        url: "flat_aleready_exits",
+        url: "flat_already_exits",
         type: "post",
         data: {
           society: function() {

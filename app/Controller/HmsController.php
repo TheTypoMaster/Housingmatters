@@ -4176,7 +4176,23 @@ $result = $this->flat->find('all',array('conditions'=>$conditions));
 $this->set('result3',$result);
 }
 
-
+function flat_already_exits()
+{
+$this->layout='blank_signup';
+//$flat=(int)$this->request->query['flat'];
+$society=(int)$this->request->data['society'];
+$flat=(int)$this->request->data['flat'];
+$this->loadmodel('user');
+$conditions=array("flat" => $flat,'society_id'=>$society);
+$result4 = $this->user->find('all',array('conditions'=>$conditions));
+$n4 = sizeof($result4);
+$e=$n4;
+if ($e > 0) {
+echo "false";
+} else {
+echo "true";
+} 
+}
 
 function signup_emilexits()
 {
