@@ -2498,7 +2498,7 @@ $this->set('cursor2',$cursor2);
 
 }
 
-function b_receipt_edit(){
+function b_receipt_edit($trns_id=null,$module_id=null){
 	if($this->RequestHandler->isAjax()){
 	$this->layout='blank';
 	}else{
@@ -2507,6 +2507,10 @@ function b_receipt_edit(){
 	
 	$this->ath();
 	
+	$this->loadmodel('cash_bank');
+	$conditions=array("transaction_id" => $trns_id,"module_id"=>$module_id);
+	$cursor1=$this->cash_bank->find('all',array('conditions'=>$conditions));
+	$this->set('cursor1',$cursor1);
 }
 ////////////////////////////////////////// End Bank Receipt Pdf (Accounts)////////////////////////////////////
 

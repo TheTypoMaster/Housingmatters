@@ -1,3 +1,5 @@
+<?php
+pr($cursor1); ?>
 <div class="portlet box blue">
  <div class="portlet-title">
 	<h4><i class="icon-reorder"></i>Edit Reciept</h4>
