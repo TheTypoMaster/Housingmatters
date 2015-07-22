@@ -401,7 +401,7 @@ $("#hhhh").show();
 
 <div id="hhhh" class="hide">
 <div class="modal-backdrop fade in"></div>
-<form method="post">
+<form method="post" id="contact-form">
 <div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
 <div class="modal-header">
 <center>
@@ -410,7 +410,9 @@ $("#hhhh").show();
 </div>
 <div class="modal-body">
 <input type="text" name="cat_name" placeholder="Name" class="m-wrap large" style="background-color:white !important;" id="cat">
+<label id="cat"></label>
 <input type="text" name="sp_id" class="m-wrap large" placeholder="Service Provider Id" id="si" style="background-color:white !important;">
+<label id="si"></label>
 </div>
 <div class="modal-footer">
 <a href="<?php echo $webroot_path; ?>Expensetrackers/expense_tracker_add" class="btn blue" rel='tab'>No</a>
@@ -442,3 +444,55 @@ $("#hhhh").show();
 </div>
 </div>
 -->
+
+<script>
+$(document).ready(function(){
+	
+	 jQuery.validator.addMethod("notEqual", function(value, element, param) {
+  return this.optional(element) || value !== param;
+}, "Please choose Other value!");
+	
+		$.validator.setDefaults({ ignore: ":hidden:not(select)" });
+		
+		$('#contact-form').validate({
+	
+		errorElement: "label",
+                    //place all errors in a <div id="errors"> element
+                    errorPlacement: function(error, element) {
+                        //error.appendTo("label#errors");
+						error.appendTo('label#' + element.attr('id'));
+                    },
+					
+	    rules: {
+	      cat_name: {
+	        required: true
+	      },
+		  
+		 		
+		 sp_id : {
+			required: true,
+			number: true,
+			notEqual: "0"
+		
+		     },
+		
+		      },
+			highlight: function(element) {
+				$(element).closest('.control-group').removeClass('success').addClass('error');
+			},
+			success: function(element) {
+				element
+				.text('OK!').addClass('valid')
+				.closest('.control-group').removeClass('error').addClass('success');
+			}
+	  });
+
+}); 
+</script>
+
+
+
+
+
+
+

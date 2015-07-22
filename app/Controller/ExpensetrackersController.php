@@ -104,9 +104,8 @@ $this->set('cursor2',$cursor2);
 if(isset($this->request->data['kkk']))
 {
 
-echo $name = $this->request->data['cat_name'];
-echo $sp_id = (int)$this->request->data['sp_id'];
-exit;
+$name = $this->request->data['cat_name'];
+$sp_id = (int)$this->request->data['sp_id'];
 $this->loadmodel('ledger_sub_account');
 $order=array('ledger_sub_account.auto_id'=> 'DESC');
 $cursor=$this->ledger_sub_account->find('all',array('order' =>$order,'limit'=>1));
