@@ -20,9 +20,11 @@ $gt_amt = (int)$collection['regular_bill']['g_total'];
 $bill_date = date('d-m-Y',strtotime(@$bill_date));
 $bill_due_date = date('d-m-Y',strtotime(@$bill_due_date));
 }
-
 ?>
-
+<?php
+if(!empty($gt_amt))
+{
+?>
 Receipt Applied towards following bill:
 <table style="width:100%;" border="1" class="table table-bordered">
 <tr>
@@ -49,8 +51,18 @@ Receipt Applied towards following bill:
 
 <input type="hidden" value="<?php echo $bill_no; ?>" name="bill_no" id="bll" />
 <label report="amt2" class="remove_report"></label>
-
 <?php
+}
+else
+{
+?>
+<center>
+<h3>
+<b style="color:red;">No Bill Found</b>	
+</h3>
+</center>
+<?php
+}
 }
 if($type == 2)
 {
