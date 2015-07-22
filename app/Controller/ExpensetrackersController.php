@@ -43,7 +43,7 @@ $this->ath();
 $this->check_user_privilages();	
 	
 $s_role_id=$this->Session->read('role_id');
-$s_society_id = $this->Session->read('society_id');
+$s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
 
 $this->set('s_role_id',$s_role_id);
@@ -103,15 +103,33 @@ $this->set('cursor2',$cursor2);
 
 if(isset($this->request->data['kkk']))
 {
-echo "sdfdfdsfsdf";
+
+echo $name = $this->request->data['cat_name'];
+echo $sp_id = (int)$this->request->data['sp_id'];
 exit;
-
-
-
-
-
+$this->loadmodel('ledger_sub_account');
+$order=array('ledger_sub_account.auto_id'=> 'DESC');
+$cursor=$this->ledger_sub_account->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last=$collection['ledger_sub_account']["auto_id"];
+}
+if(empty($last))
+{
+$i=0;
+}	
+else
+{	
+$i=$last;
+}
+$i++;
+$this->loadmodel('ledger_sub_account');
+$multipleRowData = Array( Array("auto_id" => $i, "ledger_id" => 15, "name" => $name, "society_id" => $s_society_id, "sp_id" =>$sp_id,"delete_id"=>0));
+$this->ledger_sub_account->saveAll($multipleRowData);
 
 }
+
+
 if(isset($this->request->data['ext_addxfdfg']))
 {
 $posting_date = $this->request->data['posting_date'];
