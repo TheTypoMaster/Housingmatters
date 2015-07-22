@@ -63,7 +63,7 @@ if(!empty($naam2_arr))
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 <div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">
-<h4 style="color: #F497BA;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Post Expense</h4>
+<h4 style="color: #00F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Post Expense</h4>
 <?php
 if($zz == 0)
 {
@@ -198,8 +198,8 @@ $name = $collection['ledger_sub_account']['name'];
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 </div>
 <hr/>
-<button type="submit" class="btn form_post" style="background-color: #E0619D;color:#fff;" name="ext_add" value="xyz" id="vali">Submit</button>
-<a href="<?php echo $webroot_path; ?>Expensetrackers/expense_tracker_add" style="background-color: #E0619D;color:#fff;" class="btn" rel='tab'>Reset</a>
+<button type="submit" class="btn form_post" style="background-color: #00F; color:#fff;" name="ext_add" value="xyz" id="vali">Submit</button>
+<a href="<?php echo $webroot_path; ?>Expensetrackers/expense_tracker_add" style="background-color:#D3D1CF; color:#fff;" class="btn" rel='tab'>Reset</a>
 <button type="button" class="btn green" id="add">Add Row</button>
 
 <div style="display:none;" id='wait'><img src="<?php echo $webroot_path; ?>as/fb_loading.gif" />Please Wait...</div>
@@ -411,8 +411,6 @@ $("#hhhh").show();
 <div class="modal-body">
 <input type="text" name="cat_name" placeholder="Name" class="m-wrap large" style="background-color:white !important;" id="cat">
 <label id="cat"></label>
-<input type="text" name="sp_id" class="m-wrap large" placeholder="Service Provider Id" id="si" style="background-color:white !important;">
-<label id="si"></label>
 </div>
 <div class="modal-footer">
 <a href="<?php echo $webroot_path; ?>Expensetrackers/expense_tracker_add" class="btn blue" rel='tab'>No</a>
@@ -469,13 +467,7 @@ $(document).ready(function(){
 	      },
 		  
 		 		
-		 sp_id : {
-			required: true,
-			number: true,
-			notEqual: "0"
-		
-		     },
-		
+				
 		      },
 			highlight: function(element) {
 				$(element).closest('.control-group').removeClass('success').addClass('error');

@@ -96,16 +96,11 @@ $conditions=array("accounts_id" => 4);
 $cursor1=$this->accounts_group->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);
 
-$this->loadmodel('ledger_sub_account');
-$conditions=array("ledger_id" => 15);
-$cursor2=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
-$this->set('cursor2',$cursor2);
-
 if(isset($this->request->data['kkk']))
 {
 
 $name = $this->request->data['cat_name'];
-$sp_id = (int)$this->request->data['sp_id'];
+//$sp_id = (int)$this->request->data['sp_id'];
 $this->loadmodel('ledger_sub_account');
 $order=array('ledger_sub_account.auto_id'=> 'DESC');
 $cursor=$this->ledger_sub_account->find('all',array('order' =>$order,'limit'=>1));
@@ -123,10 +118,16 @@ $i=$last;
 }
 $i++;
 $this->loadmodel('ledger_sub_account');
-$multipleRowData = Array( Array("auto_id" => $i, "ledger_id" => 15, "name" => $name, "society_id" => $s_society_id, "sp_id" =>$sp_id,"delete_id"=>0));
+$multipleRowData = Array( Array("auto_id" => $i, "ledger_id" => 15, "name" => $name, "society_id" => $s_society_id,"delete_id"=>0));
 $this->ledger_sub_account->saveAll($multipleRowData);
-
 }
+
+
+$this->loadmodel('ledger_sub_account');
+$conditions=array("ledger_id" => 15,"society_id"=>$s_society_id);
+$cursor2=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+$this->set('cursor2',$cursor2);
+
 
 
 if(isset($this->request->data['ext_addxfdfg']))
