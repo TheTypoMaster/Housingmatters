@@ -14075,13 +14075,14 @@ foreach($result_flat as $data)
 {
 	$flat_id=$data['flat']['flat_id'];
 	$this->loadmodel('user');	
-	$conditions=array('flat'=>$flat_id);
+	$conditions=array('flat'=>$flat_id,'deactive'=>0);
 	$result_user=$this->user->find('all',array('conditions'=>$conditions));
 	foreach($result_user as $dda)
 	{
 		@$da_user_id[]=@$dda['user']['user_id'];
 	}
 }
+
 if(!empty($da_user_id))
 {
 $this->set('result_usser_flat',@$da_user_id);
