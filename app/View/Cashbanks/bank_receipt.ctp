@@ -80,10 +80,10 @@ PG
 
  
 <div id="cheque_div">
-<label style="font-size:14px;">Cheque No.<span style="color:red;">*</span> </label>
+<label style="font-size:14px;">Cheque No.<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text"  name="cheque_number" class="m-wrap span9 " placeholder="Cheque No." style="background-color:white !important;" id="ins">
-<label id="ins"></label>
+<input type="text"  name="cheque_number" class="m-wrap span3" placeholder="Cheque No." style="background-color:white !important;" id="ins"> &nbsp;&nbsp; <input type="text"  name="cheque_date" class="m-wrap span4 date-picker" placeholder="Date" data-date-format="dd-mm-yyyy" style="background-color:white !important;" id="ins">
+<label id="ins"></label> &nbsp;&nbsp; <label id="ins"></label>
 </div>
 
 <label style="font-size:14px;">Drawn on which bank?<span style="color:red;">*</span> </label>
@@ -102,14 +102,32 @@ PG
 
 </div>
 
+
+<div id="aaa" class="hide">
 <label style="font-size:14px;">Date<span style="color:red;">*</span> </label>
 <div class="controls">
 <input type="text"  name="cheque_date" class="m-wrap span9 date-picker" placeholder="Date" data-date-format="dd-mm-yyyy" style="background-color:white !important;" id="ins">
 <label id="ins"></label>
 </div>
 <br /> 
+</div> 
  
- 
+<label style="font-size:14px;">Deposited In<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select deposit bank "> </i></label>
+<div class="controls">
+<select name="bank_account" class="span9 m-wrap chosen" id="bank">
+<option value="" style="display:none;">which bank?</option>    
+<?php
+foreach ($cursor3 as $db) 
+{
+$bank_id = (int)$db['ledger_sub_account']["auto_id"];
+$bank_ac = $db['ledger_sub_account']["name"];
+?>
+<option value="<?php echo $bank_id; ?>"><?php echo $bank_ac; ?></option>
+<?php } ?>
+</select>
+<label id="bank"></label>
+</div>
+<br /> 
 <!-----------------------------------------------------------------------------------------------
 
 <label style="font-size:14px;">Deposited In<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select deposit bank "> </i></label>
@@ -141,30 +159,6 @@ $bank_ac = $db['ledger_sub_account']["name"];
 
 <div class="span6">
 
-<label style="font-size:14px;">Deposited In<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select deposit bank "> </i></label>
-<div class="controls">
-<select name="bank_account" class="span9 m-wrap chosen" id="bank">
-<option value="" style="display:none;">which bank?</option>    
-<?php
-foreach ($cursor3 as $db) 
-{
-$bank_id = (int)$db['ledger_sub_account']["auto_id"];
-$bank_ac = $db['ledger_sub_account']["name"];
-?>
-<option value="<?php echo $bank_id; ?>"><?php echo $bank_ac; ?></option>
-<?php } ?>
-</select>
-<label id="bank"></label>
-</div>
-<br />
-
-
-<label style="font-size:14px;">Narration<span style="color:red;">*</span></label>
-<div class="controls">
-<textarea   rows="4" name="description" class="span9 m-wrap" placeholder="Narration" style="background-color:white !important; resize:none; margin-right:70%;"  id="nar"></textarea>
-</div>
-<br />
-
 
 <label style="font-size:14px;">Received from<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose member/non-member "> </i></label>
 <div class="controls">
@@ -183,9 +177,6 @@ Non-Member
 
 
 <div id="div11"></div>
-
-
-
 <div id="div13" class="hide">
 <label style="font-size:14px;">Bill Reference<span style="color:red;">*</span></label>
 <div class="controls">
@@ -193,8 +184,6 @@ Non-Member
 <label id="refn"></label>
 </div>
 <br />
-
-
 
 <label style="font-size:14px;">Amount<span style="color:red;">*</span></label>
 <div class="controls">
@@ -205,39 +194,17 @@ Non-Member
 </div>
 
 
+<label style="font-size:14px;">Narration<span style="color:red;">*</span></label>
+<div class="controls">
+<textarea   rows="4" name="description" class="span9 m-wrap" placeholder="Narration" style="background-color:white !important; resize:none; margin-right:70%;"  id="nar"></textarea>
+</div>
+<br />
 
 
 <div id="div12">
-<div id="result" style="width:94%;" >
+<div id="result" style="width:94%;">
 </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </div>
 </div>
@@ -406,8 +373,6 @@ $(document).ready(function(){
 
 }); 
 </script>
-
-
 <script>
 		$(document).ready(function() {
 		$("#vali").bind('click',function(){
@@ -469,16 +434,19 @@ $(document).ready(function() {
 $(".chn").live('click',function(){
 $('#cheque_div').show();    
 $('#neft_div').hide();
+$('#aaa').hide();
 });
 
 $(".neft").live('click',function(){
 $('#cheque_div').hide();    
-$('#neft_div').show(); 	
+$('#neft_div').show(); 
+$('#aaa').show();	
 });
 
 $(".pg").live('click',function(){
 $('#cheque_div').hide();    
-$('#neft_div').show(); 	
+$('#neft_div').show(); 
+$('#aaa').show();	
 });
 });
 </script>	
