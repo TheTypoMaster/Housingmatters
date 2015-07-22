@@ -321,11 +321,11 @@ function content_check_des()
 	
 	if($r==0)
 	{
-		echo "false";
+	echo "false";
 	}
 	else
 	{
-		echo "true";
+	echo "true";
 	}
 	
 }

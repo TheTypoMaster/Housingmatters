@@ -392,17 +392,55 @@ $("#wait").hide();
 function show()
 {
 
-$("#shwd").show();
+$("#hhhh").show();
 
 }
 </script>
 
 
 
+<div id="hhhh" class="hide">
+
+<div class="modal-backdrop fade in"></div>
+<form method="post">
+<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+<div class="modal-header">
+<center>
+<h3>Add Party Head</h3>
+</center>
+</div>
+<div class="modal-body">
+
+
+
+</div>
+<div class="modal-footer">
+<a href="<?php echo $webroot_path; ?>Expensetrackers/expense_tracker_add" class="btn blue" rel='tab'>No</a>
+<button type="submit" class="btn blue" name="kkk">Submit</button>
+</div>
+</div>
+</form>	
+</div>
+</div>
+
+<!--
 <div id="shwd" class="hide">
-<div class="modal-backdrop fade in" id="shwd"></div>
-<div class="modal"  id="tems_edit_content">
-	
+<div class="modal-backdrop fade in"></div>
+<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+<div class="modal-header">
+<center>
+<h3 id="myModalLabel3" style="color:#999;"><b>Rate Card</b></h3>
+</center>
+</div>
+<div class="modal-body">
+<center>
+<h5><b class="success_report"></b></h5>
+</center>
+</div>
+<div class="modal-footer">
+<a href="<?php //echo $webroot_path; ?>Incometrackers/master_rate_card" class="btn blue" rel='tab'>No</a>
+<button type="submit" class="btn blue form_post" submit_type="con" onclick="mssg()">Yes</button>
 </div>
 </div>
 </div>
+-->

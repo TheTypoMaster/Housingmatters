@@ -101,6 +101,17 @@ $conditions=array("ledger_id" => 15);
 $cursor2=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
 $this->set('cursor2',$cursor2);
 
+if(isset($this->request->data['kkk']))
+{
+echo "sdfdfdsfsdf";
+exit;
+
+
+
+
+
+
+}
 if(isset($this->request->data['ext_addxfdfg']))
 {
 $posting_date = $this->request->data['posting_date'];
