@@ -4369,12 +4369,8 @@ $conditions=array('email'=> $emil,"password"=>$verification);
 $result_user=$this->user->find('all',array('conditions'=>$conditions));
 $n= sizeof($result_user);
 if($n>0)
-{ 
-?>
-<SCRIPT LANGUAGE='JavaScript'>
-window.location.href='change_password?con=<?php echo $emil;?>';
-</SCRIPT>
-<?php
+{
+$this->response->header('Location', $this->webroot.'hms/change_password?con='.$emil.' ');
 
 }
 else
