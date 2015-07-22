@@ -361,7 +361,7 @@ $this->redirect(array('action' => 'index'));
 }
 function beforeFilter()
 {
-Configure::write('debug', 0);
+//Configure::write('debug', 0);
 }
 
 function menus_from_role_privileges()
@@ -14085,16 +14085,36 @@ $this->set('result_user3',$result2);
 
 function resident_directory_search_name()
 {
+	
 $this->layout="blank";
 $this->ath();
 $s_society_id=$this->Session->read('society_id');
 $search=$this->request->query('con');
+$flat=$search;
+$this->loadmodel('flat'); 
+$conditions=array("society_id"=>$s_society_id,"flat_name"=> new MongoRegex('/^' .  $flat . '$/i'));
+$result_flat=$this->flat->find('all',array('conditions'=>$conditions));
+foreach($result_flat as $data)
+{
+	$flat_id=$data['flat']['flat_id'];
+	$this->loadmodel('user');	
+	$conditions=array('flat'=>$flat_id);
+	$result_user=$this->user->find('all',array('conditions'=>$conditions));
+	foreach($result_user as $dda)
+	{
+		@$da_user_id[]=@$dda['user']['user_id'];
+	}
+}
+if(!empty($da_user_id))
+{
+$this->set('result_usser_flat',@$da_user_id);
+}
 $this->set('search_value',$search);
-$regex = new MongoRegex("/.*$search.*/i"); 
+$regex = new MongoRegex("/.*$search.*/i");  
 $this->loadmodel('user');
 $conditions=array('user_name'=>$regex,'society_id'=>$s_society_id,'deactive'=>0);
 $result=$this->user->find('all',array('conditions'=>$conditions));
-$this->set('result_user',$result);
+$this->set('result_user',$result); 
 $n=sizeof($result);
 $this->set('count_user2',$n);
 $this->loadmodel('user');
