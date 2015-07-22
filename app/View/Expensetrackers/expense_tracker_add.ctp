@@ -145,7 +145,7 @@ else
 <tr>
 <th style="text-align:center; width:24%;">Expense Head</th>
 <th style="text-align:center; width:24%;">Invoice Reference</th>
-<th style="text-align:center; width:24%;">Party Account Head</th>
+<th style="text-align:center; width:24%;">Party Account Head &nbsp;&nbsp; <a class="btn purple mini" onclick="show()"><span class="icon-plus"></span></a></th>
 <th style="text-align:center; width:24%;">Amount of Invoice</th>
 <th style="text-align:center; width:4%;">Delete</th>
 </tr>
@@ -388,3 +388,34 @@ $("#wait").hide();
 		});
 		});
 		</script>	
+<script>
+function show()
+{
+
+$("#shwd").show();
+
+}
+</script>
+
+
+
+
+<div id="shwd" class="hide">
+<div class="modal-backdrop fade in"></div>
+<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+<div class="modal-header">
+<center>
+<h3 id="myModalLabel3" style="color:#999;"><b>Rate Card</b></h3>
+</center>
+</div>
+<div class="modal-body">
+<center>
+<h5><b class="success_report"></b></h5>
+</center>
+</div>
+<div class="modal-footer">
+<a href="<?php echo $webroot_path; ?>Expensetrackers/expense_tracker_add" class="btn blue" rel='tab'>No</a>
+<button type="submit" class="btn green" name="sss">submit</button>
+</div>
+</div>
+
