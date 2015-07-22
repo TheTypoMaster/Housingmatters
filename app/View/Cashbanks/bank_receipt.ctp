@@ -62,7 +62,7 @@ else
 <label  style="font-size:14px;">Receipt Mode<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose receipt mode"> </i></label>
 <div class="controls">
 <label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" checked="" value="Cheque" style="opacity: 0;" id="mode" class="chn"></span></div>
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" value="Cheque" style="opacity: 0;" id="mode" class="chn"></span></div>
 Cheque
 </label>
 <label class="radio">
@@ -79,7 +79,7 @@ PG
 
 
  
-<div id="cheque_div">
+<div id="cheque_div" class="hide">
 <label style="font-size:14px;">Cheque No.<span style="color:red;">*</span></label>
 <div class="controls">
 <input type="text"  name="cheque_number" class="m-wrap span3" placeholder="Cheque No." style="background-color:white !important;" id="ins"> &nbsp;&nbsp; <input type="text"  name="cheque_date" class="m-wrap span4 date-picker" placeholder="Date" data-date-format="dd-mm-yyyy" style="background-color:white !important;" id="ins">
