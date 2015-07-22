@@ -36,7 +36,7 @@ $name = $collection['ledger_sub_account']['name'];
 </select>
 </td>
 <td style="text-align:center;">
-<input type="text" class="m-wrap span9 amt<?php echo $count; ?>" name="invoice_amount" id="ia" onblur="amt_val()">
+<input type="text" class="m-wrap span9 amt<?php echo $count; ?>" name="invoice_amount" id="ia" onkeyup="amt_val()">
 </td>
 <td style="text-align:center;">
 <a href="#" role="button" id='<?php echo $count; ?>' class="btn black mini delete"><i class="icon-remove-sign"></i></a>
