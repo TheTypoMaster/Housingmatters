@@ -25,13 +25,13 @@ function substrwords($text, $maxchar, $end='...') {
 
  <?php
 if(!empty($search_value))
-	{
+{
 		if(!empty($result_usser_flat))
 		{
-		foreach($result_usser_flat as $d_user_flat)
-		{
+		  foreach($result_usser_flat as $d_user_flat)
+		  {
 			$result_user22 = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($d_user_flat)));
-			
+
 			foreach ($result_user22 as $collection)            
 			{  
 				$c_user_id = (int)$collection['user']['user_id'];          
@@ -46,23 +46,23 @@ if(!empty($search_value))
 				{
 				$profile_pic="blank.jpg"; 
 				}
-?>
+				?>
 
-<div class="r_d fadeleftsome" onclick="view_ticket(<?php echo $c_user_id;?>)">
-<div class="hv_b" style="overflow: auto;padding: 5px;cursor: pointer;" title="">
-<img src="<?php echo $webroot_path ; ?>/profile/<?php echo $profile_pic; ?>" style="float:left;width:25%;height:80px;"/>
-<div style="float:left;margin-left:3%;">
-<span style="font-size:22px;"><?php echo $c_name; ?></span><?php if(@$medical_pro==1){ ?> <span style="float:right;color:red; font-size:18px;"> <i class="icon-plus-sign"></i> </span> <?php } ?> <br/>
-<span style="font-size:16px;"><?php echo $wing_flat ; ?></span>
-</div>
-</div>
-</div>
- 
+				<div class="r_d fadeleftsome" onclick="view_ticket(<?php echo $c_user_id;?>)">
+				<div class="hv_b" style="overflow: auto;padding: 5px;cursor: pointer;" title="">
+				<img src="<?php echo $webroot_path ; ?>/profile/<?php echo $profile_pic; ?>" style="float:left;width:25%;height:80px;"/>
+				<div style="float:left;margin-left:3%;">
+				<span style="font-size:22px;"><?php echo $c_name; ?></span><?php if(@$medical_pro==1){ ?> <span style="float:right;color:red; font-size:18px;"> <i class="icon-plus-sign"></i> </span> <?php } ?> <br/>
+				<span style="font-size:16px;"><?php echo $wing_flat ; ?></span>
+				</div>
+				</div>
+				</div>
 
-<?php
 
- 
-}
+			  <?php
+
+
+			}
 			
 }			
 			
@@ -72,7 +72,7 @@ if(!empty($search_value))
 		}
 else{
 
-foreach ($result_user as $collection)            
+		foreach ($result_user as $collection)            
 			{  
 				$c_user_id = (int)$collection['user']['user_id'];          
 				$c_wing_id = $collection['user']['wing'];
@@ -88,27 +88,27 @@ foreach ($result_user as $collection)
 				}
 ?>
 
-<div class="r_d fadeleftsome" onclick="view_ticket(<?php echo $c_user_id;?>)">
-<div class="hv_b" style="overflow: auto;padding: 5px;cursor: pointer;" title="">
-<img src="<?php echo $webroot_path ; ?>/profile/<?php echo $profile_pic; ?>" style="float:left;width:25%;height:80px;"/>
-<div style="float:left;margin-left:3%;">
-<span style="font-size:22px;"><?php echo $c_name; ?></span><?php if(@$medical_pro==1){ ?> <span style="float:right;color:red; font-size:18px;"> <i class="icon-plus-sign"></i> </span> <?php } ?> <br/>
-<span style="font-size:16px;"><?php echo $wing_flat ; ?></span>
-</div>
-</div>
-</div>
- 
+				<div class="r_d fadeleftsome" onclick="view_ticket(<?php echo $c_user_id;?>)">
+				<div class="hv_b" style="overflow: auto;padding: 5px;cursor: pointer;" title="">
+				<img src="<?php echo $webroot_path ; ?>/profile/<?php echo $profile_pic; ?>" style="float:left;width:25%;height:80px;"/>
+				<div style="float:left;margin-left:3%;">
+				<span style="font-size:22px;"><?php echo $c_name; ?></span><?php if(@$medical_pro==1){ ?> <span style="float:right;color:red; font-size:18px;"> <i class="icon-plus-sign"></i> </span> <?php } ?> <br/>
+				<span style="font-size:16px;"><?php echo $wing_flat ; ?></span>
+				</div>
+				</div>
+				</div>
+				 
 
-<?php
+				<?php
 
- 
-}
- if($count_user2 == 0)
-				{ ?>
-				<center><h4 style="color:#9F2D9F;"><b>No Record Found</b></h4></center>
-			<?php	}
+		 
+		}
+		 if($count_user2 == 0)
+						{ ?>
+						<center><h4 style="color:#9F2D9F;"><b>No Record Found</b></h4></center>
+					<?php	}
 
-}
+	}
 }
 ?>
 
