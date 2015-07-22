@@ -3774,7 +3774,6 @@ $this->loadmodel('society');
 $this->set('result', $this->society->find('all'));
 if($this->request->is('post')) 
 {
-	exit;
 @$ip=$this->hms_email_ip();
 $society_id=(int)$this->request->data['society'];
 $tenant=(int)$this->request->data['tenant'];
@@ -4197,24 +4196,6 @@ echo "false";
 } else {
 echo "true";
 }
-}
-
-function flat_aleready_exits()
-{
-$this->layout='blank_signup';
-//$flat=(int)$this->request->query['flat'];
-$society=(int)$this->request->data['society'];
-$flat=(int)$this->request->data['flat'];
-$this->loadmodel('user');
-$conditions=array("flat" => $flat,'society_id'=>$society);
-$result4 = $this->user->find('all',array('conditions'=>$conditions));
-$n4 = sizeof($result4);
-$e=$n4;
-if ($e > 0) {
-echo "false";
-} else {
-echo "true";
-} 
 }
 
 function signup_mobileexit()
@@ -15098,7 +15079,7 @@ function import_user_ajax()
 			
 			
 			
-			$table[]=array($name,$wing_id,$flat_id,$email,$mobile,$owner_id,$committee_id);
+			$table[]=array($name,$wing_id,$flat_id,$email,$mobile,$owner_id,$committee_id,$noc_id);
 		}
 		$i++;
 	}
@@ -20229,7 +20210,6 @@ foreach($myArray as $child){
 			$report[]=array('tr'=>$c,'td'=>4, 'text' => 'already exist');
 		}
 	}
-
 	if (!preg_match ( '/^\\d{10}$/',$child[4]) && !empty($child[4])) {
 		$report[]=array('tr'=>$c,'td'=>5, 'text' => 'Invalid');
 	}elseif(!empty($child[4])){
@@ -20259,29 +20239,10 @@ foreach($myArray as $child){
 					}*/
 			}
 	}
-		if (!empty($child[2])) {
-			
-				$this->loadmodel('user');
-				$conditions=array("flat" =>(int)$child[2]);
-				$result4 = $this->user->find('all',array('conditions'=>$conditions));
-				$n4 = sizeof($result4);
-				$e=$n4;
-				if ($e > 0) {
-				$report[]=array('tr'=>$c,'td'=>3, 'text' => 'already exist');
-				}
-		}
-	if (!empty($child[2])) {
-	  $flat11[]=$child[2];
-	  $flat12[]=$child[2];
-	}
-	if((sizeof(@$flat11)>0) && (sizeof(@$flat12)>0)){
-	$flat11 = array_unique($flat11);
-		if(sizeof(@$flat11)!=sizeof(@$flat12)){
-		$output = json_encode(array('report_type'=>'already_error', 'text' => 'Flat should not be same in two or more rows.'));
-		 die($output);
-		//$report[]=array('tr'=>$c,'td'=>3, 'text' => 'same exist');
-		}
-	}
+	
+	
+	
+	
 	if (!empty($child[3])) {
 	  $email_addrs1[]=$child[3];
 	  $email_addrs2[]=$child[3];
@@ -20290,21 +20251,6 @@ foreach($myArray as $child){
 	  $mobile_no1[]=$child[4];
 	  $mobile_no2[]=$child[4];
 	}
-	if((sizeof(@$email_addrs1)>0) && (sizeof(@$email_addrs2)>0)){
-	$email_addrs1 = array_unique($email_addrs1);
-	if(sizeof(@$email_addrs1)!=sizeof(@$email_addrs2)){
-	$output = json_encode(array('report_type'=>'already_error', 'text' => 'Email should not be same in two or more rows.'));
-	 die($output);
-	}
-}
-if((sizeof(@$mobile_no1)>0) && (sizeof(@$mobile_no2)>0)){
-	$mobile_no1 = array_unique($mobile_no1);
-	if(sizeof(@$mobile_no1)!=sizeof(@$mobile_no2)){
-	$output = json_encode(array('report_type'=>'already_error', 'text' => 'mobile should not be same in two or more rows.'));
-        die($output);
-	}
-}
-
 }
 
 if(sizeof($report)>0){
@@ -20312,6 +20258,13 @@ if(sizeof($report)>0){
 	die($output);
 }
 
+if((sizeof(@$email_addrs1)>0) && (sizeof(@$email_addrs2)>0)){
+	$email_addrs1 = array_unique($email_addrs1);
+	if(sizeof(@$email_addrs1)!=sizeof(@$email_addrs2)){
+	$output = json_encode(array('report_type'=>'already_error', 'text' => 'Email should not be same in two or more rows.'));
+        die($output);
+}
+}
 
 if((sizeof(@$mobile_no1)>0) && (sizeof(@$mobile_no2)>0)){
 	$mobile_no1 = array_unique($mobile_no1);

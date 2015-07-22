@@ -20,7 +20,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <?php 
 $default_date = date('d-m-Y')
 ?>
-<div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">
+<div style="background-color:#fff;padding:5px;width:96%;margin:auto;" class="form_div">
 <h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Post Bank Receipt</h4>
 <?php
 if($zz == 0)
@@ -49,7 +49,7 @@ else
   
 
 
-<label style="font-size:14px;">Transaction date<span style="color:red;">*</span> </label>
+<label style="font-size:14px;">Transaction date<span style="color:red;">*</span></label>
 <div class="controls">
 <input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="date" placeholder="Transaction Date" style="background-color:white !important;" id="date" value="<?php echo $default_date; ?>">
 <label id="date"></label>
@@ -78,9 +78,6 @@ PG
 <br />
 
 
-
-
-
  
 <div id="cheque_div">
 <label style="font-size:14px;">Cheque No.<span style="color:red;">*</span> </label>
@@ -95,10 +92,7 @@ PG
 <label id="ins"></label>
 </div>
 
-
-
 </div>
-
 <div id="neft_div" style="display:none;">
 <label style="font-size:14px;">Reference/UTR #<span style="color:red;">*</span> </label>
 <div class="controls">
@@ -116,7 +110,36 @@ PG
 <br /> 
  
  
- 
+<!-----------------------------------------------------------------------------------------------
+
+<label style="font-size:14px;">Deposited In<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select deposit bank "> </i></label>
+<div class="controls">
+<select name="bank_account" class="span9 m-wrap chosen" id="bank">
+<option value="" style="display:none;">which bank?</option>    
+<?php
+foreach ($cursor3 as $db) 
+{
+$bank_id = (int)$db['ledger_sub_account']["auto_id"];
+$bank_ac = $db['ledger_sub_account']["name"];
+?>
+<option value="<?php //echo $bank_id; ?>"><?php //echo $bank_ac; ?></option>
+<?php } ?>
+</select>
+<label id="bank"></label>
+</div>
+<br />
+
+
+<label style="font-size:14px;">Narration<span style="color:red;">*</span></label>
+<div class="controls">
+<textarea   rows="4" name="description" class="span9 m-wrap" placeholder="Narration" style="background-color:white !important; resize:none; margin-right:70%;"  id="nar"></textarea>
+</div>
+<br />
+  
+---------------------------------------------------------------------------------------------- -->  
+</div>
+
+<div class="span6">
 
 <label style="font-size:14px;">Deposited In<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select deposit bank "> </i></label>
 <div class="controls">
@@ -141,13 +164,6 @@ $bank_ac = $db['ledger_sub_account']["name"];
 <textarea   rows="4" name="description" class="span9 m-wrap" placeholder="Narration" style="background-color:white !important; resize:none; margin-right:70%;"  id="nar"></textarea>
 </div>
 <br />
-  
-  
-</div>
-
-<div class="span6">
-
-
 
 
 <label style="font-size:14px;">Received from<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose member/non-member "> </i></label>

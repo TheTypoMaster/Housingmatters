@@ -187,7 +187,7 @@ $name = $collection['ledger_sub_account']['name'];
 </select>
 </td>
 <td style="text-align:center;">
-<input type="text" class="m-wrap span9 amt1"   name="invoice_amount" id="ia" onblur="amt_val()">
+<input type="text" class="m-wrap span9 amt1"   name="invoice_amount" id="ia" onkeyup="amt_val()">
 </td>
 <td style="text-align:center;"></td>
 </tr>
