@@ -92,7 +92,7 @@ foreach($result_user as $data)
   $noc_flat= $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch'),array('pass'=>array($flat)));
 foreach($noc_flat as $dafa)
 {
-	$noc_type=$dafa['flat']['noc_ch_tp'];
+	@$noc_type=@$dafa['flat']['noc_ch_tp'];
 }
 
 	?>
