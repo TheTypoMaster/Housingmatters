@@ -245,12 +245,6 @@ $auto++;
 $i++; 
 
 
-
-
-
-
-
-
 $this->loadmodel('cash_bank');
 $multipleRowData = Array( Array("transaction_id" => $auto, "receipt_id" => $i, "current_date" => $current_date, 
 "transaction_date" => $date, "prepaired_by" => $s_user_id, 
@@ -3743,12 +3737,198 @@ $conditions=array("society_id" => $s_society_id,"module_id"=>4,"receipt_id"=>$rr
 $cursor1 = $this->cash_bank->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);
 
-
-
-
 }
 /////////////////////////////////// End Edit PCP //////////////////////////////////////////////////////////////
+/////////////////////////////////// Start bank_receipt_import ////////////////////////////////////////////////////////
+function bank_receipt_import()
+{
+$this->layout="";
+$filename="Bank Receipt Import";
+header ("Expires: 0");
+header ("Last-Modified: " . gmdate("D,d M YH:i:s") . "GMT");
+header ("Cache-Control: no-cache, must-revalidate");
+header ("Pragma: no-cache");
+header ("Content-type: application/vnd.ms-excel");
+header ("Content-Disposition: attachment; filename=".$filename.".csv");
+header ("Content-Description: Generated Report" );
 
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id = (int)$this->Session->read('user_id');
+
+$excel = "Transaction Date,Receipt Mode,Cheque No.,Reference/UTR,Drawn Bank name,Deposited In,Date,Member Name,Wing,Flat,Amount \n";
+
+
+echo $excel;
+}
+/////////////////////////////// End bank_receipt_import ////////////////////////////////////////////////////////////
+
+////////////////////////////// Start bank_receipt_import_ajax //////////////////////////////////////////////////////////
+function bank_receipt_import_ajax()
+{
+$this->layout="blank";
+$this->ath();
+
+$s_society_id= (int)$this->Session->read('society_id');
+
+if(isset($_FILES['ffff'])){
+$file_name=$_FILES['ffff']['name'];
+$file_tmp_name =$_FILES['ffff']['tmp_name'];
+$target = "csv_file/bank/";
+$target=@$target.basename($file_name);
+move_uploaded_file($file_tmp_name,@$target);
+
+$f = fopen('csv_file/unit/'.$file_name, 'r') or die("ERROR OPENING DATA");
+$batchcount=0;
+$records=0;
+while (($line = fgetcsv($f, 4096, ';')) !== false) {
+// skip first record and empty ones
+$numcols = count($line);
+$test[]=$line;
+++$records;
+}
+fclose($f);
+$records;
+}
+
+$i=0;
+foreach($test as $child)
+{
+if($i>0)
+{
+$child_ex=explode(',',$child[0]);
+/////////////////////////////////////////////////////
+$TransactionDate = $child_ex[0];
+$ReceiptMod = $child_ex[1];
+$ChequeNo = $child_ex[2];
+$Reference = $child_ex[3];
+$DrawnBankname = $child_ex[4];
+$Deposited = $child_ex[5];
+$Date1 = $child_ex[6];
+$MemberName = $child_ex[7];
+$Wing = $child_ex[8];
+$Flat = $child_ex[9];
+$Amount = $child_ex[10];	  
+////////////////////////////////////////////////////////////
+
+
+$this->loadmodel('wing'); 
+$conditions=array("wing_name"=> new MongoRegex('/^' . $Wing . '$/i'),"society_id"=>$s_society_id);
+$result_ac=$this->wing->find('all',array('conditions'=>$conditions));
+foreach($result_ac as $collection)
+{
+$wing_id = (int)$collection['wing']['wing_id'];
+}
+
+$this->loadmodel('flat'); 
+$conditions=array("flat_name"=> new MongoRegex('/^' . $Flat . '$/i'), "society_id"=>$s_society_id);
+$result_ac=$this->flat->find('all',array('conditions'=>$conditions));
+foreach($result_ac as $collection)
+{
+$flat_id = (int)$collection['flat']['flat_id'];
+}
+
+ 
+$this->loadmodel('ledger_sub_account'); 
+$conditions=array("name"=> new MongoRegex('/^' . $MemberName . '$/i'),"society_id"=>$s_society_id,"ledger_id"=>34);
+$result_ac=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+foreach($result_ac as $collection)
+{
+$user_id = (int)$collection['ledger_sub_account']['user_id'];
+$auto_id = (int)$collection['ledger_sub_account']['auto_id'];
+$hhhhhh = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));
+foreach($hhhhhh as $fff)
+{
+$wing = (int)$fff['user']['wing'];
+$flat = (int)$fff['user']['flat'];
+}
+if($wing_id == $wing && $flat_id == $flat)
+{
+$auto_id = (int)$collection['ledger_sub_account']['auto_id'];
+}
+} 
+ 
+$this->loadmodel('ledger_sub_account'); 
+$conditions=array("name"=> new MongoRegex('/^' . $Deposited . '$/i'),"society_id"=>$s_society_id);
+$result_ac=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+foreach($result_ac as $collection)
+{
+$bank_id = (int)$collection['ledger_sub_account']['auto_id'];
+}
+ 
+  
+/*
+	  
+	  
+$auto_id = "";
+$this->loadmodel('ledger_account'); 
+$conditions=array("ledger_name"=> new MongoRegex('/^' .  $ac_name . '$/i'),"group_id"=>$group_id);
+$result_ac=$this->ledger_account->find('all',array('conditions'=>$conditions));
+foreach($result_ac as $collection)
+{
+$auto_id = (int)$collection['ledger_account']['auto_id'];
+$ledger_type = 2;
+}
+$this->loadmodel('ledger_sub_account'); 
+$conditions=array("name"=> new MongoRegex('/^' .  $ac_name . '$/i'),"ledger_id"=>$group_id);
+$result_sac2=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+foreach($result_sac2 as $collection2)
+{
+$auto_id = (int)$collection2['ledger_sub_account']['auto_id'];
+if($group_id == 34)
+{
+////////////////
+$wing_name = $child_ex[2];
+$flat_name = $child_ex[3];
+
+$this->loadmodel('flat');
+$conditions=array("society_id" => $s_society_id);
+$cursor1 = $this->flat->find('all',array('conditions'=>$conditions));
+foreach($cursor1 as $collection)
+{
+$wing_id2 = (int)$collection['flat']['wing_id'];
+$flat_name2 = $collection['flat']['flat_name'];
+$flat_id2 = (int)$collection['flat']['flat_id'];
+if($flat_name2 == $flat_name)
+{ 
+$wing = (int)$wing_id2;
+$flat = (int)$flat_id2;
+}
+}
+///////////////
+$user_id = (int)$collection2['ledger_sub_account']['user_id'];
+
+$hhhhhh = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));
+foreach($hhhhhh as $fff)
+{
+$wing_id = (int)$fff['user']['wing'];
+$flat_id = (int)$fff['user']['flat'];
+}
+}
+if($flat_id == $flat)
+break;
+$ledger_type = 1;
+}
+*/
+
+$table[] = array(@$TransactionDate,@$ReceiptMod,@$ChequeNo,@$Reference,@$DrawnBankname,@$bank_id,@$Date1,@$auto_id,@$Amount);
+} 
+$i++;
+}
+$this->set('table',$table);
+
+$this->loadmodel('ledger_sub_account');
+$conditions=array("society_id" => $s_society_id,"ledger_id"=>33);
+$cursor1 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+$this->set('cursor1',$cursor1);
+
+$this->loadmodel('ledger_sub_account');
+$conditions=array("society_id" => $s_society_id,"ledger_id"=>34);
+$cursor1 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+$this->set('cursor2',$cursor2);
+
+}
+////////////////////////////// End bank_receipt_import_ajax //////////////////////////////////////////////////////////
 
 }
 ?>

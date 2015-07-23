@@ -10,9 +10,55 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <input type="hidden" id="fi" value="<?php echo $datef1; ?>" />
 <input type="hidden" id="ti" value="<?php echo $datet1; ?>" />
 <input type="hidden" id="cn" value="<?php echo $count; ?>" />
+<?php ////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<div id='suces'>
+<div id="error_msg"></div>
+<div id="myModal3" class="modal hide fade in" style="display:none;">
+
+<div class="modal-backdrop fade in"></div>
+<form id="form1" method="post">
+<div class="modal">
+<div class="modal-header">
+<h4 id="myModalLabel1">Import csv</h4>
+</div>
+           <div class="modal-body">
+           <input type="file" name="ffff" class="default" id="image-file">
+           <label id="vali"></label>			
+			<strong><a href="bank_receipt_import" download>Click here for sample format</a></strong>
+			<br/>
+			<h4>Instruction set to import users</h4>
+			<ol>
+			<li>All the field are compulsory.</li>
+			<li>Wing and Flat number be valid as per society setting.</li>
+			<li>Flat type be valid as per society setting. </li>
+			<li>Flat area be valid as per society setting. </li>
+			<li>Flat number should be not same.</li>
+			</ol>
+		    </div>
+		    <div class="modal-footer">
+			<button type="button" class="btn" id="close_div">Close</button>
+			<button type="submit" class="btn blue import_btn">Import</button>
+		    </div>
+</div>
+</form>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
 	
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>			
 <center>
+<a href="#" class="btn purple" role="button" id="import">Import csv</a>
 <a href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt" class="btn yellow" rel='tab'>Create</a>
 <a href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt_view" class="btn" rel='tab'>View</a>
 </center>	
@@ -76,8 +122,6 @@ PG
 <label id="mode"></label>
 </div>
 <br />
-
-
  
 <div id="cheque_div" class="hide">
 <label style="font-size:14px;">Cheque No.<span style="color:red;">*</span></label>
@@ -213,6 +257,7 @@ Non-Member
 <a href="bank_receipt" class="btn">Reset</a>
      
 </div>
+
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
      
               
@@ -452,11 +497,145 @@ $('#aaa').show();
 </script>	
 
 
+<script>
+$(document).ready(function() {
 
+$("#import").bind('click',function(){
+$("#myModal3").show();
+});
 
+$("#close_div").bind('click',function(){
+$("#myModal3").hide();
+});
 
+});
+</script>
 
+<script>
+$(document).ready(function() {
+$('form#form1').submit( function(ev){
+			ev.preventDefault(); 
+		
+		var im_name=$("#image-file").val();
+		
+		if(im_name==""){
+		$("#vali").html("<span style='color:red;'>Please Select a Csv File</span>");	
+		return false;
+		}
+		
+		var ext = $('#image-file').val().split('.').pop().toLowerCase();
+		if($.inArray(ext, ['csv']) == -1) {
+			$("#vali").html("<span style='color:red;'>Please Select a Csv File</span>");
+			return false;
+		}
+		
+		$(".import_btn").text("Importing...");
+		var m_data = new FormData();
+		m_data.append( 'file', $('input[name=file]')[0].files[0]);
+		$.ajax({
+			url: "bank_receipt_import_ajax",
+			data: m_data,
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			}).done(function(response){
+			$("#myModal3").hide();
+			$("#url_main").html(response);
+			
+    
+	
+var insert = 1;
+var count = $("#open_bal tr").length;
+var ar = [];
 
+for(var i=2;i<=count;i++)
+{
+$("#open_bal tr:nth-child("+i+") span.report").remove();
+$("#open_bal tr:nth-child("+i+") span.report").css("background-color","#FFF;");
+var wing = $("#open_bal tr:nth-child("+i+") td:nth-child(1) input").val();
+var flat=$("#open_bal tr:nth-child("+i+") td:nth-child(2) input").val();
+var type=$("#open_bal tr:nth-child("+i+") td:nth-child(3) select").val();
+var feet=$("#open_bal tr:nth-child("+i+") td:nth-child(4) input").val();
+
+ar.push([wing,flat,type,feet,insert]);
+}
+
+var myJsonString = JSON.stringify(ar);
+myJsonString=encodeURIComponent(myJsonString);
+	
+	
+$.ajax({
+url: "save_flat_imp?q="+myJsonString,
+type: 'POST',
+dataType:'json',
+}).done(function(response) {
+if(response.report_type=='error'){
+jQuery.each(response.report, function(i, val) {
+$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").append('<span class="report" style="color:red;">'+val.text+'</span>');
+
+$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
+
+$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
+
+$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
+});
+}	
+});
+});
+
+$(".import_op").live('click',function(){
+
+var insert = 2;
+var count = $("#open_bal tr").length;
+var ar = [];
+
+for(var i=2;i<=count;i++)
+{
+$("#open_bal tr:nth-child("+i+") span.report").remove();
+$("#open_bal tr:nth-child("+i+") span.report").css("background-color","#FFF;");
+var wing = $("#open_bal tr:nth-child("+i+") td:nth-child(1) input").val();
+var flat=$("#open_bal tr:nth-child("+i+") td:nth-child(2) input").val();
+var type=$("#open_bal tr:nth-child("+i+") td:nth-child(3) select").val();
+var feet=$("#open_bal tr:nth-child("+i+") td:nth-child(4) input").val();
+
+ar.push([wing,flat,type,feet,insert]);
+}
+
+var myJsonString = JSON.stringify(ar);
+myJsonString=encodeURIComponent(myJsonString);
+	
+	
+$.ajax({
+url: "save_flat_imp?q="+myJsonString,
+type: 'POST',
+dataType:'json',
+}).done(function(response) {
+if(response.report_type=='error'){
+jQuery.each(response.report, function(i, val) {
+$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").append('<span class="report" style="color:red;">'+val.text+'</span>');
+$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
+
+$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
+
+$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
+});
+}
+if(response.report_type=='vali')
+{
+$("#vali5").html('<b style="color:red;">'+response.text+'</b>');
+}
+if(response.report_type=='done')
+{
+$("#done").html('<div class="alert alert-block alert-success fade in"><h4 class="alert-heading">Success!</h4><p>Record Inserted Successfully</p><p><a class="btn green" href="<?php echo $webroot_path; ?>Hms/master_sm_flat" rel="tab">OK</a></p></div>');
+	
+}
+});
+
+});
+
+});
+}); 
+</script>	
 
 
 

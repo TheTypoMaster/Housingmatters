@@ -18459,6 +18459,30 @@ return $this->user->find('all',array('conditions'=>$conditions));
 }
 ////////////////////////////////////// End user Fetch(Accounts)///////////////////////
 
+////////////////// Start user Fetch(Accounts)////////////////////////////////////////////
+function user_fetch5($wing,$flat)
+{
+$s_role_id = (int)$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id = (int)$this->Session->read('user_id');
+
+$this->loadmodel('user');
+$conditions=array("wing" => $wing,"flat"=>$flat,"society_id"=>$s_society_id);
+return $this->user->find('all',array('conditions'=>$conditions));
+}
+////////////////////////////////////// End user Fetch(Accounts)///////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
 //////////////////////Start User fetch2///////////////////////////////////////////////
 function user_fetch4()
 {
