@@ -20253,8 +20253,33 @@ foreach($myArray as $child){
 			}
 	}
 	
+	if(!empty($child[2])) {
+		
+		$this->loadmodel('user');
+		$conditions=array("flat" => (int)$child[2]);
+		$result4 = $this->user->find('all',array('conditions'=>$conditions));
+		$n4 = sizeof($result4);
+		$e=$n4;
+		if ($e > 0) {
+			 $report[]=array('tr'=>$c,'td'=>3, 'text' => 'already exist');
+		}
+		
 	
 	
+	if (!empty($child[2])) {
+	  $flat_id1[]=$child[2];
+	  $flat_id2[]=$child[2];
+	}
+	
+		
+	}
+	if((sizeof(@$flat_id1)>0) && (sizeof(@$flat_id2)>0)){
+	$flat_id1 = array_unique($flat_id1);
+	if(sizeof(@$flat_id1)!=sizeof(@$flat_id2)){
+	$output = json_encode(array('report_type'=>'already_error', 'text' => 'Flat should not be same in two or more rows.'));
+        die($output);
+		}
+	  }
 	
 	if (!empty($child[3])) {
 	  $email_addrs1[]=$child[3];
@@ -20288,21 +20313,6 @@ if(sizeof($report)>0){
 	die($output);
 }
 
-if((sizeof(@$email_addrs1)>0) && (sizeof(@$email_addrs2)>0)){
-	$email_addrs1 = array_unique($email_addrs1);
-	if(sizeof(@$email_addrs1)!=sizeof(@$email_addrs2)){
-	$output = json_encode(array('report_type'=>'already_error', 'text' => 'Email should not be same in two or more rows.'));
-        die($output);
-}
-}
-
-if((sizeof(@$mobile_no1)>0) && (sizeof(@$mobile_no2)>0)){
-	$mobile_no1 = array_unique($mobile_no1);
-	if(sizeof(@$mobile_no1)!=sizeof(@$mobile_no2)){
-	$output = json_encode(array('report_type'=>'already_error', 'text' => 'mobile should not be same in two or more rows.'));
-        die($output);
-}
-}
 
 
 /*------code here insert start -------*/
