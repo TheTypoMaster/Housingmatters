@@ -20271,8 +20271,15 @@ foreach($myArray as $child){
 	if(sizeof(@$email_addrs1)!=sizeof(@$email_addrs2)){
 	$output = json_encode(array('report_type'=>'already_error', 'text' => 'Email should not be same in two or more rows.'));
         die($output);
-}
-}
+		}
+	  }
+if((sizeof(@$mobile_no1)>0) && (sizeof(@$mobile_no2)>0)){
+	$mobile_no1 = array_unique($mobile_no1);
+	if(sizeof(@$mobile_no1)!=sizeof(@$mobile_no2)){
+	$output = json_encode(array('report_type'=>'already_error', 'text' => 'mobile should not be same in two or more rows.'));
+        die($output);
+		}
+	 }
 
 }
 
