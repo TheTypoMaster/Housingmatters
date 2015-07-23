@@ -20263,7 +20263,7 @@ foreach($myArray as $child){
 		if ($e > 0) {
 			 $report[]=array('tr'=>$c,'td'=>3, 'text' => 'already exist');
 		}
-		
+		}
 	
 	
 	if (!empty($child[2])) {
@@ -20272,7 +20272,7 @@ foreach($myArray as $child){
 	}
 	
 		
-	}
+	
 	if((sizeof(@$flat_id1)>0) && (sizeof(@$flat_id2)>0)){
 	$flat_id1 = array_unique($flat_id1);
 	if(sizeof(@$flat_id1)!=sizeof(@$flat_id2)){
