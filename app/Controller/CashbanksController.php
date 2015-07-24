@@ -71,7 +71,6 @@ $this->set('society_name',$society_name);
 ///////////////////////////////////End bank receipt show ajax//////////////////////////////////////////////////
 
 //////////////////////// Start bank receipt ////////////////////////////////////////////
-
 function bank_receipt()
 {
 if($this->RequestHandler->isAjax())
@@ -3982,16 +3981,262 @@ $s_user_id = (int)$this->Session->read('user_id');
 $q=$this->request->query('q'); 
 $myArray = json_decode($q, true);
 
+$c=1;
+foreach($myArray as $child)
+{
+$c++;
+$TransactionDate = $child[0];
+$ReceiptMod = $child[1];
+//$ChequeNo = $child[2];
+//$Reference = $child[3];
+//$DrawnBankname = $child[4];
+//$Date1 = $child[6];
+$bank_id = $child[5];
+$auto_id = $child[7];
+$Amount = $child[8];
+
+if(empty($TransactionDate))
+{
+$output=json_encode(array('report_type'=>'fina','text'=>'Please Fill Transaction Date in row'.$c));
+die($output);
+}
+
+if(empty($ReceiptMod))
+{
+$output=json_encode(array('report_type'=>'fina','text'=>'Please Fill Receipt Mode in row'.$c));
+die($output);
+}
+$c = (int)strcasecmp("Cheque",$ReceiptMod);
+$n = (int)strcasecmp("NEFT",$ReceiptMod);
+$p = (int)strcasecmp("PG",$ReceiptMod);
+if($c == 0)
+{
+$ChequeNo = $child[2];
+$DrawnBankname = $child[4];
+$Date1 = $child[6];	
+
+if(empty($ChequeNo))
+{
+$output=json_encode(array('report_type'=>'fina','text'=>'Please Fill Cheque Number in row'.$c));
+die($output);
+}
+
+if(empty($DrawnBankname))
+{
+$output=json_encode(array('report_type'=>'fina','text'=>'Please Fill Drawn Bank name Receipt Mode in row'.$c));
+die($output);
+}
+
+if(empty($Date1))
+{
+$output=json_encode(array('report_type'=>'fina','text'=>'Please Fill Date in row'.$c));
+die($output);
+}
+}
+else if($n == 0)
+{
+$Reference = $child[3];
+$Date1 = $child[6];
+
+if(empty($Reference))
+{
+$output=json_encode(array('report_type'=>'fina','text'=>'Please Fill Reference in row'.$c));
+die($output);
+}
+
+if(empty($Date1))
+{
+$output=json_encode(array('report_type'=>'fina','text'=>'Please Fill Date in row'.$c));
+die($output);
+}
+
+}
+else if($p == 0)
+{
+$Reference = $child[3];
+$Date1 = $child[6];	
+
+if(empty($Reference))
+{
+$output=json_encode(array('report_type'=>'fina','text'=>'Please Fill Reference in row'.$c));
+die($output);
+}
+if(empty($Date1))
+{
+$output=json_encode(array('report_type'=>'fina','text'=>'Please Fill Date in row'.$c));
+die($output);
+}
+}
+else
+{
+$output=json_encode(array('report_type'=>'fina','text'=>'Please Fill "Cheque", "NEFT" or PG in Receipt Mode in row'.$c));
+die($output);
+}
+}
+
+foreach($myArray as $child)
+{
+$c++;
+$current_date = date('Y-m-d');
+$TransactionDate = $child[0];
+$ReceiptMod = $child[1];
+//$ChequeNo = $child[2];
+//$Reference = $child[3];
+//$DrawnBankname = $child[4];
+//$Date1 = $child[6];
+$bank_id = (int)$child[5];
+$auto_id77 = (int)$child[7];
+$Amount = $child[8];
+
+$c = (int)strcasecmp("Cheque",$ReceiptMod);
+$n = (int)strcasecmp("NEFT",$ReceiptMod);
+$p = (int)strcasecmp("PG",$ReceiptMod);
+if($c == 0)
+{
+$ChequeNo = $child[2];
+$DrawnBankname = $child[4];
+$Date1 = $child[6];	
+}
+else if($n == 0)
+{
+$Reference = $child[3];
+$Date1 = $child[6];
+}
+else if($p == 0)
+{
+$Reference = $child[3];
+$Date1 = $child[6];	
+}
+
+$this->loadmodel('ledger_sub_account');
+$conditions=array("auto_id" => $auto_id77);
+$cursor1=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+foreach($cursor1 as $collection)
+{
+$user_id = (int)$collection['ledger_sub_account']['user_id'];
+}
+
+$result_rb = $this->requestAction(array('controller' => 'hms', 'action' => 'regular_bill'),array('pass'=>array(@$user_id)));
+foreach ($result_rb as $collection)
+{
+$bill_no = (int)$collection['regular_bill']['receipt_id'];
+}
 
 
 
+$this->loadmodel('cash_bank');
+$conditions=array("society_id" => $s_society_id,"module_id"=>1);
+$order=array('cash_bank.transaction_id'=> 'DESC');
+$cursor=$this->cash_bank->find('all',array('conditions'=>$conditions,'order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last21=$collection['cash_bank']['transaction_id'];
+$last22 = $collection['cash_bank']['receipt_id'];
+}
+if(empty($last21))
+{
+$auto=0;
+$i = 1000;
+}	
+else
+{	
+$auto=$last21;
+$i = $last22;
+}
+$auto++;
+$i++; 
+$this->loadmodel('cash_bank');
+$multipleRowData = Array( Array("transaction_id" => $auto, "receipt_id" => $i, "current_date" => $current_date, 
+"transaction_date" => $TransactionDate, "prepaired_by" => $s_user_id, 
+"user_id" => $auto_id77, "bill_reference" => $bill_no,"narration" => $description, "receipt_mode" => $ReceiptMod,
+"receipt_instruction" => $receipt_instruction, "account_head" => $bank_id,   
+"amount" => $Amount, "amount_category_id" => 1, "society_id" => $s_society_id,"member" =>1,"module_id"=>1,"cheque_number"=>$ChequeNo,"reference_number"=>$Reference,"which_bank"=>$DrawnBankname,"cheque_date"=>$Date1,"receipt_for_type"=>1));
+$this->cash_bank->saveAll($multipleRowData);  
+
+$trns_id=(int)$auto;
+$this->loadmodel('ledger');
+$order=array('ledger.auto_id'=> 'DESC');
+$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last23=$collection['ledger']['auto_id'];
+}
+if(empty($last23))
+{
+$k=0;
+}	
+else
+{	
+$k=$last23;
+}
+$k++; 
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $i, 
+"amount" => $amount, "amount_category_id" => 2, "module_id" => 1, "account_type" => 1,  "account_id" => $auto_id77, 
+"current_date" => $current_date, "society_id" => $s_society_id,"table_name"=>"cash_bank","module_name"=>"Bank Receipt"));
+$this->ledger->saveAll($multipleRowData); 
 
 
+$this->loadmodel('ledger');
+$order=array('ledger.auto_id'=> 'DESC');
+$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
+foreach ($cursor as $collection) 
+{
+$last24=$collection['ledger']['auto_id'];
+}
+if(empty($last24))
+{
+$k=0;
+}	
+else
+{	
+$k=$last24;
+}
+$k++; 
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $i, 
+"amount" => $amount, "amount_category_id" => 1, "module_id" => 1, "account_type" => 1, "account_id" => $bank_id,
+"current_date" => $current_date, "society_id" => $s_society_id,"table_name"=>"cash_bank","module_name"=>"Bank Receipt"));
+$this->ledger->saveAll($multipleRowData); 
 
 
+$this->loadmodel('regular_bill');
+$conditions=array("receipt_id" => $bill_no,"society_id"=>$s_society_id);
+$cursor=$this->regular_bill->find('all',array('conditions'=>$conditions));
+foreach ($cursor as $collection) 
+{
+$remain_amt = $collection['regular_bill']['remaining_amount'];
+$arrears_amt = (int)$collection['regular_bill']['arrears_amt'];
+$arrears_int = $collection['regular_bill']['accumulated_tax'];
+$total_due_amt = $collection['regular_bill']['total_due_amount'];
+}
+$due_amt = $remain_amt - $amount;
+@$total_due_amt = $total_due_amt - $amount;
+if($arrears_int <= $amount)
+{
+$amount = $amount-$arrears_int;
+$arrears_int = 0;
+}
+else
+{
+$arrears_int = $arrears_int -$amount;
+$amount = 0;
+}
 
+if($amount >= $arrears_amt)
+{
+$arrears_amt = (int)$arrears_amt - $amount;
+}
+else
+{
+$arrears_amt = (int)$arrears_amt - $amount;
+}
+$this->loadmodel('regular_bill');
+$this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"total_due_amount"=>$total_due_amt),array("receipt_id" => $bill_no));
 
+}		
 
+}
 }
 ///////////////////////////////// End Save bank Imp ///////////////////////////////////////////////////////////////
 }

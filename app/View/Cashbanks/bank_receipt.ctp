@@ -554,15 +554,15 @@ $("#open_bal tr:nth-child("+i+") span.report").remove();
 $("#open_bal tr:nth-child("+i+") span.report").css("background-color","#FFF;");
 var TransactionDate = $("#open_bal tr:nth-child("+i+") td:nth-child(1) input").val();
 var ReceiptMod=$("#open_bal tr:nth-child("+i+") td:nth-child(2) input").val();
-var ChequeNo=$("#open_bal tr:nth-child("+i+") td:nth-child(3) select").val();
+var ChequeNo=$("#open_bal tr:nth-child("+i+") td:nth-child(2) input").val();
 var Reference=$("#open_bal tr:nth-child("+i+") td:nth-child(4) input").val();
 var DrawnBankname=$("#open_bal tr:nth-child("+i+") td:nth-child(1) input").val();
 var bank_id=$("#open_bal tr:nth-child("+i+") td:nth-child(2) input").val();
 var Date1=$("#open_bal tr:nth-child("+i+") td:nth-child(3) select").val();
-var auto_id=$("#open_bal tr:nth-child("+i+") td:nth-child(4) input").val();
+var auto_id=$("#open_bal tr:nth-child("+i+") td:nth-child(3) select").val();
 var Amount=$("#open_bal tr:nth-child("+i+") td:nth-child(4) input").val();
 
-ar.push([wing,flat,type,feet,insert]);
+ar.push([TransactionDate,ReceiptMod,ChequeNo,Reference,DrawnBankname,bank_id,Date1,auto_id,Amount,insert]);
 }
 
 var myJsonString = JSON.stringify(ar);
@@ -574,16 +574,6 @@ url: "save_bank_imp?q="+myJsonString,
 type: 'POST',
 dataType:'json',
 }).done(function(response) {
-if(response.report_type=='error'){
-jQuery.each(response.report, function(i, val) {
-$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").append('<span class="report" style="color:red;">'+val.text+'</span>');
-$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
-
-$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
-
-$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
-});
-}
 if(response.report_type=='vali')
 {
 $("#vali5").html('<b style="color:red;">'+response.text+'</b>');

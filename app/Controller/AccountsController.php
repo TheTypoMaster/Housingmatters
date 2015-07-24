@@ -3628,11 +3628,6 @@ $date2 = $child[5];
 $date1 = date("Y-m-d", strtotime($date2));
 $date1 = new MongoDate(strtotime($date1));
 
-
-
-
-
-
 if(empty($child[5]))
 {
 $output=json_encode(array('report_type'=>'fina','text'=>'Please Select Date'));
