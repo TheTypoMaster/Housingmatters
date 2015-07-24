@@ -140,7 +140,7 @@ Bank Receipt Report  (<?php echo $society_name; ?>)
 <th>Deposit Bank</th>
 <th>Narration</th>
 <th>Amount</th>
-<th class="hide_at_print">Action</th> 
+<th class="hide_at_print">View|Edit|Pdf|Info</th> 
 </tr>
 					 
 					 
@@ -278,7 +278,7 @@ $amount = number_format($amount);
 <td class="hide_at_print">
 <a href="b_receipt_view?c=<?php echo $transaction_id; ?>&m=1" target="_blank" class="btn mini yellow"><i class="icon-search"></i></a>
 <a href="b_receipt_edit/<?php echo $transaction_id; ?>/1" target="_blank" class="btn mini blue"><i class="icon-edit"></i></a>
-<a href="bank_receipt_pdf?c=<?php echo $transaction_id; ?>&m=1" target="_blank" class="btn mini purple tooltips" data-placement="bottom" data-original-title="Download Pdf">Pdf</a>
+<a href="bank_receipt_pdf?c=<?php echo $transaction_id; ?>&m=1" target="_blank" class="btn mini purple" ><i class="icon-download-alt"></i></a>
 <a href="" class="btn mini black tooltips" data-placement="bottom" data-original-title="Created By:<?php echo $prepaired_by_name; ?>
 Creation Date : <?php echo $creation_date; ?>">!</a>
 </td>
