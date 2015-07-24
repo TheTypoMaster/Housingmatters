@@ -1,4 +1,5 @@
-<form method="post">
+
+<form method="post" onsubmit="return submit_hndlr()">
 <?php
 if($p_id == 1)
 {
@@ -938,7 +939,7 @@ echo $gt_gt_amt2; ?></th>
 <br />
 <div style="width:100%;">
 <a href="it_regular_bill" class="btn green"  style="margin-left:70%;"><i class="icon-arrow-left"></i>Back</a>
-<button type="submit" name="sub" class="btn red">Submit</button>
+<button type="submit" name="sub" class="btn red" id="submit_bill">Submit</button>
 </div>
 </form>
 
@@ -1106,11 +1107,28 @@ for(var t=1; t<tr_count1; t++){
 }
 	
 }
+
+function submit_hndlr(){
+	$(document).ready(function() {
+		$("#submit_bill").hide();
+		$("#submiting_div").show();
+	});
+}
 </script>
 
 
 
-
+<div id="submiting_div" style="display:none;">
+	<div class="modal-backdrop fade in"></div>
+	<div class="modal" id="poll_edit_content">
+		<div class="modal-body">
+		<div align="center">
+		<img src="<?php echo $webroot_path; ?>as/fb_loading.gif" style="height: 15px;" />
+		<h4>Please Wait a while</h4>
+		<h5>Bill(s) are Preparing.</h5>
+		</div>
+	</div>
+</div>
 
 
 

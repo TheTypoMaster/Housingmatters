@@ -364,6 +364,12 @@ $(document).ready(function(){
 		  
 		
 	    },
+		submitHandler: function (form) {
+			$("#go").hide();
+			$("#submiting_div").show();
+			form.submit();
+			//return true; // required to block normal submit since you used ajax
+		},
 		messages: {
 	                from: {
 	                    required: "Bill Date is Required."
@@ -602,3 +608,20 @@ Dear Sir, For Regular Bill genereation you have to full fill the Non Occupancy C
 <?php
 }
 ?>
+
+
+
+
+
+
+<div id="submiting_div" style="display:none;">
+	<div class="modal-backdrop fade in"></div>
+	<div class="modal" id="poll_edit_content">
+		<div class="modal-body">
+		<div align="center">
+		<img src="<?php echo $webroot_path; ?>as/fb_loading.gif" style="height: 15px;" />
+		<h4>Please Wait</h4>
+		<h5>Your data is submiting to database.</h5>
+		</div>
+	</div>
+</div>
