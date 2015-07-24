@@ -2535,7 +2535,7 @@ function b_receipt_edit($trns_id=null,$module_id=null){
 		$bill_no = (int)$this->request->data['regrec'];
 		}
 		}
-		
+		$current_date = date('Y-m-d');
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 $this->loadmodel('cash_bank');
@@ -2547,15 +2547,13 @@ $this->cash_bank->updateAll(array("current_date" => $current_date,
 
  
 $this->loadmodel('ledger');
-$this->regular_bill->updateAll("receipt_id" => $bank_rrr, 
-"amount" => $amount, "amount_category_id" => 2, "module_id" => 1, "account_type" => 1,  "account_id" => $received_from, 
-"current_date" => $current_date, "society_id" => $s_society_id,"table_name"=>"cash_bank","module_name"=>"Bank Receipt"),array("receipt_id" => $bill_no,"amount_category_id"=>2,"module_id" => 1,"table_name"=>"cash_bank","society_id" => $s_society_id)); 
+$this->regular_bill->updateAll("amount" => $amount,"current_date" => $current_date),array("receipt_id" => $bank_rrr,"amount_category_id"=>2,"module_id" => 1,"table_name"=>"cash_bank","society_id" => $s_society_id,"account_type" => 1)); 
 
 
 $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array("auto_id" => $k, "receipt_id" => $i, 
 "amount" => $amount, "amount_category_id" => 1, "module_id" => 1, "account_type" => 1, "account_id" => $sub_account_id_a,
-"current_date" => $current_date, "society_id" => $s_society_id,"table_name"=>"cash_bank","module_name"=>"Bank Receipt"),array("receipt_id" => $bill_no));
+"current_date" => $current_date, "society_id" => $s_society_id,"table_name"=>"cash_bank","module_name"=>"Bank Receipt"),array("receipt_id" => $bank_rrr,"amount_category_id" => 1,));
 
 
 $this->loadmodel('regular_bill');
