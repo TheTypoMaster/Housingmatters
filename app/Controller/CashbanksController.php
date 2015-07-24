@@ -2497,9 +2497,9 @@ function b_receipt_edit($trns_id=null,$module_id=null){
 	}else{
 	$this->layout='session';
 	}
-	$s_role_id=$this->Session->read('role_id');
+	$s_role_id = (int)$this->Session->read('role_id');
 	$s_society_id = (int)$this->Session->read('society_id');
-	$s_user_id=$this->Session->read('user_id');	
+	$s_user_id = (int)$this->Session->read('user_id');	
 
 	$trns_id=(int)$trns_id;
 	$module_id=(int)$module_id;
@@ -2516,16 +2516,87 @@ function b_receipt_edit($trns_id=null,$module_id=null){
 	$this->set('cursor1',$cursor1);
 	
 	if(isset($this->request->data['bank_receipt_add'])){
-		exit;
-		$current_date = date('d-m-Y');
-		$current_date = date("Y-m-d", strtotime($current_date));
-		$current_date = new MongoDate(strtotime($current_date));
-		$date = $this->request->data['date'];
-		$bill_no = (int)@$this->request->data['bill_no'];
-		$date = date("Y-m-d", strtotime($date));
-		//$date = new MongoDate(strtotime($date));
-		$receipt_instruction = @$this->request->data['instruction']; 
-		$sub_account_id = (int)$this->request->data['bank_account'];
+		
+		$transaction_date = $this->request->data['t_date'];
+		$mode = $this->request->data['mode'];
+		$cheque_number = @$this->request->data['cheque_number'];
+		$which_bank = $this->request->data['which_bank'];
+		$reference_number = $this->request->data['reference_number'];
+		$cheque_date = $this->request->data['cheque_date'];
+		$bank_account = $this->request->data['bank_account'];
+		$amount = $this->request->data['amt'];
+		$bank_rrr = (int)$this->request->data['rrrr'];
+		$member = (int)$this->request->data['mmmm'];
+		if($member == 1)
+		{
+		$bill_for = (int)$this->request->data['ffff'];
+		if($bill_for == 1)
+		{
+		$bill_no = (int)$this->request->data['regrec'];
+		}
+		}
+		
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+$this->loadmodel('cash_bank');
+$this->cash_bank->updateAll(array("current_date" => $current_date, 
+"transaction_date" => $transaction_date, "prepaired_by" => $s_user_id, 
+"bill_reference" => $bill_no,"receipt_mode" => $mode,
+"account_head" => $bank_account,   
+"amount" => $amount,"member" => $member,"module_id"=>1,"cheque_number"=>$cheque_number,"reference_number"=>$reference_number,"which_bank"=>$which_bank,"cheque_date"=>$cheque_date,"receipt_for_type"=>$bill_for),array("receipt_id" => $bank_rrr,"society_id"=>$s_society_id,"module_id"=>1));
+
+ 
+$this->loadmodel('ledger');
+$this->regular_bill->updateAll("receipt_id" => $bank_rrr, 
+"amount" => $amount, "amount_category_id" => 2, "module_id" => 1, "account_type" => 1,  "account_id" => $received_from, 
+"current_date" => $current_date, "society_id" => $s_society_id,"table_name"=>"cash_bank","module_name"=>"Bank Receipt"),array("receipt_id" => $bill_no,"amount_category_id"=>2,"module_id" => 1,"table_name"=>"cash_bank","society_id" => $s_society_id)); 
+
+
+$this->loadmodel('regular_bill');
+$this->regular_bill->updateAll(array("auto_id" => $k, "receipt_id" => $i, 
+"amount" => $amount, "amount_category_id" => 1, "module_id" => 1, "account_type" => 1, "account_id" => $sub_account_id_a,
+"current_date" => $current_date, "society_id" => $s_society_id,"table_name"=>"cash_bank","module_name"=>"Bank Receipt"),array("receipt_id" => $bill_no));
+
+
+$this->loadmodel('regular_bill');
+$conditions=array("receipt_id" => $bill_no,"society_id"=>$s_society_id);
+$cursor=$this->regular_bill->find('all',array('conditions'=>$conditions));
+foreach ($cursor as $collection) 
+{
+$remain_amt = $collection['regular_bill']['remaining_amount'];
+$arrears_amt = (int)$collection['regular_bill']['arrears_amt'];
+$arrears_int = $collection['regular_bill']['accumulated_tax'];
+$total_due_amt = $collection['regular_bill']['total_due_amount'];
+}
+$due_amt = $remain_amt - $amount;
+@$total_due_amt = $total_due_amt - $amount;
+if($arrears_int <= $amount)
+{
+$amount = $amount-$arrears_int;
+$arrears_int = 0;
+}
+else
+{
+$arrears_int = $arrears_int -$amount;
+$amount = 0;
+}
+
+if($amount >= $arrears_amt)
+{
+$arrears_amt = (int)$arrears_amt - $amount;
+}
+else
+{
+$arrears_amt = (int)$arrears_amt - $amount;
+}
+
+$this->loadmodel('regular_bill');
+$this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"total_due_amount"=>$total_due_amt),array("receipt_id" => $bill_no));
+	
+	
+	
+	
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	}
 
 }
@@ -4122,8 +4193,6 @@ foreach ($result_rb as $collection)
 $bill_no = (int)$collection['regular_bill']['receipt_id'];
 }
 
-
-
 $this->loadmodel('cash_bank');
 $conditions=array("society_id" => $s_society_id,"module_id"=>1);
 $order=array('cash_bank.transaction_id'=> 'DESC');
@@ -4234,7 +4303,6 @@ $arrears_amt = (int)$arrears_amt - $amount;
 $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"total_due_amount"=>$total_due_amt),array("receipt_id" => $bill_no));
 
-}		
 
 }
 }

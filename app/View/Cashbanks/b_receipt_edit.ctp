@@ -8,8 +8,16 @@ foreach($cursor1 as $data){
 	$reference_number=@$data["cash_bank"]["reference_number"];
 	$current_date=$data["cash_bank"]["current_date"];
 	$member=@$data["cash_bank"]["member"];
+	
+	
 	$account_head=@$data["cash_bank"]["account_head"];
 	$user_id=@$data["cash_bank"]["user_id"];
+
+	if($member == 1)
+	{
+	$regular_receipt = (int)@$data['cash_bank']['bill_reference'];
+	$bill_for = (int)@$data["cash_bank"]["receipt_for_type"];
+	}
 	
 	$result_user_info=$this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'), array('pass' => array($user_id)));
 	foreach($result_user_info as $collection2)
@@ -17,7 +25,6 @@ foreach($cursor1 as $data){
 	$user_name=$collection2["user"]["user_name"];
 	$wing=$collection2["user"]["wing"];
 	$flat=$collection2["user"]["flat"];
-
 	}
 
 	$flat_info=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing,$flat)));
@@ -30,12 +37,19 @@ foreach($cursor1 as $data){
  <div class="portlet-body form">
 	<!-- BEGIN FORM-->
 	<form method="post" class="form-horizontal">
+	
+	<input type="hidden" value="<?php echo $receipt_id; ?>" name="rrrr">
+	<input type="hidden" value="<?php echo $bill_for; ?>" name="ffff">
+	<input type="hidden" value="<?php echo $member; ?>" name="mmmm">
+	<input type="hidden" value="<?php echo $regular_receipt; ?>" name="regrec">
+	
+	
 	<div class="row-fluid">
 	<div class="span6">
 	   <div class="control-group">
 		  <label class="control-label">Transaction date*</label>
 		  <div class="controls">
-			 <input type="text" class="span6 m-wrap" value="<?php echo $transaction_date; ?>" id="inputWarning">
+			 <input type="text" class="span6 m-wrap" name="t_date" value="<?php echo $transaction_date; ?>" id="inputWarning">
 		  </div>
 	   </div>
 	   
@@ -145,7 +159,7 @@ foreach($cursor1 as $data){
 		<td>15-01-2015</td>
 		<td>6000</td>
 		<td>-4000</td>
-		<td><input type="text" class="m-wrap span12"/></td>
+		<td><input type="text" class="m-wrap span12" name="amt"/></td>
 		</tr>
 	</table>
 	</div>
