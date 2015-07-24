@@ -30,6 +30,24 @@ $bank_id = $data[5];
 $Date1 = $data[6];
 $auto_id = $data[7];
 $Amount = $data[8];
+
+/*
+$c = (int)strcasecmp("Cheque",$ReceiptMod);
+$n = (int)strcasecmp("NEFT",$ReceiptMod);
+$p = (int)strcasecmp("PG",$ReceiptMod);
+if($c == 0)
+{
+$mode_id = 1;	
+}
+if($n == 0)
+{
+$mode_id = 1;	
+}
+if($p == 0)
+{
+$mode_id = 1;	
+}
+*/
 ?>
 <tr>
 <td>
