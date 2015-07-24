@@ -3473,6 +3473,12 @@ if($i>0)
 {
 $child_ex=explode(',',$child[0]);
 
+$group = $child_ex[0];
+$ac_name = $child_ex[1];
+$amt_type = $child_ex[4];
+$amt = $child_ex[5];
+$pen_amt = $child_ex[6];
+
 if($group == 'Sundry Creditors Control A/c ')
 {
 $group_id = 15;
