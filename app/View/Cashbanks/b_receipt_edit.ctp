@@ -1,8 +1,31 @@
 <?php
-pr($cursor1); ?>
+foreach($cursor1 as $data){
+	$receipt_id=$data["cash_bank"]["receipt_id"];
+	$transaction_date=$data["cash_bank"]["transaction_date"];
+	$receipt_mode=$data["cash_bank"]["receipt_mode"];
+	$cheque_number=@$data["cash_bank"]["cheque_number"];
+	$which_bank=@$data["cash_bank"]["which_bank"];
+	$reference_number=@$data["cash_bank"]["reference_number"];
+	$current_date=$data["cash_bank"]["current_date"];
+	$member=@$data["cash_bank"]["member"];
+	$account_head=@$data["cash_bank"]["account_head"];
+	$user_id=@$data["cash_bank"]["user_id"];
+	
+	$result_user_info=$this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'), array('pass' => array($user_id)));
+	foreach($result_user_info as $collection2)
+	{
+	$user_name=$collection2["user"]["user_name"];
+	$wing=$collection2["user"]["wing"];
+	$flat=$collection2["user"]["flat"];
+
+	}
+
+	$flat_info=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing,$flat)));
+	
+} ?>
 <div class="portlet box blue">
  <div class="portlet-title">
-	<h4><i class="icon-reorder"></i>Edit Reciept</h4>
+	<h4><i class="icon-reorder"></i>Edit Reciept - <?php echo $receipt_id; ?></h4>
  </div>
  <div class="portlet-body form">
 	<!-- BEGIN FORM-->
@@ -12,7 +35,7 @@ pr($cursor1); ?>
 	   <div class="control-group">
 		  <label class="control-label">Transaction date*</label>
 		  <div class="controls">
-			 <input type="text" class="span6 m-wrap" id="inputWarning">
+			 <input type="text" class="span6 m-wrap" value="<?php echo $transaction_date; ?>" id="inputWarning">
 		  </div>
 	   </div>
 	   
@@ -21,26 +44,31 @@ pr($cursor1); ?>
 	   <label  class="control-label">Receipt Mode<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose receipt mode"> </i></label>
 	   <div class="controls">
 		<label class="radio">
-		<div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" checked="" value="Cheque" style="opacity: 0;" id="mode" class="chn"></span></div>
+		<div class="radio" id="uniform-undefined"><span>
+		<input type="radio" name="mode" <?php if($receipt_mode=="Cheque"){ echo 'checked=""';} ?> value="Cheque" style="opacity: 0;" id="mode" class="chn">
+		</span></div>
 		Cheque
 		</label>
 		<label class="radio">
-		<div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" value="NEFT" style="opacity: 0;" id="mode" class="neft"></span></div>
+		<div class="radio" id="uniform-undefined"><span>
+		<input type="radio" name="mode" value="NEFT" <?php if($receipt_mode=="NEFT"){ echo 'checked=""';} ?> >
+		</span></div>
 		NEFT
 		</label>
 		<label class="radio">
-		<div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" value="PG" style="opacity: 0;" id="mode" class="pg"></span></div>
+		<div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" <?php if($receipt_mode=="pg"){ echo 'checked=""';} ?>></span></div>
 		PG
 		</label> 
 		<label id="mode"></label>
 		</div>
 		</div>
 		
-		<div id="cheque_div">
+		 
+		<div id="cheque_div" <?php if($receipt_mode=="Cheque") { echo 'style="display:block;"'; }else{ echo 'style="display:none;"'; } ?> >
 			<div class="control-group">
 			<label class="control-label">Cheque No.<span style="color:red;">*</span> </label>
 			<div class="controls">
-			<input type="text"  name="cheque_number" class="m-wrap span9 " placeholder="Cheque No." style="background-color:white !important;" id="ins">
+			<input type="text"  name="cheque_number" class="m-wrap span9 " placeholder="Cheque No."  value="<?php echo @$cheque_number; ?>">
 			<label id="ins"></label>
 			</div>
 			</div>
@@ -48,17 +76,18 @@ pr($cursor1); ?>
 			<div class="control-group">
 			<label class="control-label">Drawn on which bank?<span style="color:red;">*</span> </label>
 			<div class="controls">
-			<input type="text"  name="which_bank" class="m-wrap span9 " placeholder="Drawn on which bank?" style="background-color:white !important;" id="ins">
+			<input type="text"  name="which_bank" class="m-wrap span9 " placeholder="Drawn on which bank?" value="<?php echo @$which_bank; ?>">
 			<label id="ins"></label>
 			</div>
 			</div>
 		</div>
 		
-		<div id="neft_div" style="display:;">
+		
+		<div id="neft_div" <?php if($receipt_mode=="Cheque") { echo 'style="display:none;"'; }else{ echo 'style="display:block;"'; } ?> >
 			<div class="control-group">
 			<label class="control-label">Reference/UTR #<span style="color:red;">*</span> </label>
 			<div class="controls">
-			<input type="text"  name="reference_number" class="m-wrap span9 ignore" placeholder="Reference/UTR #" style="background-color:white !important;" id="ins">
+			<input type="text"  name="reference_number" class="m-wrap span9 ignore" placeholder="Reference/UTR #" value="<?php echo @$reference_number; ?>">
 			<label id="ins"></label>
 			</div>
 			</div>
@@ -67,7 +96,7 @@ pr($cursor1); ?>
 		<div class="control-group">
 			<label class="control-label">Date<span style="color:red;">*</span> </label>
 			<div class="controls">
-			<input type="text"  name="cheque_date" class="m-wrap span9 date-picker" placeholder="Date" data-date-format="dd-mm-yyyy" style="background-color:white !important;" id="ins">
+			<input type="text"  name="cheque_date" class="m-wrap span9 date-picker" placeholder="Date" data-date-format="dd-mm-yyyy" value="<?php echo @$current_date; ?>">
 			<label id="ins"></label>
 			</div>
 		</div>
@@ -84,7 +113,7 @@ pr($cursor1); ?>
 			$bank_id = (int)$db['ledger_sub_account']["auto_id"];
 			$bank_ac = $db['ledger_sub_account']["name"];
 			?>
-			<option value="<?php echo $bank_id; ?>"><?php echo $bank_ac; ?></option>
+			<option value="<?php echo $bank_id; ?>" <?php if($bank_id==$account_head){ echo 'selected="selected"'; } ?>><?php echo $bank_ac; ?></option>
 			<?php } ?>
 			</select>
 			<label id="bank"></label>
@@ -95,8 +124,8 @@ pr($cursor1); ?>
 		
 	</div>
 	<div class="span6">
-	Received from  -  Member / Non Member<br/>
-	Party Name - Abhilash Lohar<br/>
+	Received from  -  <?php if($member==1) { echo '<b>Member</b>'; }else{ echo '<b>Non Member</b>'; } ?><br/>
+	Party Name - <b><?php echo $user_name.' '.$flat_info; ?></b><br/><br/>
 	
 	Receipt Applied towards following bill:
 	<table class="table table-bordered">

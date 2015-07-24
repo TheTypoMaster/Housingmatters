@@ -2498,13 +2498,37 @@ function b_receipt_edit($trns_id=null,$module_id=null){
 	}else{
 	$this->layout='session';
 	}
-	
+	$s_role_id=$this->Session->read('role_id');
+	$s_society_id = (int)$this->Session->read('society_id');
+	$s_user_id=$this->Session->read('user_id');	
+
+	$trns_id=(int)$trns_id;
+	$module_id=(int)$module_id;
 	$this->ath();
 	
+	$this->loadmodel('ledger_sub_account');
+	$conditions=array("ledger_id" => 33,"society_id"=>$s_society_id);
+	$cursor3=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+	$this->set('cursor3',$cursor3);
+
 	$this->loadmodel('cash_bank');
 	$conditions=array("transaction_id" => $trns_id,"module_id"=>$module_id);
 	$cursor1=$this->cash_bank->find('all',array('conditions'=>$conditions));
 	$this->set('cursor1',$cursor1);
+	
+	if(isset($this->request->data['bank_receipt_add'])){
+		exit;
+		$current_date = date('d-m-Y');
+		$current_date = date("Y-m-d", strtotime($current_date));
+		$current_date = new MongoDate(strtotime($current_date));
+		$date = $this->request->data['date'];
+		$bill_no = (int)@$this->request->data['bill_no'];
+		$date = date("Y-m-d", strtotime($date));
+		//$date = new MongoDate(strtotime($date));
+		$receipt_instruction = @$this->request->data['instruction']; 
+		$sub_account_id = (int)$this->request->data['bank_account'];
+	}
+
 }
 ////////////////////////////////////////// End Bank Receipt Pdf (Accounts)////////////////////////////////////
 
