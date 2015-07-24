@@ -45,18 +45,20 @@ foreach($cursor1 as $data){
 	   <div class="controls">
 		<label class="radio">
 		<div class="radio" id="uniform-undefined"><span>
-		<input type="radio" name="mode" <?php if($receipt_mode=="Cheque"){ echo 'checked=""';} ?> value="Cheque" style="opacity: 0;" id="mode" class="chn">
+		<input type="radio" name="mode" <?php if($receipt_mode=="Cheque"){ echo 'checked=""';} ?> value="Cheque" style="opacity: 0;" id="Cheque" class="chn">
 		</span></div>
 		Cheque
 		</label>
 		<label class="radio">
 		<div class="radio" id="uniform-undefined"><span>
-		<input type="radio" name="mode" value="NEFT" <?php if($receipt_mode=="NEFT"){ echo 'checked=""';} ?> >
+		<input type="radio" name="mode" value="NEFT" <?php if($receipt_mode=="NEFT"){ echo 'checked=""';} ?> id="NEFT">
 		</span></div>
 		NEFT
 		</label>
 		<label class="radio">
-		<div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" <?php if($receipt_mode=="pg"){ echo 'checked=""';} ?>></span></div>
+		<div class="radio" id="uniform-undefined"><span>
+		<input type="radio" name="mode" <?php if($receipt_mode=="pg"){ echo 'checked=""';} ?> id="PG">
+		</span></div>
 		PG
 		</label> 
 		<label id="mode"></label>
@@ -156,3 +158,20 @@ foreach($cursor1 as $data){
 	<!-- END FORM-->
  </div>
 </div>
+
+<script>
+$(document).ready(function() {
+	$("#Cheque").live('click',function(){
+		$("#cheque_div").show();
+		$("#neft_div").hide();
+	});
+	$("#NEFT").live('click',function(){
+		$("#neft_div").show();
+		$("#cheque_div").hide();
+	});
+	$("#PG").live('click',function(){
+		$("#neft_div").show();
+		$("#cheque_div").hide();
+	});
+});
+</script>
