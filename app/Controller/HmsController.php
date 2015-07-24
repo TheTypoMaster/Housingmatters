@@ -18503,7 +18503,7 @@ $s_society_id = $this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
 
 $this->loadmodel('flat_type');
-$conditions=array("society_id" => $s_society_id, "auto_id" => $auto_id);
+$conditions=array("society_id" => $s_society_id, "flat_type_id" => $auto_id);
 return $this->flat_type->find('all',array('conditions'=>$conditions));
 
 }
