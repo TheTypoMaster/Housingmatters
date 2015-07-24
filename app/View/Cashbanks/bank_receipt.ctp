@@ -1,3 +1,4 @@
+
 <?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 ?>				   
@@ -16,7 +17,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <div id="myModal3" class="modal hide fade in" style="display:none;">
 
 <div class="modal-backdrop fade in"></div>
-<form id="form1" method="post">
+<form id="form1" method="post" enctype="multipart/form-data">
 <div class="modal">
 <div class="modal-header">
 <h4 id="myModalLabel1">Import csv</h4>
@@ -66,6 +67,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <?php 
 $default_date = date('d-m-Y')
 ?>
+<div id="url_main">
 <div style="background-color:#fff;padding:5px;width:96%;margin:auto;" class="form_div">
 <h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Post Bank Receipt</h4>
 <?php
@@ -173,7 +175,6 @@ $bank_ac = $db['ledger_sub_account']["name"];
 </div>
 <br /> 
 <!-----------------------------------------------------------------------------------------------
-
 <label style="font-size:14px;">Deposited In<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select deposit bank "> </i></label>
 <div class="controls">
 <select name="bank_account" class="span9 m-wrap chosen" id="bank">
@@ -255,12 +256,10 @@ Non-Member
 <br />  
 <button type="submit" class="btn green" name="bank_receipt_add" value="xyz" id="vali">Submit</button>
 <a href="bank_receipt" class="btn">Reset</a>
-     
 </div>
 
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-     
-              
+</div>  
 <?php /////////////////////////////////////////////////////////////////////////////////////////////// ?>              
 
 
@@ -514,8 +513,7 @@ $("#myModal3").hide();
 <script>
 $(document).ready(function() {
 $('form#form1').submit( function(ev){
-			ev.preventDefault(); 
-		
+		ev.preventDefault(); 
 		var im_name=$("#image-file").val();
 		
 		if(im_name==""){
@@ -523,15 +521,15 @@ $('form#form1').submit( function(ev){
 		return false;
 		}
 		
-		var ext = $('#image-file').val().split('.').pop().toLowerCase();
-		if($.inArray(ext, ['csv']) == -1) {
-			$("#vali").html("<span style='color:red;'>Please Select a Csv File</span>");
-			return false;
+var ext = $('#image-file').val().split('.').pop().toLowerCase();
+if($.inArray(ext, ['csv']) == -1) {
+$("#vali").html("<span style='color:red;'>Please Select a Csv File</span>");
+return false;
 		}
 		
 		$(".import_btn").text("Importing...");
 		var m_data = new FormData();
-		m_data.append( 'file', $('input[name=file]')[0].files[0]);
+		m_data.append( 'file', $('input[name=ffff]')[0].files[0]);
 		$.ajax({
 			url: "bank_receipt_import_ajax",
 			data: m_data,
@@ -541,46 +539,7 @@ $('form#form1').submit( function(ev){
 			}).done(function(response){
 			$("#myModal3").hide();
 			$("#url_main").html(response);
-			
-    
-	
-var insert = 1;
-var count = $("#open_bal tr").length;
-var ar = [];
 
-for(var i=2;i<=count;i++)
-{
-$("#open_bal tr:nth-child("+i+") span.report").remove();
-$("#open_bal tr:nth-child("+i+") span.report").css("background-color","#FFF;");
-var wing = $("#open_bal tr:nth-child("+i+") td:nth-child(1) input").val();
-var flat=$("#open_bal tr:nth-child("+i+") td:nth-child(2) input").val();
-var type=$("#open_bal tr:nth-child("+i+") td:nth-child(3) select").val();
-var feet=$("#open_bal tr:nth-child("+i+") td:nth-child(4) input").val();
-
-ar.push([wing,flat,type,feet,insert]);
-}
-
-var myJsonString = JSON.stringify(ar);
-myJsonString=encodeURIComponent(myJsonString);
-	
-	
-$.ajax({
-url: "save_flat_imp?q="+myJsonString,
-type: 'POST',
-dataType:'json',
-}).done(function(response) {
-if(response.report_type=='error'){
-jQuery.each(response.report, function(i, val) {
-$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").append('<span class="report" style="color:red;">'+val.text+'</span>');
-
-$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
-
-$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
-
-$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
-});
-}	
-});
 });
 
 $(".import_op").live('click',function(){

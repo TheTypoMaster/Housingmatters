@@ -3770,7 +3770,7 @@ $this->layout="blank";
 $this->ath();
 
 $s_society_id= (int)$this->Session->read('society_id');
-
+/*
 if(isset($_FILES['ffff'])){
 $file_name=$_FILES['ffff']['name'];
 $file_tmp_name =$_FILES['ffff']['tmp_name'];
@@ -3778,7 +3778,7 @@ $target = "csv_file/bank/";
 $target=@$target.basename($file_name);
 move_uploaded_file($file_tmp_name,@$target);
 
-$f = fopen('csv_file/unit/'.$file_name, 'r') or die("ERROR OPENING DATA");
+$f = fopen('csv_file/bank/'.$file_name,'r') or die("ERROR OPENING DATA");
 $batchcount=0;
 $records=0;
 while (($line = fgetcsv($f, 4096, ';')) !== false) {
@@ -3790,7 +3790,27 @@ $test[]=$line;
 fclose($f);
 $records;
 }
+*/
 
+if(isset($_FILES['file'])){
+$file_name=$_FILES['file']['name'];
+$file_tmp_name =$_FILES['file']['tmp_name'];
+$target = "csv_file/bank/";
+$target=@$target.basename($file_name);
+move_uploaded_file($file_tmp_name,@$target);
+
+$f = fopen('csv_file/bank/'.$file_name, 'r') or die("ERROR OPENING DATA");
+$batchcount=0;
+$records=0;
+while (($line = fgetcsv($f, 4096, ';')) !== false) {
+// skip first record and empty ones
+$numcols = count($line);
+$test[]=$line;
+++$records;
+}
+fclose($f);
+$records;
+}
 $i=0;
 foreach($test as $child)
 {
@@ -3915,7 +3935,7 @@ $table[] = array(@$TransactionDate,@$ReceiptMod,@$ChequeNo,@$Reference,@$DrawnBa
 } 
 $i++;
 }
-$this->set('table',$table);
+$this->set('aaa',$table);
 
 $this->loadmodel('ledger_sub_account');
 $conditions=array("society_id" => $s_society_id,"ledger_id"=>33);
@@ -3924,11 +3944,31 @@ $this->set('cursor1',$cursor1);
 
 $this->loadmodel('ledger_sub_account');
 $conditions=array("society_id" => $s_society_id,"ledger_id"=>34);
-$cursor1 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+$cursor2 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
 $this->set('cursor2',$cursor2);
-
 }
 ////////////////////////////// End bank_receipt_import_ajax //////////////////////////////////////////////////////////
+///////////////////////////////// Start Save bank Imp ///////////////////////////////////////////////////////////////
+function save_bank_imp()
+{
+$this->layout='blank';
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id = (int)$this->Session->read('user_id');
+	
+$q=$this->request->query('q'); 
+$myArray = json_decode($q, true);
 
+
+
+
+
+
+
+
+
+
+
+}
+///////////////////////////////// End Save bank Imp ///////////////////////////////////////////////////////////////
 }
 ?>

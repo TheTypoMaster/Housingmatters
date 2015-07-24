@@ -4,11 +4,6 @@
 </div>
 <div class="modal-body" style="overflow:auto;">
 <div id="vali"></div>
-<table id="open_bal2" style="width:30%;">
-<tr><td>
-<input type="text" class="date-picker m-wrap span10" data-date-format="dd-mm-yyyy" name="date" id="date" style="background-color:white !important;" placeholder="Date" >
-</td></tr>
-</table>
 <br />
 <table class="table table-bordered" style="width:100%; background-color:white;" id="open_bal">
 <tr>
@@ -18,12 +13,13 @@
 <th>Reference/UTR#</th>
 <th>Drawn Bank</th>
 <th>Date</th>
+<th>Deposited In</th>
 <th>Party Name</th>
 <th>Amount</th>
 <th>Delete</th>
 </tr>
 <?php 
-foreach($table as $data)
+foreach($aaa as $data)
 { 
 $TransactionDate = $data[0];
 $ReceiptMod = $data[1];
@@ -34,29 +30,28 @@ $bank_id = $data[5];
 $Date1 = $data[6];
 $auto_id = $data[7];
 $Amount = $data[8];
-
-
-
-
 ?>
 <tr>
-<th>
-<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="date" placeholder="Transaction Date" style="background-color:white !important;" id="date" value="<?php echo $default_date; ?>">
-</th>
-<th>
-<input type="text" name="" class="m-wrap span7" readonly="readonly" value="<?php echo $ReceiptMod; ?>" />
-</th>
-<th>
-<input type="text" name="" class="m-wrap span7" value="<?php echo $ChequeNo; ?>" />
-</th>
-<th>
-<input type="text" name="" class="m-wrap span7" value="<?php echo $Reference; ?>" />
-</th>
-<th>
-<input type="text" name="" class="m-wrap span7" value="<?php echo $DrawnBankname; ?>" />
-</th>
-<th> 
-<select name="" class="m-wrap span7">
+<td>
+<input type="text" class="date-picker m-wrap span12" data-date-format="dd-mm-yyyy" name="date" placeholder="Transaction Date" style="background-color:white !important;" id="date" value="<?php echo $TransactionDate; ?>">
+</td>
+<td>
+<input type="text" name="" class="m-wrap span12" readonly="readonly" value="<?php echo $ReceiptMod; ?>" />
+</td>
+<td>
+<input type="text" name="" class="m-wrap span12" value="<?php echo $ChequeNo; ?>" />
+</td>
+<td>
+<input type="text" name="" class="m-wrap span12" value="<?php echo $Reference; ?>" />
+</td>
+<td>
+<input type="text" name="" class="m-wrap span12" value="<?php echo $DrawnBankname; ?>" />
+</td>
+<td>
+<input type="text" class="date-picker m-wrap span12" data-date-format="dd-mm-yyyy" name="date" placeholder="Transaction Date" style="background-color:white !important;" id="date" value="<?php echo $Date1; ?>">
+</td>
+<td> 
+<select name="" class="m-wrap span12">
 <?php
 foreach($cursor1 as $collection)
 {
@@ -68,9 +63,9 @@ $name = $collection['ledger_sub_account']['name'];
 }
 ?>
 </select>
-</th>
-<th>
-<select name="" class="m-wrap span7">
+</td>
+<td>
+<select name="" class="m-wrap span12">
 <?php
 foreach($cursor2 as $collection)
 {
@@ -82,20 +77,19 @@ $name1 = $collection['ledger_sub_account']['name'];
 }
 ?>
 </select>
-</th>
-<th>
-<input type="text" name="" class="m-wrap span7" value="<?php echo $Amount; ?>" />
-</th>
+</td>
+<td>
+<input type="text" name="" class="m-wrap span12" value="<?php echo $Amount; ?>" />
+</td>
 <th>Delete</th>
 </tr>
 <?php
 }
 ?>
 </table>
-
 </div>
 <div class="modal-footer">
-<a class="btn" href="<?php echo $webroot_path; ?>Accounts/opening_balance_import" rel="tab">Cancel</a>
+<a class="btn" href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt" rel="tab">Cancel</a>
 <button type="submit" class="btn blue import_op">Import</button>
 </div>
 </div>

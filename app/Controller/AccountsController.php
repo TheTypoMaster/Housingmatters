@@ -3473,16 +3473,6 @@ if($i>0)
 {
 $child_ex=explode(',',$child[0]);
 
-
-
-
-
-
-
-
-
-
-
 if($group == 'Sundry Creditors Control A/c ')
 {
 $group_id = 15;
@@ -3842,8 +3832,8 @@ $this->ledger->saveAll($multipleRowData);
 }
 else
 {
-    if($group_id == 15 || $group_id == 34 || $group_id == 33 || $group_id == 35)
-    {
+if($group_id == 15 || $group_id == 34 || $group_id == 33 || $group_id == 35)
+{
 if($opening_bal != 0)
 {
 $this->loadmodel('ledger_sub_account');

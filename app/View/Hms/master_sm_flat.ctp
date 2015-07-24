@@ -82,8 +82,7 @@ $wing_name=$collection['wing']["wing_name"];
 <td width="25%" style="text-align:center;" id="showflat1">
 
 </td>	
-
-					
+				
 <td width="25%" style="text-align:center;">
 <select name="flat_type1" class="m-wrap medium" id="fltp1">
 <option value="">--SELECT UNIT TYPE--</option>
