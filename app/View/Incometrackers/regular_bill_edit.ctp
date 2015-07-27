@@ -105,6 +105,11 @@ No
 <div class="span6">
 
 
+<label style="font-size:14px;">Billing Description</label>
+<div class="controls">
+<textarea class="span9 m-wrap" name="description" id="description" style="resize:none;" rows="3"></textarea>
+<label id="description"></label>
+</div>
 
 
 
