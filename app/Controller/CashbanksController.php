@@ -2547,7 +2547,7 @@ $this->cash_bank->updateAll(array("current_date" => $current_date,
 
  
 $this->loadmodel('ledger');
-$this->regular_bill->updateAll("amount" => $amount,"current_date" => $current_date),array("receipt_id" => $bank_rrr,"amount_category_id"=>2,"module_id" => 1,"table_name"=>"cash_bank","society_id" => $s_society_id,"account_type" => 1)); 
+$this->regular_bill->updateAll(array("amount" => $amount,"current_date" => $current_date),array("receipt_id" => $bank_rrr,"amount_category_id"=>2,"module_id" => 1,"table_name"=>"cash_bank","society_id" => $s_society_id,"account_type" => 1)); 
 
 
 $this->loadmodel('regular_bill');

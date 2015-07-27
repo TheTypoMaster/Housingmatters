@@ -162,10 +162,13 @@ $grand_total = $grand_total + $g_total;
 <td><?php echo $user_name; ?></td>
 <td><?php echo $bill_daterange_from2; ?></td>
 <td><?php echo $bill_daterange_to2; ?></td>
-<td style="text-align:right;"><?php 
+<td style="text-align:right;">
+<?php 
 $g_total = number_format($g_total);
 echo $g_total; ?></td>
-<td class="hide_at_print" style="text-align:right;"><a href="regular_bill_view/<?php echo $regular_bill_id; ?>" class="btn mini yellow" target="_blank">View</a>
+<td class="hide_at_print" style="text-align:right;">
+<a href="regular_bill_edit/<?php echo $regular_bill_id; ?>" class="btn mini purple">Edit</a>
+<a href="regular_bill_view/<?php echo $regular_bill_id; ?>" class="btn mini yellow" target="_blank">View</a>
 <a href="regular_bill_pdf?p=<?php echo $regular_bill_id; ?>" class="btn mini purple" target="_blank">Pdf</a>
 </td>			
 </tr>
@@ -189,10 +192,13 @@ $grand_total = $grand_total + $g_total;
 <td><?php echo $user_name; ?></td>
 <td><?php echo $bill_daterange_from2; ?></td>
 <td><?php echo $bill_daterange_to2; ?></td>
-<td style="text-align:right;"><?php 
+<td style="text-align:right;">
+<?php 
 $g_total = number_format($g_total);
 echo $g_total; ?></td>
-<td class="hide_at_print" style="text-align:right;"><a href="regular_bill_view/<?php echo $regular_bill_id; ?>" class="btn mini yellow" target="_blank">View</a>
+<td class="hide_at_print" style="text-align:right;">
+<a href="regular_bill_edit/<?php echo $regular_bill_id; ?>" class="btn mini purple">Edit</a>
+<a href="regular_bill_view/<?php echo $regular_bill_id; ?>" class="btn mini yellow" target="_blank">View</a>
 <a href="regular_bill_pdf?p=<?php echo $regular_bill_id; ?>" class="btn mini purple" target="_blank">Pdf</a>
 </td>			
 </tr>	
@@ -219,7 +225,9 @@ $grand_total = $grand_total + $g_total;
 <td style="text-align:right;"><?php 
 $g_total = number_format($g_total);
 echo $g_total; ?></td>
-<td class="hide_at_print" style="text-align:right;"><a href="regular_bill_view/<?php echo $regular_bill_id; ?>" class="btn mini yellow" target="_blank">View</a>
+<td class="hide_at_print" style="text-align:right;">
+<a href="regular_bill_edit" class="btn mini purple">Edit</a>
+<a href="regular_bill_view/<?php echo $regular_bill_id; ?>" class="btn mini yellow" target="_blank">View</a>
 <a href="regular_bill_pdf?p=<?php echo $regular_bill_id; ?>" class="btn mini purple" target="_blank">Pdf</a>
 </td>			
 </tr>

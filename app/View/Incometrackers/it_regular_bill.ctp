@@ -352,13 +352,9 @@ $(document).ready(function(){
 		 		   bill_p: {
 	        required: true
 	      },
-		 
-		 
-		 
-		 
-		   
+	   
 		   bill_for: {
-			 required: true
+		    required: true
 	      },
 		  
 		  
