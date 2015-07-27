@@ -8,10 +8,14 @@ foreach($cursor1 as $data){
 	$reference_number=@$data["cash_bank"]["reference_number"];
 	$current_date=$data["cash_bank"]["current_date"];
 	$member=@$data["cash_bank"]["member"];
-	
+	$amount=@(int)$data["cash_bank"]["amount"];
 	
 	$account_head=@$data["cash_bank"]["account_head"];
-	$user_id=@$data["cash_bank"]["user_id"];
+	$user_id_d=@$data["cash_bank"]["user_id"];
+	$result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($user_id_d)));
+	foreach($result_lsa as $collection){
+		$user_id = (int)$collection['ledger_sub_account']['user_id'];
+	}
 
 	if($member == 1)
 	{
@@ -143,29 +147,13 @@ foreach($cursor1 as $data){
 	Received from  -  <?php if($member==1) { echo '<b>Member</b>'; }else{ echo '<b>Non Member</b>'; } ?><br/>
 	Party Name - <b><?php echo $user_name.' '.$flat_info; ?></b><br/><br/>
 	
-	Receipt Applied towards following bill:
-	<table class="table table-bordered">
-		<tr>
-		<th>Bill No.</th>
-		<th>Bill Date</th>
-		<th>Bill Due Date</th>
-		<th>Bill Amount</th>
-		<th>Due Amount</th>
-		<th>Amount Applied</th>
-		</tr>
-		<tr>
-		<td>1001</td>
-		<td>18-07-2015</td>
-		<td>15-01-2015</td>
-		<td>6000</td>
-		<td>-4000</td>
-		<td><input type="text" class="m-wrap span12" name="amt"/></td>
-		</tr>
-	</table>
+	<label>Amount</label>
+	<input type="text" class="m-wrap" value="<?php echo @$amount; ?>" name="amount" />
+	
 	</div>
 	</div>
 	   <div class="form-actions">
-		  <button type="submit" class="btn green">Save</button>
+		  <button type="submit" class="btn green" name="bank_receipt_update">Save</button>
 		  <button type="button" class="btn">Cancel</button>
 	   </div>
 	</form>
