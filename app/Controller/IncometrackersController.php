@@ -5816,16 +5816,8 @@ $arrears_amt = (int)$arrears_amt - $amount;
 
 $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"total_due_amount"=>$total_due_amt),array("receipt_id" => $bill_no));
-
-
-
 }
-
-
 */
-
-
-
 
 
 if(isset($this->request->data['sub']))
@@ -5859,8 +5851,31 @@ $this->society->updateAll(array("ac_name" => $ac_name,"bank_name"=>$bank_name,"b
 }
 }
 ////////////////////////////////////////// End NEFT Add //////////////////////////////////////////////////////////////
+/////////////////////////////// Start regular_bill_edit ////////////////////////////////////////////////////////////////
+function regular_bill_edit()
+{
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
+$this->ath();
+$this->check_user_privilages();
+
+$s_society_id=(int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
 
 
 
+
+
+
+
+
+
+
+
+}
+///////////////////////////////// End regular_bill_edit ///////////////////////////////////////////////////////////////
 }
 ?>

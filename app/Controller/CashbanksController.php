@@ -2543,6 +2543,11 @@ $this->loadmodel('cash_bank');
 $this->cash_bank->updateAll(array("transaction_date" => $transaction_date, "prepaired_by" => $s_user_id,"bill_reference" => $bill_no,"receipt_mode" => $mode,"account_head" => $bank_account,"amount" => $amount,"member" => $member,"module_id"=>1,"cheque_number"=>$cheque_number,"reference_number"=>$reference_number,"which_bank"=>$which_bank,"cheque_date"=>$cheque_date,"receipt_for_type"=>$bill_for),array("receipt_id" => $bank_rrr,"society_id"=>$s_society_id,"module_id"=>1));
 
 
+ 
+$this->loadmodel('ledger');
+$this->regular_bill->updateAll(array("amount" => $amount,"current_date" => $current_date),array("receipt_id" => $bank_rrr,"amount_category_id"=>2,"module_id" => 1,"table_name"=>"cash_bank","society_id" => $s_society_id,"account_type" => 1)); 
+
+
 
 $this->loadmodel('ledger');
 $this->ledger->updateAll(array("amount" => $amount,"current_date" => $current_date),array("receipt_id" => $bank_rrr,"module_id" => 1));
