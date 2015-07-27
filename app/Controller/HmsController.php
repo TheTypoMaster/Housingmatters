@@ -18466,7 +18466,7 @@ $this->set('cursor3',$cursor3);
 function flat_fetch2($flat,$wing)
 {
 $s_role_id=$this->Session->read('role_id');
-$s_society_id = $this->Session->read('society_id');
+$s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
 
 

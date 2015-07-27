@@ -163,7 +163,9 @@ $flat_id = (int)$mul_flat2[1];
 @$bill_no++;
 $sr++;
 
-$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array(1,1)));
+
+
 $maint_ch = 0;
 $result = $this->requestAction(array('controller' => 'hms', 'action' => 'regular_bill_fetch10'),array('pass'=>array($user_id,$flat_id)));
 foreach($result as $collection2)
@@ -182,13 +184,13 @@ $due_for_payment = (int)@$collection2['regular_bill']['g_total'];
 
 $current_date = date('Y-m-d');
 $current_date = new MongoDate(strtotime($current_date));
-$result3 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch2'),array('pass'=>array($flat_id,$wing_id)));
-foreach($result3 as $collection3)
+
+$result4 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch2'),array('pass'=>array(@$flat_id,$wing_id)));
+foreach($result4 as $data)
 {
-$flat_type_id = (int)@$collection3['flat']['flat_type_id'];
-$sq_feet = (int)@$collection3['flat']['flat_area'];
-$noc_ch_id = (int)@$collection3['flat']['noc_ch_tp'];
+$flat_type_id = (int)$data['flat']['flat_type_id'];
 }
+
 
 $result5 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_fetch'),array('pass'=>array(@$flat_type_id)));
 foreach($result5 as $collection5)
