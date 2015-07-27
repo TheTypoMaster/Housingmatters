@@ -5859,6 +5859,7 @@ $this->layout='blank';
 }else{
 $this->layout='session';
 }
+
 $this->ath();
 $this->check_user_privilages();
 
@@ -5866,11 +5867,10 @@ $s_society_id=(int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
 
 
-
-
-
-
-
+$this->loadmodel('society');
+$conditions=array("society_id"=>$s_society_id);
+$cursor1 = $this->society->find('all',array('conditions'=>$conditions));
+$this->set('cursor1',$cursor1);
 
 
 
