@@ -2516,7 +2516,6 @@ function b_receipt_edit($trns_id=null,$module_id=null){
 	$this->set('cursor1',$cursor1);
 	
 	if(isset($this->request->data['bank_receipt_update'])){
-		
 		$transaction_date = $this->request->data['t_date']; 
 		$mode = $this->request->data['mode'];
 		$cheque_number = @$this->request->data['cheque_number'];
@@ -2545,12 +2544,11 @@ $this->cash_bank->updateAll(array("transaction_date" => $transaction_date, "prep
 
  
 $this->loadmodel('ledger');
-$this->regular_bill->updateAll(array("amount" => $amount,"current_date" => $current_date),array("receipt_id" => $bank_rrr,"amount_category_id"=>2,"module_id" => 1,"table_name"=>"cash_bank","society_id" => $s_society_id,"account_type" => 1)); 
+$this->ledger->updateAll(array("amount" => $amount,"current_date" => $current_date),array("receipt_id" => $bank_rrr,"module_id" => 1)); 
+exit;
 
 
 
-$this->loadmodel('ledger');
-$this->ledger->updateAll(array("amount" => $amount,"current_date" => $current_date),array("receipt_id" => $bank_rrr,"module_id" => 1));
 
 
 
