@@ -1,4 +1,3 @@
-
 <form method="post" onsubmit="return submit_hndlr()">
 <?php
 if($p_id == 1)
@@ -129,7 +128,6 @@ if(@$bill_no == 0)
 $bill_no = 1000;
 $nnnn = 555;	
 }
-
 $sr = 0;
 $noc_tt_amt=0;
 $gt_tt_amt = 0;
@@ -144,7 +142,6 @@ foreach($cursor1 as $collection)
 {
 $c++;
 $multi_flat = array();
-
 $user_id = (int)$collection['user']['user_id'];
 $user_name = $collection['user']['user_name'];
 $wing_id = (int)$collection['user']['wing'];
@@ -167,7 +164,6 @@ $flat_id = (int)$mul_flat2[1];
 $sr++;
 
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
-
 $maint_ch = 0;
 $result = $this->requestAction(array('controller' => 'hms', 'action' => 'regular_bill_fetch10'),array('pass'=>array($user_id,$flat_id)));
 foreach($result as $collection2)
@@ -182,12 +178,10 @@ $arrears = $collection2['regular_bill']['arrears_amt'];
 $ggg_tt = @$collection2['regular_bill']['remaining_amount'];
 $arr_interest_for_receipt = @$collection2['regular_bill']['arrear_interest'];
 $due_for_payment = (int)@$collection2['regular_bill']['g_total'];
-
 }
 
 $current_date = date('Y-m-d');
 $current_date = new MongoDate(strtotime($current_date));
-
 $result3 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch2'),array('pass'=>array($flat_id,$wing_id)));
 foreach($result3 as $collection3)
 {
