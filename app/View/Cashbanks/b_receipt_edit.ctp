@@ -2,6 +2,8 @@
 foreach($cursor1 as $data){
 	$receipt_id=$data["cash_bank"]["receipt_id"];
 	$transaction_date=$data["cash_bank"]["transaction_date"];
+	$t_id=$data["cash_bank"]["transaction_id"];
+	
 	$receipt_mode=$data["cash_bank"]["receipt_mode"];
 	$cheque_number=@$data["cash_bank"]["cheque_number"];
 	$which_bank=@$data["cash_bank"]["which_bank"];
@@ -46,6 +48,7 @@ foreach($cursor1 as $data){
 	<input type="hidden" value="<?php echo $bill_for; ?>" name="ffff">
 	<input type="hidden" value="<?php echo $member; ?>" name="mmmm">
 	<input type="hidden" value="<?php echo $regular_receipt; ?>" name="regrec">
+	<input type="hidden" value="<?php echo $t_id; ?>" name="t_id">
 	
 	
 	<div class="row-fluid">

@@ -2523,6 +2523,7 @@ function b_receipt_edit($trns_id=null,$module_id=null){
 		$bank_rrr = (int)$this->request->data['rrrr'];
 		$member = (int)$this->request->data['mmmm'];
 		$amount = $this->request->data['amount'];
+		$t_id = $this->request->data['t_id'];
 		
 		if($member == 1)
 		{
@@ -2542,7 +2543,7 @@ $this->cash_bank->updateAll(array("transaction_date" => $transaction_date, "prep
  
 $this->loadmodel('ledger');
 $this->ledger->updateAll(array("amount" => $amount,"current_date" => $current_date),array("receipt_id" => $bank_rrr,"module_id" => 1)); 
-exit;
+$this->redirect(array('controller' => 'Cashbanks','action' => 'b_receipt_view?c='.$t_id.'&m=1'));
 
 
 
