@@ -5872,9 +5872,6 @@ $conditions=array("society_id"=>$s_society_id);
 $cursor1 = $this->society->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);
 
-
-
-
 }
 ///////////////////////////////// End regular_bill_edit ///////////////////////////////////////////////////////////////
 }

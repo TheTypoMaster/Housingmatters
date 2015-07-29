@@ -158,8 +158,6 @@ $conditions=array("user_id" => $user_id);
 $cursor2=$this->user->find('all',array('conditions'=>$conditions));
 $this->set('cursor',$cursor2);
 }
-
-
 $this->loadmodel('ledger_sub_account');
 $conditions=array("ledger_id" => 33,"society_id"=>$s_society_id);
 $cursor3=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
@@ -456,7 +454,6 @@ $d_receipt_id = (int)$collection['cash_bank']['receipt_id'];
 ///////////Start Sms////////////
 if($member_id == 1)
 { 
-
 $date_sms = date('d-m-Y',strtotime(@$date));
 
 $this->loadmodel('society');
