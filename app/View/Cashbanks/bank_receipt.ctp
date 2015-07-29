@@ -23,7 +23,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <h4 id="myModalLabel1">Import csv</h4>
 </div>
            <div class="modal-body">
-           <input type="file" name="ffff" class="default" id="image-file">
+           <input type="file" name="file" class="default" id="image-file">
            <label id="vali"></label>			
 			<strong><a href="bank_receipt_import" download>Click here for sample format</a></strong>
 			<br/>
@@ -59,7 +59,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 	
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>			
 <center>
-<a href="#" class="btn purple" role="button" id="import">Import csv</a>
 <a href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt" class="btn yellow" rel='tab'>Create</a>
 <a href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt_view" class="btn" rel='tab'>View</a>
 </center>	
@@ -70,6 +69,8 @@ $default_date = date('d-m-Y')
 <div id="url_main">
 <div style="background-color:#fff;padding:5px;width:96%;margin:auto;" class="form_div">
 <h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Post Bank Receipt</h4>
+
+
 <?php
 if($zz == 0)
 {
@@ -90,7 +91,9 @@ else
 </center>
 </div> 
 <?php } ?>
-<br />  
+
+<a href="#" class="btn purple pull-right" role="button" id="import">Import csv</a> 
+<br /> 
 <form id="contact-form" method="post">
 <div class="row-fluid">
 <div class="span6">  
@@ -512,38 +515,27 @@ $("#myModal3").hide();
 
 <script>
 $(document).ready(function() {
-$('form#form1').submit( function(ev){
-		ev.preventDefault(); 
-		var im_name=$("#image-file").val();
-		
-		if(im_name==""){
-		$("#vali").html("<span style='color:red;'>Please Select a Csv File</span>");	
-		return false;
-		}
-		
-var ext = $('#image-file').val().split('.').pop().toLowerCase();
-if($.inArray(ext, ['csv']) == -1) {
-$("#vali").html("<span style='color:red;'>Please Select a Csv File</span>");
-return false;
-		}
+	
+	$('form#form1').submit( function(ev){
+		ev.preventDefault();
 		
 		$(".import_btn").text("Importing...");
 		var m_data = new FormData();
-		m_data.append( 'file', $('input[name=ffff]')[0].files[0]);
+		m_data.append( 'file', $('input[name=file]')[0].files[0]);
 		$.ajax({
-			url: "bank_receipt_import_ajax",
+			url: "upload_csv_cash_bank",
 			data: m_data,
 			processData: false,
 			contentType: false,
 			type: 'POST',
-			}).done(function(response){
-			$("#myModal3").hide();
-			$("#url_main").html(response);
-
-});
-
+		}).done(function(response){
+			alert("done");
+		})
+	});
+				
+				
+	
 $(".import_op").live('click',function(){
-
 var insert = 2;
 var count = $("#open_bal tr").length;
 var ar = [];
@@ -588,7 +580,7 @@ $("#done").html('<div class="alert alert-block alert-success fade in"><h4 class=
 });
 
 });
-}); 
+
 </script>	
 
 

@@ -2,6 +2,7 @@
 foreach($cursor1 as $data){
 	$receipt_id=$data["cash_bank"]["receipt_id"];
 	$transaction_date=$data["cash_bank"]["transaction_date"];
+	$transaction_date=date("d-m-Y",strtotime($transaction_date));
 	$t_id=$data["cash_bank"]["transaction_id"];
 	
 	$receipt_mode=$data["cash_bank"]["receipt_mode"];
@@ -9,6 +10,7 @@ foreach($cursor1 as $data){
 	$which_bank=@$data["cash_bank"]["which_bank"];
 	$reference_number=@$data["cash_bank"]["reference_number"];
 	$current_date=$data["cash_bank"]["current_date"];
+	$current_date= date('d-m-Y',$current_date->sec);
 	$member=@$data["cash_bank"]["member"];
 	$amount=@(int)$data["cash_bank"]["amount"];
 	
@@ -56,7 +58,7 @@ foreach($cursor1 as $data){
 	   <div class="control-group">
 		  <label class="control-label">Transaction date*</label>
 		  <div class="controls">
-			 <input type="text" class="span6 m-wrap" name="t_date" value="<?php echo $transaction_date; ?>" id="inputWarning">
+			 <input type="text" class="span6 m-wrap date-picker" name="t_date"  value="<?php echo $transaction_date; ?>" id="inputWarning" data-date-format="dd-mm-yyyy">
 		  </div>
 	   </div>
 	   

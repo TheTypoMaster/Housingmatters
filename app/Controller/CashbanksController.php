@@ -674,6 +674,39 @@ $this->send_email($to,$from,$from_name,$subject,$message_mail,$reply);
 }
 }
 }
+
+
+
+function upload_csv_cash_bank(){
+	$this->layout=null;
+	if(isset($_FILES['file'])){
+		echo "hello"; exit;
+		$file_name=$_FILES['file']['name'];
+		$file_tmp_name =$_FILES['file']['tmp_name'];
+		$target = "csv_file/cashbank/";
+		$target=@$target.basename($file_name);
+		move_uploaded_file($file_tmp_name,@$target);
+		
+		$f = fopen('csv_file/cashbank/'.$file_name, 'r') or die("ERROR OPENING DATA");
+		$batchcount=0;
+		$records=0;
+		while (($line = fgetcsv($f, 4096, ';')) !== false) {
+		// skip first record and empty ones
+		$numcols = count($line);
+
+		$test[]=$line;
+
+		//echo $col = $line[0];
+		//echo $batchcount++.". ".$col."\n";
+
+
+		++$records;
+		}
+
+		fclose($f);
+		$records;
+	}
+}
 //////////////////////// End bank receipt email code ////////////////////////////////////////////
 
 ////////////////// Start Bank receipt Excel (Accounts)/////////////////////////////
@@ -3806,7 +3839,7 @@ $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id = (int)$this->Session->read('user_id');
 
-$excel = "Transaction Date,Receipt Mode,Cheque No.,Reference/UTR,Drawn Bank name,Deposited In,Date,Member Name,Wing,Flat,Amount \n";
+$excel = "Transaction Date,Receipt Mode,Cheque No.,Reference/UTR,Date,Deposited In Which Bank?,Received from(member/non-member),User Name,Wing,Flat,Receipt For(Maintenance/Other),Party Name,Bill Reference,Amount,Narration";
 
 
 echo $excel;
