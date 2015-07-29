@@ -1,3 +1,4 @@
+
 <?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 ?>				   
@@ -88,9 +89,8 @@ if($society_detail == 'YES')
 if($income_head_detail == 'YES')	
 {	
 ?>
-<div style="background-color:#fff;padding:5px;width:100%;margin:auto; overflow:auto;" class="form_div">
+<div style="background-color:#fff;padding:5px;width:100%; overflow:auto;" class="form_div">
 <h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Generate Regular Bill(Income Tracker)</h4>
-
 <form method="post" id="contact-form">
 <div class="row-fluid">
 <div class="span6">
@@ -111,7 +111,7 @@ $period_id = $period_arr[1];
 }
 ?>
 </select>
-<label id="bp" ></label>
+<label id="bp"></label>
 </div>
 <br />
 
@@ -191,14 +191,13 @@ No
 
 
 
-<div class="control-group ">
+<div class="control-group">
 <div class="controls">
 <label style="font-size:14px;">Billing Description</label>
 <textarea class="span9 m-wrap" name="description" id="description" style="resize:none;" rows="3"></textarea>
 <label id="description"></label>
 </div>
 </div>
-
 
 </div>
 </div>
@@ -619,5 +618,6 @@ Dear Sir, For Regular Bill genereation you have to full fill the Non Occupancy C
 		<h4>Please Wait</h4>
 		<h5>Your data is submiting to database.</h5>
 		</div>
+        </div>
 	</div>
 </div>
