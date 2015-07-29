@@ -180,6 +180,7 @@ $arrears = $collection2['regular_bill']['arrears_amt'];
 $ggg_tt = @$collection2['regular_bill']['remaining_amount'];
 $arr_interest_for_receipt = @$collection2['regular_bill']['arrear_interest'];
 $due_for_payment = (int)@$collection2['regular_bill']['g_total'];
+$aaa_int = (int)$collection2['regular_bill']['arrear_interest'];
 }
 
 $current_date = date('Y-m-d');
@@ -345,7 +346,7 @@ $days1 = $interval->format('%a');
 	
 $subpenalty1 = round(($previous_bill_amt*$days1*$pen_per)/(365*100));
 
-$cal_amt = (int)$due_amtttt-$previous_bill_amt;
+$cal_amt = (int)$due_amtttt-$previous_bill_amt-$aaa_int;
 
 $date1 = date_create($start_date);
 $date2 = date_create($current_start_date);
@@ -401,13 +402,6 @@ else
 $bank_amount = 0;	
 }
 }
-
-
-
-
-
-
-
 	
 $bank_date = date('Y-m-d',strtotime(@$transaction_date));
 $due_date12 = date('Y-m-d',strtotime(@$due_date11));
@@ -554,6 +548,7 @@ $arrears = (int)@$collection2['regular_bill']['arrears_amt'];
 $ggg_tt = (int)@$collection2['regular_bill']['remaining_amount'];
 $arr_interest_for_receipt = @$collection2['regular_bill']['arrear_interest'];
 $due_for_payment = (int)@$collection2['regular_bill']['g_total'];
+$aaa_int = (int)$collection2['regular_bill']['arrear_interest'];
 }
 
 
@@ -727,7 +722,7 @@ $days1 = $interval->format('%a');
 	
 $subpenalty1 = round(($previous_bill_amt*$days1*$pen_per)/(365*100));
 
-$cal_amt = (int)$due_amtttt-$previous_bill_amt;
+$cal_amt = (int)$due_amtttt-$previous_bill_amt-$aaa_int;
 
 $date1 = date_create($start_date);
 $date2 = date_create($current_start_date);
