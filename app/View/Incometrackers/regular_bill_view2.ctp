@@ -190,6 +190,8 @@ $result4 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_f
 foreach($result4 as $data)
 {
 $flat_type_id = (int)$data['flat']['flat_type_id'];
+//$noc_ch_id = (int)$data['flat']['noc_ch_id'];
+//$sq_feet = (int)$data['flat']['flat_area'];
 }
 
 
@@ -1118,8 +1120,9 @@ function submit_hndlr(){
 		<h4>Please Wait a while</h4>
 		<h5>Bill(s) are Preparing.</h5>
 		</div>
-	</div>
-</div>
+	    </div>
+        </div>
+    </div>
 
 
 
