@@ -190,8 +190,8 @@ $result4 = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_f
 foreach($result4 as $data)
 {
 $flat_type_id = (int)$data['flat']['flat_type_id'];
-//$noc_ch_id = (int)$data['flat']['noc_ch_id'];
-//$sq_feet = (int)$data['flat']['flat_area'];
+$noc_ch_id = (int)$data['flat']['noc_ch_tp'];
+$sq_feet = (int)$data['flat']['flat_area'];
 }
 
 
