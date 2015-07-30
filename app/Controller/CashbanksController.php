@@ -500,7 +500,7 @@ $sms_sender=$r_sms->sms_sender;
  $sms1=str_replace(' ', '+', $sms);
 
 
- //sms-closed// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+  $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
 }
 }
 /////////////////End Sms/////////////
