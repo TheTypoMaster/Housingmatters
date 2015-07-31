@@ -4057,13 +4057,13 @@ $Amount = $child[8];
 
 if(empty($TransactionDate))
 {
-$output=json_encode(array('report_type'=>'fina','text'=>'Please Fill Transaction Date in row'.$c));
+$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Transaction Date in row'.$c));
 die($output);
 }
 
 if(empty($ReceiptMod))
 {
-$output=json_encode(array('report_type'=>'fina','text'=>'Please Fill Receipt Mode in row'.$c));
+$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Receipt Mode in row'.$c));
 die($output);
 }
 $c = (int)strcasecmp("Cheque",$ReceiptMod);
@@ -4077,19 +4077,19 @@ $Date1 = $child[6];
 
 if(empty($ChequeNo))
 {
-$output=json_encode(array('report_type'=>'fina','text'=>'Please Fill Cheque Number in row'.$c));
+$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Cheque Number in row'.$c));
 die($output);
 }
 
 if(empty($DrawnBankname))
 {
-$output=json_encode(array('report_type'=>'fina','text'=>'Please Fill Drawn Bank name Receipt Mode in row'.$c));
+$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Drawn Bank name Receipt Mode in row'.$c));
 die($output);
 }
 
 if(empty($Date1))
 {
-$output=json_encode(array('report_type'=>'fina','text'=>'Please Fill Date in row'.$c));
+$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Date in row'.$c));
 die($output);
 }
 }
@@ -4100,13 +4100,13 @@ $Date1 = $child[6];
 
 if(empty($Reference))
 {
-$output=json_encode(array('report_type'=>'fina','text'=>'Please Fill Reference in row'.$c));
+$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Reference in row'.$c));
 die($output);
 }
 
 if(empty($Date1))
 {
-$output=json_encode(array('report_type'=>'fina','text'=>'Please Fill Date in row'.$c));
+$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Date in row'.$c));
 die($output);
 }
 
@@ -4118,18 +4118,18 @@ $Date1 = $child[6];
 
 if(empty($Reference))
 {
-$output=json_encode(array('report_type'=>'fina','text'=>'Please Fill Reference in row'.$c));
+$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Reference in row'.$c));
 die($output);
 }
 if(empty($Date1))
 {
-$output=json_encode(array('report_type'=>'fina','text'=>'Please Fill Date in row'.$c));
+$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Date in row'.$c));
 die($output);
 }
 }
 else
 {
-$output=json_encode(array('report_type'=>'fina','text'=>'Please Fill "Cheque", "NEFT" or PG in Receipt Mode in row'.$c));
+$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill "Cheque", "NEFT" or PG in Receipt Mode in row'.$c));
 die($output);
 }
 }
@@ -4291,6 +4291,15 @@ $arrears_amt = (int)$arrears_amt - $amount;
 }
 $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"total_due_amount"=>$total_due_amt),array("receipt_id" => $bill_no));
+
+
+
+
+
+
+
+
+
 
 
 }

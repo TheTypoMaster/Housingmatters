@@ -523,13 +523,14 @@ $(document).ready(function() {
 		var m_data = new FormData();
 		m_data.append( 'file', $('input[name=file]')[0].files[0]);
 		$.ajax({
-			url: "upload_csv_cash_bank",
+			url: "bank_receipt_import_ajax",
 			data: m_data,
 			processData: false,
 			contentType: false,
 			type: 'POST',
 		}).done(function(response){
-			alert("done");
+			$("#myModal3").hide();
+			$("#url_main").html(response);
 		})
 	});
 				
@@ -566,9 +567,9 @@ url: "save_bank_imp?q="+myJsonString,
 type: 'POST',
 dataType:'json',
 }).done(function(response) {
-if(response.report_type=='vali')
+if(response.report_type=='validation')
 {
-$("#vali5").html('<b style="color:red;">'+response.text+'</b>');
+$(".vali5").html('<b style="color:red;">'+response.text+'</b>');
 }
 if(response.report_type=='done')
 {
