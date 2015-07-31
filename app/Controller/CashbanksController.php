@@ -3958,11 +3958,7 @@ foreach($result_ac as $collection)
 {
 $bank_id = (int)$collection['ledger_sub_account']['auto_id'];
 }
- 
-  
 /*
-	  
-	  
 $auto_id = "";
 $this->loadmodel('ledger_account'); 
 $conditions=array("ledger_name"=> new MongoRegex('/^' .  $ac_name . '$/i'),"group_id"=>$group_id);
@@ -4013,7 +4009,6 @@ break;
 $ledger_type = 1;
 }
 */
-
 $table[] = array(@$TransactionDate,@$ReceiptMod,@$ChequeNo,@$Reference,@$DrawnBankname,@$bank_id,@$Date1,@$auto_id,@$Amount);
 } 
 $i++;
@@ -4029,6 +4024,7 @@ $this->loadmodel('ledger_sub_account');
 $conditions=array("society_id" => $s_society_id,"ledger_id"=>34);
 $cursor2 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
 $this->set('cursor2',$cursor2);
+
 }
 ////////////////////////////// End bank_receipt_import_ajax //////////////////////////////////////////////////////////
 ///////////////////////////////// Start Save bank Imp ///////////////////////////////////////////////////////////////
@@ -4041,29 +4037,28 @@ $s_user_id = (int)$this->Session->read('user_id');
 $q=$this->request->query('q'); 
 $myArray = json_decode($q, true);
 
-$c=1;
+$r=1;
 foreach($myArray as $child)
 {
-$c++;
+$r++;
 $TransactionDate = $child[0];
 $ReceiptMod = $child[1];
 //$ChequeNo = $child[2];
-//$Reference = $child[3];
 //$DrawnBankname = $child[4];
 //$Date1 = $child[6];
-$bank_id = $child[5];
-$auto_id = $child[7];
-$Amount = $child[8];
+$bank_id = $child[4];
+$auto_id = $child[6];
+$Amount = $child[7];
 
 if(empty($TransactionDate))
 {
-$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Transaction Date in row'.$c));
+$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Transaction Date in row'.$r));
 die($output);
 }
 
 if(empty($ReceiptMod))
 {
-$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Receipt Mode in row'.$c));
+$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Receipt Mode in row'.$r));
 die($output);
 }
 $c = (int)strcasecmp("Cheque",$ReceiptMod);
@@ -4072,71 +4067,72 @@ $p = (int)strcasecmp("PG",$ReceiptMod);
 if($c == 0)
 {
 $ChequeNo = $child[2];
-$DrawnBankname = $child[4];
-$Date1 = $child[6];	
+$DrawnBankname = $child[3];
+$Date1 = $child[8];	
 
 if(empty($ChequeNo))
 {
-$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Cheque Number in row'.$c));
+$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Cheque Number in row'.$r));
 die($output);
 }
 
 if(empty($DrawnBankname))
 {
-$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Drawn Bank name Receipt Mode in row'.$c));
+$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Drawn Bank name Receipt Mode in row'.$r));
 die($output);
 }
 
 if(empty($Date1))
 {
-$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Date in row'.$c));
+$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Date in row'.'30'));
 die($output);
 }
 }
 else if($n == 0)
 {
-$Reference = $child[3];
-$Date1 = $child[6];
+//$Reference = $child[3];
+$Date1 = $child[4];
 
-if(empty($Reference))
-{
-$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Reference in row'.$c));
-die($output);
-}
+//if(empty($Reference))
+//{
+//$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Reference in row'.$r));
+//die($output);
+//}
 
 if(empty($Date1))
 {
-$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Date in row'.$c));
+$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Date in row'.$r));
 die($output);
 }
 
 }
 else if($p == 0)
 {
-$Reference = $child[3];
-$Date1 = $child[6];	
+//$Reference = $child[3];
+$Date1 = $child[4];	
 
-if(empty($Reference))
-{
-$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Reference in row'.$c));
-die($output);
-}
+//if(empty($Reference))
+//{
+//$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Reference in row'.$r));
+//die($output);
+//}
 if(empty($Date1))
 {
-$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Date in row'.$c));
+$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Date in row'.$r));
 die($output);
 }
 }
 else
 {
-$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill "Cheque", "NEFT" or PG in Receipt Mode in row'.$c));
+$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill "Cheque", "NEFT" or PG in Receipt Mode in row'.$r));
 die($output);
 }
+
+
 }
 
 foreach($myArray as $child)
 {
-$c++;
 $current_date = date('Y-m-d');
 $TransactionDate = $child[0];
 $ReceiptMod = $child[1];
@@ -4144,7 +4140,7 @@ $ReceiptMod = $child[1];
 //$Reference = $child[3];
 //$DrawnBankname = $child[4];
 //$Date1 = $child[6];
-$bank_id = (int)$child[5];
+$bank_id = (int)$child[6];
 $auto_id77 = (int)$child[7];
 $Amount = $child[8];
 
@@ -4155,17 +4151,17 @@ if($c == 0)
 {
 $ChequeNo = $child[2];
 $DrawnBankname = $child[4];
-$Date1 = $child[6];	
+$Date1 = $child[5];	
 }
 else if($n == 0)
 {
 $Reference = $child[3];
-$Date1 = $child[6];
+$Date1 = $child[5];
 }
 else if($p == 0)
 {
 $Reference = $child[3];
-$Date1 = $child[6];	
+$Date1 = $child[5];	
 }
 
 $this->loadmodel('ledger_sub_account');
@@ -4291,18 +4287,11 @@ $arrears_amt = (int)$arrears_amt - $amount;
 }
 $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"total_due_amount"=>$total_due_amt),array("receipt_id" => $bill_no));
-
-
-
-
-
-
-
-
-
-
-
 }
+
+$output=json_encode(array('report_type'=>'done','text'=>'Please Fill Date in row'.$n));
+die($output);
+
 }
 ///////////////////////////////// End Save bank Imp ///////////////////////////////////////////////////////////////
 }
