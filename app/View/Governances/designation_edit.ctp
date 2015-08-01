@@ -17,6 +17,7 @@ $designation_name=$data['governance_designation']['designation_name'];
 	  <label class="control-label">Designation Name</label>
 	  <div class="controls">
 		<input class="m-wrap "  id="des_name"  type="text" value="<?php echo $designation_name; ?>">
+		<label id="test_error"></label>
 	  </div>
    </div>
    

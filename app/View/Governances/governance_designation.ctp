@@ -1,6 +1,21 @@
 <?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 ?>
+<script>
+$(document).ready(function() {
+$("#fix<?php echo $id_current_page; ?>").removeClass("blue");
+$("#fix<?php echo $id_current_page; ?>").addClass("red");
+});
+</script>
+
+<div align="center">
+<a href="governance_designation" rel="tab" class="btn red">Add Designation</a>
+<a href="governance_assign_user" rel="tab" class="btn blue" >Assign Designation</a>
+</div>
+
+
+
+
 <div style="background-color:#EFEFEF; border-top:1px solid #e6e6e6; border-bottom:1px solid #e6e6e6; padding:10px; box-shadow:5px; font-size:16px; color:#006;">
 Designation
 </div>
@@ -122,6 +137,11 @@ $(document).ready(function() {
 	$('.save_edited_des').live('click',function(){
 	var des_id=$(this).attr('des_id');
 	var des_name=$("#des_name").val();
+	if(!des_name)
+	{
+		$("#test_error").html("<span style='color:red;'>This field is required.</span>");
+		return false;
+	}
 	$("#gov_des_id"+ des_id).html(des_name);
 	var des=encodeURIComponent(des_name);
 	$("#poll_edit_content").load('<?php echo $this->webroot; ?>Governances/designation_edit?d_id='+des_id+'&des='+des+'&edit=1', function() {
