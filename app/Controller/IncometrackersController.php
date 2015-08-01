@@ -292,7 +292,6 @@ $this->set('cursor2',$cursor2);
 
 if(isset($this->request->data['sub']))
 {
-
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
 $cursor = $this->society->find('all',array('conditions'=>$conditions));
