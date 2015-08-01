@@ -4128,7 +4128,6 @@ $output=json_encode(array('report_type'=>'validation','text'=>'Please Fill "Cheq
 die($output);
 }
 
-
 }
 
 foreach($myArray as $child)
@@ -4151,19 +4150,18 @@ if($c == 0)
 {
 $ChequeNo = $child[2];
 $DrawnBankname = $child[4];
-$Date1 = $child[5];	
+$date = $child[5];
 }
 else if($n == 0)
 {
 $Reference = $child[3];
-$Date1 = $child[5];
+$date = $child[5];
 }
 else if($p == 0)
 {
 $Reference = $child[3];
-$Date1 = $child[5];	
+$date = $child[5];	
 }
-
 $this->loadmodel('ledger_sub_account');
 $conditions=array("auto_id" => $auto_id77);
 $cursor1=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));

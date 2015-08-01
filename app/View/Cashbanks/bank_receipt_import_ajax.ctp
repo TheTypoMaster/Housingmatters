@@ -92,7 +92,7 @@ foreach($cursor2 as $collection)
 $a_id = (int)$collection['ledger_sub_account']['auto_id'];
 $name1 = $collection['ledger_sub_account']['name'];		
 ?>
-<option value="<?php echo $b_id; ?>" <?php if($a_id == $auto_id) { ?> selected="selected" <?php } ?> ><?php echo $name1; ?></option>
+<option value="<?php echo $a_id; ?>" <?php if($a_id == $auto_id) { ?> selected="selected" <?php } ?> ><?php echo $name1; ?></option>
 <?php
 }
 ?>

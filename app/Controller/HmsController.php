@@ -16298,7 +16298,7 @@ $this->layout='session';
 function regular_bill($user_id)
 {
 $this->loadmodel('regular_bill');
-$conditions=array("bill_for_user" => $user_id,"status" => 0,"approve_status"=>2);
+$conditions=array("bill_for_user" => $user_id,"status" =>0,"approve_status"=>2);
 return $this->regular_bill->find('all',array('conditions'=>$conditions));
 }
 ///////////////////// End Rgular Bill Fetch (Accounts)///////////////////////////////////////
