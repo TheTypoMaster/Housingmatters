@@ -4196,13 +4196,14 @@ $i = $last22;
 }
 $auto++;
 $i++; 
+
+$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill "Cheque", "NEFT" or PG in Receipt Mode in row'.'555'));
+die($output);
+
 $this->loadmodel('cash_bank');
 $multipleRowData = Array( Array("transaction_id" => $auto, "receipt_id" => $i, "current_date" => $current_date, 
-"transaction_date"=>$TransactionDate,"prepaired_by" => $s_user_id, 
-"user_id" => $auto_id77,"bill_reference"=>$bill_no,"receipt_mode" => $ReceiptMod,"receipt_instruction" => $receipt_instruction,"account_head"=>$bank_id,"amount" => $Amount,"amount_category_id" => 1, "society_id" => $s_society_id,"member" =>1,"module_id"=>1,"cheque_number"=>$ChequeNo,"reference_number"=>$Reference,"reference_number"=>$Reference,"which_bank"=>$DrawnBankname,"cheque_date"=>$w,"receipt_for_type"=>1));
+"transaction_date"=>$TransactionDate,"prepaired_by" => $s_user_id,"user_id" => $auto_id77,"bill_reference"=>$bill_no,"receipt_mode" => $ReceiptMod,"receipt_instruction" => $receipt_instruction,"account_head"=>$bank_id,"amount" => $Amount,"amount_category_id" => 1, "society_id" => $s_society_id,"member" =>1,"module_id"=>1,"cheque_number"=>$ChequeNo,"reference_number"=>$Reference,"reference_number"=>$Reference,"which_bank"=>$DrawnBankname,"cheque_date"=>$w,"receipt_for_type"=>1));
 $this->cash_bank->saveAll($multipleRowData);  
-
-
 
 
 $trns_id=(int)$auto;
