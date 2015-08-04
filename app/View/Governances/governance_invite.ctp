@@ -9,7 +9,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </script>
 
 <div style="border:solid 2px #4cae4c; width:90%; margin:auto;" class='portal'>
-<div style="border-bottom:solid 2px #4cae4c; color:white; background-color: #5cb85c; padding:4px; font-size:20px;" ><i class="icon-envelope-alt"></i> Invitations</div>
+<div style="border-bottom:solid 2px #4cae4c; color:white; background-color: #5cb85c; padding:4px; font-size:20px;" ><i class="icon-envelope-alt"></i> Meeting Invitations</div>
 <div style="padding:10px;background-color:#FFF;">
 <form method="post" id="contact-form" name="myform" enctype="multipart/form-data" >
 <div id="output"></div>
