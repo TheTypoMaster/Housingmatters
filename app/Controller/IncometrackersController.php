@@ -238,7 +238,7 @@ function receipt(){
 	$s_role_id=$this->Session->read('role_id');
 	$s_user_id=$this->Session->read('user_id');
 	
-	$amount=25000; $flat_id=1; $receipt_date="2015-6-14";
+	$amount=100; $flat_id=1; $receipt_date="2015-6-10";
 	$this->loadmodel('new_regular_bill');
 	$condition=array('society_id'=>$s_society_id,"flat_id"=>$flat_id);
 	$order=array('new_regular_bill.one_time_id'=>'DESC');

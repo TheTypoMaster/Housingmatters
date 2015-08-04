@@ -240,7 +240,6 @@ th,td{
 					}
 					//case-3
 					if($arrear_maintenance<=$last_total){
-						//echo $bill_start_date."<br/>";echo $last_due_date."<br/>";
 						$difference3=strtotime($bill_start_date)-strtotime($last_due_date);
 						$days_difference3=floor($difference3/(60*60*24));
 						$intrest_on_arrears+=round(($arrear_maintenance*0.18)*($days_difference3/365));
@@ -255,8 +254,6 @@ th,td{
 					}
 					
 				}
-				
-				
 				//INTRST COMPUTATION END//
 				$due_for_payment+=$intrest_on_arrears;
 				echo '<input type="text" class="text_bx" name="intrest_on_arrears'.$inc.'" value='.$intrest_on_arrears.' />'; ?>
