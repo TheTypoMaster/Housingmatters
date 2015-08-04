@@ -18,6 +18,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
     <th>Meeting Date</th>
 	 <th>Meeting Time</th>
 	 <th>Meeting Location</th>
+	 <th>Invite user</th>
     <th></th>
     </tr>
 </thead>
@@ -33,6 +34,8 @@ $time=$data['governance_invite']['time'];
 $type=$data['governance_invite']['type'];
 $location=$data['governance_invite']['location'];
 $meeting_type=(int)@$data['governance_invite']['meeting_type'];
+ $user=@$data['governance_invite']['user'];
+ $invite_user=sizeof($user);
  if($meeting_type==1)
  {
 	$moc="Managing Committee";
@@ -63,6 +66,7 @@ $i++;
     <td><?php echo $date ; ?></td>
 	 <td><?php echo $time ; ?></td>
 	 <td><?php echo $location ; ?></td>
+	 <td><span class="label label-info"><?php echo $invite_user ; ?></span></td>
     <td><a href="<?php echo $webroot_path; ?>Governances/governance_invite_view1/<?php echo $gov_id; ?>" rel='tab' class="btn mini yellow tooltips" ><i class="icon-search"></i> View </a>
 	
 	</td>
