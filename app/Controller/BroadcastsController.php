@@ -849,7 +849,7 @@ if (isset($this->request->data['add']))
 	{
 	$group_id=$this->autoincrement('group','group_id');
 	$this->loadmodel('group');
-	$multipleRowData = Array( Array("group_id" => $group_id,"group_name"=>$group_name,"society_id"=>$s_society_id,"users"=>array()));
+	$multipleRowData = Array( Array("group_id" => $group_id,"group_name"=>$group_name,'group_show_id'=>1,"society_id"=>$s_society_id,"users"=>array()));
 	$this->group->saveAll($multipleRowData); 
 	$this->response->header('Location', 'groupview/'.$group_id);
 	}
@@ -859,7 +859,7 @@ if (isset($this->request->data['add']))
 }
 
 $this->loadmodel('group');
-$conditions=array("society_id"=>$s_society_id);
+$conditions=array("society_id"=>$s_society_id,'group_show_id'=>1);
 $order=array('group.group_id'=>'DESC');
 $this->set('result_group',$this->group->find('all',array('conditions'=>$conditions,'order'=>$order))); 
 }
