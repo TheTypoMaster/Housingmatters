@@ -4036,7 +4036,7 @@ $this->regular_bill->updateAll(array("payment_date" => $transaction_date,"bank_n
 function open_excel()
 {
 $this->layout="";
-$filename="Opening Balance Import";
+$filename="Opening_Balance_Import";
 header ("Expires: 0");
 header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
 header ("Cache-Control: no-cache, must-revalidate");
