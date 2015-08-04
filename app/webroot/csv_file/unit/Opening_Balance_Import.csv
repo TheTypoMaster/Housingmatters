@@ -1,6 +1,6 @@
 Group Name,A/c name,wing,unit,Amount Type(Debit or Credit),Amount(Opening Balance),Penalty
 Administrative Expenses,Postage & Courier charges,,,,,
-Administrative Expenses,Meeting & Welfare expenses,,,credit,10000,
+Administrative Expenses,Meeting & Welfare expenses,,,debit,6000,
 Current Assets,Tax deducted at source (TDS receivable),,,,,
 Current Assets,Advance given to Vendors,,,,,
 Contribution from Members,Non Occupancy Charges,,,,,
@@ -86,7 +86,7 @@ Contribution from Members,Water Charges,,,,,
 Contribution from Members,Municipal Taxes,,,,,
 Contribution from Members,Electricity Charges,,,,,
 Contribution from Members,Insurance Charges,,,,,
-Sundry Debtors Control A/c  ,Mukesh,A,101,debit,8500,1500
+Sundry Debtors Control A/c  ,Mukesh,A,101,credit,6000,
 Sundry Debtors Control A/c  ,Nikhil,A,102,,,
 Sundry Debtors Control A/c  ,Rohit,A,103,,,
 Sundry Debtors Control A/c  ,Ashish,A,104,,,

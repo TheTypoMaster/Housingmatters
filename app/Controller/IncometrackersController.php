@@ -215,7 +215,16 @@ function fetch_last_receipt_info_via_flat_id($flat_id,$bill_one_time_id){
 	return $this->new_cash_bank->find('all',array('conditions'=>$condition,'order'=>$order)); 
 }
 function fetch_opening_balance_via_user_id($user_id){
-	
+	$s_society_id =(int)$this->Session->read('society_id');
+	$this->loadmodel('ledger_sub_account');
+	$condition=array('user_id'=>$user_id);
+	$result_ledger_sub_account=$this->ledger_sub_account->find('all',array('conditions'=>$condition)); 
+	foreach($result_ledger_sub_account as $data){
+		$auto_id=$data["ledger_sub_account"]["auto_id"];
+	}
+	$this->loadmodel('ledger');
+	$condition=array('account_id'=>$auto_id,"receipt_id"=>"O_B");
+	return $result_ledger=$this->ledger->find('all',array('conditions'=>$condition));
 }
 function receipt(){
 	if($this->RequestHandler->isAjax()){
@@ -229,7 +238,7 @@ function receipt(){
 	$s_role_id=$this->Session->read('role_id');
 	$s_user_id=$this->Session->read('user_id');
 	
-	$amount=3000; $flat_id=4; $receipt_date="2015-5-22";
+	$amount=25000; $flat_id=1; $receipt_date="2015-6-14";
 	$this->loadmodel('new_regular_bill');
 	$condition=array('society_id'=>$s_society_id,"flat_id"=>$flat_id);
 	$order=array('new_regular_bill.one_time_id'=>'DESC');
@@ -265,8 +274,15 @@ function receipt(){
 				$new_total=$total;
 			}else{
 				$new_arrear_maintenance=0;
-				$amount_after_total=$amount_after_arrear_maintenance-$total;
-				$new_total=abs($amount_after_total);
+				$amount_after_total=$amount_after_arrear_maintenance-$total; 
+				if($amount_after_total>0){
+					$new_total=0;
+					$new_arrear_maintenance=-$amount_after_total;
+				}else{
+					$new_total=abs($amount_after_total);
+					
+				}
+				
 			}
 		}
 	}
@@ -380,8 +396,7 @@ function regular_bill_preview_screen(){
 			$auto_id=$this->autoincrement('new_regular_bill','auto_id');
 			$this->new_regular_bill->saveAll(array("auto_id" => $auto_id, "flat_id" => $flat_id, "bill_no" => $bill_number, "income_head_array" => $income_head_array, "noc_charges" => $noc_charges,"total" => $total, "arrear_maintenance"=> $arrear_maintenance, "arrear_intrest" => $arrear_intrest, "intrest_on_arrears" => $intrest_on_arrears,"due_for_payment" => $due_for_payment,"one_time_id"=>$one_time_id,"society_id"=>$s_society_id,"due_date"=>$due_date,"bill_start_date"=>$bill_start_date));
 		}
-		echo "Done";
-		exit;		
+		$this->response->header('Location','it_regular_bill');
 	}
 	
 }

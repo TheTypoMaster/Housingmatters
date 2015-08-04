@@ -80,8 +80,8 @@ th,td{
 					$last_arrear_intrest=$last_bill["arrear_intrest"];
 					$last_intrest_on_arrears=$last_bill["intrest_on_arrears"];
 					$last_total=$last_bill["total"];
-					$last_arrear_maintenance=(int)@$last_bill["new_arrear_maintenance"];
-					if($last_arrear_maintenance==0){$last_arrear_maintenance=(int)$last_bill["arrear_maintenance"];}
+					$last_arrear_maintenance=(int)@$last_bill["arrear_maintenance"];
+					
 					$last_due_date=@$last_bill["due_date"];
 					$last_bill_start_date=@$last_bill["bill_start_date"];
 					$last_bill_one_time_id=@$last_bill["one_time_id"];
@@ -91,10 +91,36 @@ th,td{
 				}
 			}else{
 				$result_opening_balance= $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'fetch_opening_balance_via_user_id'),array('pass'=>array($user_id)));
-				$last_arrear_intrest=0;//opening balance import 
+				if(sizeof($result_opening_balance)>0){
+					$opening_balance_arrear_intrest=0;
+					$opening_balance_arrear_maintenance=0;
+					foreach($result_opening_balance as $opening_balance_info){
+						$penalty=@$opening_balance_info["ledger"]["penalty"];
+						$amount_category_id=$opening_balance_info["ledger"]["amount_category_id"];
+						if($penalty=="YES"){
+							if($amount_category_id==1){
+								$opening_balance_arrear_intrest=$opening_balance_info["ledger"]["amount"];
+							}else{
+								$opening_balance_arrear_intrest=-($opening_balance_info["ledger"]["amount"]);
+							}
+						}else{
+							if($amount_category_id==1){
+								$opening_balance_arrear_maintenance=$opening_balance_info["ledger"]["amount"];
+							}else{
+								$opening_balance_arrear_maintenance=-($opening_balance_info["ledger"]["amount"]);
+							}
+						}
+					}
+				
+					
+					$last_arrear_intrest=$opening_balance_arrear_intrest;//opening balance import
+					$last_arrear_maintenance=$opening_balance_arrear_maintenance;//opening balance import 
+				}else{
+					$last_arrear_intrest=0;
+					$last_arrear_maintenance=0;
+				}
 				$last_intrest_on_arrears=0;
 				$last_total=0;
-				$last_arrear_maintenance=0;//opening balance import 
 				$last_bill_one_time_id=0;
 			}
 			////reciept info/////
@@ -104,6 +130,9 @@ th,td{
 					$receipt_date=@$last_receipt["new_cash_bank"]["receipt_date"];
 					$receipt_amount=$last_receipt["new_cash_bank"]["amount"];
 				}
+				
+				$last_total=$last_bill["new_total"];
+				$last_arrear_maintenance=$last_bill["new_arrear_maintenance"];
 			}
 			
 			?>
@@ -196,7 +225,7 @@ th,td{
 				//INTRST COMPUTATION START//
 				$intrest_on_arrears=0;
 				//case-1
-				if($arrear_maintenance<=0){
+				if(($arrear_maintenance<=0) || (sizeof($result_new_regular_bill)==0)){
 					$intrest_on_arrears+=0;
 				}else{
 					//case-2
