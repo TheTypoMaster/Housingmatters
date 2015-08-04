@@ -1,4 +1,3 @@
-
 <?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 ?>				   
@@ -547,15 +546,15 @@ $("#open_bal tr:nth-child("+i+") span.report").remove();
 $("#open_bal tr:nth-child("+i+") span.report").css("background-color","#FFF;");
 var TransactionDate = $("#open_bal tr:nth-child("+i+") td:nth-child(1) input").val();
 var ReceiptMod=$("#open_bal tr:nth-child("+i+") td:nth-child(2) input").val();
-var ChequeNo=$("#open_bal tr:nth-child("+i+") td:nth-child(2) input").val();
+var ChequeNo=$("#open_bal tr:nth-child("+i+") td:nth-child(3) input").val();
 var Reference=$("#open_bal tr:nth-child("+i+") td:nth-child(4) input").val();
-var DrawnBankname=$("#open_bal tr:nth-child("+i+") td:nth-child(1) input").val();
-var bank_id=$("#open_bal tr:nth-child("+i+") td:nth-child(2) input").val();
-var Date1=$("#open_bal tr:nth-child("+i+") td:nth-child(3) select").val();
-var auto_id=$("#open_bal tr:nth-child("+i+") td:nth-child(3) select").val();
-var Amount=$("#open_bal tr:nth-child("+i+") td:nth-child(4) input").val();
+var DrawnBankname=$("#open_bal tr:nth-child("+i+") td:nth-child(5) input").val();
+var Date1=$("#open_bal tr:nth-child("+i+") td:nth-child(6) input").val();
+var bank_id=$("#open_bal tr:nth-child("+i+") td:nth-child(7) select").val();
+var auto_id=$("#open_bal tr:nth-child("+i+") td:nth-child(8) select").val();
+var Amount=$("#open_bal tr:nth-child("+i+") td:nth-child(9) input").val();
 
-ar.push([TransactionDate,ReceiptMod,ChequeNo,Reference,DrawnBankname,bank_id,Date1,auto_id,Amount,insert]);
+ar.push([TransactionDate,ReceiptMod,ChequeNo,Reference,DrawnBankname,Date1,bank_id,auto_id,Amount,insert]);
 }
 
 var myJsonString = JSON.stringify(ar);

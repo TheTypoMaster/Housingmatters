@@ -2,9 +2,7 @@
 <div class="modal-header">
 <h4 id="myModalLabel1">Import csv</h4>
 </div>
-
 <div class="modal-body done" style="overflow:auto;">
-
 <div class="vali5"></div>
 <br />
 <table class="table table-bordered" style="width:100%; background-color:white;" id="open_bal">
@@ -92,7 +90,7 @@ foreach($cursor2 as $collection)
 $a_id = (int)$collection['ledger_sub_account']['auto_id'];
 $name1 = $collection['ledger_sub_account']['name'];		
 ?>
-<option value="<?php echo $b_id; ?>" <?php if($a_id == $auto_id) { ?> selected="selected" <?php } ?> ><?php echo $name1; ?></option>
+<option value="<?php echo $a_id; ?>" <?php if($a_id == $auto_id) { ?> selected="selected" <?php } ?> ><?php echo $name1; ?></option>
 <?php
 }
 ?>

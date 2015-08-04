@@ -4127,8 +4127,6 @@ else
 $output=json_encode(array('report_type'=>'validation','text'=>'Please Fill "Cheque", "NEFT" or PG in Receipt Mode in row'.$r));
 die($output);
 }
-
-
 }
 
 foreach($myArray as $child)
@@ -4143,7 +4141,6 @@ $ReceiptMod = $child[1];
 $bank_id = (int)$child[6];
 $auto_id77 = (int)$child[7];
 $Amount = $child[8];
-
 $c = (int)strcasecmp("Cheque",$ReceiptMod);
 $n = (int)strcasecmp("NEFT",$ReceiptMod);
 $p = (int)strcasecmp("PG",$ReceiptMod);
@@ -4151,17 +4148,17 @@ if($c == 0)
 {
 $ChequeNo = $child[2];
 $DrawnBankname = $child[4];
-$Date1 = $child[5];	
+$w = $child[5];
 }
 else if($n == 0)
 {
 $Reference = $child[3];
-$Date1 = $child[5];
+$w = $child[5];
 }
 else if($p == 0)
 {
 $Reference = $child[3];
-$Date1 = $child[5];	
+$w = $child[5];	
 }
 
 $this->loadmodel('ledger_sub_account');
@@ -4191,7 +4188,7 @@ if(empty($last21))
 {
 $auto=0;
 $i = 1000;
-}	
+}
 else
 {	
 $auto=$last21;
@@ -4201,11 +4198,12 @@ $auto++;
 $i++; 
 $this->loadmodel('cash_bank');
 $multipleRowData = Array( Array("transaction_id" => $auto, "receipt_id" => $i, "current_date" => $current_date, 
-"transaction_date" => $TransactionDate, "prepaired_by" => $s_user_id, 
-"user_id" => $auto_id77, "bill_reference" => $bill_no,"narration" => $description, "receipt_mode" => $ReceiptMod,
-"receipt_instruction" => $receipt_instruction, "account_head" => $bank_id,   
-"amount" => $Amount, "amount_category_id" => 1, "society_id" => $s_society_id,"member" =>1,"module_id"=>1,"cheque_number"=>$ChequeNo,"reference_number"=>$Reference,"which_bank"=>$DrawnBankname,"cheque_date"=>$Date1,"receipt_for_type"=>1));
+"transaction_date"=>$TransactionDate,"prepaired_by" => $s_user_id, 
+"user_id" => $auto_id77,"bill_reference"=>$bill_no,"receipt_mode" => $ReceiptMod,"receipt_instruction" => $receipt_instruction,"account_head"=>$bank_id,"amount" => $Amount,"amount_category_id" => 1, "society_id" => $s_society_id,"member" =>1,"module_id"=>1,"cheque_number"=>$ChequeNo,"reference_number"=>$Reference,"reference_number"=>$Reference,"which_bank"=>$DrawnBankname,"cheque_date"=>$w,"receipt_for_type"=>1));
 $this->cash_bank->saveAll($multipleRowData);  
+
+
+
 
 $trns_id=(int)$auto;
 $this->loadmodel('ledger');
@@ -4285,13 +4283,13 @@ else
 {
 $arrears_amt = (int)$arrears_amt - $amount;
 }
+
 $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"total_due_amount"=>$total_due_amt),array("receipt_id" => $bill_no));
-}
 
+}
 $output=json_encode(array('report_type'=>'done','text'=>'Please Fill Date in row'.$n));
 die($output);
-
 }
 ///////////////////////////////// End Save bank Imp ///////////////////////////////////////////////////////////////
 }

@@ -16298,7 +16298,7 @@ $this->layout='session';
 function regular_bill($user_id)
 {
 $this->loadmodel('regular_bill');
-$conditions=array("bill_for_user" => $user_id,"status" => 0,"approve_status"=>2);
+$conditions=array("bill_for_user" => $user_id,"status" =>0,"approve_status"=>2);
 return $this->regular_bill->find('all',array('conditions'=>$conditions));
 }
 ///////////////////// End Rgular Bill Fetch (Accounts)///////////////////////////////////////
@@ -16307,22 +16307,13 @@ return $this->regular_bill->find('all',array('conditions'=>$conditions));
 ///////////////////////////////////////////////////////////Start Function Fetch Amount Income heads(Accounts)///////////////////////////////////////////
 function fetch_amount($data_d) 
 {
-
 $this->loadmodel('ledger_account');
 $conditions=array("auto_id" => $data_d);
 return $this->ledger_account->find('all',array('conditions'=>$conditions));
 
-
 }
 
 ///////////////////////////////////////////////////////////End Function Fetch Amount Income heads (Accounts)//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
 
 //////////////////////////////////////////// Start Petty Cash Payment Ajax(amount_cal_p)(Accounts) //////////////////////////////////////////////////////
 function amount_cal_p()
@@ -21857,19 +21848,17 @@ function convert_number_to_words($number) {
                         $string .= $this->convert_number_to_words($remainder);
                     }
                     break;
-            }
-            
-            if (null !== $fraction && is_numeric($fraction)) {
-                $string .= $decimal;
-                $words = array();
-                foreach (str_split((string) $fraction) as $number) {
-                    $words[] = $dictionary[$number];
-                }
-                $string .= implode(' ', $words);
-            }
-            
-            return $string;
-        }
+					}
+					if (null !== $fraction && is_numeric($fraction)) {
+					$string .= $decimal;
+					$words = array();
+					foreach (str_split((string) $fraction) as $number) {
+					$words[] = $dictionary[$number];
+					}
+					$string .= implode(' ', $words);
+					}
+					return $string;
+					}
 ////////////////////// Start Unit Config  Excel Export ///////////////////////////////////////////////////////////
 function unit_config()
 {
