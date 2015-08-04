@@ -163,516 +163,97 @@ $conditions=array("ledger_id" => 33,"society_id"=>$s_society_id);
 $cursor3=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
 $this->set('cursor3',$cursor3);
 
-if(isset($this->request->data['bank_receipt_add']))
-{
-$current_date = date('d-m-Y');
-$current_date = date("Y-m-d", strtotime($current_date));
-$current_date = new MongoDate(strtotime($current_date));
-$date = $this->request->data['date'];
-$bill_no = (int)@$this->request->data['bill_no'];
-$date = date("Y-m-d", strtotime($date));
-//$date = new MongoDate(strtotime($date));
-$receipt_instruction = @$this->request->data['instruction']; 
-$sub_account_id = (int)$this->request->data['bank_account'];
-$description = $this->request->data['description'];  
-$receipt_mode = @$this->request->data['mode']; 
-$member_id = (int)@$this->request->data['member'];
-if($receipt_mode == 'Cheque')
-{
-$reference_number = "";
-$cheque_number = (int)$this->request->data['cheque_number'];
-$which_bank = $this->request->data['which_bank'];
-}
-else
-{
-$cheque_no = "";
-$which_bank = "";
-$reference_number = (int)$this->request->data['reference_number'];
-}
-$cheque_date = $this->request->data['cheque_date'];
-if($member_id == 1)
-{
-$received_from = (int)$this->request->data['recieved_from2'];
-$rr_type = (int)$this->request->data['rr_type'];
-if($rr_type == 1)
-{
-$amount = $this->request->data['amount'];
-}
-if($rr_type == 2)
-{
-$amount = $this->request->data['aammtt'];
-}
-
-}
-if($member_id == 2)
-{
-$received_from = $this->request->data['recieved_from'];
-$reference = $this->request->data['refn'];
-$amount = $this->request->data['amountn'];
-} 
-
-
-
-
-
-////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////// 
-if($member_id == 1)
-{ 
-$this->loadmodel('cash_bank');
-$conditions=array("society_id" => $s_society_id,"module_id"=>1);
-$order=array('cash_bank.transaction_id'=> 'DESC');
-$cursor=$this->cash_bank->find('all',array('conditions'=>$conditions,'order' =>$order,'limit'=>1));
-foreach ($cursor as $collection) 
-{
-$last21=$collection['cash_bank']['transaction_id'];
-$last22 = $collection['cash_bank']['receipt_id'];
-}
-if(empty($last21))
-{
-$auto=0;
-$i = 1000;
-}	
-else
-{	
-$auto=$last21;
-$i = $last22;
-}
-$auto++;
-$i++; 
-
-
-$this->loadmodel('cash_bank');
-$multipleRowData = Array( Array("transaction_id" => $auto, "receipt_id" => $i, "current_date" => $current_date, 
-"transaction_date" => $date, "prepaired_by" => $s_user_id, 
-"user_id" => $received_from, "bill_reference" => $bill_no,"narration" => $description, "receipt_mode" => $receipt_mode,
-"receipt_instruction" => $receipt_instruction, "account_head" => $sub_account_id,   
-"amount" => $amount, "amount_category_id" => 1, "society_id" => $s_society_id,"member" => $member_id,"module_id"=>1,"cheque_number"=>$cheque_number,"reference_number"=>$reference_number,"which_bank"=>$which_bank,"cheque_date"=>$cheque_date,"receipt_for_type"=>$rr_type));
-$this->cash_bank->saveAll($multipleRowData);  
-
-$trns_id=(int)$auto;
-$this->loadmodel('ledger');
-$order=array('ledger.auto_id'=> 'DESC');
-$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
-foreach ($cursor as $collection) 
-{
-$last23=$collection['ledger']['auto_id'];
-}
-if(empty($last23))
-{
-$k=0;
-}	
-else
-{	
-$k=$last23;
-}
-$k++; 
-$this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $i, 
-"amount" => $amount, "amount_category_id" => 2, "module_id" => 1, "account_type" => 1,  "account_id" => $received_from, 
-"current_date" => $current_date, "society_id" => $s_society_id,"table_name"=>"cash_bank","module_name"=>"Bank Receipt"));
-$this->ledger->saveAll($multipleRowData); 
-
-
-$sub_account_id_a = (int)$sub_account_id;
-$this->loadmodel('ledger');
-$order=array('ledger.auto_id'=> 'DESC');
-$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
-foreach ($cursor as $collection) 
-{
-$last24=$collection['ledger']['auto_id'];
-}
-if(empty($last24))
-{
-$k=0;
-}	
-else
-{	
-$k=$last24;
-}
-$k++; 
-$this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $i, 
-"amount" => $amount, "amount_category_id" => 1, "module_id" => 1, "account_type" => 1, "account_id" => $sub_account_id_a,
-"current_date" => $current_date, "society_id" => $s_society_id,"table_name"=>"cash_bank","module_name"=>"Bank Receipt"));
-$this->ledger->saveAll($multipleRowData); 
-
-
-$this->loadmodel('regular_bill');
-$conditions=array("receipt_id" => $bill_no,"society_id"=>$s_society_id);
-$cursor=$this->regular_bill->find('all',array('conditions'=>$conditions));
-foreach ($cursor as $collection) 
-{
-$remain_amt = $collection['regular_bill']['remaining_amount'];
-$arrears_amt = (int)$collection['regular_bill']['arrears_amt'];
-$arrears_int = $collection['regular_bill']['accumulated_tax'];
-$total_due_amt = $collection['regular_bill']['total_due_amount'];
-}
-$due_amt = $remain_amt - $amount;
-@$total_due_amt = $total_due_amt - $amount;
-if($arrears_int <= $amount)
-{
-$amount = $amount-$arrears_int;
-$arrears_int = 0;
-}
-else
-{
-$arrears_int = $arrears_int -$amount;
-$amount = 0;
-}
-
-if($amount >= $arrears_amt)
-{
-$arrears_amt = (int)$arrears_amt - $amount;
-}
-else
-{
-$arrears_amt = (int)$arrears_amt - $amount;
-}
-
-$this->loadmodel('regular_bill');
-$this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"total_due_amount"=>$total_due_amt),array("receipt_id" => $bill_no));
-
-
-//$this->loadmodel('regular_bill');
-//$this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"total_due_amount"=>$total_due_amt),array("receipt_id" => $bill_no));
-
-}		
-else if($member_id == 2)
-{
-
-$this->loadmodel('cash_bank');
-$conditions=array("society_id" => $s_society_id,"module_id"=>1);
-$order=array('cash_bank.transaction_id'=> 'DESC');
-$cursor=$this->cash_bank->find('all',array('conditions'=>$conditions,'order' =>$order,'limit'=>1));
-foreach ($cursor as $collection) 
-{
-$last11=$collection['cash_bank']['transaction_id'];
-$last12 = $collection['cash_bank']['receipt_id'];
-}
-if(empty($last11))
-{
-$auto=0;
-$i = 1000;
-}	
-else
-{	
-$auto=$last11;
-$i = $last12;
-}
-$auto++; 
-$i++;
-$this->loadmodel('cash_bank');
-$multipleRowData = Array( Array("transaction_id" => $auto, "receipt_id" => $i, "current_date" => $current_date, 
-"transaction_date" => $date, "prepaired_by" => $s_user_id, 
-"user_id" => 32, "bill_reference" => $reference,"narration" => $description, "receipt_mode" => $receipt_mode,
-"receipt_instruction" => $receipt_instruction, "account_head" => $sub_account_id,   
-"amount" => $amount, "amount_category_id" => 1, "society_id" => $s_society_id,"member" => $member_id,"receiver_name" => $received_from,"module_id"=>1,"cheque_no"=>@$cheque_no));
-$this->cash_bank->saveAll($multipleRowData);  
-
-
-$this->loadmodel('ledger');
-$order=array('ledger.auto_id'=> 'DESC');
-$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
-foreach ($cursor as $collection) 
-{
-$last13=$collection['ledger']['auto_id'];
-}
-if(empty($last13))
-{
-$k=0;
-}	
-else
-{	
-$k=$last13;
-}
-$k++; 
-$this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $i, 
-"amount" => $amount, "amount_category_id" => 2, "module_id" => 1, "account_type" => 1,  "account_id" => 32, 
-"current_date" => $current_date, "society_id" => $s_society_id,"table_name"=>"cash_bank","module_name"=>"Bank Receipt"));
-$this->ledger->saveAll($multipleRowData); 
-
-
-$sub_account_id_a = (int)$sub_account_id;
-$this->loadmodel('ledger');
-$order=array('ledger.auto_id'=> 'DESC');
-$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
-foreach ($cursor as $collection) 
-{
-$last14=$collection['ledger']['auto_id'];
-}
-if(empty($last14))
-{
-$k=0;
-}	
-else
-{	
-$k=$last14;
-}
-$k++; 
-$this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $i, 
-"amount" => $amount, "amount_category_id" => 1, "module_id" => 1, "account_type" => 1, "account_id" => $sub_account_id_a,
-"current_date" => $current_date, "society_id" => $s_society_id,"table_name"=>"cash_bank","module_name"=>"Bank Receipt"));
-$this->ledger->saveAll($multipleRowData); 
-
-}
-
-$this->loadmodel('cash_bank');
-$conditions=array("society_id" => $s_society_id,"module_id"=>1);
-$order=array('cash_bank.transaction_id'=> 'ASC');
-$cursor=$this->cash_bank->find('all',array('conditions'=>$conditions,'order' =>$order));
-foreach ($cursor as $collection)
-{
-$d_receipt_id = (int)$collection['cash_bank']['receipt_id'];	
-}
-
-?>
-<div class="modal-backdrop fade in"></div>
-<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-<div class="modal-header">
-<center>
-<h3 id="myModalLabel3" style="color:#999;"><b>Bank Receipt</b></h3>
-</center>
-</div>
-<div class="modal-body">
-<center>
-<h5><b>Bank Receipt #<?php echo $d_receipt_id; ?> has been generated successfully</b></h5>
-</center>
-</div>
-<div class="modal-footer">
-<a href="bank_receipt_view" class="btn blue">OK</a>
-</div>
-</div>
-
-<?php
-
-
-
-
-///////////Start Sms////////////
-if($member_id == 1)
-{ 
-$date_sms = date('d-m-Y',strtotime(@$date));
-
-$this->loadmodel('society');
-$conditions=array("society_id" => $s_society_id);
-$cursor=$this->society->find('all',array('conditions'=>$conditions));
-foreach ($cursor as $collection)
-{
-$sms_id = (int)$collection['society']['account_sms'];
-$society_name_sms = $collection['society']['society_name'];
-}
-
-$this->loadmodel('ledger_sub_account');
-$conditions=array("auto_id" => $received_from);
-$cursor=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
-foreach ($cursor as $collection)
-{
-$user_id_sms = $collection['ledger_sub_account']['user_id'];
-}
-
-
-$this->loadmodel('user');
-$conditions=array("user_id" => $user_id_sms);
-$cursor=$this->user->find('all',array('conditions'=>$conditions));
-foreach ($cursor as $collection)
-{
- $user_name_sms = $collection['user']['user_name'];
-//$mobile = $collection['user']['mobile'];	
-$mobile = "9799463210";
-}
-//$mobile = "9799463210";
-	$sms_user_ad=$user_name_sms;
-	$sms_cash=explode(' ',$sms_user_ad);
-	 $sms_user_ad=$sms_cash[0];
-
-if($sms_id == 1)
-{
-$r_sms=$this->hms_sms_ip();
-$working_key=$r_sms->working_key;
-$sms_sender=$r_sms->sms_sender; 	
+if(isset($this->request->data['bank_receipt_add'])){
+	$s_society_id =(int)$this->Session->read('society_id');
+	$s_role_id=$this->Session->read('role_id');
+	$s_user_id=$this->Session->read('user_id');
 	
- $sms='Dear '.$sms_user_ad.', we have received Rs '.$amount.' on '.$date_sms.' towards Society Maint. dues. Cheque are subject to realization, '.$society_name_sms.'';
- strlen($sms);
-
- $sms1=str_replace(' ', '+', $sms);
-
-
- //sms-closed// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
-}
-}
-/////////////////End Sms/////////////
-
-/////////////// Start MAIL /////////////////////////
-
-$auto_id = (int)$auto;
-
-$this->loadmodel('cash_bank');
-$conditions=array("transaction_id" => $auto_id,'society_id'=>$s_society_id,'module_id'=>1);
-$cursor=$this->cash_bank->find('all',array('conditions'=>$conditions));
-foreach ($cursor as $collection)
-{
-
-$member = (int)$collection['cash_bank']['member']; 
-
-}
-if(@$member == 1)
-{
-
-
-$this->loadmodel('cash_bank');
-$conditions=array("transaction_id" => $trns_id,"module_id"=>1);
-$cursor1=$this->cash_bank->find('all',array('conditions'=>$conditions));
-foreach ($cursor1 as $collection) 
-{
-$receipt_no = (int)$collection['cash_bank']['receipt_id'];
-$d_date = $collection['cash_bank']['transaction_date'];
-$today = date("d-M-Y");
-$user_id_d = $collection['cash_bank']['user_id'];
-$amount = $collection['cash_bank']['amount'];
-$society_id = (int)$collection['cash_bank']['society_id'];
-$bill_reference = $collection['cash_bank']['bill_reference'];
-$narration = $collection['cash_bank']['narration'];
-$member = (int)$collection['cash_bank']['member'];
-$receiver_name = @$collection['cash_bank']['receiver_name'];
-$receipt_mode = $collection['cash_bank']['receipt_mode'];
-$cheque_number = @$collection['cash_bank']['cheque_number'];
-$which_bank = @$collection['cash_bank']['which_bank'];
-$reference_number = @$collection['cash_bank']['reference_number'];
-$cheque_date = @$collection['cash_bank']['cheque_date'];
-$sub_account = (int)$collection['cash_bank']['account_head'];
-}
-$amount = str_replace( ',', '', $amount );
-$am_in_words=ucwords($this->convert_number_to_words($amount));
-$coursor55=$this->society_name($s_society_id);
-foreach ($coursor55 as $collection) 
-{
-$society_name = $collection['society']['society_name'];
-$society_reg_no = $collection['society']['society_reg_num'];
-$society_address = $collection['society']['society_address'];
-$sig_title = $collection['society']['sig_title'];
-$mail_id = $collection['society']['account_email'];
-}
-if($member == 2)
-{
-$user_name = $receiver_name;
-$wing_flat = "";
-}
-else
-{
-$result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($user_id_d)));
-foreach($result_lsa as $collection)
-{
-$user_id = (int)$collection['ledger_sub_account']['user_id'];
-}
-$result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
-											foreach ($result as $collection) 
-											{
-											$wing_id = $collection['user']['wing'];  
-											$flat_id = (int)$collection['user']['flat'];
-											$tenant = (int)$collection['user']['tenant'];
-											$user_name = $collection['user']['user_name'];
-											$to = $collection['user']['email'];
-											}	
-											//$to = "nikhileshvyas4455@gmail.com";
-$wing_flat = $this->requestAction(array('controller' => 'hms', 'action'=>'wing_flat'),array('pass'=>array($wing_id,$flat_id)));									
-}  
-$result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($sub_account))); 
-foreach($result2 as $collection)
-{
-$bank_name = $collection['ledger_sub_account']['name'];
-}
-                                    
-
-$date=date("d-m-Y", strtotime($d_date));
-
- $message_mail='<div style="width:70%;margin:auto;border:solid 1px;background-color:#FFF;" class="bill_on_screen">';
-$message_mail.='<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'</div>
-<div align="center" style="border-bottom:solid 1px;">
-<span style="font-size:12px;color:rgb(100, 100, 99);">Regn# '.$society_reg_no.'</span><br/>
-<span style="font-size:12px;color:rgb(100, 100, 99);">Regn# '.$society_address.'</span>
-</div>
-<table width="100%" >
-<tr>
-<td>
-		<table width="100%" cellpadding="5px">
-			<tr>
-				<td>Receipt No: '.$receipt_no.'</td>
-				<td align="right">Date: '.$date.'</td>
-			</tr>
-			<tr>
-				<td>
-				Received with thanks from:  <b>'.$user_name.' '.$wing_flat.'</b>
-				<br/>
-				Rupees '.$am_in_words.' Only
-				<br/>';
-				if($receipt_mode=="Cheque"){
-					$message_mail.= 'Via '.$receipt_mode.'-'.$cheque_number.' drawn on '.$which_bank.' dated '.$cheque_date;
+	
+	$member_id = (int)@$this->request->data['member'];
+	$flat_id = (int)$this->request->data['recieved_from2'];
+	$receipt_date = $this->request->data['date'];
+	
+	
+	if($member_id == 1){
+		$rr_type = (int)$this->request->data['rr_type'];
+		if($rr_type == 1){
+			$amount = $this->request->data['amount'];
+			
+			//apply receipt in regular_bill//
+			$this->loadmodel('new_regular_bill');
+			$condition=array('society_id'=>$s_society_id,"flat_id"=>$flat_id);
+			$order=array('new_regular_bill.one_time_id'=>'DESC');
+			$result_new_regular_bill=$this->new_regular_bill->find('first',array('conditions'=>$condition,'order'=>$order)); 
+			$this->set('result_new_regular_bill',$result_new_regular_bill);
+			foreach($result_new_regular_bill as $data){
+				$auto_id=$data["auto_id"]; 
+				$arrear_intrest=$data["arrear_intrest"];
+				$intrest_on_arrears=$data["intrest_on_arrears"];
+				$total=$data["total"];
+				$arrear_maintenance=$data["arrear_maintenance"];
+			}
+			
+			$amount_after_arrear_intrest=$amount-$arrear_intrest;
+			if($amount_after_arrear_intrest<0){
+				$new_arrear_intrest=abs($amount_after_arrear_intrest);
+				$new_intrest_on_arrears=$intrest_on_arrears;
+				$new_arrear_maintenance=$arrear_maintenance;
+				$new_total=$total;
+			}else{
+				$new_arrear_intrest=0;
+				$amount_after_intrest_on_arrears=$amount_after_arrear_intrest-$intrest_on_arrears;
+				if($amount_after_intrest_on_arrears<0){
+					$new_intrest_on_arrears=abs($amount_after_intrest_on_arrears);
+					$new_arrear_maintenance=$arrear_maintenance;
+					$new_total=$total;
+				}else{
+					$new_intrest_on_arrears=0;
+					
+					$amount_after_arrear_maintenance=$amount_after_intrest_on_arrears-$arrear_maintenance;
+					if($amount_after_arrear_maintenance<0){
+						$new_arrear_maintenance=abs($amount_after_arrear_maintenance);
+						$new_total=$total;
+					}else{
+						$new_arrear_maintenance=0;
+						$amount_after_total=$amount_after_arrear_maintenance-$total; 
+						if($amount_after_total>0){
+							$new_total=0;
+							$new_arrear_maintenance=-$amount_after_total;
+						}else{
+							$new_total=abs($amount_after_total);
+							
+						}
+						
+					}
 				}
-				else{
-					$message_mail.= 'Via '.$receipt_mode.'-'.$reference_number.' dated '.$cheque_date;
-				}
-				
-				
-				$message_mail.= '<br/>
-				Payment of previous bill
-				</td>
-				<td></td>
-			</tr>
-		</table>
-		<div style="border-bottom:solid 1px;"></div>
-		<table width="100%" cellpadding="5px">
-			<tr>
-				<td><span style="font-size:16px;"> <b>Rs '.$amount.'</b></span><br/>';
-				if($receipt_mode=="Cheque"){
-					$message_mail.= 'Subject to realization of Cheque(s)';
-				}
-				$message_mail.= '</td>
-			</tr>
-		</table>
-		<table width="100%" cellpadding="5px">
-			<tr>
-				<td width="50%"></td>
-				<td align="right">
-				<table width="100%">
-					<tr>
-						<td align="center">
-						For '.$society_name.'
-						</td>
-					</tr>
-				</table>
-				</td>
-			</tr>
-			<tr>
-			<td width="50%"></td>
-			<td align="right">
-			<table width="100%">
-					<tr>
-						<td align="center"><br/>'.$sig_title.'</td>
-					</tr>
-				</table>
-			</td>
-			</tr>
-		</table>
-</td>
-</tr>
-</table>';
+			}
 
- $message_mail.='</div>';
-if($mail_id == 1)
-{
+			
+			$this->loadmodel('new_regular_bill');
+			$this->new_regular_bill->updateAll(array('new_arrear_intrest'=>$new_arrear_intrest,"new_intrest_on_arrears"=>$new_intrest_on_arrears,"new_arrear_maintenance"=>$new_arrear_maintenance,"new_total"=>$new_total),array('auto_id'=>$auto_id));
+			
+			
+		}
+		if($rr_type == 2){
+			$amount = $this->request->data['aammtt'];
+		}
+	}
 
-$subject = "Bank Receipt";
-$from_name="HousingMatters";
-$from = "accounts@housingmatters.in";
-$reply="accounts@housingmatters.in";
-$this->send_email($to,$from,$from_name,$subject,$message_mail,$reply);
+	
+	$result_new_regular_bill = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'fetch_last_bill_info_via_flat_id'),array('pass'=>array($flat_id)));
+	if(sizeof($result_new_regular_bill)==1){
+		foreach($result_new_regular_bill as $last_bill){
+			$bill_auto_id=$last_bill["auto_id"];
+			$bill_one_time_id=$last_bill["one_time_id"];
+		}
+	}
+			
+			
+	$this->loadmodel('new_cash_bank');
+	$auto_id=$this->autoincrement('new_cash_bank','auto_id');
+	$this->new_cash_bank->saveAll(array("auto_id" => $auto_id, "flat_id" => $flat_id, "amount" => $amount,"receipt_date"=>$receipt_date,"bill_auto_id"=>$bill_auto_id,"bill_one_time_id"=>$bill_one_time_id,"society_id"=>$s_society_id));
 }
 
-}
-}
 }
 
 
@@ -2434,15 +2015,13 @@ $s_role_id=$this->Session->read('role_id');
 $s_society_id = $this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
 
-$value1 = (int)$this->request->query('value1');
+$flat_id = (int)$this->request->query('value1'); 
 $type = (int)$this->request->query('t');
 $this->set('type',$type);
-$this->set('value1',$value1);
+$this->set('flat_id',$flat_id);
 
-$this->loadmodel('ledger_sub_account');
-$conditions=array("auto_id" => $value1);
-$cursor1=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
-$this->set('cursor1',$cursor1);
+
+
 
 }
 

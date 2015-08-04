@@ -109,13 +109,13 @@ $b++;
 <th>Non Occupancy charges
 <input type="text" class="m-wrap span12" id="nnc" onkeyup="chng1()">
 </th>
-<th>Current Amount</th>
-<th>Over Due Amount</th>
-<th>Interest Arrears</th>
-<th>Penalty Amount
+<th>Total</th>
+<th>Arrears (Maint.)</th>
+<th>Arrears (Int.)</th>
+<th>Interest on Arrears
 <input type="text" class="m-wrap span12" id="ppn" onkeyup="chng1()">
 </th>
-<th>Grand Total Amount</th>
+<th>Due For Payment</th>
 </tr>
 <?php
 $nnnn = 5;
