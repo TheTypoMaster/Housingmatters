@@ -8,16 +8,16 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
 
-
 <div style="background-color:#fff;padding:10px;">
 <table class="table table-striped table-bordered" id="sample_2">
 <thead>
     <tr>
-    <th width="7%"> Sr. No.</th>
-    <th width="50%">Title</th>
-    <th>Posted on</th>
-	 <th>Time</th>
-	 <th>Location</th>
+    <th > Sr. No.</th>
+    <th >Meeting Title</th>
+	 <th>Meeting Type</th>
+    <th>Meeting Date</th>
+	 <th>Meeting Time</th>
+	 <th>Meeting Location</th>
     <th></th>
     </tr>
 </thead>
@@ -32,6 +32,23 @@ $date=$data['governance_invite']['date'];
 $time=$data['governance_invite']['time'];
 $type=$data['governance_invite']['type'];
 $location=$data['governance_invite']['location'];
+$meeting_type=(int)@$data['governance_invite']['meeting_type'];
+ if($meeting_type==1)
+ {
+	$moc="Managing Committee";
+ 
+ }
+ if($meeting_type==2)
+ {
+	$moc="General Body";
+ 
+ }
+ if($meeting_type==3)
+ {
+	$moc="Special General Body";
+ 
+ }
+
 if($type==3)
 {
 $visible=$data['governance_invite']['visible'];
@@ -42,6 +59,7 @@ $i++;
 <tr class="odd gradeX">
     <td><?php echo $i ; ?></td>
     <td><?php echo $subject ; ?></td>
+	 <td><?php echo $moc ; ?></td>
     <td><?php echo $date ; ?></td>
 	 <td><?php echo $time ; ?></td>
 	 <td><?php echo $location ; ?></td>

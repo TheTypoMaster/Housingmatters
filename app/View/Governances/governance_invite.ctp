@@ -63,10 +63,24 @@ $flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat')
 <div style="display:none;" id="d2" >
 
 
-<div class="controls">
+<!--<div class="controls">
  <input type="text" name="other_user" id="other_user" class="span5 m-wrap">
  <label id="other_user"></label>
-</div>
+</div>-->
+
+
+
+<?php
+foreach ($result_group as $collection) 
+{
+$group_name=$collection["group"]["group_name"];
+$group_id=$collection["group"]["group_id"];
+?>
+<label class="checkbox">
+<input type="checkbox" class="requirecheck3 ignore group_name" id="requirecheck1234" name="grp<?php echo $group_id; ?>" value="<?php echo $group_id; ?>"> <?php echo $group_name; ?>
+</label>
+<?php } ?> 
+<label id="requirecheck1234"></label>
 
 
 
@@ -175,37 +189,77 @@ $flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat')
 </div>
 <!-------------------------->
 
+
+
+
+
+<div class="row-fluid">
+
+<div class="span6 responsive">
+
+
 <label style="font-size:14px; font-weight:bold;">Meeting Date</label>
 <div class="control-group" id="single_date">
   <div class="controls">
-	<input type="text" name="date" data-date-format="dd-mm-yyyy" class="span5 m-wrap date-picker" placeholder="Date">
+	<input type="text" name="date" data-date-format="dd-mm-yyyy" class="span6 m-wrap date-picker" placeholder="Date">
   </div>
 </div>
+
+</div>
+<div class="span6 responsive">
 
 <div class="control-group">
   <label class="control-label" style="font-size:14px; font-weight:bold;">Meeting Time</label>
   <div class="controls">
 	 <div class="input-append bootstrap-timepicker-component">
-		<input class="m-wrap m-ctrl-small timepicker-default " type="text" name="time">
+		<input class="m-wrap m-ctrl-small timepicker-default" type="text" name="time">
 		<span class="add-on"><i class="icon-time"></i></span>
 		<label report="e_time" class="remove_report"></label>
 	 </div>
   </div>
 </div>
 
+
+</div>
+</div>
+
+<div class="row-fluid">
+<div class="span6 responsive">
+
+
 <div class="control-group" >
   <label class="control-label" style="font-size:14px; font-weight:bold;">Meeting Location</label>
   <div class="controls">
-	 <textarea name="location" rows="3" id="alloptions" class="span5 m-wrap" placeholder="Location"></textarea>
+	 <textarea name="location" rows="3" id="alloptions" class="span6 m-wrap" placeholder="Location"></textarea>
 	 <label report="location" class="remove_report"></label>
   </div>
 </div>
+
+
+</div>
+<div class="span6 responsive">
+
+
+<div class="control-group" >
+  <label class="control-label" style="font-size:14px; font-weight:bold;">Meeting Covering Note:</label>
+  <div class="controls">
+	 <textarea name="covering_note" rows="3" id="alloptions" class="span12 m-wrap" placeholder="Description"></textarea>
+	 <label report="location" class="remove_report"></label>
+  </div>
+</div>
+
+
+</div>
+</div>
+
+
+
 
 <label style="font-size:14px; font-weight:bold;">Content for Meeting agenda</label>
 <div id="url_main">
 <div >
 <input type="text" class="m-wrap span4"  id="nu" name='comm_1' placeholder='1.'>
-<!--<textarea class="span4" name="comment_1" ></textarea>-->
+<textarea class="span4" name="comment_1" placeholder="description" ></textarea>
 <a href="#" role="button" id="add_row" class="btn  mini"><i class="icon-plus-sign"></i> Add row</a>
 </div>
 </div>
@@ -253,7 +307,7 @@ $("#add_row").bind('click',function(){
 	var count = $("#url_main div").length;
 	count++;
 	$("#hid_v").val(count);
-	$("#url_main").append('<div class="content_'+count+'"><input type="text" class="m-wrap span4"  id="nu" name="comm_'+count+'" placeholder='+count+'> <a href="#" role="button" id='+count+' class="btn black mini delete_btn"><i class="icon-remove-sign"></i></a></div>');
+	$("#url_main").append('<div class="content_'+count+'"><input type="text" class="m-wrap span4"  id="nu" name="comm_'+count+'" placeholder='+count+'> <textarea class="span4" name="comment_'+count+'" placeholder="description" ></textarea> <a href="#" role="button" id='+count+' class="btn black mini delete_btn"><i class="icon-remove-sign"></i></a></div>');
 
 
 });
@@ -491,7 +545,16 @@ var Invitations =$('input:radio[name=radio]:checked').val();
 	if(Invitations==2)
 	{
 		var other=$('input[name=other_user]').val();
+		var group_n = [];
+		$('.group_name:checked').each(function() {
+		group_n.push($(this).val());
+		});
+		
+		
+		
+		
 		m_data.append( 'Invite_user2',other );
+		m_data.append( 'Invite_group',group_n );
 	}
 	if(Invitations==3)
 	{
@@ -530,6 +593,8 @@ var Invitations =$('input:radio[name=radio]:checked').val();
 		
 	}
 	
+			
+	
 	var type_mettings =$('input:radio[name=type_mettings]:checked').val();
 	m_data.append( 'type_mettings',type_mettings );
 	var count = $("#url_main div").length;
@@ -537,9 +602,9 @@ var Invitations =$('input:radio[name=radio]:checked').val();
 	for(var i=1;i<=count;i++)
 	{
 		var c=encodeURIComponent($('input[name=comm_'+i+']').val());
-		//var d=encodeURIComponent($('textarea[name=comment_'+i+']').val());
+		var d=encodeURIComponent($('textarea[name=comment_'+i+']').val());
 		comm.push([c]);
-		//comments.push([d]);
+		comments.push([d]);
 	}
 	
 	m_data.append('meeting_agenda_input',comm );
@@ -548,10 +613,12 @@ var Invitations =$('input:radio[name=radio]:checked').val();
 	var date=$('input[name=date]').val();
 	var time=$('input[name=time]').val();
 	var location=$('textarea[name=location]').val();
+	var covering_note=$('textarea[name=covering_note]').val();
 	m_data.append( 'subject',subject );
 	m_data.append( 'date',date );
 	m_data.append( 'time',time );
 	m_data.append( 'location',location );
+	m_data.append( 'covering_note',covering_note );
 	m_data.append( 'file', $('input[name=file]')[0].files[0]);
 	$.ajax({
 			url: "governance_invite_submit",
@@ -561,6 +628,7 @@ var Invitations =$('input:radio[name=radio]:checked').val();
 			type: 'POST',
 			dataType:'json',
 			}).done(function(response) { 
+			//$("#output").html(response);
 				if(response.type=='created'){
 					$(".portal").remove();
 				$(".alert-success").show().append("<p>"+response.text+"</p><p><a class='btn green' href='<?php echo $webroot_path; ?>Governances/governance_invite_view' rel='tab' >ok</a></p>");
