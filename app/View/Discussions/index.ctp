@@ -261,7 +261,7 @@ $time=$collection["discussion_post"]["time"];
 <?php if($list==0) { ?>
 <a href="<?php echo $webroot_path;?>Discussions/index/<?php echo $discussion_post_id; ?>/0" role='button' rel="tab" style="text-decoration:none;">
 <div style="padding:2px;">
-<div  style="background-color:#F4F8FF; cursor:pointer; color:#06F; padding:5px; border:solid 2px #D9E8FF;" class="topic sel" id="t1" >
+<div  style="background-color:#F4F8FF; cursor:pointer; color:#06F; padding:5px; border:solid 2px #D9E8FF;" class="topic sel" id="" >
 <div align="center" style="font-size:18px;" ><?php echo $topic; ?></div>
 <div align="center" ><span>(<?php echo $n_comments; ?> Comments )</span>&nbsp;&nbsp;<?php echo $date; ?>&nbsp;&nbsp; <?php echo $time; ?></div>
 </div>
@@ -273,7 +273,7 @@ $time=$collection["discussion_post"]["time"];
 <a  class="btn mini red pull-right" role='button' onclick="delete_topic('<?php echo $discussion_post_id; ?>')">Close Topic </a>
 <a href="<?php echo $webroot_path;?>Discussions/index/<?php echo $discussion_post_id; ?>/1" role='button' rel="tab" style="text-decoration:none;">
 <div style="padding:2px;">
-<div  style="background-color:#F4F8FF; cursor:pointer; color:#06F; padding:5px; border:solid 2px #D9E8FF;" class="topic sel" id="t1" >
+<div  style="background-color:#F4F8FF; cursor:pointer; color:#06F; padding:5px; border:solid 2px #D9E8FF;" class="topic sel" id="" >
 
 <div align="center" style="font-size:18px;" ><?php echo $topic; ?></div>
 <div align="center" ><span>(<?php echo $n_comments; ?> Comments )</span>&nbsp;&nbsp;<?php echo $date; ?>&nbsp;&nbsp; <?php echo $time; ?></div>
@@ -286,7 +286,7 @@ $time=$collection["discussion_post"]["time"];
 <a href="#" class="btn mini red pull-right" role='button' onclick="delete_topic_archive('<?php echo $discussion_post_id; ?>')"> <i class='icon-remove'></i> </a>
 <a href="<?php echo $webroot_path;?>Discussions/index/<?php echo $discussion_post_id; ?>/2" role='button' rel="tab" style="text-decoration:none;">
 <div style="padding:2px;">
-<div  style="background-color:#F4F8FF; cursor:pointer; color:#06F; padding:5px; border:solid 2px #D9E8FF;" class="topic sel" id="t1" >
+<div  style="background-color:#F4F8FF; cursor:pointer; color:#06F; padding:5px; border:solid 2px #D9E8FF;" class="topic sel" id="" >
 <div align="center" style="font-size:18px;" ><?php echo $topic; ?></div>
 <div align="center" ><span>(<?php echo $n_comments; ?> Comments )</span>&nbsp;&nbsp;<?php echo $date; ?>&nbsp;&nbsp; <?php echo $time; ?></div>
 
@@ -402,30 +402,34 @@ $(document).ready(function(){
 <script>
 function my_topic(q)
 {
+$(document).ready(function () {	
 $('#topics_list').html('<div style="border:solid 2px #F4F8FF; padding:5px;" align="center"><img src="<?php echo $webroot_path ; ?>/as/windows.gif" /></div>').load('discussion_my_topic?q=' + q);
+});
 }
 
 
 
 function details_topic(t)
 {
+	$(document).ready(function () {
 //$("#topic_detail").removeClass('animated zoomIn');
 $("#topic_detail").removeClass('fadeleftsome');
 $('#topic_detail').html('<div style="border:solid 2px #F4F8FF; margin-top:25px;" align="center"><img src="<?php echo $webroot_path ; ?>/as/windows.gif" /></div>').load('topic_view?t=' + t);
-
+	});
 }
 
 function details_topic_deleted(x)
 {
+	$(document).ready(function () {
 $("#topic_detail").removeClass('fadeleftsome');
 $('#topic_detail').html('<div style="border:solid 2px #F4F8FF; margin-top:25px;" align="center"><img src="<?php echo $webroot_path ; ?>/as/windows.gif" /></div>').load('topic_view_deleted?t=' + x);
-
+	});
 }
 
 
 function comment(tid)
 {
-
+$(document).ready(function () {
 var old_c=$('#posttext').val()
 var c=encodeURIComponent(old_c);
 
@@ -440,6 +444,7 @@ $('#post_comment').hide();
 		$('#post_comment').show();
 	});
 }
+});
 }
 </script>
 
@@ -448,22 +453,25 @@ $('#post_comment').hide();
 <script>
 function delete_topic(dt)
 {
+	$(document).ready(function () {
 $('#delete_topic_result').html('<div id="pp"><div class="modal-backdrop fade in"></div><div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true"><div class="modal-body" style="font-size:14px;"><i class="icon-warning-sign" style="color:#d84a38;"></i> Are you sure you want to archive the topic & close it for further discussion ? </div><div class="modal-footer"><a href="<?php echo $webroot_path; ?>Discussions/delete_topic?con='+dt+'" class="btn blue" id="yes">Yes</a><a href="#"  role="button" id="can" class="btn">No</a></div></div></div>');
 
 $("#can").live('click',function(){
    $('#pp').hide();
 });
+	});
 }
 </script>
 
 <script>
 function delete_topic_archive(dt)
 {
-
+$(document).ready(function () {
 $('#delete_topic_result').html('<div id="pp"><div class="modal-backdrop fade in"></div><div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true"><div class="modal-body" style="font-size:14px;"><i class="icon-warning-sign" style="color:#d84a38;"></i> Sure, you want to delete the discussion permanently ?</div><div class="modal-footer"><a href="<?php echo $webroot_path; ?>Discussions/archive?con='+dt+'" class="btn blue" id="yes">Yes</a><a href="#" role="button" id="can" class="btn">No</a></div></div></div>');
 
 $("#can").live('click',function(){
    $('#pp').hide();
+});
 });
 }
 </script>
@@ -472,18 +480,19 @@ $("#can").live('click',function(){
 <script>
 function delete_comment(cm_id)
 {
-
+$(document).ready(function () {
 $('#delete_topic_result').html('<div id="main_div"><div class="modal-backdrop fade in"></div><div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true"><div class="modal-body" style="font-size:16px;"><i class="icon-warning-sign" style="color:#d84a38;"></i> Sure, you want to delete the comment ?</div><div class="modal-footer"><a href="#" role="button" class="btn blue" id="yes" onclick="hide_comment_div('+cm_id+')">Yes</a><a href="#" role="button" id="no" class="btn">No</a></div></div></div>');
 
 $("#no").live('click',function(){
   $('#main_div').hide();
 });
-
+});
 }
 
 
 function offensive_delete(co_id,co_u_id)
 {
+	$(document).ready(function () {
  $('#comm'+co_id).load('<?php echo $webroot_path; ?>Discussions/discussion_offensive_delete_ajax?c_id='+co_id +'&c_u_id='+co_u_id);
  $('#comm'+co_id).addClass('animated zoomOut');
 setTimeout(
@@ -493,11 +502,12 @@ setTimeout(
   $('#comm'+co_id).hide();
   }, 500);
 
- 
+	}); 
 }
 
 function hide_comment_div(ca)
 {
+	$(document).ready(function () {
 $('#delete_topic_result').load('<?php echo $webroot_path; ?>Discussions/discussion_comment_delete_ajax?c_id='+ca);
 $('#main_div').hide();
 $('#comm'+ca).addClass('animated zoomOut');
@@ -506,6 +516,7 @@ setTimeout(
   {
     $('#comm'+ca).hide();
   }, 500);
+	});
 }
 </script>
 
@@ -513,9 +524,10 @@ setTimeout(
 
 function search_topic()
 {
-
+$(document).ready(function () {
 var s=$('#search_topic_box').val();
 $('#topics_list').html('<div style="border:solid 2px #F4F8FF; padding:5px;" align="center"><img src="<?php echo $webroot_path ; ?>/as/windows.gif" /></div>').load('<?php echo $webroot_path; ?>Discussions/discussion_search_topic?s='+s);
+});
 }
 </script>
 <script>
