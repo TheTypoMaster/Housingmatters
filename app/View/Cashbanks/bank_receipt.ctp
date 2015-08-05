@@ -240,6 +240,9 @@ Non-Member
 <br />
 </div>
 
+<div id="show_amount"></div>
+
+
 
 <label style="font-size:14px;">Narration<span style="color:red;">*</span></label>
 <div class="controls">
@@ -320,7 +323,31 @@ $(document).ready(function() {
 	
 	});
 	
+$("#ttt").live('click',function(){
 
+//document.getElementById('div12').style.display='block';
+//document.getElementById('div13').style.display='none';
+var val =  $('#ttt:checked').val();
+var flat_id = $("#go").val();
+
+$("#show_amount").html('Loading...').load("bank_receipt_reference_ajax?type="+val+"&flat="+flat_id+"");
+		
+});	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 });
 </script>		
 

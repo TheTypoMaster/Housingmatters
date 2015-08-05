@@ -16,8 +16,8 @@ if($type == 1 && !empty($flat_id)){
 		
 		$total_amount=0;
 		foreach($result_new_cash_bank as $data2){
-			$amount=$data2["new_cash_bank"]["amount"];
-			$total_amount+=$amount;
+		$amount=$data2["new_cash_bank"]["amount"];
+		$total_amount+=$amount;
 		}
 		?>
 		<h4>Receipt Applied towards following bill:</h4>
@@ -45,5 +45,16 @@ if($type == 1 && !empty($flat_id)){
 		</table>
 		<?php
 	}
+}
+else
+{
+?>	
+<label style="font-size:14px;">Amount<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text" name="amount" class="m-wrap span9" />  	
+</div>
+<br />	
+	
+<?php	
 }
 ?>
