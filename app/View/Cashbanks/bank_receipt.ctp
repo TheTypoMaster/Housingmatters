@@ -297,7 +297,6 @@ function hidediv(id)
 }
 $(document).ready(function() {
 	$(".hhh").live('click',function(){
-		
 		document.getElementById('div12').style.display='block';
 		document.getElementById('div13').style.display='none';
 		//$("#div1").show();
@@ -321,6 +320,7 @@ $(document).ready(function() {
 	
 	});
 	
+
 });
 </script>		
 
@@ -334,16 +334,16 @@ $(document).ready(function(){
   return this.optional(element) || value !== param;
 }, "Please choose Other value!");
 	
-		$.validator.setDefaults({ ignore: ":hidden:not(select)" });
-		
-		$('#contact-form').validate({
-	
-		errorElement: "label",
-                    //place all errors in a <div id="errors"> element
-                    errorPlacement: function(error, element) {
-                        //error.appendTo("label#errors");
-						error.appendTo('label#' + element.attr('id'));
-                    },
+$.validator.setDefaults({ ignore: ":hidden:not(select)" });
+
+$('#contact-form').validate({
+
+errorElement: "label",
+//place all errors in a <div id="errors"> element
+errorPlacement: function(error, element) {
+//error.appendTo("label#errors");
+error.appendTo('label#' + element.attr('id'));
+},
 					
 	    rules: {
 	      date: {

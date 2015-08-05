@@ -199,9 +199,8 @@ $this->set('bill_period_arr',$bill_period_arr);
 }
 /////////////////////// End It Regular Bill (Accounts) ////////////////////////////////////////////////////////////
 
-<<<<<<< HEAD
+
 ////////////////////////// Start Regular Bill View2 //////////////////////////////////////////////////////////////
-=======
 function fetch_last_bill_info_via_flat_id($flat_id){
 	$s_society_id =(int)$this->Session->read('society_id');
 	$this->loadmodel('new_regular_bill');
@@ -404,7 +403,7 @@ function regular_bill_preview_screen(){
 	
 }
 ////////////////////////// Start Regular Bill View2 ////////////////////////////////////
->>>>>>> origin/master
+
 function regular_bill_view2()
 {
 if($this->RequestHandler->isAjax()){
