@@ -164,10 +164,44 @@ $cursor3=$this->ledger_sub_account->find('all',array('conditions'=>$conditions))
 $this->set('cursor3',$cursor3);
 
 if(isset($this->request->data['bank_receipt_add'])){
-	$s_society_id =(int)$this->Session->read('society_id');
-	$s_role_id=$this->Session->read('role_id');
-	$s_user_id=$this->Session->read('user_id');
+
+///////////////////////////////////////////
+echo $transaction_date = $this->request->data['transaction_date'];
+echo $receipt_mode = $this->request->data['receipt_mode'];
+if($receipt_mode == "Cheque")
+{
+echo $cheque_number = $this->request->data['cheque_number'];
+echo $cheque_date = $this->request->data['cheque_date'];
+echo $drawn_on_which_bank = $this->request->data['drawn_on_which_bank'];
+}
+else
+{
+echo $reference_utr = $this->request->data['cheque_date'];
+echo $cheque_date = $this->request->data['cheque_date'];
+}
+echo $deposited_bank_id = $this->request->data['deposited_bank_id'];
+echo $member_type = $this->request->data['member_type'];
+if($member_type == 1)
+{
+echo $party_name_id = $this->request->data['party_name_id'];
+echo $receipt_type = $this->request->data['receipt_type'];
+}
+else 
+{
+echo $party_name = $this->request->data['member_type'];
+echo $bill_reference = $this->request->data['member_type'];
+echo $amount = $this->request->data['amount'];
+}
+
+echo $narration = $this->request->data['narration'];
+
+exit;
+
+////////////////////////////////
 	
+$s_society_id =(int)$this->Session->read('society_id');
+$s_role_id=$this->Session->read('role_id');
+$s_user_id=$this->Session->read('user_id');
 	
 	$member_id = (int)@$this->request->data['member'];
 	$flat_id = (int)$this->request->data['recieved_from2'];

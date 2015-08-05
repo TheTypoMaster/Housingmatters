@@ -101,7 +101,7 @@ else
 
 <label style="font-size:14px;">Transaction date<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="date" placeholder="Transaction Date" style="background-color:white !important;" id="date" value="<?php echo $default_date; ?>">
+<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="transaction_date" placeholder="Transaction Date" style="background-color:white !important;" id="date" value="<?php echo $default_date; ?>">
 <label id="date"></label>
 <div id="result11"></div>
 </div>
@@ -112,15 +112,15 @@ else
 <label  style="font-size:14px;">Receipt Mode<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose receipt mode"> </i></label>
 <div class="controls">
 <label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" value="Cheque" style="opacity: 0;" id="mode" class="chn"></span></div>
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_mode" value="Cheque" style="opacity: 0;" id="mode" class="chn"></span></div>
 Cheque
 </label>
 <label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" value="NEFT" style="opacity: 0;" id="mode" class="neft"></span></div>
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_mode" value="NEFT" style="opacity: 0;" id="mode" class="neft"></span></div>
 NEFT
 </label>
 <label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="mode" value="PG" style="opacity: 0;" id="mode" class="pg"></span></div>
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_mode" value="PG" style="opacity: 0;" id="mode" class="pg"></span></div>
 PG
 </label> 
 <label id="mode"></label>
@@ -136,7 +136,7 @@ PG
 
 <label style="font-size:14px;">Drawn on which bank?<span style="color:red;">*</span> </label>
 <div class="controls">
-<input type="text"  name="which_bank" class="m-wrap span9" placeholder="Drawn on which bank?" style="background-color:white !important;" id="ins">
+<input type="text"  name="drawn_on_which_bank" class="m-wrap span9" placeholder="Drawn on which bank?" style="background-color:white !important;" id="ins">
 <label id="ins"></label>
 </div>
 
@@ -162,7 +162,7 @@ PG
  
 <label style="font-size:14px;">Deposited In<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select deposit bank "> </i></label>
 <div class="controls">
-<select name="bank_account" class="span9 m-wrap chosen" id="bank">
+<select name="deposited_bank_id" class="span9 m-wrap chosen" id="bank">
 <option value="" style="display:none;">which bank?</option>    
 <?php
 foreach ($cursor3 as $db) 
@@ -210,11 +210,11 @@ $bank_ac = $db['ledger_sub_account']["name"];
 <label style="font-size:14px;">Received from<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose member/non-member "> </i></label>
 <div class="controls">
 <label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="member" class="hhh" value="1" style="opacity: 0;" id="mem"></span></div>
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="member_type" class="hhh" value="1" style="opacity: 0;" id="mem"></span></div>
 Member
 </label>
 <label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="member" class="go6" value="2" style="opacity: 0;" onclick="hidediv('div12')" id="mem"></span></div>
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="member_type" class="go6" value="2" style="opacity: 0;" onclick="hidediv('div12')" id="mem"></span></div>
 Non-Member
 </label>
 <label id="mem"></label>
@@ -227,14 +227,14 @@ Non-Member
 <div id="div13" class="hide">
 <label style="font-size:14px;">Bill Reference<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" class="m-wrap span9" name="refn" placeholder="Bill Reference" style="background-color:white !important;" id="refn"/>
+<input type="text" class="m-wrap span9" name="bill_reference" placeholder="Bill Reference" style="background-color:white !important;" id="refn"/>
 <label id="refn"></label>
 </div>
 <br />
 
 <label style="font-size:14px;">Amount<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" name="amountn" class="m-wrap span9" placeholder="Amount" style="background-color:white !important;" id="amt"/>
+<input type="text" name="amountn" class="m-wrap span9" placeholder="Amount" style="background-color:white !important;" id="amount"/>
 <label id="amt"></label>
 </div>
 <br />
@@ -243,7 +243,7 @@ Non-Member
 
 <label style="font-size:14px;">Narration<span style="color:red;">*</span></label>
 <div class="controls">
-<textarea   rows="4" name="description" class="span9 m-wrap" placeholder="Narration" style="background-color:white !important; resize:none; margin-right:70%;"  id="nar"></textarea>
+<textarea   rows="4" name="description" class="span9 m-wrap" placeholder="Narration" style="background-color:white !important; resize:none; margin-right:70%;"  id="narration"></textarea>
 </div>
 <br />
 
