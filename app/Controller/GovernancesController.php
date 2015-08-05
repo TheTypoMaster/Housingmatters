@@ -54,10 +54,31 @@ function governance_invite_submit()
 	 $meeting_agenda_textarea=$post_data['meeting_agenda_textarea'];
 	$meeting_agenda_input=explode(",",$meeting_agenda_input);
 	$meeting_agenda_textarea=explode(",",$meeting_agenda_textarea);
-	$message="";
+	
+	/////////////////// validation ///////////////////////////
+	
+		$report=array();
+		if(empty($subject)){
+		$report[]=array('label'=>'subject', 'text' => 'Please fill title');
+		}
+		if(empty($date)){
+		$report[]=array('label'=>'date', 'text' => 'Please fill date');
+		}
+		if(empty($time)){
+		$report[]=array('label'=>'time', 'text' => 'Please fill time');
+		}
+		if(empty($location)){
+		$report[]=array('label'=>'location', 'text' => 'Please fill location');
+		}
+		
+		
+			
+	/////////////////////////////////////////////////////////////////////////
+	
+	
+		$message="";
 		for($z=0;$z<sizeof($meeting_agenda_input);$z++)
 		{
-			
 			
 			$message[]=array($meeting_agenda_input[$z],$meeting_agenda_textarea[$z]);
 		}
@@ -69,14 +90,15 @@ function governance_invite_submit()
 			}
 			if($type_mettings==2)
 			{
-			$moc="General Body";
+				$moc="General Body";
 
 			}
 			if($type_mettings==3)
 			{
-			$moc="Special General Body";
+				$moc="Special General Body";
 
 			}
+			
 				if(isset($_FILES['file'])){
 				$target = "governances_file/";
 				  $file_name=@$_FILES['file']['name']; 
@@ -104,16 +126,35 @@ function governance_invite_submit()
 						 $user_name=$data4['user']['user_name'];
 						
 					}
-					
+		
+
+
+		
 		if($Invitations_type==1)
 		{
 			$invite_user_multi=$post_data['Invite_user1'];
 			$invite_user_multi=explode(",",$invite_user_multi);
 			
-			$user=$invite_user_multi;
+			////////////////////////////// validation check//////////////////
 			
+					if($invite_user_multi[0]=='null'){
+
+					$report[]=array('label'=>'multi', 'text' => 'Please select at-least one recipient.');
+					}
+
+					if(sizeof($report)>0){
+					$output=json_encode(array('report_type'=>'error','report'=>$report));
+					die($output);
+					}
+			
+			//////////////////////////////// end ////////////////////////////////
+			
+			//$user=$invite_user_multi;
+					
 			foreach($invite_user_multi as $data)
 				{
+					$da_user_id[]=(int)$data;
+					$user[]=(int)$data;
 					$result_user=$this->profile_picture((int)$data);
 					
 					foreach($result_user as $da)
@@ -145,7 +186,7 @@ function governance_invite_submit()
 						<p> <b>	Agenda to be discussed: </b></p>
 						<table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
 						<tr class='tr_heading' style='background-color:#00A0E3;color:white;'>
-						<td>Agenda # </td>
+						<td>Agenda</td>
 						<td>Title</td>
 						<td>Description</td>
 						</tr>";
@@ -188,8 +229,23 @@ function governance_invite_submit()
 		if($Invitations_type==2)
 		{
 			    //$to=$post_data['Invite_user2'];
-				$Invite_group=$post_data['Invite_group'];
+				 $Invite_group=$post_data['Invite_group'];
 				$Invite_group=explode(",",$Invite_group);
+				
+				
+				////////////////////////////// validation check//////////////////
+			
+					if($Invite_group[0]=='null' || $Invite_group[0]=='' ){
+
+					$report[]=array('label'=>'multi_check', 'text' => 'Please check at-least one ');
+					}
+
+					if(sizeof($report)>0){
+					$output=json_encode(array('report_type'=>'error','report'=>$report));
+					die($output);
+					}
+			
+			//////////////////////////////// end ////////////////////////////////
 				foreach($Invite_group as $group_id)
 				{
 					
@@ -202,7 +258,7 @@ function governance_invite_submit()
 						
 						foreach($userl_group as $data3)
 						{
-							$user[]=$data3;
+							$user[]=(int)$data3;
 							
 						}
 						
@@ -210,8 +266,10 @@ function governance_invite_submit()
 					}
 					
 				}
+
 				$user=array_unique($user);
-				
+				$user=array_values($user);
+				$da_user_id=$user;
 				
 				foreach($user as $data6)
 				{
@@ -247,7 +305,7 @@ function governance_invite_submit()
 						<p> <b>	Agenda to be discussed: </b></p>
 						<table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
 						<tr class='tr_heading' style='background-color:#00A0E3;color:white;'>
-						<td>Agenda # </td>
+						<td>Agenda</td>
 						<td>Title</td>
 						<td>Description</td>
 						</tr>";
@@ -289,9 +347,46 @@ function governance_invite_submit()
 		
 		if($Invitations_type==3)
 		{
-			$visible=(int)$post_data['visible'];
+			 $visible=(int)$post_data['visible'];
+			
 			$sub_visible=$post_data['sub_visible'];
 			$sub_visible=explode(",",$sub_visible);
+			
+			//////////////////// validation //////////////
+			
+				if($visible==2)
+				{
+					
+					
+					if($post_data['sub_visible']==0)
+					{
+						
+						$report[]=array('label'=>'role_check', 'text' => 'Please select at-least one');
+						
+					}
+					
+					
+				}
+				if($visible==3)
+				{
+					
+					if($post_data['sub_visible']==0)
+					{
+						
+						$report[]=array('label'=>'wing_check', 'text' => 'Please select at-least one');
+						
+					}
+					
+					
+				}
+				if(sizeof($report)>0){
+					$output=json_encode(array('report_type'=>'error','report'=>$report));
+					die($output);
+					}
+			
+			///////////////  end /////////////////////////
+			
+			
 			
 			$recieve_info=$this->visible_subvisible($visible,$sub_visible);
 			
@@ -329,7 +424,7 @@ function governance_invite_submit()
 						<p> <b>	Agenda to be discussed: </b></p>
 						<table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
 						<tr class='tr_heading' style='background-color:#00A0E3;color:white;'>
-						<td>Agenda # </td>
+						<td>Agenda</td>
 						<td>Title</td>
 						<td>Description</td>
 						</tr>";
@@ -361,6 +456,13 @@ function governance_invite_submit()
 			$multipleRowData = Array( Array("governance_invite_id" => $email_id,"message"=>$message,"user_id"=>$s_user_id,"date"=>$date,"time"=>$time,"society_id"=>$s_society_id,"subject"=>$subject,"type"=>$Invitations_type,"file"=>@$file_name,"deleted"=>0,'user'=>$da_user_id,'location'=>$location,'visible'=>$visible,'sub_visible'=>$sub_visible,'meeting_type'=>$type_mettings,'covering_note'=>$covering_note));
 			$this->governance_invite->saveAll($multipleRowData); 
 		}
+		
+			if(sizeof($report)>0){
+			$output=json_encode(array('report_type'=>'error','report'=>$report));
+			die($output);
+			}
+		$this->send_notification('<span class="label label-info" ><i class="icon-bullhorn"></i></span>','New Meeting Invitation published - <b>'.$subject.'</b> by',40,$email_id,$this->webroot.'Governances/governance_invite_view/',$s_user_id,$da_user_id);
+			
 	$output = json_encode(array('type'=>'created', 'text' =>'Invitation successfully submitted'));
 	die($output);
 	
@@ -377,7 +479,7 @@ function governance_invite()
 	$this->ath();
 	$this->check_user_privilages();
 	 $s_society_id=$this->Session->read('society_id');
-	$s_user_id=$this->Session->read('user_id');	
+	 $s_user_id=$this->Session->read('user_id');	
 	
 $this->loadmodel('user');
 $conditions1=array("society_id"=>$s_society_id,'user.email'=> array('$ne' => ""));
@@ -656,6 +758,11 @@ function governance_invite_view()
     $order=array('governance_invite.governance_invite_id'=> 'DESC');
 	$result_gov_inv=$this->governance_invite->find('all',array('conditions'=>$conditions,'order'=>$order));
 	$this->set('result_gov_invite',$result_gov_inv);
+	foreach($result_gov_inv as $data4)
+	{
+		$this->seen_notification(40,$data4["governance_invite"]["governance_invite_id"]);
+		
+	}
 }
 
 function governance_invite_view1($id)

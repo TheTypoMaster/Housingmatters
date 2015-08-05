@@ -26,7 +26,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
  <div class="radio" id="uniform-undefined"><input type="radio" id="r2" name="radio" value="2"  style="opacity: 0;"></div>
  <span style="font-size:16px;" >Send Invitations to any others</span>
  </label>  
- 
+
  
 </div>
 <label style="font-size:14px; font-weight:bold;">To <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="email will be sent to only those users whose valid emails are registered with HousingMatters"> </i></label>
@@ -53,9 +53,11 @@ $flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat')
 <?php } ?>           
 		  
 	 </select>
-	 <label id="multi"></label>
+	 
   </div>
+  <label report="multi" class="remove_report"></label>
 </div>
+
 <!------------------------->
 
 <!-------------------------->
@@ -80,7 +82,7 @@ $group_id=$collection["group"]["group_id"];
 <input type="checkbox" class="requirecheck3 ignore group_name" id="requirecheck1234" name="grp<?php echo $group_id; ?>" value="<?php echo $group_id; ?>"> <?php echo $group_name; ?>
 </label>
 <?php } ?> 
-<label id="requirecheck1234"></label>
+<label report="multi_check" class="remove_report"></label>
 
 
 
@@ -130,7 +132,8 @@ $group_id=$collection["group"]["group_id"];
 			</label>
 			<?php } ?>
 			</div>
-			<label  id="requirecheck1"></label>
+			<label report="role_check" class="remove_report"></label>
+
 			</div>
 
 			<div class="controls">
@@ -153,7 +156,7 @@ $group_id=$collection["group"]["group_id"];
 			</div>
 			<?php } ?>
 			</div><br/>
-			<label id="requirecheck2"></label>
+			<p><label report="wing_check" class="remove_report"></label></p>
 			</div>
 			<!---------------end visible-------------------------------->
 </div>
@@ -185,7 +188,7 @@ $group_id=$collection["group"]["group_id"];
 <label style="font-size:14px; font-weight:bold;">Meeting Title</label>
 <div class="controls">
  <input type="text" name="subject" id="subject" class="span5 m-wrap">
- <label id="subject"></label>
+ <label report="subject" class="remove_report"></label>
 </div>
 <!-------------------------->
 
@@ -203,6 +206,7 @@ $group_id=$collection["group"]["group_id"];
   <div class="controls">
 	<input type="text" name="date" data-date-format="dd-mm-yyyy" class="span6 m-wrap date-picker" placeholder="Date">
   </div>
+  <label report="date" class="remove_report"></label>
 </div>
 
 </div>
@@ -214,7 +218,7 @@ $group_id=$collection["group"]["group_id"];
 	 <div class="input-append bootstrap-timepicker-component">
 		<input class="m-wrap m-ctrl-small timepicker-default" type="text" name="time">
 		<span class="add-on"><i class="icon-time"></i></span>
-		<label report="e_time" class="remove_report"></label>
+		<label report="time" class="remove_report"></label>
 	 </div>
   </div>
 </div>
@@ -244,7 +248,7 @@ $group_id=$collection["group"]["group_id"];
   <label class="control-label" style="font-size:14px; font-weight:bold;">Meeting Covering Note:</label>
   <div class="controls">
 	 <textarea name="covering_note" rows="3" id="alloptions" class="span12 m-wrap" placeholder="Description"></textarea>
-	 <label report="location" class="remove_report"></label>
+	 <label report="" class="remove_report"></label>
   </div>
 </div>
 
@@ -584,7 +588,7 @@ var Invitations =$('input:radio[name=radio]:checked').val();
 			}else{
 				m_data.append( 'sub_visible', allVals);
 			}
-			alert(allVals);
+			
 		}
 		if(visible==1 || visible==4 || visible==5){
 			m_data.append( 'sub_visible', 0);
@@ -628,6 +632,7 @@ var Invitations =$('input:radio[name=radio]:checked').val();
 			type: 'POST',
 			dataType:'json',
 			}).done(function(response) { 
+			
 			//$("#output").html(response);
 				if(response.type=='created'){
 					$(".portal").remove();
@@ -636,6 +641,13 @@ var Invitations =$('input:radio[name=radio]:checked').val();
 				}
 				if(response.type=='error'){
 				$("#output").html('<div class="alert alert-error">'+response.text+'</div>');
+				}
+				if(response.report_type=='error'){
+				
+					$(".remove_report").html('');
+						jQuery.each(response.report, function(i, val) {
+						$("label[report="+val.label+"]").html('<span style="color:red;">'+val.text+'</span>');
+					});
 				}
 				$("html, body").animate({
 				scrollTop:0
