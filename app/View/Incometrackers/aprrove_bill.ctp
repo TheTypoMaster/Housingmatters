@@ -34,6 +34,7 @@ foreach($result_society as $data){
 	$income_heads=$data["society"]["income_head"];
 }
 ?>
+<form method="post" >
 <div class="portlet-body" style="background-color: #fff; overflow-x: auto;overflow-y:hidden;" align="center">
 <table >
 	<thead>
@@ -55,7 +56,7 @@ foreach($result_society as $data){
 			<th>Arrears (Int.)</th>
 			<th>Interest on Arrears </th>
 			<th>Due For Payment</th>
-			<th></th>
+			<th><input style="opacity: 0;" value="" type="checkbox" id="select_all" onclick="select_all_check()"></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -113,7 +114,11 @@ foreach($result_society as $data){
 			<td><?php echo $arrear_intrest; ?></td>
 			<td><?php echo $intrest_on_arrears; ?></td>
 			<td><?php echo $due_for_payment; ?></td>
-			<td><input style="opacity: 0;" value="" type="checkbox"></td>
+			<td>
+			<label class="checkbox">
+					<span><input style="opacity: 0;" value="1" name="check<?php echo $auto_id; ?>" class="group_check1" type="checkbox" /></span>
+				</label>
+			</td>
 		</tr>
 		<?php
 		}
@@ -121,5 +126,21 @@ foreach($result_society as $data){
 	?>
 	</tbody>
 </table>
-</div>
+<button type="submit" name="approve" class="btn green">APPROVE BILLS</button>
+</div> 
+</form>
+
+<script>
+function select_all_check(){
+	$(document).ready(function() {
+		if($("#select_all").is(":checked")==true){
+			$(".group_check1").parent('span').addClass('checked');
+			$(".group_check1").prop('checked',true);
+		}else{
+			$(".group_check1").parent('span').removeClass('checked');
+			$(".group_check1").prop('checked',false);
+		}
+	});
+}
+</script>
 							

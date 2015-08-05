@@ -397,6 +397,10 @@ function regular_bill_preview_screen(){
 			$this->loadmodel('new_regular_bill');
 			$auto_id=$this->autoincrement('new_regular_bill','auto_id');
 			$this->new_regular_bill->saveAll(array("auto_id" => $auto_id, "flat_id" => $flat_id, "bill_no" => $bill_number, "income_head_array" => $income_head_array, "noc_charges" => $noc_charges,"total" => $total, "arrear_maintenance"=> $arrear_maintenance, "arrear_intrest" => $arrear_intrest, "intrest_on_arrears" => $intrest_on_arrears,"due_for_payment" => $due_for_payment,"one_time_id"=>$one_time_id,"society_id"=>$s_society_id,"due_date"=>$due_date,"bill_start_date"=>$bill_start_date,"approval_status"=>0));
+			
+			
+			
+			
 		}
 		$this->response->header('Location','it_regular_bill');
 	}
@@ -5797,7 +5801,19 @@ $order=array('new_regular_bill.one_time_id'=> 'ASC');
 $result_new_regular_bill=$this->new_regular_bill->find('all',array('conditions'=>$condition)); 
 $this->set('result_new_regular_bill',$result_new_regular_bill);
 
-
+if(isset($this->request->data['approve'])){
+	if(sizeof($result_new_regular_bill)>0){
+		foreach($result_new_regular_bill as $data5){
+			$auto_id=$data5["new_regular_bill"]["auto_id"];
+			$chk_value = (int)@$this->request->data['check'.$auto_id];
+			if($chk_value==1){
+				$this->loadmodel('new_regular_bill');
+				$this->new_regular_bill->updateAll(array('approval_status'=>1),array('auto_id'=>$auto_id));
+			}
+		}
+	}
+	$this->response->header('Location','in_head_report');
+}
 
 }
 //////////////////////////////////// End Approve Bill /////////////////////////////////////////////////////////////////
