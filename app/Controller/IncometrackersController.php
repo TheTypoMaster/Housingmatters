@@ -396,7 +396,7 @@ function regular_bill_preview_screen(){
 			
 			$this->loadmodel('new_regular_bill');
 			$auto_id=$this->autoincrement('new_regular_bill','auto_id');
-			$this->new_regular_bill->saveAll(array("auto_id" => $auto_id, "flat_id" => $flat_id, "bill_no" => $bill_number, "income_head_array" => $income_head_array, "noc_charges" => $noc_charges,"total" => $total, "arrear_maintenance"=> $arrear_maintenance, "arrear_intrest" => $arrear_intrest, "intrest_on_arrears" => $intrest_on_arrears,"due_for_payment" => $due_for_payment,"one_time_id"=>$one_time_id,"society_id"=>$s_society_id,"due_date"=>$due_date,"bill_start_date"=>$bill_start_date));
+			$this->new_regular_bill->saveAll(array("auto_id" => $auto_id, "flat_id" => $flat_id, "bill_no" => $bill_number, "income_head_array" => $income_head_array, "noc_charges" => $noc_charges,"total" => $total, "arrear_maintenance"=> $arrear_maintenance, "arrear_intrest" => $arrear_intrest, "intrest_on_arrears" => $intrest_on_arrears,"due_for_payment" => $due_for_payment,"one_time_id"=>$one_time_id,"society_id"=>$s_society_id,"due_date"=>$due_date,"bill_start_date"=>$bill_start_date,"approval_status"=>0));
 		}
 		$this->response->header('Location','it_regular_bill');
 	}
@@ -5782,124 +5782,23 @@ $this->layout='session';
 }
 
 $s_society_id = (int)$this->Session->read('society_id');
-
 $this->ath();
 $this->check_user_privilages();
 
-$this->loadmodel('regular_bill');
-$conditions=array("society_id" => $s_society_id,"approve_status"=>1);
-$order=array('regular_bill.receipt_id'=> 'ASC');
-$cursor1 = $this->regular_bill->find('all',array('conditions'=>$conditions,'order' =>$order));
-$this->set('cursor1',$cursor1);
-
-
-if(isset($this->request->data['sub']))
-{
-$all = @$this->request->data['all'];
-$r=0;
-$this->loadmodel('regular_bill');
-$conditions=array("society_id" => $s_society_id,"approve_status"=>1);
-$order=array('regular_bill.receipt_id'=> 'ASC');
-$cursor = $this->regular_bill->find('all',array('conditions'=>$conditions,'order' =>$order));
-foreach($cursor as $collection)
-{
-$r++;
-echo $app = (int)@$this->request->data['app'.$r];
-if($app != 0)
-{
-$this->loadmodel('regular_bill');
-$conditions=array("society_id" => $s_society_id,"approve_status"=>1,"receipt_id"=>$app);
-$cursor5 = $this->regular_bill->find('all',array('conditions'=>$conditions));
-foreach($cursor5 as $collection)
-{
-$user_id = (int)$collection['regular_bill']['bill_for_user'];
-$html = $collection['regular_bill']['bill_html'];
-$from = $collection['regular_bill']['bill_daterange_from'];
-$to = $collection['regular_bill']['bill_daterange_to'];
-$due_date = $collection['regular_bill']['due_date'];
-$grand_total = $collection['regular_bill']['g_total'];
-$receipt_id = $collection['regular_bill']['receipt_id'];
-
-}
-$sms_from = date('dM',strtotime($from));
-$sms_to = date('dM-y',strtotime($to));
-$sms_due = date('dMy',strtotime($due_date));
-
-$result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
-foreach ($result as $collection) 
-{
-$user_name = $collection['user']['user_name'];
-$wing_id = $collection['user']['wing'];  
-$flat_id = (int)$collection['user']['flat'];
-$tenant = (int)$collection['user']['tenant'];
-$mobile = $collection['user']['mobile'];
-$email = $collection['user']['email'];
-}
-//$email = "nikhileshvyas4455@gmail.com";	
-//$mobile = "9799463210";
-$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));	
 $this->loadmodel('society');
-$conditions=array("society_id" => $s_society_id);
-$cursor = $this->society->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$sms_id = (int)$collection['society']['account_sms'];
-$email_id = (int)$collection['society']['account_email'];
-$society_name = $collection['society']['society_name'];
-}
+$condition=array('society_id'=>$s_society_id);
+$result_society=$this->society->find('all',array('conditions'=>$condition)); 
+$this->set('result_society',$result_society);
 
-$ussrs[]=$user_id;
 
-$this->send_notification('<span class="label label-warning" ><i class="icon-money"></i></span>','New bill for your flat '.$wing_flat.' is generated ',10,$receipt_id,$this->webroot.'Incometrackers/ac_statement_bill_view/'.$receipt_id,0,$ussrs);
-unset($ussrs);
+$this->loadmodel('new_regular_bill');
+$condition=array('society_id'=>$s_society_id,"approval_status"=>0);
+$order=array('new_regular_bill.one_time_id'=> 'ASC');
+$result_new_regular_bill=$this->new_regular_bill->find('all',array('conditions'=>$condition)); 
+$this->set('result_new_regular_bill',$result_new_regular_bill);
 
-if($sms_id == 1)
-{
-$r_sms=$this->hms_sms_ip();
-$working_key=$r_sms->working_key;
-$sms_sender=$r_sms->sms_sender; 
-$sms='Dear '.$user_name.' '.$wing_flat.', your maintenance bill for period '.$sms_from.'-'.$sms_to.' is Rs '.$grand_total.'.Kindly pay by due '.$sms_due.'.'.$society_name.'';
 
-$sms1=str_replace(' ', '+', $sms);
-//sms-closed// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.''); 
-}
-if($email_id == 1)
-{
-$from_mail_date = date('d M',strtotime($from));
-$to_mail_date = date('d M Y',strtotime($to));
 
-//$my_mail = "nikhileshvyas@yahoo.com";
-$subject = ''.$society_name.' : Maintenance bill, '.$from_mail_date.' to '.$to_mail_date.'';
-$from_name="HousingMatters";
-//$message_web = "Receipt No. :".$d_receipt_id;
-$from = "accounts@housingmatters.in";
-$reply="accounts@housingmatters.in";
-$this->send_email($email,$from,$from_name,$subject,$html,$reply);
-}
-
-$this->loadmodel('regular_bill');
-$this->regular_bill->updateAll(array("approve_status" => 2),array("receipt_id" => $app,"society_id"=>$s_society_id));
-}
-}
-?>
-<div class="modal-backdrop fade in"></div>
-<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-<div class="modal-header">
-<center>
-<h3 id="myModalLabel3" style="color:#999;"><b>Regular Bill Approve</b></h3>
-</center>
-</div>
-<div class="modal-body">
-<center>
-<h5><b>This Bills Approved Suceessfully</b></h5>
-</center>
-</div>
-<div class="modal-footer">
-<a href="aprrove_bill" class="btn blue">OK</a>
-</div>
-</div>
-<?php
-}
 }
 //////////////////////////////////// End Approve Bill /////////////////////////////////////////////////////////////////
 ////////////////////////////////////////// Start NEFT Add //////////////////////////////////////////////////////////////

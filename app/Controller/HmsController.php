@@ -2505,6 +2505,20 @@ return @$wing_name.'-'.@$flat_name;
 
 }
 
+function fetch_wing_id_via_flat_id($flat_id){
+	$s_society_id=$this->Session->read('society_id');
+	$this->loadmodel('flat');
+	$conditions=array("flat_id" => $flat_id);
+	return $this->flat->find('all',array('conditions'=>$conditions));
+}
+
+function fetch_user_info_via_flat_id($flat_id){
+	$s_society_id=$this->Session->read('society_id');
+	$this->loadmodel('user');
+	$conditions=array("flat" => $flat_id,"society_id"=>$s_society_id);
+	return $this->user->find('all',array('conditions'=>$conditions));
+}
+
 
 function wing_flat_new($wing_id,$flat_id)
 {
