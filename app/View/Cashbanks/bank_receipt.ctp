@@ -130,7 +130,8 @@ PG
 <div id="cheque_div" class="hide">
 <label style="font-size:14px;">Cheque No.<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text"  name="cheque_number" class="m-wrap span3" placeholder="Cheque No." style="background-color:white !important;" id="ins"> &nbsp;&nbsp; <input type="text"  name="cheque_date" class="m-wrap span4 date-picker" placeholder="Date" data-date-format="dd-mm-yyyy" style="background-color:white !important;" id="ins">
+<input type="text"  name="cheque_number" class="m-wrap span3" placeholder="Cheque No." style="background-color:white !important;" id="ins"> &nbsp;&nbsp; 
+<input type="text"  class="date-picker m-wrap span4" name="cheque_date1"/>
 <label id="ins"></label> &nbsp;&nbsp; <label id="ins"></label>
 </div>
 
@@ -234,8 +235,8 @@ Non-Member
 
 <label style="font-size:14px;">Amount<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" name="amountn" class="m-wrap span9" placeholder="Amount" style="background-color:white !important;" id="amount"/>
-<label id="amt"></label>
+<input type="text" name="amount" class="m-wrap span9" placeholder="Amount" style="background-color:white !important;" id="amount"/>
+<label id="amount"></label>
 </div>
 <br />
 </div>
@@ -246,7 +247,7 @@ Non-Member
 
 <label style="font-size:14px;">Narration<span style="color:red;">*</span></label>
 <div class="controls">
-<textarea   rows="4" name="description" class="span9 m-wrap" placeholder="Narration" style="background-color:white !important; resize:none; margin-right:70%;"  id="narration"></textarea>
+<textarea   rows="4" name="description" class="span9 m-wrap" placeholder="Narration" style="background-color:white !important; resize:none; margin-right:70%;" id="narration"></textarea>
 </div>
 <br />
 
@@ -267,7 +268,8 @@ Non-Member
 </div>  
 <?php /////////////////////////////////////////////////////////////////////////////////////////////// ?>              
 
-
+<?php
+/*
 		<script>
 		$(document).ready(function() {
 		$("#ttt").live('click',function(){
@@ -288,7 +290,8 @@ Non-Member
 
 		});
 		</script>	  
-		  
+*/
+?>		  
 		
 		
 	

@@ -52,7 +52,7 @@ if($ff == 8)
 ?>						
 <label style="font-size:14px;">Party Name<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" name="recieved_from" class="m-wrap span9" style="background-color:white !important;" placeholder="Party Name" id="re">
+<input type="text" name="party_name" class="m-wrap span9" style="background-color:white !important;" placeholder="Party Name" id="re">
 <label id="re"></label> 
 </div>
 <br />

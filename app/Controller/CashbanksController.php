@@ -166,26 +166,31 @@ $this->set('cursor3',$cursor3);
 if(isset($this->request->data['bank_receipt_add'])){
 
 ///////////////////////////////////////////
-echo $transaction_date = $this->request->data['transaction_date'];
-echo $receipt_mode = $this->request->data['receipt_mode'];
+$current_date = date('Y-m-d');
+
+ $transaction_date = $this->request->data['transaction_date'];
+ $receipt_mode = $this->request->data['receipt_mode'];
 if($receipt_mode == "Cheque")
 {
-	echo $cheque_number = $this->request->data['cheque_number'];
-	echo $cheque_date = $this->request->data['cheque_date'];
-	echo $drawn_on_which_bank = $this->request->data['drawn_on_which_bank'];
-}
+
+	 $cheque_number = $this->request->data['cheque_number'];
+	
+	 $cheque_date = $this->request->data['cheque_date'];
+	
+	 $drawn_on_which_bank = $this->request->data['drawn_on_which_bank'];
+	}
 else
 {
-	echo $reference_utr = $this->request->data['cheque_date'];
-	echo $cheque_date = $this->request->data['cheque_date'];
+ $reference_utr = $this->request->data['reference_number'];
+ $cheque_date = $this->request->data['cheque_date'];
 }
-echo $deposited_bank_id = $this->request->data['deposited_bank_id'];
-echo $member_type = $this->request->data['member_type'];
+ $deposited_bank_id = $this->request->data['deposited_bank_id'];
+ $member_type = $this->request->data['member_type'];
 if($member_type == 1)
 {
-	echo $party_name_id = (int)$this->request->data['party_name_id'];
-	echo $receipt_type = $this->request->data['receipt_type'];
-
+$party_name = (int)$this->request->data['party_name_id'];
+$receipt_type = (int)$this->request->data['receipt_type'];
+$flat_id = $party_name;
 	if($receipt_type == 1)
 	{
 		$amount = $this->request->data['amount'];
@@ -198,14 +203,14 @@ if($member_type == 1)
 }
 else 
 {
-	echo $party_name = $this->request->data['member_type'];
-	echo $bill_reference = $this->request->data['member_type'];
-	echo $amount = $this->request->data['amount'];
+	 $party_name = $this->request->data['member_type'];
+	 $bill_reference = $this->request->data['member_type'];
+	 $amount = $this->request->data['amount'];
 }
 
-echo $narration = $this->request->data['narration'];
+ $narration = $this->request->data['description'];
 
-exit;
+
 
 ////////////////////////////////
 	
@@ -213,57 +218,63 @@ $s_society_id =(int)$this->Session->read('society_id');
 $s_role_id=$this->Session->read('role_id');
 $s_user_id=$this->Session->read('user_id');
 	
-	$member_id = (int)@$this->request->data['member'];
-	$flat_id = (int)$this->request->data['recieved_from2'];
-	$receipt_date = $this->request->data['date'];
+	//$member_id = (int)@$this->request->data['member'];
+	//$flat_id = (int)$this->request->data['recieved_from2'];
+	//$receipt_date = $this->request->data['date'];
 	
 	
-	if($member_id == 1){
-		$rr_type = (int)$this->request->data['rr_type'];
-		if($rr_type == 1){
-			$amount = $this->request->data['amount'];
-			
-			//apply receipt in regular_bill//
-			$this->loadmodel('new_regular_bill');
-			$condition=array('society_id'=>$s_society_id,"flat_id"=>$flat_id);
-			$order=array('new_regular_bill.one_time_id'=>'DESC');
-			$result_new_regular_bill=$this->new_regular_bill->find('first',array('conditions'=>$condition,'order'=>$order)); 
-			$this->set('result_new_regular_bill',$result_new_regular_bill);
-			foreach($result_new_regular_bill as $data){
-				$auto_id=$data["auto_id"]; 
-				$arrear_intrest=$data["arrear_intrest"];
-				$intrest_on_arrears=$data["intrest_on_arrears"];
-				$total=$data["total"];
-				$arrear_maintenance=$data["arrear_maintenance"];
+if($member_type == 1)
+{
+	if($receipt_type == 1)
+	{
+	
+	$amount = $this->request->data['amount'];
+    //apply receipt in regular_bill//
+	$this->loadmodel('new_regular_bill');
+	$condition=array('society_id'=>$s_society_id,"flat_id"=>$flat_id);
+	$order=array('new_regular_bill.one_time_id'=>'DESC');
+	$result_new_regular_bill=$this->new_regular_bill->find('first',array('conditions'=>$condition,'order'=>$order)); 
+	$this->set('result_new_regular_bill',$result_new_regular_bill);
+	foreach($result_new_regular_bill as $data){
+	$auto_id=$data["auto_id"]; 
+	$arrear_intrest=$data["arrear_intrest"];
+	$intrest_on_arrears=$data["intrest_on_arrears"];
+	$total=$data["total"];
+	$arrear_maintenance=$data["arrear_maintenance"];
+	$regular_bill_one_time_id = (int)$data["one_time_id"];
+	}
+    	$amount_after_arrear_intrest=$amount-$arrear_intrest;
+		if($amount_after_arrear_intrest<0)
+		{
+		$new_arrear_intrest=abs($amount_after_arrear_intrest);
+		$new_intrest_on_arrears=$intrest_on_arrears;
+		$new_arrear_maintenance=$arrear_maintenance;
+		$new_total=$total;
+		}
+		else
+		{
+		$new_arrear_intrest=0;
+		$amount_after_intrest_on_arrears=$amount_after_arrear_intrest-$intrest_on_arrears;
+			if($amount_after_intrest_on_arrears<0)
+			{
+			$new_intrest_on_arrears=abs($amount_after_intrest_on_arrears);
+			$new_arrear_maintenance=$arrear_maintenance;
+			$new_total=$total;
 			}
-			
-			$amount_after_arrear_intrest=$amount-$arrear_intrest;
-			if($amount_after_arrear_intrest<0){
-				$new_arrear_intrest=abs($amount_after_arrear_intrest);
-				$new_intrest_on_arrears=$intrest_on_arrears;
-				$new_arrear_maintenance=$arrear_maintenance;
+			else
+			{
+			$new_intrest_on_arrears=0;
+			$amount_after_arrear_maintenance=$amount_after_intrest_on_arrears-$arrear_maintenance;
+				if($amount_after_arrear_maintenance<0){
+				$new_arrear_maintenance=abs($amount_after_arrear_maintenance);
 				$new_total=$total;
-			}else{
-				$new_arrear_intrest=0;
-				$amount_after_intrest_on_arrears=$amount_after_arrear_intrest-$intrest_on_arrears;
-				if($amount_after_intrest_on_arrears<0){
-					$new_intrest_on_arrears=abs($amount_after_intrest_on_arrears);
-					$new_arrear_maintenance=$arrear_maintenance;
-					$new_total=$total;
 				}else{
-					$new_intrest_on_arrears=0;
-					
-					$amount_after_arrear_maintenance=$amount_after_intrest_on_arrears-$arrear_maintenance;
-					if($amount_after_arrear_maintenance<0){
-						$new_arrear_maintenance=abs($amount_after_arrear_maintenance);
-						$new_total=$total;
-					}else{
-						$new_arrear_maintenance=0;
-						$amount_after_total=$amount_after_arrear_maintenance-$total; 
-						if($amount_after_total>0){
-							$new_total=0;
-							$new_arrear_maintenance=-$amount_after_total;
-						}else{
+				$new_arrear_maintenance=0;
+				$amount_after_total=$amount_after_arrear_maintenance-$total; 
+				if($amount_after_total>0){
+				$new_total=0;
+				$new_arrear_maintenance=-$amount_after_total;
+				}else{
 							$new_total=abs($amount_after_total);
 							
 						}
@@ -275,27 +286,92 @@ $s_user_id=$this->Session->read('user_id');
 			
 			$this->loadmodel('new_regular_bill');
 			$this->new_regular_bill->updateAll(array('new_arrear_intrest'=>$new_arrear_intrest,"new_intrest_on_arrears"=>$new_intrest_on_arrears,"new_arrear_maintenance"=>$new_arrear_maintenance,"new_total"=>$new_total),array('auto_id'=>$auto_id));
-			
-			
-		}
-		if($rr_type == 2){
-			$amount = $this->request->data['aammtt'];
-		}
-	}
 
-	
-	$result_new_regular_bill = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'fetch_last_bill_info_via_flat_id'),array('pass'=>array($flat_id)));
-	if(sizeof($result_new_regular_bill)==1){
-		foreach($result_new_regular_bill as $last_bill){
-			$bill_auto_id=$last_bill["auto_id"];
-			$bill_one_time_id=$last_bill["one_time_id"];
-		}
-	}
-			
-			
+/////////////////////////////////////////////////////////////////////////////
 	$this->loadmodel('new_cash_bank');
-	$auto_id=$this->autoincrement('new_cash_bank','auto_id');
-	$this->new_cash_bank->saveAll(array("auto_id" => $auto_id, "flat_id" => $flat_id, "amount" => $amount,"receipt_date"=>$receipt_date,"bill_auto_id"=>$bill_auto_id,"bill_one_time_id"=>$bill_one_time_id,"society_id"=>$s_society_id));
+	$order=array('new_cash_bank.receipt_id'=>'ASC');
+	$cursor=$this->new_cash_bank->find('all',array('order' =>$order));
+	foreach ($cursor as $collection) 
+	{
+	$last=$collection['new_cash_bank']["receipt_id"];
+	}
+	if(empty($last))
+	{
+	$k=1000;
+	}	
+	else
+	{	
+	$k=$last;
+	}
+	$k++;
+	$this->loadmodel('new_cash_bank');
+	$multipleRowData = Array( Array("receipt_id" => $k, "transaction_date" => $transaction_date, "receipt_mode" => $receipt_mode, "cheque_number" =>@$cheque_number,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>@$drawn_on_which_bank,"reference_utr" => @$reference_utr,"deposited_bank_id" => $deposited_bank_id,"member_type" => $member_type,"party_name_id"=>$party_name,"receipt_type" => $receipt_type,"amount" => $amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$party_name,"bill_auto_id"=>$auto_id,"bill_one_time_id"=>$regular_bill_one_time_id,));
+	$this->new_cash_bank->saveAll($multipleRowData);
+//////////////////////////////////////////////////////////////////////////////
+		
+}
+if($receipt_type == 2)
+	{
+	$this->loadmodel('new_cash_bank');
+	$order=array('new_cash_bank.receipt_id'=>'ASC');
+	$cursor=$this->new_cash_bank->find('all',array('order' =>$order));
+	foreach ($cursor as $collection) 
+	{
+	$last=$collection['new_cash_bank']["receipt_id"];
+	}
+	if(empty($last))
+	{
+	$k=1000;
+	}	
+	else
+	{	
+	$k=$last;
+	}
+	$k++;
+	$this->loadmodel('new_cash_bank');
+	$multipleRowData = Array( Array("receipt_id" => $k, "transaction_date" => $transaction_date, "receipt_mode" => $receipt_mode, "cheque_number" =>$cheque_number,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>$drawn_on_which_bank,"reference_utr" => $reference_utr,"deposited_bank_id" => $deposited_bank_id,"member_type" => $member_type,"party_name_id"=>$party_name,"receipt_type" => $receipt_type,"amount" => $amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$party_name));
+	$this->new_cash_bank->saveAll($multipleRowData);
+	}
+}
+else if($member_type == 2)
+{
+/////////////////////////
+
+//////////////////////////
+$this->loadmodel('new_cash_bank');
+$order=array('new_cash_bank.receipt_id'=>'ASC');
+$cursor=$this->new_cash_bank->find('all',array('order' =>$order));
+foreach ($cursor as $collection) 
+{
+$last=$collection['new_cash_bank']["receipt_id"];
+}
+if(empty($last))
+{
+$k=1000;
+}	
+else
+{	
+$k=$last;
+}
+$k++;
+$this->loadmodel('new_cash_bank');
+$multipleRowData = Array( Array("receipt_id" => $k, "transaction_date" => $transaction_date, "receipt_mode" => $receipt_mode, "cheque_number" =>$cheque_number,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>$drawn_on_which_bank,"reference_utr" => @$reference_utr,"deposited_bank_id" => $deposited_bank_id,"member_type" => $member_type,"party_name_id"=>$party_name,"receipt_type" => @$receipt_type,"amount" => $amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$party_name));
+$this->new_cash_bank->saveAll($multipleRowData);
+
+}
+	
+$result_new_regular_bill = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'fetch_last_bill_info_via_flat_id'),array('pass'=>array($party_name)));
+if(sizeof($result_new_regular_bill)==1){
+foreach($result_new_regular_bill as $last_bill){
+$bill_auto_id=$last_bill["auto_id"];
+$bill_one_time_id=$last_bill["one_time_id"];
+}
+}
+			
+			
+	//$this->loadmodel('new_cash_bank');
+	//$auto_id=$this->autoincrement('new_cash_bank','auto_id');
+	//$this->new_cash_bank->saveAll(array("auto_id" => $auto_id, "flat_id" => $flat_id, "amount" => $amount,"receipt_date"=>$receipt_date,"bill_auto_id"=>$bill_auto_id,"bill_one_time_id"=>$bill_one_time_id,"society_id"=>$s_society_id));
 }
 
 }

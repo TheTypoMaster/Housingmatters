@@ -43,10 +43,11 @@ if($type == 1 && !empty($flat_id)){
 		<tr>
 		<td colspan="6" style="text-align:right;"><label id="ab"></label></td>
 		</table>
+        <br />
 		<?php
-	}
 }
-else
+}
+else if($type == 2)
 {
 ?>	
 <label style="font-size:14px;">Amount<span style="color:red;">*</span></label>
