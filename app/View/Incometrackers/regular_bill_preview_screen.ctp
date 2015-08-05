@@ -63,7 +63,7 @@ th,td{
 			$result_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch2'),array('pass'=>array(@$flat,$wing))); 
 			foreach($result_flat as $data2){
 				$flat_type_id = (int)$data2['flat']['flat_type_id'];
-				$noc_ch_id = (int)$data2['flat']['noc_ch_tp'];
+				$noc_ch_id = (int)@$data2['flat']['noc_ch_tp'];
 				$sq_feet = (int)$data2['flat']['flat_area'];
 			} 
 			$result_flat_type = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_type_fetch'),array('pass'=>array(@$flat_type_id)));

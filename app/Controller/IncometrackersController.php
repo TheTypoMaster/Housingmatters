@@ -358,6 +358,13 @@ function regular_bill_preview_screen(){
 	$condition=array('society_id'=>$s_society_id);
 	$result_society=$this->society->find('all',array('conditions'=>$condition)); 
 	$this->set('result_society',$result_society);
+	foreach($result_society as $data){
+		$society_name=$data["society"]["society_name"];
+		$society_reg_num=$data["society"]["society_reg_num"];
+		$society_address=$data["society"]["society_address"];
+		$society_email=$data["society"]["society_email"];
+		$society_phone=$data["society"]["society_phone"];
+	}
 	
 	$this->loadmodel('user');
 	$condition=array('society_id'=>$s_society_id,'tenant'=>1,'deactive'=>0);
@@ -374,6 +381,13 @@ function regular_bill_preview_screen(){
 		foreach($result_user as $user){ $inc++;
 			$flat_id = (int)$this->request->data['flat_id'.$inc];
 			$bill_number = (int)$this->request->data['bill_number'.$inc];
+			
+			
+			//user info via flat_id//
+			$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($flat_id)));
+			foreach($result_user_info as $user_info){
+				$user_name=$user_info["user"]["user_name"];
+			}
 			
 			
 			foreach($result_society as $data){
@@ -394,12 +408,179 @@ function regular_bill_preview_screen(){
 			
 			
 			
+			
+			
+/////START BILL HTML////
+$bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
+				<div style="background-color:white; overflow:auto;">
+					<div style="border:solid 1px; overflow:auto;">
+						<div style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;" align="center">'.strtoupper($society_name).'</div>
+						<div style="padding:5px;">
+							<div style="float:left;"><img src="http://123.63.2.150:8080/cakephp/logo/logo.jpg" class="" height="45px" width="45px"></div>
+							<div style="float:right;" align="right">
+							<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$society_reg_num.'</span><br>
+							<span style="color: rgb(100, 100, 99); ">'.$society_address.'</span><br><span>Email: '.$society_email.'</span> | <span>Phone : '.$society_phone.'</span></div>
+						</div>
+						<table style="width:15%; float:left;" border="0">
+							<tbody>
+							<tr>
+								<td>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+					<div style="border:solid 1px; overflow:auto; border-top:none; border-bottom:none;padding:5px;">
+						<div>
+							<table style="width:60%; float:left;" border="0">
+								<tr>
+									<td style="text-align:left; width:17%;font-weight: bold;">
+									Name :
+									</td>
+									<td>'.$user_name.'</td>
+								</tr>
+								<tr>
+									<td style="text-align:left;font-weight: bold;">Bill No.:</td>
+									<td style="text-align:left;">'.$bill_number.'</td>
+								</tr>
+								<tr>
+									<td style="text-align:left;font-weight: bold;">Bill Date:</td>
+									<td style="text-align:left;">05-Aug-2015</td>
+								</tr>
+								<tr>
+									<td style="text-align:left;font-weight: bold;">Description:</td>
+									<td style="text-align:left;"></td>
+								</tr>
+								<tr>
+									<td style="text-align:left;"></td>
+									<td style="text-align:left;"></td>
+								</tr>
+							</table>
+							<table style="width:39%; float:right;" border="0">
+								<tr>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td style="text-align:left;font-weight: bold;">Flat/Shop No.:</td>
+									<td style="text-align:left;">B-205</td>
+								</tr>
+								<tr>
+									<td style="text-align:left;font-weight: bold;">Area:</td>
+									<td style="text-align:left;">2000 Sq Feet</td>
+								</tr>
+								<tr>
+									<td style="text-align:left;font-weight: bold;">Billing Period:</td>
+									<td style="text-align:left;">Jan-Jan&nbsp;2015</td>
+								</tr>
+								<tr>
+									<td style="text-align:left;font-weight: bold;"><b>Due Date:</b></td>
+									<td style="text-align:left;"><b>15-Jan-2015</b></td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div style="overflow:auto;">
+						<table style="width:100%; margine-left:2px; border-collapse:collapse;" border="1" cellpadding="5" cellspacing="0">
+							<tr>
+								<th style="width:85%; text-align:left;color: #fff;background-color: rgb(4, 126, 186);">Particulars of charges</th>
+								<th style="text-align:right;color: #fff;background-color: rgb(4, 126, 186);">Amount (Rs.)</th>
+							</tr>
+							<tr>
+							</tr>
+							<tr>
+								<td valign="top">
+									<table style="width:100%;" border="0"><tbody><tr>
+									<td style="text-align:left;">Maintenance charges</td>
+									</tr><tr>
+									<td style="text-align:left;"><br><br></td>
+									</tr></tbody></table>
+								</td>
+								<td valign="top">
+									<table style="width:100%;" border="0"><tbody><tr>
+									<td style="text-align:right;padding-right: 8%;">5000</td>
+									</tr><tr>
+									<td style="text-align:left;"><br><br></td>
+									</tr></tbody></table>
+								</td>
+							</tr>
+							<tr>
+								<td valign="top">
+									<table style="width:75%; float:left;font-size: 11px;" border="0">
+									<tbody><tr>
+									<td colspan="2">Cheque/NEFT payment instructions:</td>
+									</tr>
+									<tr>
+									<td valign="top" width="30%"><b>Account Name:</b></td>
+									<td>SBI</td>
+									</tr>
+									<tr>
+									<td><b>Account No.:</b></td>
+									<td>3212315616</td>
+									</tr>
+									<tr>
+									<td><b>Bank Name:</b></td>
+									<td>sbi</td>
+									</tr>
+									<tr>
+									<td><b>Branch Name:</b></td>
+									<td>hiran mangri</td>
+									</tr>
+									<tr>
+									<td><b>IFSC no.:</b></td>
+									<td>5165</td>
+									</tr>
+									</tbody></table>
+									<table style="width:25%;" border="0"><tbody><tr>
+									<td rowspan="5"></td>
+									<td style="text-align:right; padding-right:2%;">Total:</td>
+									</tr><tr>
+									<td style="text-align:right; padding-right:2%;">Interest on arrears:</td>
+									</tr><tr>
+									<td style="text-align:right; padding-right:2%;">Arrears &nbsp; (Maint.):</td>
+									</tr><tr>
+									<td style="text-align:right; padding-right:2%;">Arrears &nbsp; (Int.):</td>
+									</tr><tr>
+									<th style="text-align:right; padding-right:2%;">Due For Payment:</th>
+									</tr></tbody></table>
+									</td>
+								<td valign="top"><table style="width:100%;" border="0">
+									<tbody><tr>
+									<td style="text-align:right; padding-right:8%;">5,000</td>
+									</tr>
+									<tr>
+									<td style="text-align:right; padding-right:8%;">0</td>
+									</tr><tr>
+									<td style="text-align:right; padding-right:8%;">0</td>
+									</tr><tr>
+									<td style="text-align:right; padding-right:8%;">0</td>
+									</tr><tr>
+									<th style="text-align:right; padding-right:8%;">5,000</th>
+									</tr></tbody></table>
+								</td>
+							</tr>
+							<tr><td colspan="2"><b>Due For Payment (in words) :</b> Rupees Five Thousand Only</td></tr>
+						</table>
+					</div>
+					<div style="overflow:auto;border:solid 1px;border-bottom:none;padding:5px;border-top: none;">
+						<div align="left" style="width:70%;float:left;font-size: 11px;line-height: 15px;"><span>Remarks:</span><br><span>1.  Thank You</span><br></div>
+						<div style="width:30%;float:right;" align="center">For  <b>Vrindavan Dham <br><br><br><div align="center"><span style="border-top: solid 1px #424141;">Society Manager</span></div></b></div>
+					</div>
+					<b>
+						<div style="color: #6F6D6D;border: solid 1px black;border-top: dotted 1px;" align="center">Note: This is a computer generated bill hence no signature required.</div>
+						<div style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;border: solid 1px #000;border-top: none;" align="center">
+						<span>Your Society is empowered by HousingMatters - 
+						<i>"Making Life Simpler"</i></span><br>
+						<span style="color:#FFF;">Email: support@housingmatters.in</span> &nbsp;|&nbsp; <span>Phone : 022-41235568</span> &nbsp;|&nbsp; <span style="color:#FFF;">www.housingmatters.co.in</span></div>
+					</b>
+				</div>
+			</div>';
+////END BILL HTML////
+			
+	echo $bill_html; exit;		
 			$this->loadmodel('new_regular_bill');
 			$auto_id=$this->autoincrement('new_regular_bill','auto_id');
-			$this->new_regular_bill->saveAll(array("auto_id" => $auto_id, "flat_id" => $flat_id, "bill_no" => $bill_number, "income_head_array" => $income_head_array, "noc_charges" => $noc_charges,"total" => $total, "arrear_maintenance"=> $arrear_maintenance, "arrear_intrest" => $arrear_intrest, "intrest_on_arrears" => $intrest_on_arrears,"due_for_payment" => $due_for_payment,"one_time_id"=>$one_time_id,"society_id"=>$s_society_id,"due_date"=>$due_date,"bill_start_date"=>$bill_start_date,"approval_status"=>0));
-			
-			
-			
+			$this->new_regular_bill->saveAll(array("auto_id" => $auto_id, "flat_id" => $flat_id, "bill_no" => $bill_number, "income_head_array" => $income_head_array, "noc_charges" => $noc_charges,"total" => $total, "arrear_maintenance"=> $arrear_maintenance, "arrear_intrest" => $arrear_intrest, "intrest_on_arrears" => $intrest_on_arrears,"due_for_payment" => $due_for_payment,"one_time_id"=>$one_time_id,"society_id"=>$s_society_id,"due_date"=>$due_date,"bill_start_date"=>$bill_start_date,"approval_status"=>0,"bill_html"=>$bill_html));
 			
 		}
 		$this->response->header('Location','it_regular_bill');
