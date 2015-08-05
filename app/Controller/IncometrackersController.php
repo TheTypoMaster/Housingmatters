@@ -423,7 +423,7 @@ function regular_bill_preview_screen(){
 			
 			
 			
-			
+	
 /////START BILL HTML////
 $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 				<div style="background-color:white; overflow:auto;">
@@ -504,16 +504,30 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 							</tr>
 							<tr>
 								<td valign="top">
-									<table style="width:100%;" border="0"><tbody><tr>
-									<td style="text-align:left;">Maintenance charges</td>
-									</tr><tr>
+									<table style="width:100%;" border="0"><tbody>';
+						foreach($income_head_array as $key=>$value){
+							$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($key)));	
+							foreach($result_income_head as $data2){
+								$income_head_name = $data2['ledger_account']['ledger_name'];
+							}
+							$bill_html.='<tr>
+									<td style="text-align:left;">'.$income_head_name.'</td>
+									</tr>';
+						}		
+						
+									
+						$bill_html.='<tr>
 									<td style="text-align:left;"><br><br></td>
 									</tr></tbody></table>
 								</td>
 								<td valign="top">
-									<table style="width:100%;" border="0"><tbody><tr>
-									<td style="text-align:right;padding-right: 8%;">5000</td>
-									</tr><tr>
+									<table style="width:100%;" border="0"><tbody>';
+						foreach($income_head_array as $key=>$value){
+							$bill_html.='<tr>
+										<td style="text-align:right;padding-right: 8%;">5000</td>
+									</tr>';
+						}
+						$bill_html.='<tr>
 									<td style="text-align:left;"><br><br></td>
 									</tr></tbody></table>
 								</td>
@@ -560,20 +574,27 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 									</td>
 								<td valign="top"><table style="width:100%;" border="0">
 									<tbody><tr>
-									<td style="text-align:right; padding-right:8%;">5,000</td>
+									<td style="text-align:right; padding-right:8%;">'.$total.'</td>
 									</tr>
 									<tr>
-									<td style="text-align:right; padding-right:8%;">0</td>
+									<td style="text-align:right; padding-right:8%;">'.$intrest_on_arrears.'</td>
 									</tr><tr>
-									<td style="text-align:right; padding-right:8%;">0</td>
+									<td style="text-align:right; padding-right:8%;">'.$arrear_maintenance.'</td>
 									</tr><tr>
-									<td style="text-align:right; padding-right:8%;">0</td>
+									<td style="text-align:right; padding-right:8%;">'.$arrear_intrest.'</td>
 									</tr><tr>
-									<th style="text-align:right; padding-right:8%;">5,000</th>
+									<th style="text-align:right; padding-right:8%;">'.$due_for_payment.'</th>
 									</tr></tbody></table>
 								</td>
-							</tr>
-							<tr><td colspan="2"><b>Due For Payment (in words) :</b> Rupees Five Thousand Only</td></tr>
+							</tr>';
+							$due_for_payment = str_replace( ',', '', $due_for_payment );
+							if($due_for_payment<0){
+							$write_am_word="Nil";
+							}else{
+							$am_in_words=ucwords(strtolower($this->convert_number_to_words($due_for_payment)));
+							$write_am_word="Rupees ".$am_in_words." Only";
+							}
+				$bill_html.='<tr><td colspan="2"><b>Due For Payment (in words) :</b> '.$write_am_word.'</td></tr>
 						</table>
 					</div>
 					<div style="overflow:auto;border:solid 1px;border-bottom:none;padding:5px;border-top: none;">
@@ -590,7 +611,9 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 				</div>
 			</div>';
 ////END BILL HTML////
-			
+	
+	unset($income_head_array);
+	
 	echo $bill_html; exit;		
 			$this->loadmodel('new_regular_bill');
 			$auto_id=$this->autoincrement('new_regular_bill','auto_id');
