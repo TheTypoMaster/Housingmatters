@@ -16747,8 +16747,10 @@ $this->set('cursor2',$cursor2);
 //////////////////////////////////////// Start Ledger Sub Account Fetch (Accounts)///////////////////////////////////////////////////////////////////////
 function ledger_sub_account_fetch($auto_id) 
 {
+$s_society_id = $this->Session->read('society_id');
+
 $this->loadmodel('ledger_sub_account');
-$conditions=array("auto_id" => $auto_id);
+$conditions=array("auto_id" => $auto_id,"society_id" => $s_society_id);
 return $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
 
 }
@@ -18060,6 +18062,23 @@ $conditions=array("terms_conditions_id" => $auto_id);
 return $this->terms_condition->find('all',array('conditions'=>$conditions));
 }
 /////////////// End Terms Conditions Fetch (Accounts)//////////////////////////////////////////
+
+/////////////// Start Bank receipt Fetch (Accounts)///////////////////////////////////////
+
+function bank_receipt_fetch2($receipt_id) 
+{
+$this->layout='blank';
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
+	
+$this->loadmodel('cash_bank');
+$conditions=array("receipt_id"=>$receipt_id,"society_id"=>$s_society_id,"module_id"=>1);
+return $this->cash_bank->find('all',array('conditions'=>$conditions));
+}
+/////////////// End Terms Conditions Fetch (Accounts)//////////////////////////////////////////
+
+
 
 /////////////// Start Bank receipt Fetch (Accounts)///////////////////////////////////////
 

@@ -193,9 +193,9 @@ $bill_period_arr = $collection['reference']['reference'];
 }
 $this->set('bill_period_arr',$bill_period_arr);
 }
-/////////////////////// End It Regular Bill (Accounts) ////////////////////////////////
+/////////////////////// End It Regular Bill (Accounts) ////////////////////////////////////////////////////////////
 
-////////////////////////// Start Regular Bill View2 ////////////////////////////////////
+////////////////////////// Start Regular Bill View2 //////////////////////////////////////////////////////////////
 function regular_bill_view2()
 {
 if($this->RequestHandler->isAjax()){
@@ -5873,5 +5873,56 @@ $this->set('cursor1',$cursor1);
 
 }
 ///////////////////////////////// End regular_bill_edit ///////////////////////////////////////////////////////////////
+/////////////////////////////////////// Start Bill bill_reminder ////////////////////////////////////////////////
+function bill_reminder()
+{
+$this->layout='session';
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id = (int)$this->Session->read('user_id');
+
+$this->loadmodel('user');
+$order=array('user.user_id'=> 'ASC');
+$conditions=array("society_id" => $s_society_id, "tenant" => 1,"deactive"=>0);
+$cursor1 = $this->user->find('all',array('conditions'=>$conditions,'order'=>$order));
+foreach($cursor1 as $data)
+{
+//$mobile = $data['user']['mobile'];	
+//$email = $data['user']['email'];
+
+//$mobile = "9799463210";
+
+$r_sms=$this->hms_sms_ip();
+$working_key=$r_sms->working_key;
+$sms_sender=$r_sms->sms_sender; 
+$sms='Dear '.$user_name.' '.$wing_flat.', your maintenance bill for period '.$sms_from.'-'.$sms_to.' is Rs '.$grand_total.'.Kindly pay by due '.$sms_due.'.'.$society_name.'';
+
+$sms1=str_replace(' ', '+', $sms);
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.''); 
+
+
+$from_mail_date = date('d M',strtotime($from));
+$to_mail_date = date('d M Y',strtotime($to));
+
+//$email = "nikhileshvyas@yahoo.com";
+$subject = ''.$society_name.' : Maintenance bill, '.$from_mail_date.' to '.$to_mail_date.'';
+$from_name="HousingMatters";
+//$message_web = "Receipt No. :".$d_receipt_id;
+$from = "accounts@housingmatters.in";
+$reply="accounts@housingmatters.in";
+$this->send_email($email,$from,$from_name,$subject,$html,$reply);
+
+}
+
+
+
+
+
+
+
+
+}
+/////////////////////////////////////// Start Bill bill_reminder ////////////////////////////////////////////////
+
+
 }
 ?>

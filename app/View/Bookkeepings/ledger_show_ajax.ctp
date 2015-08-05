@@ -190,7 +190,22 @@ $wn_id1 = (int)$ddd['user']['wing'];
 }
 
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wn_id1,$fl_id1)));									
-								 
+}
+else if($module_name == "Bank Receipt")
+{
+	
+$one = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($sub_account_id)));									
+foreach($one as $dddd)									 
+{
+$bank_receipt_user_id = (int)$dddd['ledger_sub_account']['user_id'];	
+}
+$two = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($bank_receipt_user_id)));									
+foreach($two as $ddd)
+{
+$fl_id1 = (int)$ddd['user']['flat'];	
+$wn_id1 = (int)$ddd['user']['wing'];	
+}
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wn_id1,$fl_id1)));	
 }
 else
 {
@@ -467,7 +482,21 @@ $wn_id1 = (int)$ddd['user']['wing'];
 }
 
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wn_id1,$fl_id1)));									
-
+}
+else if($module_name == "Bank Receipt")
+{
+$one = $this->requestAction(array('controller' => 'hms', 'action' => 'bank_receipt_fetch'),array('pass'=>array($receipt_id)));									
+foreach($one as $dddd)									 
+{
+$bank_receipt_user_id = (int)$dddd['ledger_sub_account']['user_id'];	
+}
+$two = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($bank_receipt_user_id)));									
+foreach($two as $ddd)
+{
+$fl_id1 = (int)$ddd['user']['flat'];	
+$wn_id1 = (int)$ddd['user']['wing'];	
+}
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wn_id1,$fl_id1)));	
 }
 else
 {
