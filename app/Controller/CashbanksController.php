@@ -185,6 +185,16 @@ if($member_type == 1)
 {
 echo $party_name_id = $this->request->data['party_name_id'];
 echo $receipt_type = $this->request->data['receipt_type'];
+
+if($receipt_type == 1)
+{
+$amount = $this->request->data['amount'];
+}
+else
+{
+$amount = $this->request->data['amount'];
+}
+
 }
 else 
 {
