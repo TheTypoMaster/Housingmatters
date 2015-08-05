@@ -89,29 +89,33 @@ $datetb = date('Y-m-d',strtotime($d_to));
 $this->set('datefb',$datefb);
 $this->set('datetb',$datetb);
 }
-if(isset($this->request->data['sub1']))
-{
-$from = $this->request->data['from'];
-@$penalty = $this->request->data['pen'];
-$due_date = $this->request->data['due_date'];
-$description = $this->request->data['description'];
-$period_id = (int)$this->request->data['bill_p'];
-$fromm = date("Y-m-d", strtotime($from));
-$fromm = new MongoDate(strtotime($fromm));
-$bill_for = (int)$this->request->data['bill_for'];
-if($bill_for == 1)
-{
-$this->loadmodel('wing');
-$conditions=array("society_id" => $s_society_id);
-$cursor = $this->wing->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$wing_id = (int)$collection['wing']['wing_id'];
-$wing_for_bill = @$this->request->data['wing'.$wing_id];
-$wing_arr[] = $wing_for_bill;
-}
-}
-@$wing_imp = implode(",",@$wing_arr);
+
+
+
+//////////Submit form////////////////
+if(isset($this->request->data['sub1'])){
+	$from = $this->request->data['from'];//billing start date
+	@$penalty = $this->request->data['pen'];//panalty yes/no
+	$due_date = $this->request->data['due_date'];
+	$description = $this->request->data['description'];
+	$period_id = (int)$this->request->data['bill_p']; 
+	$fromm = date("Y-m-d", strtotime($from));
+	$fromm = new MongoDate(strtotime($fromm));
+	$bill_for = (int)$this->request->data['bill_for'];
+	
+	if($bill_for == 1){
+		$this->loadmodel('wing');
+		$conditions=array("society_id" => $s_society_id);
+		$cursor = $this->wing->find('all',array('conditions'=>$conditions));
+		foreach($cursor as $collection)
+		{
+		$wing_id = (int)$collection['wing']['wing_id'];
+		$wing_for_bill = @$this->request->data['wing'.$wing_id];
+		$wing_arr[] = $wing_for_bill;
+		}
+	}
+	@$wing_imp = implode(",",@$wing_arr);
+	
 if($period_id == 1)
 {
 $to = date('Y-m-d', strtotime("+1 months", strtotime($from)));
@@ -153,9 +157,9 @@ $pen = $this->encode($penalty,'housingmatters');
 $wing_imp_en = $this->encode($wing_imp,'housingmatters');
 $bill_for_en = $this->encode($bill_for,'housingmatters');
 
-$this->response->header('Location','regular_bill_view2?f='.$f1.'&t='.$t1.'&due='.$due1.'&d='.$desc1.'&p='.$p_id.'&pen='.$pen.'&wi='.$wing_imp_en.'&bi='.$bill_for_en.' ');
+$this->response->header('Location','regular_bill_preview_screen?f='.$f1.'&t='.$t1.'&due='.$due1.'&d='.$desc1.'&p='.$p_id.'&pen='.$pen.'&wi='.$wing_imp_en.'&bi='.$bill_for_en.' ');
 }
-
+//////end submit code//////////
 $this->loadmodel('income_head');
 $conditions=array("society_id" => $s_society_id,"delete_id"=>0);
 $cursor1=$this->income_head->find('all',array('conditions'=>$conditions));
@@ -195,7 +199,212 @@ $this->set('bill_period_arr',$bill_period_arr);
 }
 /////////////////////// End It Regular Bill (Accounts) ////////////////////////////////////////////////////////////
 
+<<<<<<< HEAD
 ////////////////////////// Start Regular Bill View2 //////////////////////////////////////////////////////////////
+=======
+function fetch_last_bill_info_via_flat_id($flat_id){
+	$s_society_id =(int)$this->Session->read('society_id');
+	$this->loadmodel('new_regular_bill');
+	$condition=array('society_id'=>$s_society_id,"flat_id"=>$flat_id);
+	$order=array('new_regular_bill.one_time_id'=>'DESC');
+	return $this->new_regular_bill->find('first',array('conditions'=>$condition,'order'=>$order)); 
+}
+
+function fetch_last_receipt_info_via_flat_id($flat_id,$bill_one_time_id){
+	$s_society_id =(int)$this->Session->read('society_id');
+	$this->loadmodel('new_cash_bank');
+	$condition=array('society_id'=>$s_society_id,"flat_id"=>$flat_id,"bill_one_time_id"=>$bill_one_time_id);
+	$order=array('new_cash_bank.bill_one_time_id'=>'DESC');
+	return $this->new_cash_bank->find('all',array('conditions'=>$condition,'order'=>$order)); 
+}
+function fetch_opening_balance_via_user_id($user_id){
+	$s_society_id =(int)$this->Session->read('society_id');
+	$this->loadmodel('ledger_sub_account');
+	$condition=array('user_id'=>$user_id);
+	$result_ledger_sub_account=$this->ledger_sub_account->find('all',array('conditions'=>$condition)); 
+	foreach($result_ledger_sub_account as $data){
+		$auto_id=$data["ledger_sub_account"]["auto_id"];
+	}
+	$this->loadmodel('ledger');
+	$condition=array('account_id'=>$auto_id,"receipt_id"=>"O_B");
+	return $result_ledger=$this->ledger->find('all',array('conditions'=>$condition));
+}
+function receipt(){
+	if($this->RequestHandler->isAjax()){
+	$this->layout='blank';
+	}else{
+	$this->layout='session';
+	}
+	$this->ath();
+	
+	$s_society_id =(int)$this->Session->read('society_id');
+	$s_role_id=$this->Session->read('role_id');
+	$s_user_id=$this->Session->read('user_id');
+	
+	$amount=100; $flat_id=1; $receipt_date="2015-6-10";
+	$this->loadmodel('new_regular_bill');
+	$condition=array('society_id'=>$s_society_id,"flat_id"=>$flat_id);
+	$order=array('new_regular_bill.one_time_id'=>'DESC');
+	$result_new_regular_bill=$this->new_regular_bill->find('first',array('conditions'=>$condition,'order'=>$order)); 
+	$this->set('result_new_regular_bill',$result_new_regular_bill);
+	foreach($result_new_regular_bill as $data){
+		$auto_id=$data["auto_id"]; 
+		$arrear_intrest=$data["arrear_intrest"];
+		$intrest_on_arrears=$data["intrest_on_arrears"];
+		$total=$data["total"];
+		$arrear_maintenance=$data["arrear_maintenance"];
+	}
+	
+	$amount_after_arrear_intrest=$amount-$arrear_intrest;
+	if($amount_after_arrear_intrest<0){
+		$new_arrear_intrest=abs($amount_after_arrear_intrest);
+		$new_intrest_on_arrears=$intrest_on_arrears;
+		$new_arrear_maintenance=$arrear_maintenance;
+		$new_total=$total;
+	}else{
+		$new_arrear_intrest=0;
+		$amount_after_intrest_on_arrears=$amount_after_arrear_intrest-$intrest_on_arrears;
+		if($amount_after_intrest_on_arrears<0){
+			$new_intrest_on_arrears=abs($amount_after_intrest_on_arrears);
+			$new_arrear_maintenance=$arrear_maintenance;
+			$new_total=$total;
+		}else{
+			$new_intrest_on_arrears=0;
+			
+			$amount_after_arrear_maintenance=$amount_after_intrest_on_arrears-$arrear_maintenance;
+			if($amount_after_arrear_maintenance<0){
+				$new_arrear_maintenance=abs($amount_after_arrear_maintenance);
+				$new_total=$total;
+			}else{
+				$new_arrear_maintenance=0;
+				$amount_after_total=$amount_after_arrear_maintenance-$total; 
+				if($amount_after_total>0){
+					$new_total=0;
+					$new_arrear_maintenance=-$amount_after_total;
+				}else{
+					$new_total=abs($amount_after_total);
+					
+				}
+				
+			}
+		}
+	}
+
+	
+	$this->loadmodel('new_regular_bill');
+	$this->new_regular_bill->updateAll(array('new_arrear_intrest'=>$new_arrear_intrest,"new_intrest_on_arrears"=>$new_intrest_on_arrears,"new_arrear_maintenance"=>$new_arrear_maintenance,"new_total"=>$new_total),array('auto_id'=>$auto_id));
+	
+	
+	
+	$result_new_regular_bill = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'fetch_last_bill_info_via_flat_id'),array('pass'=>array($flat_id)));
+	if(sizeof($result_new_regular_bill)==1){
+		foreach($result_new_regular_bill as $last_bill){
+			$bill_auto_id=$last_bill["auto_id"];
+			$bill_one_time_id=$last_bill["one_time_id"];
+		}
+	}
+			
+			
+	$this->loadmodel('new_cash_bank');
+	$auto_id=$this->autoincrement('new_cash_bank','auto_id');
+	$this->new_cash_bank->saveAll(array("auto_id" => $auto_id, "flat_id" => $flat_id, "amount" => $amount,"receipt_date"=>$receipt_date,"bill_auto_id"=>$bill_auto_id,"bill_one_time_id"=>$bill_one_time_id,"society_id"=>$s_society_id));
+
+	
+}
+
+function regular_bill_preview_screen(){
+	if($this->RequestHandler->isAjax()){
+	$this->layout='blank';
+	}else{
+	$this->layout='session';
+	}
+	$this->ath();
+	
+	$s_society_id =(int)$this->Session->read('society_id');
+	$s_role_id=$this->Session->read('role_id');
+	$s_user_id=$this->Session->read('user_id');	
+	
+	$webroot_path=$this->requestAction(array('controller' => 'Hms', 'action' => 'webroot_path'));
+	
+	$from3 = $this->request->query('f');
+	$to3 = $this->request->query('t');
+	$due_date3 = $this->request->query('due');
+	$desc3 = $this->request->query('d');
+	$p_id = $this->request->query('p');
+	$pen = $this->request->query('pen');
+	$wing_arr_en = $this->request->query('wi');
+	$bill_for_en = $this->request->query('bi');
+
+	$bill_start_date = $this->decode($from3,'housingmatters');
+	$bill_end_date = date("d-m-Y",strtotime($this->decode($to3,'housingmatters')));
+	$due_date = $this->decode($due_date3,'housingmatters');
+	$due_date=date("Y-m-d", strtotime($due_date));
+	$description = $this->decode($desc3,'housingmatters');
+	$period_id = (int)$this->decode($p_id,'housingmatters');
+	$penalty = (int)$this->decode($pen,'housingmatters');
+	$wing_arr_im = $this->decode($wing_arr_en,'housingmatters');
+	$bill_for = (int)$this->decode($bill_for_en,'housingmatters');
+
+	$this->set('bill_for',$bill_for);
+	$this->set('wing_arr_im',$wing_arr_im);
+	$this->set('period_id',$period_id);
+	$this->set('bill_start_date',$bill_start_date);
+	$this->set('bill_end_date',$bill_end_date);
+	$this->set('due_date',$due_date);
+	$this->set('description',$description);
+	$this->set('penalty',$penalty);
+	
+	
+	$this->loadmodel('society');
+	$condition=array('society_id'=>$s_society_id);
+	$result_society=$this->society->find('all',array('conditions'=>$condition)); 
+	$this->set('result_society',$result_society);
+	
+	$this->loadmodel('user');
+	$condition=array('society_id'=>$s_society_id,'tenant'=>1,'deactive'=>0);
+	$result_user=$this->user->find('all',array('conditions'=>$condition)); 
+	$this->set('result_user',$result_user);
+	
+	
+	
+			
+			
+	if(isset($this->request->data['generate_bill'])){
+		$inc=0;
+		$one_time_id=$this->autoincrement('new_regular_bill','one_time_id');
+		foreach($result_user as $user){ $inc++;
+			$flat_id = (int)$this->request->data['flat_id'.$inc];
+			$bill_number = (int)$this->request->data['bill_number'.$inc];
+			
+			
+			foreach($result_society as $data){
+				$income_heads=$data["society"]["income_head"];
+			}
+			foreach($income_heads as $income_head){
+				$income_head_amount = (int)$this->request->data['income_head'.$income_head.$inc];
+				$income_head_array[$income_head]=$income_head_amount;
+			}
+			
+			$noc_charges = (int)@$this->request->data['noc_charges'.$inc];
+			$total = (int)@$this->request->data['total'.$inc];
+			$arrear_maintenance = (int)@$this->request->data['arrear_maintenance'.$inc];
+			$arrear_intrest = (int)@$this->request->data['arrear_intrest'.$inc];
+			$intrest_on_arrears = (int)@$this->request->data['intrest_on_arrears'.$inc];
+			$due_for_payment = (int)@$this->request->data['due_for_payment'.$inc];
+		
+			
+			
+			
+			$this->loadmodel('new_regular_bill');
+			$auto_id=$this->autoincrement('new_regular_bill','auto_id');
+			$this->new_regular_bill->saveAll(array("auto_id" => $auto_id, "flat_id" => $flat_id, "bill_no" => $bill_number, "income_head_array" => $income_head_array, "noc_charges" => $noc_charges,"total" => $total, "arrear_maintenance"=> $arrear_maintenance, "arrear_intrest" => $arrear_intrest, "intrest_on_arrears" => $intrest_on_arrears,"due_for_payment" => $due_for_payment,"one_time_id"=>$one_time_id,"society_id"=>$s_society_id,"due_date"=>$due_date,"bill_start_date"=>$bill_start_date));
+		}
+		$this->response->header('Location','it_regular_bill');
+	}
+	
+}
+////////////////////////// Start Regular Bill View2 ////////////////////////////////////
+>>>>>>> origin/master
 function regular_bill_view2()
 {
 if($this->RequestHandler->isAjax()){

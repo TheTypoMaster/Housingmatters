@@ -18,7 +18,8 @@ alert("Your broweser doesnot support ajax");
 function society_wing()
 {		
 
-
+ $(document).ready(function() {
+	
 if(xobj)
 {
 var c1=document.getElementById("soc_wing").value;
@@ -35,13 +36,14 @@ document.getElementById("echo_wing").innerHTML=xobj.responseText;
 
 }
 xobj.send(null);
+ });
 }
 
 
 function wing_flat()
 {		
 
-
+$(document).ready(function() {
 if(xobj)
 {
 var c2=document.getElementById("wi_flat").value;
@@ -57,6 +59,7 @@ document.getElementById("echo_flat").innerHTML=xobj.responseText;
 
 }
 xobj.send(null);
+});
 }
 
 
@@ -153,20 +156,6 @@ $society_name=$db['society']["society_name"];
 
 
 
-<!--
-<div class="control-group">
-<label class="control-label" style="font-size:16px;">NOC Type </label>
-<div class="controls">
-<label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="residing" value="1" style="opacity: 0;"></span></div>
-<span style="font-size:16px;">Self Occupied</span>
-</label>
-<label class="radio">
-<div class="radio" id="uniform-undefined"><span class="checked"><input type="radio" name="residing" value="2" style="opacity: 0;"   ></span></div>
-<span style="font-size:16px;">Leased</span>
-</label>  
-</div>
-</div>-->
 
 <div class="form-actions">
 <a href="sign_up_next?user=<?php echo $user_id; ?>" class="btn" style="font-size:16px;">Back</a>
@@ -251,7 +240,7 @@ element
 
 function commite()
 	{
-		
+		$(document).ready(function() {
 		$("#tno").click(function(){
 		$("#resident_show").hide();
 		//$("#tno").hide();
@@ -262,6 +251,6 @@ function commite()
 		//$("#other_show").show();
 		
 		});
-		
+		});
 	}
 </script>

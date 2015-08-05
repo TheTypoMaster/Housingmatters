@@ -9,7 +9,9 @@ $time=$data['governance_invite']['time'];
 $file=$data['governance_invite']['file'];
 $type=$data['governance_invite']['type'];
 $location=$data['governance_invite']['location'];
+$covering_note=$data['governance_invite']['covering_note'];
  $meeting_type=(int)@$data['governance_invite']['meeting_type'];
+ $user=$data['governance_invite']['user'];
  if($meeting_type==1)
  {
 	$moc="Managing Committee";
@@ -20,20 +22,21 @@ $location=$data['governance_invite']['location'];
 	$moc="General Body";
  
  }
+	if($meeting_type==3)
+	{
+	 $moc="Special General Body";
+
+	}
 if($type==3)
 {
 $visible=$data['governance_invite']['visible'];
 $sub_visible=$data['governance_invite']['sub_visible'];
-$user=$data['governance_invite']['user'];
+
 }
-if($type==1)
-{
-	$user=$data['governance_invite']['user'];
-}
-if($type==2)
-{
-	$user=$data['governance_invite']['other_user'];
-}
+
+	
+
+
 
 }
 
@@ -47,9 +50,9 @@ if($type==2)
 <span ><?php echo $date; ?>&nbsp;&nbsp;&nbsp;&nbsp; <?php echo $time; ?></span>
 </div>
 <div  align="">
-<span style="font-size:16px;"><b>To : </b></span>
+<span style="font-size:14px;"><b>To : </b></span>
 <?php
-if($type==3 || $type==1){
+
 foreach($user as $id)
 {
 	$result_user=$this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'), array('pass' => array((int)$id)));
@@ -70,27 +73,28 @@ foreach($user as $id)
 		<?php
 	}
 }
-}
-if($type==2)
-{
-	?>
-	<span><?php echo $user; ?></span>
-	<?php
-}
+
+
 ?>
 
 
 </div>
 <div  align="">
-<span  style="font-size:16px;"><b>Title : </b></span><span><?php echo $subject; ?></span>
+<span  style="font-size:14px;"><b>Meeting type : </b></span><span><?php echo @$moc; ?></span>
 
 </div>
 <div  align="">
-<span  style="font-size:16px;"><b>Location : </b></span><span><?php echo $location; ?></span>
+<span  style="font-size:14px;"><b>Meeting Title : </b></span><span><?php echo $subject; ?></span>
 
 </div>
 <div  align="">
-<span  style="font-size:16px;"><b>Meeting type : </b></span><span><?php echo @$moc; ?></span>
+<span  style="font-size:14px;"><b> Meeting Location : </b></span><span><?php echo $location; ?></span>
+
+</div>
+
+
+<div  align="">
+<span  style="font-size:14px;"><b> Meeting Covering Note:  </b></span><br/><span><?php echo $covering_note; ?></span>
 
 </div>
 <div align="justify"><span  style="font-size:16px;"><b>Content for Meeting agenda : </b></span>
@@ -101,7 +105,7 @@ foreach($message_web as $data)
 	?>
 	
 	<div align="justify" ><?php echo urldecode($data[0]); ?><br/></div>
-	<!--<div align="justify" ><?php echo urldecode($data[1]); ?><br/></div><br/>-->
+	<div align="justify" ><?php echo urldecode($data[1]); ?><br/></div><br/>
 <?php	
 }
 

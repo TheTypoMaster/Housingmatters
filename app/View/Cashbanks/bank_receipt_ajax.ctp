@@ -24,7 +24,7 @@ $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing
 if($tenant == 1)
 {
 ?>
-<option value="<?php echo $auto_id; ?>"><?php echo $name; ?> <?php echo $wing_flat; ?><?php  ?></option>
+<option value="<?php echo $flat_id; ?>"><?php echo $name; ?> <?php echo $wing_flat; ?><?php  ?></option>
 <?php }} ?>
 </select>
 <label id="go"></label>
