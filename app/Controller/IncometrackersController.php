@@ -383,6 +383,20 @@ function regular_bill_preview_screen(){
 			$bill_number = (int)$this->request->data['bill_number'.$inc];
 			
 			
+			//wing_id via flat_id//
+			$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_id)));
+			foreach($result_flat_info as $flat_info){
+				$wing_id=$flat_info["flat"]["wing_id"];
+			}
+			
+			$wing_flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing_id,$flat_id))); 
+			
+			$result_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch2'),array('pass'=>array(@$flat_id,$wing_id))); 
+			foreach($result_flat as $data2){
+				$sq_feet = (int)$data2['flat']['flat_area'];
+			} 
+			
+			
 			//user info via flat_id//
 			$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($flat_id)));
 			foreach($result_user_info as $user_info){
@@ -445,11 +459,11 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 								</tr>
 								<tr>
 									<td style="text-align:left;font-weight: bold;">Bill Date:</td>
-									<td style="text-align:left;">05-Aug-2015</td>
+									<td style="text-align:left;">'.$bill_start_date.'</td>
 								</tr>
 								<tr>
 									<td style="text-align:left;font-weight: bold;">Description:</td>
-									<td style="text-align:left;"></td>
+									<td style="text-align:left;">'.$description.'</td>
 								</tr>
 								<tr>
 									<td style="text-align:left;"></td>
@@ -463,19 +477,19 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 								</tr>
 								<tr>
 									<td style="text-align:left;font-weight: bold;">Flat/Shop No.:</td>
-									<td style="text-align:left;">B-205</td>
+									<td style="text-align:left;">'.$wing_flat.'</td>
 								</tr>
 								<tr>
 									<td style="text-align:left;font-weight: bold;">Area:</td>
-									<td style="text-align:left;">2000 Sq Feet</td>
+									<td style="text-align:left;">'.$sq_feet.' Sq Feet</td>
 								</tr>
 								<tr>
 									<td style="text-align:left;font-weight: bold;">Billing Period:</td>
-									<td style="text-align:left;">Jan-Jan&nbsp;2015</td>
+									<td style="text-align:left;">-</td>
 								</tr>
 								<tr>
 									<td style="text-align:left;font-weight: bold;"><b>Due Date:</b></td>
-									<td style="text-align:left;"><b>15-Jan-2015</b></td>
+									<td style="text-align:left;">'.$due_date.'</td>
 								</tr>
 							</table>
 						</div>
