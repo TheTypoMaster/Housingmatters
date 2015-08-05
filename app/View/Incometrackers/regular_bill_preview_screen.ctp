@@ -7,28 +7,28 @@ foreach($result_society as $data){
 ?>
 <style>
 th{
-	font-size: 12px !important;
+	font-size: 10px !important;background-color:#F5F5F5;
 }
 th,td{
 	padding:2px;
-	font-size: 12px;
+	font-size: 12px;border:1px solid #C2C2C2;
 }
 .text_bx{
 	width: 50px;
-	height: 15px;
+	height: 15px !important;
 	margin-bottom: 0px !important;
 	font-size: 12px;
 }
 .text_rdoff{
 	width: 50px;
-	height: 15px;
+	height: 15px !important;
 	border: none !important;
 	margin-bottom: 0px !important;
 	font-size: 12px;
 }
 </style>
 <form method="Post" >
-<div class="portlet-body">
+<div class="portlet-body" style="background-color: #fff; overflow-x: auto;" align="center">
 	<table border="1">
 		<thead>
 			<tr>
