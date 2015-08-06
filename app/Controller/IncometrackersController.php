@@ -364,6 +364,8 @@ function regular_bill_preview_screen(){
 		$society_address=$data["society"]["society_address"];
 		$society_email=$data["society"]["society_email"];
 		$society_phone=$data["society"]["society_phone"];
+		$terms_conditions=$data["society"]["terms_conditions"];
+		$signature=$data["society"]["signature"];
 	}
 	
 	$this->loadmodel('user');
@@ -598,8 +600,14 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 						</table>
 					</div>
 					<div style="overflow:auto;border:solid 1px;border-bottom:none;padding:5px;border-top: none;">
-						<div align="left" style="width:70%;float:left;font-size: 11px;line-height: 15px;"><span>Remarks:</span><br><span>1.  Thank You</span><br></div>
-						<div style="width:30%;float:right;" align="center">For  <b>Vrindavan Dham <br><br><br><div align="center"><span style="border-top: solid 1px #424141;">Society Manager</span></div></b></div>
+						<div align="left" style="width:70%;float:left;font-size: 11px;line-height: 15px;"><span>Remarks:</span><br>';
+			$inc_t_c=0;
+			foreach($terms_conditions as $t_c){ $inc_t_c++;
+				$bill_html.='<span>'.$inc_t_c.'. '.$t_c.'</span><br>';
+			}
+			
+			$bill_html.='</div>
+						<div style="width:30%;float:right;" align="center">For  <b>'.$society_name.'<br><br><br><div align="center"><span style="border-top: solid 1px #424141;">'.$signature.'</span></div></b></div>
 					</div>
 					<b>
 						<div style="color: #6F6D6D;border: solid 1px black;border-top: dotted 1px;" align="center">Note: This is a computer generated bill hence no signature required.</div>
@@ -612,13 +620,12 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 			</div>';
 ////END BILL HTML////
 	
-	unset($income_head_array);
 	
-	echo $bill_html; exit;		
+	
 			$this->loadmodel('new_regular_bill');
 			$auto_id=$this->autoincrement('new_regular_bill','auto_id');
 			$this->new_regular_bill->saveAll(array("auto_id" => $auto_id, "flat_id" => $flat_id, "bill_no" => $bill_number, "income_head_array" => $income_head_array, "noc_charges" => $noc_charges,"total" => $total, "arrear_maintenance"=> $arrear_maintenance, "arrear_intrest" => $arrear_intrest, "intrest_on_arrears" => $intrest_on_arrears,"due_for_payment" => $due_for_payment,"one_time_id"=>$one_time_id,"society_id"=>$s_society_id,"due_date"=>$due_date,"bill_start_date"=>$bill_start_date,"approval_status"=>0,"bill_html"=>$bill_html));
-			
+			unset($income_head_array);
 		}
 		$this->response->header('Location','it_regular_bill');
 	}
