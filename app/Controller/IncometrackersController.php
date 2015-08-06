@@ -3428,9 +3428,9 @@ $this->set('wise',$wise);
 $this->set('from',$from);
 $this->set('to',$to);
 
-$this->loadmodel('regular_bill');
-$conditions=array("society_id"=> $s_society_id,"approve_status" => 2);
-$cursor1=$this->regular_bill->find('all',array('conditions'=>$conditions));
+$this->loadmodel('new_regular_bill');
+$conditions=array("society_id"=> $s_society_id,"approval_status"=>1);
+$cursor1=$this->new_regular_bill->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);	
 
 }
@@ -4481,16 +4481,9 @@ $this->set('cursor1',$result2);
 
 $this->loadmodel('society');
 $condition=array('society_id'=>$s_society_id);
-$cursor = $this->society->find('all',array('conditions'=>$condition)); 
-foreach($cursor as $collection)
-{
-$society_name = $collection['society']['society_name'];
-$society_reg_nu = $collection['society']['society_reg_num'];
-$society_address = $collection['society']['society_address'];
-}
-$this->set('society_name',$society_name);
-$this->set('society_reg_nu',$society_reg_nu);
-$this->set('society_address',$society_address);
+$cursor1 = $this->society->find('all',array('conditions'=>$condition)); 
+
+
 }
 /////////////////// /// End in report ajax ////////////////////////////////////
 
