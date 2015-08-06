@@ -3492,6 +3492,7 @@ function in_head_report(){
 	$result_new_regular_bill=$this->new_regular_bill->find('all',array('conditions'=>$condition)); 
 	$this->set('result_new_regular_bill',$result_new_regular_bill);
 
+
 }
 ///////////////////////// End In head report (Accounts)//////////////////////////
 
