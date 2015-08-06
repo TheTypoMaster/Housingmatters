@@ -19078,19 +19078,7 @@ $conditions=array("bill_for_user" => $user_id,"approve_status"=>2);
 return $this->regular_bill->find('all',array('conditions'=>$conditions));
 }
 ////////////////// End Regular Bill Fetch2(Accounts)//////////////////////////////
-////////////////// Start Regular Bill Fetch2(Accounts)///////////////////////////
-function regular_bill_one_time_id_fetch($one_time_id) 
-{
 
-$s_role_id=$this->Session->read('role_id');
-$s_society_id = (int)$this->Session->read('society_id');
-$s_user_id=$this->Session->read('user_id');
-
-$this->loadmodel('regular_bill');
-$conditions=array("one_time_id" => $one_time_id,"approval_status"=>1,"society_id"=>$s_society_id);
-return $this->regular_bill->find('all',array('conditions'=>$conditions));
-}
-////////////////// End Regular Bill Fetch2(Accounts)//////////////////////////////
 
 
 ////////////////// Start Regular Bill Fetch2(Accounts)///////////////////////////
