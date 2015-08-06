@@ -8,62 +8,71 @@ $m_to1 = date("Y-m-d", strtotime($to));
 ?>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
-$bbb = 55;
-foreach ($cursor1 as $collection) 
-{
-$one_time_id =(int)$collection['regular_bill']["one_time_id"];
-$regular_bill_id=(int)$collection['regular_bill']["regular_bill_id"];
-$bill_daterange_from=$collection['regular_bill']["bill_daterange_from"];
-$bill_daterange_from2= date('d-m-Y',strtotime($bill_daterange_from));
-$bill_daterange_to=$collection['regular_bill']["bill_daterange_to"];
-$bill_daterange_to2= date('d-m-Y',strtotime($bill_daterange_to));
-$bill_for_user=(int)$collection['regular_bill']["bill_for_user"];
-$bill_html=$collection['regular_bill']["bill_html"];
-$g_total=$collection['regular_bill']["g_total"];
-$date=$collection['regular_bill']["date"];
-$receipt_id = $collection['regular_bill']['receipt_id']; 
-$date1= date('Y-m-d',strtotime($date));
+foreach($cursor1 as $data3){
+			$auto_id=$data3["new_regular_bill"]["auto_id"];
+			$flat_id=$data3["new_regular_bill"]["flat_id"];
+			$bill_no=$data3["new_regular_bill"]["bill_no"];
+			$income_head_array=$data3["new_regular_bill"]["income_head_array"];
+			$noc_charges=$data3["new_regular_bill"]["noc_charges"];
+			$total=$data3["new_regular_bill"]["total"];
+			$arrear_maintenance=$data3["new_regular_bill"]["arrear_maintenance"];
+			$arrear_intrest=$data3["new_regular_bill"]["arrear_intrest"];
+			$intrest_on_arrears=$data3["new_regular_bill"]["intrest_on_arrears"];
+			$due_for_payment=$data3["new_regular_bill"]["due_for_payment"];
+			$bill_start_date = $data3['new_regular_bill']['bill_start_date'];
+		
+			//wing_id via flat_id//
+			$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_id)));
+			foreach($result_flat_info as $flat_info){
+				$wing_id=$flat_info["flat"]["wing_id"];
+			}
+			
+			$wing_flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing_id,$flat_id))); 
+			
+			//user info via flat_id//
+			$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($flat_id)));
+			foreach($result_user_info as $user_info){
+				$user_name=$user_info["user"]["user_name"];
+				$bill_for_user = $user_info["user"]["user_id"];
+			}
+		
+		$result_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch2'),array('pass'=>array(@$flat_id,$wing_id))); 
+		foreach($result_flat as $data2){
+		$flat_type_id = (int)$data2['flat']['flat_type_id'];
+		$noc_ch_id = (int)$data2['flat']['noc_ch_tp'];
+		$sq_feet = (int)$data2['flat']['flat_area'];
+		}
 
-$pay_status=(int)@$collection['regular_bill']["pay_status"];
-
-$result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($bill_for_user)));				
-foreach ($result as $collection) 
-{
-$user_name = $collection['user']['user_name'];
-$wing_id = $collection['user']['wing'];  
-$flat_id = (int)$collection['user']['flat'];
-$tenant = (int)$collection['user']['tenant'];
-}	
-$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
+ 
 if($wise == 2)
 {									
 if($bill_for_user == $user_id)
 {
-if($m_from1 <= $date1 && $m_to1 >= $date1)
-{
+//if($m_from1 <= $date2 && $m_to1 >= $date2)
+//{
 
 $bbb = 555;
-}
+//}
 }
 }
 else if($wise == 1)
 {
 if($wing_id == $wing)
 {	
-if($m_from1 <= $date1 && $m_to1 >= $date1)
-{
+//if($m_from1 <= $date1 && $m_to1 >= $date1)
+//{
 $bbb = 555;
-}
+//}
 }
 }
 else if($wise == 3)
 {
 if($bill_number == $receipt_id)
 {	
-if($m_from1 <= $date1 && $m_to1 >= $date1)
-{
+//if($m_from1 <= $date1 && $m_to1 >= $date1)
+//{
 $bbb = 555;	
-}
+//}
 }
 }
 }
@@ -107,146 +116,133 @@ Regular Bill Report  (<?php echo $society_name; ?>)
 </th>
 </tr>
 <tr>
-<th>#</th>
-<th>Generated on</th>
-<th>Flat</th>
-<th>Member Name</th>
-<th>Period From</th>
-<th>Period To</th>
-<th>Bill Amount</th>
-<th class="hide_at_print">Details</th>
+<th>Unit Number</th>
+<th>Name</th>
+<th>Area</th>
+<th>Bill No.</th>
+<th>Total</th>
+<th>Arrears (Maint.)</th>
+<th>Arrears (Int.)</th>
+<th>Interest on Arrears </th>
+<th>Due For Payment</th>
 </tr>
 <?php
-$grand_total = 0;
-$i=0; 
-foreach ($cursor1 as $collection) 
-{
-$i++;
-$one_time_id =(int)$collection['regular_bill']["one_time_id"];
-$regular_bill_id=(int)$collection['regular_bill']["regular_bill_id"];
-$bill_daterange_from=$collection['regular_bill']["bill_daterange_from"];
-$bill_daterange_from2= date('d-m-Y',strtotime($bill_daterange_from));
-$bill_daterange_to=$collection['regular_bill']["bill_daterange_to"];
-$bill_daterange_to2= date('d-m-Y',strtotime($bill_daterange_to));
-$bill_for_user=(int)$collection['regular_bill']["bill_for_user"];
-$bill_html=$collection['regular_bill']["bill_html"];
-$g_total=$collection['regular_bill']["g_total"];
-$date=$collection['regular_bill']["date"]; 
-$date2= date('Y-m-d',strtotime($date));
-$receipt_id = $collection['regular_bill']['receipt_id'];
-$pay_status=(int)@$collection['regular_bill']["pay_status"];
+foreach($cursor1 as $data3){
+			$auto_id=$data3["new_regular_bill"]["auto_id"];
+			$flat_id=$data3["new_regular_bill"]["flat_id"];
+			$bill_no=$data3["new_regular_bill"]["bill_no"];
+			$income_head_array=$data3["new_regular_bill"]["income_head_array"];
+			$noc_charges=$data3["new_regular_bill"]["noc_charges"];
+			$total=$data3["new_regular_bill"]["total"];
+			$arrear_maintenance=$data3["new_regular_bill"]["arrear_maintenance"];
+			$arrear_intrest=$data3["new_regular_bill"]["arrear_intrest"];
+			$intrest_on_arrears=$data3["new_regular_bill"]["intrest_on_arrears"];
+			$due_for_payment=$data3["new_regular_bill"]["due_for_payment"];
+			$bill_start_date = $data3['new_regular_bill']['bill_start_date'];
+		
+			//wing_id via flat_id//
+			$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_id)));
+			foreach($result_flat_info as $flat_info){
+				$wing_id=$flat_info["flat"]["wing_id"];
+			}
+			
+			$wing_flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing_id,$flat_id))); 
+			
+			//user info via flat_id//
+			$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($flat_id)));
+			foreach($result_user_info as $user_info){
+				$user_name=$user_info["user"]["user_name"];
+				$bill_for_user = $user_info["user"]["user_id"];
+			}
+		
+		$result_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch2'),array('pass'=>array(@$flat_id,$wing_id))); 
+		foreach($result_flat as $data2){
+		$flat_type_id = (int)$data2['flat']['flat_type_id'];
+		$noc_ch_id = (int)$data2['flat']['noc_ch_tp'];
+		$sq_feet = (int)$data2['flat']['flat_area'];
+		}
 
-$result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($bill_for_user)));				
-foreach ($result as $collection) 
-{
-$user_name = $collection['user']['user_name'];
-$wing_id = $collection['user']['wing'];  
-$flat_id = (int)$collection['user']['flat'];
-$tenant = (int)$collection['user']['tenant'];
-}	
-$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
+ 
 if($wise == 2)
 {									
 if($bill_for_user == $user_id)
 {
-if($m_from1 <= $date2 && $m_to1 >= $date2)
-{
-$date = date('d-m-Y',strtotime($date));						
-$grand_total = $grand_total + $g_total;
+//if($m_from1 <= $date2 && $m_to1 >= $date2)
+//{
 ?>
-
 <tr>
-<td><?php echo $i; ?></td>
-<td><?php echo $date; ?></td>
 <td><?php echo $wing_flat; ?></td>
 <td><?php echo $user_name; ?></td>
-<td><?php echo $bill_daterange_from2; ?></td>
-<td><?php echo $bill_daterange_to2; ?></td>
-<td style="text-align:right;">
-<?php 
-$g_total = number_format($g_total);
-echo $g_total; ?></td>
-<td class="hide_at_print" style="text-align:right;">
-<a href="regular_bill_edit/<?php echo $regular_bill_id; ?>" class="btn mini purple">Edit</a>
-<a href="regular_bill_view/<?php echo $regular_bill_id; ?>" class="btn mini yellow" target="_blank">View</a>
-<a href="regular_bill_pdf?p=<?php echo $regular_bill_id; ?>" class="btn mini purple" target="_blank">Pdf</a>
-</td>			
+<td><?php echo $sq_feet; ?></td>
+<td><?php echo $bill_no; ?></td>
+<td><?php echo $total; ?></td>
+<td><?php echo $arrear_maintenance; ?></td>
+<td><?php echo $arrear_intrest; ?></td>
+<td><?php echo $intrest_on_arrears; ?></td>
+<td><?php echo $due_for_payment; ?></td>
 </tr>
 <?php 
-}
+//}
 }
 }
 else if($wise == 1)
 {
 if($wing_id == $wing)
 {	
-if($m_from1 <= $date2 && $m_to1 >= $date2)
-{
-$date = date('d-m-Y',strtotime($date));						
-$grand_total = $grand_total + $g_total;	
+//if($m_from1 <= $date2 && $m_to1 >= $date2)
+//{
+//$date = date('d-m-Y',strtotime($date));						
+//$grand_total = $grand_total + $g_total;	
 ?>	
 <tr>
-<td><?php echo $i; ?></td>
-<td><?php echo $date; ?></td>
 <td><?php echo $wing_flat; ?></td>
 <td><?php echo $user_name; ?></td>
-<td><?php echo $bill_daterange_from2; ?></td>
-<td><?php echo $bill_daterange_to2; ?></td>
-<td style="text-align:right;">
-<?php 
-$g_total = number_format($g_total);
-echo $g_total; ?></td>
-<td class="hide_at_print" style="text-align:right;">
-<a href="regular_bill_edit/<?php echo $regular_bill_id; ?>" class="btn mini purple">Edit</a>
-<a href="regular_bill_view/<?php echo $regular_bill_id; ?>" class="btn mini yellow" target="_blank">View</a>
-<a href="regular_bill_pdf?p=<?php echo $regular_bill_id; ?>" class="btn mini purple" target="_blank">Pdf</a>
-</td>			
+<td><?php echo $sq_feet; ?></td>
+<td><?php echo $bill_no; ?></td>
+<td><?php echo $total; ?></td>
+<td><?php echo $arrear_maintenance; ?></td>
+<td><?php echo $arrear_intrest; ?></td>
+<td><?php echo $intrest_on_arrears; ?></td>
+<td><?php echo $due_for_payment; ?></td>
 </tr>	
 <?php 	
-}
+//}
 }
 }
 else if($wise == 3)
 {
-if($bill_number == $receipt_id)
+if($bill_number == $bill_no)
 {	
-if($m_from1 <= $date1 && $m_to1 >= $date1)
-{
+//if($m_from1 <= $date1 && $m_to1 >= $date1)
+//{
 $date = date('d-m-Y',strtotime($date));						
 $grand_total = $grand_total + $g_total;	
 ?>
 <tr>
-<td><?php echo $i; ?></td>
-<td><?php echo $date; ?></td>
 <td><?php echo $wing_flat; ?></td>
 <td><?php echo $user_name; ?></td>
-<td><?php echo $bill_daterange_from2; ?></td>
-<td><?php echo $bill_daterange_to2; ?></td>
-<td style="text-align:right;"><?php 
-$g_total = number_format($g_total);
-echo $g_total; ?></td>
-<td class="hide_at_print" style="text-align:right;">
-<a href="regular_bill_edit" class="btn mini purple">Edit</a>
-<a href="regular_bill_view/<?php echo $regular_bill_id; ?>" class="btn mini yellow" target="_blank">View</a>
-<a href="regular_bill_pdf?p=<?php echo $regular_bill_id; ?>" class="btn mini purple" target="_blank">Pdf</a>
-</td>			
+<td><?php echo $sq_feet; ?></td>
+<td><?php echo $bill_no; ?></td>
+<td><?php echo $total; ?></td>
+<td><?php echo $arrear_maintenance; ?></td>
+<td><?php echo $arrear_intrest; ?></td>
+<td><?php echo $intrest_on_arrears; ?></td>
+<td><?php echo $due_for_payment; ?></td>
 </tr>
 <?php
-}
+//}
 }
 }
 }
 ?>
-<tr>
+<!--<tr>
 <th colspan="6" style="text-align:right;">Grand Total</th>
 <th style="text-align:right;"><?php 
-$grand_total = number_format($grand_total);
-echo $grand_total; ?></th>
+//$grand_total = number_format($grand_total);
+//echo $grand_total; ?></th>
 <th class="hide_at_print"></th>
-</tr>
+</tr>-->
 </table>
-
-
 <?php 
 }
 if($bbb == 55)
@@ -258,15 +254,5 @@ if($bbb == 55)
 </center>
 <br /><br />
 <?php
- 
 }
 ?>
-
-
-
-
-
-
-
-
-

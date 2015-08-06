@@ -3429,9 +3429,9 @@ $this->set('wise',$wise);
 $this->set('from',$from);
 $this->set('to',$to);
 
-$this->loadmodel('regular_bill');
-$conditions=array("society_id"=> $s_society_id,"approve_status" => 2);
-$cursor1=$this->regular_bill->find('all',array('conditions'=>$conditions));
+$this->loadmodel('new_regular_bill');
+$conditions=array("society_id"=> $s_society_id,"approval_status"=>1);
+$cursor1=$this->new_regular_bill->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);	
 
 }
