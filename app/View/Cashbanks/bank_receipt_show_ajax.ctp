@@ -90,7 +90,7 @@ $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing
 			$party_name = $collection['new_cash_bank']['party_name_id'];
 			$bill_reference = @$collection['new_cash_bank']['bill_reference'];	
 			}
-			$amount=$collection['new_cash_bank']['party_name_id'];
+			$amount=$collection['new_cash_bank']['amount'];
 			$flat_id = $collection['new_cash_bank']['flat_id'];
 			$deposited_bank_id = (int)$collection['new_cash_bank']['deposited_bank_id'];
 			$current_date = $collection['new_cash_bank']['current_date'];
