@@ -290,22 +290,8 @@ if($member_type == 1)
 			$this->new_regular_bill->updateAll(array('new_arrear_intrest'=>$new_arrear_intrest,"new_intrest_on_arrears"=>$new_intrest_on_arrears,"new_arrear_maintenance"=>$new_arrear_maintenance,"new_total"=>$new_total),array('auto_id'=>$auto_id));
 
 /////////////////////////////////////////////////////////////////////////////
-	$this->loadmodel('new_cash_bank');
-	$order=array('new_cash_bank.receipt_id'=>'ASC');
-	$cursor=$this->new_cash_bank->find('all',array('order' =>$order));
-	foreach ($cursor as $collection) 
-	{
-	$last=$collection['new_cash_bank']["receipt_id"];
-	}
-	if(empty($last))
-	{
-	$k=1000;
-	}	
-	else
-	{	
-	$k=$last;
-	}
-	$k++;
+
+	$k = (int)$this->autoincrement('new_cash_bank','receipt_id');
 	$this->loadmodel('new_cash_bank');
 	$multipleRowData = Array( Array("receipt_id" => $k, "receipt_date" => strtotime($transaction_date), "receipt_mode" => $receipt_mode, "cheque_number" =>@$cheque_number,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>@$drawn_on_which_bank,"reference_utr" => @$reference_utr,"deposited_bank_id" => $deposited_bank_id,"member_type" => $member_type,"party_name_id"=>$party_name,"receipt_type" => $receipt_type,"amount" => $amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$party_name,"bill_auto_id"=>$auto_id,"bill_one_time_id"=>$regular_bill_one_time_id,));
 	$this->new_cash_bank->saveAll($multipleRowData);
@@ -318,22 +304,8 @@ if($member_type == 1)
 }
 if($receipt_type == 2)
 	{
-	$this->loadmodel('new_cash_bank');
-	$order=array('new_cash_bank.receipt_id'=>'ASC');
-	$cursor=$this->new_cash_bank->find('all',array('order' =>$order));
-	foreach ($cursor as $collection) 
-	{
-	$last=$collection['new_cash_bank']["receipt_id"];
-	}
-	if(empty($last))
-	{
-	$k=1000;
-	}	
-	else
-	{	
-	$k=$last;
-	}
-	$k++;
+
+	$k = (int)$this->autoincrement('new_cash_bank','receipt_id');
 	$this->loadmodel('new_cash_bank');
 <<<<<<< HEAD
 	$multipleRowData = Array( Array("receipt_id" => $k, "receipt_date" => strtitime($transaction_date), "receipt_mode" => $receipt_mode, "cheque_number" =>$cheque_number,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>$drawn_on_which_bank,"reference_utr" => $reference_utr,"deposited_bank_id" => $deposited_bank_id,"member_type" => $member_type,"party_name_id"=>$party_name,"receipt_type" => $receipt_type,"amount" => $amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$party_name));
@@ -348,26 +320,10 @@ else if($member_type == 2)
 /////////////////////////
 
 //////////////////////////
-$this->loadmodel('new_cash_bank');
-$order=array('new_cash_bank.receipt_id'=>'ASC');
-$cursor=$this->new_cash_bank->find('all',array('order' =>$order));
-foreach ($cursor as $collection) 
-{
-$last=$collection['new_cash_bank']["receipt_id"];
-}
-if(empty($last))
-{
-$k=1000;
-}	
-else
-{	
-$k=$last;
-}
-$k++;
+$k = (int)$this->autoincrement('new_cash_bank','receipt_id');
 $this->loadmodel('new_cash_bank');
 $multipleRowData = Array( Array("receipt_id" => $k, "receipt_date" => strtotime($transaction_date), "receipt_mode" => $receipt_mode, "cheque_number" =>$cheque_number,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>$drawn_on_which_bank,"reference_utr" => @$reference_utr,"deposited_bank_id" => $deposited_bank_id,"member_type" => $member_type,"party_name_id"=>$party_name,"receipt_type" => @$receipt_type,"amount" => $amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$party_name));
 $this->new_cash_bank->saveAll($multipleRowData);
-
 }
 	
 $result_new_regular_bill = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'fetch_last_bill_info_via_flat_id'),array('pass'=>array($party_name)));
@@ -377,16 +333,8 @@ $bill_auto_id=$last_bill["auto_id"];
 $bill_one_time_id=$last_bill["one_time_id"];
 }
 }
-			
-			
-	//$this->loadmodel('new_cash_bank');
-	//$auto_id=$this->autoincrement('new_cash_bank','auto_id');
-	//$this->new_cash_bank->saveAll(array("auto_id" => $auto_id, "flat_id" => $flat_id, "amount" => $amount,"receipt_date"=>$receipt_date,"bill_auto_id"=>$bill_auto_id,"bill_one_time_id"=>$bill_one_time_id,"society_id"=>$s_society_id));
 }
-
 }
-
-
 
 function upload_csv_cash_bank(){
 	$this->layout=null;
