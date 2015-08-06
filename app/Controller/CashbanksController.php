@@ -52,9 +52,9 @@ $conditions=array("society_id" => $s_society_id);
 $cursor1=$this->bank_receipt->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);
 
-$this->loadmodel('cash_bank');
-$conditions=array("society_id" => $s_society_id,"module_id"=>1);
-$cursor2=$this->cash_bank->find('all',array('conditions'=>$conditions));
+$this->loadmodel('new_cash_bank');
+$conditions=array("society_id" => $s_society_id);
+$cursor2=$this->new_cash_bank->find('all',array('conditions'=>$conditions));
 $this->set('cursor2',$cursor2);
 
 $this->loadmodel('society');
@@ -335,7 +335,7 @@ if($receipt_type == 2)
 	}
 	$k++;
 	$this->loadmodel('new_cash_bank');
-	$multipleRowData = Array( Array("receipt_id" => $k, "receipt_date" => $transaction_date, "receipt_mode" => $receipt_mode, "cheque_number" =>$cheque_number,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>$drawn_on_which_bank,"reference_utr" => $reference_utr,"deposited_bank_id" => $deposited_bank_id,"member_type" => $member_type,"party_name_id"=>$party_name,"receipt_type" => $receipt_type,"amount" => $amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$party_name));
+	$multipleRowData = Array( Array("receipt_id" => $k, "receipt_date" => $transaction_date, "receipt_mode" => $receipt_mode, "cheque_number" =>@$cheque_number,"cheque_date" =>@$cheque_date,"drawn_on_which_bank" =>@$drawn_on_which_bank,"reference_utr" =>@$reference_utr,"deposited_bank_id" => $deposited_bank_id,"member_type" => $member_type,"party_name_id"=>$party_name,"receipt_type" => $receipt_type,"amount" => $amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$party_name));
 	$this->new_cash_bank->saveAll($multipleRowData);
 	}
 }
