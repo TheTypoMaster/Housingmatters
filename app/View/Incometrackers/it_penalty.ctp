@@ -56,7 +56,11 @@ From First day
 </tr>
 <tr>
 <td>Percentage in Number:</td>
-<td><input type="text" name="tax" class="m-wrap small" style="background-color:white !important;" id="tax" value="<?php echo $tax; ?> <?php echo "%"; ?>"/></td>
+<td>
+<div class="input-append">
+   <input type="text" name="tax" class="m-wrap span4" style="background-color:white !important;" id="tax" value="<?php echo $tax; ?>"/><button class="btn" type="button">%</button>
+</div>
+</td>
 </tr>
 <tr>
 <td colspan="2">
@@ -65,7 +69,7 @@ From First day
 </tr>
 </table>
 <div style="">
-<button class="btn green" name="sub" style="margin-left:35%;">Update</button>
+<button class="btn green" name="sub" >Update</button>
 </div>
 <br />
 </div>

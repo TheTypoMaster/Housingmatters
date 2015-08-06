@@ -3474,24 +3474,23 @@ $this->set("cursor3",$cursor3);
 //////////////////////// End It Reports Regular (Accounts)//////////////////////
 
 ///////////////////////// Start In head report (Accounts)//////////////////////////
-function in_head_report()
-{
-if($this->RequestHandler->isAjax()){
-$this->layout='blank';
-}else{
-$this->layout='session';
-}
-$this->ath();
-$this->check_user_privilages();
+function in_head_report(){
+	if($this->RequestHandler->isAjax()){
+	$this->layout='blank';
+	}else{
+	$this->layout='session';
+	}
+	$this->ath();
+	$this->check_user_privilages();
 
-$s_role_id=$this->Session->read('role_id');
-$s_society_id = (int)$this->Session->read('society_id');
-$s_user_id=$this->Session->read('user_id');	
+	$s_role_id=$this->Session->read('role_id');
+	$s_society_id = (int)$this->Session->read('society_id');
+	$s_user_id=$this->Session->read('user_id');	
 
-$this->loadmodel('regular_bill');
-$condition=array('society_id'=>$s_society_id,"approve_status"=>2);
-$result2=$this->regular_bill->find('all',array('conditions'=>$condition)); 
-$this->set('cursor1',$result2);
+	$this->loadmodel('new_regular_bill');
+	$condition=array('society_id'=>$s_society_id,"approval_status"=>1);
+	$result_new_regular_bill=$this->new_regular_bill->find('all',array('conditions'=>$condition)); 
+	$this->set('result_new_regular_bill',$result_new_regular_bill);
 
 }
 ///////////////////////// End In head report (Accounts)//////////////////////////

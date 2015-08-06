@@ -3,6 +3,8 @@ $bill_start_date=date("Y-m-d", strtotime($bill_start_date));
 
 foreach($result_society as $data){
 	$income_heads=$data["society"]["income_head"];
+	$tax=(float)$data["society"]["tax"];
+	$penalty=$tax/100;
 }
 ?>
 <style>
@@ -124,6 +126,7 @@ th,td{
 				$last_bill_one_time_id=0;
 			}
 			////reciept info/////
+			
 			$result_new_cash_bank = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'fetch_last_receipt_info_via_flat_id'),array('pass'=>array($flat,$last_bill_one_time_id)));
 			if(sizeof($result_new_cash_bank)>=1){
 				foreach($result_new_cash_bank as $last_receipt){
@@ -232,24 +235,24 @@ th,td{
 					if($arrear_maintenance>$last_total){
 						$difference=strtotime($bill_start_date)-strtotime($last_due_date);
 						$days_difference=floor($difference/(60*60*24)); 
-						$x=($last_total*0.18)*($days_difference/365);
+						$x=($last_total*$penalty)*($days_difference/365);
 						$difference2=strtotime($bill_start_date)-strtotime($last_bill_start_date);
 						$days_difference2=floor($difference2/(60*60*24)); 
-						$y=(($arrear_maintenance-$last_total)*0.18)*($days_difference2/365);
+						$y=(($arrear_maintenance-$last_total)*$penalty)*($days_difference2/365);
 						$intrest_on_arrears+=round($x+$y);
 					}
 					//case-3
 					if($arrear_maintenance<=$last_total){
 						$difference3=strtotime($bill_start_date)-strtotime($last_due_date);
 						$days_difference3=floor($difference3/(60*60*24));
-						$intrest_on_arrears+=round(($arrear_maintenance*0.18)*($days_difference3/365));
+						$intrest_on_arrears+=round(($arrear_maintenance*$penalty)*($days_difference3/365));
 					}
 					//case-4
 					if(sizeof($result_new_cash_bank)==1){
 						if(strtotime($receipt_date) > strtotime($last_due_date)){
 							$difference4=strtotime($receipt_date)-strtotime($last_due_date);
 							$days_difference4=floor($difference4/(60*60*24));
-							$intrest_on_arrears+=round(($receipt_amount*0.18)*($days_difference4/365));
+							$intrest_on_arrears+=round(($receipt_amount*$penalty)*($days_difference4/365));
 						}
 					}
 					
