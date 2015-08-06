@@ -6027,9 +6027,15 @@ if(isset($this->request->data['approve'])){
 			$chk_value = (int)@$this->request->data['check'.$auto_id];
 			if($chk_value==1){
 				$this->loadmodel('new_regular_bill');
-				$this->new_regular_bill->updateAll(array('approval_status'=>1),array('auto_id'=>$auto_id));
+				//$this->new_regular_bill->updateAll(array('approval_status'=>1),array('auto_id'=>$auto_id));
+				
+				//fetch bill info via auto_id//
+				$this->loadmodel('new_regular_bill');
+				$condition=array('auto_id'=>$auto_id);
+				$result_bill_info=$this->new_regular_bill->find('all',array('conditions'=>$condition));
+				$flat_id=$result_bill_info[0]["new_regular_bill"]["flat_id"];
 			}
-		}
+		} exit;
 	}
 	$this->response->header('Location','in_head_report');
 }
