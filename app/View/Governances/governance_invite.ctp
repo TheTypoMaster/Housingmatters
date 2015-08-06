@@ -16,7 +16,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <div class="controls">
  <label class="radio">
  <div class="radio" id="uniform-undefined"><input type="radio"  id="r1" checked name="radio" value="1" style="opacity: 0;"></div>
- <span style="font-size:16px;" >Send Invitations to Individual</span>
+ <span style="font-size:16px;" >Send Invitations to Individuals</span>
  </label>
  <label class="radio">
  <div class="radio" id="uniform-undefined"><input type="radio"  id="r3"  name="radio" value="3" style="opacity: 0;"></div>
@@ -24,7 +24,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
  </label>
  <label class="radio">
  <div class="radio" id="uniform-undefined"><input type="radio" id="r2" name="radio" value="2"  style="opacity: 0;"></div>
- <span style="font-size:16px;" >Send Invitations to any others</span>
+ <span style="font-size:16px;" >Send Invitations to Customized Group</span>
  </label>  
 
  
@@ -167,7 +167,7 @@ $group_id=$collection["group"]["group_id"];
 
 
 <div class="control-group">
-		<label style="font-size:14px; font-weight:bold;">Type of Meetings</label>
+		<label style="font-size:14px; font-weight:bold;">Type of Meeting</label>
 		<div class="controls">
 		<label class="radio">
 		<div class="radio" id="uniform-undefined"><span class="checked"><input type="radio" name="type_mettings" value="1" style="opacity: 0;" checked=""></span></div>
@@ -262,7 +262,8 @@ $group_id=$collection["group"]["group_id"];
 <label style="font-size:14px; font-weight:bold;">Content for Meeting agenda</label>
 <div id="url_main">
 <div >
-<input type="text" class="m-wrap span4"  id="nu" name='comm_1' placeholder='1.'>
+<input type="text" class="m-wrap span2"  id="num" name='time_1' placeholder=''>
+<input type="text" class="m-wrap span4"  id="nu" name='comm_1' placeholder='Agenda1.'>
 <textarea class="span4" name="comment_1" placeholder="description" ></textarea>
 <a href="#" role="button" id="add_row" class="btn  mini"><i class="icon-plus-sign"></i> Add row</a>
 </div>
@@ -289,7 +290,7 @@ $group_id=$collection["group"]["group_id"];
   </div>
 </div>
 <label style="color: #696969;font-size: 12px;">
-Note: File size must be less than 2 MB and only jpg,png extension are allowed.
+Note: File size must be less than 2 MB and All extension are allowed.
 </label>
 <label id="file"></label>				   
 
@@ -310,8 +311,9 @@ $(document).ready(function(){
 $("#add_row").bind('click',function(){
 	var count = $("#url_main div").length;
 	count++;
+	var agenda="Agenda";
 	$("#hid_v").val(count);
-	$("#url_main").append('<div class="content_'+count+'"><input type="text" class="m-wrap span4"  id="nu" name="comm_'+count+'" placeholder='+count+'> <textarea class="span4" name="comment_'+count+'" placeholder="description" ></textarea> <a href="#" role="button" id='+count+' class="btn black mini delete_btn"><i class="icon-remove-sign"></i></a></div>');
+	$("#url_main").append('<div class="content_'+count+'"><input type="text" class="m-wrap span2"  id="nu" name="time_'+count+'" > <input type="text" class="m-wrap span4"  id="nu" name="comm_'+count+'" placeholder='+agenda+count+'> <textarea class="span4" name="comment_'+count+'" placeholder="description" ></textarea> <a href="#" role="button" id='+count+' class="btn black mini delete_btn"><i class="icon-remove-sign"></i></a></div>');
 
 
 });
@@ -602,15 +604,18 @@ var Invitations =$('input:radio[name=radio]:checked').val();
 	var type_mettings =$('input:radio[name=type_mettings]:checked').val();
 	m_data.append( 'type_mettings',type_mettings );
 	var count = $("#url_main div").length;
-	var comm = []; var comments = []; 
+	var comm = []; var comments = []; var time_ag = []; 
 	for(var i=1;i<=count;i++)
 	{
+		var e=encodeURIComponent($('input[name=time_'+i+']').val());
 		var c=encodeURIComponent($('input[name=comm_'+i+']').val());
 		var d=encodeURIComponent($('textarea[name=comment_'+i+']').val());
+		time_ag.push([e]);
 		comm.push([c]);
 		comments.push([d]);
 	}
 	
+	m_data.append('meeting_agenda_time',time_ag);
 	m_data.append('meeting_agenda_input',comm );
 	m_data.append('meeting_agenda_textarea',comments);
 	var subject=$('input[name=subject]').val();

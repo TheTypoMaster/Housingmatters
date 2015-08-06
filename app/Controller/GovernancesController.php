@@ -50,8 +50,10 @@ function governance_invite_submit()
 	$time=$post_data['time'];
 	$location=$post_data['location'];
 	$covering_note=$post_data['covering_note'];
+	 $meeting_agenda_time=$post_data['meeting_agenda_time'];
 	 $meeting_agenda_input=$post_data['meeting_agenda_input'];
 	 $meeting_agenda_textarea=$post_data['meeting_agenda_textarea'];
+	 $meeting_agenda_time=explode(",",$meeting_agenda_time);
 	$meeting_agenda_input=explode(",",$meeting_agenda_input);
 	$meeting_agenda_textarea=explode(",",$meeting_agenda_textarea);
 	
@@ -80,7 +82,7 @@ function governance_invite_submit()
 		for($z=0;$z<sizeof($meeting_agenda_input);$z++)
 		{
 			
-			$message[]=array($meeting_agenda_input[$z],$meeting_agenda_textarea[$z]);
+			$message[]=array($meeting_agenda_input[$z],$meeting_agenda_textarea[$z],$meeting_agenda_time[$z]);
 		}
 				
 			if($type_mettings==1)
@@ -127,7 +129,7 @@ function governance_invite_submit()
 						
 					}
 		
-
+					  $email_id=$this->autoincrement('governance_invite','governance_invite_id');
 
 		
 		if($Invitations_type==1)
@@ -150,7 +152,8 @@ function governance_invite_submit()
 			//////////////////////////////// end ////////////////////////////////
 			
 			//$user=$invite_user_multi;
-					
+		/////////////////  start email code ////////////////////////////////
+		
 			foreach($invite_user_multi as $data)
 				{
 					$da_user_id[]=(int)$data;
@@ -168,16 +171,19 @@ function governance_invite_submit()
 						<br/><br/>
 						<p><center><b>[$society_name]</b></center></p>
 						<p><b>Meeting Type:</b> [ $moc ] </p>
+						<p><b>Meeting Title:</b>  $subject  </p>
 						<table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
 						<tr class='tr_heading' style='background-color:#00A0E3;color:white;'>
 						<td>Date</td>
 						<td>Time</td>
 						<td>Location</td>
+						<td>Meeting ID</td>
 						</tr>
 						<tr class='tr_content' style=background-color:#E9E9E9;'>
 						<td>$date</td>
 						<td>$time</td>
 						<td>$location</td>
+						<td>$email_id</td>
 						</tr>
 						</table>
 						<div>
@@ -186,19 +192,17 @@ function governance_invite_submit()
 						<p> <b>	Agenda to be discussed: </b></p>
 						<table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
 						<tr class='tr_heading' style='background-color:#00A0E3;color:white;'>
-						<td>Agenda</td>
-						<td>Title</td>
-						<td>Description</td>
+						<td>Time</td>
+						<td>Meeting Agenda</td>
+						
 						</tr>";
 						$jj=0;
 						foreach($message as $ddd)
 						{	$jj++;
 
 						$message_web.="<tr>
-						<td>".$jj."</td>
-						<td>".urldecode($ddd[0])."</td>
-						<td>".urldecode($ddd[1])."</td>
-
+						<td width='10%'>".urldecode($ddd[2])."</td>
+						<td>".$jj.". ".urldecode($ddd[0]). " <br/> ".urldecode($ddd[1])."</td>
 						</tr>";	
 						}
 						$message_web.="</table>
@@ -208,22 +212,23 @@ function governance_invite_submit()
 						$user_name<br/>
 						$file_att <br/>
 						</div>";
-						
-						 @$title.= '['. $society_name . ']  - '.'[ meeting type :'.$moc.'] '.'  on   '.''.$date.'';	
+						@$title.= '['. $society_name . ']  - '.'[ '.$moc.' Meeting ] '.'  on   '.''.$date.'';	
+						 
 						 $this->send_email($to,'support@housingmatters.in','HousingMatters',$title,$message_web,'donotreply@housingmatters.in');
 						 $title="";
 						
 					}
 					
 				}
+			///////////////// end email code /////////////////////////////////////////
 			
-			    $email_id=$this->autoincrement('governance_invite','governance_invite_id');
+			
+			  
 				$this->loadmodel('governance_invite');
 				$multipleRowData = Array( Array("governance_invite_id" => $email_id,"message"=>$message,"user_id"=>$s_user_id,"date"=>$date,"time"=>$time,"society_id"=>$s_society_id,"subject"=>$subject,"type"=>$Invitations_type,"file"=>@$file_name,"deleted"=>0,'user'=>$user,'location'=>$location,'meeting_type'=>$type_mettings,'covering_note'=>$covering_note));
 				$this->governance_invite->saveAll($multipleRowData); 
 			
-			
-			
+		
 		}
 		
 		if($Invitations_type==2)
@@ -271,6 +276,8 @@ function governance_invite_submit()
 				$user=array_values($user);
 				$da_user_id=$user;
 				
+	/////////////////// Start email code ///////////////////////////
+	
 				foreach($user as $data6)
 				{
 					
@@ -280,23 +287,26 @@ function governance_invite_submit()
 						 $to=$data7['user']['email'];
 						
 						
-						@$message_web="<div>
+						 @$message_web="<div>
 						<img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 						<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
 						<a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 						<br/><br/>
 						<p><center><b>[$society_name]</b></center></p>
 						<p><b>Meeting Type:</b> [ $moc ] </p>
+						<p><b>Meeting Title:</b>  $subject  </p>
 						<table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
 						<tr class='tr_heading' style='background-color:#00A0E3;color:white;'>
 						<td>Date</td>
 						<td>Time</td>
 						<td>Location</td>
+						<td>Meeting ID</td>
 						</tr>
 						<tr class='tr_content' style=background-color:#E9E9E9;'>
 						<td>$date</td>
 						<td>$time</td>
 						<td>$location</td>
+						<td>$email_id</td>
 						</tr>
 						</table>
 						<div>
@@ -305,38 +315,35 @@ function governance_invite_submit()
 						<p> <b>	Agenda to be discussed: </b></p>
 						<table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
 						<tr class='tr_heading' style='background-color:#00A0E3;color:white;'>
-						<td>Agenda</td>
-						<td>Title</td>
-						<td>Description</td>
+						<td>Time</td>
+						<td>Meeting Agenda</td>
+						
 						</tr>";
 						$jj=0;
 						foreach($message as $ddd)
 						{	$jj++;
 
 						$message_web.="<tr>
-						<td>".$jj."</td>
-						<td>".urldecode($ddd[0])."</td>
-						<td>".urldecode($ddd[1])."</td>
-
+						<td width='10%'>".urldecode($ddd[2])."</td>
+						<td>".$jj.". ".urldecode($ddd[0]). " <br/> ".urldecode($ddd[1])."</td>
 						</tr>";	
 						}
 						$message_web.="</table>
 						</div>
 						<br/>
 						For [ $society_name ].<br/>
-						$user_name <br/>
-						$file_att <br/> 
+						$user_name<br/>
+						$file_att <br/>
 						</div>";
-						
-						@$title.= '['. $society_name . ']  - '.'[ meeting type :'.$moc.'] '.'  on   '.''.$date.'';	
-						$this->send_email($to,'support@housingmatters.in','HousingMatters',$title,$message_web,'donotreply@housingmatters.in');
+					 @$title.= '['. $society_name . ']  - '.'[ '.$moc.' Meeting ] '.'  on   '.''.$date.'';	
+					$this->send_email($to,'support@housingmatters.in','HousingMatters',$title,$message_web,'donotreply@housingmatters.in');
 						$title="";
 				     
 					}
 				}
-				
+		///////////////////////// End code ///////////////////////////////////////		
 			
-			$email_id=$this->autoincrement('governance_invite','governance_invite_id');
+			
 			$this->loadmodel('governance_invite');
 			$multipleRowData = Array( Array("governance_invite_id" => $email_id,"message"=>$message,"user_id"=>$s_user_id,"date"=>$date,"time"=>$time,"society_id"=>$s_society_id,"subject"=>$subject,"type"=>$Invitations_type,"file"=>@$file_name,"deleted"=>0,'location'=>$location,'meeting_type'=>$type_mettings,'covering_note'=>$covering_note,'user'=>$user,'group_id'=>$Invite_group));
 			$this->governance_invite->saveAll($multipleRowData); 
@@ -390,7 +397,7 @@ function governance_invite_submit()
 			
 			$recieve_info=$this->visible_subvisible($visible,$sub_visible);
 			
-			
+			////////////////////  Start email code ////////////////////////////
 			
 			foreach($recieve_info[0] as $data=>$key )
 			{
@@ -398,24 +405,27 @@ function governance_invite_submit()
 				 $d_user_id = @$data;	
 				 $da_user_id[]=$d_user_id;		
 				 $result_user=$this->profile_picture($data);
-				 $user_name=$result_user[0]['user']['user_name'];
-				@$message_web="<div>
+				 //$user_name=$result_user[0]['user']['user_name'];
+				 @$message_web="<div>
 						<img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 						<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
 						<a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
 						<br/><br/>
 						<p><center><b>[$society_name]</b></center></p>
 						<p><b>Meeting Type:</b> [ $moc ] </p>
+						<p><b>Meeting Title:</b>  $subject  </p>
 						<table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
 						<tr class='tr_heading' style='background-color:#00A0E3;color:white;'>
 						<td>Date</td>
 						<td>Time</td>
 						<td>Location</td>
+						<td>Meeting ID</td>
 						</tr>
 						<tr class='tr_content' style=background-color:#E9E9E9;'>
 						<td>$date</td>
 						<td>$time</td>
 						<td>$location</td>
+						<td>$email_id</td>
 						</tr>
 						</table>
 						<div>
@@ -424,19 +434,17 @@ function governance_invite_submit()
 						<p> <b>	Agenda to be discussed: </b></p>
 						<table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
 						<tr class='tr_heading' style='background-color:#00A0E3;color:white;'>
-						<td>Agenda</td>
-						<td>Title</td>
-						<td>Description</td>
+						<td>Time</td>
+						<td>Meeting Agenda</td>
+						
 						</tr>";
 						$jj=0;
 						foreach($message as $ddd)
 						{	$jj++;
 
 						$message_web.="<tr>
-						<td>".$jj."</td>
-						<td>".urldecode($ddd[0])."</td>
-						<td>".urldecode($ddd[1])."</td>
-
+						<td width='10%'>".urldecode($ddd[2])."</td>
+						<td>".$jj.". ".urldecode($ddd[0]). " <br/> ".urldecode($ddd[1])."</td>
 						</tr>";	
 						}
 						$message_web.="</table>
@@ -446,15 +454,18 @@ function governance_invite_submit()
 						$user_name<br/>
 						$file_att <br/>
 						</div>";
-				@$title.= '['. $society_name . ']  - '.'[ meeting type :'.$moc.'] '.'  on   '.''.$date.'';	
+						@$title.= '['. $society_name . ']  - '.'[ '.$moc.' Meeting ] '.'  on   '.''.$date.'';	
 				$this->send_email($to,'support@housingmatters.in','HousingMatters',$title,$message_web,'donotreply@housingmatters.in');
+				$title="";
 			}
 			
+			/////////////////////  End code /////////////////////////////
 			
-			$email_id=$this->autoincrement('governance_invite','governance_invite_id');
 			$this->loadmodel('governance_invite');
 			$multipleRowData = Array( Array("governance_invite_id" => $email_id,"message"=>$message,"user_id"=>$s_user_id,"date"=>$date,"time"=>$time,"society_id"=>$s_society_id,"subject"=>$subject,"type"=>$Invitations_type,"file"=>@$file_name,"deleted"=>0,'user'=>$da_user_id,'location'=>$location,'visible'=>$visible,'sub_visible'=>$sub_visible,'meeting_type'=>$type_mettings,'covering_note'=>$covering_note));
 			$this->governance_invite->saveAll($multipleRowData); 
+			
+			
 		}
 		
 			if(sizeof($report)>0){

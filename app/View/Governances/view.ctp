@@ -54,24 +54,12 @@ $sub_visible=$data['governance_invite']['sub_visible'];
 <?php echo $society_name; ?>
 </div>
 
-<div  align="" style="padding: 5px;">
-<table  cellpadding='5' width='100%;' >
-<tr class='tr_heading'>
-<td ><span  style="font-size:14px;"><b>Meeting type : </b></span> <span><?php echo @$moc; ?></span></td>
-<td colspan="3"><span  style="font-size:14px;"><b>Meeting Title : </b></span> <span><?php echo $subject; ?></span></td>
 
-</tr>
-<tr>
-<td ><span  style="font-size:14px;"><b> Meeting Location : </b></span> <span><?php echo $location; ?></span></td>
-<td ><span  style="font-size:14px;"><b> Date : </b></span> <span><?php echo $date; ?></span></td>
-<td ><span  style="font-size:14px;"><b> Time : </b></span> <span><?php echo $time; ?></span></td>
-<td ><span  style="font-size:14px;"><b>Meeting ID : </b></span> <span><?php echo $gov_id; ?></span></td>
-</tr>
-</table>
+
+<div align="right"style="padding: 5px;">
+<span> <b>Date:</b> </span> <span><?php echo $date; ?></span> &nbsp;&nbsp;&nbsp;&nbsp; <span> <b>Time:</b> </span> <span><?php echo $time; ?></span>
 </div>
-<br/>
-
-<div  align="" style="padding: 10px;">
+<div  align="" style="padding: 5px;">
 <span style="font-size:14px;"><b>Invitees : </b></span>
 <?php
 
@@ -84,14 +72,9 @@ foreach($user as $id)
 		
 		$wing=$data['user']['wing'];
 		$flat=$data['user']['flat'];
-		$flat_n=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing,$flat)));
-		if(!empty($flat_n))
-		{
-			$flat_name=" (".$flat_n.")";
-		}
 		if(!empty($to))
 		{
-		$to.=@$flat_name.',';
+		$to.=',';
 		
 		}
 		?>
@@ -107,28 +90,40 @@ foreach($user as $id)
 
 
 </div>
-
-
-<div  align="" style="padding: 10px;">
-<span  style="font-size:14px;"><b> Meeting Covering Note: </b></span><br/><span><?php echo $covering_note; ?></span>
-</div>
-
+<br/>
 <div  align="" style="padding: 5px;">
 <table  cellpadding='5' width='100%;'>
-<tr class='tr_heading' style=''>
-<td><span  style="font-size:14px;"><b> Time </b></span></td>
-<td><span  style="font-size:14px;"><b>Meeting Agenda : </b></span></td>
+<tr class='tr_heading'>
+<td><span  style="font-size:14px;"><b>Meeting type : </b></span> <span><?php echo @$moc; ?></span></td>
+<td><span  style="font-size:14px;"><b>Meeting Title : </b></span> <span><?php echo $subject; ?></span></td>
+<td><span  style="font-size:14px;"><b> Meeting Location : </b></span> <span><?php echo $location; ?></span></td>
+</tr>
+</table>
+</div>
+<br/>
 
+<div  align="" style="padding: 5px;">
+<span  style="font-size:14px;"><b> Meeting Covering Note: </b></span><br/><span><?php echo $covering_note; ?></span>
+</div>
+<br/>
+<div  align="" style="padding: 5px;">
+<table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
+<tr class='tr_heading' style=''>
+<td><span  style="font-size:14px;"><b>Agenda : </b></span></td>
+<td><span  style="font-size:14px;"><b>Title : </b></span></td>
+<td><span  style="font-size:14px;"><b> Description: </b></span></td>
 </tr>
 <?php
-$z=0;
+$ii=0;
 foreach($message_web as $data)
-{ $z++;?>
-	
-	<tr style=''>
-	<td width="8%" style="border-top: solid 1px;" valign="top"><span style="font-size:14px;"><?php  echo urldecode($data[2]); ?> </span> </td>
-	<td style="border-top: solid 1px;"><p><span style="font-size:16px;"> <?php echo $z; ?>. <?php  echo urldecode($data[0]); ?>  </span><br/><span><?php echo urldecode($data[1]); ?></span></p></td>
-	</tr>
+{
+$ii++;	
+	?>
+<tr style=''>
+<td><span><?php echo $ii; ?></span></td>
+<td><span><?php echo urldecode($data[0]); ?></span></td>
+<td><span><?php echo urldecode($data[1]); ?></span></td>
+</tr>
 <?php	
 } ?>
 </table>

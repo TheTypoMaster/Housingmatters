@@ -14,13 +14,13 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 <thead>
     <tr>
-    <th> Sr. No.</th>
+    <th>Meeting ID </th>
     <th>Meeting Title</th>
 	 <th>Meeting Type</th>
     <th>Meeting Date</th>
 	 <th>Meeting Time</th>
 	 <th>Meeting Location</th>
-	 <th>Invite user</th>
+	 <th>Invitees </th>
     <th></th>
     </tr>
 </thead>
@@ -62,7 +62,7 @@ $sub_visible=$data['governance_invite']['sub_visible'];
 $i++;
 ?>
 <tr >
-    <td><?php echo $i ; ?></td>
+    <td><?php echo $gov_id; ?></td>
     <td><?php echo $subject ; ?></td>
 	 <td><?php echo $moc ; ?></td>
     <td><?php echo $date ; ?></td>
