@@ -13,10 +13,9 @@ $nnn = 55;
 foreach ($cursor2 as $collection) 
 {
 $receipt_date = $collection['new_cash_bank']['receipt_date'];
-if($receipt_date >= $m_from && $receipt_date <= $m_to)
-{
+
 $nnn = 555;
-}
+
 }			
 ?>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
@@ -24,24 +23,16 @@ $nnn = 555;
 if($nnn == 555)
 {
 ?>
-<div style="width:100%; overflow:auto;" class="hide_at_print">
-<span style="float:right;">
-<a href="bank_receipt_excel?f=<?php echo $from; ?>&t=<?php echo $to; ?>" class="btn blue" target="_blank">Export in Excel</a></span>
-<span style="float:right; margin-right:1%;"><button type="button" class=" printt btn green" onclick="window.print()"><i class="icon-print"></i> Print</button></span>
-</div>	
-<br />			
-
 <table class="table table-bordered" width="100%" style=" background-color:white;">
 <tr>
-<th colspan="10" style="text-align:center;">
+<th colspan="9" style="text-align:center;">
 <p style="font-size:16px;">
 Bank Receipt Report  (<?php echo $society_name; ?>)
 </p>
 </th>
 </tr>
 <tr>
-<th colspan="8">From : <?php echo $from; ?> &nbsp;&nbsp; To : <?php echo $to; ?></th>
-<th colspan="8"></th>
+<th colspan="9" >From : <?php echo $from; ?> &nbsp;&nbsp; To : <?php echo $to; ?></th>
 </tr>
 <tr>
 <th>Receipt#</th>
@@ -57,22 +48,24 @@ Bank Receipt Report  (<?php echo $society_name; ?>)
 <?php
 			$total_credit = 0;
 			$total_debit = 0;
+			$n=0;
 			foreach ($cursor2 as $collection) 
 			{
+			$n++;
 			$receipt_no = $collection['new_cash_bank']['receipt_id'];
 			$transaction_id = (int)$collection['new_cash_bank']['receipt_date'];	
 			$receipt_mode = $collection['new_cash_bank']['receipt_mode'];
 			$receipt_date = $collection['new_cash_bank']['receipt_date'];
 			if($receipt_mode == "Cheque")
    			{
-			 $cheque_number = $this->request->data['cheque_number'];
-			 $cheque_date = $this->request->data['cheque_date'];
-			 $drawn_on_which_bank = $this->request->data['drawn_on_which_bank'];
+			 $cheque_number = $collection['new_cash_bank']['cheque_number'];
+			 $cheque_date = $collection['new_cash_bank']['cheque_date'];
+			 $drawn_on_which_bank = $collection['new_cash_bank']['drawn_on_which_bank'];
 			}
 			else
 			{
- 			 $reference_utr = $this->request->data['reference_utr'];
- 			 $cheque_date = $this->request->data['cheque_date'];
+ 			 $reference_utr = $collection['new_cash_bank']['reference_utr'];
+ 			 $cheque_date = $collection['new_cash_bank']['cheque_date'];
 			}
 			$member_type = $collection['new_cash_bank']['member_type'];
 			$narration = $collection['new_cash_bank']['narration'];
@@ -88,14 +81,14 @@ $user_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'fet
 			$wing_id = $rrr['user']['wing'];
 			}
 			
-			$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat_new'),array('pass'=>array($wing_id,$party_name_id)));
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat_new'),array('pass'=>array($wing_id,$party_name_id)));
 
 			}
 			else
 			{
 			$wing_flat = "";
 			$party_name = $collection['new_cash_bank']['party_name_id'];
-			$bill_reference = $collection['new_cash_bank']['bill_reference'];	
+			$bill_reference = @$collection['new_cash_bank']['bill_reference'];	
 			}
 			$amount=$collection['new_cash_bank']['party_name_id'];
 			$flat_id = $collection['new_cash_bank']['flat_id'];
@@ -107,19 +100,17 @@ $user_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'fet
 			}
 			
 			
-$ledger_sub_account_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($deposited_bank_id)));			
-foreach($ledger_sub_account_fetch as $rrrr)
-			{
-			$deposited_bank_name = $rrr['ledger_sub_account']['name'];	
-			}			
-			
-			
+$ledger_sub_account_fetch_result = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($deposited_bank_id)));			
+foreach($ledger_sub_account_fetch_result as $rrrr)
+{
+$deposited_bank_name = $rrrr['ledger_sub_account']['name'];	
+}			
 			
 if($s_role_id == 3)
 {
 $date = date('d-m-Y',strtotime($receipt_date));
 $total_debit =  $total_debit + $amount; 
-$amount = number_format($amount);
+
 ?>
 <tr>
 <td><?php echo $receipt_no; ?> </td>
@@ -139,7 +130,7 @@ $amount = number_format($amount);
 
 ?>
 <tr>
-<th colspan="8" style="text-align:right;"> Total</th>
+<th colspan="7" style="text-align:right;">Total</th>
 <th><?php 
 $total_debit = number_format($total_debit);
 echo $total_debit; ?> <?php //echo "  dr"; ?></th>

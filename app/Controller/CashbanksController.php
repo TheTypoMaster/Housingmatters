@@ -51,8 +51,8 @@ $date_to = date('Y-m-d',strtotime($to));
 $from_strtotime = strtotime($date_from);
 $to_strtotime = strtotime($date_to);
 
-//$this->set('from',$from);
-//$this->set('to',$to);
+$this->set('from',$from);
+$this->set('to',$to);
 
 
 $this->loadmodel('new_cash_bank');
