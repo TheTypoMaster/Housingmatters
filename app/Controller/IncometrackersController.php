@@ -623,7 +623,7 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 	
 			$this->loadmodel('new_regular_bill');
 			$auto_id=$this->autoincrement('new_regular_bill','auto_id');
-			$this->new_regular_bill->saveAll(array("auto_id" => $auto_id, "flat_id" => $flat_id, "bill_no" => $bill_number, "income_head_array" => $income_head_array, "noc_charges" => $noc_charges,"total" => $total, "arrear_maintenance"=> $arrear_maintenance, "arrear_intrest" => $arrear_intrest, "intrest_on_arrears" => $intrest_on_arrears,"due_for_payment" => $due_for_payment,"one_time_id"=>$one_time_id,"society_id"=>$s_society_id,"due_date"=>strtotime($due_date),"bill_start_date"=>strtotime($bill_start_date),"approval_status"=>0,"bill_html"=>$bill_html));
+			$this->new_regular_bill->saveAll(array("auto_id" => $auto_id, "flat_id" => $flat_id, "bill_no" => $bill_number, "income_head_array" => $income_head_array, "noc_charges" => $noc_charges,"total" => $total, "arrear_maintenance"=> $arrear_maintenance, "arrear_intrest" => $arrear_intrest, "intrest_on_arrears" => $intrest_on_arrears,"due_for_payment" => $due_for_payment,"one_time_id"=>$one_time_id,"society_id"=>$s_society_id,"due_date"=>strtotime($due_date),"bill_start_date"=>strtotime($bill_start_date),"bill_end_date"=>strtotime($bill_end_date),"approval_status"=>0,"bill_html"=>$bill_html));
 			unset($income_head_array);
 		}
 		$this->response->header('Location','it_regular_bill');
