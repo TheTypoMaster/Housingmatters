@@ -31,9 +31,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
            <?php
 		   foreach($cursor1 as $collection)
 		   {
-		   $date_from = $collection['regular_bill']['bill_daterange_from'];   
-		   $date_to = $collection['regular_bill']['bill_daterange_to'];
-		   $unic_id = (int)$collection['regular_bill']['one_time_id'];
+		   $date_from = $collection['new_regular_bill']['bill_daterange_from'];   
+		   $date_to = $collection['new_regular_bill']['bill_daterange_to'];
+		   $unic_id = (int)$collection['new_regular_bill']['one_time_id'];
 		   if($abc == $unic_id)
 		   continue;
 		   $abc = (int)$unic_id;

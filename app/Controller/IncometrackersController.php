@@ -3488,9 +3488,9 @@ $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
 
-$this->loadmodel('regular_bill');
-$condition=array('society_id'=>$s_society_id,"approve_status"=>2);
-$result2=$this->regular_bill->find('all',array('conditions'=>$condition)); 
+$this->loadmodel('new_regular_bill');
+$condition=array('society_id'=>$s_society_id,"approval_status"=>1);
+$result2=$this->new_regular_bill->find('all',array('conditions'=>$condition)); 
 $this->set('cursor1',$result2);
 
 }
