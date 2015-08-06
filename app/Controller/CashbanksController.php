@@ -307,11 +307,8 @@ if($receipt_type == 2)
 
 	$k = (int)$this->autoincrement('new_cash_bank','receipt_id');
 	$this->loadmodel('new_cash_bank');
-<<<<<<< HEAD
-	$multipleRowData = Array( Array("receipt_id" => $k, "receipt_date" => strtitime($transaction_date), "receipt_mode" => $receipt_mode, "cheque_number" =>$cheque_number,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>$drawn_on_which_bank,"reference_utr" => $reference_utr,"deposited_bank_id" => $deposited_bank_id,"member_type" => $member_type,"party_name_id"=>$party_name,"receipt_type" => $receipt_type,"amount" => $amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$party_name));
-=======
+
 	$multipleRowData = Array( Array("receipt_id" => $k, "receipt_date" => $transaction_date, "receipt_mode" => $receipt_mode, "cheque_number" =>@$cheque_number,"cheque_date" =>@$cheque_date,"drawn_on_which_bank" =>@$drawn_on_which_bank,"reference_utr" =>@$reference_utr,"deposited_bank_id" => $deposited_bank_id,"member_type" => $member_type,"party_name_id"=>$party_name,"receipt_type" => $receipt_type,"amount" => $amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$party_name));
->>>>>>> origin/master
 	$this->new_cash_bank->saveAll($multipleRowData);
 	}
 }
