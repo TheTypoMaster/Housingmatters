@@ -543,7 +543,7 @@ $("#myModal3").hide();
 </script>
 
 <script>
-$(document).ready(function() {
+$(document).ready(function(){
 	
 	$('form#form1').submit( function(ev){
 		ev.preventDefault();
@@ -578,11 +578,13 @@ $(document).ready(function() {
 		}).done(function(response){
 			$("#myModal3").hide();
 			$("#url_main").html(response);
-		})
+		});
 	});
 				
-				
-	
+});
+
+$(document).ready(function() 
+{
 $(".ddnn").live('click',function(){
 var insert = 2;
 var count = $("#open_bal tr").length;
