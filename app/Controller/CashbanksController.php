@@ -3836,7 +3836,8 @@ $bill_no = (int)$collection['regular_bill']['receipt_id'];
 }
 */
 //////////////////////////////////////////////////
-
+$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Date in row'));
+die($output);
 //////////////////////////////////////////////////////////////////
 if($type == 2)
 {
