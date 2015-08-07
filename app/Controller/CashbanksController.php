@@ -3937,10 +3937,8 @@ $this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt
 */
 }
 
-$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill "Cheque", "NEFT" or PG in Receipt Mode in row'.$r));
+$output=json_encode(array('report_type'=>'done','text'=>'Please Fill "Cheque", "NEFT" or PG in Receipt Mode in row'.$r));
 die($output);
-
-
 
 $output=json_encode(array('report_type'=>'dddd','text'=>'Please Fill Date in row'));
 die($output);

@@ -617,7 +617,7 @@ if(response.report_type=='validation')
 {
 $(".validat_text").html('<b style="color:red;">'+response.text+'</b>');
 }
-if(response.report_type=='dddd')
+if(response.report_type=='done')
 {
 $(".bank_rr").html('<div class="alert alert-block alert-success fade in"><h4 class="alert-heading">Success!</h4><p>Record Inserted Successfully</p><p><a class="btn green" href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt" rel="tab">OK</a></p></div>');
 
