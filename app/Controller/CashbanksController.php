@@ -3834,12 +3834,13 @@ foreach ($result_rb as $collection)
 $bill_no = (int)$collection['regular_bill']['receipt_id'];
 }
 
-    $k = (int)$this->autoincrement_with_society_ticket('cash_bank','receipt_id');
-	$this->loadmodel('cash_bank');
-	$multipleRowData = Array( Array("receipt_id" => $k, "receipt_date" => strtotime($transaction_date), "receipt_mode" => $receipt_mode, "cheque_number" =>@$cheque_number,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>@$drawn_on_which_bank,"reference_utr" => @$reference_utr,"deposited_bank_id" => $deposited_bank_id,"member_type" => $member_type,"party_name_id"=>$party_name,"receipt_type" => $receipt_type,"amount" => $amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$party_name,"bill_auto_id"=>$auto_id,"bill_one_time_id"=>$regular_bill_one_time_id,"narration"=>$narration,"count"=>$r));
-	$this->cash_bank->saveAll($multipleRowData);
+   $k = (int)$this->autoincrement_with_society_ticket('new_cash_bank','receipt_id');
+	$this->loadmodel('new_cash_bank');
+	$multipleRowData = Array( Array("receipt_id" => $k, "receipt_date" => strtotime($transaction_date), "receipt_mode" => $receipt_mode, "cheque_number" =>@$cheque_number,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>@$drawn_on_which_bank,"reference_utr" => @$reference_utr,"deposited_bank_id" => $deposited_bank_id,"member_type" => $member_type,"party_name_id"=>$party_name,"receipt_type" => $receipt_type,"amount" => $amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$party_name,"bill_auto_id"=>$auto_id,"bill_one_time_id"=>$regular_bill_one_time_id));
+	$this->new_cash_bank->saveAll($multipleRowData);
 
-	
+$output=json_encode(array('report_type'=>'done'));
+die($output);	
 
 	
 	
