@@ -1,6 +1,10 @@
 <div class="hide_at_print">	
 <?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
+
+foreach($result_society as $data){
+	$income_heads=$data["society"]["income_head"];
+}
 ?>				   
 <script>
 $(document).ready(function() {
@@ -10,7 +14,28 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </script>
 </div>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
- 
+ <style>
+#report_tb th{
+	font-size: 10px !important;background-color:#C8EFCE;
+}
+#report_tb th,#report_tb td{
+	padding:2px;
+	font-size: 12px;border:solid 1px #55965F;
+}
+.text_bx{
+	width: 50px;
+	height: 15px !important;
+	margin-bottom: 0px !important;
+	font-size: 12px;
+}
+.text_rdoff{
+	width: 50px;
+	height: 15px !important;
+	border: none !important;
+	margin-bottom: 0px !important;
+	font-size: 12px;
+}
+</style>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
 
 <div style="text-align:center;" class="hide_at_print">
@@ -21,26 +46,32 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <a href="<?php echo $webroot_path; ?>Incometrackers/account_statement" class="btn" rel='tab'>Account Statement</a>
 </div>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php foreach($result_new_regular_bill as $regular_bill){
+	$auto_id=$regular_bill["new_regular_bill"]["auto_id"];
+	$one_time_id=$regular_bill["new_regular_bill"]["one_time_id"];
+	$array_for_select_box[$auto_id]=$one_time_id;
+}
+$array_for_select_box=array_unique($array_for_select_box); ?>
            <center>
            <div class="hide_at_print">
            <table border="0">
            <tr>
            <td>
            <select name="period" class="m-wrap large" id="un">
-           <option value="" style="display:none;">Select</option>
            <?php
-		   foreach($cursor1 as $collection)
-		   {
-		   $date_from = $collection['new_regular_bill']['bill_daterange_from'];   
-		   $date_to = $collection['new_regular_bill']['bill_daterange_to'];
-		   $unic_id = (int)$collection['new_regular_bill']['one_time_id'];
-		   if($abc == $unic_id)
-		   continue;
-		   $abc = (int)$unic_id;
-		   $from = date('d-m-Y',strtotime($date_from));
-		   $to = date('d-m-Y',strtotime($date_to));
+		   $count=0;
+		   foreach($array_for_select_box as $key=>$value)
+		   { $count++;
+			   if($count==1){ $last_one_time_id=$value; };
+		   foreach($result_new_regular_bill as $regular_bill){
+				$auto_id=$regular_bill["new_regular_bill"]["auto_id"];
+				if($auto_id==$key){
+					$bill_start_date=$regular_bill["new_regular_bill"]["bill_start_date"];
+					$bill_end_date=$regular_bill["new_regular_bill"]["bill_end_date"];
+				}
+			}
 		   ?>
-           <option value="<?php echo $unic_id; ?>"><?php echo $from; ?> to <?php echo $to; ?></option>
+           <option value="<?php echo $value; ?>"><?php echo date("d-M",$bill_start_date); ?> to <?php echo date("d-M-Y",$bill_end_date); ?></option>
            <?php } ?>
            </select>
            </td>
@@ -55,8 +86,94 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <br />
 <div style="width:100%;" id="result">
-
-
+<table id="report_tb">
+	<thead>
+		<tr>
+			<th>Unit Number</th>
+			<th>Name</th>
+			<th>Area</th>
+			<th>Bill No.</th>
+			<?php foreach($income_heads as $income_head){ 
+			$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($income_head)));	
+			foreach($result_income_head as $data2){
+				$income_head_name = $data2['ledger_account']['ledger_name'];
+			} ?>
+			<th><?php echo $income_head_name; ?></th>	
+			<?php } ?>
+			<th>Non Occupancy charges</th>
+			<th>Total</th>
+			<th>Arrears (Maint.)</th>
+			<th>Arrears (Int.)</th>
+			<th>Interest on Arrears </th>
+			<th>Due For Payment</th>
+			<th>View</th>
+		</tr>
+	</thead>
+	<tbody>
+<?php
+foreach($result_new_regular_bill as $regular_bill){
+	$one_time_id=$regular_bill["new_regular_bill"]["one_time_id"];
+	if($one_time_id==$last_one_time_id){
+		$bill_start_date=$regular_bill["new_regular_bill"]["bill_start_date"];
+		$bill_end_date=$regular_bill["new_regular_bill"]["bill_end_date"];
+		$flat_id=$regular_bill["new_regular_bill"]["flat_id"];
+		$bill_no=$regular_bill["new_regular_bill"]["bill_no"];
+		$income_head_array=$regular_bill["new_regular_bill"]["income_head_array"];
+		$noc_charges=$regular_bill["new_regular_bill"]["noc_charges"];
+		$total=$regular_bill["new_regular_bill"]["total"];
+		$arrear_maintenance=$regular_bill["new_regular_bill"]["arrear_maintenance"];
+		$arrear_intrest=$regular_bill["new_regular_bill"]["arrear_intrest"];
+		$intrest_on_arrears=$regular_bill["new_regular_bill"]["intrest_on_arrears"];
+		$due_for_payment=$regular_bill["new_regular_bill"]["due_for_payment"];
+		//wing_id via flat_id//
+		$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_id)));
+		foreach($result_flat_info as $flat_info){
+			$wing_id=$flat_info["flat"]["wing_id"];
+		}
+		
+		$wing_flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing_id,$flat_id)));
+		
+		//user info via flat_id//
+		$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($flat_id)));
+		foreach($result_user_info as $user_info){
+			$user_name=$user_info["user"]["user_name"];
+		}
+		
+		$result_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch2'),array('pass'=>array(@$flat_id,$wing_id))); 
+		foreach($result_flat as $data2){
+			$flat_type_id = (int)$data2['flat']['flat_type_id'];
+			$noc_ch_id = (int)$data2['flat']['noc_ch_tp'];
+			$sq_feet = (int)$data2['flat']['flat_area'];
+		}
+		?>
+		<tr>
+			<td><?php echo $wing_flat; ?></td>
+			<td><?php echo $user_name; ?></td>
+			<td><?php echo $sq_feet; ?></td>
+			<td><?php echo $bill_no; ?></td>
+			<?php foreach($income_heads as $income_head){ 
+			$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($income_head)));	
+			foreach($result_income_head as $data2){
+				$income_head_name = $data2['ledger_account']['ledger_name'];
+				$income_head_id = $data2['ledger_account']['auto_id'];
+			} ?>
+			<td><?php echo $income_head_array[$income_head_id]; ?></td>	
+			<?php } ?>
+			<td><?php echo $noc_charges; ?></td>
+			<td><?php echo $total; ?></td>
+			<td><?php echo $arrear_maintenance; ?></td>
+			<td><?php echo $arrear_intrest; ?></td>
+			<td><?php echo $intrest_on_arrears; ?></td>
+			<td><?php echo $due_for_payment; ?></td>
+			<td><a href="#" class="btn mini yellow"><i class="icon-search"></i></a></td>
+		</tr>
+			
+		<?php
+	}
+}
+?>
+	</tbody>
+</table>
 </div>
 
 

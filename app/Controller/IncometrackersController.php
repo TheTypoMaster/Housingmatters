@@ -3487,9 +3487,16 @@ function in_head_report(){
 	$s_user_id=$this->Session->read('user_id');	
 
 	$this->loadmodel('new_regular_bill');
-	$condition=array('society_id'=>$s_society_id,"approval_status"=>1);
-	$result_new_regular_bill=$this->new_regular_bill->find('all',array('conditions'=>$condition)); 
-	$this->set('result_new_regular_bill',$result_new_regular_bill);
+	$conditions=array("society_id" => $s_society_id,"approval_status" => 1);
+	$order=array('new_regular_bill.one_time_id'=> 'DESC');
+	$result_new_regular_bill = $this->new_regular_bill->find('all',array('conditions'=>$conditions,'order'=>$order));
+	$this->set("result_new_regular_bill",$result_new_regular_bill);
+	
+	$this->loadmodel('society');
+	$condition=array('society_id'=>$s_society_id);
+	$result_society=$this->society->find('all',array('conditions'=>$condition)); 
+	$this->set('result_society',$result_society);
+	
 
 
 }
@@ -4465,23 +4472,24 @@ $this->set('cursor1',$result2);
 //////////////////////// End NOC Edit //////////////////////////////////////////////////////////////
 
 /////////////////// /// Start in report ajax ////////////////////////////////////
-function in_report_ajax()
-{
-$this->layout='blank';
-$s_role_id=$this->Session->read('role_id');
-$s_society_id = (int)$this->Session->read('society_id');
-$s_user_id=$this->Session->read('user_id');	
+function in_report_ajax(){
+	$this->layout='blank';
+	$s_role_id=$this->Session->read('role_id');
+	$s_society_id = (int)$this->Session->read('society_id');
+	$s_user_id=$this->Session->read('user_id');	
 
-$un_id = (int)$this->request->query('un');
-$this->set('un',$un_id);
-$this->loadmodel('regular_bill');
-$condition=array('society_id'=>$s_society_id,"one_time_id"=>$un_id);
-$result2=$this->regular_bill->find('all',array('conditions'=>$condition)); 
-$this->set('cursor1',$result2);
+	$one_time_id = (int)$this->request->query('un');
+	$this->set('one_time_id',$one_time_id);
 
-$this->loadmodel('society');
-$condition=array('society_id'=>$s_society_id);
-$cursor1 = $this->society->find('all',array('conditions'=>$condition)); 
+	$this->loadmodel('new_regular_bill');
+	$conditions=array("society_id" => $s_society_id,"approval_status" => 1,"one_time_id" => $one_time_id);
+	$result_new_regular_bill = $this->new_regular_bill->find('all',array('conditions'=>$conditions));
+	$this->set("result_new_regular_bill",$result_new_regular_bill);
+
+	$this->loadmodel('society');
+	$condition=array('society_id'=>$s_society_id);
+	$result_society=$this->society->find('all',array('conditions'=>$condition)); 
+	$this->set('result_society',$result_society);
 
 
 }
