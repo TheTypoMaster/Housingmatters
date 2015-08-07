@@ -1,9 +1,10 @@
+<div id="done" style="overflow:auto;">
 <div style="background-color:white; width:100%; overflow:auto;">
 <div class="modal-header">
 <h4 id="myModalLabel1">Import csv</h4>
 </div>
-<div class="modal-body done" style="overflow:auto;">
-<div class="vali5"></div>
+<div class="modal-body" style="overflow:auto;">
+<div class="vali5"></div> 
 <br />
 <table class="table table-bordered" style="width:100%; background-color:white;" id="open_bal">
 <tr>
