@@ -3800,6 +3800,7 @@ $bank_id = (int)$child[6];
 $auto_id77 = (int)$child[7];
 $amount = $child[8];
 $type = (int)$child[9];
+
 $current_date = date('Y-m-d');
 $c = (int)strcasecmp("Cheque",$ReceiptMod);
 $n = (int)strcasecmp("NEFT",$ReceiptMod);

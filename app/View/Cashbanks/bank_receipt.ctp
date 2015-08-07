@@ -567,6 +567,7 @@ $(document).ready(function() {
 		
 		$(".import_btn").text("Importing...");
 		var m_data = new FormData();
+		var insert = 1;
 		m_data.append( 'file', $('input[name=file]')[0].files[0]);
 		$.ajax({
 			url: "bank_receipt_import_ajax",
@@ -585,8 +586,8 @@ $(document).ready(function() {
 $(".ddnn").live('click',function(){
 var insert = 2;
 var count = $("#open_bal tr").length;
-var ar = [];
-
+var ar=[];
+alert(count);
 for(var i=2;i<=count;i++)
 {
 $("#open_bal tr:nth-child("+i+") span.report").remove();
@@ -603,7 +604,7 @@ var Amount=$("#open_bal tr:nth-child("+i+") td:nth-child(9) input").val();
 
 ar.push([TransactionDate,ReceiptMod,ChequeNo,Reference,DrawnBankname,Date1,bank_id,auto_id,Amount,insert]);
 }
-
+insert = 1;
 var myJsonString = JSON.stringify(ar);
 myJsonString=encodeURIComponent(myJsonString);
 	
@@ -619,6 +620,7 @@ $(".validat_text").html('<b style="color:red;">'+response.text+'</b>');
 if(response.report_type=='dddd')
 {
 $(".bank_rr").html('<div class="alert alert-block alert-success fade in"><h4 class="alert-heading">Success!</h4><p>Record Inserted Successfully</p><p><a class="btn green" href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt" rel="tab">OK</a></p></div>');
+
 }
 });
 
