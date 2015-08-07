@@ -582,7 +582,7 @@ $(document).ready(function() {
 				
 				
 	
-$(".import_op").live('click',function(){
+$(".ddnn").live('click',function(){
 var insert = 2;
 var count = $("#open_bal tr").length;
 var ar = [];
@@ -614,12 +614,11 @@ dataType:'json',
 }).done(function(response) {
 if(response.report_type=='validation')
 {
-$(".vali5").html('<b style="color:red;">'+response.text+'</b>');
+$(".validat_text").html('<b style="color:red;">'+response.text+'</b>');
 }
-if(response.report_type=="done")
+if(response.report_type=='dddd')
 {
-$("#done").html('<div class="alert alert-block alert-success fade in"><h4 class="alert-heading">Success!</h4><p>Record Inserted Successfully</p><p><a class="btn green" href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt" rel="tab">OK</a></p></div>');
-
+$(".bank_rr").html('<div class="alert alert-block alert-success fade in"><h4 class="alert-heading">Success!</h4><p>Record Inserted Successfully</p><p><a class="btn green" href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt" rel="tab">OK</a></p></div>');
 }
 });
 

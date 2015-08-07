@@ -3691,7 +3691,7 @@ $s_user_id = (int)$this->Session->read('user_id');
 	
 $q=$this->request->query('q'); 
 $myArray = json_decode($q, true);
-/*
+
 $r=1;
 foreach($myArray as $child)
 {
@@ -3784,7 +3784,7 @@ die($output);
 }
 
 }
-*/
+
 $r=0;
 foreach($myArray as $child)
 {
@@ -3799,7 +3799,7 @@ $ReceiptMod = $child[1];
 $bank_id = (int)$child[6];
 $auto_id77 = (int)$child[7];
 $amount = $child[8];
-
+$type = (int)$child[9];
 $current_date = date('Y-m-d');
 $c = (int)strcasecmp("Cheque",$ReceiptMod);
 $n = (int)strcasecmp("NEFT",$ReceiptMod);
@@ -3837,70 +3837,14 @@ $bill_no = (int)$collection['regular_bill']['receipt_id'];
 */
 //////////////////////////////////////////////////
 
-    //apply receipt in regular_bill//
-	$this->loadmodel('new_regular_bill');
-	$condition=array('society_id'=>$s_society_id,"flat_id"=>$auto_id77);
-	$order=array('new_regular_bill.one_time_id'=>'DESC');
-	$result_new_regular_bill=$this->new_regular_bill->find('first',array('conditions'=>$condition,'order'=>$order)); 
-	$this->set('result_new_regular_bill',$result_new_regular_bill);
-	foreach($result_new_regular_bill as $data){
-	$auto_id=$data["auto_id"]; 
-	$arrear_intrest=$data["arrear_intrest"];
-	$intrest_on_arrears=$data["intrest_on_arrears"];
-	$total=$data["total"];
-	$arrear_maintenance=$data["arrear_maintenance"];
-	$regular_bill_one_time_id = (int)$data["one_time_id"];
-	}
-    	$amount_after_arrear_intrest=$amount-$arrear_intrest;
-		if($amount_after_arrear_intrest<0)
-		{
-		$new_arrear_intrest=abs($amount_after_arrear_intrest);
-		$new_intrest_on_arrears=$intrest_on_arrears;
-		$new_arrear_maintenance=$arrear_maintenance;
-		$new_total=$total;
-		}
-		else
-		{
-		$new_arrear_intrest=0;
-		$amount_after_intrest_on_arrears=$amount_after_arrear_intrest-$intrest_on_arrears;
-			if($amount_after_intrest_on_arrears<0)
-			{
-			$new_intrest_on_arrears=abs($amount_after_intrest_on_arrears);
-			$new_arrear_maintenance=$arrear_maintenance;
-			$new_total=$total;
-			}
-			else
-			{
-			$new_intrest_on_arrears=0;
-			$amount_after_arrear_maintenance=$amount_after_intrest_on_arrears-$arrear_maintenance;
-				if($amount_after_arrear_maintenance<0){
-				$new_arrear_maintenance=abs($amount_after_arrear_maintenance);
-				$new_total=$total;
-				}else{
-				$new_arrear_maintenance=0;
-				$amount_after_total=$amount_after_arrear_maintenance-$total; 
-				if($amount_after_total>0){
-				$new_total=0;
-				$new_arrear_maintenance=-$amount_after_total;
-				}else{
-							$new_total=abs($amount_after_total);
-							
-						}
-						
-					}
-				}
-			}
-
-			
-			$this->loadmodel('new_regular_bill');
-			$this->new_regular_bill->updateAll(array('new_arrear_intrest'=>$new_arrear_intrest,"new_intrest_on_arrears"=>$new_intrest_on_arrears,"new_arrear_maintenance"=>$new_arrear_maintenance,"new_total"=>$new_total),array('auto_id'=>$auto_id));
-
-
 //////////////////////////////////////////////////////////////////
+if($type == 2)
+{
 $k = (int)$this->autoincrement_with_society_ticket('new_cash_bank','receipt_id');
 $this->loadmodel('new_cash_bank');
 $multipleRowData = Array( Array("receipt_id" => $k, "receipt_date" => strtotime($TransactionDate), "receipt_mode" => $ReceiptMod, "cheque_number" =>@$ChequeNo,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>@$DrawnBankname,"reference_utr" => @$Reference,"deposited_bank_id" => $bank_id,"member_type" => 1,"party_name_id"=>$auto_id77,"receipt_type" => 1,"amount"=>$amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$auto_id77));
 $this->new_cash_bank->saveAll($multipleRowData);
+}
 	
 /*
 "bill_auto_id"=>$auto_id,"bill_one_time_id"=>$regular_bill_one_time_id
@@ -3988,8 +3932,9 @@ $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"total_due_amount"=>$total_due_amt),array("receipt_id" => $bill_no));
 */
 }
-$output=json_encode(array('report_type'=>'done'));
+$output=json_encode(array('report_type'=>'dddd','text'=>'Please Fill Date in row'));
 die($output);
+
 }
 ///////////////////////////////// End Save bank Imp ///////////////////////////////////////////////////////////////
 }
