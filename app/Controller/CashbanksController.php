@@ -3692,7 +3692,7 @@ $s_user_id = (int)$this->Session->read('user_id');
 	
 $q=$this->request->query('q'); 
 $myArray = json_decode($q, true);
-
+/*
 $r=1;
 foreach($myArray as $child)
 {
@@ -3783,10 +3783,13 @@ else
 $output=json_encode(array('report_type'=>'validation','text'=>'Please Fill "Cheque", "NEFT" or PG in Receipt Mode in row'.$r));
 die($output);
 }
-}
 
+}
+*/
+$r=0;
 foreach($myArray as $child)
 {
+$r++;
 $current_date = date('Y-m-d');
 $TransactionDate = $child[0];
 $ReceiptMod = $child[1];
@@ -3833,9 +3836,13 @@ $bill_no = (int)$collection['regular_bill']['receipt_id'];
 
     $k = (int)$this->autoincrement_with_society_ticket('cash_bank','receipt_id');
 	$this->loadmodel('cash_bank');
-	$multipleRowData = Array( Array("receipt_id" => $k, "receipt_date" => strtotime($transaction_date), "receipt_mode" => $receipt_mode, "cheque_number" =>@$cheque_number,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>@$drawn_on_which_bank,"reference_utr" => @$reference_utr,"deposited_bank_id" => $deposited_bank_id,"member_type" => $member_type,"party_name_id"=>$party_name,"receipt_type" => $receipt_type,"amount" => $amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$party_name,"bill_auto_id"=>$auto_id,"bill_one_time_id"=>$regular_bill_one_time_id,"narration"=>$narration));
+	$multipleRowData = Array( Array("receipt_id" => $k, "receipt_date" => strtotime($transaction_date), "receipt_mode" => $receipt_mode, "cheque_number" =>@$cheque_number,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>@$drawn_on_which_bank,"reference_utr" => @$reference_utr,"deposited_bank_id" => $deposited_bank_id,"member_type" => $member_type,"party_name_id"=>$party_name,"receipt_type" => $receipt_type,"amount" => $amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$party_name,"bill_auto_id"=>$auto_id,"bill_one_time_id"=>$regular_bill_one_time_id,"narration"=>$narration,"count"=>$r));
 	$this->cash_bank->saveAll($multipleRowData);
 
+	
+
+	
+	
 /*
 $trns_id=(int)$auto;
 $this->loadmodel('ledger');

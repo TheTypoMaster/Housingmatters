@@ -279,7 +279,6 @@ $("#import").bind('click',function(){
 			ev.preventDefault(); 
 		
 		var im_name=$("#image-file").val();
-		
 		if(im_name==""){
 		$("#vali").html("<span style='color:red;'>Please Select a Csv File</span>");	
 		return false;

@@ -583,6 +583,7 @@ $(document).ready(function() {
 				
 	
 $(".import_op").live('click',function(){
+	
 var insert = 2;
 var count = $("#open_bal tr").length;
 var ar = [];
@@ -607,7 +608,6 @@ ar.push([TransactionDate,ReceiptMod,ChequeNo,Reference,DrawnBankname,Date1,bank_
 var myJsonString = JSON.stringify(ar);
 myJsonString=encodeURIComponent(myJsonString);
 	
-	
 $.ajax({
 url: "save_bank_imp?q="+myJsonString,
 type: 'POST',
@@ -617,9 +617,9 @@ if(response.report_type=='validation')
 {
 $(".vali5").html('<b style="color:red;">'+response.text+'</b>');
 }
-if(response.report_type=='done')
+if(response.report_type=="done")
 {
-$(".done").html('<div class="alert alert-block alert-success fade in"><h4 class="alert-heading">Success!</h4><p>Record Inserted Successfully</p><p><a class="btn green" href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt" rel="tab">OK</a></p></div>');
+$(".vali5").html('<div class="alert alert-block alert-success fade in"><h4 class="alert-heading">Success!</h4><p>Record Inserted Successfully</p><p><a class="btn green" href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt" rel="tab">OK</a></p></div>');
 
 }
 });
