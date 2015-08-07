@@ -3991,7 +3991,7 @@ $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"total_due_amount"=>$total_due_amt),array("receipt_id" => $bill_no));
 */
 }
-$output=json_encode(array('report_type'=>'done','text'=>'Please Fill Date in row'.$n));
+$output=json_encode(array('report_type'=>'done'));
 die($output);
 }
 ///////////////////////////////// End Save bank Imp ///////////////////////////////////////////////////////////////
