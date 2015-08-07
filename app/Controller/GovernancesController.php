@@ -862,11 +862,32 @@ function governance_minute_submit()
 		
 			
 	/////////////////////////////////////////////////////////////////////////
+		
+		$result_society=$this->society_name($s_society_id);
+		foreach($result_society as $data2){
+			$society_name=$data2['society']['society_name'];
+			
+		}
+		$result_user=$this->profile_picture($s_user_id);
+		foreach($result_user as $data3){
+			$user_name=$data3['user']['user_name'];
+			
+		}
+		if(isset($_FILES['file'])){
+				$target = "governances_file/";
+				  $file_name=@$_FILES['file']['name']; 
+				$file_tmp_name =$_FILES['file']['tmp_name'];
+				$target=@$target.basename($file_name);
+				move_uploaded_file($file_tmp_name,@$target);
+				}
+				$file_att="";
+				if(!empty($file_name)){
+				@$file_att='<br/><a href="'.$ip.'/'.$this->webroot.'governances_file/'.$file_name.'" download>Download attachment</a>';
+				}
+
 	
-	
-		$message="";
-		for($z=0;$z<sizeof($meeting_agenda_input);$z++)
-		{
+			$message="";
+		for($z=0;$z<sizeof($meeting_agenda_input);$z++){
 			
 			$message[]=array($meeting_agenda_input[$z],$meeting_agenda_textarea[$z]);
 		}
@@ -874,22 +895,73 @@ function governance_minute_submit()
 			$this->loadmodel('governance_invite');
 			$conditions=array("governance_invite_id"=>$meeting_id);
 			$result_gov_int=$this->governance_invite->find("all",array('conditions'=>$conditions));
-				foreach($result_gov_int as $data)
-				{
+				foreach($result_gov_int as $data){
 					
 					$user=$data['governance_invite']['user'];
 					
 				}
-				pr($user);	
-				pr($present_user);
-				$user1=array($user,$present_user);
-				pr($user1);
-			exit;
+				
+				$user1=array_merge($user,$present_user);
+				$user=array_unique($user1);
+				$user=array_values($user);
+				
+			
+				$minut_id=$this->autoincrement('governance_minute','governance_minute_id');
 				$this->loadmodel('governance_minute');
-				$multipleRowData = Array( Array("governance_minute_id" => $email_id,"message"=>$message,"user_id"=>$s_user_id,"date"=>$date,"time"=>$time,"society_id"=>$s_society_id,"subject"=>$subject1,"file"=>@$file_name,"deleted"=>0,'user'=>$user,'location'=>$location,'meeting_id'=>$meeting_id,'covering_note'=>$covering_note,'present_user'=>$present_user));
-				$this->governance_invite->saveAll($multipleRowData); 
+				$multipleRowData = Array( Array("governance_minute_id" => $minut_id,"message"=>$message,"user_id"=>$s_user_id,"date"=>$date,"time"=>$time,"society_id"=>$s_society_id,"subject"=>$subject1,"file"=>@$file_name,"deleted"=>0,'user'=>$user,'location'=>$location,'meeting_id'=>$meeting_id,'covering_note'=>$covering_note,'present_user'=>$present_user));
+				//$this->governance_invite->saveAll($multipleRowData); 
 	
-	
+	////////////////////////////// Email code start //////////////////////////////////
+				foreach($user as $data){
+					   @$message_web="<div>
+						<img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+						<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
+						<a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+						<br/><br/>
+						<p><center><b>[$society_name]</b></center></p>
+					
+						<p><b>Minutes Title:</b>  $subject1  </p>
+						<table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
+						<tr class='tr_heading' style='background-color:#00A0E3;color:white;'>
+						<td>Date</td>
+						<td>Time</td>
+						<td>Location</td>
+						<td>Meeting ID</td>
+						</tr>
+						<tr class='tr_content' style=background-color:#E9E9E9;'>
+						<td>$date</td>
+						<td>$time</td>
+						<td>$location</td>
+						<td>$meeting_id</td>
+						</tr>
+						</table>
+						<div>
+						<p><b>Covering Note:</b><br/>
+						<p>$covering_note</p>
+						<p> <b>	Agenda to be discussed: </b></p>
+						<table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
+						<tr class='tr_heading' style='background-color:#00A0E3;color:white;'>
+						<td>Minutes Agenda</td>
+						</tr>";
+						$jj=0;
+						foreach($message as $ddd){	$jj++;
+
+							$message_web.="<tr>
+							
+							<td>".$jj.". ".urldecode($ddd[0]). " <br/> ".urldecode($ddd[1])."</td>
+							</tr>";	
+						}
+						$message_web.="</table>
+						</div>
+						<br/>
+						For [ $society_name ].<br/>
+						$user_name<br/>
+						$file_att <br/>
+						</div>";
+				}
+	echo $message_web;
+	exit;
+	//////////////////////////////// End ////////////////////////////////////////
 	
 	
 	
