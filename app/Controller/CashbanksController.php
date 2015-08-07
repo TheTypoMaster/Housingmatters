@@ -3691,7 +3691,7 @@ $s_user_id = (int)$this->Session->read('user_id');
 	
 $q=$this->request->query('q'); 
 $myArray = json_decode($q, true);
-
+/*
 $r=1;
 foreach($myArray as $child)
 {
@@ -3784,14 +3784,13 @@ die($output);
 }
 
 }
-
+*/
 $r=0;
+
 foreach($myArray as $child)
 {
 $r++;
 $type = (int)$child[9];
-if($type == 2)
-{
 $current_date = date('Y-m-d');
 $TransactionDate = $child[0];
 $ReceiptMod = $child[1];
@@ -3843,11 +3842,8 @@ $bill_no = (int)$collection['regular_bill']['receipt_id'];
 }
 */
 
-
-
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////
-
+if($type == 2)
+{
 $k = (int)$this->autoincrement_with_society_ticket('new_cash_bank','receipt_id');
 $this->loadmodel('new_cash_bank');
 $multipleRowData = Array( Array("receipt_id" => $k, "receipt_date" => strtotime($TransactionDate), "receipt_mode" => $ReceiptMod, "cheque_number" =>@$ChequeNo,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>@$DrawnBankname,"reference_utr" => @$Reference,"deposited_bank_id" => $bank_id,"member_type" => 1,"party_name_id"=>$auto_id77,"receipt_type" => 1,"amount"=>$amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$auto_id77));
@@ -3940,6 +3936,11 @@ $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"total_due_amount"=>$total_due_amt),array("receipt_id" => $bill_no));
 */
 }
+
+$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill "Cheque", "NEFT" or PG in Receipt Mode in row'.$r));
+die($output);
+
+
 
 $output=json_encode(array('report_type'=>'dddd','text'=>'Please Fill Date in row'));
 die($output);

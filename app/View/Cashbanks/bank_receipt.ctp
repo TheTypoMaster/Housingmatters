@@ -588,7 +588,7 @@ $(".ddnn").live('click',function(){
 var insert = 2;
 var count = $("#open_bal tr").length;
 var ar = [];
-for(var i=2;i<=count;i++)
+for(var i=2; i<=count; i++)
 {
 $("#open_bal tr:nth-child("+i+") span.report").remove();
 $("#open_bal tr:nth-child("+i+") span.report").css("background-color","#FFF;");
@@ -623,9 +623,7 @@ $(".bank_rr").html('<div class="alert alert-block alert-success fade in"><h4 cla
 
 }
 });
-
 });
-
 });
 
 </script>	
