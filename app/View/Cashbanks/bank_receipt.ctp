@@ -548,6 +548,23 @@ $(document).ready(function() {
 	$('form#form1').submit( function(ev){
 		ev.preventDefault();
 		
+		var im_name=$("#image-file").val();
+		
+		if(im_name==""){
+		$("#vali").html("<span style='color:red;'>Please Select a Csv File</span>");	
+		return false;
+		}
+		
+		var ext = $('#image-file').val().split('.').pop().toLowerCase();
+		if($.inArray(ext, ['csv']) == -1) {
+			$("#vali").html("<span style='color:red;'>Please Select a Csv File</span>");
+			return false;
+		}
+		
+		
+		
+		
+		
 		$(".import_btn").text("Importing...");
 		var m_data = new FormData();
 		m_data.append( 'file', $('input[name=file]')[0].files[0]);
