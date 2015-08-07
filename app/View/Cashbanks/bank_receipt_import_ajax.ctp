@@ -3,8 +3,8 @@
 <div class="modal-header">
 <h4 id="myModalLabel1">Import csv</h4>
 </div>
-<div class="modal-body" style="overflow:auto;">
-<div class="vali5"></div> 
+<div class="modal-body bank_rr" style="overflow:auto;">
+<div class="validat_text"></div> 
 <br />
 <table class="table table-bordered" style="width:100%; background-color:white;" id="open_bal">
 <tr>
@@ -109,6 +109,6 @@ $name1 = $collection['ledger_sub_account']['name'];
 </div>
 <div class="modal-footer">
 <a class="btn" href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt" rel="tab">Cancel</a>
-<button type="submit" class="btn blue import_op">Import</button>
+<button type="submit" class="btn blue ddnn">Import</button>
 </div>
 </div>
