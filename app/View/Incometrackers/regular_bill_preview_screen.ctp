@@ -1,6 +1,7 @@
 <?php 
 foreach($result_society as $data){
 	$income_heads=$data["society"]["income_head"];
+	$society_name=$data["society"]["society_name"];
 	$tax=(float)$data["society"]["tax"];
 	$penalty=$tax/100;
 }
@@ -27,6 +28,11 @@ th,td{
 	font-size: 12px;
 }
 </style>
+<div align="center">
+<h3><?php echo strtoupper($society_name); ?></h3>
+</div>
+
+
 <form method="Post" >
 <div class="portlet-body" style="background-color: #fff; overflow-x: auto;" align="center">
 	<table border="1">
@@ -48,6 +54,7 @@ th,td{
 				<th>Arrears (Maint.)</th>
 				<th>Arrears (Int.)</th>
 				<th>Interest on Arrears </th>
+				<th>Credit/Stock</th>
 				<th>Due For Payment</th>
 			</tr>
 		</thead>
@@ -259,6 +266,7 @@ th,td{
 				$due_for_payment+=$intrest_on_arrears;
 				echo '<input type="text" class="text_bx" name="intrest_on_arrears'.$inc.'" value='.$intrest_on_arrears.' />'; ?>
 				</td>
+				<td><input type="text" class="text_bx" name="credit_stock<?php echo $inc; ?>" value="0" /></td>
 				<td>
 				<?php 
 				echo '<input type="text" class="m-wrap text_rdoff" name="due_for_payment'.$inc.'" value='.$due_for_payment.' readonly/>';
