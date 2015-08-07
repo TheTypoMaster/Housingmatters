@@ -813,18 +813,85 @@ function governance_minutes()
 	$conditions1=array("society_id"=>$s_society_id,'deactive'=>0);
 	$this->set('result_users',$this->user->find('all',array('conditions'=>$conditions1))); 
 
-	$this->loadmodel('user');
-	$conditions2=array("society_id"=>$s_society_id,'role_id'=>1);
-	$this->set('result_users_com',$this->user->find('all',array('conditions'=>$conditions2))); 
+	$this->loadmodel('governance_invite');
+	$conditions1=array("society_id"=>$s_society_id);
+	$this->set('result_governance_invite',$this->governance_invite->find('all',array('conditions'=>$conditions1)));
+
 	
-		$this->loadmodel('role');
-		$conditions=array("society_id" => $s_society_id);
-		$role_result=$this->role->find('all',array('conditions'=>$conditions));
-		$this->set('role_result',$role_result);
-		$this->loadmodel('wing');
-		$conditions=array("society_id" => $s_society_id);
-		$wing_result=$this->wing->find('all',array('conditions'=>$conditions));
-		$this->set('wing_result',$wing_result);
+}
+
+function governance_minute_submit()
+{
+	
+	$this->layout=null;
+	$post_data=$this->request->data;
+	pr($post_data);
+	$this->ath();
+	$s_society_id=$this->Session->read('society_id');
+	$s_role_id=$this->Session->read('role_id'); 
+	$s_user_id=$this->Session->read('user_id');
+	$ip=$this->hms_email_ip();	
+	$present_user=$post_data['present_user'];
+	$subject1=$post_data['subject'];
+	$meeting_id=(int)$post_data['meeting_id'];
+	$date=$post_data['date'];
+	$time=$post_data['time'];
+	$location=$post_data['location'];
+	$covering_note=$post_data['covering_note'];
+	$meeting_agenda_input=$post_data['meeting_agenda_input'];
+	$meeting_agenda_textarea=$post_data['meeting_agenda_textarea'];
+	$meeting_agenda_input=explode(",",$meeting_agenda_input);
+	$meeting_agenda_textarea=explode(",",$meeting_agenda_textarea);
+	$present_user=explode(",",$present_user);
+	/////////////////// validation ///////////////////////////
+	
+		$report=array();
+		if(empty($subject1)){
+		$report[]=array('label'=>'subject', 'text' => 'Please fill title');
+		}
+		if(empty($date)){
+		$report[]=array('label'=>'date', 'text' => 'Please fill date');
+		}
+		if(empty($time)){
+		$report[]=array('label'=>'time', 'text' => 'Please fill time');
+		}
+		if(empty($location)){
+		$report[]=array('label'=>'location', 'text' => 'Please fill location');
+		}
+		
+		
+			
+	/////////////////////////////////////////////////////////////////////////
+	
+	
+		$message="";
+		for($z=0;$z<sizeof($meeting_agenda_input);$z++)
+		{
+			
+			$message[]=array($meeting_agenda_input[$z],$meeting_agenda_textarea[$z]);
+		}
+		
+			$this->loadmodel('governance_invite');
+			$conditions=array("governance_invite_id"=>$meeting_id);
+			$result_gov_int=$this->governance_invite->find("all",array('conditions'=>$conditions));
+				foreach($result_gov_int as $data)
+				{
+					
+					$user=$data['governance_invite']['user'];
+					
+				}
+				pr($user);	
+				pr($present_user);
+				$user1=array($user,$present_user);
+				pr($user1);
+			exit;
+				$this->loadmodel('governance_minute');
+				$multipleRowData = Array( Array("governance_minute_id" => $email_id,"message"=>$message,"user_id"=>$s_user_id,"date"=>$date,"time"=>$time,"society_id"=>$s_society_id,"subject"=>$subject1,"file"=>@$file_name,"deleted"=>0,'user'=>$user,'location'=>$location,'meeting_id'=>$meeting_id,'covering_note'=>$covering_note,'present_user'=>$present_user));
+				$this->governance_invite->saveAll($multipleRowData); 
+	
+	
+	
+	
 	
 }
 
