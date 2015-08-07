@@ -3789,6 +3789,9 @@ $r=0;
 foreach($myArray as $child)
 {
 $r++;
+$type = (int)$child[9];
+if($type == 2)
+{
 $current_date = date('Y-m-d');
 $TransactionDate = $child[0];
 $ReceiptMod = $child[1];
@@ -3799,7 +3802,7 @@ $ReceiptMod = $child[1];
 $bank_id = (int)$child[6];
 $auto_id77 = (int)$child[7];
 $amount = $child[8];
-$type = (int)$child[9];
+
 
 $current_date = date('Y-m-d');
 $c = (int)strcasecmp("Cheque",$ReceiptMod);
@@ -3821,6 +3824,9 @@ else if($p == 0)
 $Reference = $child[3];
 $cheque_date = $child[5];	
 }
+
+
+
 /*
 $this->loadmodel('ledger_sub_account');
 $conditions=array("auto_id" => $auto_id77);
@@ -3841,8 +3847,7 @@ $bill_no = (int)$collection['regular_bill']['receipt_id'];
 
 //////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////
-if($type == 2)
-{
+
 $k = (int)$this->autoincrement_with_society_ticket('new_cash_bank','receipt_id');
 $this->loadmodel('new_cash_bank');
 $multipleRowData = Array( Array("receipt_id" => $k, "receipt_date" => strtotime($TransactionDate), "receipt_mode" => $ReceiptMod, "cheque_number" =>@$ChequeNo,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>@$DrawnBankname,"reference_utr" => @$Reference,"deposited_bank_id" => $bank_id,"member_type" => 1,"party_name_id"=>$auto_id77,"receipt_type" => 1,"amount"=>$amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$auto_id77));
@@ -3935,6 +3940,7 @@ $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"total_due_amount"=>$total_due_amt),array("receipt_id" => $bill_no));
 */
 }
+
 $output=json_encode(array('report_type'=>'dddd','text'=>'Please Fill Date in row'));
 die($output);
 

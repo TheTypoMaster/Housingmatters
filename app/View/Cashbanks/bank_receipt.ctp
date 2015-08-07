@@ -549,7 +549,7 @@ $(document).ready(function(){
 		ev.preventDefault();
 		
 		var im_name=$("#image-file").val();
-		
+		var insert = 1;
 		if(im_name==""){
 		$("#vali").html("<span style='color:red;'>Please Select a Csv File</span>");	
 		return false;
@@ -567,7 +567,7 @@ $(document).ready(function(){
 		
 		$(".import_btn").text("Importing...");
 		var m_data = new FormData();
-		var insert = 1;
+		
 		m_data.append( 'file', $('input[name=file]')[0].files[0]);
 		$.ajax({
 			url: "bank_receipt_import_ajax",
@@ -583,13 +583,11 @@ $(document).ready(function(){
 				
 });
 
-$(document).ready(function() 
-{
+$(document).ready(function(){
 $(".ddnn").live('click',function(){
 var insert = 2;
 var count = $("#open_bal tr").length;
-var ar=[];
-alert(count);
+var ar = [];
 for(var i=2;i<=count;i++)
 {
 $("#open_bal tr:nth-child("+i+") span.report").remove();
@@ -606,7 +604,7 @@ var Amount=$("#open_bal tr:nth-child("+i+") td:nth-child(9) input").val();
 
 ar.push([TransactionDate,ReceiptMod,ChequeNo,Reference,DrawnBankname,Date1,bank_id,auto_id,Amount,insert]);
 }
-insert = 1;
+
 var myJsonString = JSON.stringify(ar);
 myJsonString=encodeURIComponent(myJsonString);
 	
