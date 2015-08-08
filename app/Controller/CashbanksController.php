@@ -3942,8 +3942,35 @@ die($output);
 
 $output=json_encode(array('report_type'=>'dddd','text'=>'Please Fill Date in row'));
 die($output);
-
 }
 ///////////////////////////////// End Save bank Imp ///////////////////////////////////////////////////////////////
+///////////////////////////// Start bank receipt html view //////////////////////////////////////////////////////////////
+function bank_receipt_html_view($receipt_no=null)
+{
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
+
+$receipt_no = (int)$receipt_no;
+
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id = (int)$this->Session->read('user_id');	
+
+
+$this->loadmodel('new_cash_bank');
+$conditions=array("receipt_id" => $receipt_no);
+$cursor1=$this->new_cash_bank->find('all',array('conditions'=>$conditions));
+$this->set('cursor1',$cursor1);
+
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor2=$this->society->find('all',array('conditions'=>$conditions));
+$this->set('cursor2',$cursor2);
+
+}
+///////////////////////////// End bank receipt html view //////////////////////////////////////////////////////////////
 }
 ?>

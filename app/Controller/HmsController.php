@@ -15342,17 +15342,15 @@ New member registered into your society successfully.
 
 function new_tenant_edit($id=null)
 {
-	
-	if($this->RequestHandler->isAjax()){
-	$this->layout='blank';
-	}else{
-	$this->layout='session';
-	}
-	$id=(int)$id;
-	$s_society_id=$this->Session->read('society_id');
-	$this->ath();
-	
-	$this->loadmodel('tenant');	
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
+$id=(int)$id;
+$s_society_id=$this->Session->read('society_id');
+$this->ath();
+$this->loadmodel('tenant');	
 	
 $conditions1=array('user_id'=>$id);
 $result1=$this->tenant->find('all',array('conditions'=>$conditions1));	

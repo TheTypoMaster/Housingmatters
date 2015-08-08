@@ -108,7 +108,7 @@ $deposited_bank_name = $rrrr['ledger_sub_account']['name'];
 			
 if($s_role_id == 3)
 {
-$date = date('d-m-Y',strtotime($receipt_date));
+$date = date('d-m-Y',($receipt_date));
 $total_debit =  $total_debit + $amount; 
 
 ?>
@@ -122,6 +122,7 @@ $total_debit =  $total_debit + $amount;
 <td><?php echo $narration; ?> </td>
 <td><?php echo $amount; ?></td>
 <td class="hide_at_print">
+<a href="bank_receipt_html_view/<?php echo $receipt_no; ?>" target="_blank" class="btn mini yellow">View</a>
 </td>
 </tr>
 <?php	
