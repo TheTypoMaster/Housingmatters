@@ -1,7 +1,6 @@
 <?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 ?>
-
 <script>
 $(document).ready(function() {
 $("#fix<?php echo $id_current_page; ?>").removeClass("blue");
@@ -122,7 +121,7 @@ $(document).ready(function(){
 			content= data;
 			$('#myTable').append(content);
 		});
-	 });
+	    });
 	 
 	 $(".delete").live('click',function(){
 		var id = $(this).attr("id");
@@ -215,7 +214,7 @@ $(document).ready(function(){
 	
 	
 	
-	$('form#form1').submit( function(ev){
+	   $('form#form1').submit( function(ev){
 		ev.preventDefault();
 		$(".import_btn").text("Importing...");
 		var m_data = new FormData();
@@ -231,7 +230,7 @@ $(document).ready(function(){
 				$("#url_main table").html(response);
 				
 				
-				var count = $("#myTable tr").length;
+		var count = $("#myTable tr").length;
 		var ar = [];
 		for(var i=1;i<=count;i++)
 		{
@@ -277,12 +276,8 @@ $(document).ready(function(){
 			}
 			$(".import_btn").text("Import");
 		});
-				
-				
-				
-				
-				
-			});
+		
+	});
 	});
 });
 

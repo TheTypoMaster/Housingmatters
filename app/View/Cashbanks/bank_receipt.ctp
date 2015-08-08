@@ -45,16 +45,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
 	
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>			
 <center>
@@ -578,16 +568,15 @@ $(document).ready(function(){
 		}).done(function(response){
 			$("#myModal3").hide();
 			$("#url_main").html(response);
-		});
-	});
-				
-});
+			
 
-$(document).ready(function(){
-$(".ddnn").live('click',function(){
-var insert = 2;
+
+
 var count = $("#open_bal tr").length;
 var ar = [];
+
+var insert = 2;
+
 for(var i=2; i<=count; i++)
 {
 $("#open_bal tr:nth-child("+i+") span.report").remove();
@@ -622,6 +611,7 @@ if(response.report_type=='done')
 $(".bank_rr").html('<div class="alert alert-block alert-success fade in"><h4 class="alert-heading">Success!</h4><p>Record Inserted Successfully</p><p><a class="btn green" href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt" rel="tab">OK</a></p></div>');
 
 }
+});
 });
 });
 });
