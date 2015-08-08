@@ -551,11 +551,7 @@ $(document).ready(function(){
 			$("#vali").html("<span style='color:red;'>Please Select a Csv File</span>");
 			return false;
 		}
-		
-		
-		
-		
-		
+
 		$(".import_btn").text("Importing...");
 		var m_data = new FormData();
 		
