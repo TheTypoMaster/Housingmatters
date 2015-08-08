@@ -83,7 +83,7 @@ else
 
 <a href="#" class="btn purple pull-right" role="button" id="import">Import csv</a> 
 <br /> 
-<form id="contact-form" method="post">
+<form id="contact-form" method="post" >
 <div class="row-fluid">
 <div class="span6">  
   
@@ -253,9 +253,10 @@ Non-Member
 <button type="submit" class="btn green" name="bank_receipt_add" value="xyz" id="vali">Submit</button>
 <a href="bank_receipt" class="btn">Reset</a>
 </div>
-
+</form>
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-</div>  
+</div> 
+ 
 <?php /////////////////////////////////////////////////////////////////////////////////////////////// ?>              
 
 <?php
@@ -386,7 +387,7 @@ error.appendTo('label#' + element.attr('id'));
 		  
 		 
 		 
-	         mode: {
+	         receipt_mode: {
                 required: true
 	      },
 
@@ -570,9 +571,6 @@ $(document).ready(function(){
 			$("#url_main").html(response);
 		});
 	});
-				
-$('form#form3').submit( function(ev){
-		ev.preventDefault();
 
 var count = $("#open_bal tr").length;
 var ar = [];
@@ -598,6 +596,9 @@ ar.push([TransactionDate,ReceiptMod,ChequeNo,Reference,DrawnBankname,Date1,bank_
 
 var myJsonString = JSON.stringify(ar);
 myJsonString=encodeURIComponent(myJsonString);
+
+
+
 	
 $.ajax({
 url: "save_bank_imp?q="+myJsonString,
@@ -615,7 +616,6 @@ $(".bank_rr").html('<div class="alert alert-block alert-success fade in"><h4 cla
 
 
 
-});
 });
 });
 

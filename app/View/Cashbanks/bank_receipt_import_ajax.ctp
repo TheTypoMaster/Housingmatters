@@ -1,5 +1,3 @@
-
-<form method="post" id="form3">
 <div class="bank_receipt_done" style="overflow:auto;">
 <div style="background-color:white; width:100%; overflow:auto;">
 <div class="modal-header">
@@ -111,8 +109,7 @@ $name1 = $collection['ledger_sub_account']['name'];
 </div>
 <div class="modal-footer">
 <a class="btn" href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt" rel="tab">Cancel</a>
-<button type="submit" class="btn blue import_bank_receipt">Import</button>
+<button type="submit" class="btn blue import_btn2" id="done_bank_imp">Import</button>
 </div>
 </div>
 </div>
-</form>
