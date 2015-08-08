@@ -418,6 +418,7 @@ function regular_bill_preview_screen(){
 			$arrear_maintenance = (int)@$this->request->data['arrear_maintenance'.$inc];
 			$arrear_intrest = (int)@$this->request->data['arrear_intrest'.$inc];
 			$intrest_on_arrears = (int)@$this->request->data['intrest_on_arrears'.$inc];
+			$credit_stock = (int)@$this->request->data['credit_stock'.$inc];
 			$due_for_payment = (int)@$this->request->data['due_for_payment'.$inc];
 		
 			
@@ -561,16 +562,19 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 									</tr>
 									</tbody></table>
 									<table style="width:25%;" border="0"><tbody><tr>
-									<td rowspan="5"></td>
-									<td style="text-align:right; padding-right:2%;">Total:</td>
+									<td style="text-align:right; padding-right:2%;" width="100%">Total:</td>
 									</tr><tr>
-									<td style="text-align:right; padding-right:2%;">Interest on arrears:</td>
+									<td style="text-align:right; padding-right:2%;" width="100%">Interest on arrears:</td>
 									</tr><tr>
-									<td style="text-align:right; padding-right:2%;">Arrears &nbsp; (Maint.):</td>
+									<td style="text-align:right; padding-right:2%;" width="100%">Arrears &nbsp; (Maint.):</td>
 									</tr><tr>
-									<td style="text-align:right; padding-right:2%;">Arrears &nbsp; (Int.):</td>
-									</tr><tr>
-									<th style="text-align:right; padding-right:2%;">Due For Payment:</th>
+									<td style="text-align:right; padding-right:2%;" width="100%">Arrears &nbsp; (Int.):</td>
+									</tr>
+									<tr>
+									<th style="text-align:right; padding-right:2%;" width="100%">Credit/Stock</th>
+									</tr>
+									<tr>
+									<th style="text-align:right; padding-right:2%;" width="100%">Due For Payment:</th>
 									</tr></tbody></table>
 									</td>
 								<td valign="top"><table style="width:100%;" border="0">
@@ -583,7 +587,11 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 									<td style="text-align:right; padding-right:8%;">'.$arrear_maintenance.'</td>
 									</tr><tr>
 									<td style="text-align:right; padding-right:8%;">'.$arrear_intrest.'</td>
-									</tr><tr>
+									</tr>
+									<tr>
+									<th style="text-align:right; padding-right:8%;">-'.$credit_stock.'</th>
+									</tr>
+									<tr>
 									<th style="text-align:right; padding-right:8%;">'.$due_for_payment.'</th>
 									</tr></tbody></table>
 								</td>
@@ -623,7 +631,7 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 	
 			$this->loadmodel('new_regular_bill');
 			$auto_id=$this->autoincrement('new_regular_bill','auto_id');
-			$this->new_regular_bill->saveAll(array("auto_id" => $auto_id, "flat_id" => $flat_id, "bill_no" => $bill_number, "income_head_array" => $income_head_array, "noc_charges" => $noc_charges,"total" => $total, "arrear_maintenance"=> $arrear_maintenance, "arrear_intrest" => $arrear_intrest, "intrest_on_arrears" => $intrest_on_arrears,"due_for_payment" => $due_for_payment,"one_time_id"=>$one_time_id,"society_id"=>$s_society_id,"due_date"=>strtotime($due_date),"bill_start_date"=>strtotime($bill_start_date),"bill_end_date"=>strtotime($bill_end_date),"approval_status"=>0,"bill_html"=>$bill_html));
+			$this->new_regular_bill->saveAll(array("auto_id" => $auto_id, "flat_id" => $flat_id, "bill_no" => $bill_number, "income_head_array" => $income_head_array, "noc_charges" => $noc_charges,"total" => $total, "arrear_maintenance"=> $arrear_maintenance, "arrear_intrest" => $arrear_intrest, "intrest_on_arrears" => $intrest_on_arrears,"due_for_payment" => $due_for_payment,"one_time_id"=>$one_time_id,"society_id"=>$s_society_id,"due_date"=>strtotime($due_date),"bill_start_date"=>strtotime($bill_start_date),"bill_end_date"=>strtotime($bill_end_date),"approval_status"=>0,"bill_html"=>$bill_html,"credit_stock"=>$credit_stock));
 			unset($income_head_array);
 		}
 		$this->response->header('Location','it_regular_bill');
@@ -5302,6 +5310,39 @@ $result_society=$this->society->find('all',array('conditions'=>$conditions));
 $this->set('result_society',$result_society);
 
 
+}
+
+function regular_bill_edit2($auto_id=null){
+	$this->layout='session';
+	$s_role_id=$this->Session->read('role_id');
+	$s_society_id = (int)$this->Session->read('society_id');
+	$s_user_id=$this->Session->read('user_id');
+
+	$auto_id = (int)$auto_id;
+
+	$this->loadmodel('new_regular_bill');
+	$conditions=array("auto_id"=>$auto_id);
+	$result_new_regular_bill=$this->new_regular_bill->find('all',array('conditions'=>$conditions));
+	$this->set('result_new_regular_bill',$result_new_regular_bill);
+}
+
+function print_all_bill($last_one_time_id=null){
+	$this->layout='session';
+	$s_role_id=$this->Session->read('role_id');
+	$s_society_id = (int)$this->Session->read('society_id');
+	$s_user_id=$this->Session->read('user_id');
+
+	$last_one_time_id=(int)$last_one_time_id; 
+	
+	$this->loadmodel('new_regular_bill');
+	$conditions=array("one_time_id"=>$last_one_time_id);
+	$result_new_regular_bill=$this->new_regular_bill->find('all',array('conditions'=>$conditions));
+	$this->set('result_new_regular_bill',$result_new_regular_bill);
+	
+	$this->loadmodel('society');
+	$conditions=array("society_id" => $s_society_id);
+	$result_society=$this->society->find('all',array('conditions'=>$conditions));
+	$this->set('result_society',$result_society);
 }
 ////////////////////////////////// End Regular Bill View (Accounts)//////////////////////////////////////////
 

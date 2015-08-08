@@ -3,6 +3,9 @@ foreach($result_society as $data){
 	$income_heads=$data["society"]["income_head"];
 }
 ?>
+<div align="right">
+<a href="print_all_bill/<?php echo @$one_time_id; ?>" target="_blank" class="btn purple"><i class="icon-print"></i> Print All</a>
+</div>
 <table id="report_tb">
 	<thead>
 		<tr>
@@ -29,6 +32,7 @@ foreach($result_society as $data){
 	<tbody>
 <?php
 foreach($result_new_regular_bill as $regular_bill){
+	$id=$regular_bill["new_regular_bill"]["id"];
 	$auto_id=$regular_bill["new_regular_bill"]["auto_id"];
 	$one_time_id=$regular_bill["new_regular_bill"]["one_time_id"];
 	$bill_start_date=$regular_bill["new_regular_bill"]["bill_start_date"];
@@ -82,7 +86,9 @@ foreach($result_new_regular_bill as $regular_bill){
 		<td><?php echo $arrear_intrest; ?></td>
 		<td><?php echo $intrest_on_arrears; ?></td>
 		<td><?php echo $due_for_payment; ?></td>
-		<td><a href="regular_bill_view/<?php echo $auto_id; ?>" target="_blank" class="btn mini yellow"><i class="icon-search"></i></a></td>
+		<td><a href="regular_bill_view/<?php echo $auto_id; ?>" target="_blank" class="btn mini yellow"><i class="icon-search"></i></a>
+		<a href="regular_bill_edit2/<?php echo $id; ?>" class="btn mini blue"><i class="icon-edit"></i></a>
+		</td>
 	</tr>
 		
 	<?php

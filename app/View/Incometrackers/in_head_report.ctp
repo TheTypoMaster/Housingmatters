@@ -16,11 +16,11 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
  <style>
 #report_tb th{
-	font-size: 10px !important;background-color:#C8EFCE;
+	font-size: 10px !important;background-color:#C8EFCE;padding:2px;border:solid 1px #55965F;
 }
-#report_tb th,#report_tb td{
+#report_tb td{
 	padding:2px;
-	font-size: 12px;border:solid 1px #55965F;
+	font-size: 12px;border:solid 1px #55965F;background-color:#FFF;
 }
 .text_bx{
 	width: 50px;
@@ -46,12 +46,22 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <a href="<?php echo $webroot_path; ?>Incometrackers/account_statement" class="btn" rel='tab'>Account Statement</a>
 </div>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<?php foreach($result_new_regular_bill as $regular_bill){
-	$auto_id=$regular_bill["new_regular_bill"]["auto_id"];
-	$one_time_id=$regular_bill["new_regular_bill"]["one_time_id"];
-	$array_for_select_box[$auto_id]=$one_time_id;
-}
-$array_for_select_box=array_unique($array_for_select_box); ?>
+<?php 
+if(sizeof($result_new_regular_bill)>0){
+	foreach($result_new_regular_bill as $regular_bill){
+		$auto_id=$regular_bill["new_regular_bill"]["auto_id"];
+		$one_time_id=$regular_bill["new_regular_bill"]["one_time_id"];
+		$array_for_select_box[$auto_id]=$one_time_id;
+	}
+	$array_for_select_box=array_unique($array_for_select_box);
+}else{
+	?>
+	<div align="center" style="font-size:16px;">
+		<br/><br/>No any bill rised.
+	</div>
+	<?php
+	exit;
+} ?>
            <center>
            <div class="hide_at_print">
            <table border="0">
@@ -86,6 +96,9 @@ $array_for_select_box=array_unique($array_for_select_box); ?>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <br />
 <div style="width:100%;" id="result">
+<div align="right">
+<a href="print_all_bill/<?php echo @$last_one_time_id; ?>" target="_blank" class="btn purple"><i class="icon-print"></i> Print All</a>
+</div>
 <table id="report_tb">
 	<thead>
 		<tr>
@@ -106,7 +119,7 @@ $array_for_select_box=array_unique($array_for_select_box); ?>
 			<th>Arrears (Int.)</th>
 			<th>Interest on Arrears </th>
 			<th>Due For Payment</th>
-			<th>View</th>
+			<th>View|Edit</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -165,7 +178,8 @@ foreach($result_new_regular_bill as $regular_bill){
 			<td><?php echo $arrear_intrest; ?></td>
 			<td><?php echo $intrest_on_arrears; ?></td>
 			<td><?php echo $due_for_payment; ?></td>
-			<td><a href="#" class="btn mini yellow"><i class="icon-search"></i></a></td>
+			<td><a href="regular_bill_view/<?php echo $auto_id; ?>" target="_blank" class="btn mini yellow"><i class="icon-search"></i></a>
+			<a href="regular_bill_edit2/<?php echo $auto_id; ?>" class="btn mini blue"><i class="icon-edit"></i></a></td>
 		</tr>
 			
 		<?php

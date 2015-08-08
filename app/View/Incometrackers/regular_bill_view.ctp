@@ -11,9 +11,9 @@ foreach($result_new_regular_bill as $regular_bill){
 
 @media print {
     .bill_on_screen {
-       width:96% !important;
+       width:90% !important;
     }
 }
 </style>
-<a href="#" class="btn green pull-right" role="button" onclick="window.print()">Print</a>
+<a href="#" class="btn green pull-right hide_at_print" role="button" onclick="window.print()">Print</a>
 <?php echo $bill_html; ?>

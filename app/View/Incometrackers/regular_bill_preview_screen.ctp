@@ -2,17 +2,21 @@
 foreach($result_society as $data){
 	$income_heads=$data["society"]["income_head"];
 	$society_name=$data["society"]["society_name"];
+	$society_reg_num=$data["society"]["society_reg_num"];
+	$society_address=$data["society"]["society_address"];
+	$society_email=$data["society"]["society_email"];
+	$society_phone=$data["society"]["society_phone"];
 	$tax=(float)$data["society"]["tax"];
 	$penalty=$tax/100;
 }
 ?>
 <style>
 th{
-	font-size: 10px !important;background-color:#F5F5F5;
+	font-size: 10px !important;background-color:#F5F5F5;padding:2px;border:1px solid #C2C2C2;
 }
-th,td{
+td{
 	padding:2px;
-	font-size: 12px;border:1px solid #C2C2C2;
+	font-size: 12px;border:1px solid #C2C2C2;background-color:#FFF;
 }
 .text_bx{
 	width: 50px;
@@ -27,14 +31,22 @@ th,td{
 	margin-bottom: 0px !important;
 	font-size: 12px;
 }
+
 </style>
 <div align="center">
-<h3><?php echo strtoupper($society_name); ?></h3>
+<span style="font-size:20px;"><?php echo strtoupper($society_name); ?></span><br/>
+<span style="font-size:12px;">Regn# <?php echo $society_reg_num; ?></span><br/>
+<span style="font-size:12px;"><?php echo $society_address; ?></span><br/>
+<span style="font-size:12px;">Email: <?php echo $society_email; ?> | Phone : <?php echo $society_phone; ?></span><br/>
+<div style="font-size:14px;">from <b><?php echo date("d-M",strtotime($bill_start_date)); ?></b> to <b><?php echo date("d-M-Y",strtotime($bill_end_date)); ?></b></div>
 </div>
 
 
+
+
 <form method="Post" >
-<div class="portlet-body" style="background-color: #fff; overflow-x: auto;" align="center">
+<div class="portlet-body" style=" overflow-x: auto;" align="center">
+
 	<table border="1">
 		<thead>
 			<tr>
@@ -145,7 +157,7 @@ th,td{
 			
 			?>
 			<tr>
-				<td>
+				<td style="background-color: #F6F4F4;">
 					<?php echo $wing_flat.$flat_type_id; ?>
 					<input type="hidden" name="flat_id<?php echo $inc; ?>" value="<?php echo $flat; ?>"/>
 				</td>
@@ -209,7 +221,8 @@ th,td{
 				}else { echo 'N/A'; }
 				?>
 				</td>
-				<td><?php echo '<input type="text" class="m-wrap text_rdoff" name="total'.$inc.'" value='.$total.' readonly/>'; ?></td>
+				<td style="background-color:#FBF1C8;">
+				<?php echo '<input type="text" class="m-wrap text_rdoff" name="total'.$inc.'" value='.$total.' readonly/>'; ?></td>
 				<?php $due_for_payment+=$total; ?>
 				<td>
 				<?php 
@@ -266,8 +279,8 @@ th,td{
 				$due_for_payment+=$intrest_on_arrears;
 				echo '<input type="text" class="text_bx" name="intrest_on_arrears'.$inc.'" value='.$intrest_on_arrears.' />'; ?>
 				</td>
-				<td><input type="text" class="text_bx" name="credit_stock<?php echo $inc; ?>" value="0" /></td>
-				<td>
+				<td style="background-color:#F8D5D5;"><input type="text" class="text_bx" name="credit_stock<?php echo $inc; ?>" value="0" /></td>
+				<td style="background-color:#DEE6FF;">
 				<?php 
 				echo '<input type="text" class="m-wrap text_rdoff" name="due_for_payment'.$inc.'" value='.$due_for_payment.' readonly/>';
 				?>
@@ -277,6 +290,9 @@ th,td{
 		</tbody>
 	</table>
 </div>
+<div style="padding-right:20%">
+<button type="submit" name="generate_bill" class="btn blue pull-right">Generate Bill</button>
+<a href="it_regular_bill" class="btn pull-right"><i class="icon-arrow-left"></i> Back</a>
 
-<button type="submit" name="generate_bill" class="btn blue">Generate Bill</button>
+</div>
 </form>
