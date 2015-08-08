@@ -628,7 +628,6 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 ////END BILL HTML////
 	
 	
-	
 			$this->loadmodel('new_regular_bill');
 			$auto_id=$this->autoincrement('new_regular_bill','auto_id');
 			$this->new_regular_bill->saveAll(array("auto_id" => $auto_id, "flat_id" => $flat_id, "bill_no" => $bill_number, "income_head_array" => $income_head_array, "noc_charges" => $noc_charges,"total" => $total, "arrear_maintenance"=> $arrear_maintenance, "arrear_intrest" => $arrear_intrest, "intrest_on_arrears" => $intrest_on_arrears,"due_for_payment" => $due_for_payment,"one_time_id"=>$one_time_id,"society_id"=>$s_society_id,"due_date"=>strtotime($due_date),"bill_start_date"=>strtotime($bill_start_date),"bill_end_date"=>strtotime($bill_end_date),"approval_status"=>0,"bill_html"=>$bill_html,"credit_stock"=>$credit_stock));
@@ -5312,16 +5311,39 @@ $this->set('result_society',$result_society);
 
 }
 
-function regular_bill_edit2($id=null){
+function regular_bill_edit2($auto_id=null){
 	$this->layout='session';
+	$this->ath();
 	$s_role_id=$this->Session->read('role_id');
 	$s_society_id = (int)$this->Session->read('society_id');
 	$s_user_id=$this->Session->read('user_id');
-
+	$auto_id=(int)$auto_id;
 	$this->loadmodel('new_regular_bill');
-	$conditions=array("_id"=>$id);
+	$conditions=array("auto_id"=>$auto_id);
 	$result_new_regular_bill=$this->new_regular_bill->find('all',array('conditions'=>$conditions));
 	$this->set('result_new_regular_bill',$result_new_regular_bill);
+	
+	$this->loadmodel('society');
+	$conditions=array("society_id" => $s_society_id);
+	$result_society=$this->society->find('all',array('conditions'=>$conditions));
+	$this->set('result_society',$result_society);
+	foreach($result_society as $data){
+		$income_heads=$data["society"]["income_head"];
+	}
+	if(isset($this->request->data['edit_bill'])){
+		foreach($income_heads as $income_head_id){
+			$income_head_array[$income_head_id] = (int)@$this->request->data['income_head'.$income_head_id];
+		}
+		
+		$total = (int)@$this->request->data['total'];
+		$interest_on_arrears = (int)@$this->request->data['interest_on_arrears'];
+		$arrear_maintenance = (int)@$this->request->data['arrear_maintenance'];
+		$arrear_intrest = (int)@$this->request->data['arrear_intrest'];
+		$due_for_payment = (int)@$this->request->data['due_for_payment'];
+		 
+		$this->loadmodel('new_regular_bill');
+		$this->new_regular_bill->updateAll(array('income_head_array'=>$income_head_array,'total'=>$total,'interest_on_arrears'=>$interest_on_arrears,'arrear_maintenance'=>$arrear_maintenance,'arrear_intrest'=>$arrear_intrest,'due_for_payment'=>$due_for_payment,),array('auto_id'=>$auto_id));
+	}
 }
 
 function print_all_bill($last_one_time_id=null){
