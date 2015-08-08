@@ -129,7 +129,7 @@ foreach($message_web as $data)
 { $z++;?>
 	
 	<tr style=''>
-	<td width="10%" style="" valign="top"><span style="font-size:14px;"><?php  echo urldecode($data[2]); ?> </span> </td>
+	<td width="10%" style="" valign="top"><span style="font-size:14px;"><?php  echo urldecode(@$data[2]); ?> </span> </td>
 	<td style=""><p><span style="font-size:14px;"> <?php echo $z; ?>. <?php  echo urldecode($data[0]); ?>  </span><br/><span><?php echo urldecode($data[1]); ?></span></p></td>
 	</tr>
 <?php	
