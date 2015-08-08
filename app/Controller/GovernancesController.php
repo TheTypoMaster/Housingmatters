@@ -863,6 +863,14 @@ function governace_invite_meeting($id){
 	return $this->governance_invite->find('all',array('conditions'=>$conditions));
 }
 
+function designation_find_by_user($des_id){
+	$this->loadmodel('governance_designation');
+	$conditions=array('governance_designation_id'=>$des_id);
+	$result_desi=$this->governance_designation->find('all',array('conditions'=>$conditions));
+		foreach($result_desi as $data){
+		return @$data['governance_designation']['designation_name'];
+	}
+}
 
 function governance_minute_view1($idd){
 	if($this->RequestHandler->isAjax()){
@@ -889,7 +897,7 @@ function governance_minute_submit()
 	
 	$this->layout=null;
 	$post_data=$this->request->data;
-	pr($post_data);
+	
 	$this->ath();
 	$s_society_id=$this->Session->read('society_id');
 	$s_role_id=$this->Session->read('role_id'); 

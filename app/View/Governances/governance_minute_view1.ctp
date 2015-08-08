@@ -28,7 +28,7 @@ $present_user=$data['governance_minute']['present_user'];
 <div style="padding: 5px;">
 <span  style="font-size:14px;"><b> Following Members were present: </b></span>
 
-<table  cellpadding='2' width='100%;'>
+<table  cellpadding='5' width='100%;' >
 <tr>
 <td>Sr.no</td>
 <td>Name of Member</td>
@@ -43,14 +43,17 @@ foreach($result_user as $data2){
 	$user_name=$data2['user']['user_name'];
 	$wing=(int)$data2['user']['wing'];
 	$flat=(int)$data2['user']['flat'];
+	$designation_id=(int)@$data2['user']['designation_id'];
 }
 $flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing,$flat)));
+
+$designation_name=$this->requestAction(array('controller' => 'governances', 'action' => 'designation_find_by_user'), array('pass' => array($designation_id)));
 
 ?>
 <tr>
 <td><?php echo $c; ?></td>
 <td><?php echo $user_name ?> <?php echo $flat ; ?></td>
-<td></td>
+<td><?php echo $designation_name; ?></td>
 
 </tr>
 <?php } ?>
