@@ -1,4 +1,4 @@
-<div class="bank_receipt_done" style="overflow:auto;">
+<div class="bank_rr" style="overflow:auto;">
 <div style="background-color:white; width:100%; overflow:auto;">
 <div class="modal-header">
 <h4 id="myModalLabel1">Import csv</h4>
