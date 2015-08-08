@@ -1,22 +1,22 @@
 <?php 
 foreach ($cursor1 as $collection) 
 {
-$receipt_no = (int)$collection['cash_bank']['receipt_id'];
-$d_date = $collection['cash_bank']['transaction_date'];
+$receipt_no = (int)$collection['new_cash_bank']['receipt_id'];
+$d_date = $collection['new_cash_bank']['receipt_date'];
 $today = date("d-M-Y");
-$user_id_d = $collection['cash_bank']['user_id'];
-$amount = $collection['cash_bank']['amount'];
-$society_id = (int)$collection['cash_bank']['society_id'];
-$bill_reference = $collection['cash_bank']['bill_reference'];
-$narration = $collection['cash_bank']['narration'];
-$member = (int)$collection['cash_bank']['member'];
-$receiver_name = @$collection['cash_bank']['receiver_name'];
-$receipt_mode = $collection['cash_bank']['receipt_mode'];
-$cheque_number = @$collection['cash_bank']['cheque_number'];
-$which_bank = @$collection['cash_bank']['which_bank'];
-$reference_number = @$collection['cash_bank']['reference_number'];
-$cheque_date = @$collection['cash_bank']['cheque_date'];
-$sub_account = (int)$collection['cash_bank']['account_head'];
+$flat_id = $collection['new_cash_bank']['party_name_id'];
+$amount = $collection['new_cash_bank']['amount'];
+$society_id = (int)$collection['new_cash_bank']['society_id'];
+$bill_reference = $collection['new_cash_bank']['reference_utr'];
+$narration = $collection['new_cash_bank']['narration'];
+$member = (int)$collection['new_cash_bank']['member_type'];
+$receiver_name = @$collection['new_cash_bank']['receiver_name'];
+$receipt_mode = $collection['new_cash_bank']['receipt_mode'];
+$cheque_number = @$collection['new_cash_bank']['cheque_number'];
+$which_bank = @$collection['new_cash_bank']['which_bank'];
+$reference_number = @$collection['new_cash_bank']['reference_number'];
+$cheque_date = @$collection['new_cash_bank']['cheque_date'];
+$sub_account = (int)$collection['new_cash_bank']['deposited_bank_id'];
 }
 $amount = str_replace( ',', '', $amount );
 $am_in_words=ucwords($this->requestAction(array('controller' => 'hms', 'action' => 'convert_number_to_words'), array('pass' => array($amount))));
@@ -29,24 +29,19 @@ $sig_title = $collection['society']['sig_title'];
 }
 if($member == 2)
 {
-$user_name = $receiver_name;
+$user_name = $flat_id;
 $wing_flat = "";
 }
 else
 {
-$result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($user_id_d)));
+$result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch2'),array('pass'=>array($flat_id)));
 foreach($result_lsa as $collection)
 {
-$user_id = (int)$collection['ledger_sub_account']['user_id'];
-}
-$result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
-											foreach ($result as $collection) 
-											{
-											$wing_id = $collection['user']['wing'];  
-											$flat_id = (int)$collection['user']['flat'];
-											$tenant = (int)$collection['user']['tenant'];
-											$user_name = $collection['user']['user_name'];
-											}	
+$wing_id = $collection['user']['wing'];  
+$flat_id = (int)$collection['user']['flat'];
+$tenant = (int)$collection['user']['tenant'];
+$user_name = $collection['user']['user_name'];
+}	
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action'=>'wing_flat'),array('pass'=>array($wing_id,$flat_id)));									
 }  
 $result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($sub_account))); 
@@ -56,7 +51,7 @@ $bank_name = $collection['ledger_sub_account']['name'];
 }
                                     
 
-$date=date("d-m-Y", strtotime($d_date));
+$date=date("d-m-Y",($d_date));
 ?>
 <div style="width:100%;" class="hide_at_print">
            <span style="margin-left:90%;"><button type="button" class=" printt btn green" onclick="window.print()"><i class="icon-print"></i> Print</button></span>
