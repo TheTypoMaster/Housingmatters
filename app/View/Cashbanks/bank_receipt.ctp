@@ -570,7 +570,7 @@ $(document).ready(function(){
 			$("#myModal3").hide();
 			$("#url_main").html(response);
 		
-
+$(".bank_receipt_import").bind('click',function(){
 var count = $("#open_bal tr").length;
 var ar = [];
 
@@ -596,9 +596,6 @@ ar.push([TransactionDate,ReceiptMod,ChequeNo,Reference,DrawnBankname,Date1,bank_
 var myJsonString = JSON.stringify(ar);
 myJsonString=encodeURIComponent(myJsonString);
 
-
-
-	
 $.ajax({
 url: "save_bank_imp?q="+myJsonString,
 type: 'POST',
@@ -614,11 +611,9 @@ $(".bank_rr").html('<div class="alert alert-block alert-success fade in"><h4 cla
 }
 });
 });
-
-
 });
 });
-
+});
 </script>	
 
 
