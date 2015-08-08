@@ -109,6 +109,6 @@ $name1 = $collection['ledger_sub_account']['name'];
 </div>
 <div class="modal-footer">
 <a class="btn" href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt" rel="tab">Cancel</a>
-<button type="submit" class="btn blue ddnn">Import</button>
+<button type="submit" class="btn blue import">Import</button>
 </div>
 </div>
