@@ -5312,16 +5312,14 @@ $this->set('result_society',$result_society);
 
 }
 
-function regular_bill_edit2($auto_id=null){
+function regular_bill_edit2($id=null){
 	$this->layout='session';
 	$s_role_id=$this->Session->read('role_id');
 	$s_society_id = (int)$this->Session->read('society_id');
 	$s_user_id=$this->Session->read('user_id');
 
-	$auto_id = (int)$auto_id;
-
 	$this->loadmodel('new_regular_bill');
-	$conditions=array("auto_id"=>$auto_id);
+	$conditions=array("_id"=>$id);
 	$result_new_regular_bill=$this->new_regular_bill->find('all',array('conditions'=>$conditions));
 	$this->set('result_new_regular_bill',$result_new_regular_bill);
 }

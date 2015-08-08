@@ -75,6 +75,7 @@ if(sizeof($result_new_regular_bill)>0){
 			   if($count==1){ $last_one_time_id=$value; };
 		   foreach($result_new_regular_bill as $regular_bill){
 				$auto_id=$regular_bill["new_regular_bill"]["auto_id"];
+				$id=$regular_bill["new_regular_bill"]["id"];
 				if($auto_id==$key){
 					$bill_start_date=$regular_bill["new_regular_bill"]["bill_start_date"];
 					$bill_end_date=$regular_bill["new_regular_bill"]["bill_end_date"];
@@ -179,7 +180,7 @@ foreach($result_new_regular_bill as $regular_bill){
 			<td><?php echo $intrest_on_arrears; ?></td>
 			<td><?php echo $due_for_payment; ?></td>
 			<td><a href="regular_bill_view/<?php echo $auto_id; ?>" target="_blank" class="btn mini yellow"><i class="icon-search"></i></a>
-			<a href="regular_bill_edit2/<?php echo $auto_id; ?>" class="btn mini blue"><i class="icon-edit"></i></a></td>
+			<a href="regular_bill_edit2/<?php echo $id; ?>" class="btn mini blue"><i class="icon-edit"></i></a></td>
 		</tr>
 			
 		<?php
