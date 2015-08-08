@@ -31,7 +31,11 @@ if($type == 1 && !empty($flat_id)){
 		<th style="text-align:center;">Amount Applied</th>
 		</tr>
 				 
+<?php
+$bill_start_date = date('d-m-Y',($bill_start_date));
+$due_date = date('d-m-Y',($due_date));
 
+?>
 		<tr>
 		<td style="text-align:center;"><?php echo $bill_no; ?></td>
 		<td style="text-align:center;"><?php echo $bill_start_date; ?></td>
