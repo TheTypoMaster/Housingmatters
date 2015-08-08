@@ -29,7 +29,7 @@ $user_name=$collection["user"]["user_name"];
 $email=$collection["user"]["email"];
 $wing=$collection["user"]["wing"];
 $flat=$collection["user"]["flat"];
-$designation_id=(int)$collection["user"]["designation_id"];
+$designation_id=(int)@$collection["user"]["designation_id"];
 
 $flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing,$flat)));
 
