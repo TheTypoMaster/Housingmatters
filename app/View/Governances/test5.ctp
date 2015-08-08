@@ -50,24 +50,21 @@ $sub_visible=$data['governance_invite']['sub_visible'];
 ?>
 
 <div style="background-color:#fff; border:solid 1px;">
-<div class="bg_co" align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">
+<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">
 <?php echo $society_name; ?>
 </div>
 
 <div  align="" style="padding: 5px;">
-<table  cellpadding='5' width='100%;'>
+<table  cellpadding='5' width='100%;' >
 <tr class='tr_heading'>
-<td ><span  style="font-size:14px;"><b>Meeting Type : </b></span> <span><?php echo @$moc; ?></span></td>
-<td>
-<span  style="font-size:14px;"><b> Date : </b></span> <span><?php echo $date; ?></span>&nbsp;&nbsp;
-<span  style="font-size:14px;"><b> Time : </b></span> <span><?php echo $time; ?></span>
-</td>
-</tr>
-<tr>
-<td colspan="2"><span  style="font-size:14px;"><b>Meeting Title : </b></span> <span><?php echo $subject; ?></span></td>
+<td ><span  style="font-size:14px;"><b>Meeting type : </b></span> <span><?php echo @$moc; ?></span></td>
+<td colspan="3"><span  style="font-size:14px;"><b>Meeting Title : </b></span> <span><?php echo $subject; ?></span></td>
+
 </tr>
 <tr>
 <td ><span  style="font-size:14px;"><b> Meeting Location : </b></span> <span><?php echo $location; ?></span></td>
+<td ><span  style="font-size:14px;"><b> Date : </b></span> <span><?php echo $date; ?></span></td>
+<td ><span  style="font-size:14px;"><b> Time : </b></span> <span><?php echo $time; ?></span></td>
 <td ><span  style="font-size:14px;"><b>Meeting ID : </b></span> <span><?php echo $gov_id; ?></span></td>
 </tr>
 </table>
@@ -129,8 +126,8 @@ foreach($message_web as $data)
 { $z++;?>
 	
 	<tr style=''>
-	<td width="10%" style="" valign="top"><span style="font-size:14px;"><?php  echo urldecode($data[2]); ?> </span> </td>
-	<td style=""><p><span style="font-size:14px;"> <?php echo $z; ?>. <?php  echo urldecode($data[0]); ?>  </span><br/><span><?php echo urldecode($data[1]); ?></span></p></td>
+	<td width="10%" style="border-top: solid 1px;" valign="top"><span style="font-size:14px;"><?php  echo urldecode($data[2]); ?> </span> </td>
+	<td style="border-top: solid 1px;"><p><span style="font-size:16px;"> <?php echo $z; ?>. <?php  echo urldecode($data[0]); ?>  </span><br/><span><?php echo urldecode($data[1]); ?></span></p></td>
 	</tr>
 <?php	
 } ?>

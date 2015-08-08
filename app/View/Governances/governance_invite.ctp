@@ -44,8 +44,6 @@ $user_name=$collection["user"]["user_name"];
 $email=$collection["user"]["email"];
 $wing=$collection["user"]["wing"];
 $flat=$collection["user"]["flat"];
-
-
 $flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing,$flat)));
 
 ?>
