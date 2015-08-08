@@ -47,7 +47,7 @@ $type=$data['governance_invite']['type'];
 $location=$data['governance_invite']['location'];
 $meeting_type=(int)@$data['governance_invite']['meeting_type'];
  $user=@$data['governance_invite']['user'];
-
+ 
  
  $invite_user=sizeof($user);
  
@@ -81,7 +81,7 @@ $i++;
     <td><?php echo $date ; ?></td>
 	 <td><?php echo $time ; ?></td>
 	 <td><?php echo $location ; ?></td>
-	<td><span class="label label-info"><?php echo $user ; ?></span></td>
+	<td><span class="label label-info"><?php echo $invite_user ; ?></span></td>
     <td><a href="<?php echo $webroot_path; ?>Governances/governance_invite_view1/<?php echo $gov_id; ?>" rel='tab' class="btn mini yellow tooltips" ><i class="icon-search"></i> View </a>
 	</td>
 	 <td><a href="<?php echo $webroot_path; ?>Governances/governance_minute_view1/<?php echo $governance_minute_id; ?>" rel='tab' class="btn mini yellow tooltips" ><i class="icon-search"></i> View </a>
