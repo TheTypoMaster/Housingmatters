@@ -1296,8 +1296,13 @@ function my_flat_bill(){
 	$this->layout='session';
 	}
 	
-	$from="2015-01-01";
-	$to="2015-04-31";
+	$last_date=date('t'); 
+	$current_month=date('m');
+	$current_year=date('Y');
+	$from=$current_year."-".$current_month."-01";
+	$to=$current_year."-".$current_month."-".$last_date;
+	$this->set("from",$from);
+	$this->set("to",$to);
 	$this->ath();
 	$this->check_user_privilages();
 	$s_society_id = (int)$this->Session->read('society_id');
@@ -1319,13 +1324,50 @@ function my_flat_bill(){
 	$this->set('result_society',$result_society);
 	
 	$this->loadmodel('new_regular_bill');
-	$conditions=array("society_id" => $s_society_id,"flat_id" => $flat_id,'bill_start_date'=> array('$gte' => strtotime($from)),'bill_start_date'=> array('$lte' => strtotime($to)));
+	$conditions=array("society_id" => $s_society_id,"flat_id" => $flat_id,'bill_start_date'=> array('$gte' => strtotime($from),'$lte' => strtotime($to)));
 	$order=array('new_regular_bill.one_time_id'=>'ASC');
 	$result_new_regular_bill=$this->new_regular_bill->find('all',array('conditions'=>$conditions,'order'=>$order));
 	$this->set('result_new_regular_bill',$result_new_regular_bill);
 
 }
 
+function my_flat_bill_ajax($from=null,$to=null){
+	if($this->RequestHandler->isAjax()){
+	$this->layout='blank';
+	}else{
+	$this->layout='session';
+	}
+	 $from=date("Y-m-d",strtotime($from));
+	 $this->set("from",$from);
+	 $to=date("Y-m-d",strtotime($to));
+	 $this->set("to",$to);
+	
+	$this->ath();
+	$s_society_id = (int)$this->Session->read('society_id');
+	
+	$s_user_id=$this->Session->read('user_id');
+	$this->set("s_user_id",$s_user_id);
+	//fetch user ifp via user_id//
+	$result_user_info=$this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'), array('pass' => array($s_user_id)));
+	foreach ($result_user_info as $collection2) 
+	{
+	$user_name=$collection2["user"]["user_name"];
+	$this->set('user_name',$user_name);
+	$flat_id=$collection2["user"]["flat"];
+	}
+	
+	$this->loadmodel('society');
+	$conditions=array("society_id" => $s_society_id);
+	$result_society=$this->society->find('all',array('conditions'=>$conditions));
+	$this->set('result_society',$result_society);
+	
+	$this->loadmodel('new_regular_bill');
+	$conditions=array("society_id" => $s_society_id,"flat_id" => $flat_id,'bill_start_date'=> array('$gte' => strtotime($from),'$lte' => strtotime($to)));
+	$order=array('new_regular_bill.one_time_id'=>'ASC');
+	$result_new_regular_bill=$this->new_regular_bill->find('all',array('conditions'=>$conditions,'order'=>$order));
+	$this->set('result_new_regular_bill',$result_new_regular_bill);
+
+}
 /////////////////////////// End My Flat Bill (Accounts) ////////////////////////////
 /////////////////////////// Start Bank Receipt Pdf (Accounts)//////////////////////////////////////
 function bank_receipt_pdf()
@@ -1356,69 +1398,7 @@ $this->set('cursor2',$cursor2);
 
 }
 ////////////////////////////////////////// End Bank Receipt Pdf (Accounts)////////////////////////////////////
-///////////////// Start my flat bill Ajax(accounts)///////////////////////////////////
-function my_flat_bill_ajax()
-{
-$this->layout='blank';
-$s_role_id=$this->Session->read('role_id');
-$s_society_id = (int)$this->Session->read('society_id');
-$s_user_id=$this->Session->read('user_id');	
-$this->set('s_user_id',$s_user_id);
 
-$this->loadmodel('society');
-$conditions=array("society_id"=>$s_society_id);
-$cursor = $this->society->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$society_name = $collection['society']['society_name'];
-}
-$this->set('society_name',$society_name);
-
-$from = $this->request->query('date1');
-$to = $this->request->query('date2');
-$this->set('to',$to);
-$this->set('from',$from);
-
-
-$this->loadmodel('regular_bill');
-$conditions=array("bill_for_user" => $s_user_id,"society_id"=>$s_society_id,"approve_status"=>2);
-$cursor1 = $this->regular_bill->find('all',array('conditions'=>$conditions));
-$this->set('cursor1',$cursor1);
-
-$this->loadmodel('regular_bill');
-$conditions=array("bill_for_user" => $s_user_id,"society_id"=>$s_society_id,"status"=>0);
-$cursor2 = $this->regular_bill->find('all',array('conditions'=>$conditions));
-$this->set('cursor2',$cursor2);
-
-
-$this->loadmodel('regular_bill');
-$conditions=array("bill_for_user" => $s_user_id,"society_id"=>$s_society_id,"status"=>1);
-$cursor3 = $this->regular_bill->find('all',array('conditions'=>$conditions));
-$this->set('cursor3',$cursor3);
-
-
-$this->loadmodel('ledger_sub_account');
-$conditions=array("user_id"=>$s_user_id,"society_id"=>$s_society_id);
-$cursor = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$auto_id = (int)$collection['ledger_sub_account']['auto_id'];
-$user_name = $collection['ledger_sub_account']['name'];
-}
-$this->set('user_name',@$user_name);
-
-$this->loadmodel('cash_bank');
-$conditions=array("user_id"=>@$auto_id,"society_id"=>$s_society_id,"module_id"=>1);
-$cursor4 = $this->cash_bank->find('all',array('conditions'=>$conditions));
-$this->set('cursor4',$cursor4);
-
-$this->loadmodel('cash_bank');
-$conditions=array("society_id" => $s_society_id,"module_id"=>3);
-$cursor11=$this->cash_bank->find('all',array('conditions'=>$conditions));
-$this->set('cursor11',$cursor11);
-
-}
-///////////////// End my flat bill Ajax(accounts)//////////////////////////////////
 
 //////////////////////// Start my flat Bill Excel////////////////////////////////////
 function my_flat_bill_excel()

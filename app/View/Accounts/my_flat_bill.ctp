@@ -21,13 +21,28 @@ $result_opening_balance= $this->requestAction(array('controller' => 'Incometrack
 	font-size: 14px;border:solid 1px #55965F;background-color:#FFF;
 }
 </style>
+
+
+
+<div align="center">
+	<table>
+		<tr>
+		<td><input class="date-picker m-wrap medium" id="from" data-date-format="dd-mm-yyyy" name="from" placeholder="From" style="background-color:white !important;" value="<?php echo date("d-m-Y",strtotime($from)); ?>" type="text"></td>
+		<td><input class="date-picker  m-wrap medium" id="to" data-date-format="dd-mm-yyyy" name="to" placeholder="To" style="background-color:white !important;" value="<?php echo date("d-m-Y",strtotime($to)); ?>" type="text"></td>
+		<td valign="top"><button type="button" name="sub" class="btn yellow" id="go">Go</button></td>
+		</tr>
+	</table>
+</div>
+
+
+
 <br/>
-<div style="width:80%;margin:auto;overflow:auto;background-color:#FFF;padding:5px;">
+<div style="width:80%;margin:auto;overflow:auto;background-color:#FFF;padding:5px;" id="result_statement">
 	<div align="center"><h4><?php echo strtoupper($society_name); ?></h4></div>
 	<div class="row-fluid" style="font-size:14px;">
 		<div class="span6">
 			<span style="font-size:16px;">Statement of Account</span><br/>
-			<span style="font-size:12px;">From 1-Aug-2015 to 30-Aug-2015</span><br/>
+			<span style="font-size:12px;">From <?php echo date("d-m-Y",strtotime($from)); ?> to <?php echo date("d-m-Y",strtotime($to)); ?></span><br/>
 			For : <?php echo $user_name; ?>
 		</div>
 		<div class="span6" align="right">
@@ -44,18 +59,16 @@ $result_opening_balance= $this->requestAction(array('controller' => 'Incometrack
 				<th>Credit</th>
 				<th>Amount</th>
 			</tr>
-			<?php if((sizeof($result_opening_balance)+sizeof($result_new_regular_bill))==0){
-				?>
-				<tr><td colspan="4" align="center">No Record Found</td></tr>
-				<?php
-			} ?>
+			<?php $no_record=0; ?>
 			<?php foreach($result_opening_balance as $data){
 				$opening_blalance_date= date('Y-m-d',$data["ledger"]["op_date"]->sec);
 				$opening_blalance_date= date("d-M-Y",strtotime($opening_blalance_date));
-				
+				$opening_blalance_compare_date= date("Y-m-d",strtotime($opening_blalance_date));
 				$penalty=@$data["ledger"]["penalty"];
 				$amount=@$data["ledger"]["amount"];
 				$amount_category_id=@$data["ledger"]["amount_category_id"];
+				if(strtotime($opening_blalance_compare_date)>=$from && strtotime($opening_blalance_compare_date)<=$to){
+					$no_record=1;
 			?>
 			<tr>
 				<td><?php echo $opening_blalance_date; ?></td>
@@ -69,13 +82,14 @@ $result_opening_balance= $this->requestAction(array('controller' => 'Incometrack
 				<td align="right"><?php if($amount_category_id==2){ echo $amount; }else{ echo "-"; } ?></td>
 				<td align="right"><?php if($amount_category_id==1){ echo $amount; }else{ echo "-"; } ?></td>
 			</tr>
-			<?php } ?>
+			<?php } } ?>
 			<?php
 			foreach($result_new_regular_bill as $regular_bill){
 				$flat_id=$regular_bill["new_regular_bill"]["flat_id"];
 				$one_time_id=$regular_bill["new_regular_bill"]["one_time_id"];
 				$bill_start_date=$regular_bill["new_regular_bill"]["bill_start_date"];
 				$due_for_payment=$regular_bill["new_regular_bill"]["due_for_payment"];
+				$no_record=1;
 				?>
 				<tr>
 					<td><?php echo date("d-M-Y",$bill_start_date); ?></td>
@@ -101,6 +115,21 @@ $result_opening_balance= $this->requestAction(array('controller' => 'Incometrack
 					}
 			}
 			?>
+			<?php if($no_record==0){
+				?>
+				<tr><td colspan="4" align="center">No Record Found</td></tr>
+				<?php
+			} ?>
 		</table>
 	</div>
 </div>
+
+<script>
+$(document).ready(function() {
+	$("#go").live('click',function(){
+		var from=$("#from").val();
+		var to=$("#to").val();
+		$("#result_statement").html('<div align="center"><h4>Loading...</h4></div>').load('my_flat_bill_ajax/'+from+'/'+to);
+	});
+});
+</script>
