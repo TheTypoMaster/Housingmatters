@@ -3438,7 +3438,7 @@ $this->set('user_id',$user_id);
 
 else if($wise == 3)
 {
-$bill_number = $this->request->query('user');
+$bill_number = (int)$this->request->query('user');
 $this->set('bill_number',$bill_number);
 }
 $this->set('wise',$wise);

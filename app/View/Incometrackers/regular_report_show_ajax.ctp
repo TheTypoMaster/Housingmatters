@@ -4,7 +4,7 @@ $bbb = 55;
 foreach($cursor1 as $data3){
 			$auto_id=$data3["new_regular_bill"]["auto_id"];
 			$flat_id=$data3["new_regular_bill"]["flat_id"];
-			$bill_no=$data3["new_regular_bill"]["bill_no"];
+			$bill_no=(int)$data3["new_regular_bill"]["bill_no"];
 			$income_head_array=$data3["new_regular_bill"]["income_head_array"];
 			$noc_charges=$data3["new_regular_bill"]["noc_charges"];
 			$total=$data3["new_regular_bill"]["total"];
@@ -55,7 +55,7 @@ $bbb = 555;
 }
 else if($wise == 3)
 {
-if($bill_number == $bill_no)
+if($bill_number == $flat_id)
 {	
 $bbb = 555;	
 }
@@ -94,13 +94,6 @@ else if($wise == 3)
 <br />
 <table class="table table-bordered" style="background-color:white;">
 <tr>
-<th colspan="8" style="text-align:center;">
-<p style="font-size:16px;">
-Regular Bill Report  (<?php echo $society_name; ?>)
-</p>
-</th>
-</tr>
-<tr>
 <th>Unit Number</th>
 <th>Name</th>
 <th>Area</th>
@@ -115,7 +108,7 @@ Regular Bill Report  (<?php echo $society_name; ?>)
 foreach($cursor1 as $data3){
 			$auto_id=$data3["new_regular_bill"]["auto_id"];
 			$flat_id=$data3["new_regular_bill"]["flat_id"];
-			$bill_no=$data3["new_regular_bill"]["bill_no"];
+			$bill_no = (int)$data3["new_regular_bill"]["bill_no"];
 			$income_head_array=$data3["new_regular_bill"]["income_head_array"];
 			$noc_charges=$data3["new_regular_bill"]["noc_charges"];
 			$total=$data3["new_regular_bill"]["total"];
@@ -196,12 +189,12 @@ if($wing_id == $wing)
 }
 else if($wise == 3)
 {
-if($bill_number == $bill_no)
+if($bill_number == $flat_id)
 {	
 //if($m_from1 <= $date1 && $m_to1 >= $date1)
 //{
-$date = date('d-m-Y',strtotime($date));						
-$grand_total = $grand_total + $g_total;	
+//$date = date('d-m-Y',strtotime($date));						
+//$grand_total = $grand_total + $g_total;	
 ?>
 <tr>
 <td><?php echo $wing_flat; ?></td>
