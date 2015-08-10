@@ -3435,6 +3435,7 @@ else if($wise == 2)
 $user_id = (int)$this->request->query('user');
 $this->set('user_id',$user_id);
 }
+
 else if($wise == 3)
 {
 $bill_number = $this->request->query('user');
@@ -3445,8 +3446,8 @@ $this->set('from',$from);
 $this->set('to',$to);
 
 $this->loadmodel('new_regular_bill');
-//$conditions=array('society_id'=>$s_society_id,"approval_status"=>1,'new_regular_bill.current_date'=>array('$gte'=>$from_strtotime,'$lte'=>$to_strtotime));
-$conditions=array("society_id"=> $s_society_id,"approval_status"=>1);
+$conditions=array('society_id'=>$s_society_id,"approval_status"=>1,'new_regular_bill.bill_start_date'=>array('$gte'=>$from_date3,'$lte'=>$to_date3));
+//$conditions=array("society_id"=> $s_society_id,"approval_status"=>1);
 $cursor1=$this->new_regular_bill->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);	
 
@@ -3469,9 +3470,9 @@ $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
 
-$this->loadmodel('regular_bill');
-$conditions=array("society_id"=> $s_society_id,"approve_status"=>2);
-$cursor1=$this->regular_bill->find('all',array('conditions'=>$conditions));
+$this->loadmodel('new_regular_bill');
+$conditions=array("society_id"=> $s_society_id,"approval_status"=>1);
+$cursor1=$this->new_regular_bill->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);	
 
 $this->loadmodel('wing');

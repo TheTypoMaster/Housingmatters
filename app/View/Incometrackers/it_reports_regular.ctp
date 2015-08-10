@@ -68,8 +68,9 @@ foreach($cursor3 as $collection)
 {
 $user_id = (int)$collection['user']['user_id'];	
 $user_name = $collection['user']['user_name'];	
+$flat_id = (int)$collection['user']['flat'];
 ?>
-<option value="<?php echo $user_id; ?>"><?php echo $user_name; ?></option>
+<option value="<?php echo $flat_id; ?>"><?php echo $user_name; ?></option>
 <?php } ?>
 </select>
 </div>
@@ -79,10 +80,10 @@ $user_name = $collection['user']['user_name'];
 <?php 
 foreach($cursor1 as $collection)
 {
-$user_id = (int)$collection['regular_bill']['bill_for_user'];	
-$user_name = $collection['regular_bill']['receipt_id'];	
+$flat_id = (int)$collection['new_regular_bill']['flat_id'];	
+$bill_number = $collection['new_regular_bill']['bill_no'];	
 ?>
-<option value="<?php echo $user_name; ?>"><?php echo $user_name; ?></option>
+<option value="<?php echo $flat_id; ?>"><?php echo $bill_number; ?></option>
 <?php } ?>
 </select>
 </div>

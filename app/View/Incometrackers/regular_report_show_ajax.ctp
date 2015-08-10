@@ -1,13 +1,6 @@
-<?php
-$m_from1 = date("Y-m-d", strtotime($from));
-//$m_from = new MongoDate(strtotime($m_from1));
-
-$m_to1 = date("Y-m-d", strtotime($to));
-//$m_to = new MongoDate(strtotime($m_to1));
-
-?>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
+$bbb = 55;
 foreach($cursor1 as $data3){
 			$auto_id=$data3["new_regular_bill"]["auto_id"];
 			$flat_id=$data3["new_regular_bill"]["flat_id"];
@@ -46,33 +39,25 @@ foreach($cursor1 as $data3){
  
 if($wise == 2)
 {									
-if($bill_for_user == $user_id)
+if($flat_id == $user_id)
 {
-//if($m_from1 <= $date2 && $m_to1 >= $date2)
-//{
-
 $bbb = 555;
-//}
 }
 }
 else if($wise == 1)
 {
 if($wing_id == $wing)
 {	
-//if($m_from1 <= $date1 && $m_to1 >= $date1)
-//{
+
 $bbb = 555;
-//}
+
 }
 }
 else if($wise == 3)
 {
-if($bill_number == $receipt_id)
+if($bill_number == $bill_no)
 {	
-//if($m_from1 <= $date1 && $m_to1 >= $date1)
-//{
 $bbb = 555;	
-//}
 }
 }
 }
@@ -165,7 +150,7 @@ foreach($cursor1 as $data3){
  
 if($wise == 2)
 {									
-if($bill_for_user == $user_id)
+if($flat_id == $user_id)
 {
 //if($m_from1 <= $date2 && $m_to1 >= $date2)
 //{
