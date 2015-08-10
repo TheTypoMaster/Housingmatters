@@ -319,8 +319,7 @@ $which_bank = @$collection['new_cash_bank']['which_bank'];
 $reference_number = @$collection['new_cash_bank']['reference_number'];
 $cheque_date = @$collection['new_cash_bank']['cheque_date'];
 $sub_account = (int)$collection['new_cash_bank']['deposited_bank_id'];
-}
-/*
+
 $amount = str_replace( ',', '', $amount );
 $am_in_words=ucwords($this->requestAction(array('controller' => 'hms', 'action' => 'convert_number_to_words'), array('pass' => array($amount))));
 foreach ($cursor2 as $collection) 
@@ -438,7 +437,7 @@ $html_receipt.='</div>';
 ////////////////my Email//////////////
 }
 
-
+/*
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
 $cursor2=$this->society->find('all',array('conditions'=>$conditions));
@@ -459,7 +458,7 @@ foreach($result_society as $data_society){
 	$sms_is_on_off=(int)@$data_society["society"]["account_sms"];
    }
 //////////////////////////////////////////////////////////////////////////
-/*
+$to = "nikhileshvyas4455@gmail.com";
 if($email_is_on_off==1){
 ////email code//
 if(sizeof($email_array)>0){
@@ -472,7 +471,7 @@ $this->send_email($to,'accounts@housingmatters.in','HousingMatters',$subject,$ht
 }
 }
 }
-*/	
+	
 
 $mobile_number = "9799463210";	
 if($sms_is_on_off==1){
