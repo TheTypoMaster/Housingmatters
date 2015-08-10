@@ -101,8 +101,8 @@ if(sizeof($result_new_regular_bill)>0){
 <a href="print_all_bill/<?php echo @$last_one_time_id; ?>" target="_blank" class="btn purple"><i class="icon-print"></i> Print All</a>
 </div>
 <table id="report_tb">
-	<thead>
-		<tr>
+	        <thead>
+		    <tr>
 			<th>Unit Number</th>
 			<th>Name</th>
 			<th>Area</th>

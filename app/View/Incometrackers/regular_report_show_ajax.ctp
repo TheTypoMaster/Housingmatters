@@ -1,3 +1,16 @@
+
+<style>
+#report_tb th{
+	font-size: 10px !important;background-color:#C8EFCE;padding:2px;border:solid 1px #55965F;
+}
+#report_tb td{
+	padding:2px;
+	font-size: 12px;border:solid 1px #55965F;background-color:#FFF;
+}
+</style>
+
+
+
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
 $bbb = 55;
@@ -92,7 +105,7 @@ else if($wise == 3)
 <button type="button" class=" printt btn green" onclick="window.print()"><i class="icon-print"></i> Print</button></span>
 </div>
 <br />
-<table class="table table-bordered" style="background-color:white;">
+<table id="report_tb">
 <tr>
 <th>Unit Number</th>
 <th>Name</th>
