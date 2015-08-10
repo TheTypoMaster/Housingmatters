@@ -5323,7 +5323,11 @@ $this->set('result_society',$result_society);
 }
 
 function regular_bill_edit2($auto_id=null){
+	if($this->RequestHandler->isAjax()){
+	$this->layout='blank';
+	}else{
 	$this->layout='session';
+	}
 	$this->ath();
 	$s_role_id=$this->Session->read('role_id');
 	$s_society_id = (int)$this->Session->read('society_id');
