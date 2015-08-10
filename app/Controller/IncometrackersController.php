@@ -226,7 +226,7 @@ function fetch_opening_balance_via_user_id($user_id){
 		$auto_id=$data["ledger_sub_account"]["auto_id"];
 	}
 	$this->loadmodel('ledger');
-	$condition=array('account_id'=>$auto_id,"receipt_id"=>"O_B");
+	$condition=array('account_id'=>@$auto_id,"receipt_id"=>"O_B");
 	return $result_ledger=$this->ledger->find('all',array('conditions'=>$condition));
 }
 function receipt(){

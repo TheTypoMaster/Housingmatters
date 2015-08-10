@@ -14,20 +14,21 @@ $result_opening_balance= $this->requestAction(array('controller' => 'Incometrack
 ?>
  <style>
 #report_tb th{
-	font-size: 10px !important;background-color:#C8EFCE;padding:2px;border:solid 1px #55965F;
+	font-size: 12px !important;background-color:#C8EFCE;padding:2px;border:solid 1px #55965F;
 }
 #report_tb td{
 	padding:2px;
-	font-size: 12px;border:solid 1px #55965F;background-color:#FFF;
+	font-size: 14px;border:solid 1px #55965F;background-color:#FFF;
 }
 </style>
 <br/>
-<div style="width:80%;margin:auto;border:solid 1px #ccc;overflow:auto;background-color:#FFF;padding:5px;">
+<div style="width:80%;margin:auto;overflow:auto;background-color:#FFF;padding:5px;">
 	<div align="center"><h4><?php echo strtoupper($society_name); ?></h4></div>
 	<div class="row-fluid" style="font-size:14px;">
 		<div class="span6">
 			<span style="font-size:16px;">Statement of Account</span><br/>
-			<span style="font-size:12px;">From 1-Aug-2015 to 30-Aug-2015</span>
+			<span style="font-size:12px;">From 1-Aug-2015 to 30-Aug-2015</span><br/>
+			For : <?php echo $user_name; ?>
 		</div>
 		<div class="span6" align="right">
 			Regn # <?php echo $society_reg_num; ?><br/>
@@ -43,6 +44,11 @@ $result_opening_balance= $this->requestAction(array('controller' => 'Incometrack
 				<th>Credit</th>
 				<th>Amount</th>
 			</tr>
+			<?php if((sizeof($result_opening_balance)+sizeof($result_new_regular_bill))==0){
+				?>
+				<tr><td colspan="4" align="center">No Record Found</td></tr>
+				<?php
+			} ?>
 			<?php foreach($result_opening_balance as $data){
 				$opening_blalance_date= date('Y-m-d',$data["ledger"]["op_date"]->sec);
 				$opening_blalance_date= date("d-M-Y",strtotime($opening_blalance_date));

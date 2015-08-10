@@ -1309,6 +1309,7 @@ function my_flat_bill(){
 	foreach ($result_user_info as $collection2) 
 	{
 	$user_name=$collection2["user"]["user_name"];
+	$this->set('user_name',$user_name);
 	$flat_id=$collection2["user"]["flat"];
 	}
 	
