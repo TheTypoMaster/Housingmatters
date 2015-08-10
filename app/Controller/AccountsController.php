@@ -1289,92 +1289,40 @@ $this->set('bill_html',$bill_html);
 //////////////////////////////// START MY FLAT MODULE///////////////////////////////////////////////////////////
 
 //////////////////////// Start My Flat Bill (Accounts) //////////////////////////////
-function my_flat_bill()
-{
-if($this->RequestHandler->isAjax()){
-$this->layout='blank';
-}else{
-$this->layout='session';
-}
+function my_flat_bill(){
+	if($this->RequestHandler->isAjax()){
+	$this->layout='blank';
+	}else{
+	$this->layout='session';
+	}
+	
+	$from="2015-01-01";
+	$to="2015-04-31";
+	$this->ath();
+	$this->check_user_privilages();
+	$s_society_id = (int)$this->Session->read('society_id');
+	
+	$s_user_id=$this->Session->read('user_id');
+	$this->set("s_user_id",$s_user_id);
+	//fetch user ifp via user_id//
+	$result_user_info=$this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'), array('pass' => array($s_user_id)));
+	foreach ($result_user_info as $collection2) 
+	{
+	$user_name=$collection2["user"]["user_name"];
+	$flat_id=$collection2["user"]["flat"];
+	}
+	
+	$this->loadmodel('society');
+	$conditions=array("society_id" => $s_society_id);
+	$result_society=$this->society->find('all',array('conditions'=>$conditions));
+	$this->set('result_society',$result_society);
+	
+	$this->loadmodel('new_regular_bill');
+	$conditions=array("society_id" => $s_society_id,"flat_id" => $flat_id,'bill_start_date'=> array('$gte' => strtotime($from)),'bill_start_date'=> array('$lte' => strtotime($to)));
+	$order=array('new_regular_bill.one_time_id'=>'ASC');
+	$result_new_regular_bill=$this->new_regular_bill->find('all',array('conditions'=>$conditions,'order'=>$order));
+	$this->set('result_new_regular_bill',$result_new_regular_bill);
 
-$this->ath();
-$this->check_user_privilages();
-
-
-
-$s_role_id = (int)$this->Session->read('role_id');
-$s_society_id = (int)$this->Session->read('society_id');
-$s_user_id = (int)$this->Session->read('user_id');
-
-$this->loadmodel('regular_bill');
-$conditions=array("bill_for_user" => $s_user_id,"society_id"=>$s_society_id,"status"=>0);
-$cursor = $this->regular_bill->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$ele_id = (int)$collection['regular_bill']['regular_bill_id'];
-}
-//$this->seen_notification(10,$ele_id);
-
-$this->loadmodel('society');
-$conditions=array("society_id" => $s_society_id);
-$cursor = $this->society->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$society_name = $collection['society']['society_name'];
-}
-$this->set('society_name',$society_name);
-
-$this->loadmodel('regular_bill');
-$conditions=array("bill_for_user" => $s_user_id,"society_id"=>$s_society_id);
-$cursor1 = $this->regular_bill->find('all',array('conditions'=>$conditions));
-$this->set('cursor1',$cursor1);
-
-
-$this->loadmodel('user');
-$conditions=array("user_id" => $s_user_id);
-$cursor = $this->user->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$flat_id = (int)$collection['user']['flat'];
-$wing_id = (int)$collection['user']['wing'];
-}
-
-$this->loadmodel('flat');
-$conditions=array("flat_id" => $flat_id);
-$cursor = $this->flat->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$flat_name = $collection['flat']['flat_name'];
-$flat_type_id = (int)$collection['flat']['flat_type_id'];
-if($flat_type_id == 0)
-{
-$flat_size = $collection['flat']['sqr_feet'];
-$flat_size = $flat_size.'&nbsp;&nbsp;'.'Sqr Feet';
-}
-else
-{
-$this->loadmodel('flat_rent');
-$conditions=array("auto_id" => $flat_type_id);
-$cursor8 = $this->flat_rent->find('all',array('conditions'=>$conditions));
-foreach($cursor8 as $collection)
-{
-$flat_size = $collection['flat_rent']['name'];
-}
-}
-
-}
-
-
-$this->loadmodel('wing');
-$conditions=array("wing_id" => $wing_id);
-$cursor = $this->wing->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$wing_name = $collection['wing']['wing_name'];
-}
-//$this->set('flat_size',$flat_size);
-//$this->set('flat_name',$flat_name);
-//$this->set('wing_name',$wing_name);
 }
 
 /////////////////////////// End My Flat Bill (Accounts) ////////////////////////////
