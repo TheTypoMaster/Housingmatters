@@ -13,7 +13,6 @@ $nnn = 55;
 foreach ($cursor2 as $collection) 
 {
 $receipt_date = $collection['new_cash_bank']['receipt_date'];
-
 $nnn = 555;
 
 }			
@@ -68,7 +67,7 @@ Bank Receipt Report  (<?php echo $society_name; ?>)
  			 $cheque_date = $collection['new_cash_bank']['cheque_date'];
 			}
 			$member_type = $collection['new_cash_bank']['member_type'];
-			$narration = $collection['new_cash_bank']['narration'];
+			$narration = @$collection['new_cash_bank']['narration'];
 			if($member_type == 1)
    			{
 			$party_name_id = (int)$collection['new_cash_bank']['party_name_id'];
@@ -117,12 +116,13 @@ $total_debit =  $total_debit + $amount;
 <td><?php echo $date; ?> </td>
 <td><?php echo $party_name; ?> &nbsp&nbsp&nbsp&nbsp<?php echo $wing_flat; ?> </td>
 <td><?php echo $receipt_mode; ?> </td>
-<td><?php echo $reference_utr; ?> </td>
+<td><?php echo @$reference_utr; ?> </td>
 <td><?php echo $deposited_bank_name; ?> </td>
 <td><?php echo $narration; ?> </td>
 <td><?php echo $amount; ?></td>
 <td class="hide_at_print">
 <a href="bank_receipt_html_view/<?php echo $receipt_no; ?>" target="_blank" class="btn mini yellow">View</a>
+<a href="b_receipt_edit/<?php echo $receipt_no; ?>" class="btn mini yellow">Edit</a> 
 </td>
 </tr>
 <?php	

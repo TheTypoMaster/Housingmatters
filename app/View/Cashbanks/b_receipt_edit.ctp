@@ -1,33 +1,32 @@
 <?php
 foreach($cursor1 as $data){
-	$receipt_id=$data["cash_bank"]["receipt_id"];
-	$transaction_date=$data["cash_bank"]["transaction_date"];
-	$transaction_date=date("d-m-Y",strtotime($transaction_date));
-	$t_id=$data["cash_bank"]["transaction_id"];
+	$receipt_id=$data["new_cash_bank"]["receipt_id"];
+	$transaction_date=$data["new_cash_bank"]["receipt_date"];
+	$transaction_date=date("d-m-Y",($transaction_date));
+	//$t_id=$data["new_cash_bank"]["transaction_id"];
 	
-	$receipt_mode=$data["cash_bank"]["receipt_mode"];
-	$cheque_number=@$data["cash_bank"]["cheque_number"];
-	$which_bank=@$data["cash_bank"]["which_bank"];
-	$reference_number=@$data["cash_bank"]["reference_number"];
-	$current_date=$data["cash_bank"]["current_date"];
-	$current_date= date('d-m-Y',$current_date->sec);
-	$member=@$data["cash_bank"]["member"];
-	$amount=@(int)$data["cash_bank"]["amount"];
+	$receipt_mode=$data["new_cash_bank"]["receipt_mode"];
+	$cheque_number=@$data["new_cash_bank"]["cheque_number"];
+	$which_bank=@$data["new_cash_bank"]["which_bank"];
+	$reference_number=@$data["new_cash_bank"]["reference_number"];
+	$current_date=$data["new_cash_bank"]["current_date"];
+	$current_date= date('d-m-Y',strtotime($current_date));
+	$member=@$data["new_cash_bank"]["member_type"];
+	$amount=@(int)$data["new_cash_bank"]["amount"];
 	
-	$account_head=@$data["cash_bank"]["account_head"];
-	$user_id_d=@$data["cash_bank"]["user_id"];
-	$result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($user_id_d)));
-	foreach($result_lsa as $collection){
-		$user_id = (int)$collection['ledger_sub_account']['user_id'];
-	}
+	$account_head=@$data["new_cash_bank"]["account_head"];
+	$user_id_d=@$data["new_cash_bank"]["party_name_id"];
+	
 
 	if($member == 1)
 	{
-	$regular_receipt = (int)@$data['cash_bank']['bill_reference'];
-	$bill_for = (int)@$data["cash_bank"]["receipt_for_type"];
+	$regular_receipt = (int)@$data['new_cash_bank']['bill_reference'];
+	$bill_for = (int)@$data["new_cash_bank"]["receipt_type"];
+	
+	
 	}
 	
-	$result_user_info=$this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'), array('pass' => array($user_id)));
+	$result_user_info=$this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch2'), array('pass' => array($user_id_d)));
 	foreach($result_user_info as $collection2)
 	{
 	$user_name=$collection2["user"]["user_name"];
@@ -50,7 +49,7 @@ foreach($cursor1 as $data){
 	<input type="hidden" value="<?php echo $bill_for; ?>" name="ffff">
 	<input type="hidden" value="<?php echo $member; ?>" name="mmmm">
 	<input type="hidden" value="<?php echo $regular_receipt; ?>" name="regrec">
-	<input type="hidden" value="<?php echo $t_id; ?>" name="t_id">
+	<input type="hidden" value="<?php echo $receipt_id; ?>" name="t_id">
 	
 	
 	<div class="row-fluid">

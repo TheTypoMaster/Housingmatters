@@ -98,6 +98,7 @@ if(sizeof($result_new_regular_bill)>0){
 <br />
 <div style="width:100%;" id="result">
 <div align="right">
+<a href="in_head_excel?one=<?php echo @$last_one_time_id; ?>" class="btn blue">Export</a>
 <a href="print_all_bill/<?php echo @$last_one_time_id; ?>" target="_blank" class="btn purple"><i class="icon-print"></i> Print All</a>
 </div>
 <table id="report_tb">

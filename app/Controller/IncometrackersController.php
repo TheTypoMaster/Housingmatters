@@ -4530,158 +4530,92 @@ $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id = (int)$this->Session->read('user_id');	
 
-$un = (int)$this->request->query('f');
-
-$this->loadmodel('regular_bill');
-$condition=array('society_id'=>$s_society_id,"one_time_id"=>$un);
-$cursor = $this->regular_bill->find('all',array('conditions'=>$condition)); 
-foreach($cursor as $collection)
-{
-$ih_arr = $collection['regular_bill']['ih_detail'];
-break;
-}
-$excel="<table border='1'>
-<tr>
-<th>Sr.No.</th>
-<th>Bill No.</th>
-<th>Name of Resident</th>
-<th>Unit No.</th>";
-for($k=0; $k<sizeof(@$ih_arr); $k++)
-{
-$sub_arr = $ih_arr[$k];
-$ih_id1 = (int)$sub_arr[0];
-
-$result = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($ih_id1)));
-foreach($result as $collection)
-{
-$in_name = $collection['ledger_account']['ledger_name'];	
-}
-if($ih_id1 != 43)
-{
-$ih_tt_amt[] = 0;
-$excel.="<th style='text-align:center;'>$in_name</th>";
-}}
-$excel.="
-<th>Non Occupancy charges</th>
-<th>Total</th>
-<th>Interest on Arrears</th>
-<th>Arrears (Maint.)</th>
-<th>Arrears (Int.)</th>
-<th>Due For Payment</th>
-</tr>";
-$m=0;
-$tt_current_amt = 0;
-$tt_over_due_amt = 0;
-$total_penalty_amt = 0;
-$tt_gt_amt = 0;
-$tt_noc_amt = 0;
-$total_arrears_amt = 0;
-$total_arrears_penalty = 0;
-$this->loadmodel('regular_bill');
-$condition=array('society_id'=>$s_society_id,"one_time_id"=>$un);
-$cursor = $this->regular_bill->find('all',array('conditions'=>$condition)); 
-foreach($cursor as $collection)
-{
-$bill_no = (int)$collection['regular_bill']['receipt_id'];	
-$user_id = (int)$collection['regular_bill']['bill_for_user'];
-$current_amt = $collection['regular_bill']['current_bill_amt'];
-$over_due_amt = $collection['regular_bill']['due_amount'];
-$penalty_amt = $collection['regular_bill']['current_tax'];
-$gt_amt = $collection['regular_bill']['g_total'];
-$ih_det = $collection['regular_bill']['ih_detail'];
-$arrears_amt = $collection['regular_bill']['arrears_amt2'];
-$accumulated_tax = $collection['regular_bill']['arrear_interest'];
+$last_one_time_id = (int)$this->request->query('one');
 
 
-$int_show_arrears = $accumulated_tax - $penalty_amt;
-
-
-$total_arrears_amt = $total_arrears_amt + $arrears_amt;
-$total_arrears_penalty = $total_arrears_penalty + $int_show_arrears;
-
-
-
-
-
-$result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));
-foreach($result2 as $collection)
-{
-$user_name = $collection['user']['user_name'];
-$wing_id = (int)$collection['user']['wing'];
-$flat_id = (int)$collection['user']['flat'];
+$this->loadmodel('society');
+$condition=array('society_id'=>$s_society_id);
+$result_society=$this->society->find('all',array('conditions'=>$condition)); 
+foreach($result_society as $data){
+$income_heads=$data["society"]["income_head"];
 }
 
-$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
 
 
+////////////////////////////////////////////////////////////////////////////////
+$excel="Unit Number \t Name \t Area \t Bill No.";
+			foreach($income_heads as $income_head)
+			{ 
+			$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($income_head)));	
+			foreach($result_income_head as $data2)
+			{
+			$income_head_name = $data2['ledger_account']['ledger_name'];
+			}
+			$excel.="\t $income_head_name";
+			} 
+	$excel.="\t Non Occupancy charges \t Total \t Arrears (Maint.) \t Arrears (Int.) \t Interest on Arrears \t Due For Payment \n";
 
-$tt_current_amt = $tt_current_amt + $current_amt;
-$tt_over_due_amt = $tt_over_due_amt + $over_due_amt;
-$total_penalty_amt = $total_penalty_amt + $penalty_amt;
-$tt_gt_amt = $tt_gt_amt + $gt_amt;
 
-$m++;
-$excel.="<tr>
-<td style='text-align:center;'>$m</td>
-<td style='text-align:center;'>$bill_no</td>
-<td style='text-align:center;'>$user_name</td>
-<td style='text-align:center;'>$wing_flat</td>";
-for($x=0; $x<sizeof(@$ih_det); $x++)
-{
-$charge3 = $ih_det[$x];
-$ih_id5 = (int)$charge3[0];
-if($ih_id5 != 43)
-{	
-$amt = $charge3[1];
-$ih_tt_amt[$x] = $ih_tt_amt[$x] + $amt;
+   $this->loadmodel('new_regular_bill');
+   $conditions=array("society_id" => $s_society_id,"approval_status" => 1,"one_time_id"=>$last_one_time_id);
+   $result_new_regular_bill = $this->new_regular_bill->find('all',array('conditions'=>$conditions));
+   
+   
+      	foreach($result_new_regular_bill as $regular_bill){
+	    $one_time_id=$regular_bill["new_regular_bill"]["one_time_id"];
+		$auto_id=$regular_bill["new_regular_bill"]["auto_id"];
+		$bill_start_date=$regular_bill["new_regular_bill"]["bill_start_date"];
+		$bill_end_date=$regular_bill["new_regular_bill"]["bill_end_date"];
+		$flat_id=$regular_bill["new_regular_bill"]["flat_id"];
+		$bill_no=$regular_bill["new_regular_bill"]["bill_no"];
+		$income_head_array=$regular_bill["new_regular_bill"]["income_head_array"];
+		$noc_charges=$regular_bill["new_regular_bill"]["noc_charges"];
+		$total=$regular_bill["new_regular_bill"]["total"];
+		$arrear_maintenance=$regular_bill["new_regular_bill"]["arrear_maintenance"];
+		$arrear_intrest=$regular_bill["new_regular_bill"]["arrear_intrest"];
+		$intrest_on_arrears=$regular_bill["new_regular_bill"]["intrest_on_arrears"];
+		$due_for_payment=$regular_bill["new_regular_bill"]["due_for_payment"];
+		
+	
+		
+		
+		
+		
+		
+		//wing_id via flat_id//
+		$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_id)));
+		foreach($result_flat_info as $flat_info){
+			$wing_id=$flat_info["flat"]["wing_id"];
+		}
+		
+		$wing_flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing_id,$flat_id)));
+		
+		//user info via flat_id//
+		$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($flat_id)));
+		foreach($result_user_info as $user_info){
+			$user_name=$user_info["user"]["user_name"];
+		}
+		
+		$result_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch2'),array('pass'=>array(@$flat_id,$wing_id))); 
+		foreach($result_flat as $data2){
+			$flat_type_id = (int)$data2['flat']['flat_type_id'];
+			$noc_ch_id = (int)$data2['flat']['noc_ch_tp'];
+			$sq_feet = (int)$data2['flat']['flat_area'];
+		}
+		
 
-$excel.="<td style='text-align:center;'>$amt</td>";
-}}
-$n=5;
-for($y=0; $y<sizeof(@$ih_det); $y++)
-{
-$charge4 = $ih_det[$y];
-$ih_id6 = (int)$charge4[0];
-if($ih_id6 == 43)
-{
-$n=55;
-$amt2 = $charge4[1];
-$tt_noc_amt = $tt_noc_amt + $amt2;
-$excel.="<td style='text-align:center;'>$amt2</td>";
-}}
-
-if($n == 5)
-{
-$excel.="<td style='text-align:center;'> 0 </td>";	
+$excel.="$wing_flat \t $user_name \t $sq_feet \t $bill_no";
+			foreach($income_heads as $income_head){ 
+			$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($income_head)));	
+			foreach($result_income_head as $data2){
+				$income_head_name = $data2['ledger_account']['ledger_name'];
+				$income_head_id = $data2['ledger_account']['auto_id'];
+			 $in_amount = $income_head_array[$income_head_id];
+			 }
+			 $excel.="\t $in_amount";
+			 } 
+			$excel.="\t $noc_charges \t $total \t $arrear_maintenance \t $arrear_intrest \t $intrest_on_arrears \t $due_for_payment \n";
 }
-$excel.="
-<td style='text-align:center;'>$current_amt</td>
-<td style='text-align:center;'>";
-if(!empty($penalty_amt)) { $excel.="$penalty_amt";
-} else { $excel.="0"; } 
-$excel.="
-</td>
-<td style='text-align:center;'>$arrears_amt</td>
-<td style='text-align:center;'>$int_show_arrears</td>
-<td style='text-align:center;'>$gt_amt</td>
-</tr>";
-}
-$excel.="<tr>
-<th colspan='4'>Total</th>";
-for($v=0; $v<sizeof(@$ih_tt_amt); $v++)
-{
-$tt_amt = $ih_tt_amt[$v];	
-$excel.="<th>$tt_amt</th>";
-}
-$excel.="<th>$tt_noc_amt</th>
-<th>$tt_current_amt</th>
-<th>$total_penalty_amt</th>
-<th>$total_arrears_amt</th>
-<th>$total_arrears_penalty</th>
-<th>$tt_gt_amt</th>
-</tr>
-</table>";
-
 echo $excel;
 }
 ///////////////////////// End In Head Excel///////////////////////////////////////

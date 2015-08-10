@@ -4,6 +4,7 @@ foreach($result_society as $data){
 }
 ?>
 <div align="right">
+<a href="in_head_excel?one=<?php echo @$one_time_id; ?>" class="btn blue">Export</a>
 <a href="print_all_bill/<?php echo @$one_time_id; ?>" target="_blank" class="btn purple"><i class="icon-print"></i> Print All</a>
 </div>
 <table id="report_tb">
