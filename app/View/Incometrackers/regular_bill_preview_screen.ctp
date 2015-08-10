@@ -72,7 +72,8 @@ td{
 		</thead>
 		<tbody>
 		<?php 
-		$inc=0; $bill_number=1000;
+		$inc=0; 
+		$bill_number = $this->requestAction(array('controller' => 'Hms', 'action' => 'autoincrement_with_society_ticket'),array('pass'=>array('new_regular_bill','bill_no'))); $bill_number--;
 		foreach($result_user as $user){ $inc++; $bill_number++; $total=0; $due_for_payment=0;
 			$user_id=(int)$user["user"]["user_id"];
 			$user_name=$user["user"]["user_name"];
@@ -154,6 +155,9 @@ td{
 				$last_total=$last_bill["new_total"];
 				$last_arrear_maintenance=$last_bill["new_arrear_maintenance"];
 			}
+			
+			
+			
 			
 			?>
 			<tr>
