@@ -628,10 +628,12 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 			</div>';
 ////END BILL HTML////
 	
-	
+	        $current_date = date('Y-m-d');
+			
+			
 			$this->loadmodel('new_regular_bill');
 			$auto_id=$this->autoincrement('new_regular_bill','auto_id');
-			$this->new_regular_bill->saveAll(array("auto_id" => $auto_id, "flat_id" => $flat_id, "bill_no" => $bill_number, "income_head_array" => $income_head_array, "noc_charges" => $noc_charges,"total" => $total, "arrear_maintenance"=> $arrear_maintenance, "arrear_intrest" => $arrear_intrest, "intrest_on_arrears" => $intrest_on_arrears,"due_for_payment" => $due_for_payment,"one_time_id"=>$one_time_id,"society_id"=>$s_society_id,"due_date"=>strtotime($due_date),"bill_start_date"=>strtotime($bill_start_date),"bill_end_date"=>strtotime($bill_end_date),"approval_status"=>0,"bill_html"=>$bill_html,"credit_stock"=>$credit_stock));
+			$this->new_regular_bill->saveAll(array("auto_id" => $auto_id, "flat_id" => $flat_id, "bill_no" => $bill_number, "income_head_array" => $income_head_array, "noc_charges" => $noc_charges,"total" => $total, "arrear_maintenance"=> $arrear_maintenance, "arrear_intrest" => $arrear_intrest, "intrest_on_arrears" => $intrest_on_arrears,"due_for_payment" => $due_for_payment,"one_time_id"=>$one_time_id,"society_id"=>$s_society_id,"due_date"=>strtotime($due_date),"bill_start_date"=>strtotime($bill_start_date),"bill_end_date"=>strtotime($bill_end_date),"approval_status"=>0,"bill_html"=>$bill_html,"credit_stock"=>$credit_stock,"current_date"=>strtotime($current_date)));
 			unset($income_head_array);
 		}
 		$this->response->header('Location','it_regular_bill');
@@ -3416,6 +3418,12 @@ $this->set('society_name',$society_name);
 
 $from = $this->request->query('date1');
 $to = $this->request->query('date2');
+$from_date2 = date('Y-m-d',strtotime($from));
+$to_date2 = date('Y-m-d',strtotime($to));
+
+$from_date3 = strtotime($from_date2);
+$to_date3 = strtotime($to_date2);
+
 $wise = (int)$this->request->query('wise');
 if($wise == 1)
 {
@@ -3437,6 +3445,7 @@ $this->set('from',$from);
 $this->set('to',$to);
 
 $this->loadmodel('new_regular_bill');
+//$conditions=array('society_id'=>$s_society_id,"approval_status"=>1,'new_regular_bill.current_date'=>array('$gte'=>$from_strtotime,'$lte'=>$to_strtotime));
 $conditions=array("society_id"=> $s_society_id,"approval_status"=>1);
 $cursor1=$this->new_regular_bill->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);	
