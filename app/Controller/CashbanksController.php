@@ -360,7 +360,7 @@ $bank_name = $collection['ledger_sub_account']['name'];
 
 $date=date("d-m-Y",($d_date));
 
-$html_receipt.='<div style="width:70%;margin:auto;border:solid 1px;background-color:#FFF;" class="bill_on_screen">';
+$html_receipt='<div style="width:70%;margin:auto;border:solid 1px;background-color:#FFF;" class="bill_on_screen">';
 $html_receipt.='<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'</div>
 <div align="center" style="border-bottom:solid 1px;">
 <span style="font-size:12px;color:rgb(100, 100, 99);">Regn# '.$society_reg_no.'</span><br/>
