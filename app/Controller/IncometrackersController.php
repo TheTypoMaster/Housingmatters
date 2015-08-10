@@ -70,21 +70,22 @@ $this->set('datef1',@$datef1);
 $this->set('datet1',@$datet1);
 $this->set('count',$count);
 
-$this->loadmodel('regular_bill');
-$order=array('regular_bill.regular_bill_id'=> 'ASC');
+$this->loadmodel('new_regular_bill');
+$order=array('new_regular_bill.auto_id'=> 'ASC');
 $conditions=array("society_id" => $s_society_id);
-$cursor=$this->regular_bill->find('all',array('conditions'=>$conditions,'order' =>$order));
+$cursor=$this->new_regular_bill->find('all',array('conditions'=>$conditions,'order' =>$order));
 foreach ($cursor as $collection) 
 {
-$d_from = $collection['regular_bill']['bill_daterange_from'];
-$d_to = $collection['regular_bill']['bill_daterange_to'];
+$d_from = $collection['new_regular_bill']['bill_start_date'];
+$d_to = $collection['new_regular_bill']['bill_end_date'];
 }
+
 
 //$this->set('d_from',@$d_from);
 if(!empty($d_from))
 {
-$datefb = date('Y-m-d',strtotime($d_from));
-$datetb = date('Y-m-d',strtotime($d_to));
+$datefb = date('Y-m-d',($d_from));
+$datetb = date('Y-m-d',$d_to);
 
 $this->set('datefb',$datefb);
 $this->set('datetb',$datetb);
@@ -6155,6 +6156,17 @@ $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
 $cursor1 = $this->society->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);
+
+
+$this->loadmodel('new_regular_bill');
+$order=array('new_regular_bill.auto_id'=> 'ASC');
+$conditions=array("society_id" => $s_society_id);
+$cursor=$this->new_regular_bill->find('all',array('conditions'=>$conditions,'order' =>$order));
+foreach ($cursor as $collection) 
+{
+$d_from = $collection['new_regular_bill']['bill_start_date'];
+$d_to = $collection['new_regular_bill']['bill_end_date'];
+}
 
 /*
 $this->loadmodel('ledger');
