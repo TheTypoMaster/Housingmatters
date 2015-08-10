@@ -445,9 +445,7 @@ $(document).ready(function(){
 		to1 =  new Date(to1);
 		var to1 = to1.toString("dd-MM-yyyy");
 		}
-		
-		
-		
+	
 		
 		var fi = document.getElementById("fi").value;
 		var ti = document.getElementById("ti").value;
