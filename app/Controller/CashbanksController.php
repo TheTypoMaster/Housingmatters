@@ -341,19 +341,14 @@ $wing_flat = "";
 }
 else
 {
-$result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($user_id_d)));
-foreach($result_lsa as $collection)
+$result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($flat_id)));
+foreach ($result_lsa as $collection) 
 {
-$user_id = (int)$collection['ledger_sub_account']['user_id'];
+$wing_id = $collection['user']['wing'];  
+$flat_id = (int)$collection['user']['flat'];
+$tenant = (int)$collection['user']['tenant'];
+$user_name = $collection['user']['user_name'];
 }
-$result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
-											foreach ($result as $collection) 
-											{
-											$wing_id = $collection['user']['wing'];  
-											$flat_id = (int)$collection['user']['flat'];
-											$tenant = (int)$collection['user']['tenant'];
-											$user_name = $collection['user']['user_name'];
-											}	
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action'=>'wing_flat'),array('pass'=>array($wing_id,$flat_id)));									
 }  
 $result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($sub_account))); 
