@@ -304,18 +304,38 @@ $(document).ready(function() {
 });
 function calculation(row_id){
 	$(document).ready(function() {
-		var total=0;
+		var total=0; var due_for_payment=0;
 		var income_head_count=$('#income_head_count').val();
 		for(var i=1;i<=income_head_count;i++){
 			var income_head_vlaue=parseFloat($('#income_head'+i+row_id).val());
-			if(income_head_vlaue=="NaN"){
-				income_head_vlaue=0;
-			}
+			if($.isNumeric(income_head_vlaue)==false){ income_head_vlaue=0; }
 			total=total+income_head_vlaue;
+			
 		}
 		var noc_charges=parseFloat($('input[name=noc_charges'+row_id+']').val());
+		if($.isNumeric(noc_charges)==false){ noc_charges=0; }
 		total=total+noc_charges;
 		$('input[name=total'+row_id+']').val(total);
+		
+		var arrear_maintenance=parseFloat($('input[name=arrear_maintenance'+row_id+']').val());
+		if($.isNumeric(arrear_maintenance)==false){ arrear_maintenance=0; }
+		due_for_payment=due_for_payment+total;
+		due_for_payment=due_for_payment+arrear_maintenance;
+		
+		var arrear_intrest=parseFloat($('input[name=arrear_intrest'+row_id+']').val());
+		if($.isNumeric(arrear_intrest)==false){ arrear_intrest=0; }
+		due_for_payment=due_for_payment+arrear_intrest;
+		
+		var intrest_on_arrears=parseFloat($('input[name=intrest_on_arrears'+row_id+']').val());
+		if($.isNumeric(intrest_on_arrears)==false){ intrest_on_arrears=0; }
+		due_for_payment=due_for_payment+intrest_on_arrears;
+		
+		var credit_stock=parseFloat($('input[name=credit_stock'+row_id+']').val());
+		if($.isNumeric(credit_stock)==false){ credit_stock=0; }
+		due_for_payment=due_for_payment-credit_stock;
+		
+		$('input[name=due_for_payment'+row_id+']').val(due_for_payment);
+		
 	});
 }
 </script>
