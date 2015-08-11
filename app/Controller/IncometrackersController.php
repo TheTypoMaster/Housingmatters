@@ -3441,6 +3441,7 @@ else if($wise == 3)
 $bill_number = (int)$this->request->query('user');
 $this->set('bill_number',$bill_number);
 }
+
 $this->set('wise',$wise);
 $this->set('from',$from);
 $this->set('to',$to);
@@ -3450,6 +3451,11 @@ $conditions=array('society_id'=>$s_society_id,"approval_status"=>1,'new_regular_
 //$conditions=array("society_id"=> $s_society_id,"approval_status"=>1);
 $cursor1=$this->new_regular_bill->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);	
+
+
+
+
+
 
 }
 ///////////////////////// End regular report show ajax///////////////////////////////
