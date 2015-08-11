@@ -9,9 +9,9 @@
 </center>
 	<table class="table table-bordered">
 		<tr>
-			<th>Wing</th>
-			<th>Unit number</th>
-            <th>Delete</th>
+			<th width="40%">Wing</th>
+			<th width="40%">Unit number</th>
+            <th width="20%">Delete</th>
 		</tr>
 	</table>
 	<table class="table table-bordered" id="flats_main">
@@ -22,7 +22,7 @@
 	$j++;
 	?>
 		<tr id="tr<?php echo $j; ?>">
-			<td width="50%">
+			<td width="40%">
 				<select class="span6 m-wrap" data-placeholder="Choose a Category" tabindex="1">
 				<option value="">Select...</option>
 				<?php foreach($result_wing as $wdata){
@@ -34,8 +34,8 @@
 				
 				</select>
 			</td>
-			<td width="50%"><input type="text" class="m-wrap span7" maxlength="10" value="<?php echo $data[1]; ?>"></td>
-            <td><a href="#" role="button" class="btn mini red delete" del="<?php echo $j; ?>"><i class="icon-remove icon-white"></i></a></td>
+			<td width="40%"><input type="text" class="m-wrap span7" maxlength="10" value="<?php echo $data[1]; ?>"></td>
+            <td width="20%"><a href="#" role="button" class="btn mini red delete" del="<?php echo $j; ?>"><i class="icon-remove icon-white"></i></a></td>
 		</tr>
 	<?php } ?>
 	</table>
