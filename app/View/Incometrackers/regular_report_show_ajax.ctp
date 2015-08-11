@@ -116,6 +116,7 @@ else if($wise == 3)
 <th>Arrears (Int.)</th>
 <th>Interest on Arrears </th>
 <th>Due For Payment</th>
+<th></th>
 </tr>
 <?php
 foreach($cursor1 as $data3){
@@ -171,6 +172,7 @@ if($flat_id == $user_id)
 <td><?php echo $arrear_intrest; ?></td>
 <td><?php echo $intrest_on_arrears; ?></td>
 <td><?php echo $due_for_payment; ?></td>
+<td><a href="regular_bill_pdf/<?php echo $bill_no; ?>" target="_blank" class="btn mini yellow">Pdf</a></td>
 </tr>
 <?php 
 //}
@@ -195,6 +197,7 @@ if($wing_id == $wing)
 <td><?php echo $arrear_intrest; ?></td>
 <td><?php echo $intrest_on_arrears; ?></td>
 <td><?php echo $due_for_payment; ?></td>
+<td><a href="regular_bill_pdf/<?php echo $bill_no; ?>" target="_blank" class="btn mini yellow">Pdf</a></td>
 </tr>	
 <?php 	
 //}
@@ -219,6 +222,7 @@ if($bill_number == $flat_id)
 <td><?php echo $arrear_intrest; ?></td>
 <td><?php echo $intrest_on_arrears; ?></td>
 <td><?php echo $due_for_payment; ?></td>
+<td><a href="regular_bill_pdf/<?php echo $bill_no; ?>" target="_blank" class="btn mini yellow">Pdf</a></td>
 </tr>
 <?php
 //}

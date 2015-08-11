@@ -75,80 +75,14 @@ $bank_name = $collection['ledger_sub_account']['name'];
 
 $date=date("d-m-Y",($d_date));
 
- 
-$q='<div style="width:70%;margin:auto;border:solid 1px;background-color:#FFF;" class="bill_on_screen">';
-$q.='<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'</div>
-<div align="center" style="border-bottom:solid 1px;">
+$q='table style="width:70%; background-color:#FFF;" border="1">';
+$q.='<tr></td>
+<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'</div>
+<div align="center">
 <span style="font-size:12px;color:rgb(100, 100, 99);">Regn# '.$society_reg_no.'</span><br/>
 <span style="font-size:12px;color:rgb(100, 100, 99);">Regn# '.$society_address.'</span>
-</div>
-<table width="100%" >
-<tr>
-<td>
-		<table width="100%" cellpadding="5px">
-			<tr>
-				<td>Receipt No: '.$receipt_no.'</td>
-				<td align="right">Date: '.$date.'</td>
-			</tr>
-			<tr>
-				<td>
-				Received with thanks from:  <b>'.$user_name.' '.$wing_flat.'</b>
-				<br/>
-				Rupees '.$am_in_words.' Only
-				<br/>';
-				if($receipt_mode=="Cheque"){
-					$q.='Via '.$receipt_mode.'-'.$cheque_number.' drawn on '.$which_bank.' dated '.$cheque_date;
-				}
-				else{
-					$q.='Via '.$receipt_mode.'-'.$reference_number.' dated '.$cheque_date;
-				}
-				
-				
-				$q.='<br/>
-				Payment of previous bill
-				</td>
-				<td></td>
-			</tr>
-		</table>
-		<div style="border-bottom:solid 1px;"></div>
-		<table width="100%" cellpadding="5px">
-			<tr>
-				<td><span style="font-size:16px;"> <b>Rs '.$amount.'</b></span><br/>';
-				if($receipt_mode=="Cheque"){
-					$q.='Subject to realization of Cheque(s)';
-				}
-				$q.='</td>
-			</tr>
-		</table>
-		<table width="100%" cellpadding="5px">
-			<tr>
-				<td width="50%"></td>
-				<td align="right">
-				<table width="100%">
-					<tr>
-						<td align="center">
-						For '.$society_name.'
-						</td>
-					</tr>
-				</table>
-				</td>
-			</tr>
-			<tr>
-			<td width="50%"></td>
-			<td align="right">
-			<table width="100%">
-					<tr>
-						<td align="center"><br/>'.$sig_title.'</td>
-					</tr>
-				</table>
-			</td>
-			</tr>
-		</table>
-</td>
-</tr>
-</table>';
-$q.='</div>';
-		
+</div>';
+$q.='</td></tr></table>';		
 	
 
 
