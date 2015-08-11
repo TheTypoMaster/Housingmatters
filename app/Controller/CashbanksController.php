@@ -319,9 +319,14 @@ $which_bank = @$collection['new_cash_bank']['which_bank'];
 $reference_number = @$collection['new_cash_bank']['reference_number'];
 $cheque_date = @$collection['new_cash_bank']['cheque_date'];
 $sub_account = (int)$collection['new_cash_bank']['deposited_bank_id'];
+$sms_date=("d-m-Y",($d_date));
 
 $amount = str_replace( ',', '', $amount );
 $am_in_words=ucwords($this->requestAction(array('controller' => 'hms', 'action' => 'convert_number_to_words'), array('pass' => array($amount))));
+
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor=$this->society->find('all',array('conditions'=>$conditions));
 foreach ($cursor2 as $collection) 
 {
 $society_name = $collection['society']['society_name'];
@@ -461,28 +466,24 @@ foreach($result_society as $data_society){
 $to = "nikhileshvyas4455@gmail.com";
 if($email_is_on_off==1){
 ////email code//
-if(sizeof($email_array)>0){
-foreach($email_array as $to){
+
 $r_sms=$this->hms_sms_ip();
 $working_key=$r_sms->working_key;
 $sms_sender=$r_sms->sms_sender; 
-$subject="[".$society_name."]- Maintanance bill, ".date('d-M',$bill_start_date)." to ".date('d-M-Y',$bill_end_date)."";
+//$subject="[".$society_name."]- Maintanance bill, ".date('d-M',$bill_start_date)." to ".date('d-M-Y',$bill_end_date)."";
+$subject = "Testing";
+
 $this->send_email($to,'accounts@housingmatters.in','HousingMatters',$subject,$html_receipt,'donotreply@housingmatters.in');
-}
-}
+
 }
 	
 
 $mobile_number = "9799463210";	
 if($sms_is_on_off==1){
 
-if(sizeof($mobile_array)>0){
-foreach($mobile_array as $mobile_number){
-$sms="Dear Nikhil ,we have received Rs 10000 on 12/9/2015 towards Society Maint. dues. Cheques are subject to realization,".$society_name;
+$sms="Dear Nikhil ,we have received Rs ".$amount." on ".$sms_date." towards Society Maint. dues. Cheques are subject to realization,".$society_name;
 $sms1=str_replace(' ', '+', $sms);
 $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_number.'&message='.$sms1.''); 
-}
-}
 }	
 //////////////////////////////////////////////////////////////////////////////
 		
