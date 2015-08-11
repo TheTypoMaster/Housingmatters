@@ -784,6 +784,7 @@ function governance_invite_view1($id)
 	$this->layout='session';
 	}
 	$this->ath();
+	
 	 $s_society_id=$this->Session->read('society_id');
 		$result_society=$this->society_name($s_society_id);
 		foreach($result_society as $data)
@@ -791,6 +792,7 @@ function governance_invite_view1($id)
 			$society_name=$data['society']['society_name'];
 			$this->set('society_name',$society_name);
 		}
+		$this->set('invite_id',$id);
 	$this->loadmodel('governance_invite');
 	$conditions=array('governance_invite_id'=>(int)$id);
 	$result_gov_inv=$this->governance_invite->find('all',array('conditions'=>$conditions));
@@ -799,6 +801,26 @@ function governance_invite_view1($id)
 
 	
 }
+
+function governace_invite_pdf()
+{
+	$this->layout=null;
+	$invite_id=$this->request->query('con');
+	$s_society_id=$this->Session->read('society_id');
+		$result_society=$this->society_name($s_society_id);
+		foreach($result_society as $data)
+		{
+			$society_name=$data['society']['society_name'];
+			$this->set('society_name',$society_name);
+		}
+	$this->loadmodel('governance_invite');
+	$conditions=array('governance_invite_id'=>(int)$invite_id);
+	$result_gov_inv=$this->governance_invite->find('all',array('conditions'=>$conditions));
+	$this->set('result_gov_invite',$result_gov_inv);	
+
+}
+
+
 function governance_minutes()
 {
 	if($this->RequestHandler->isAjax()){
@@ -879,10 +901,11 @@ function governance_minute_view1($idd){
 	$this->layout='session';
 	}
 	$this->ath();
+	$this->set('governance_minute_id',$idd);
 	 $s_society_id=$this->Session->read('society_id');
 		$result_society=$this->society_name($s_society_id);
-		foreach($result_society as $data)
-		{
+		
+		foreach($result_society as $data){
 			$society_name=$data['society']['society_name'];
 			$this->set('society_name',$society_name);
 		}
@@ -892,12 +915,30 @@ function governance_minute_view1($idd){
 	$this->set('result_gov_minute',$result_gov_inv);
 
 }
+
+
+function governace_minute_pdf(){
+	$this->layout=null;	
+	$governance_minute_id=$this->request->query('con');
+	 $s_society_id=$this->Session->read('society_id');
+		$result_society=$this->society_name($s_society_id);
+		
+		foreach($result_society as $data){
+			$society_name=$data['society']['society_name'];
+			$this->set('society_name',$society_name);
+		}
+	$this->loadmodel('governance_minute');
+	$conditions=array('governance_minute_id'=>(int)$governance_minute_id);
+	$result_gov_inv=$this->governance_minute->find('all',array('conditions'=>$conditions));
+	$this->set('result_gov_minute',$result_gov_inv);
+	
+	
+}
 function governance_minute_submit()
 {
 	
 	$this->layout=null;
 	$post_data=$this->request->data;
-	
 	$this->ath();
 	$s_society_id=$this->Session->read('society_id');
 	$s_role_id=$this->Session->read('role_id'); 
@@ -905,10 +946,12 @@ function governance_minute_submit()
 	$ip=$this->hms_email_ip();	
 	$present_user1=$post_data['present_user'];
 	$meeting_id=(int)$post_data['meeting_id'];
-	$meeting_agenda_input=$post_data['meeting_agenda_input'];
-	$meeting_agenda_textarea=$post_data['meeting_agenda_textarea'];
-	$meeting_agenda_input=explode(",",$meeting_agenda_input);
-	$meeting_agenda_textarea=explode(",",$meeting_agenda_textarea);
+	$minute_agenda=$post_data['minute_agenda'];
+	$minute_agenda=explode(",",$minute_agenda);
+	//$meeting_agenda_input=$post_data['meeting_agenda_input'];
+	//$meeting_agenda_textarea=$post_data['meeting_agenda_textarea'];
+	//$meeting_agenda_input=explode(",",$meeting_agenda_input);
+	//$meeting_agenda_textarea=explode(",",$meeting_agenda_textarea);
 	$present_user12=explode(",",$present_user1);
 			foreach($present_user12 as $data4){
 				$present_user[]=(int)$data4;
@@ -936,22 +979,32 @@ function governance_minute_submit()
 				@$file_att='<br/><a href="'.$ip.'/'.$this->webroot.'governances_file/'.$file_name.'" download>Download attachment</a>';
 				}
 
-	
+	/*
 			$message="";
 		for($z=0;$z<sizeof($meeting_agenda_input);$z++){
 			
 			$message[]=array($meeting_agenda_input[$z],$meeting_agenda_textarea[$z]);
-		}
-		
+			}
+		*/
 			$this->loadmodel('governance_invite');
 			$conditions=array("governance_invite_id"=>$meeting_id);
 			$result_gov_int=$this->governance_invite->find("all",array('conditions'=>$conditions));
 				foreach($result_gov_int as $data){
 					
 					$user=$data['governance_invite']['user'];
+					$message1=$data['governance_invite']['message'];
 					
 				}
 				
+				foreach($message1 as $key=> $value){
+					
+					$value[]=$minute_agenda[$key];
+					$message[]=$value;
+					//$value=array();
+					
+					
+				}
+					
 				$user1=array_merge($user,$present_user);
 				$user=array_unique($user1);
 				$user=array_values($user);
@@ -969,7 +1022,7 @@ function governance_minute_submit()
 				
 	/////////////////// // End //////////////////////////
 	////////////////////////////// Email code start //////////////////////////////////
-	
+	/*
 				foreach($user as $data){
 					$result_user=$this->profile_picture($data);
 					$to=@$result_user[0]['user']['email'];
@@ -1006,7 +1059,7 @@ function governance_minute_submit()
 						$title="";
 						
 				}
-	
+	*/
 	
 	//////////////////////////////// End ////////////////////////////////////////
 	

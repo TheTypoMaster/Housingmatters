@@ -14,7 +14,42 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <form method="post" id="contact-form" name="myform" enctype="multipart/form-data" >
 <div id="output"></div>
 
-<label style="font-size:14px; font-weight:bold;">Present attendees </label>
+<!-------------------------->
+<div class="row-fluid">
+
+<div class="span6 responsive">
+<label style="font-size:14px; font-weight:bold;">Meeting ID</label>
+<div class="controls">
+ <select name="meeting_id" id="meeting_id" class="chosen span12">
+ <option></option>
+ <?php
+		foreach($result_governance_invite as $data)
+		{
+		   $gov_invite_id=$data['governance_invite']['governance_invite_id'];
+		    $subject=$data['governance_invite']['subject'];
+			$date=$data['governance_invite']['date'];
+			$time=$data['governance_invite']['time'];
+			$location=$data['governance_invite']['location'];
+	 
+ ?>
+ <option value="<?php echo $gov_invite_id ; ?>"<?php if($gov_invite_id2==$gov_invite_id){?> selected="selected" <?php } ?>> <?php echo $gov_invite_id ; ?> , <?php echo $subject ; ?></option>
+ <?php } ?>
+ </select>
+ <label report="subject" class="remove_report"></label>
+</div>
+
+</div>
+
+<div class="span6 responsive">
+<label style="font-size:14px; font-weight:bold;"><span>Date </span> <span style="margin-left:50px;"> Time </span> <span style="margin-left:50px;"> Location </span></label> 
+<span> <?php echo @$date ; ?> </span> <span style="margin-left:15px;"> <?php echo @$time ; ?> </span> <span style="margin-left:30px;"> <?php echo @$location ; ?> </span>
+</div>
+</div>
+<!-------------------------->
+
+
+
+<label style="font-size:14px; font-weight:bold;">Select attendees present </label>
 
 <!------------------------->
 <div class="control-group" id="d1" >
@@ -54,67 +89,61 @@ $flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat')
 
 
 <!--------------------------->
-<!-------------------------->
-<div class="row-fluid">
 
-<div class="span6 responsive">
-<label style="font-size:14px; font-weight:bold;">Meeting ID</label>
-<div class="controls">
- <select name="meeting_id" id="meeting_id" class="chosen">
- <option></option>
- <?php
-		foreach($result_governance_invite as $data)
-		{
-		   $gov_invite_id=$data['governance_invite']['governance_invite_id'];
-	 
- ?>
- <option value="<?php echo $gov_invite_id ; ?>"<?php if($gov_invite_id2==$gov_invite_id){?> selected="selected" <?php } ?>> <?php echo $gov_invite_id ; ?> </option>
- <?php } ?>
- </select>
- <label report="subject" class="remove_report"></label>
-</div>
-
-</div>
-</div>
-<!-------------------------->
 
 
 <div class="row-fluid">
+<table border="0" width="100%" id="count_table">
+<thead>
+<tr>
+<td width="70%"><b> Agenda </b></td><td> <b> Minutes </b></td></tr>
 
-<div class="span6 responsive">
-<label style="font-size:14px; font-weight:bold;">Agenda</label>
-<div class="controls">
- <select name="meeting_id2" id="meeting_id2" class="chosen change_ag span12">
- <option></option>
+</thead>
+<tbody>
  <?php
+ $z=0;
 		foreach($result_governance_invite as $data){
 		   $gov_invite_id=$data['governance_invite']['governance_invite_id'];
 		   $message=$data['governance_invite']['message'];
-		   foreach($message as $key=>$ag){
-			   
+
+		  foreach($message as $data){
+			  $z++;
+			  
+			  $data[1];
+			  ?>
+			  <tr>
+			  <td>
+			  <?php echo $z; ?> <?php echo urldecode($data[0]); ?><br/> <?php echo urldecode($data[1]); ?>
+			  </td>
+			  <td>
+			  <textarea name="min_<?php echo $z; ?>"></textarea>
+			  </td>
+			  </tr>
+			 <?php 
+		  }
+		}		   
  ?>
- <option value="<?php echo $key ?>"> <?php echo urldecode($ag[0]) ; ?> </option>
-		   <?php } } ?>
- </select>
- <label report="subject" class="remove_report"></label>
-</div>
+ </tbody>
+ </table>
+ 
+		  
+ 
 
-</div>
-</div>
 
-<div id="show_id" style="width:70%">
 </div>
 
 
 
-<label style="font-size:14px; font-weight:bold;">Approval of Minutes</label>
+
+
+<!--<label style="font-size:14px; font-weight:bold;">Minutes</label>
 <div id="url_main">
 <div >
 <input type="text" class="m-wrap span4"  id="nu" name='comm_1' placeholder='Agenda' style="height: 50px!important;">
 <textarea class="span4" name="comment_1" placeholder="description" ></textarea>
 <a href="#" role="button" id="add_row" class="btn  mini"><i class="icon-plus-sign"></i></a>
 </div>
-</div>
+</div>-->
 
 
 <div class="control-group">
@@ -192,21 +221,29 @@ $('form#contact-form').submit( function(ev){
 	var m_data = new FormData(); 
 	var present_user=$('select[name=multi]').val();
 	var meeting_id=$('select[name=meeting_id]').val();
-	
 	m_data.append( 'present_user',present_user );
 	m_data.append( 'meeting_id',meeting_id );
 	m_data.append( 'file', $('input[name=file]')[0].files[0]);
-	var count = $("#url_main div").length;
-	var comm = []; var comments = []; 
-	for(var i=1;i<=count;i++)
+	var count1 = $("table#count_table tbody tr").length;
+	var minute = [];
+	for(var j=1;j<=count1;j++)
 	{
-		var c=encodeURIComponent($('input[name=comm_'+i+']').val());
-		var d=encodeURIComponent($('textarea[name=comment_'+i+']').val());
-		comm.push([c]);
-		comments.push([d]);
+		var min=encodeURIComponent($('textarea[name=min_'+j+']').val());
+		minute.push([min]);
 	}
-	m_data.append('meeting_agenda_input',comm );
-	m_data.append('meeting_agenda_textarea',comments);
+	m_data.append('minute_agenda',minute);
+	//var count = $("#url_main div").length;
+	
+	//var comm = []; var comments = []; 
+	//for(var i=1;i<=count;i++)
+	//{
+	//	var c=encodeURIComponent($('input[name=comm_'+i+']').val());
+	//	var d=encodeURIComponent($('textarea[name=comment_'+i+']').val());
+	//	comm.push([c]);
+	//	comments.push([d]);
+	//}
+	//m_data.append('meeting_agenda_input',comm );
+//	m_data.append('meeting_agenda_textarea',comments);
 	$.ajax({
 			url: "governance_minute_submit",
 			data: m_data,

@@ -62,14 +62,6 @@ $flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat')
 
 <div style="display:none;" id="d2" >
 
-
-<!--<div class="controls">
- <input type="text" name="other_user" id="other_user" class="span5 m-wrap">
- <label id="other_user"></label>
-</div>-->
-
-
-
 <?php
 foreach ($result_group as $collection) 
 {
@@ -163,6 +155,9 @@ $group_id=$collection["group"]["group_id"];
 
 
 
+<div class="row-fluid">
+
+<div class="span6 responsive">
 
 <div class="control-group">
 		<label style="font-size:14px; font-weight:bold;">Type of Meeting</label>
@@ -182,12 +177,17 @@ $group_id=$collection["group"]["group_id"];
 		 
 		</div>
 </div>
-
-<label style="font-size:14px; font-weight:bold;">Meeting Title</label>
+</div>
+<div class="span6 responsive">
+ <label style="font-size:14px; font-weight:bold;">Meeting Title</label>
 <div class="controls">
- <input type="text" name="subject" id="subject" class="span5 m-wrap">
+ <input type="text" name="subject" id="subject" class="span12 m-wrap">
  <label report="subject" class="remove_report"></label>
 </div>
+</div>
+
+</div>
+
 <!-------------------------->
 
 
@@ -259,11 +259,11 @@ $group_id=$collection["group"]["group_id"];
 
 <label style="font-size:14px; font-weight:bold;">Content for Meeting agenda</label>
 <div id="url_main">
-<div >
-<input type="text" class="m-wrap span2"  id="num" name='time_1' placeholder=''>
-<input type="text" class="m-wrap span4"  id="nu" name='comm_1' placeholder='Agenda1.'>
+<div>
+<input type="text" class="m-wrap span2"  id="num" name='time_1' placeholder="Time" style="height: 50px!important;">
+<input type="text" class="m-wrap span4"  id="nu" name='comm_1' placeholder='Agenda1'style="height: 50px!important;">
 <textarea class="span4" name="comment_1" placeholder="description" ></textarea>
-<a href="#" role="button" id="add_row" class="btn  mini"><i class="icon-plus-sign"></i> Add row</a>
+<a href="#" role="button" id="add_row" class="btn  mini"><i class="icon-plus-sign"></i> </a>
 </div>
 </div>
 
@@ -311,7 +311,7 @@ $("#add_row").bind('click',function(){
 	count++;
 	var agenda="Agenda";
 	$("#hid_v").val(count);
-	$("#url_main").append('<div class="content_'+count+'"><input type="text" class="m-wrap span2"  id="nu" name="time_'+count+'" > <input type="text" class="m-wrap span4"  id="nu" name="comm_'+count+'" placeholder='+agenda+count+'> <textarea class="span4" name="comment_'+count+'" placeholder="description" ></textarea> <a href="#" role="button" id='+count+' class="btn black mini delete_btn"><i class="icon-remove-sign"></i></a></div>');
+	$("#url_main").append('<div class="content_'+count+'"><input type="text" class="m-wrap span2" placeholder="Time" id="nu" name="time_'+count+'" style="height: 50px!important;"> <input type="text" class="m-wrap span4"  id="nu" name="comm_'+count+'" placeholder='+agenda+count+' style="height: 50px!important;"> <textarea class="span4" name="comment_'+count+'" placeholder="description" ></textarea> <a href="#" role="button" id='+count+' class="btn black mini delete_btn"><i class="icon-remove-sign"></i></a></div>');
 
 
 });
@@ -321,116 +321,6 @@ $('.content_'+id).remove();
 });
 });
 </script>
-
-
-
-
-<!--<script>
-
-
-$.validator.addMethod('requirecheck1', function (value, element) {
-	 return $('.requirecheck1:checked').size() > 0;
-}, 'Please check at least one role.');
-
-$.validator.addMethod('requirecheck2', function (value, element) {
-	 return $('.requirecheck2:checked').size() > 0;
-}, 'Please check at least one wing.');
-
-$.validator.addMethod('requirecheck3', function (value, element) {
-	 return $('.requirecheck3:checked').size() > 0;
-}, 'Please check at least one group.');
-
-$.validator.addMethod('filesize', function(value, element, param) {
-    // param = size (en bytes) 
-    // element = element to validate (<input>)
-    // value = value of the element (file name)
-    return this.optional(element) || (element.files[0].size <= param) 
-});
-
-
-
-
-
-$(document).ready(function(){
-
-			var checkboxes = $('.requirecheck1');
-			var checkbox_names = $.map(checkboxes, function(e, i) {
-				return $(e).attr("name")
-			}).join(" ");
-			
-			
-			var checkboxes2 = $('.requirecheck2');
-			var checkbox_names2 = $.map(checkboxes2, function(e, i) {
-				return $(e).attr("name")
-			}).join(" ");
-			
-			var checkboxes3 = $('.requirecheck3');
-			var checkbox_names3 = $.map(checkboxes3, function(e, i) {
-				return $(e).attr("name")
-			}).join(" ");
-
-$('#contact-form').validate({
-ignore: ".ignore",
-			errorElement: "label",
-                    //place all errors in a <div id="errors"> element
-                    errorPlacement: function(error, element) {
-                        //error.appendTo("label#errors");
-						error.appendTo('label#' + element.attr('id'));
-                    }, 
-	    groups: {
-            asdfg: checkbox_names,
-			qwerty: checkbox_names2,
-			qwerty2: checkbox_names3
-        },
-	
-
-rules: {
-  subject: {
-	required: true
-  },
-   "multi[]": {
-	required: true,
-  },
-   email: {
-	required: true
-  },
-  notice_visible_to: {
-   
-	required: true
-  },
- file: {
-		accept: "png,jpg",
-		filesize: 2097152
-	  },
-  
-  
-
-},
-
-messages: {
-			"multi[]": {
-				required: "Please select at-least one recipient."
-			},
-			file: {
-					accept: "File extension must be png or jpg",
-					filesize: "File size must be less than 2MB."
-				},
-		},
-	highlight: function(element) {
-		$(element).closest('.control-group').removeClass('success').addClass('error');
-	},
-	success: function(element) {
-		element
-		.text('OK!').addClass('valid')
-		.closest('.control-group').removeClass('error').addClass('success');
-	},
-	
-});
-
-}); 
-</script>-->
-
-
 
 <script>
 $(document).ready(function(){
