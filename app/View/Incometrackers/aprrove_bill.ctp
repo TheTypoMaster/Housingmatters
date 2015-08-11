@@ -13,7 +13,7 @@ th{
 }
 th,td{
 	padding:2px;
-	font-size: 12px;border:solid 1px #FFB848;
+	font-size: 12px;border:solid 1px #FFB848; height:20px;
 }
 .text_bx{
 	width: 50px;
@@ -39,10 +39,10 @@ foreach($result_society as $data){
 <table >
 	<thead>
 		<tr>
-			<th>Unit Number</th>
-			<th>Name</th>
-			<th>Area</th>
-			<th>Bill No.</th>
+			<th width="100px">Unit Number</th>
+			<th width="40px">Name</th>
+			<th width="40px">Area</th>
+			<th width="70px">Bill No.</th>
 			<?php foreach($income_heads as $income_head){ 
 			$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($income_head)));	
 			foreach($result_income_head as $data2){
@@ -50,12 +50,12 @@ foreach($result_society as $data){
 			} ?>
 			<th><?php echo $income_head_name; ?></th>	
 			<?php } ?>
-			<th>Non Occupancy charges</th>
-			<th>Total</th>
-			<th>Arrears (Maint.)</th>
-			<th>Arrears (Int.)</th>
-			<th>Interest on Arrears </th>
-			<th>Due For Payment</th>
+			<th width="170px">Non Occupancy charges</th>
+			<th width="50px">Total</th>
+			<th width="120px">Arrears (Maint.)</th>
+			<th width="120px">Arrears (Int.)</th>
+			<th width="120px">Interest on Arrears </th>
+			<th width="120px">Due For Payment</th>
 			<th><input style="opacity: 0;" value="" type="checkbox" id="select_all" onclick="select_all_check()"></th>
 		</tr>
 	</thead>
