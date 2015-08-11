@@ -6323,7 +6323,9 @@ $this->send_email($email,$from,$from_name,$subject,$html,$reply);
 
 }
 /////////////////////////////////////// Start Bill bill_reminder ////////////////////////////////////////////////
-
+function test_page(){
+	$this->layout='session';
+}
 
 }
 ?>
