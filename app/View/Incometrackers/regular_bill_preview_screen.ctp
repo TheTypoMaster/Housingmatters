@@ -20,14 +20,14 @@ foreach($result_society as $data){
 	width: 60px;
 	height: 25px !important;
 	margin-bottom: 0px !important;
-	font-size: 12px;
+	font-size: 10px;
 }
 .text_rdoff{
 	width: 60px;
 	height: 25px !important;
 	border: none !important;
 	margin-bottom: 0px !important;
-	font-size: 12px;
+	font-size: 10px;
 }
 
 </style>
@@ -39,6 +39,7 @@ foreach($result_society as $data){
 <div style="font-size:14px;">from <b><?php echo date("d-M",strtotime($bill_start_date)); ?></b> to <b><?php echo date("d-M-Y",strtotime($bill_end_date)); ?></b></div>
 </div>
 
+<form method="Post" >
 <div class="container">
 	<div class="component">
 		<table class="overflow-y">
@@ -290,6 +291,11 @@ foreach($result_society as $data){
 		</table>
 	</div>
 </div>
+<div style="padding-right:20%">
+	<button type="submit" name="generate_bill" class="btn blue pull-right">Generate Bill</button>
+	<a href="it_regular_bill" class="btn pull-right"><i class="icon-arrow-left"></i> Back</a>
+</div>
+</form>
 <input type="hidden" value="<?php echo sizeof($income_heads); ?>" id="income_head_count"/>
 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
