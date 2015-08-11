@@ -326,7 +326,7 @@ $am_in_words=ucwords($this->requestAction(array('controller' => 'hms', 'action' 
 
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
-$cursor=$this->society->find('all',array('conditions'=>$conditions));
+$cursor2=$this->society->find('all',array('conditions'=>$conditions));
 foreach ($cursor2 as $collection) 
 {
 $society_name = $collection['society']['society_name'];
