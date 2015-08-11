@@ -123,6 +123,7 @@ $total_debit =  $total_debit + $amount;
 <td class="hide_at_print">
 <a href="bank_receipt_html_view/<?php echo $receipt_no; ?>" target="_blank" class="btn mini yellow">View</a>
 <a href="b_receipt_edit/<?php echo $receipt_no; ?>" class="btn mini yellow">Edit</a> 
+<a href="bank_receipt_pdf/<?php echo $receipt_no; ?>" target="_blank"   class="btn mini yellow">Pdf</a>
 </td>
 </tr>
 <?php	

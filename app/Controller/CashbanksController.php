@@ -2297,31 +2297,29 @@ $this->set('i_head',$i_head);
 ////////////////////////////// End Bank Receipt Amount Ajax(Accounts)/////////////////////////////////////
 
 /////////////////////////// Start Bank Receipt Pdf (Accounts)//////////////////////////////////////
-function bank_receipt_pdf()
+function bank_receipt_pdf($receipt_no=null)
 {
 $this->layout = 'pdf'; //this will use the pdf.ctp layout 
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
 
-$module_id = (int)$this->request->query('m');
-$trns_id = (int)$this->request->query('c');
-$this->set('trns_id',$trns_id);
-$this->set('module_id',$module_id);
+$receipt_no = (int)$receipt_no;
 
-$this->loadmodel('cash_bank');
-$conditions=array("transaction_id" => $trns_id,"module_id"=>$module_id);
-$cursor1=$this->cash_bank->find('all',array('conditions'=>$conditions));
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id = (int)$this->Session->read('user_id');	
+
+
+$this->loadmodel('new_cash_bank');
+$conditions=array("receipt_id" => $receipt_no,"society_id"=>$s_society_id);
+$cursor1=$this->new_cash_bank->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);
-
-
 
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
 $cursor2=$this->society->find('all',array('conditions'=>$conditions));
 $this->set('cursor2',$cursor2);
-
-
 
 }
 
@@ -4147,7 +4145,7 @@ $s_user_id = (int)$this->Session->read('user_id');
 
 
 $this->loadmodel('new_cash_bank');
-$conditions=array("receipt_id" => $receipt_no);
+$conditions=array("receipt_id" => $receipt_no,"society_id"=>$s_society_id);
 $cursor1=$this->new_cash_bank->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);
 
