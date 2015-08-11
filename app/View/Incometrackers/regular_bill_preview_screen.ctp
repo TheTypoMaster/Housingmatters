@@ -290,7 +290,8 @@ foreach($result_society as $data){
 		</table>
 	</div>
 </div>
-<input type="text" value="<?php echo sizeof($income_heads); ?>" id="income_head_count"/>
+<input type="hidden" value="<?php echo sizeof($income_heads); ?>" id="income_head_count"/>
+
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
 <script src="<?php echo $webroot_path; ?>table/js/jquery.stickyheader.js"></script>
 
@@ -303,13 +304,18 @@ $(document).ready(function() {
 });
 function calculation(row_id){
 	$(document).ready(function() {
+		var total=0;
 		var income_head_count=$('#income_head_count').val();
 		for(var i=1;i<=income_head_count;i++){
-			var income_head_vlaue=$('#income_head'+i+row_id).val();
-			alert(income_head_vlaue);
+			var income_head_vlaue=parseFloat($('#income_head'+i+row_id).val());
+			if(income_head_vlaue=="NaN"){
+				income_head_vlaue=0;
+			}
+			total=total+income_head_vlaue;
 		}
-		var noc_charges=$('input[name=noc_charges'+row_id+']').val();
-		alert(noc_charges);
+		var noc_charges=parseFloat($('input[name=noc_charges'+row_id+']').val());
+		total=total+noc_charges;
+		$('input[name=total'+row_id+']').val(total);
 	});
 }
 </script>
