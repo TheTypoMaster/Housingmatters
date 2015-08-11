@@ -88,12 +88,13 @@ if($id==102)
 		
 		
 	}
-	
-
-
 
 /////////////////////  End ///////////////////////////////
 
+//bill update//
+if($id==1111){
+	$this->Session->delete('bill_updated');
+}
 
 /////////////////////// End session_code //////////////////
 	
@@ -13614,19 +13615,7 @@ $this->Session->write('profile_status', 1);
 $this->response->header('Location', $this->webroot.'Hms/dashboard');
 
 
-?>
-<!----alert--------------
-<div class="modal-backdrop fade in"></div>
-<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-<div class="modal-body" style="font-size:16px;">
- Your profile is successfully update.
-</div> 
-<div class="modal-footer">
-<a href="dashboard" class="btn green">OK</a>
-</div>
-</div>
-<!----alert-------------->
-<?php
+
 	
 }
 

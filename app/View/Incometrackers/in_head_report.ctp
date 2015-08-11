@@ -210,5 +210,26 @@ $('#validate_result').html('<div></div>');
 $("#result").html('<div align="center" style="padding:10px;"><img src="as/loding.gif" />Loding....</div>').load("in_report_ajax?un=" +unic+ "");
 });
 
+
+
+
+
 });
 </script>	
+<?php 
+$bill_updated=(int)$this->Session->read('bill_updated');
+if($bill_updated==1){ ?>
+<script>
+$(document).ready(function() {
+	$.gritter.add({
+		title: '<i class="icon-plus-sign"></i> Income Tracker',
+		text: '<p>Bill Updated Successfully</p>',
+		sticky: false,
+		time: '10000',
+	});
+});
+</script>
+<?php }
+$this->requestAction(array('controller' => 'hms', 'action' => 'griter_notification'), array('pass' => array(1111)));
+?>
+

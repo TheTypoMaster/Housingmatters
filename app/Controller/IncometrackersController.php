@@ -3521,7 +3521,7 @@ function in_head_report(){
 	$result_society=$this->society->find('all',array('conditions'=>$condition)); 
 	$this->set('result_society',$result_society);
 	
-
+	
 
 }
 ///////////////////////// End In head report (Accounts)//////////////////////////
@@ -5298,6 +5298,9 @@ function regular_bill_edit2($auto_id=null){
 		 
 		$this->loadmodel('new_regular_bill');
 		$this->new_regular_bill->updateAll(array('income_head_array'=>$income_head_array,'total'=>$total,'interest_on_arrears'=>$interest_on_arrears,'arrear_maintenance'=>$arrear_maintenance,'arrear_intrest'=>$arrear_intrest,'due_for_payment'=>$due_for_payment,),array('auto_id'=>$auto_id));
+		
+		$this->Session->write('bill_updated', 1);
+		$this->response->header('Location', $this->webroot.'Incometrackers/in_head_report');
 	}
 }
 

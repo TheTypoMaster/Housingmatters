@@ -11,17 +11,19 @@ $result_opening_balance= $this->requestAction(array('controller' => 'Incometrack
 
 
 ?>
-	<div align="center"><h4><?php echo strtoupper($society_name); ?></h4></div>
+	<div align="center" style="color:#606060;">
+		<h4 style="color:#5D9B5D;"><b><?php echo strtoupper($society_name); ?></b></h4>
+		Regn # <?php echo $society_reg_num; ?><br/>
+		<?php echo $society_address; ?><br/>
+		Email: <?php echo $society_email; ?> | Phone : <?php echo $society_phone; ?>
+	</div>
 	<div class="row-fluid" style="font-size:14px;">
 		<div class="span6">
-			<span style="font-size:16px;">Statement of Account</span><br/>
-			<span style="font-size:12px;">From <?php echo date("d-m-Y",strtotime($from)); ?> to <?php echo date("d-m-Y",strtotime($to)); ?></span><br/>
 			For : <?php echo $user_name; ?>
 		</div>
 		<div class="span6" align="right">
-			Regn # <?php echo $society_reg_num; ?><br/>
-			<?php echo $society_address; ?><br/>
-			Email: <?php echo $society_email; ?> | Phone : <?php echo $society_phone; ?>
+			<span style="font-size:16px;">Statement of Account</span><br/>
+			<span style="font-size:12px;">From <?php echo date("d-m-Y",strtotime($from)); ?> to <?php echo date("d-m-Y",strtotime($to)); ?></span>
 		</div>
 	</div>
 	<div>
