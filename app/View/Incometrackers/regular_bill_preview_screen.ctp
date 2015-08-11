@@ -166,21 +166,22 @@ foreach($result_society as $data){
 						<input type="hidden" name="bill_number<?php echo $inc; ?>" value="<?php echo $bill_number; ?>"/>
 						</td>
 						
-						<?php foreach($income_heads as $income_head){ ?>
+						<?php $in_count=0;
+						foreach($income_heads as $income_head){ $in_count++; ?>
 							<td>
 							<?php foreach($charge as $data4){
 								if($data4[0]==$income_head){
 									if($data4[1]==1){
 										$ih_charges=$data4[2];
-										echo '<input type="text" class="text_bx call_calculation" name="income_head'.$income_head.$inc.'" value='.$ih_charges.' row_id="'.$inc.'" />';
+										echo '<input type="text" class="text_bx call_calculation" name="income_head'.$income_head.$inc.'" value='.$ih_charges.' row_id="'.$inc.'" id="income_head'.$in_count.$inc.'" />';
 									}
 									if($data4[1]==2){
 										$ih_charges=$sq_feet*$data4[2];
-										echo '<input type="text" class="text_bx call_calculation" name="income_head'.$income_head.$inc.'" value='.$ih_charges.' row_id="'.$inc.'"  />';
+										echo '<input type="text" class="text_bx call_calculation" name="income_head'.$income_head.$inc.'" value='.$ih_charges.' row_id="'.$inc.'" id="income_head'.$in_count.$inc.'" />';
 									}
 									if($data4[1]==3){
 										$ih_charges=$data4[2];
-										echo '<input type="text" class="text_bx call_calculation" name="income_head'.$income_head.$inc.'" value='.$ih_charges.' row_id="'.$inc.'"  />';
+										echo '<input type="text" class="text_bx call_calculation" name="income_head'.$income_head.$inc.'" value='.$ih_charges.' row_id="'.$inc.'" id="income_head'.$in_count.$inc.'" />';
 									}
 									$total+=$ih_charges;
 								}
@@ -289,7 +290,7 @@ foreach($result_society as $data){
 		</table>
 	</div>
 </div>
-<input type="text" value="<?php echo sizeof($income_heads); ?>" />
+<input type="text" value="<?php echo sizeof($income_heads); ?>" id="income_head_count"/>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
 <script src="<?php echo $webroot_path; ?>table/js/jquery.stickyheader.js"></script>
 
@@ -302,8 +303,13 @@ $(document).ready(function() {
 });
 function calculation(row_id){
 	$(document).ready(function() {
-		alert(row_id);
-		var row_id=$('input[name=title]').attr('row_id');
+		var income_head_count=$('#income_head_count').val();
+		for(var i=1;i<=income_head_count;i++){
+			var income_head_vlaue=$('#income_head'+i+row_id).val();
+			alert(income_head_vlaue);
+		}
+		var noc_charges=$('input[name=noc_charges'+row_id+']').val();
+		alert(noc_charges);
 	});
 }
 </script>
