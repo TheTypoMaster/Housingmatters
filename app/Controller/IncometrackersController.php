@@ -5169,19 +5169,19 @@ $this->set('cursor9',$cursor9);
 }
 ////////////////////////////// End Income Heads Report Ajax(Accounts)////////////////
 ///////////////////////////////// Start Regular Bill Pdf(Accounts)///////////////////////////////////////
-function regular_bill_pdf()
+function regular_bill_pdf($bill_id=null)
 {
 $this->layout = 'pdf'; //this will use the pdf.ctp layout 
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
 
-$bill_id = (int)$this->request->query('p');
-$this->set('bill_id',$bill_id);
-
-$this->loadmodel('regular_bill');
-$conditions=array("regular_bill_id" => $bill_id);
-$cursor1=$this->regular_bill->find('all',array('conditions'=>$conditions));
+//$bill_id = (int)$this->request->query('p');
+//$this->set('bill_id',$bill_id);
+$bill_id = (int)$bill_id;
+$this->loadmodel('new_regular_bill');
+$conditions=array("bill_no" => $bill_id);
+$cursor1=$this->new_regular_bill->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);
 
 $this->loadmodel('society');

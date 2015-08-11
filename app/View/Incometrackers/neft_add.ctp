@@ -10,12 +10,18 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </script>
 </div>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+
+<div style="border:groove 1px;">
+asfasdsadasd
+asdasdasd
+
+</div>
+
+
+
 <?php
 //echo $d = date('Y-m-d',($d_from));
 //echo $t = date('Y-m-d',($d_to));
-
-
-
 foreach($cursor1 as $collection)
 {
 $bank_name = @$collection['society']['bank_name'];	

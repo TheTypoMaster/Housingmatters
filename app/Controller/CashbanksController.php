@@ -319,9 +319,14 @@ $which_bank = @$collection['new_cash_bank']['which_bank'];
 $reference_number = @$collection['new_cash_bank']['reference_number'];
 $cheque_date = @$collection['new_cash_bank']['cheque_date'];
 $sub_account = (int)$collection['new_cash_bank']['deposited_bank_id'];
+$sms_date=date("d-m-Y",($d_date));
 
 $amount = str_replace( ',', '', $amount );
 $am_in_words=ucwords($this->requestAction(array('controller' => 'hms', 'action' => 'convert_number_to_words'), array('pass' => array($amount))));
+
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor2=$this->society->find('all',array('conditions'=>$conditions));
 foreach ($cursor2 as $collection) 
 {
 $society_name = $collection['society']['society_name'];
@@ -336,19 +341,14 @@ $wing_flat = "";
 }
 else
 {
-$result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($user_id_d)));
-foreach($result_lsa as $collection)
+$result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($flat_id)));
+foreach ($result_lsa as $collection) 
 {
-$user_id = (int)$collection['ledger_sub_account']['user_id'];
+$wing_id = $collection['user']['wing'];  
+$flat_id = (int)$collection['user']['flat'];
+$tenant = (int)$collection['user']['tenant'];
+$user_name = $collection['user']['user_name'];
 }
-$result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
-											foreach ($result as $collection) 
-											{
-											$wing_id = $collection['user']['wing'];  
-											$flat_id = (int)$collection['user']['flat'];
-											$tenant = (int)$collection['user']['tenant'];
-											$user_name = $collection['user']['user_name'];
-											}	
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action'=>'wing_flat'),array('pass'=>array($wing_id,$flat_id)));									
 }  
 $result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($sub_account))); 
@@ -461,28 +461,24 @@ foreach($result_society as $data_society){
 $to = "nikhileshvyas4455@gmail.com";
 if($email_is_on_off==1){
 ////email code//
-if(sizeof($email_array)>0){
-foreach($email_array as $to){
+
 $r_sms=$this->hms_sms_ip();
 $working_key=$r_sms->working_key;
 $sms_sender=$r_sms->sms_sender; 
-$subject="[".$society_name."]- Maintanance bill, ".date('d-M',$bill_start_date)." to ".date('d-M-Y',$bill_end_date)."";
+//$subject="[".$society_name."]- Maintanance bill, ".date('d-M',$bill_start_date)." to ".date('d-M-Y',$bill_end_date)."";
+$subject = "Testing";
+
 $this->send_email($to,'accounts@housingmatters.in','HousingMatters',$subject,$html_receipt,'donotreply@housingmatters.in');
-}
-}
+
 }
 	
 
 $mobile_number = "9799463210";	
 if($sms_is_on_off==1){
 
-if(sizeof($mobile_array)>0){
-foreach($mobile_array as $mobile_number){
-$sms="Dear Nikhil ,we have received Rs 10000 on 12/9/2015 towards Society Maint. dues. Cheques are subject to realization,".$society_name;
+$sms="Dear Nikhil ,we have received Rs ".$amount." on ".$sms_date." towards Society Maint. dues. Cheques are subject to realization,".$society_name;
 $sms1=str_replace(' ', '+', $sms);
 $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_number.'&message='.$sms1.''); 
-}
-}
 }	
 //////////////////////////////////////////////////////////////////////////////
 		
@@ -2301,31 +2297,29 @@ $this->set('i_head',$i_head);
 ////////////////////////////// End Bank Receipt Amount Ajax(Accounts)/////////////////////////////////////
 
 /////////////////////////// Start Bank Receipt Pdf (Accounts)//////////////////////////////////////
-function bank_receipt_pdf()
+function bank_receipt_pdf($receipt_no=null)
 {
 $this->layout = 'pdf'; //this will use the pdf.ctp layout 
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
 
-$module_id = (int)$this->request->query('m');
-$trns_id = (int)$this->request->query('c');
-$this->set('trns_id',$trns_id);
-$this->set('module_id',$module_id);
+$receipt_no = (int)$receipt_no;
 
-$this->loadmodel('cash_bank');
-$conditions=array("transaction_id" => $trns_id,"module_id"=>$module_id);
-$cursor1=$this->cash_bank->find('all',array('conditions'=>$conditions));
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id = (int)$this->Session->read('user_id');	
+
+
+$this->loadmodel('new_cash_bank');
+$conditions=array("receipt_id" => $receipt_no,"society_id"=>$s_society_id);
+$cursor1=$this->new_cash_bank->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);
-
-
 
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
 $cursor2=$this->society->find('all',array('conditions'=>$conditions));
 $this->set('cursor2',$cursor2);
-
-
 
 }
 
@@ -4151,7 +4145,7 @@ $s_user_id = (int)$this->Session->read('user_id');
 
 
 $this->loadmodel('new_cash_bank');
-$conditions=array("receipt_id" => $receipt_no);
+$conditions=array("receipt_id" => $receipt_no,"society_id"=>$s_society_id);
 $cursor1=$this->new_cash_bank->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);
 
