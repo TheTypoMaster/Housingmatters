@@ -8,30 +8,22 @@ $neft_detail = $data['society']['neft_detail'];
 }
 if($type == "WW")
 {
-
-foreach($neft_detail as $wing_id => $neft_detail)
-{
 $account_name = "";	
 $bank_name = "";	
 $account_number = "";	
 $branch = "";	
-$ifsc_code = "";	
+$ifsc_code = "";		
 	
-$account_name = @$neft_detail['account_name'];	
-$bank_name = @$neft_detail['bank_name'];
-$account_number = @$neft_detail['account_number'];
-$branch = @$neft_detail['branch'];
-$ifsc_code = @$neft_detail['ifsc_code'];	
+@$neft_detail2 = @$neft_detail[@$wing_id];	
+
+$account_name = @$neft_detail2['account_name'];	
+$bank_name = @$neft_detail2['bank_name'];
+$account_number = @$neft_detail2['account_number'];
+$branch = @$neft_detail2['branch'];
+$ifsc_code = @$neft_detail2['ifsc_code'];	
 }
-}
-else
-{
-$account_name = "";	
-$bank_name = "";	
-$account_number = "";	
-$branch = "";	
-$ifsc_code = "";	
-}
+
+
 
 
 
