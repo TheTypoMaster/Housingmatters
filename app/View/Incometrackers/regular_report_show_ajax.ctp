@@ -66,12 +66,16 @@ $bbb = 555;
 
 }
 }
-else if($wise == 3)
-{
-if($bill_number == $flat_id)
-{	
-$bbb = 555;	
 }
+if($wise == 3)
+{
+//////////////
+foreach($cursor2 as $data3)
+{
+
+		
+	
+$bbb = 555;	
 }
 }
 ?>
@@ -203,14 +207,46 @@ if($wing_id == $wing)
 //}
 }
 }
-else if($wise == 3)
+}
+if($wise == 3)
 {
-if($bill_number == $flat_id)
-{	
-//if($m_from1 <= $date1 && $m_to1 >= $date1)
-//{
-//$date = date('d-m-Y',strtotime($date));						
-//$grand_total = $grand_total + $g_total;	
+////////////////////////////////////
+
+foreach($cursor2 as $data3){
+$auto_id=$data3["new_regular_bill"]["auto_id"];
+$flat_id=$data3["new_regular_bill"]["flat_id"];
+$bill_no=(int)$data3["new_regular_bill"]["bill_no"];
+$income_head_array=$data3["new_regular_bill"]["income_head_array"];
+$noc_charges=$data3["new_regular_bill"]["noc_charges"];
+$total=$data3["new_regular_bill"]["total"];
+$arrear_maintenance=$data3["new_regular_bill"]["arrear_maintenance"];
+$arrear_intrest=$data3["new_regular_bill"]["arrear_intrest"];
+$intrest_on_arrears=$data3["new_regular_bill"]["intrest_on_arrears"];
+$due_for_payment=$data3["new_regular_bill"]["due_for_payment"];
+$bill_start_date = $data3['new_regular_bill']['bill_start_date'];
+
+//wing_id via flat_id//
+$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_id)));
+foreach($result_flat_info as $flat_info){
+$wing_id=$flat_info["flat"]["wing_id"];
+}
+$wing_flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing_id,$flat_id))); 
+
+//user info via flat_id//
+$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($flat_id)));
+foreach($result_user_info as $user_info){
+$user_name=$user_info["user"]["user_name"];
+$bill_for_user = $user_info["user"]["user_id"];
+}
+
+$result_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch2'),array('pass'=>array(@$flat_id,$wing_id))); 
+foreach($result_flat as $data2){
+$flat_type_id = (int)$data2['flat']['flat_type_id'];
+$noc_ch_id = (int)$data2['flat']['noc_ch_tp'];
+$sq_feet = (int)$data2['flat']['flat_area'];
+}
+
+	
 ?>
 <tr>
 <td><?php echo $wing_flat; ?></td>
@@ -228,7 +264,7 @@ if($bill_number == $flat_id)
 //}
 }
 }
-}
+
 ?>
 <!--<tr>
 <th colspan="6" style="text-align:right;">Grand Total</th>

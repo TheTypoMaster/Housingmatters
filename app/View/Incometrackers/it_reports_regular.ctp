@@ -83,7 +83,7 @@ foreach($cursor1 as $collection)
 $flat_id = (int)$collection['new_regular_bill']['flat_id'];	
 $bill_number = $collection['new_regular_bill']['bill_no'];	
 ?>
-<option value="<?php echo $flat_id; ?>"><?php echo $bill_number; ?></option>
+<option value="<?php echo $bill_number; ?>"><?php echo $bill_number; ?></option>
 <?php } ?>
 </select>
 </div>
@@ -145,7 +145,7 @@ $("#result").html('<div align="center" style="padding:10px;"><img src="as/loding
 }
 else if(wise == 3)
 {
-$("#result").html('<div align="center" style="padding:10px;"><img src="as/loding.gif" />Loading....</div>').load("regular_report_show_ajax?date1=" +date1+ "&date2=" +date2+ "&wise=" +wise+ "&user=" +bill+ "");	
+$("#result").html('<div align="center" style="padding:10px;"><img src="as/loding.gif" />Loading....</div>').load("regular_report_show_ajax?&wise=" +wise+ "&user=" +bill+ "");	
 }
 });
 });
@@ -154,18 +154,26 @@ $("#result").html('<div align="center" style="padding:10px;"><img src="as/loding
 <script>
 function wing_wise()
 {
+	$("#date1").removeAttr('disabled');	
+$("#date2").removeAttr('disabled');	
+	
 $("#one").show();	
 $("#two").hide();
 $("#third").hide();		
 }
 function member()
 {
+$("#date1").removeAttr('disabled');	
+$("#date2").removeAttr('disabled');	
 $("#one").hide();	
 $("#two").show();
 $("#third").hide();	
 }
 function bill_wise()
 {
+$("#date1").attr('disabled','disabled');
+$("#date2").attr('disabled','disabled');
+	
 $("#one").hide();	
 $("#two").hide();	
 $("#third").show();	
