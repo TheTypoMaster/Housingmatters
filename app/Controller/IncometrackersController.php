@@ -6259,8 +6259,9 @@ $type = $data['society']['neft_type'];
 }
 if($type == "ALL")
 {
+$neft ="";
 $this->loadmodel('society');
-$this->society->updateAll(array("neft_detail" =>"" ,"neft_type"=>""),array("society_id" => $s_society_id));
+$this->society->updateAll(array("neft_detail" => "","neft_type" => ""),array("society_id" => $s_society_id));
 }
 
 $sub_neft['account_name']=$ac_name;
@@ -6279,6 +6280,7 @@ $neft['account_number']=$ac_number;
 $neft['branch']=$branch;
 $neft['ifsc_code']=$ifsc_code;
 }
+
 
 $this->loadmodel('society');
 $this->society->updateAll(array("neft_detail" => $neft,"neft_type"=>$neft_for),array("society_id" => $s_society_id));
