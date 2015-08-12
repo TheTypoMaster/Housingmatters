@@ -17,7 +17,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 
 
-<div class="span9">
+<div class="span9" style="margin: inherit;">
 	<!-- BEGIN BORDERED TABLE PORTLET-->
 	<div class="portlet box green">
 		<div class="portlet-title">
