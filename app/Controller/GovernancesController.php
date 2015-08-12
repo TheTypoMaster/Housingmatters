@@ -1008,7 +1008,7 @@ function governance_minute_submit()
 				$user1=array_merge($user,$present_user);
 				$user=array_unique($user1);
 				$user=array_values($user);
-				
+				if(!empty($meeting_id)){
 				$date=date("d-m-y");
 				$minut_id=$this->autoincrement('governance_minute','governance_minute_id');
 				$this->loadmodel('governance_minute');
@@ -1019,7 +1019,7 @@ function governance_minute_submit()
 	
 				$this->loadmodel('governance_invite');
 				$this->governance_invite->updateAll(array('agenda_id'=>1),array('governance_invite_id'=>$meeting_id));
-				
+				}
 	/////////////////// // End //////////////////////////
 	////////////////////////////// Email code start //////////////////////////////////
 	/*
