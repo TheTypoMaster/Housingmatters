@@ -160,8 +160,10 @@ foreach ($cursor3 as $db)
 {
 $bank_id = (int)$db['ledger_sub_account']["auto_id"];
 $bank_ac = $db['ledger_sub_account']["name"];
+$bank_account_number = $db['ledger_sub_account']["bank_account"];
+
 ?>
-<option value="<?php echo $bank_id; ?>"><?php echo $bank_ac; ?></option>
+<option value="<?php echo $bank_id; ?>"><?php echo $bank_ac; ?> &nbsp;&nbsp; <?php echo $bank_account_number; ?></option>
 <?php } ?>
 </select>
 <label id="bank"></label>
