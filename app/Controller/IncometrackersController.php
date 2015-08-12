@@ -6263,6 +6263,11 @@ $this->society->updateAll(array("ac_name" => $ac_name,"bank_name"=>$bank_name,"b
 </div>
 <?php
 }
+$this->loadmodel('wing');
+$conditions=array("society_id" => $s_society_id);
+$cursor5 = $this->wing->find('all',array('conditions'=>$conditions));
+$this->set('cursor5',$cursor5);
+
 }
 ////////////////////////////////////////// End NEFT Add //////////////////////////////////////////////////////////////
 /////////////////////////////// Start regular_bill_edit ////////////////////////////////////////////////////////////////

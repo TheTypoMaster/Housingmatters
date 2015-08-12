@@ -57,6 +57,8 @@ $ifsc_code = @$collection['society']['ifsc_code'];
 
 
 
+
+
 <label  style="font-size:14px;">NEFT Detail For<span style="color:red;">*</span> </label>
 <div class="controls">
 <label class="radio">
@@ -69,6 +71,36 @@ Wing Wise
 </label>
 <br />
  <br />
+
+<div id="wing_wise" class="hide">
+<label  style="font-size:14px;">NEFT Detail For<span style="color:red;">*</span> </label>
+<?php
+foreach($cursor5 as $data)
+{
+$wing_name = $data['wing']['wing_name'];
+$wing_id = (int)$data['wing']['wing_id'];	
+?>
+<select name="wing_wise" class="m-wrap span9">
+<option value=""></option>
+
+</select>
+<?php	
+}
+?>
+<br />
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <label style="font-size:14px;">Account Name<span style="color:red;">*</span></label>
@@ -180,12 +212,11 @@ element
 <script>
 function wing_wise()
 {
-alert();	
+$("#wing_wise").show();
 }
 function all_wing()
 {
-alert();	
-	
+$("#wing_wise").hide();	
 }
 
 
