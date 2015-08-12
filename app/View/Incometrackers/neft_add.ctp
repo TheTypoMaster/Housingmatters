@@ -17,11 +17,24 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 //echo $t = date('Y-m-d',($d_to));
 foreach($cursor1 as $collection)
 {
-$bank_name = @$collection['society']['bank_name'];	
-$ac_num = @$collection['society']['ac_num'];
-$branch = @$collection['society']['branch'];
-$account_name = @$collection['society']['ac_name'];
-$ifsc_code = @$collection['society']['ifsc_code'];	
+$type = $collection['society']['neft_type'];
+$neft_detail = $collection['society']['neft_detail'];
+}
+if($type == "ALL")
+{
+$account_name = $neft_detail['account_name'];	
+$bank_name = $neft_detail['bank_name'];
+$account_number = $neft_detail['account_number'];
+$branch = $neft_detail['branch'];
+$ifsc_code = $neft_detail['ifsc_code'];	
+}
+else
+{
+$account_name = "";
+$bank_name = "";
+$account_number = "";
+$branch = "";
+$ifsc_code = "";	
 }
 ?>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
@@ -62,7 +75,7 @@ $ifsc_code = @$collection['society']['ifsc_code'];
 <label  style="font-size:14px;">NEFT Detail For<span style="color:red;">*</span> </label>
 <div class="controls">
 <label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="neft_for" value="ALL" style="opacity: 0;" onclick="all_wing()"></span></div>
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="neft_for" value="ALL" style="opacity: 0;" onclick="all_wing()" checked="checked"></span></div>
 All
 </label>
 <label class="radio">
@@ -72,12 +85,29 @@ Wing Wise
 </div>
 <br />
 
+<div id="show1">
+<label style="font-size:14px;">Account Name<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text" class="m-wrap span9" name="acno" id="acno" value="<?php echo $account_name; ?>">
+<label id="acno"></label>
+</div>
+<br />
+
+<label style="font-size:14px;">Bank Name<span style="color:red;">*</span></label>
+<div class="controls">
+<input type="text" class="m-wrap span9" name="bank_name" id="bnk" value="<?php echo $bank_name; ?>"/>
+<label id="bnk"></label>
+</div>
+<br />
+</div>
+</div>
+<div class="span6">
 
 
 <div id="show_wing" class="hide">
 <label  style="font-size:14px;">Select Wing<span style="color:red;">*</span> </label>
 <div class="controls">
-<select name="select_wing" class="m-wrap span9">
+<select name="select_wing" class="m-wrap span9" id="wwww">
 <option value="" style="display:none;">Select Wing</option>
 <label  style="font-size:14px;">NEFT Detail For<span style="color:red;">*</span> </label>
 <?php
@@ -95,27 +125,11 @@ $wing_id = (int)$data['wing']['wing_id'];
 <br />
 </div>
 
-<label style="font-size:14px;">Account Name<span style="color:red;">*</span></label>
-<div class="controls">
-<input type="text" class="m-wrap span9" name="acno" id="acno" value="<?php echo $account_name; ?>">
-<label id="acno"></label>
-</div>
-<br />
 
-<label style="font-size:14px;">Bank Name<span style="color:red;">*</span></label>
-<div class="controls">
-<input type="text" class="m-wrap span9" name="bank_name" id="bnk" value="<?php echo $bank_name; ?>"/>
-<label id="bnk"></label>
-</div>
-<br />
-
-</div>
-<div class="span6">
-
-
+<div id="show2">
 <label style="font-size:14px;">Account Number<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" name="acnu" class="m-wrap span9" id="acn" value="<?php echo $ac_num; ?>"/>
+<input type="text" name="acnu" class="m-wrap span9" id="acn" value="<?php echo $account_number; ?>"/>
 <label id="acn"></label>
 </div>
 <br />
@@ -135,9 +149,14 @@ $wing_id = (int)$data['wing']['wing_id'];
 <label id="cdd"></label>
 </div>
 <br />
-
+</div>
+</div>
 
 </div>
+
+
+<div id="show_wwww" style="overflow:auto;">
+
 </div>
 <button type="submit" class="btn green" name="sub" value="xyz">Submit</button>
 <a href="<?php echo $webroot_path; ?>Incometrackers/neft_add" class="btn" rel='tab'>Reset</a>
@@ -205,14 +224,35 @@ element
 function wing_wise()
 {
 $("#show_wing").show();
+
+$("#show1").hide();
+$("#show2").hide();
+
+$("#show3").show();
 }
 function all_wing()
 {
+$("#show_wwww").html("");
 $("#show_wing").hide();	
+$("#show1").show();
+$("#show2").show();
+$("#show3").hide();
 }
+</script>
 
+
+
+<script>
+		$(document).ready(function() {
+		$("#wwww").bind('change',function(){
+        var value=$("#wwww").val();	
+		$("#show_wwww").html('Loading...').load("neft_show_ajax?val="+value+"");
+			
+		});
+		});
 
 </script>
+
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php 
 /*

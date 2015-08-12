@@ -6245,13 +6245,18 @@ $neft_for = $this->request->data['neft_for'];
 if($neft_for == "WW")
 {
 $wing_id = $this->request->data['select_wing'];
-
 $this->loadmodel('society');
 $conditions=array("society_id"=>$s_society_id);
 $cursor=$this->society->find('all',array('conditions'=>$conditions));
 foreach ($cursor as $data) 
 {
 $neft = $data['society']['neft_detail'];
+$type = $data['society']['neft_type'];
+}
+if($type == "ALL")
+{
+$this->loadmodel('society');
+$this->society->updateAll(array("neft_detail" =>"" ,"neft_type"=>""),array("society_id" => $s_society_id));
 }
 
 $sub_neft['account_name']=$ac_name;
@@ -6374,6 +6379,24 @@ $this->send_email($email,$from,$from_name,$subject,$html,$reply);
 function test_page(){
 	$this->layout='session';
 }
+/////////////////////////////////////// Start NEFT Show Ajax ///////////////////////////////////////////////////
+function neft_show_ajax()
+{
+$this->layout='blank';
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id = (int)$this->Session->read('user_id');
+
+$wing_id =(int)$this->request->query('val');
+$this->set('wing_id',$wing_id);
+
+$this->loadmodel('society');
+$conditions=array("society_id"=>$s_society_id);
+$cursor1 = $this->society->find('all',array('conditions'=>$conditions));
+$this->set('cursor1',$cursor1);
+
+
+}
+/////////////////////////////////////// End NEFT Show Ajax ///////////////////////////////////////////////////
 
 }
 ?>
