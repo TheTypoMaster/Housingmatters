@@ -3873,10 +3873,10 @@ $flat_name=$collection['flat']['flat_name'];
 }
 $wing_flat = $wing_name.'-'.$flat_name;
 
-	$r_sms=$this->hms_sms_ip();
-  $working_key=$r_sms->working_key;
- $sms_sender=$r_sms->sms_sender; 
-
+$r_sms=$this->hms_sms_ip();
+$working_key=$r_sms->working_key;
+$sms_sender=$r_sms->sms_sender; 
+$sms_allow=(int)$r_sms->sms_allow;
 
 
 $z=1;
@@ -3900,9 +3900,13 @@ else
 $tenant="Tenant";
 }
 
+if($sms_allow==1){
+	
 $sms='Hello!+New+User+request+:+'.$user_name1.'+'.$wing_flat.'+'.$tenant.'+Please+log+into+HousingMatters+for+further+action.';
 $sms1=str_replace(' ', '+', $sms);
 $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+}
+
 $to=$email;
 
  $message_web="<div>
@@ -4057,12 +4061,12 @@ $mobile=$collection['user']['mobile'];
 $r=$this->hms_sms_ip();
 $working_key=$r->working_key;
 $sms_sender=$r->sms_sender; 
-
-
+$sms_allow=(int)$r_sms->sms_allow;
+if($sms_allow==1){
 $sms='New Request for Society registration into HousingMatters. Kindly approve the request.';
 $sms1=str_replace(' ', '+', $sms);
- //sms-closed// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
-
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+}
 ////////////////////////////////////////// ////////////////////////////////////////////////////// ///////////////////////////////////////////////////////////// ////		
 $to="admin@housingmatters.in";
 $reply="support@housingmatters.in";
@@ -7885,14 +7889,17 @@ foreach($result_user as $data)
 	 $login_id=(int)$data['user']['login_id'];
 }
 
-$r_sms=$this->hms_sms_ip();
+ $r_sms=$this->hms_sms_ip();
   $working_key=$r_sms->working_key;
  $sms_sender=$r_sms->sms_sender; 
-
+$sms_allow=(int)$r_sms->sms_allow;
+if($sms_allow==1){
 $random=(string)mt_rand(1000,9999);
 $sms="".$user_name.", Your housing society ".$s_n." has enrolled you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
 $sms1=str_replace(" ", '+', $sms);
- //sms-closed// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+ 
+ }
 $this->loadmodel('user');
 $this->user->updateAll(array('password'=>$random,'signup_random'=>$random),array('user_id'=>$user_temp_id));
 $this->loadmodel('login');
@@ -8206,22 +8213,23 @@ function send_sms_for_verify_mobile(){
 
 
 	$dd=explode(' ',$user_name);
-	  $user_name=$dd[0];
-	  $user_name=ucfirst($user_name);
+	$user_name=$dd[0];
+	$user_name=ucfirst($user_name);
 	$r_sms=$this->hms_sms_ip();
-	  $working_key=$r_sms->working_key;
-	 $sms_sender=$r_sms->sms_sender; 	
-		
-	//$sms='Dear '.$user_name.' Please enter your code '.$random_otp.' on the signup screen to continue your HousingMatters registration process. Thank you';
-	// $sms=''.$random_otp.' is your One Time Passcode, please enter on the signup screen to continue your HousingMatters registration process.';
-	  $sms='Hi ! '.$user_name.', Use '.$random_otp.' as one time passcode and continue your Housing Matters registration process. ';
+	$working_key=$r_sms->working_key;
+	$sms_sender=$r_sms->sms_sender; 	
+	$sms_allow=(int)$r_sms->sms_allow;
+	if($sms_allow==1){	
+
+	$sms='Hi ! '.$user_name.', Use '.$random_otp.' as one time passcode and continue your Housing Matters registration process. ';
 
 	$sms1=str_replace(' ', '+', $sms);
 
-	@//sms-closed// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+	$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+	}
 	$this->user->updateAll(array('password'=>$random_otp,'one_time_sms'=>1),array('user.user_id'=>$user_id));
 
-	
+
 	$this->response->header('Location', 'verify_mobile?q='.$q.' ');
 	}
 	else
@@ -8343,15 +8351,15 @@ function verify_mobile_ajax()
 $r_sms=$this->hms_sms_ip();
 $working_key=$r_sms->working_key;
 $sms_sender=$r_sms->sms_sender; 
-	
-	 $random_otp=(string)mt_rand(1000,9999);
-//$sms='Dear '.$user.' Please enter your code '.$random_otp.' on the signup screen to continue your HousingMatters registration process. Thank you';
-//$sms=''.$random_otp.' is your One Time Passcode, please enter on the signup screen to continue your HousingMatters registration process.';
+$random_otp=(string)mt_rand(1000,9999);
+$sms_allow=(int)$r_sms->sms_allow;
+if($sms_allow==1){
 
 $sms='Hi ! '.$user_name.', Use '.$random_otp.' as one time passcode and continue your Housing Matters registration process. ';
-
 $sms1=str_replace(' ', '+', $sms);
-//sms-closed// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+}
+
 $this->user->updateAll(array('password'=>$random_otp),array('user.user_id'=>$id));
 
 }
@@ -9061,10 +9069,13 @@ function hm_resident_approve_resend_sms()
 			$r_sms=$this->hms_sms_ip();
 			$working_key=$r_sms->working_key;
 			$sms_sender=$r_sms->sms_sender; 
+			$sms_allow=(int)$r_sms->sms_allow;
 		$random=(string)mt_rand(1000,9999);
+		if($sms_allow==1){
 		$sms="".$user_name.", Your housing society ".$s_n." has enrolled you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
 		$sms1=str_replace(" ", '+', $sms);
-		//sms-closed// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+		$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+		}
 		$this->loadmodel('user');
 		$this->user->updateAll(array('password'=>$random,'signup_random'=>$random),array('user_id'=>$user_temp_id));
 		$this->loadmodel('login');
@@ -9542,7 +9553,7 @@ $sender_email=$collection2["user"]["email"];
 $r_sms=$this->hms_sms_ip();
   $working_key=$r_sms->working_key;
  $sms_sender=$r_sms->sms_sender; 
-
+$sms_allow=(int)$r_sms->sms_allow;
 if($radio==1)
 {
 $multi=$this->request->data['multi'];
@@ -9558,9 +9569,10 @@ $mobile_im=implode(",", $mobile);
 //$user=implode(",", $user); 
 
 $s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m;
- //sms-closed// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
+if($sms_allow==1){
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
 
-	
+}
 
 
 $sms_id=$this->autoincrement('sms','sms_id');
@@ -9599,12 +9611,14 @@ $mobile[]=$collection2["user"]["mobile"];
 $mobile_im=implode(",", $mobile);
 
 $r_sms=$this->hms_sms_ip();
-  $working_key=$r_sms->working_key;
- $sms_sender=$r_sms->sms_sender; 
+$working_key=$r_sms->working_key;
+$sms_sender=$r_sms->sms_sender; 
+$sms_allow=(int)$r_sms->sms_allow;
+if($sms_allow==1){
 
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
 
-//sms-closed// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
-
+}
 $sms_id=$this->autoincrement('sms','sms_id');
 $this->loadmodel('sms');
 $multipleRowData = Array( Array("sms_id" => $sms_id,"text"=>$massage,"user_id"=>$result_user_unique,"date"=>$date,"time"=>$timd,"type"=>2,"society_id"=>$s_society_id,"deleted"=>0));	
@@ -9738,9 +9752,10 @@ $mobile_im=implode(',',$da_to);
 $r_sms=$this->hms_sms_ip();
   $working_key=$r_sms->working_key;
  $sms_sender=$r_sms->sms_sender; 
-	
- //sms-closed// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
-
+$sms_allow=(int)$r_sms->sms_allow;
+if($sms_allow==1){
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
+}
 $sms_id=$this->autoincrement('sms','sms_id');
 $this->loadmodel('sms');
 $multipleRowData = Array( Array("sms_id" => $sms_id,"text"=>$massage,"user_id"=>$da_user_id,"date"=>$date,"time"=>$time,"type"=>1,"society_id"=>$s_society_id,"deleted"=>0));	
@@ -13396,8 +13411,9 @@ function hms_sms_ip()
 	{
 		$w= $data['user']['sms_working_key'];
 		$s= $data['user']['sms_sender'];
+		$alow= @$data['user']['sms_allow'];
 		
-		return $sms=(object)array("working_key"=>$w,"sms_sender"=>$s);
+		return $sms=(object)array("working_key"=>$w,"sms_sender"=>$s,"sms_allow"=>$alow);
 		
 	}
 	
@@ -14726,13 +14742,14 @@ $login_user=$mobile;
 $random=(string)mt_rand(1000,9999);
 	
 $r_sms=$this->hms_sms_ip();
-  $working_key=$r_sms->working_key;
- $sms_sender=$r_sms->sms_sender; 	
-	
+$working_key=$r_sms->working_key;
+$sms_sender=$r_sms->sms_sender; 	
+$sms_allow=(int)$r_sms->sms_allow;
+if($sms_allow==1){
 $sms="".$name.", Your housing society  ".$s_n." has enrolled  you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
  $sms1=str_replace(" ", '+', $sms);
- //sms-closed// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
-
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+}
 }
 }
 
@@ -15187,15 +15204,18 @@ if(!empty($mobile))
 {
 if(empty($email))
 {
-	$r_sms=$this->hms_sms_ip();
-  $working_key=$r_sms->working_key;
- $sms_sender=$r_sms->sms_sender; 
-	
-	$login_user=$mobile;
+$r_sms=$this->hms_sms_ip();
+$working_key=$r_sms->working_key;
+$sms_sender=$r_sms->sms_sender; 
+$sms_allow=(int)$r_sms->sms_allow;
+
+$login_user=$mobile;
 $random=(string)mt_rand(1000,9999);
- $sms="".$name.", Your housing society ".$s_n." has enrolled you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
+if($sms_allow==1){
+$sms="".$name.", Your housing society ".$s_n." has enrolled you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
 $sms1=str_replace(" ", '+', $sms);
- //sms-closed// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+}
 }
 }
 
@@ -20129,13 +20149,15 @@ if($family_member==1 || $s_role_id==3 )
 					$r_sms=$this->hms_sms_ip();
 					$working_key=$r_sms->working_key;
 					$sms_sender=$r_sms->sms_sender; 
-
+					$sms_allow=(int)$r_sms->sms_allow;
+					
 					$login_user=$mobile;
 					$random=(string)mt_rand(1000,9999);
+					if($sms_allow==1){
 					$sms="".$name.", Your housing society ".$s_n." has enrolled you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
 					$sms1=str_replace(" ", '+', $sms);
-					 //sms-closed// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
-
+					$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+					}
 				}
 
 			
@@ -20468,13 +20490,16 @@ foreach($myArray as $child)
 		{
 			$r_sms=$this->hms_sms_ip();
 			$working_key=$r_sms->working_key;
-			$sms_sender=$r_sms->sms_sender; 
+			$sms_sender=$r_sms->sms_sender;
+			$sms_allow=(int)$r_sms->sms_allow;
+
 		$login_user=$mobile;
 		$random=(string)mt_rand(1000,9999);
-		 $sms="".$name.", Your housing society ".$s_n." has enrolled you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
-		$sms1=str_replace(" ", '+', $sms);
-	//sms-closed// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
-		
+		if($sms_allow==1){
+			$sms="".$name.", Your housing society ".$s_n." has enrolled you in HousingMatters portal. Pls log into www.housingmatters.co.in One Time Password ".$random."";
+			$sms1=str_replace(" ", '+', $sms);
+			$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+			}
 		}
 
 		/////////// insert code user table ///////////////////////
