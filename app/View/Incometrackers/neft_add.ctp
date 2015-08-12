@@ -11,13 +11,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </div>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
-<div style="border:groove 1px;">
-asfasdsadasd
-asdasdasd
-
-</div>
-
-
 
 <?php
 //echo $d = date('Y-m-d',($d_from));
@@ -61,6 +54,22 @@ $ifsc_code = @$collection['society']['ifsc_code'];
 <form method="post" id="contact-form">
 <div class="row-fluid">
 <div class="span6">
+
+
+
+<label  style="font-size:14px;">NEFT Detail For<span style="color:red;">*</span> </label>
+<div class="controls">
+<label class="radio">
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_mode" value="Cheque" style="opacity: 0;" onclick="all_wing()"></span></div>
+All
+</label>
+<label class="radio">
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_mode" value="NEFT" style="opacity: 0;" onclick="wing_wise()"></span></div>
+Wing Wise
+</label>
+<br />
+ <br />
+
 
 <label style="font-size:14px;">Account Name<span style="color:red;">*</span></label>
 <div class="controls">
@@ -168,6 +177,19 @@ element
 }); 
 </script>	
 
+<script>
+function wing_wise()
+{
+alert();	
+}
+function all_wing()
+{
+alert();	
+	
+}
+
+
+</script>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php 
 /*
