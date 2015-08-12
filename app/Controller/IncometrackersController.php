@@ -6241,9 +6241,38 @@ $bank_name = $this->request->data['bank_name'];
 $branch = $this->request->data['branch'];
 $ifsc_code = $this->request->data['ifsc'];
 $ac_number = $this->request->data['acnu'];
+$neft_for = $this->request->data['neft_for'];
+if($neft_for == "WW")
+{
+$wing_id = $this->request->data['select_wing'];
 
 $this->loadmodel('society');
-$this->society->updateAll(array("ac_name" => $ac_name,"bank_name"=>$bank_name,"branch"=>$branch,"ifsc_code"=>$ifsc_code,"ac_num"=>$ac_number),array("society_id" => $s_society_id));
+$conditions=array("society_id"=>$s_society_id);
+$cursor=$this->society->find('all',array('conditions'=>$conditions));
+foreach ($cursor as $data) 
+{
+$neft = $data['society']['neft_detail'];
+}
+
+$sub_neft['account_name']=$ac_name;
+$sub_neft['bank_name']=$bank_name;
+$sub_neft['account_number']=$ac_number;
+$sub_neft['branch']=$branch;
+$sub_neft['ifsc_code']=$ifsc_code;
+
+$neft[$wing_id] = $sub_neft;
+}
+else
+{
+$neft['account_name']=$ac_name;
+$neft['bank_name']=$bank_name;
+$neft['account_number']=$ac_number;
+$neft['branch']=$branch;
+$neft['ifsc_code']=$ifsc_code;
+}
+
+$this->loadmodel('society');
+$this->society->updateAll(array("neft_detail" => $neft,"neft_type"=>$neft_for),array("society_id" => $s_society_id));
 ?>
 <div class="modal-backdrop fade in"></div>
 <div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">

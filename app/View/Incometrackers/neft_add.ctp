@@ -62,17 +62,23 @@ $ifsc_code = @$collection['society']['ifsc_code'];
 <label  style="font-size:14px;">NEFT Detail For<span style="color:red;">*</span> </label>
 <div class="controls">
 <label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_mode" value="Cheque" style="opacity: 0;" onclick="all_wing()"></span></div>
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="neft_for" value="ALL" style="opacity: 0;" onclick="all_wing()"></span></div>
 All
 </label>
 <label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_mode" value="NEFT" style="opacity: 0;" onclick="wing_wise()"></span></div>
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="neft_for" value="WW" style="opacity: 0;" onclick="wing_wise()"></span></div>
 Wing Wise
 </label>
+</div>
 <br />
- <br />
 
-<div id="wing_wise" class="hide">
+
+
+<div id="show_wing" class="hide">
+<label  style="font-size:14px;">Select Wing<span style="color:red;">*</span> </label>
+<div class="controls">
+<select name="select_wing" class="m-wrap span9">
+<option value="" style="display:none;">Select Wing</option>
 <label  style="font-size:14px;">NEFT Detail For<span style="color:red;">*</span> </label>
 <?php
 foreach($cursor5 as $data)
@@ -80,28 +86,14 @@ foreach($cursor5 as $data)
 $wing_name = $data['wing']['wing_name'];
 $wing_id = (int)$data['wing']['wing_id'];	
 ?>
-<select name="wing_wise" class="m-wrap span9">
-<option value=""></option>
-
-</select>
+<option value="<?php echo $wing_id; ?>"><?php echo $wing_name; ?></option>
 <?php	
 }
 ?>
+</select>
+</div>
 <br />
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <label style="font-size:14px;">Account Name<span style="color:red;">*</span></label>
 <div class="controls">
@@ -212,11 +204,11 @@ element
 <script>
 function wing_wise()
 {
-$("#wing_wise").show();
+$("#show_wing").show();
 }
 function all_wing()
 {
-$("#wing_wise").hide();	
+$("#show_wing").hide();	
 }
 
 
