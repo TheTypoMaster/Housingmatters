@@ -39,7 +39,7 @@ foreach($result_new_regular_bill as $regular_bill){
 	$bill_start_date=$regular_bill["new_regular_bill"]["bill_start_date"];
 	$bill_end_date=$regular_bill["new_regular_bill"]["bill_end_date"];
 	$flat_id=$regular_bill["new_regular_bill"]["flat_id"];
-	$bill_no=$regular_bill["new_regular_bill"]["bill_no"];
+	$bill_no = (int)$regular_bill["new_regular_bill"]["bill_no"];
 	$income_head_array=$regular_bill["new_regular_bill"]["income_head_array"];
 	$noc_charges=$regular_bill["new_regular_bill"]["noc_charges"];
 	$total=$regular_bill["new_regular_bill"]["total"];
@@ -89,7 +89,7 @@ foreach($result_new_regular_bill as $regular_bill){
 		<td><?php echo $due_for_payment; ?></td>
 		<td><a href="regular_bill_view/<?php echo $auto_id; ?>" target="_blank" class="btn mini yellow"><i class="icon-search"></i></a>
 		<a href="regular_bill_edit2/<?php echo $auto_id; ?>" role="button" rel='tab' class="btn mini blue"><i class="icon-edit"></i></a>
-		</td>
+       </td>
 	</tr>
 		
 	<?php

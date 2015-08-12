@@ -21,10 +21,14 @@ $tcpdf->SetLineWidth(0.1);
 
 
 /////////////////////////////////
-foreach($cursor1 as $collection)
+foreach($cursor1 as $data3)
 {
-$bill_html = $collection['new_regular_bill']['bill_html'];	
+$bill_html = $data3['new_regular_bill']['bill_html'];	
+//$bill_html="fhgfhfh";
+
 }
+
+
 
 //////////////////////////////////
 
