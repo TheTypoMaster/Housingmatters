@@ -107,6 +107,7 @@ $sender_mobile=$collection2["user"]["mobile"];
 $r_sms=$this->hms_sms_ip();
   $working_key=$r_sms->working_key;
  $sms_sender=$r_sms->sms_sender; 
+$sms_allow=(int)$r_sms->sms_allow;
 
 if($radio==1)
 {
@@ -126,9 +127,10 @@ $mobile_im=implode(",", $mobile);
 //$user=implode(",", $user); 
 
 $s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m;
-//sms-closed// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
+if($sms_allow==1){
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
 
-	
+}	
 
 
 $sms_id=$this->autoincrement('sms','sms_id');
@@ -169,14 +171,13 @@ $mobile_im=implode(",", $mobile);
 $r_sms=$this->hms_sms_ip();
   $working_key=$r_sms->working_key;
  $sms_sender=$r_sms->sms_sender; 
-
-
-//sms-closed// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
-
+$sms_allow=(int)$r_sms->sms_allow;
+if($sms_allow==1){
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
+}
 $sms_id=$this->autoincrement('sms','sms_id');
 $this->loadmodel('sms');
 $multipleRowData = Array( Array("sms_id" => $sms_id,"text"=>$massage,"user_id"=>$result_user_unique,"date"=>$date,"time"=>$timd,"type"=>2,"society_id"=>$s_society_id,"deleted"=>0));	
-
 $this->sms->saveAll($multipleRowData);
 }
 
@@ -303,12 +304,13 @@ $da_to=array_unique($da_to);
 $da_to=array_filter($da_to);
 $mobile_im=implode(',',$da_to);
 
-$r_sms=$this->hms_sms_ip();
-  $working_key=$r_sms->working_key;
- $sms_sender=$r_sms->sms_sender; 
-	
- //sms-closed// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
-
+	$r_sms=$this->hms_sms_ip();
+	$working_key=$r_sms->working_key;
+	$sms_sender=$r_sms->sms_sender; 
+	$sms_allow=(int)$r_sms->sms_allow;
+	if($sms_allow==1){
+	$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_im.'&message='.$massage_str.'&time='.$s_date_ex0.$s_date_ex1.$s_date_ex2.$time_h.$time_m);
+	}
 $sms_id=$this->autoincrement('sms','sms_id');
 $this->loadmodel('sms');
 $multipleRowData = Array( Array("sms_id" => $sms_id,"text"=>$massage,"user_id"=>$da_user_id,"date"=>$date,"time"=>$time,"type"=>1,"society_id"=>$s_society_id,"deleted"=>0));	

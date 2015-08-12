@@ -6074,6 +6074,8 @@ if(isset($this->request->data['approve'])){
 					$r_sms=$this->hms_sms_ip();
 					$working_key=$r_sms->working_key;
 					$sms_sender=$r_sms->sms_sender; 
+					$sms_allow=(int)$r_sms->sms_allow;
+
 					$subject="[".$society_name."]- Maintanance bill, ".date('d-M',$bill_start_date)." to ".date('d-M-Y',$bill_end_date)."";
 					$this->send_email($to,'accounts@housingmatters.in','HousingMatters',$subject,$bill_html,'donotreply@housingmatters.in');
 				}
@@ -6087,7 +6089,9 @@ if(isset($this->request->data['approve'])){
 				foreach($mobile_array as $mobile_number){
 					$sms="Dear ".$user_name." ".$wing_flat.",your maintenance bill for period ".date('d-M',$bill_start_date)." to ".date('d-M-Y',$bill_end_date)." is Rs ".$due_for_payment.".Kindly pay by due ".date('d-M',$due_date).".".$society_name;
 					$sms1=str_replace(' ', '+', $sms);
-					//$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_number.'&message='.$sms1.''); 
+					if($sms_allow==1){
+					$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_number.'&message='.$sms1.''); 
+					}
 				}
 			}
 		}
@@ -6348,10 +6352,12 @@ foreach($cursor1 as $data)
 $r_sms=$this->hms_sms_ip();
 $working_key=$r_sms->working_key;
 $sms_sender=$r_sms->sms_sender; 
+$sms_allow=(int)$r_sms->sms_allow;
+if($sms_allow==1){
 $sms='Dear '.$user_name.' '.$wing_flat.', your maintenance bill for period '.$sms_from.'-'.$sms_to.' is Rs '.$grand_total.'.Kindly pay by due '.$sms_due.'.'.$society_name.'';
-
 $sms1=str_replace(' ', '+', $sms);
 $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.''); 
+}
 
 
 $from_mail_date = date('d M',strtotime($from));

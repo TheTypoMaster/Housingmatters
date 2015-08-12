@@ -465,6 +465,8 @@ if($email_is_on_off==1){
 $r_sms=$this->hms_sms_ip();
 $working_key=$r_sms->working_key;
 $sms_sender=$r_sms->sms_sender; 
+$sms_allow=(int)$r_sms->sms_allow;
+
 //$subject="[".$society_name."]- Maintanance bill, ".date('d-M',$bill_start_date)." to ".date('d-M-Y',$bill_end_date)."";
 $subject = "Testing";
 
@@ -475,10 +477,12 @@ $this->send_email($to,'accounts@housingmatters.in','HousingMatters',$subject,$ht
 
 $mobile_number = "9799463210";	
 if($sms_is_on_off==1){
-
+	if($sms_allow==1){
 $sms="Dear Nikhil ,we have received Rs ".$amount." on ".$sms_date." towards Society Maint. dues. Cheques are subject to realization,".$society_name;
 $sms1=str_replace(' ', '+', $sms);
+
 $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_number.'&message='.$sms1.''); 
+}
 }	
 //////////////////////////////////////////////////////////////////////////////
 		

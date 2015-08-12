@@ -234,10 +234,13 @@ $ticket_priority="Normal";
 $r_sms=$this->hms_sms_ip();
   $working_key=$r_sms->working_key;
  $sms_sender=$r_sms->sms_sender; 
+ $sms_allow=(int)$r_sms->sms_allow;
+if($sms_allow==1){
  $sms='New Helpdesk ticket '.$ticket_no.' - '.$category_name.' raised+by '.$user_name.' - '.$wing_flat.' Please log into HousingMatters for further action.';
 
 $sms1=str_replace(' ', '+', $sms);
-//sms-closed// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');		
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');	
+}	
   $message_web="<div>
 <img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 <span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
@@ -489,13 +492,16 @@ $ticket_priority="Normal";
 $r_sms=$this->hms_sms_ip();
 $working_key=$r_sms->working_key;
 $sms_sender=$r_sms->sms_sender; 
+$sms_allow=(int)$r_sms->sms_allow;
 
 $ticket_no=$t;
 $category_name=$this->help_desk_category_name($category);
 $sms='New Helpdesk ticket '.$ticket_no.' - '.$category_name.' raised+by '.$user_name.' - '.$wing_flat.' Please log into HousingMatters for further action.';
 
 $sms1=str_replace(' ', '+', $sms);
- //sms-closed// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');		
+if($sms_allow==1){
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');	
+} 
 $message_web="<div>
 <img src='$ip".$this->webroot."as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 <span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."as/hm/fb.png'/></a></span>
@@ -1352,6 +1358,8 @@ function assign_ticket_to_sp_sms()
 	$r_sms=$this->hms_sms_ip();
 	$working_key=$r_sms->working_key;
 	$sms_sender=$r_sms->sms_sender; 
+	$sms_allow=(int)$r_sms->sms_allow;
+
 	$s_society_id=$this->Session->read('society_id');
 	$s_user_id=$this->Session->read('user_id');
 	
@@ -1367,8 +1375,9 @@ function assign_ticket_to_sp_sms()
 	
 	$sms='New Helpdesk ticket '.$ticket_id.' assign ticket to you';
 	$sms1=str_replace(' ', '+', $sms);
-//sms-closed// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
-	
+	if($sms_allow==1){
+ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.'');
+	}	
 	$this->loadmodel('help_desk');
 	$this->help_desk->updateAll(array("help_desk_service_provider_id" => $sp_id,"help_desk_assign_date" => $date),array("help_desk_id" => $hd_id));
 	$this->response->header('Location:help_desk_sm_open_ticket');
@@ -1434,6 +1443,8 @@ $ip=$this->hms_email_ip();
 $r_sms=$this->hms_sms_ip();
 $working_key=$r_sms->working_key;
 $sms_sender=$r_sms->sms_sender; 
+$sms_allow=(int)$r_sms->sms_allow;
+
 $this->loadmodel('user');
 $conditions=array("user_id"=>$society_user_id);
 $result_user=$this->user->find('all',array('conditions'=>$conditions));
@@ -1450,7 +1461,9 @@ $result5=$this->notification_email->find('all',array('conditions'=>$conditions7)
 $n=sizeof($result5);
 if($n>0)
 {
- ////sms-closed// $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms.'');
+	if($sms_allow==1){
+$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms.'');
+	}
 }
 
 $message_web="<div>
