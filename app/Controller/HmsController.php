@@ -6410,12 +6410,6 @@ $subject="";
 
 ////////////////// End Email code ////////////////////////////////////
 
-
-
-
-
-
-
 $visible_user_id = array_unique($visible_user_id);
 
 ksort($visible_user_id);

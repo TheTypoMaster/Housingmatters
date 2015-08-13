@@ -3863,7 +3863,7 @@ $s_user_id = (int)$this->Session->read('user_id');
 	
 $q=$this->request->query('q'); 
 $myArray = json_decode($q, true);
-/*
+
 $r=1;
 foreach($myArray as $child)
 {
@@ -3905,7 +3905,7 @@ die($output);
 
 if(empty($DrawnBankname))
 {
-$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Drawn Bank name Receipt Mode in row'.$r));
+$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Drawn Bank name in row'.$r));
 die($output);
 }
 
@@ -3955,8 +3955,43 @@ $output=json_encode(array('report_type'=>'validation','text'=>'Please Fill "Cheq
 die($output);
 }
 
+$this->loadmodel('financial_year');
+$conditions=array("society_id" => $s_society_id,"status"=>1);
+$cursor = $this->financial_year->find('all',array('conditions'=>$conditions));
+$abc = 555;
+foreach($cursor as $collection)
+{
+$from = $collection['financial_year']['from'];
+$to = $collection['financial_year']['to'];
+$from1 = date('Y-m-d',$from->sec);
+$to1 = date('Y-m-d',$to->sec);
+$from2 = strtotime($from1);
+$to2 = strtotime($to1);
+$transaction1 = date('Y-m-d',strtotime($TransactionDate));
+$transaction2 = strtotime($transaction1);
+if($transaction2 <= $to2 && $transaction2 >= $from2)
+{
+$abc = 5;
+break;
 }
-*/
+}
+if($abc == 555)
+{
+$output=json_encode(array('report_type'=>'validation','text'=>'Transaction date is not in open Financial Year in row'.$r));
+die($output);
+}
+
+if(is_numeric($Amount))
+{
+}
+else
+{
+$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Numeric Amount in row'.$r));
+die($output);
+}
+
+}
+
 $r=0;
 
 foreach($myArray as $child)
