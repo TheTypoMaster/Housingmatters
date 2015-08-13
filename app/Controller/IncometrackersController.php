@@ -446,8 +446,12 @@ function regular_bill_preview_screen(){
 				$ifsc_code = @$neft_detail2['ifsc_code'];		
 			}			
 	
+			if($period_id!=1){
+				$billing_period_text=date("M",strtotime($bill_start_date)).' - '.date("M",strtotime($bill_end_date)).'  '.date("Y",strtotime($bill_end_date));
+			}else{
+				$billing_period_text=date("M-Y",strtotime($bill_start_date));
+			}
 			
-			$billing_period_text=date("M",strtotime($bill_start_date)).' - '.date("M",strtotime($bill_end_date)).' - '.date("Y",strtotime($bill_end_date));
 	
 /////START BILL HTML////
 $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
@@ -484,7 +488,7 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 								</tr>
 								<tr>
 									<td style="text-align:left;font-weight: bold;">Bill Date:</td>
-									<td style="text-align:left;">'.$bill_start_date.'</td>
+									<td style="text-align:left;">'.date("d-m-Y",strtotime($bill_start_date)).'</td>
 								</tr>
 								<tr>
 									<td style="text-align:left;font-weight: bold;">Description:</td>
@@ -510,11 +514,11 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 								</tr>
 								<tr>
 									<td style="text-align:left;font-weight: bold;">Billing Period:</td>
-									<td style="text-align:left;">-</td>
+									<td style="text-align:left;">'.$billing_period_text.'</td>
 								</tr>
 								<tr>
 									<td style="text-align:left;font-weight: bold;"><b>Due Date:</b></td>
-									<td style="text-align:left;">'.$due_date.'</td>
+									<td style="text-align:left;">'.date("d-m-Y",strtotime($due_date)).'</td>
 								</tr>
 							</table>
 						</div>
