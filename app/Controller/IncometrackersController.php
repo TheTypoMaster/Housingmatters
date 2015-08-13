@@ -587,11 +587,13 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 									<td style="text-align:right; padding-right:2%;" width="100%">Arrears &nbsp; (Maint.):</td>
 									</tr><tr>
 									<td style="text-align:right; padding-right:2%;" width="100%">Arrears &nbsp; (Int.):</td>
-									</tr>
-									<tr>
-									<th style="text-align:right; padding-right:2%;" width="100%">Credit/Stock</th>
-									</tr>
-									<tr>
+									</tr>';
+						if(!empty($credit_stock)){
+							$bill_html.='<tr>
+									<th style="text-align:right; padding-right:2%;" width="100%">Credit/Adjustments</th>
+									</tr>';
+						}
+						$bill_html.='<tr>
 									<th style="text-align:right; padding-right:2%;" width="100%">Due For Payment:</th>
 									</tr></tbody></table>
 									</td>
@@ -605,11 +607,13 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 									<td style="text-align:right; padding-right:8%;">'.$arrear_maintenance.'</td>
 									</tr><tr>
 									<td style="text-align:right; padding-right:8%;">'.$arrear_intrest.'</td>
-									</tr>
-									<tr>
+									</tr>';
+						if(!empty($credit_stock)){
+							$bill_html.='<tr>
 									<th style="text-align:right; padding-right:8%;">-'.$credit_stock.'</th>
-									</tr>
-									<tr>
+									</tr>';
+						}			
+						$bill_html.='<tr>
 									<th style="text-align:right; padding-right:8%;">'.$due_for_payment.'</th>
 									</tr></tbody></table>
 								</td>
