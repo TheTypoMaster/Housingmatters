@@ -549,7 +549,7 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 									<table style="width:100%;" border="0"><tbody>';
 						foreach($income_head_array as $key=>$value){
 							$bill_html.='<tr>
-										<td style="text-align:right;padding-right: 8%;">5000</td>
+										<td style="text-align:right;padding-right: 8%;">'.$value.'</td>
 									</tr>';
 						}
 						$bill_html.='<tr>
@@ -595,7 +595,7 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 									</tr>';
 						if(!empty($credit_stock)){
 							$bill_html.='<tr>
-									<th style="text-align:right; padding-right:2%;" width="100%">Credit/Adjustments</th>
+									<td style="text-align:right; padding-right:2%;" width="100%">Credit/Adjustments</td>
 									</tr>';
 						}
 						$bill_html.='<tr>
@@ -615,7 +615,7 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 									</tr>';
 						if(!empty($credit_stock)){
 							$bill_html.='<tr>
-									<th style="text-align:right; padding-right:8%;">-'.$credit_stock.'</th>
+									<td style="text-align:right; padding-right:8%;">-'.$credit_stock.'</td>
 									</tr>';
 						}			
 						$bill_html.='<tr>
