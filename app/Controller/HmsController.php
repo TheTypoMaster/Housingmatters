@@ -20353,7 +20353,7 @@ foreach($myArray as $child){
 		$result3 = $this->user_temp->find('all',array('conditions'=>$conditions));
 		$n3 = sizeof($result3);
 		$this->loadmodel('user');
-		$conditions=array("mobile" => $child[4]);
+		$conditions=array("mobile" => $child[4],'user_id'=>array('$ne'=>1));
 		$result4 = $this->user->find('all',array('conditions'=>$conditions));
 		$n4 = sizeof($result4);
 		$e=$n3+$n4;
