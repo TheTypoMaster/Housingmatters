@@ -17,8 +17,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 //echo $t = date('Y-m-d',($d_to));
 foreach($cursor1 as $collection)
 {
-$type = $collection['society']['neft_type'];
-$neft_detail = $collection['society']['neft_detail'];
+$type = @$collection['society']['neft_type'];
+$neft_detail = @$collection['society']['neft_detail'];
 }
 if($type == "ALL")
 {

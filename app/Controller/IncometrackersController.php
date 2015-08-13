@@ -366,6 +366,8 @@ function regular_bill_preview_screen(){
 		$society_phone=$data["society"]["society_phone"];
 		$terms_conditions=$data["society"]["terms_conditions"];
 		$signature=$data["society"]["signature"];
+		$neft_type = @$data["society"]["neft_type"];
+	    $neft_detail = @$data["society"]["neft_detail"];
 	}
 	
 	$this->loadmodel('user');
@@ -423,9 +425,24 @@ function regular_bill_preview_screen(){
 			$due_for_payment = (int)@$this->request->data['due_for_payment'.$inc];
 		
 			
+			if($neft_type ==  "ALL"){
+				$account_name = @$neft_detail['account_name'];	
+				$bank_name = @$neft_detail['bank_name'];
+				$account_number = @$neft_detail['account_number'];
+				$branch = @$neft_detail['branch'];
+				$ifsc_code = @$neft_detail['ifsc_code'];	
+			}
+			if($neft_type ==  "WW"){			
+				$neft_detail2 = $neft_detail[$wing_id];
+				$account_name = @$neft_detail2['account_name'];	
+				$bank_name = @$neft_detail2['bank_name'];
+				$account_number = @$neft_detail2['account_number'];
+				$branch = @$neft_detail2['branch'];
+				$ifsc_code = @$neft_detail2['ifsc_code'];		
+			}			
+	
 			
-			
-			
+			$billing_period_text=date("M",strtotime($bill_start_date)).' - '.date("M",strtotime($bill_end_date)).' - '.date("Y",strtotime($bill_end_date));
 	
 /////START BILL HTML////
 $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
@@ -543,23 +560,23 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 									</tr>
 									<tr>
 									<td valign="top" width="30%"><b>Account Name:</b></td>
-									<td>SBI</td>
+									<td>'.$account_name.'</td>
 									</tr>
 									<tr>
 									<td><b>Account No.:</b></td>
-									<td>3212315616</td>
+									<td>'.$account_number.'</td>
 									</tr>
 									<tr>
 									<td><b>Bank Name:</b></td>
-									<td>sbi</td>
+									<td>'.$bank_name.'</td>
 									</tr>
 									<tr>
 									<td><b>Branch Name:</b></td>
-									<td>hiran mangri</td>
+									<td>'.$branch.'</td>
 									</tr>
 									<tr>
 									<td><b>IFSC no.:</b></td>
-									<td>5165</td>
+									<td>'.$ifsc_code.'</td>
 									</tr>
 									</tbody></table>
 									<table style="width:25%;" border="0"><tbody><tr>
