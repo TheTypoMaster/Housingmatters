@@ -6070,7 +6070,6 @@ if(isset($this->request->data['approve'])){
 				$this->new_regular_bill->updateAll(array('approval_status'=>1),array('auto_id'=>$auto_id));
 				
 				//fetch bill info via auto_id//
-				 $auto_id;
 				$this->loadmodel('new_regular_bill');
 				$condition=array('auto_id'=>$auto_id);
 				$result_bill_info=$this->new_regular_bill->find('all',array('conditions'=>$condition));
@@ -6083,9 +6082,9 @@ if(isset($this->request->data['approve'])){
 				
 				$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($flat_id)));
 				foreach($result_user_info as $user_info){
-					echo $user_name=$user_info["user"]["user_name"];
-					$email_array[]=$user_info["user"]["email"];
-					$mobile_array[]=$user_info["user"]["mobile"];
+					$user_name=$user_info["user"]["user_name"];
+					$email=$user_info["user"]["email"];
+					$mobile=$user_info["user"]["mobile"];
 				}
 				//wing_id via flat_id//
 				$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_id)));
@@ -6099,37 +6098,30 @@ if(isset($this->request->data['approve'])){
 				
 				if($email_is_on_off==1){
 					////email code//
-					if(sizeof($email_array)>0){
-						foreach($email_array as $to){
+					if(!empty($email)){
 							$r_sms=$this->hms_sms_ip();
 							$working_key=$r_sms->working_key;
 							$sms_sender=$r_sms->sms_sender; 
 							$sms_allow=(int)$r_sms->sms_allow;
 
 							$subject="[".$society_name."]- Maintanance bill, ".date('d-M',$bill_start_date)." to ".date('d-M-Y',$bill_end_date)."";
-							$this->send_email($to,'accounts@housingmatters.in','HousingMatters',$subject,$bill_html,'donotreply@housingmatters.in');
-						}
-						
+							$this->send_email($email,'accounts@housingmatters.in','HousingMatters',$subject,$bill_html,'donotreply@housingmatters.in');
 					}
 				}
 				
 				if($sms_is_on_off==1){
 					////sms code//
-					if(sizeof($mobile_array)>0){
-						foreach($mobile_array as $mobile_number){
+					if(!empty($mobile)){
 							$sms="Dear ".$user_name." ".$wing_flat.",your maintenance bill for period ".date('d-M',$bill_start_date)." to ".date('d-M-Y',$bill_end_date)." is Rs ".$due_for_payment.".Kindly pay by due ".date('d-M',$due_date).".".$society_name;
 							$sms1=str_replace(' ', '+', $sms);
 							if($sms_allow==1){
-							$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile_number.'&message='.$sms1.''); 
+							$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.''); 
 							}
-						}
 					}
 				}
-			
 			}
 			
-		}
-		
+		} 
 	}
 	$this->response->header('Location','in_head_report');
 }
