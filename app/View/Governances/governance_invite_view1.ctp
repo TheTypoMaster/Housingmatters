@@ -170,7 +170,7 @@ foreach($message_web as $data)
 
 <?php if(!empty($file)) { ?>
 <br/>
-<div class="hide_at_print">
+<div class="hide_at_print" style="padding:5px;">
 <p style="font-size:14px; padding:5px;"><b>Attachment</b></p>
 <div >
 <a href="<?php echo $webroot_path ; ?>/governances_file/<?php echo $file; ?>" target="_blank" class="btn mini green tooltips" data-placement="bottom" data-original-title="<?php echo $file; ?>" download="download"><i class=" icon-download-alt"></i></a>
