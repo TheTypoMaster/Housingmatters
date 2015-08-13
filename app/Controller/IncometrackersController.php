@@ -3452,14 +3452,15 @@ $conditions=array('society_id'=>$s_society_id,"approval_status"=>1,'new_regular_
 $cursor1=$this->new_regular_bill->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);	
 
-
+if(!empty($bill_number))
+{
 $this->loadmodel('new_regular_bill');
 $conditions=array('society_id'=>$s_society_id,"approval_status"=>1,"bill_no"=>$bill_number);
 //$conditions=array("society_id"=> $s_society_id,"approval_status"=>1);
 $cursor2=$this->new_regular_bill->find('all',array('conditions'=>$conditions));
 $this->set('cursor2',$cursor2);	
 
-
+}
 
 }
 ///////////////////////// End regular report show ajax///////////////////////////////

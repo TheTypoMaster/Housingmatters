@@ -3666,7 +3666,7 @@ $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id = (int)$this->Session->read('user_id');
 
-$excel = "Transaction Date,Receipt Mode,Cheque No.,Reference/UTR,Date,Deposited In Which Bank?,Received from(member/non-member),User Name,Wing,Flat,Receipt For(Maintenance/Other),Party Name,Bill Reference,Amount,Narration";
+$excel = "Transaction Date,Receipt Mode,Cheque No.,Reference/UTR,Drawn Bank name,Deposited In,Date,Member Name,Wing,Flat,Amount";
 
 
 echo $excel;
