@@ -66,7 +66,7 @@ if($period_id==5){ $multiply=12; }
 					<th>Arrears (Maint.)</th>
 					<th>Arrears (Int.)</th>
 					<th>Interest on Arrears </th>
-					<th>Credit/Stock</th>
+					<th>Credit/Adjustments</th>
 					<th>Due For Payment</th>
 				</tr>
 			</thead>
