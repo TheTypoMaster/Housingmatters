@@ -442,6 +442,7 @@ function regular_bill_preview_screen(){
 			}			
 	
 			
+			$billing_period_text=date("M",strtotime($bill_start_date)).' - '.date("M",strtotime($bill_end_date)).' - '.date("Y",strtotime($bill_end_date));
 	
 /////START BILL HTML////
 $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
