@@ -3481,14 +3481,16 @@ foreach($hhhhhh as $fff)
 $wing_id = (int)$fff['user']['wing'];
 $flat_id = (int)$fff['user']['flat'];
 }
-}
 if($flat_id == $flat)
 break;
+}
+
+
 $ledger_type = 1;
 }
 
 
- $table[] = array(@$ac_name,@$amt_type,@$amt,@$auto_id,@$ledger_type,@$group_id,@$group,@$pen_amt);
+ $table[] = array(@$ac_name,@$amt_type,@$amt,@$auto_id,@$ledger_type,@$group_id,@$group,@$pen_amt,@$flat_id);
 
 	  } 
       $i++;
@@ -3652,14 +3654,32 @@ $auto_id = (int)@$collection['ledger_account']['auto_id'];
 $ledger_type = 2;
 }
 
+
+
+
 $this->loadmodel('ledger_sub_account'); 
 $conditions=array("name"=> new MongoRegex('/^' .  $ac_name . '$/i'),"ledger_id"=>$group_id);
 $result_sac2=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
 foreach($result_sac2 as $collection2)
 {
 $auto_id = (int)$collection2['ledger_sub_account']['auto_id'];
+$user_id = (int)$collection2['ledger_sub_account']['user_id'];
+$ledger_id = (int)$collection2['ledger_sub_account']['ledger_id'];
+if($ledger_id == 34)
+{
+$flat = (int)$child[7];
+$ledger_sub_account_fetch_result = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));			
+foreach($ledger_sub_account_fetch_result as $rrrr)
+{
+$flat2 = (int)$rrrr['user']['flat'];	
+}	
+if($flat2 == $flat)
+break;
+}
 $ledger_type = 1;
 }
+
+
 
 if(!empty($auto_id))
 {

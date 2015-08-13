@@ -3989,7 +3989,6 @@ else
 $output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Numeric Amount in row'.$r));
 die($output);
 }
-
 }
 
 $r=0;

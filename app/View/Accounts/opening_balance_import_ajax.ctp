@@ -36,6 +36,8 @@ $j++;
 $type = $data[1];
 $group_id = (int)$data[5];
 $group = $data[6];
+$flat = (int)$data[8];
+
 ?>
 <tr id="tr<?php echo $j; ?>">
 <td>
@@ -108,7 +110,9 @@ else
 }?>
 </td>
 
-<td><a href="#" role="button" class="btn mini red delete" del="<?php echo $j; ?>"><i class="icon-remove icon-white"></i></a></td>	
+<td>
+<input type="hidden" value="<?php echo $flat; ?>"
+<a href="#" role="button" class="btn mini red delete" del="<?php echo $j; ?>"><i class="icon-remove icon-white"></i></a></td>	
 </tr>
 <?php }} ?>
 <tr>
