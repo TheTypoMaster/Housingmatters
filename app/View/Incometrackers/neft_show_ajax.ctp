@@ -1,10 +1,14 @@
 <?php
-
+$account_name = "";	
+$bank_name = "";	
+$account_number = "";	
+$branch = "";	
+$ifsc_code = "";	
 
 foreach($cursor1 as $data)
 {
-$type = $data['society']['neft_type'];	
-$neft_detail = $data['society']['neft_detail'];
+$type = @$data['society']['neft_type'];	
+$neft_detail = @$data['society']['neft_detail'];
 }
 if($type == "WW")
 {
