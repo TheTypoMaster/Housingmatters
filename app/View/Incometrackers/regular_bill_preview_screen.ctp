@@ -11,6 +11,7 @@ foreach($result_society as $data){
 	$tax=(float)$data["society"]["tax"];
 	$penalty=$tax/100;
 }
+if($period_id==1){ $multiply=1; }
 if($period_id==2){ $multiply=2; }
 if($period_id==3){ $multiply=3; }
 if($period_id==4){ $multiply=6; }
