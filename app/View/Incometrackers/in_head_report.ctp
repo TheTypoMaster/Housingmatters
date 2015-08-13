@@ -51,6 +51,7 @@ if(sizeof($result_new_regular_bill)>0){
 	foreach($result_new_regular_bill as $regular_bill){
 		$auto_id=$regular_bill["new_regular_bill"]["auto_id"];
 		$one_time_id=$regular_bill["new_regular_bill"]["one_time_id"];
+		
 		$array_for_select_box[$auto_id]=$one_time_id;
 	}
 	$array_for_select_box=array_unique($array_for_select_box);
@@ -61,9 +62,13 @@ if(sizeof($result_new_regular_bill)>0){
 	</div>
 	<?php
 	exit;
-} ?>
-           <center>
-           <div class="hide_at_print">
+} 
+
+
+
+?>
+    
+           <div class="hide_at_print" align="center">
            <table border="0">
            <tr>
            <td>
@@ -94,9 +99,15 @@ if(sizeof($result_new_regular_bill)>0){
            <div id="validate_result"></div> 
            </div>
 
-<?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php 
+foreach($result_new_regular_bill as $regular_bill){
+	$one_time_id=$regular_bill["new_regular_bill"]["one_time_id"];
+	if($one_time_id==$last_one_time_id){
+		$income_head_array=$regular_bill["new_regular_bill"]["income_head_array"];
+	}
+} ?>
 <br />
-<div style="width:100%;" id="result">
+<div style="width:100%;" id="result" align="center">
 <div align="right">
 <a href="in_head_excel?one=<?php echo @$last_one_time_id; ?>" class="btn blue">Export</a>
 <a href="print_all_bill/<?php echo @$last_one_time_id; ?>" target="_blank" class="btn purple"><i class="icon-print"></i> Print All</a>
@@ -108,7 +119,7 @@ if(sizeof($result_new_regular_bill)>0){
 			<th>Name</th>
 			<th>Area</th>
 			<th>Bill No.</th>
-			<?php foreach($income_heads as $income_head){ 
+			<?php foreach($income_head_array as $income_head=>$value){ 
 			$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($income_head)));	
 			foreach($result_income_head as $data2){
 				$income_head_name = $data2['ledger_account']['ledger_name'];
@@ -167,13 +178,9 @@ foreach($result_new_regular_bill as $regular_bill){
 			<td><?php echo $user_name; ?></td>
 			<td><?php echo $sq_feet; ?></td>
 			<td><?php echo $bill_no; ?></td>
-			<?php foreach($income_heads as $income_head){ 
-			$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($income_head)));	
-			foreach($result_income_head as $data2){
-				$income_head_name = $data2['ledger_account']['ledger_name'];
-				$income_head_id = $data2['ledger_account']['auto_id'];
-			} ?>
-			<td><?php echo $income_head_array[$income_head_id]; ?></td>	
+			<?php foreach($income_head_array as $income_head=>$value){ 
+			 ?>
+			<td><?php echo $value; ?></td>	
 			<?php } ?>
 			<td><?php echo $noc_charges; ?></td>
 			<td><?php echo $total; ?></td>
