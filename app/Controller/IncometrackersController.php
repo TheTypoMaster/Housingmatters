@@ -425,6 +425,11 @@ function regular_bill_preview_screen(){
 			$due_for_payment = (int)@$this->request->data['due_for_payment'.$inc];
 		
 			
+			$account_name = "";	
+			$bank_name = "";
+			$account_number = "";
+			$branch = "";
+			$ifsc_code ="";
 			if($neft_type ==  "ALL"){
 				$account_name = @$neft_detail['account_name'];	
 				$bank_name = @$neft_detail['bank_name'];
