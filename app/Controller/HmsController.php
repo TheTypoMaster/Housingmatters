@@ -4238,7 +4238,7 @@ $conditions=array("mobile" => $mobile,'reject'=>0);
 $result3 = $this->user_temp->find('all',array('conditions'=>$conditions));
 $n3 = sizeof($result3);
 $this->loadmodel('user');
-$conditions=array("mobile" => $mobile);
+$conditions=array("mobile" => $mobile,"user_id"=>array('$ne'=>1));
 $result4 = $this->user->find('all',array('conditions'=>$conditions));
 $n4 = sizeof($result4);
 $e=$n4;
