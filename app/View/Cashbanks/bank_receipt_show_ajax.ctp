@@ -35,13 +35,7 @@ $nnn = 555;
 if($nnn == 555)
 {
 ?>
-<table  width="100%" style=" background-color:white;">
-<tr>
-<th colspan="9" style="text-align:center;">
-<p style="font-size:16px;">
-Bank Receipt Report  (<?php echo $society_name; ?>)
-</p>
-</th>
+<table  width="100%" style=" background-color:white;" id="report_tb">
 </tr>
 <tr>
 <th colspan="9" >From : <?php echo $from; ?> &nbsp;&nbsp; To : <?php echo $to; ?></th>
@@ -167,6 +161,6 @@ if($nnn == 55)
 }
 ?>
 					 
-					 
+				 
 					 
 					 

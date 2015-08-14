@@ -4,10 +4,9 @@ foreach($cursor1 as $data){
 	$transaction_date=$data["new_cash_bank"]["receipt_date"];
 	$transaction_date=date("d-m-Y",($transaction_date));
 	//$t_id=$data["new_cash_bank"]["transaction_id"];
-	
 	$receipt_mode=$data["new_cash_bank"]["receipt_mode"];
 	$cheque_number=@$data["new_cash_bank"]["cheque_number"];
-	$which_bank=@$data["new_cash_bank"]["which_bank"];
+	$which_bank=@$data["new_cash_bank"]["drawn_on_which_bank"];
 	$reference_number=@$data["new_cash_bank"]["reference_number"];
 	$current_date=$data["new_cash_bank"]["current_date"];
 	$current_date= date('d-m-Y',strtotime($current_date));

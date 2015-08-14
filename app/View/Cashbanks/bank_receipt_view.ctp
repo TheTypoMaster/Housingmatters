@@ -78,6 +78,27 @@ $(document).ready(function() {
 
 </script>	
 
-
+<style>
+ #report_tb th{
+	font-size: 10px !important;background-color:#C8EFCE;padding:2px;border:solid 1px #55965F;
+}
+#report_tb td{
+	padding:2px;
+	font-size: 12px;border:solid 1px #55965F;background-color:#FFF;
+}
+.text_bx{
+	width: 50px;
+	height: 15px !important;
+	margin-bottom: 0px !important;
+	font-size: 12px;
+}
+.text_rdoff{
+	width: 50px;
+	height: 15px !important;
+	border: none !important;
+	margin-bottom: 0px !important;
+	font-size: 12px;
+}
+</style>	
 
 

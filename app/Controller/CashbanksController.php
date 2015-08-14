@@ -2437,7 +2437,7 @@ function b_receipt_edit($receipt_id=null){
 		$member = (int)$this->request->data['mmmm'];
 		$amount = $this->request->data['amount'];
 		$t_id = $this->request->data['t_id'];
-		
+		$receipt_date = date('Y-m-d',strtotime($receipt_date));
 		if($member == 1)
 		{
 		$bill_for = (int)$this->request->data['ffff'];
@@ -2450,15 +2450,32 @@ function b_receipt_edit($receipt_id=null){
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 $this->loadmodel('new_cash_bank');
-$this->new_cash_bank->updateAll(array("receipt_date" => $receipt_date, "prepaired_by" => $s_user_id,"bill_reference" => $bill_no,"receipt_mode" => $mode,"deposited_bank_id" => $bank_account,"amount" => $amount,"member_type" => $member,"cheque_number"=>$cheque_number,"reference_number"=>@$reference_number,"which_bank"=>$which_bank,"cheque_date"=>$cheque_date,"receipt_type"=>$bill_for),array("receipt_id" => $bank_rrr,"society_id"=>$s_society_id));
+$this->new_cash_bank->updateAll(array("receipt_date" => strtotime($receipt_date), "prepaired_by" => $s_user_id,"bill_reference" => $bill_no,"receipt_mode" => $mode,"deposited_bank_id" => $bank_account,"amount" => $amount,"member_type" => $member,"cheque_number"=>$cheque_number,"reference_number"=>@$reference_number,"drawn_on_which_bank"=>$which_bank,"cheque_date"=>$cheque_date,"receipt_type"=>$bill_for),array("receipt_id" => $bank_rrr,"society_id"=>$s_society_id));
 
 
  
 //$this->loadmodel('ledger');
 //$this->ledger->updateAll(array("amount" => $amount,"current_date" => $current_date),array("receipt_id" => $bank_rrr,"module_id" => 1)); 
 //$this->redirect(array('controller' => 'Cashbanks','action' => 'b_receipt_view?c='.$t_id.'&m=1'));
+?>
+<div class="modal-backdrop fade in"></div>
+<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+<div class="modal-header">
+<center>
+<h3 id="myModalLabel3" style="color:#999;"><b>Bank Receipt Edit</b></h3>
+</center>
+</div>
+<div class="modal-body">
+<center>
+<h5><b>Receipt Edited Successfully</b></h5>
+</center>
+</div>
+<div class="modal-footer">
+<a href="<?php  echo $this->webroot_path(); ?>Cashbanks/bank_receipt_view" class="btn blue">OK</a>
+</div>
+</div>
 
-	
+<?php
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 }
