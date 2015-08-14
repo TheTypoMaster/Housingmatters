@@ -3460,19 +3460,20 @@ $this->set('from',$from);
 $this->set('to',$to);
 
 $this->loadmodel('new_regular_bill');
+$order=array('new_regular_bill.bill_start_date'=> 'DESC');
 $conditions=array('society_id'=>$s_society_id,"approval_status"=>1,'new_regular_bill.bill_start_date'=>array('$gte'=>$from_date3,'$lte'=>$to_date3));
 //$conditions=array("society_id"=> $s_society_id,"approval_status"=>1);
-$cursor1=$this->new_regular_bill->find('all',array('conditions'=>$conditions));
+$cursor1=$this->new_regular_bill->find('all',array('conditions'=>$conditions,'order'=>$order));
 $this->set('cursor1',$cursor1);	
 
 if(!empty($bill_number))
 {
 $this->loadmodel('new_regular_bill');
+$order=array('new_regular_bill.bill_start_date'=> 'DESC');
 $conditions=array('society_id'=>$s_society_id,"approval_status"=>1,"bill_no"=>$bill_number);
 //$conditions=array("society_id"=> $s_society_id,"approval_status"=>1);
-$cursor2=$this->new_regular_bill->find('all',array('conditions'=>$conditions));
+$cursor2=$this->new_regular_bill->find('all',array('conditions'=>$conditions,'order'=>$order));
 $this->set('cursor2',$cursor2);	
-
 }
 
 }

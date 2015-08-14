@@ -45,7 +45,7 @@ foreach($cursor1 as $data3){
 		$result_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch2'),array('pass'=>array(@$flat_id,$wing_id))); 
 		foreach($result_flat as $data2){
 		$flat_type_id = (int)$data2['flat']['flat_type_id'];
-		$noc_ch_id = (int)$data2['flat']['noc_ch_tp'];
+		$noc_ch_id = (int)@$data2['flat']['noc_ch_tp'];
 		$sq_feet = (int)$data2['flat']['flat_area'];
 		}
 
@@ -154,11 +154,11 @@ foreach($cursor1 as $data3){
 		$result_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch2'),array('pass'=>array(@$flat_id,$wing_id))); 
 		foreach($result_flat as $data2){
 		$flat_type_id = (int)$data2['flat']['flat_type_id'];
-		$noc_ch_id = (int)$data2['flat']['noc_ch_tp'];
+		$noc_ch_id = (int)@$data2['flat']['noc_ch_tp'];
 		$sq_feet = (int)$data2['flat']['flat_area'];
 		}
 
- 
+$bill_start_date2 = date('d-m-Y',$bill_start_date);
 if($wise == 2)
 {									
 if($flat_id == $user_id)
@@ -167,7 +167,7 @@ if($flat_id == $user_id)
 //{
 ?>
 <tr>
-<td><?php echo $wing_flat; ?></td>
+<td><?php echo $bill_start_date2; ?></td>
 <td><?php echo $user_name; ?></td>
 <td><?php echo $sq_feet; ?></td>
 <td><?php echo $bill_no; ?></td>
@@ -192,7 +192,7 @@ if($wing_id == $wing)
 //$grand_total = $grand_total + $g_total;	
 ?>	
 <tr>
-<td><?php echo $wing_flat; ?></td>
+<td><?php echo $bill_start_date2; ?></td>
 <td><?php echo $user_name; ?></td>
 <td><?php echo $sq_feet; ?></td>
 <td><?php echo $bill_no; ?></td>
@@ -249,7 +249,7 @@ $sq_feet = (int)$data2['flat']['flat_area'];
 	
 ?>
 <tr>
-<td><?php echo $wing_flat; ?></td>
+<td><?php echo $bill_start_date2; ?></td>
 <td><?php echo $user_name; ?></td>
 <td><?php echo $sq_feet; ?></td>
 <td><?php echo $bill_no; ?></td>
