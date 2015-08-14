@@ -1,10 +1,11 @@
 <style>
-th{
-	font-size: 10px !important;background-color:#FCE4BF;
+
+ #report_tb th{
+	font-size: 10px !important;background-color:#C8EFCE;padding:2px;border:solid 1px #55965F;
 }
-th,td{
+#report_tb td{
 	padding:2px;
-	font-size: 12px;border:solid 1px #FFB848; height:20px;
+	font-size: 12px;border:solid 1px #55965F;background-color:#FFF;
 }
 .text_bx{
 	width: 50px;
@@ -19,6 +20,7 @@ th,td{
 	margin-bottom: 0px !important;
 	font-size: 12px;
 }
+
 </style>
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
@@ -160,7 +162,4 @@ if($nnn == 55)
 <?php
 }
 ?>
-					 
-				 
-					 
-					 
+			 
