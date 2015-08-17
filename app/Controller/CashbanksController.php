@@ -310,12 +310,12 @@ if($member_type == 1)
 
 $l=$this->autoincrement('ledger','auto_id');
 $this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($transaction_date), "debit" => $amount, "credit" =>null,"ledger_account_id" => 33, "ledger_sub_account_id" => $deposited_bank_id, "table_name" => "new_cash_bank","element_id" => $t1, "society_id" => $s_society_id,));
+$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($transaction_date), "debit" => $amount, "credit" =>null,"ledger_account_id" => 33, "ledger_sub_account_id" => $deposited_bank_id, "table_name" => "new_cash_bank","element_id" => $t1, "society_id" => $s_society_id));
 $this->ledger->saveAll($multipleRowData); 
 
 $l=$this->autoincrement('ledger','auto_id');
 $this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($transaction_date), "credit" => $amount, "debit" =>null,"ledger_account_id" => 34, "ledger_sub_account_id" => $account_id,"table_name" => "new_cash_bank","element_id" => $t1, "society_id" => $s_society_id,));
+$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($transaction_date), "credit" => $amount, "debit" =>null,"ledger_account_id" => 34, "ledger_sub_account_id" => $account_id,"table_name" => "new_cash_bank","element_id" => $t1, "society_id" => $s_society_id));
 $this->ledger->saveAll($multipleRowData);
 //////////////////////////////////////////////////
 
