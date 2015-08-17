@@ -3716,7 +3716,7 @@ $this->set('cursor1',$cursor1);
 function bank_receipt_import()
 {
 $this->layout="";
-$filename="Bank Receipt Import";
+$filename="Bank_Receipt_Import";
 header ("Expires: 0");
 header ("Last-Modified: " . gmdate("D,d M YH:i:s") . "GMT");
 header ("Cache-Control: no-cache, must-revalidate");
