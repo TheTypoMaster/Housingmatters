@@ -4,10 +4,9 @@ foreach($cursor1 as $data){
 	$transaction_date=$data["new_cash_bank"]["receipt_date"];
 	$transaction_date=date("d-m-Y",($transaction_date));
 	//$t_id=$data["new_cash_bank"]["transaction_id"];
-	
 	$receipt_mode=$data["new_cash_bank"]["receipt_mode"];
 	$cheque_number=@$data["new_cash_bank"]["cheque_number"];
-	$which_bank=@$data["new_cash_bank"]["which_bank"];
+	$which_bank=@$data["new_cash_bank"]["drawn_on_which_bank"];
 	$reference_number=@$data["new_cash_bank"]["reference_number"];
 	$current_date=$data["new_cash_bank"]["current_date"];
 	$current_date= date('d-m-Y',strtotime($current_date));
@@ -151,6 +150,23 @@ foreach($cursor1 as $data){
 	Received from  -  <?php if($member==1) { echo '<b>Member</b>'; }else{ echo '<b>Non Member</b>'; } ?><br/>
 	Party Name - <b><?php echo $user_name.' '.$flat_info; ?></b><br/><br/>
 	
+<br />    
+    
+    
+        <label style="font-size:14px;">Received from<span style="color:red;">*</span></label>
+        
+        <label class="radio">
+        <div class="radio" id="uniform-undefined"><span><input type="radio" name="member_type" class="hhh" value="1" style="opacity: 0;" id="mem"></span></div>
+        Member
+        </label>
+        <label class="radio">
+        <div class="radio" id="uniform-undefined"><span><input type="radio" name="member_type" class="go6" value="2" style="opacity: 0;" onclick="hidediv('div12')" id="mem"></span></div>
+        Non-Member
+        </label>
+        <label id="mem"></label>
+       
+        <br />
+    
 	<label>Amount</label>
 	<input type="text" class="m-wrap" value="<?php echo @$amount; ?>" name="amount" />
 	

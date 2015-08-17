@@ -3689,9 +3689,26 @@ $current_date = date('Y-m-d');
 $current_date = new MongoDate(strtotime($current_date));
 
 $op_date = date('Y-m-d',strtotime($date));
-$op_date = new MongoDate(strtotime($op_date));
+
 if($opening_bal != 0)
 {
+
+if($amount_type == 1)
+{
+$l=$this->autoincrement('ledger','auto_id');
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($op_date), "debit" => $opening_bal, "credit" =>null,"ledger_account_id" => $ledger_id, "ledger_sub_account_id" => $auto_id, "table_name" => "opening_balance","element_id" => null, "society_id" => $s_society_id));
+$this->ledger->saveAll($multipleRowData); 
+}
+else
+{
+$l=$this->autoincrement('ledger','auto_id');
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($op_date), "debit" => null, "credit"=>$opening_bal,"ledger_account_id" => $ledger_id, "ledger_sub_account_id" => $auto_id, "table_name" => "opening_balance","element_id" => null, "society_id" => $s_society_id));
+$this->ledger->saveAll($multipleRowData); 
+}
+
+/*
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
 $cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
@@ -3712,10 +3729,28 @@ $this->loadmodel('ledger');
 $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => 'O_B', 
 "amount" => $opening_bal, "amount_category_id"=>$amount_type, "account_type" => 1, "account_id"=>$auto_id, "current_date" => $current_date,"society_id" => $s_society_id,"module_id"=>'O_B',"op_date"=>$op_date));
 $this->ledger->saveAll($multipleRowData);
+*/
+
 }
 
 if($penalty_amt != 0)
 {
+if($amount_type == 1)
+{
+$l=$this->autoincrement('ledger','auto_id');
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($op_date), "debit" =>$penalty_amt, "credit"=>null,"ledger_account_id" => $ledger_id, "ledger_sub_account_id" => $auto_id, "table_name" => "opening_balance","element_id" => null, "society_id" => $s_society_id,"arrear_int_type"=>"YES"));
+$this->ledger->saveAll($multipleRowData); 
+}
+else
+{
+$l=$this->autoincrement('ledger','auto_id');
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($op_date), "debit" => null, "credit"=>$penalty_amt,"ledger_account_id" => $ledger_id, "ledger_sub_account_id" => $auto_id, "table_name" => "opening_balance","element_id" => null, "society_id" => $s_society_id,"arrear_int_type"=>"YES"));
+$this->ledger->saveAll($multipleRowData); 
+
+}
+/*
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
 $cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
@@ -3736,8 +3771,9 @@ $this->loadmodel('ledger');
 $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => 'O_B', 
 "amount" => $penalty_amt, "amount_category_id"=>$amount_type, "account_type" => 1, "account_id"=>$auto_id, "current_date" => $current_date,"society_id" => $s_society_id,"module_id"=>'O_B',"op_date"=>$op_date,"penalty"=>"YES"));
 $this->ledger->saveAll($multipleRowData);
-}
+*/
 
+}
 }
 
 else if(@$ledger_type == 2)
@@ -3746,9 +3782,25 @@ $current_date = date('Y-m-d');
 $current_date = new MongoDate(strtotime($current_date));
 
 $op_date = date('Y-m-d',strtotime($date));
-$op_date = new MongoDate(strtotime($op_date));
+//$op_date = new MongoDate(strtotime($op_date));
 if($opening_bal != 0)
 {
+if($amount_type == 1)
+{
+$l=$this->autoincrement('ledger','auto_id');
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($op_date), "debit" =>$opening_bal, "credit"=>null,"ledger_account_id" => $auto_id, "ledger_sub_account_id" => null, "table_name" => "opening_balance","element_id" => null, "society_id" => $s_society_id));
+$this->ledger->saveAll($multipleRowData); 
+}
+else
+{
+$l=$this->autoincrement('ledger','auto_id');
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($op_date), "debit" => null, "credit"=>$opening_bal,"ledger_account_id" => $auto_id, "ledger_sub_account_id" => null, "table_name" =>"opening_balance","element_id" =>null, "society_id" => $s_society_id));
+$this->ledger->saveAll($multipleRowData); 
+}
+
+/*
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
 $cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
@@ -3769,6 +3821,8 @@ $this->loadmodel('ledger');
 $multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => 'O_B', 
 "amount" => $opening_bal, "amount_category_id"=>$amount_type, "account_type" => 2, "account_id"=>$auto_id, "current_date" => $current_date,"society_id" => $s_society_id,"module_id"=>'O_B',"op_date"=>$op_date));
 $this->ledger->saveAll($multipleRowData);
+*/
+
 }
 }
 }
@@ -3802,8 +3856,22 @@ $current_date = date('Y-m-d');
 $current_date = new MongoDate(strtotime($current_date));
 
 $op_date = date('Y-m-d',strtotime($date));
-$op_date = new MongoDate(strtotime($op_date));
-
+//$op_date = new MongoDate(strtotime($op_date));
+if($amount_type == 1)
+{
+$l=$this->autoincrement('ledger','auto_id');
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($op_date), "debit" =>$opening_bal, "credit"=>$opening_bal,"ledger_account_id" => $group_id, "ledger_sub_account_id" => $k,"table_name" =>"opening_balance","element_id" =>null, "society_id" => $s_society_id));
+$this->ledger->saveAll($multipleRowData); 
+}
+else
+{
+$l=$this->autoincrement('ledger','auto_id');
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($op_date), "debit" => null, "credit"=>$opening_bal,"ledger_account_id" => $auto_id, "ledger_sub_account_id" =>$k, "table_name" =>"opening_balance","element_id" =>null, "society_id" => $s_society_id));
+$this->ledger->saveAll($multipleRowData); 
+}
+/*
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
 $cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
@@ -3824,9 +3892,27 @@ $this->loadmodel('ledger');
 $multipleRowData = Array( Array("auto_id" => $l, "receipt_id"=>'O_B', 
 "amount"=>$opening_bal, "amount_category_id"=>$amount_type, "account_type" => 1, "account_id"=>$k,"current_date" => $current_date,"society_id" => $s_society_id,"module_id"=>'O_B',"op_date"=>$op_date));
 $this->ledger->saveAll($multipleRowData);	
-	
+*/	
 if($penalty_amt != 0)	
 {
+if($amount_type == 1)
+{
+$l=$this->autoincrement('ledger','auto_id');
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($op_date), "debit" =>$opening_bal, "credit"=>$opening_bal,"ledger_account_id" => $group_id, "ledger_sub_account_id" => $k,"table_name" =>"opening_balance","element_id" =>null,"society_id" => $s_society_id,"arrear_int_type"=>"YES"));
+$this->ledger->saveAll($multipleRowData); 
+}
+else
+{
+$l=$this->autoincrement('ledger','auto_id');
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($op_date), "debit" =>null, "credit"=>$opening_bal,"ledger_account_id" => $group_id, "ledger_sub_account_id" => $k,"table_name" =>"opening_balance","element_id" =>null, "society_id" => $s_society_id,"arrear_int_type"=>"YES"));
+$this->ledger->saveAll($multipleRowData); 
+}
+
+
+
+/*
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
 $cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
@@ -3846,7 +3932,9 @@ $l++;
 $this->loadmodel('ledger');
 $multipleRowData = Array( Array("auto_id" => $l, "receipt_id"=>'O_B', 
 "amount"=>$penalty_amt, "amount_category_id"=>$amount_type, "account_type" => 1, "account_id"=>$k,"current_date" => $current_date,"society_id" => $s_society_id,"module_id"=>'O_B',"op_date"=>$op_date,"penalty"=>"YES"));
-$this->ledger->saveAll($multipleRowData);		
+$this->ledger->saveAll($multipleRowData);	
+*/
+	
 }
 }
 }
@@ -3854,6 +3942,7 @@ else
 {
 if($opening_bal != 0)
 {
+
 $this->loadmodel('ledger_account');
 $order=array('ledger_account.auto_id'=> 'DESC');
 $cursor=$this->ledger_account->find('all',array('order' =>$order,'limit'=>1));
@@ -3880,6 +3969,26 @@ $current_date = new MongoDate(strtotime($current_date));
 $op_date = date('Y-m-d',strtotime($date));
 $op_date = new MongoDate(strtotime($op_date));
 
+
+if($amount_type == 1)
+{
+$l=$this->autoincrement('ledger','auto_id');
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($op_date), "debit" =>$opening_bal, "credit"=>null,"ledger_account_id" => $k, "ledger_sub_account_id" => null,"table_name" =>"opening_balance","element_id" =>null, "society_id" => $s_society_id));
+$this->ledger->saveAll($multipleRowData); 
+}
+else
+{
+$l=$this->autoincrement('ledger','auto_id');
+$this->loadmodel('ledger');
+$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($op_date), "debit" =>null, "credit"=>$opening_bal,"ledger_account_id" => $k, "ledger_sub_account_id" => null,"table_name" =>"opening_balance","element_id" =>null, "society_id" => $s_society_id));
+$this->ledger->saveAll($multipleRowData); 
+}
+
+
+
+/*
+
 $this->loadmodel('ledger');
 $order=array('ledger.auto_id'=> 'DESC');
 $cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
@@ -3899,7 +4008,7 @@ $l++;
 $this->loadmodel('ledger');
 $multipleRowData = Array( Array("auto_id" => $l, "receipt_id"=>'O_B', 
 "amount"=>$opening_bal, "amount_category_id"=>$amount_type, "account_type" => 2, "account_id"=>$k,"current_date" => $current_date,"society_id" => $s_society_id,"module_id"=>'O_B',"op_date"=>$op_date));
-$this->ledger->saveAll($multipleRowData);
+$this->ledger->saveAll($multipleRowData);  */
 }
 }
 }
