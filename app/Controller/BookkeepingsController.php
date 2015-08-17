@@ -1322,133 +1322,40 @@ echo $excel;
 //////////////////////////// End Ledger Excel (Accounts)/////////////////////////////
 
 ////////////////////////////////////////////// Start Ledger Show Ajax (Accounts)////////////////////////////////////////////////////////////////////////
-function ledger_show_ajax()
-{
-$this->layout='blank';
-$s_role_id=$this->Session->read('role_id');
-$s_society_id = (int)$this->Session->read('society_id');
-$s_user_id=$this->Session->read('user_id');
-
-$this->set('s_role_id',$s_role_id);
-$type = (int)$this->request->query('type');
-$this->set('type',$type);
-if($type == 1)
-{
-$main_id = (int)$this->request->query('main_id');
-$sub_id = (int)$this->request->query('sub_id');
-$date1 = $this->request->query('date1');
-$date2 = $this->request->query('date2');
-$this->set('main_id',$main_id);
-$this->set('sub_id',$sub_id);
-$this->set('date111',$date1);
-$this->set('date222',$date2);
-$this->set('type',$type);
-}
-if($type == 2)
-{
-$main_id = 34;
-$flat_id = (int)$this->request->query('flat_id');
-$date1 = $this->request->query('date1');
-$date2 = $this->request->query('date2');
-
-$this->loadmodel('user');
-$conditions=array("society_id" => $s_society_id,"flat"=>$flat_id);
-$cursor = $this->user->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$user_id = (int)@$collection['user']['user_id'];
-}
-$result_gh = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch3'),array('pass'=>array(@$user_id)));
-foreach ($result_gh as $collection) 
-{
-$sub_id = (int)$collection['ledger_sub_account']['auto_id'];
-}	
-$this->set('main_id',$main_id);
-$this->set('sub_id',$sub_id);
-$this->set('date111',$date1);
-$this->set('date222',$date2);
-$this->set('type',$type);
-
-}
-
-$this->loadmodel('financial_year');
-$conditions=array("society_id" => $s_society_id);
-$cursor = $this->financial_year->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$from = $collection['financial_year']['from'];
-$to = $collection['financial_year']['to'];
-}
-$year = date('Y');
-$date_f = @$from.'-'.$year;
-
-$datefrom = date('Y-m-d',strtotime($date_f));
-$datefrom = new MongoDate(strtotime($datefrom));
-
-if($main_id == 15 || $main_id == 33 || $main_id == 34 || $main_id == 35)
-{
-$this->loadmodel('ledger'); 
-$conditions=array("op_date"=>$datefrom,"account_type"=> 1,"account_id"=>
-$sub_id,"receipt_id"=>"O_B","society_id"=>$s_society_id);
-$cursor=$this->ledger->find('all',array('conditions'=>$conditions));
-$op_deb = 0;
-$op_cred = 0;
-foreach($cursor as $collection)
-{
-$amount_type2 = (int)$collection['ledger']['amount_category_id'];
-$amount2 = $collection['ledger']['amount'];
-}
-if(@$amount_type2 == 1)
-{
-$op_deb = $op_deb + $amount2;
-}
-else if(@$amount_type2 == 2)
-{
-$op_cred = $op_cred + $amount2;
-}
-
-}
-else
-{
-$this->loadmodel('ledger'); 
-$conditions=array("op_date"=>$datefrom,"account_type"=> 2,"account_id"=>
-$main_id,"receipt_id"=>"O_B","society_id"=>$s_society_id);
-$cursor=$this->ledger->find('all',array('conditions'=>$conditions));
-$op_deb = 0;
-$op_cred = 0;
-foreach($cursor as $collection)
-{
-$amount_type2 = (int)$collection['ledger']['amount_category_id'];
-$amount2 = $collection['ledger']['amount'];
-}
-if(@$amount_type2 == 1)
-{
-$op_deb = $op_deb + $amount2;
-}
-else if(@$amount_type2 == 2)
-{
-$op_cred = $op_cred + $amount2;
-}
-}
-$this->set('op_deb',$op_deb);
-$this->set('op_cred',$op_cred);
-
-$this->loadmodel('ledger');
-$conditions=array("society_id" => $s_society_id);
-$cursor3=$this->ledger->find('all',array('conditions'=>$conditions));
-$this->set('cursor3',$cursor3);
-
-$this->loadmodel('society');
-$conditions=array("society_id" => $s_society_id);
-$cursor=$this->society->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$society_name = $collection['society']['society_name'];	
-}
-$this->set('society_name',@$society_name);
+function ledger_show_ajax(){
+	$this->layout='blank';
+	$this->ath();
+	$s_role_id=$this->Session->read('role_id');
+	$s_society_id = (int)$this->Session->read('society_id');
+	$s_user_id=$this->Session->read('user_id');
+	$this->set('s_role_id',$s_role_id);
 
 
+	$ledger_account_id = (int)$this->request->query('main_id');
+	$ledger_sub_account_id = (int)$this->request->query('sub_id');
+	$from = date("Y-m-d",strtotime($this->request->query('date1')));
+	$to = date("Y-m-d",strtotime($this->request->query('date2')));
+	$this->set('ledger_account_id',$ledger_account_id);
+	$this->set('ledger_sub_account_id',$ledger_sub_account_id);
+	$this->set('from',$from);
+	$this->set('to',$to);
+	
+	$this->loadmodel('ledger');
+	$conditions=array('society_id'=>$s_society_id,"ledger_account_id"=>$ledger_account_id,'ledger.tranjection_date'=>array('$gte'=>strtotime($from),'$lte'=>strtotime($to)));
+	$order=array('ledger.tranjection_date'=>'ASC');
+	$result_ledger=$this->ledger->find('all',array('conditions'=>$conditions,'order'=>$order)); 
+	$this->set('result_ledger',$result_ledger);
 
+	if($ledger_account_id == 15 || $ledger_account_id == 33 || $ledger_account_id == 34 || $ledger_account_id == 35){
+
+
+	}
+}
+function regular_bill_info_via_auto_id($auto_id){
+	$auto_id=(int)$auto_id;
+	$this->loadmodel('new_regular_bill');
+	$conditions=array('auto_id'=>$auto_id);
+	return $this->new_regular_bill->find('all',array('conditions'=>$conditions)); 
 }
 /////////////////////////////////////// End Ledger Show Ajax (Accounts)//////////////////////////////////////////////
 

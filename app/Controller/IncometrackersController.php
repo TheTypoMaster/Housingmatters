@@ -366,9 +366,9 @@ function regular_bill_preview_screen(){
 		$society_phone=$data["society"]["society_phone"];
 		$terms_conditions=$data["society"]["terms_conditions"];
 		$signature=$data["society"]["signature"];
-		$neft_type = @$data["society"]["neft_type"];
+	    $neft_type = @$data["society"]["neft_type"];
 	    $neft_detail = @$data["society"]["neft_detail"];
-	}
+	    }
 	
 	$this->loadmodel('user');
 	$condition=array('society_id'=>$s_society_id,'tenant'=>1,'deactive'=>0);
@@ -404,9 +404,15 @@ function regular_bill_preview_screen(){
 			//user info via flat_id//
 			$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($flat_id)));
 			foreach($result_user_info as $user_info){
+				$user_id=$user_info["user"]["user_id"];
 				$user_name=$user_info["user"]["user_name"];
 			}
 			
+			$result_ledger_sub_account = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch3'),array('pass'=>array($user_id)));
+			foreach($result_ledger_sub_account as $ledger_sub_account)
+			{
+			$ledger_sub_account_id = (int)$ledger_sub_account['ledger_sub_account']['auto_id'];
+			}
 			
 			foreach($result_society as $data){
 				$income_heads=$data["society"]["income_head"];
@@ -423,13 +429,14 @@ function regular_bill_preview_screen(){
 			$intrest_on_arrears = (int)@$this->request->data['intrest_on_arrears'.$inc];
 			$credit_stock = (int)@$this->request->data['credit_stock'.$inc];
 			$due_for_payment = (int)@$this->request->data['due_for_payment'.$inc];
-		
+
 			
 			$account_name = "";	
 			$bank_name = "";
 			$account_number = "";
 			$branch = "";
-			$ifsc_code ="";
+			$ifsc_code = "";
+				
 			if($neft_type ==  "ALL"){
 				$account_name = @$neft_detail['account_name'];	
 				$bank_name = @$neft_detail['bank_name'];
@@ -444,7 +451,7 @@ function regular_bill_preview_screen(){
 				$account_number = @$neft_detail2['account_number'];
 				$branch = @$neft_detail2['branch'];
 				$ifsc_code = @$neft_detail2['ifsc_code'];		
-			}			
+			}
 	
 			
 			if($period_id!=1){
@@ -452,7 +459,6 @@ function regular_bill_preview_screen(){
 			}else{
 				$billing_period_text=date("M-Y",strtotime($bill_start_date));
 			}
-			
 	
 /////START BILL HTML////
 $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
@@ -600,14 +606,15 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 									</tr>';
 						if(!empty($credit_stock)){
 							$bill_html.='<tr>
-									<td style="text-align:right; padding-right:2%;" width="100%">Credit/Adjustments</td>
+									<td style="text-align:right; padding-right:2%;" width="100%">Credit/Stock</td>
 									</tr>';
 						}
+						
 						$bill_html.='<tr>
 									<th style="text-align:right; padding-right:2%;" width="100%">Due For Payment:</th>
 									</tr></tbody></table>
 									</td>
-								<td valign="top"><table style="width:100%;" border="0">
+									<td valign="top"><table style="width:100%;" border="0">
 									<tbody><tr>
 									<td style="text-align:right; padding-right:8%;">'.$total.'</td>
 									</tr>
@@ -622,7 +629,7 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 							$bill_html.='<tr>
 									<td style="text-align:right; padding-right:8%;">-'.$credit_stock.'</td>
 									</tr>';
-						}			
+						}
 						$bill_html.='<tr>
 									<th style="text-align:right; padding-right:8%;">'.$due_for_payment.'</th>
 									</tr></tbody></table>
@@ -663,8 +670,42 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 			
 			
 			$this->loadmodel('new_regular_bill');
-			$auto_id=$this->autoincrement('new_regular_bill','auto_id');
-			$this->new_regular_bill->saveAll(array("auto_id" => $auto_id, "flat_id" => $flat_id, "bill_no" => $bill_number, "income_head_array" => $income_head_array, "noc_charges" => $noc_charges,"total" => $total, "arrear_maintenance"=> $arrear_maintenance, "arrear_intrest" => $arrear_intrest, "intrest_on_arrears" => $intrest_on_arrears,"due_for_payment" => $due_for_payment,"one_time_id"=>$one_time_id,"society_id"=>$s_society_id,"due_date"=>strtotime($due_date),"bill_start_date"=>strtotime($bill_start_date),"bill_end_date"=>strtotime($bill_end_date),"approval_status"=>0,"bill_html"=>$bill_html,"credit_stock"=>$credit_stock,"current_date"=>strtotime($current_date)));
+			$new_regular_bill_auto_id=$this->autoincrement('new_regular_bill','auto_id');
+			$this->new_regular_bill->saveAll(array("auto_id" => $new_regular_bill_auto_id, "flat_id" => $flat_id, "bill_no" => $bill_number, "income_head_array" => $income_head_array, "noc_charges" => $noc_charges,"total" => $total, "arrear_maintenance"=> $arrear_maintenance, "arrear_intrest" => $arrear_intrest, "intrest_on_arrears" => $intrest_on_arrears,"due_for_payment" => $due_for_payment,"one_time_id"=>$one_time_id,"society_id"=>$s_society_id,"due_date"=>strtotime($due_date),"bill_start_date"=>strtotime($bill_start_date),"bill_end_date"=>strtotime($bill_end_date),"approval_status"=>0,"bill_html"=>$bill_html,"credit_stock"=>$credit_stock,"current_date"=>strtotime($current_date)));
+			
+			
+			//LEDGER CODE START//
+			foreach($income_head_array as $income_head_id=>$income_head_amount){
+				if(!empty($income_head_amount)){
+					$this->loadmodel('ledger');
+					$auto_id=$this->autoincrement('ledger','auto_id');
+					$this->ledger->saveAll(array("auto_id" => $auto_id,"ledger_account_id" => $income_head_id,"ledger_sub_account_id" => null,"debit"=>null,"credit"=>$income_head_amount,"table_name"=>"new_regular_bill","element_id"=>$new_regular_bill_auto_id,"society_id"=>$s_society_id,"tranjection_date"=>strtotime($bill_start_date)));
+				}
+			}
+			
+			if(!empty($noc_charges)){
+				$this->loadmodel('ledger');
+				$auto_id=$this->autoincrement('ledger','auto_id');
+				$this->ledger->saveAll(array("auto_id" => $auto_id,"ledger_account_id" => 43,"ledger_sub_account_id" => null,"debit"=>null,"credit"=>$noc_charges,"table_name"=>"new_regular_bill","element_id"=>$new_regular_bill_auto_id,"society_id"=>$s_society_id,"tranjection_date"=>strtotime($bill_start_date)));
+			}
+			
+			if(!empty($total)){
+				$this->loadmodel('ledger');
+				$auto_id=$this->autoincrement('ledger','auto_id');
+				$this->ledger->saveAll(array("auto_id" => $auto_id,"ledger_account_id" => 34,"ledger_sub_account_id" => $ledger_sub_account_id,"debit"=>$total,"credit"=>null,"table_name"=>"new_regular_bill","element_id"=>$new_regular_bill_auto_id,"society_id"=>$s_society_id,"tranjection_date"=>strtotime($bill_start_date)));
+			}
+			
+			if(!empty($intrest_on_arrears)){
+				$this->loadmodel('ledger');
+				$auto_id=$this->autoincrement('ledger','auto_id');
+				$this->ledger->saveAll(array("auto_id" => $auto_id,"ledger_account_id" => 41,"ledger_sub_account_id" => null,"debit"=>null,"credit"=>$intrest_on_arrears,"table_name"=>"new_regular_bill","element_id"=>$new_regular_bill_auto_id,"society_id"=>$s_society_id,"tranjection_date"=>strtotime($bill_start_date)));
+				
+				$this->loadmodel('ledger');
+				$auto_id=$this->autoincrement('ledger','auto_id');
+				$this->ledger->saveAll(array("auto_id" => $auto_id,"ledger_account_id" => 34,"ledger_sub_account_id" => $ledger_sub_account_id,"debit"=>$intrest_on_arrears,"credit"=>null,"table_name"=>"new_regular_bill","element_id"=>$new_regular_bill_auto_id,"society_id"=>$s_society_id,"tranjection_date"=>strtotime($bill_start_date),"intrest_on_arrears"=>"YES"));
+			}
+				
+			
 			unset($income_head_array);
 		}
 		$this->response->header('Location','it_regular_bill');
@@ -3478,19 +3519,20 @@ $this->set('from',$from);
 $this->set('to',$to);
 
 $this->loadmodel('new_regular_bill');
+$order=array('new_regular_bill.bill_start_date'=> 'DESC');
 $conditions=array('society_id'=>$s_society_id,"approval_status"=>1,'new_regular_bill.bill_start_date'=>array('$gte'=>$from_date3,'$lte'=>$to_date3));
 //$conditions=array("society_id"=> $s_society_id,"approval_status"=>1);
-$cursor1=$this->new_regular_bill->find('all',array('conditions'=>$conditions));
+$cursor1=$this->new_regular_bill->find('all',array('conditions'=>$conditions,'order'=>$order));
 $this->set('cursor1',$cursor1);	
 
 if(!empty($bill_number))
 {
 $this->loadmodel('new_regular_bill');
+$order=array('new_regular_bill.bill_start_date'=> 'DESC');
 $conditions=array('society_id'=>$s_society_id,"approval_status"=>1,"bill_no"=>$bill_number);
 //$conditions=array("society_id"=> $s_society_id,"approval_status"=>1);
-$cursor2=$this->new_regular_bill->find('all',array('conditions'=>$conditions));
+$cursor2=$this->new_regular_bill->find('all',array('conditions'=>$conditions,'order'=>$order));
 $this->set('cursor2',$cursor2);	
-
 }
 
 }
@@ -6280,8 +6322,8 @@ $conditions=array("society_id"=>$s_society_id);
 $cursor=$this->society->find('all',array('conditions'=>$conditions));
 foreach ($cursor as $data) 
 {
-$neft = $data['society']['neft_detail'];
-$type = $data['society']['neft_type'];
+$neft = @$data['society']['neft_detail'];
+$type = @$data['society']['neft_type'];
 }
 if($type == "ALL")
 {

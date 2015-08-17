@@ -7,7 +7,6 @@
 <?php
 echo $this->fetch('meta');
 $webroot_path=$this->requestAction(array('controller' => 'Hms', 'action' => 'webroot_path'));
-
 ?>
 <script type="text/javascript">
 var key = 1;
