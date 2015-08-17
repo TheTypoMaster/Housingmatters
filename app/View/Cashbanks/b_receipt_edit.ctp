@@ -150,6 +150,23 @@ foreach($cursor1 as $data){
 	Received from  -  <?php if($member==1) { echo '<b>Member</b>'; }else{ echo '<b>Non Member</b>'; } ?><br/>
 	Party Name - <b><?php echo $user_name.' '.$flat_info; ?></b><br/><br/>
 	
+<br />    
+    
+    
+        <label style="font-size:14px;">Received from<span style="color:red;">*</span></label>
+        
+        <label class="radio">
+        <div class="radio" id="uniform-undefined"><span><input type="radio" name="member_type" class="hhh" value="1" style="opacity: 0;" id="mem"></span></div>
+        Member
+        </label>
+        <label class="radio">
+        <div class="radio" id="uniform-undefined"><span><input type="radio" name="member_type" class="go6" value="2" style="opacity: 0;" onclick="hidediv('div12')" id="mem"></span></div>
+        Non-Member
+        </label>
+        <label id="mem"></label>
+       
+        <br />
+    
 	<label>Amount</label>
 	<input type="text" class="m-wrap" value="<?php echo @$amount; ?>" name="amount" />
 	
