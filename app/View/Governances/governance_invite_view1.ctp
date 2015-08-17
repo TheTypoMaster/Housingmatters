@@ -11,6 +11,7 @@ $i=0;
 foreach($result_gov_invite as $data){
 $gov_id=$data['governance_invite']['governance_invite_id'];
 $subject=$data['governance_invite']['subject'];
+$notice_of_date=@$data['governance_invite']['notice_of_date'];
 $message_web=$data['governance_invite']['message'];
 $date=$data['governance_invite']['date'];
 $time=$data['governance_invite']['time'];
@@ -40,26 +41,30 @@ $covering_note=$data['governance_invite']['covering_note'];
 
 ?>
 
-<div style="background-color:#fff; border:solid 1px;">
+<div style="background-color:#fff; border:solid 1px;" class="print_margin">
 <div class="bg_co" align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">
 <?php echo $society_name; ?>
 </div>
 <div  align="center" style="padding: 2px;">
 <span style="font-size:14px;"> <b> Meeting Agenda </b> </span>
 </div>
-<div  align="" style="padding: 5px;">
-<table  cellpadding='5' width='100%;'>
+<div  align="" style="padding: 5px;" >
+<table  cellpadding='5' width='100%;' border="1">
 <tr class='tr_heading'>
-<td ><span  style="font-size:14px;"><b> Type : </b></span> <span><?php echo @$moc; ?></span></td>
-<td ><span  style="font-size:14px;"><b> ID : </b></span> <span><?php echo $gov_id; ?></span></td>
-<td ><span  style="font-size:14px;"><b> Location : </b></span> <span><?php echo $location; ?></span></td>
-<td>
-<span  style="font-size:14px;"><b> Date : </b></span> <span><?php echo $date; ?></span>&nbsp;&nbsp;
-<span  style="font-size:14px;"><b> Time : </b></span> <span><?php echo $time; ?></span>
-</td>
+<td width="30%" ><span  style="font-size:14px;"><b> Type : </b></span><br/> <span><?php echo @$moc; ?></span></td>
+<td width="20%" ><span  style="font-size:14px;"><b> ID : </b></span> <br/><span><?php echo $gov_id; ?></span></td>
+<td width="20%"><span  style="font-size:14px;"><b> Notice of Date : </b></span> <br/><span><?php echo $notice_of_date; ?></span></td>
 </tr>
+<tr class='tr_heading'>
+<td ><span  style="font-size:14px;"><b> Location : </b></span> <br/><span><?php echo $location; ?></span></td>
+<td ><span  style="font-size:14px;"><b> Date of Meeting : </b></span><br/> <span><?php echo $date; ?></span></td>
+<td><span  style="font-size:14px;"><b> Time : </b></span> <br/><span><?php echo $time; ?></span></td>
+</tr>
+</table>
+<br/>
+<table cellpadding='5' width='100%;'>
 <tr>
-<td colspan="4"><span  style="font-size:14px;"><b>Title : </b></span> <span><?php echo $subject; ?></span></td>
+<td><span  style="font-size:14px;"><b>Title : </b></span> <span><?php echo $subject; ?></span></td>
 </tr>
 </table>
 </div>
@@ -175,11 +180,8 @@ foreach($message_web as $data)
 <a href="<?php echo $webroot_path ; ?>/governances_file/<?php echo $file; ?>" target="_blank" class="btn mini green tooltips" data-placement="bottom" data-original-title="<?php echo $file; ?>" download="download"><i class=" icon-download-alt"></i></a>
 </div>
 <?php } ?>
-
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;">
 <span>Your Society is empowered by HousingMatters - 
 <i>"Making Life Simpler"</i></span><br>
 <span style="color:#FFF;">Email: support@housingmatters.in</span> &nbsp;|&nbsp; <span>Phone : 022-41235568</span> &nbsp;|&nbsp; <span style="color:#FFF;">www.housingmatters.co.in</span></div>
-
-
 </div>

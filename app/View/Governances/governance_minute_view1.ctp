@@ -8,12 +8,27 @@
 <br/><br/>
 <?php
 $i=0;
+//pr($result_gov_minute);
 foreach($result_gov_minute as $data){
 
-$message_web=$data['governance_minute']['message'];
-$governance_minute_id=(int)$data['governance_minute']['governance_minute_id'];
-$present_user=$data['governance_minute']['present_user'];
- $file=$data['governance_minute']['file'];
+	$message_web=$data['governance_minute']['message'];
+	$governance_minute_id=(int)$data['governance_minute']['governance_minute_id'];
+	$meeting_id=(int)$data['governance_minute']['meeting_id'];
+	$present_user=$data['governance_minute']['present_user'];
+	$file=$data['governance_minute']['file'];
+	$result_gov_invite=$this->requestAction(array('controller' => 'governances', 'action' => 'governace_invite_meeting'), array('pass' => array($meeting_id)));
+	
+	foreach($result_gov_invite as $data1)
+	{
+		$title=$data1['governance_invite']['subject'];
+		$date=$data1['governance_invite']['date'];
+		$time=$data1['governance_invite']['time'];
+		$location=$data1['governance_invite']['location'];
+		$notice_of_date=$data1['governance_invite']['notice_of_date'];
+		
+	}
+	
+	
 }
 
 ?>
@@ -26,14 +41,7 @@ $present_user=$data['governance_minute']['present_user'];
 <span style="font-size:14px;"> <b> Minutes  </b> </span>
 </div>
 <div style="padding: 5px;">
-<span  style="font-size:14px;"><b> Following Members were present: </b></span>
-
-<table  cellpadding='5' width='100%;' >
-<tr>
-<td>Sr.no</td>
-<td>Name of Member</td>
-<td>Designation	</td>
-</tr>
+<span  style="font-size:14px;"><b> Following Members were present: </b></span><br/>
 <?php 
 $c=0;
 foreach($present_user as $data7){
@@ -48,17 +56,20 @@ foreach($result_user as $data2){
 $flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing,$flat)));
 
 $designation_name=$this->requestAction(array('controller' => 'governances', 'action' => 'designation_find_by_user'), array('pass' => array($designation_id)));
-
+$flat_name='';
+if(!empty($flat))
+{
+	$flat_name='('.$flat.')';
+}
+$to=$user_name.' '.$flat_name.' '.$designation_name.',';
 ?>
-<tr>
-<td><?php echo $c; ?></td>
-<td><?php echo $user_name ?> <?php echo $flat ; ?></td>
-<td><?php echo $designation_name; ?></td>
+<span><?php echo $to; ?></span>
 
-</tr>
 <?php } ?>
-</table>
 
+</div>
+<br/>
+<div  align="" style="padding: 5px;">
 
 </div>
 
@@ -70,6 +81,7 @@ $designation_name=$this->requestAction(array('controller' => 'governances', 'act
 </tr>
 <?php
 $z=0;
+
 foreach($message_web as $data)
 { $z++;?>
 	

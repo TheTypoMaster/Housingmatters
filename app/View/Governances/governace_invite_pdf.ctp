@@ -23,6 +23,7 @@ $tcpdf->SetLineWidth(0.1);
 foreach($result_gov_invite as $data){
 $gov_id=$data['governance_invite']['governance_invite_id'];
 $subject=$data['governance_invite']['subject'];
+$notice_of_date=@$data['governance_invite']['notice_of_date'];
 $message_web=$data['governance_invite']['message'];
 $date=$data['governance_invite']['date'];
 $time=$data['governance_invite']['time'];
@@ -48,29 +49,35 @@ $covering_note=$data['governance_invite']['covering_note'];
 }
 
 
-$html='<div style="background-color:#fff; width:100%">
+$html='<div style="background-color:#fff; width:100%;">
 <div class="bg_co" align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.$society_name.'</div>
 <div  align="center" style="padding: 2px;">
 <span style="font-size:12px;"> <b> Meeting Agenda </b> </span>
 </div>
 <div  align="" style="padding: 2px;">
-<table  cellpadding="5" width="100%;" >
+<table  cellpadding="5" width="100%;" border="1" >
 <tr>
-<td width="30%"><span  style="font-size:10px;"><b> Type : </b></span> <span>'. @$moc.'</span></td>
-<td width="10%"><span  style="font-size:10px;"><b> ID : </b></span> <span>'.$gov_id.'</span></td>
-<td><span  style="font-size:10px;"><b> Location : </b></span> <span>'. $location.'</span></td>
-<td width="40%">
-<span  style="font-size:10px;"><b> Date : </b></span> <span>'.$date.'</span>&nbsp;&nbsp;
-<span  style="font-size:10px;"><b> Time : </b></span> <span>'.$time.'</span>
-</td>
+<td width="50%" ><span  style="font-size:12px;"><b> Type : </b></span><br/> <span>'. @$moc.'</span></td>
+<td width="25%" ><span  style="font-size:12px;"><b> ID : </b></span> <br/> <span>'.$gov_id.'</span></td>
+<td width="25%" ><span  style="font-size:12px;"><b> Notice of Date : </b></span> <br/> <span>'. $notice_of_date.'</span></td>
 </tr>
 <tr>
-<td colspan="4"><span  style="font-size:10px;"><b>Meeting Title : </b></span> <span>'.$subject.'</span></td>
+<td><span  style="font-size:12px;"><b> Location : </b></span> <br/> <span>'. $location.'</span></td>
+<td><span  style="font-size:12px;"><b> Date : </b></span> <br/> <span>'.$date.'</span></td>
+<td>
+<span  style="font-size:12px;"><b> Time : </b></span> <br/> <span>'.$time.'</span>
+</td>
+</tr>
+</table>
+<br/>
+<table  cellpadding="5" width="100%;" >
+<tr>
+<td ><span  style="font-size:12px;"><b>Meeting Title : </b></span> <span>'.$subject.'</span></td>
 </tr>
 </table>
 </div>
 <div  align="" style="padding: 2px;">
-<span style="font-size:10px;"><b>Invitees : </b></span>';
+<span style="font-size:12px;"><b>Invitees : </b></span>';
 if($type==1){
 foreach($user as $id){
 	$result_user=$this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'), array('pass' => array((int)$id)));
@@ -100,7 +107,7 @@ if($type==2){
 	
 	$group_id=$data['governance_invite']['group_id'];
 	foreach($group_id as $data){
-     $group_name=$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_group_name_from_gruop_id'), array('pass' => array((int)$data)));
+    $group_name=$this->requestAction(array('controller' => 'hms', 'action' => 'fetch_group_name_from_gruop_id'), array('pass' => array((int)$data)));
 	 
 	 $html.='<span>'.$group_name.',</span>';
 	}
@@ -132,7 +139,7 @@ if($type==3){
 
 
 $html.='</div><div  align="" style="padding: 2px;">
-<span  style="font-size:10px;"><b> Meeting Covering Note: </b></span><br/><span>'.$covering_note.'</span>
+<span  style="font-size:12px;"><b> Meeting Covering Note: </b></span><br/><span>'.$covering_note.'</span>
 </div>
 <div style="padding: 2px;">
 <table  cellpadding="5" width="100%;" border="1">
@@ -143,7 +150,7 @@ $html.='</div><div  align="" style="padding: 2px;">
 $z=0;
 foreach($message_web as $data){ $z++; 
 $html.='<tr>
-<td  style="" valign="top"><span style="font-size:10px;">'.urldecode(@$data[2]).'</span> </td>
+<td  style="" valign="top"><span style="font-size:12px;">'.urldecode(@$data[2]).'</span> </td>
 	<td style=""><span style="font-size:12px;text-align:justify;"> '. $z.' '. urldecode($data[0]).' </span><br/><span>'.urldecode($data[1]).'</span></td>
 	</tr>';
 }

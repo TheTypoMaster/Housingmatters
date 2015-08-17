@@ -523,10 +523,10 @@ var Invitations =$('input:radio[name=radio]:checked').val();
 			processData: false,
 			contentType: false,
 			type: 'POST',
-			dataType:'json',
+			//dataType:'json',
 			}).done(function(response) { 
 			
-			//$("#output").html(response);
+			$("#output").html(response);
 				if(response.type=='created'){
 					$(".portal").remove();
 				$(".alert-success").show().append("<p>"+response.text+"</p><p><a class='btn green' href='<?php echo $webroot_path; ?>Governances/governance_invite_view' rel='tab' >ok</a></p>");

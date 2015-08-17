@@ -20,19 +20,19 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <div class="span6 responsive">
 <label style="font-size:14px; font-weight:bold;">Meeting ID</label>
 <div class="controls">
- <select name="meeting_id" id="meeting_id" class="chosen span12">
+ <select name="meeting_id" id="meeting_id" class="chosen span12 change_ag">
  <option></option>
  <?php
 		foreach($result_governance_invite as $data)
 		{
-		   $gov_invite_id=$data['governance_invite']['governance_invite_id'];
+		    $gov_invite_id=$data['governance_invite']['governance_invite_id'];
 		    $subject=$data['governance_invite']['subject'];
-			$date=$data['governance_invite']['date'];
-			$time=$data['governance_invite']['time'];
-			$location=$data['governance_invite']['location'];
+			//$date=$data['governance_invite']['date'];
+			//$time=$data['governance_invite']['time'];
+			//$location=$data['governance_invite']['location'];
 	 
  ?>
- <option value="<?php echo $gov_invite_id ; ?>"<?php if($gov_invite_id2==$gov_invite_id){?> selected="selected" <?php } ?>> <?php echo $gov_invite_id ; ?> , <?php echo $subject ; ?></option>
+ <option value="<?php echo $gov_invite_id ; ?>"> <?php echo $gov_invite_id ; ?> , <?php echo $subject ; ?></option>
  <?php } ?>
  </select>
  <label report="subject" class="remove_report"></label>
@@ -40,10 +40,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 </div>
 
-<div class="span6 responsive">
-<label style="font-size:14px; font-weight:bold;"><span>Date </span> <span style="margin-left:50px;"> Time </span> <span style="margin-left:50px;"> Location </span></label> 
-<span> <?php echo @$date ; ?> </span> <span style="margin-left:15px;"> <?php echo @$time ; ?> </span> <span style="margin-left:30px;"> <?php echo @$location ; ?> </span>
-</div>
+
 </div>
 <!-------------------------->
 
@@ -52,7 +49,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <label style="font-size:14px; font-weight:bold;">Select attendees present </label>
 
 <!------------------------->
-<div class="control-group" id="d1" >
+<div class="control-group" id="" >
   <div class="controls">
    
 <select data-placeholder="Select attendees user"  name="multi" id="multi" class="chosen span9" multiple="multiple" tabindex="6">
@@ -79,72 +76,20 @@ $flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat')
 </div>
 
 <!------------------------->
-
-<!-------------------------->
-
-
-<!--------------------------->
-
-<!-------------------------->
-
-
-<!--------------------------->
-
-
-
-<div class="row-fluid">
-<table border="0" width="100%" id="count_table">
-<thead>
-<tr>
-<td width="70%"><b> Agenda </b></td><td> <b> Minutes </b></td></tr>
-
-</thead>
-<tbody>
- <?php
- $z=0;
-		foreach($result_governance_invite as $data){
-		   $gov_invite_id=$data['governance_invite']['governance_invite_id'];
-		   $message=$data['governance_invite']['message'];
-
-		  foreach($message as $data){
-			  $z++;
-			  
-			  $data[1];
-			  ?>
-			  <tr>
-			  <td>
-			  <?php echo $z; ?> <?php echo urldecode($data[0]); ?><br/> <?php echo urldecode($data[1]); ?>
-			  </td>
-			  <td>
-			  <textarea name="min_<?php echo $z; ?>"></textarea>
-			  </td>
-			  </tr>
-			 <?php 
-		  }
-		}		   
- ?>
- </tbody>
- </table>
- 
-		  
- 
+<div id="display_meeting">
 
 
 </div>
 
+<!------------------------->
+<br/>
 
-
-
-
-<!--<label style="font-size:14px; font-weight:bold;">Minutes</label>
-<div id="url_main">
-<div >
-<input type="text" class="m-wrap span4"  id="nu" name='comm_1' placeholder='Agenda' style="height: 50px!important;">
-<textarea class="span4" name="comment_1" placeholder="description" ></textarea>
-<a href="#" role="button" id="add_row" class="btn  mini"><i class="icon-plus-sign"></i></a>
+<label style="font-size:14px; font-weight:bold;">Any Other </label>
+<div class="control-group">
+	<div class="controls">
+	 <textarea name="any_other" class="span12" rows="5" ></textarea>
+	</div>
 </div>
-</div>-->
-
 
 <div class="control-group">
   <label class="control-label">Attachment <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Limit 2MB"> </i> </label>
@@ -168,11 +113,154 @@ $flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat')
 <label style="color: #696969;font-size: 12px;">
 Note: File size must be less than 2 MB and All extension are allowed.
 </label>
-<label id="file"></label>				   
+<label id="file"></label><br/>				   
+
+<div class="controls">
+ <label class="radio">
+ <div class="radio" id="uniform-undefined"><input type="radio"  id="r1" checked name="radio" value="1" style="opacity: 0;"></div>
+ <span style="font-size:16px;" >Send Invitations to Individuals</span>
+ </label>
+ <label class="radio">
+ <div class="radio" id="uniform-undefined"><input type="radio"  id="r3"  name="radio" value="3" style="opacity: 0;"></div>
+ <span style="font-size:16px;" >Send Invitations to Default Groups</span>
+ </label>
+ <label class="radio">
+ <div class="radio" id="uniform-undefined"><input type="radio" id="r2" name="radio" value="2"  style="opacity: 0;"></div>
+ <span style="font-size:16px;" >Send Invitations to Customized Group</span>
+ </label>  
+
+ 
+</div>
+<label style="font-size:14px; font-weight:bold;">To <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="email will be sent to only those users whose valid emails are registered with HousingMatters"> </i></label>
+
+<!------------------------->
+<div class="control-group" id="d1" >
+  <div class="controls">
+   
+<select data-placeholder="Type or select name"  name="multi12" id="multi12" class="chosen span9" multiple="multiple" tabindex="6">
+<?php
+foreach ($result_users_new as $collection) 
+{
+$user_id=$collection["user"]["user_id"];
+$user_name=$collection["user"]["user_name"];
+$email=$collection["user"]["email"];
+$wing=$collection["user"]["wing"];
+$flat=$collection["user"]["flat"];
+$flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing,$flat)));
+
+?>
+<option value="<?php echo $user_id; ?>"><?php echo $user_name; ?>&nbsp;&nbsp;<?php echo $flat; ?>,<?php echo $email; ?></option>
+<?php } ?>           
+		  
+	 </select>
+	 
+  </div>
+  <label report="multi12" class="remove_report"></label>
+</div>
+
+<!------------------------->
+
+
+<!-------------------------->
+
+<div style="display:none;" id="d2" >
+
+<?php
+foreach ($result_group as $collection) 
+{
+$group_name=$collection["group"]["group_name"];
+$group_id=$collection["group"]["group_id"];
+?>
+<label class="checkbox">
+<input type="checkbox" class="requirecheck3 ignore group_name" id="requirecheck1234" name="grp<?php echo $group_id; ?>" value="<?php echo $group_id; ?>"> <?php echo $group_name; ?>
+</label>
+<?php } ?> 
+<label report="multi_check" class="remove_report"></label>
 
 
 
-	<button type="submit" name="send" class="btn blue"><i class=" icon-envelope-alt "></i> Send</button>
+</div>
+
+<!--------------------------->
+
+
+<!-------------------------->
+
+<div style="display:none; padding:5px;" id="d3" >
+<!---------------start visible-------------------------------->
+
+			<div class="controls">
+			<label class="radio line">
+			<div class="radio"><span><input type="radio" checked name="visible" value="1" id="v1"></span></div>All Users
+			</label>
+			</div>
+			
+			<div class="controls">
+			<label class="radio line">
+			<div class="radio"><span><input type="radio"  name="visible" value="4" id="v1"></span></div>All Owners  
+			</label>
+			</div>
+			
+			<div class="controls">
+			<label class="radio line">
+			<div class="radio"><span><input type="radio"  name="visible" value="5" id="v1"></span></div>All Tenant
+			</label>
+			</div>
+			
+			
+			<div class="controls">
+			<label class="radio line">
+			<div class="radio" ><span><input type="radio"  name="visible" value="2" id="v2" ></span></div>Role Wise
+			</label>
+			</div>
+			<div id="show_2" style="display:none; margin-left:5%;">
+			<div class="controls">
+			<?php
+			foreach ($role_result as $collection) 
+			{
+			$role_id=$collection["role"]["role_id"];
+			$role_name=$collection["role"]["role_name"];
+			?>
+			<label class="checkbox">
+			<div class="checker"><span><input type="checkbox"  value="<?php echo $role_id; ?>" name="role<?php echo $role_id; ?>" class="v2 requirecheck1 ignore" id="requirecheck1"></span></div> <?php echo $role_name; ?>
+			</label>
+			<?php } ?>
+			</div>
+			<label report="role_check" class="remove_report"></label>
+
+			</div>
+
+			<div class="controls">
+			<label class="radio line">
+			<div class="radio"><span><input type="radio" name="visible" value="3" id="v3" ></span></div>Wing Wise
+			</label> 
+			</div>
+			<div id="show_3" style="display:none; margin-left:5%;">
+			<div class="controls">
+			<?php
+			foreach ($wing_result as $collection) 
+			{
+			$wing_id=$collection["wing"]["wing_id"];
+			$wing_name=$collection["wing"]["wing_name"];
+			?>
+			<div style="float:left; padding-left:15px;">
+			<label class="checkbox" >
+			<div class="checker"><span><input type="checkbox"  value="<?php echo $wing_id; ?>" name="wing<?php echo $wing_id; ?>" class="v3 requirecheck2 ignore" id="requirecheck2" ></span></div> <?php echo $wing_name; ?>
+			</label>
+			</div>
+			<?php } ?>
+			</div><br/>
+			<p><label report="wing_check" class="remove_report"></label></p>
+			</div>
+			<!---------------end visible-------------------------------->
+</div>
+<!--------------------------->
+<!-------------------------->
+
+<br/>
+<br/>
+
+<button type="submit" name="send" class="btn blue"><i class=" icon-envelope-alt "></i> Send</button>
 </form>
 
 </div>
@@ -203,9 +291,11 @@ $('.content_'+id).remove();
 <script>
 $(document).ready(function(){
 $(".change_ag").change(function(){
+	
 var r=$(this).val();
-var meeting_id=$('select[name=meeting_id]').val();
-$("#show_id").load("governance_minute_ajax?con="+r+"&con1="+meeting_id);
+
+//var meeting_id=$('select[name=meeting_id]').val();
+$("#display_meeting").load("governance_minute_ajax?con="+r);
 });	
 	
 });
@@ -213,6 +303,108 @@ $("#show_id").load("governance_minute_ajax?con="+r+"&con1="+meeting_id);
 
 </script>
 
+
+<script>
+$(document).ready(function(){
+ 	
+  $("#r1").click(function(){
+    $("#d2").hide();
+    $("#d1").show();
+	$("#d3").hide();
+	 $("#d4").hide();
+	 $("#d5").hide();
+	$(".chosen").removeClass("ignore");
+	$(".requirecheck2").addClass("ignore");
+	$(".requirecheck1").addClass("ignore");
+	$(".requirecheck3").addClass("ignore");
+  });
+  $("#r2").click(function(){
+    $("#d1").hide();
+    $("#d2").show();
+	$("#d3").hide();
+	 $("#d4").hide();
+	 $("#d5").hide();$("#d6").hide();
+	$(".chosen").addClass("ignore");
+	$(".requirecheck2").addClass("ignore");
+	$(".requirecheck1").addClass("ignore");
+	$(".requirecheck3").removeClass("ignore");
+  });
+  $("#r3").click(function(){
+    $("#d1").hide();
+    $("#d3").show();
+	$("#d2").hide();
+	 $("#d4").hide();
+	 $("#d5").hide();
+	 $("#d6").hide();
+	$(".chosen").addClass("ignore");
+	$(".requirecheck2").addClass("ignore");
+	$(".requirecheck1").addClass("ignore");
+	$(".requirecheck3").addClass("ignore");
+  });
+  $("#r4").click(function(){
+	  
+	 value = +$('#r4').is( ':checked' );
+	 alert(value);
+	$("#d1").hide();
+	$("#d3").hide();
+	$("#d4").show();
+	$("#d2").hide();
+	$("#d5").hide();
+	$("#d6").show();
+	$(".chosen").removeClass("ignore");
+	$(".requirecheck2").addClass("ignore");
+	$(".requirecheck1").addClass("ignore");
+	$(".requirecheck3").addClass("ignore");
+  });
+  
+   $("#r5").click(function(){
+	   
+	  var r=$(this).val();
+	$("#d1").hide();
+	$("#d3").hide();
+	$("#d4").hide();
+	$("#d2").hide();
+	$("#d5").show();
+	$("#d6").show();
+	$(".chosen").removeClass("ignore");
+	$(".requirecheck2").addClass("ignore");
+	$(".requirecheck1").addClass("ignore");
+	$(".requirecheck3").addClass("ignore");
+  });
+   
+  
+});
+</script>
+
+
+<script>
+$(document).ready(function() { 
+	 $("#v3").live('click',function(){
+		$("#show_3").slideDown('fast');
+		$("#show_2").slideUp('fast');
+		$("#show_1").slideUp('fast');
+		$(".requirecheck2").removeClass("ignore");
+		$(".requirecheck1").addClass("ignore");
+	 });
+	 
+	 $("#v2").live('click',function(){
+		$("#show_2").slideDown('fast');
+		$("#show_3").slideUp('fast');
+		$("#show_1").slideUp('fast');
+		$(".requirecheck1").removeClass("ignore");
+		$(".requirecheck2").addClass("ignore");
+	 });
+	 
+	 $("#v1").live('click',function(){
+		$("#show_1").slideDown('fast');
+		$("#show_2").slideUp('fast');
+		$("#show_3").slideUp('fast');
+	 });
+	
+	 
+	
+	});
+</script>
 
 <script>
 $(document).ready(function(){
@@ -224,6 +416,8 @@ $('form#contact-form').submit( function(ev){
 	m_data.append( 'present_user',present_user );
 	m_data.append( 'meeting_id',meeting_id );
 	m_data.append( 'file', $('input[name=file]')[0].files[0]);
+	var any_other=encodeURIComponent($('textarea[name=any_other]').val());
+	m_data.append('any_other',any_other);	
 	var count1 = $("table#count_table tbody tr").length;
 	var minute = [];
 	for(var j=1;j<=count1;j++)
@@ -231,19 +425,68 @@ $('form#contact-form').submit( function(ev){
 		var min=encodeURIComponent($('textarea[name=min_'+j+']').val());
 		minute.push([min]);
 	}
-	m_data.append('minute_agenda',minute);
-	//var count = $("#url_main div").length;
 	
-	//var comm = []; var comments = []; 
-	//for(var i=1;i<=count;i++)
-	//{
-	//	var c=encodeURIComponent($('input[name=comm_'+i+']').val());
-	//	var d=encodeURIComponent($('textarea[name=comment_'+i+']').val());
-	//	comm.push([c]);
-	//	comments.push([d]);
-	//}
-	//m_data.append('meeting_agenda_input',comm );
-//	m_data.append('meeting_agenda_textarea',comments);
+	m_data.append('minute_agenda',minute);
+	
+	var Invitations =$('input:radio[name=radio]:checked').val();
+	m_data.append( 'Invitations_type',Invitations );
+	if(Invitations==1)
+	{
+		
+		var invite=$('select[name=multi12]').val();
+		m_data.append( 'Invite_user1',invite );
+		
+	}
+	
+	if(Invitations==2)
+	{
+		//var other=$('input[name=other_user]').val();
+		var group_n = [];
+		$('.group_name:checked').each(function() {
+		group_n.push($(this).val());
+		});
+		
+		//m_data.append( 'Invite_user2',other );
+		m_data.append( 'Invite_group',group_n );
+	}
+	
+	if(Invitations==3)
+	{
+		var visible=$('input:radio[name=visible]:checked').val();
+		m_data.append( 'visible',visible );
+	
+		if(visible==2){
+			var allVals = [];
+			$('.v2:checked').each(function() {
+			allVals.push($(this).val());
+			});
+			
+			if(allVals.length==0){
+				m_data.append( 'sub_visible', 0);
+			}else{
+				m_data.append( 'sub_visible', allVals);
+			}
+			
+		}
+		if(visible==3){
+			var allVals = [];
+			$('.v3:checked').each(function() {
+			allVals.push($(this).val());
+			});
+			if(allVals.length==0){
+				m_data.append( 'sub_visible', 0);
+			}else{
+				m_data.append( 'sub_visible', allVals);
+			}
+			
+		}
+		if(visible==1 || visible==4 || visible==5){
+			m_data.append( 'sub_visible', 0);
+		}
+		
+		
+	}
+	
 	$.ajax({
 			url: "governance_minute_submit",
 			data: m_data,
@@ -253,7 +496,7 @@ $('form#contact-form').submit( function(ev){
 			dataType:'json',
 			}).done(function(response) { 
 			
-			//$("#output").html(response);
+			$("#output").html(response);
 				if(response.type=='created'){
 					$(".portal").remove();
 				$(".alert-success").show().append("<p>"+response.text+"</p><p><a class='btn green' href='<?php echo $webroot_path; ?>Governances/minute_view' rel='tab' >ok</a></p>");
@@ -261,6 +504,7 @@ $('form#contact-form').submit( function(ev){
 				}
 				if(response.type=='error'){
 				$("#output").html('<div class="alert alert-error">'+response.text+'</div>');
+				
 				}
 				if(response.report_type=='error'){
 				
