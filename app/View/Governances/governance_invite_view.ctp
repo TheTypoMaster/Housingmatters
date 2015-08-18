@@ -21,7 +21,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 	 <th >Meeting Time</th>
 	 <th>Meeting Location</th>
 	 <th>Invitees </th>
-    <th ></th>
+    <th></th>
     </tr>
 </thead>
 <tbody id="table">
@@ -62,7 +62,7 @@ $sub_visible=$data['governance_invite']['sub_visible'];
 }
 $i++;
 ?>
-<tr >
+<tr>
     <td><?php echo $gov_id; ?></td>
 	 <td><?php echo $notice_of_date ; ?></td>
     <td><?php echo $subject ; ?></td>
