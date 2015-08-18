@@ -80,7 +80,7 @@ $to=$user_name.' '.$flat_name.' '.$designation_name.',';
 
 </div>
 
-<div  align="" style="padding: 5px;" >
+<div  align="" style="padding: 5px;" style="line-height:14px;" >
 <table  cellpadding='5' width='100%;' border="1">
 <tr class='tr_heading'>
 <td width="30%" ><span  style="font-size:14px;"><b> Type : </b></span><br/> <span><?php echo @$moc; ?></span></td>
@@ -106,7 +106,7 @@ $to=$user_name.' '.$flat_name.' '.$designation_name.',';
 </div>
 <br/>
 <div  align="" style="padding: 5px;">
-<table  cellpadding='5' width="100%" border="">
+<table  cellpadding='5' width="100%" border="" style="line-height:14px;" >
 <tr class='tr_heading' style=''>
 <td width="60%"><span  style="font-size:14px;"><b>Agenda: </b></span></td>
 <td><span  style="font-size:14px;"><b>Minutes: </b></span></td>
