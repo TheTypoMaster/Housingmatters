@@ -24,18 +24,34 @@ foreach($result_gov_minute as $data){
 $message_web=$data['governance_minute']['message'];
 $governance_minute_id=(int)$data['governance_minute']['governance_minute_id'];
 $present_user=$data['governance_minute']['present_user'];
- 
+$meeting_id=(int)$data['governance_minute']['meeting_id'];
+$any_other=@$data['governance_minute']['any_other'];
+$result_gov_invite=$this->requestAction(array('controller' => 'governances', 'action' => 'governace_invite_meeting'), array('pass' => array($meeting_id)));
+foreach($result_gov_invite as $data1)
+	{
+		$title=$data1['governance_invite']['subject'];
+		$date=$data1['governance_invite']['date'];
+		$time=$data1['governance_invite']['time'];
+		$location=$data1['governance_invite']['location'];
+		$notice_of_date=@$data1['governance_invite']['notice_of_date'];
+		$meeting_type=(int)@$data1['governance_invite']['meeting_type'];
+	}
+	if($meeting_type==1){
+	$moc="Managing Committee";
+	}
+	if($meeting_type==2){
+	$moc="General Body";
+	}
+	if($meeting_type==3){
+	$moc="Special General Body";
+	}
+
 }
 $html='<div style="background-color:#fff; ">
 <div class="bg_co" align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.$society_name.'</div>
 <div style="padding: 5px;">
-<span  style="font-size:12px;"><b> Following Members were present: </b></span><br/>
-<table  cellpadding="5" width="100%;" >
-<tr>
-<td>Sr.no</td>
-<td>Name of Member</td>
-<td>Designation	</td>
-</tr>';
+<span  style="font-size:12px;"><b> Following Members were present: </b></span><br/>';
+
 $c=0;
 foreach($present_user as $data7){
 $c++;
@@ -49,15 +65,38 @@ foreach($result_user as $data2){
 $flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing,$flat)));
 
 $designation_name=$this->requestAction(array('controller' => 'governances', 'action' => 'designation_find_by_user'), array('pass' => array($designation_id)));
-
-$html.='<tr>
-<td>'.$c.'</td>
-<td>'.$user_name.' '.$flat.'</td>
-<td>'.$designation_name.'</td>
-</tr>';
+$flat_name='';
+if(!empty($flat))
+{
+	$flat_name='('.$flat.')';
 }
-$html.='</table></div>
-<div  align="" style="padding: 10px;">
+$to=$user_name.' '.$flat_name.' '.$designation_name.',';
+$html.='<span style="font-size:12px;">'.$to.'</span>';
+}
+$html.='</div><br/>';
+
+$html.='<div  style="padding: 5px;" >
+<table  cellpadding="5" width="100%;" border="1">
+<tr>
+<td width="30%" ><span  style="font-size:14px;"><b> Type : </b></span><br/> <span><?php echo @$moc; ?></span></td>
+<td width="20%" ><span  style="font-size:14px;"><b> ID : </b></span> <br/><span><?php echo $meeting_id; ?></span></td>
+<td width="20%"><span  style="font-size:14px;"><b> Notice of Date : </b></span> <br/><span><?php echo $notice_of_date; ?></span></td>
+</tr>
+<tr>
+<td ><span  style="font-size:14px;"><b> Location : </b></span> <br/><span><?php echo $location; ?></span></td>
+<td ><span  style="font-size:14px;"><b> Date of Meeting : </b></span><br/> <span><?php echo $date; ?></span></td>
+<td><span  style="font-size:14px;"><b> Time : </b></span> <br/><span><?php echo $time; ?></span></td>
+</tr>
+</table>
+<table cellpadding="5" width='100%;'>
+<tr>
+<td><span  style="font-size:14px;"><b>Title : </b></span> <span><?php echo $title; ?></span></td>
+</tr>
+</table>
+</div>';
+
+
+$html.='<div  align="" style="padding: 10px;">
 <table border="1" cellpadding="4" width="100%"><tr>
 <td width="70%"><span  style="font-size:12px;"><b> Agenda: </b></span></td>
 <td width="30%"><span  style="font-size:12px;"><b> Minutes: </b></span></td>
