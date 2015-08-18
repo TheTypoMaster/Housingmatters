@@ -139,7 +139,7 @@ foreach($result_society as $data){
 						$last_bill_one_time_id=0;
 					}
 					////reciept info/////
-					
+					echo $flat; echo $last_bill_one_time_id;
 					$result_new_cash_bank = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'fetch_last_receipt_info_via_flat_id'),array('pass'=>array($flat,$last_bill_one_time_id)));
 					if(sizeof($result_new_cash_bank)>=1){
 						foreach($result_new_cash_bank as $last_receipt){
@@ -157,7 +157,7 @@ foreach($result_society as $data){
 					?>
 					<tr>
 						<th>
-							<?php echo $wing_flat.$flat_type_id; ?>
+							<?php echo $wing_flat; ?>
 							<input type="hidden" name="flat_id<?php echo $inc; ?>" value="<?php echo $flat; ?>"/>
 						</th>
 						<td><?php echo $user_name; ?></td>
