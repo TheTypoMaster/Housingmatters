@@ -106,6 +106,7 @@ foreach($result_society as $data){
 						}
 					}else{
 						$result_opening_balance= $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'fetch_opening_balance_via_user_id'),array('pass'=>array($user_id)));
+						pr($result_opening_balance);
 						if(sizeof($result_opening_balance)>0){
 							$opening_balance_arrear_intrest=0;
 							$opening_balance_arrear_maintenance=0;
@@ -139,7 +140,6 @@ foreach($result_society as $data){
 						$last_bill_one_time_id=0;
 					}
 					////reciept info/////
-					echo $flat; echo $last_bill_one_time_id;
 					$result_new_cash_bank = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'fetch_last_receipt_info_via_flat_id'),array('pass'=>array($flat,$last_bill_one_time_id)));
 					if(sizeof($result_new_cash_bank)>=1){
 						foreach($result_new_cash_bank as $last_receipt){
