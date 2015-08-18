@@ -48,7 +48,7 @@ $income_head_selected_arr = @$collection['society']['income_head'];
 }
 if(!empty($income_head_selected_arr))
 {
-$income_head_arr2 = array_diff($income_head_arr1,$income_head_selected_arr);
+@$income_head_arr2 = array_diff($income_head_arr1,$income_head_selected_arr);
 }
 else
 {
