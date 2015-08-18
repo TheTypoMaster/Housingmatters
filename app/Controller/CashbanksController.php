@@ -4111,13 +4111,11 @@ $cheque_date = $child[5];
 
 
 
-/*
-$this->loadmodel('ledger_sub_account');
-$conditions=array("auto_id" => $auto_id77);
-$cursor1=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
-foreach($cursor1 as $collection)
+
+$result_rb1 = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array(@$flat_id)));
+foreach($result_rb1 as $data2)
 {
-$user_id = (int)$collection['ledger_sub_account']['user_id'];
+$user_id = (int)$data2['user']['user_id'];
 }
 
 $result_rb = $this->requestAction(array('controller' => 'hms', 'action' => 'regular_bill'),array('pass'=>array(@$user_id)));
@@ -4125,7 +4123,7 @@ foreach ($result_rb as $collection)
 {
 $bill_no = (int)$collection['regular_bill']['receipt_id'];
 }
-*/
+
 
 if($type == 2)
 {
@@ -4157,56 +4155,6 @@ $multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime(
 $this->ledger->saveAll($multipleRowData);
 
 }
-	
-/*
-"bill_auto_id"=>$auto_id,"bill_one_time_id"=>$regular_bill_one_time_id
-
-$trns_id=(int)$auto;
-$this->loadmodel('ledger');
-$order=array('ledger.auto_id'=> 'DESC');
-$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
-foreach ($cursor as $collection) 
-{
-$last23=$collection['ledger']['auto_id'];
-}
-if(empty($last23))
-{
-$k=0;
-}	
-else
-{	
-$k=$last23;
-}
-$k++; 
-$this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $i, 
-"amount" => $amount, "amount_category_id" => 2, "module_id" => 1, "account_type" => 1,  "account_id" => $auto_id77, 
-"current_date" => $current_date, "society_id" => $s_society_id,"table_name"=>"cash_bank","module_name"=>"Bank Receipt"));
-$this->ledger->saveAll($multipleRowData); 
-
-
-$this->loadmodel('ledger');
-$order=array('ledger.auto_id'=> 'DESC');
-$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
-foreach ($cursor as $collection) 
-{
-$last24=$collection['ledger']['auto_id'];
-}
-if(empty($last24))
-{
-$k=0;
-}	
-else
-{	
-$k=$last24;
-}
-$k++; 
-$this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => $i, 
-"amount" => $amount, "amount_category_id" => 1, "module_id" => 1, "account_type" => 1, "account_id" => $bank_id,
-"current_date" => $current_date, "society_id" => $s_society_id,"table_name"=>"cash_bank","module_name"=>"Bank Receipt"));
-$this->ledger->saveAll($multipleRowData); 
-
 
 $this->loadmodel('regular_bill');
 $conditions=array("receipt_id" => $bill_no,"society_id"=>$s_society_id);
@@ -4242,11 +4190,8 @@ $arrears_amt = (int)$arrears_amt - $amount;
 
 $this->loadmodel('regular_bill');
 $this->regular_bill->updateAll(array("remaining_amount" => $due_amt,"arrears_amt"=>$arrears_amt,"accumulated_tax"=>$arrears_int,"total_due_amount"=>$total_due_amt),array("receipt_id" => $bill_no));
-*/
-}
 
-$output=json_encode(array('report_type'=>'done','text'=>'Please Fill "Cheque", "NEFT" or PG in Receipt Mode in row'.$r));
-die($output);
+}
 
 $output=json_encode(array('report_type'=>'dddd','text'=>'Please Fill Date in row'));
 die($output);
