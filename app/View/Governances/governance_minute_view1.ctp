@@ -42,7 +42,7 @@ foreach($result_gov_minute as $data){
 
 ?>
 
-<div style="background-color:#fff; border:solid 1px;">
+<div style="background-color:#fff; border:solid 1px;" class="print_margin">
 <div class="bg_co" align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">
 <?php echo $society_name; ?>
 </div>

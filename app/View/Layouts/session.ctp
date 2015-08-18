@@ -163,6 +163,9 @@ var key = 1;
 		.hide_at_print {
 			display:none !important;
 		}
+		.print_margin {
+			margin-left:5%;
+		}
 		</style>
 		
 		
