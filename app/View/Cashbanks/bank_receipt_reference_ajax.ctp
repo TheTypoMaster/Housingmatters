@@ -13,7 +13,6 @@ if($type == 1 && !empty($flat_id)){
 		$last_bill_one_time_id=$data["one_time_id"];
 		//last receipt//
 		$result_new_cash_bank = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'fetch_last_receipt_info_via_flat_id'),array('pass'=>array($flat_id,$last_bill_one_time_id)));
-		
 		$total_amount=0;
 		foreach($result_new_cash_bank as $data2){
 		$amount=$data2["new_cash_bank"]["amount"];

@@ -16310,11 +16310,11 @@ $this->layout='session';
 
 
 //////////////////////////////////////////////////////// Start Rgular Bill Fetch (Accounts)//////////////////////////////////////////////////////////////
-function regular_bill($user_id)
+function new_regular_bill_detail_via_flat_id($flat_id)
 {
-$this->loadmodel('regular_bill');
-$conditions=array("bill_for_user" => $user_id,"status" =>0,"approve_status"=>2);
-return $this->regular_bill->find('all',array('conditions'=>$conditions));
+$this->loadmodel('new_regular_bill');
+$conditions=array("flat_id" => $flat_id,"approval_status"=>1);
+return $this->new_regular_bill->find('all',array('conditions'=>$conditions));
 }
 ///////////////////// End Rgular Bill Fetch (Accounts)///////////////////////////////////////
 
