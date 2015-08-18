@@ -16,6 +16,7 @@ foreach($result_gov_minute as $data){
 	$meeting_id=(int)$data['governance_minute']['meeting_id'];
 	$present_user=$data['governance_minute']['present_user'];
 	$file=$data['governance_minute']['file'];
+	$any_other=@$data['governance_minute']['any_other'];
 	$result_gov_invite=$this->requestAction(array('controller' => 'governances', 'action' => 'governace_invite_meeting'), array('pass' => array($meeting_id)));
 	
 	foreach($result_gov_invite as $data1)
@@ -24,10 +25,18 @@ foreach($result_gov_minute as $data){
 		$date=$data1['governance_invite']['date'];
 		$time=$data1['governance_invite']['time'];
 		$location=$data1['governance_invite']['location'];
-		$notice_of_date=$data1['governance_invite']['notice_of_date'];
-		
+		$notice_of_date=@$data1['governance_invite']['notice_of_date'];
+		$meeting_type=(int)@$data1['governance_invite']['meeting_type'];
 	}
-	
+	if($meeting_type==1){
+	$moc="Managing Committee";
+	}
+	if($meeting_type==2){
+	$moc="General Body";
+	}
+	if($meeting_type==3){
+	$moc="Special General Body";
+	}
 	
 }
 
@@ -52,6 +61,8 @@ foreach($result_user as $data2){
 	$wing=(int)$data2['user']['wing'];
 	$flat=(int)$data2['user']['flat'];
 	$designation_id=(int)@$data2['user']['designation_id'];
+	
+	
 }
 $flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing,$flat)));
 
@@ -68,15 +79,36 @@ $to=$user_name.' '.$flat_name.' '.$designation_name.',';
 <?php } ?>
 
 </div>
-<br/>
-<div  align="" style="padding: 5px;">
 
+<div  align="" style="padding: 5px;" >
+<table  cellpadding='5' width='100%;' border="1">
+<tr class='tr_heading'>
+<td width="30%" ><span  style="font-size:14px;"><b> Type : </b></span><br/> <span><?php echo @$moc; ?></span></td>
+<td width="20%" ><span  style="font-size:14px;"><b> ID : </b></span> <br/><span><?php echo $meeting_id; ?></span></td>
+<td width="20%"><span  style="font-size:14px;"><b> Notice of Date : </b></span> <br/><span><?php echo $notice_of_date; ?></span></td>
+</tr>
+<tr class='tr_heading'>
+<td ><span  style="font-size:14px;"><b> Location : </b></span> <br/><span><?php echo $location; ?></span></td>
+<td ><span  style="font-size:14px;"><b> Date of Meeting : </b></span><br/> <span><?php echo $date; ?></span></td>
+<td><span  style="font-size:14px;"><b> Time : </b></span> <br/><span><?php echo $time; ?></span></td>
+</tr>
+</table>
+
+<table cellpadding='5' width='100%;'>
+<tr>
+<td><span  style="font-size:14px;"><b>Title : </b></span> <span><?php echo $title; ?></span></td>
+</tr>
+</table>
 </div>
-
+<div  align="" style="padding: 5px;">
+<span  style="font-size:14px;"><b> Any Other: </b></span><br/>
+<span  style="font-size:14px;"><?php echo urldecode($any_other); ?> </span>
+</div>
+<br/>
 <div  align="" style="padding: 5px;">
 <table  cellpadding='5' width="100%" border="">
 <tr class='tr_heading' style=''>
-<td width="65%"><span  style="font-size:14px;"><b>Agenda: </b></span></td>
+<td width="60%"><span  style="font-size:14px;"><b>Agenda: </b></span></td>
 <td><span  style="font-size:14px;"><b>Minutes: </b></span></td>
 </tr>
 <?php
