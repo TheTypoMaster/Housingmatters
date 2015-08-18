@@ -4087,48 +4087,7 @@ foreach($myArray as $child){
 			
 			
 			
-		$l=$this->autoincrement('ledger','auto_id');
-		$this->loadmodel('ledger');
-		$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($TransactionDate), "debit" => $amount, "credit" =>null, "ledger_account_id" => 33, "ledger_sub_account_id" => $bank_id,"table_name" => "new_cash_bank","element_id" => $t1, "society_id" => $s_society_id,));
-		$this->ledger->saveAll($multipleRowData); 
-
-<<<<<<< HEAD
-    $this->loadmodel('new_regular_bill');
-	$condition=array('society_id'=>$s_society_id,"flat_id"=>$flat_id);
-	$order=array('new_regular_bill.one_time_id'=>'DESC');
-	$result_new_regular_bill=$this->new_regular_bill->find('first',array('conditions'=>$condition,'order'=>$order)); 
-	$this->set('result_new_regular_bill',$result_new_regular_bill);
-	foreach($result_new_regular_bill as $data){
-	$auto_id=$data["auto_id"]; 
-	$arrear_intrest=$data["arrear_intrest"];
-	$intrest_on_arrears=$data["intrest_on_arrears"];
-	$total=$data["total"];
-	$arrear_maintenance=$data["arrear_maintenance"];
-	$regular_bill_one_time_id = (int)$data["one_time_id"];
-	}
-
-    	$amount_after_arrear_intrest=$amount-$arrear_intrest;
-		if($amount_after_arrear_intrest<0)
-		{
-		$new_arrear_intrest=abs($amount_after_arrear_intrest);
-		$new_intrest_on_arrears=$intrest_on_arrears;
-		$new_arrear_maintenance=$arrear_maintenance;
-		$new_total=$total;
-		}
-		else
-		{
-		$new_arrear_intrest=0;
-		$amount_after_intrest_on_arrears=$amount_after_arrear_intrest-$intrest_on_arrears;
-			if($amount_after_intrest_on_arrears<0)
-			{
-			$new_intrest_on_arrears=abs($amount_after_intrest_on_arrears);
-			$new_arrear_maintenance=$arrear_maintenance;
-			$new_total=$total;
-=======
-		$l=$this->autoincrement('ledger','auto_id');
-		$this->loadmodel('ledger');
-		$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($TransactionDate), "credit" => $amount,"debit" =>null,"ledger_account_id" => 34, "ledger_sub_account_id" => $account_id,"table_name" => "new_cash_bank","element_id" => $t1, "society_id" => $s_society_id,));
-		$this->ledger->saveAll($multipleRowData);
+		
 
 			
 			$amount=$amount;
@@ -4145,7 +4104,6 @@ foreach($myArray as $child){
 				$total=$regular_bill["total"];
 				$arrear_maintenance=$regular_bill["arrear_maintenance"];
 				$regular_bill_one_time_id = (int)$regular_bill["one_time_id"];
->>>>>>> origin/master
 			}
 			$amount_after_arrear_intrest=$amount-$arrear_intrest;
 			if($amount_after_arrear_intrest<0){
@@ -4185,16 +4143,8 @@ foreach($myArray as $child){
 			}
 
 			
-<<<<<<< HEAD
-		$this->loadmodel('new_regular_bill');
-		$this->new_regular_bill->updateAll(array('new_arrear_intrest'=>$new_arrear_intrest,"new_intrest_on_arrears"=>$new_intrest_on_arrears,"new_arrear_maintenance"=>$new_arrear_maintenance,"new_total"=>$new_total),array('auto_id'=>$auto_id));
 
-}
-}
 
-$output=json_encode(array('report_type'=>'done','text'=>'Please Fill Date in row'));
-die($output);
-=======
 			$this->loadmodel('new_regular_bill');
 			$this->new_regular_bill->updateAll(array('new_arrear_intrest'=>$new_arrear_intrest,"new_intrest_on_arrears"=>$new_intrest_on_arrears,"new_arrear_maintenance"=>$new_arrear_maintenance,"new_total"=>$new_total),array('auto_id'=>$auto_id));
 			
@@ -4206,13 +4156,26 @@ die($output);
 			$multipleRowData = Array( Array("transaction_id"=> $t1, "receipt_id" => $k, "receipt_date" => strtotime($TransactionDate), "receipt_mode" => $ReceiptMod, "cheque_number" =>@$ChequeNo,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>@$DrawnBankname,"reference_utr" => @$Reference,"deposited_bank_id" => $bank_id,"member_type" => 1,"party_name_id"=>$flat_id,"receipt_type" => 1,"amount"=>$amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$flat_id,"bill_auto_id"=>$auto_id,"bill_one_time_id"=>$regular_bill_one_time_id));
 			$this->new_cash_bank->saveAll($multipleRowData);
 
+			
+			
+			$l=$this->autoincrement('ledger','auto_id');
+		$this->loadmodel('ledger');
+		$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($TransactionDate), "debit" => $amount, "credit" =>null, "ledger_account_id" => 33, "ledger_sub_account_id" => $bank_id,"table_name" => "new_cash_bank","element_id" => $t1, "society_id" => $s_society_id,));
+		$this->ledger->saveAll($multipleRowData); 
+
+
+		$l=$this->autoincrement('ledger','auto_id');
+		$this->loadmodel('ledger');
+		$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($TransactionDate), "credit" => $amount,"debit" =>null,"ledger_account_id" => 34, "ledger_sub_account_id" => $account_id,"table_name" => "new_cash_bank","element_id" => $t1, "society_id" => $s_society_id,));
+		$this->ledger->saveAll($multipleRowData);
+			
 
 	}
 	}
 
-	$output=json_encode(array('report_type'=>'done','text'=>'Please Fill Date in row'));
-	die($output);
->>>>>>> origin/master
+$output=json_encode(array('report_type'=>'done','text'=>'Please Fill Date in row'));
+die($output);
+
 }
 ///////////////////////////////// End Save bank Imp ///////////////////////////////////////////////////////////////
 ///////////////////////////// Start bank receipt html view //////////////////////////////////////////////////////////////
