@@ -3708,28 +3708,6 @@ $multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime(
 $this->ledger->saveAll($multipleRowData); 
 }
 
-/*
-$this->loadmodel('ledger');
-$order=array('ledger.auto_id'=> 'DESC');
-$cursor=$this->ledger->find('all',array('order' =>$order,'limit'=>1));
-foreach ($cursor as $collection) 
-{
-$last22=$collection['ledger']['auto_id'];
-}
-if(empty($last22))
-{
-$k=0;
-}	
-else
-{	
-$k=$last22;
-}
-$k++; 
-$this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $k, "receipt_id" => 'O_B', 
-"amount" => $opening_bal, "amount_category_id"=>$amount_type, "account_type" => 1, "account_id"=>$auto_id, "current_date" => $current_date,"society_id" => $s_society_id,"module_id"=>'O_B',"op_date"=>$op_date));
-$this->ledger->saveAll($multipleRowData);
-*/
 
 }
 
