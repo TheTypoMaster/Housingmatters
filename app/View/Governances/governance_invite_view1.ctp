@@ -182,4 +182,5 @@ foreach($message_web as $data)
 <span>Your Society is empowered by HousingMatters - 
 <i>"Making Life Simpler"</i></span><br>
 <span style="color:#FFF;">Email: support@housingmatters.in</span> &nbsp;|&nbsp; <span>Phone : 022-41235568</span> &nbsp;|&nbsp; <span style="color:#FFF;">www.housingmatters.co.in</span></div>
+
 </div>
