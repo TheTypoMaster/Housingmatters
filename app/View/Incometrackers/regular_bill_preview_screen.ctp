@@ -106,24 +106,26 @@ foreach($result_society as $data){
 						}
 					}else{
 						$result_opening_balance= $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'fetch_opening_balance_via_user_id'),array('pass'=>array($user_id)));
-						pr($result_opening_balance);
+						
 						if(sizeof($result_opening_balance)>0){
 							$opening_balance_arrear_intrest=0;
 							$opening_balance_arrear_maintenance=0;
 							foreach($result_opening_balance as $opening_balance_info){
-								$penalty=@$opening_balance_info["ledger"]["penalty"];
-								$amount_category_id=$opening_balance_info["ledger"]["amount_category_id"];
-								if($penalty=="YES"){
-									if($amount_category_id==1){
-										$opening_balance_arrear_intrest=$opening_balance_info["ledger"]["amount"];
+								$arrear_int_type=@$opening_balance_info["ledger"]["arrear_int_type"];
+								$debit=$opening_balance_info["ledger"]["debit"];
+								$credit=$opening_balance_info["ledger"]["credit"];
+								
+								if($arrear_int_type=="YES"){
+									if(!empty($debit)){
+										$opening_balance_arrear_intrest=$debit;
 									}else{
-										$opening_balance_arrear_intrest=-($opening_balance_info["ledger"]["amount"]);
+										$opening_balance_arrear_intrest=-($credit);
 									}
 								}else{
-									if($amount_category_id==1){
-										$opening_balance_arrear_maintenance=$opening_balance_info["ledger"]["amount"];
+									if(!empty($debit)){
+										$opening_balance_arrear_maintenance=$debit;
 									}else{
-										$opening_balance_arrear_maintenance=-($opening_balance_info["ledger"]["amount"]);
+										$opening_balance_arrear_maintenance=-($credit);
 									}
 								}
 							}

@@ -223,10 +223,10 @@ function fetch_opening_balance_via_user_id($user_id){
 	$condition=array('user_id'=>$user_id);
 	$result_ledger_sub_account=$this->ledger_sub_account->find('all',array('conditions'=>$condition)); 
 	foreach($result_ledger_sub_account as $data){
-		$auto_id=$data["ledger_sub_account"]["auto_id"];
+		$auto_id=(int)$data["ledger_sub_account"]["auto_id"];
 	}
 	$this->loadmodel('ledger');
-	$condition=array('ledger_account_id'=>@$auto_id,"table_name"=>"opening_balance");
+	$condition=array('ledger_sub_account_id'=>@$auto_id,"table_name"=>"opening_balance");
 	return $result_ledger=$this->ledger->find('all',array('conditions'=>$condition));
 }
 function receipt(){

@@ -3660,16 +3660,16 @@ if($insert == 2){
 		$ledger_id = (int)$collection2['ledger_sub_account']['ledger_id'];
 		if($ledger_id == 34){
 			
-			echo $flat = (int)$child[7];
+			$flat = (int)$child[7];
 			$ledger_sub_account_fetch_result = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));			
 			foreach($ledger_sub_account_fetch_result as $rrrr)
 			{
-			echo $flat2 = (int)$rrrr['user']['flat'];	
+			$flat2 = (int)$rrrr['user']['flat'];	
 			}	
 			//if($flat2 == $flat)
 			//break;
 		}
-		echo "hello";
+		
 		$ledger_type = 1;
 	}
 
