@@ -105,7 +105,7 @@ function governance_invite_submit()
 			
 				if(isset($_FILES['file'])){
 				$target = "governances_file/";
-				  $file_name=@$_FILES['file']['name']; 
+				 $file_name=@$_FILES['file']['name']; 
 				$file_tmp_name =$_FILES['file']['tmp_name'];
 				$target=@$target.basename($file_name);
 				move_uploaded_file($file_tmp_name,@$target);
