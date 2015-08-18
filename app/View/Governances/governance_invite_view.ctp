@@ -19,7 +19,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 	 <th>Meeting Type</th>
     <th >Meeting Date</th>
 	 <th >Meeting Time</th>
-	 <th width="20%">Meeting Location</th>
+	 <th>Meeting Location</th>
 	 <th>Invitees </th>
     <th ></th>
     </tr>
