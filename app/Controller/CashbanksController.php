@@ -4174,10 +4174,7 @@ $this->ledger->saveAll($multipleRowData);
 	$arrear_maintenance=$data["arrear_maintenance"];
 	$regular_bill_one_time_id = (int)$data["one_time_id"];
 	}
-	
-	
 
-	
     	$amount_after_arrear_intrest=$amount-$arrear_intrest;
 		if($amount_after_arrear_intrest<0)
 		{
@@ -4218,18 +4215,8 @@ $this->ledger->saveAll($multipleRowData);
 			            }
 	
 			
-			$this->loadmodel('new_regular_bill');
-			$this->new_regular_bill->updateAll(array('new_arrear_intrest'=>$new_arrear_intrest,"new_intrest_on_arrears"=>$new_intrest_on_arrears,"new_arrear_maintenance"=>$new_arrear_maintenance,"new_total"=>$new_total),array('auto_id'=>$auto_id));
-
-
-
-
-
-
-
-
-
-
+		$this->loadmodel('new_regular_bill');
+		$this->new_regular_bill->updateAll(array('new_arrear_intrest'=>$new_arrear_intrest,"new_intrest_on_arrears"=>$new_intrest_on_arrears,"new_arrear_maintenance"=>$new_arrear_maintenance,"new_total"=>$new_total),array('auto_id'=>$auto_id));
 
 }
 }
