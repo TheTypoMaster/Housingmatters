@@ -27,12 +27,12 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 		{
 		    $gov_invite_id=$data['governance_invite']['governance_invite_id'];
 		    $subject=$data['governance_invite']['subject'];
-			//$date=$data['governance_invite']['date'];
+			$date=$data['governance_invite']['date'];
 			//$time=$data['governance_invite']['time'];
 			//$location=$data['governance_invite']['location'];
 	 
  ?>
- <option value="<?php echo $gov_invite_id ; ?>"> <?php echo $gov_invite_id ; ?> , <?php echo $subject ; ?></option>
+ <option value="<?php echo $gov_invite_id ; ?>"> <?php echo $gov_invite_id ; ?> - <?php echo $subject ; ?> - <?php echo $date ; ?></option>
  <?php } ?>
  </select>
  <label report="subject" class="remove_report"></label>
@@ -118,15 +118,15 @@ Note: File size must be less than 2 MB and All extension are allowed.
 <div class="controls">
  <label class="radio">
  <div class="radio" id="uniform-undefined"><input type="radio"  id="r1" checked name="radio" value="1" style="opacity: 0;"></div>
- <span style="font-size:16px;" >Send Invitations to Individuals</span>
+ <span style="font-size:16px;" >Send Draft Minutes to Individuals</span>
  </label>
  <label class="radio">
  <div class="radio" id="uniform-undefined"><input type="radio"  id="r3"  name="radio" value="3" style="opacity: 0;"></div>
- <span style="font-size:16px;" >Send Invitations to Default Groups</span>
+ <span style="font-size:16px;" >Send Draft Minutes to Default Groups</span>
  </label>
  <label class="radio">
  <div class="radio" id="uniform-undefined"><input type="radio" id="r2" name="radio" value="2"  style="opacity: 0;"></div>
- <span style="font-size:16px;" >Send Invitations to Customized Group</span>
+ <span style="font-size:16px;" >Send Draft Minutes to Customized Group</span>
  </label>  
 
  

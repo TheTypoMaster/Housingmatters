@@ -166,7 +166,7 @@ function governance_invite_submit()
 					{
 											
 						$to=$da['user']['email']; 
-						  @$message_web="<div>
+						   @$message_web="<div>
 						<img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
 						<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
 						<a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
@@ -174,12 +174,13 @@ function governance_invite_submit()
 						<p><center><b>[$society_name]</b></center></p>
 						<p><b>Meeting Type:</b> [ $moc Meeting ] </p>
 						<p><b>Meeting Title:</b>  $subject  </p>
+						<p><b>Date of Notice:</b>  $current_date  </p>
 						<table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
 						<tr class='tr_heading' style='background-color:#00A0E3;color:white;'>
 						<td width='10%'>Meeting ID</td>
-						<td width='10%'>Date</td>
+						<td width='20%'>Date of Meeting</td>
 						<td width='10%'>Time</td>
-						<td width='70%'>Location</td>
+						<td width='60%'>Location</td>
 						</tr>
 						<tr class='tr_content' style=background-color:#E9E9E9;'>
 						<td>$email_id</td>
@@ -299,12 +300,13 @@ function governance_invite_submit()
 						<p><center><b>[$society_name]</b></center></p>
 						<p><b>Meeting Type:</b> [ $moc Meeting ] </p>
 						<p><b>Meeting Title:</b>  $subject  </p>
+						<p><b>Date of Notice:</b>  $current_date  </p>
 						<table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
 						<tr class='tr_heading' style='background-color:#00A0E3;color:white;'>
 						<td width='10%'>Meeting ID</td>
-						<td width='10%'>Date</td>
+						<td width='20%'>Date of Meeting</td>
 						<td width='10%'>Time</td>
-						<td width='70%'>Location</td>
+						<td width='60%'>Location</td>
 						</tr>
 						<tr class='tr_content' style=background-color:#E9E9E9;'>
 						<td>$email_id</td>
@@ -420,12 +422,13 @@ function governance_invite_submit()
 						<p><center><b>[$society_name]</b></center></p>
 						<p><b>Meeting Type:</b> [ $moc Meeting ] </p>
 						<p><b>Meeting Title:</b>  $subject  </p>
+						<p><b>Date of Notice:</b>  $current_date  </p>
 						<table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
 						<tr class='tr_heading' style='background-color:#00A0E3;color:white;'>
 						<td width='10%'>Meeting ID</td>
-						<td width='10%'>Date</td>
+						<td width='20%'>Date of Meeting</td>
 						<td width='10%'>Time</td>
-						<td width='70%'>Location</td>
+						<td width='60%'>Location</td>
 						</tr>
 						<tr class='tr_content' style=background-color:#E9E9E9;'>
 						<td>$email_id</td>

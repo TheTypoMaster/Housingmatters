@@ -53,7 +53,7 @@ $covering_note=$data['governance_invite']['covering_note'];
 <tr class='tr_heading'>
 <td width="30%" ><span  style="font-size:14px;"><b> Type : </b></span><br/> <span><?php echo @$moc; ?></span></td>
 <td width="20%" ><span  style="font-size:14px;"><b> ID : </b></span> <br/><span><?php echo $gov_id; ?></span></td>
-<td width="20%"><span  style="font-size:14px;"><b> Notice of Date : </b></span> <br/><span><?php echo $notice_of_date; ?></span></td>
+<td width="20%"><span  style="font-size:14px;"><b> Date of Notice  : </b></span> <br/><span><?php echo $notice_of_date; ?></span></td>
 </tr>
 <tr class='tr_heading'>
 <td ><span  style="font-size:14px;"><b> Location : </b></span> <br/><span><?php echo $location; ?></span></td>

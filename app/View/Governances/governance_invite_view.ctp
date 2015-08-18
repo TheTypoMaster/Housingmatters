@@ -17,9 +17,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 	<th >Date of Notice</th>
     <th >Meeting Title</th>
 	 <th>Meeting Type</th>
-    <th >Meeting Date</th>
+    <th >Date of Meeting</th>
 	 <th >Meeting Time</th>
-	 <th>Meeting Location</th>
+	 <th >Meeting Location</th>
 	 <th>Invitees </th>
     <th></th>
     </tr>

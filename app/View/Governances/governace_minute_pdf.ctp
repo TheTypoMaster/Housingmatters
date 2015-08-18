@@ -48,9 +48,27 @@ foreach($result_gov_invite as $data1)
 
 }
 $html='<div style="background-color:#fff; ">
-<div class="bg_co" align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.$society_name.'</div>
-<div style="padding: 5px;">
-<span  style="font-size:12px;"><b> Following Members were present: </b></span><br/>';
+<div class="bg_co" align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.$society_name.'</div>';
+
+
+
+$html.='<div  style="padding: 5px;" >
+<table  cellpadding="5" width="100%" border="1">
+<tr>
+<td width="50%" ><span  style="font-size:12px;"><b> Type : </b></span><br/> <span style="font-size:12px;">'.@$moc.'</span></td>
+<td width="25%" ><span  style="font-size:12px;"><b> ID : </b></span> <br/><span style="font-size:12px;">'.$meeting_id.'</span></td>
+<td width="25%"><span  style="font-size:12px;"><b> Date of Notice : </b></span> <br/><span style="font-size:12px;">'.$notice_of_date.'</span></td>
+</tr>
+<tr>
+<td ><span  style="font-size:12px;"><b> Location : </b></span> <br/><span style="font-size:12px;">'.$location.'</span></td>
+<td ><span  style="font-size:12px;"><b> Date of Meeting : </b></span><br/> <span style="font-size:12px;">'.$date.'</span></td>
+<td><span  style="font-size:12px;"><b> Time : </b></span> <br/><span style="font-size:12px;">'.$time.'</span></td>
+</tr>
+</table>
+</div>';
+
+$html.='<div style="padding: 5px;">
+<span  style="font-size:12px;"><b> Following Members were present : </b></span><br/>';
 
 $c=0;
 foreach($present_user as $data7){
@@ -71,29 +89,16 @@ if(!empty($flat))
 	$flat_name='('.$flat.')';
 }
 $to=$user_name.' '.$flat_name.' '.$designation_name.',';
-$html.='<span style="font-size:12px;">'.$to.'</span>';
+$html.='<span style="font-size:12px;"> '.$to.' </span>';
 }
-$html.='</div><br/>';
+$html.='</div>';
 
-$html.='<div  style="padding: 5px;" >
-<table  cellpadding="5" width="100%" border="1">
-<tr>
-<td width="50%" ><span  style="font-size:12px;"><b> Type : </b></span><br/> <span style="font-size:12px;">'.@$moc.'</span></td>
-<td width="25%" ><span  style="font-size:12px;"><b> ID : </b></span> <br/><span style="font-size:12px;">'.$meeting_id.'</span></td>
-<td width="25%"><span  style="font-size:12px;"><b> Notice of Date : </b></span> <br/><span style="font-size:12px;">'.$notice_of_date.'</span></td>
-</tr>
-<tr>
-<td ><span  style="font-size:12px;"><b> Location : </b></span> <br/><span style="font-size:12px;">'.$location.'</span></td>
-<td ><span  style="font-size:12px;"><b> Date of Meeting : </b></span><br/> <span style="font-size:12px;">'.$date.'</span></td>
-<td><span  style="font-size:12px;"><b> Time : </b></span> <br/><span style="font-size:12px;">'.$time.'</span></td>
-</tr>
-</table>
-<table cellpadding="5" width="100%" >
-<tr>
-<td><span  style="font-size:12px;"><b>Title : </b></span> <span style="font-size:12px;">'.$title.'</span></td>
-</tr>
-</table>
+
+$html.='<div  style="padding: 5px;">
+<span  style="font-size:12px;"><b>Title : </b></span> <span style="font-size:12px;">'.$title.'</span>
 </div>';
+
+
 $html.='<div  style="padding: 5px;">
 <span style="font-size:12px;"><b>Any Other</b></span><br/>
 <span>'.urldecode($any_other).'</span>

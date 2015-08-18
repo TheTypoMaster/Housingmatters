@@ -59,11 +59,11 @@ $html='<div style="background-color:#fff; width:100%;">
 <tr>
 <td width="50%" ><span  style="font-size:12px;"><b> Type : </b></span><br/> <span>'. @$moc.'</span></td>
 <td width="25%" ><span  style="font-size:12px;"><b> ID : </b></span> <br/> <span>'.$gov_id.'</span></td>
-<td width="25%" ><span  style="font-size:12px;"><b> Notice of Date : </b></span> <br/> <span>'. $notice_of_date.'</span></td>
+<td width="25%" ><span  style="font-size:12px;"><b>Date of Notice: </b></span> <br/> <span>'. $notice_of_date.'</span></td>
 </tr>
 <tr>
 <td><span  style="font-size:12px;"><b> Location : </b></span> <br/> <span>'. $location.'</span></td>
-<td><span  style="font-size:12px;"><b> Date : </b></span> <br/> <span>'.$date.'</span></td>
+<td><span  style="font-size:12px;"><b> Date of Meeting : </b></span> <br/> <span>'.$date.'</span></td>
 <td>
 <span  style="font-size:12px;"><b> Time : </b></span> <br/> <span>'.$time.'</span>
 </td>
@@ -77,7 +77,7 @@ $html='<div style="background-color:#fff; width:100%;">
 </table>
 </div>
 <div  align="" style="padding: 2px;">
-<span style="font-size:12px;"><b>Invitees : </b></span>';
+<span style="font-size:12px;"> <b>Invitees : </b> </span>';
 if($type==1){
 foreach($user as $id){
 	$result_user=$this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'), array('pass' => array((int)$id)));
@@ -139,7 +139,7 @@ if($type==3){
 
 
 $html.='</div><div  align="" style="padding: 2px;">
-<span  style="font-size:12px;"><b> Meeting Covering Note: </b></span><br/><span>'.$covering_note.'</span>
+<span  style="font-size:12px;"><b> Meeting Covering Note: </b></span><br/> <span style="font-size:12px;"> '.$covering_note.' </span>
 </div>
 <div style="padding: 2px;">
 <table  cellpadding="5" width="100%;" border="1">
