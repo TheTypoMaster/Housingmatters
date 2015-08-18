@@ -76,26 +76,28 @@ $html.='<span style="font-size:12px;">'.$to.'</span>';
 $html.='</div><br/>';
 
 $html.='<div  style="padding: 5px;" >
-<table  cellpadding="5" width="100%;" border="1">
+<table  cellpadding="5" width="100%" border="1">
 <tr>
-<td width="30%" ><span  style="font-size:14px;"><b> Type : </b></span><br/> <span><?php echo @$moc; ?></span></td>
-<td width="20%" ><span  style="font-size:14px;"><b> ID : </b></span> <br/><span><?php echo $meeting_id; ?></span></td>
-<td width="20%"><span  style="font-size:14px;"><b> Notice of Date : </b></span> <br/><span><?php echo $notice_of_date; ?></span></td>
+<td width="50%" ><span  style="font-size:12px;"><b> Type : </b></span><br/> <span style="font-size:12px;">'.@$moc.'</span></td>
+<td width="25%" ><span  style="font-size:12px;"><b> ID : </b></span> <br/><span style="font-size:12px;">'.$meeting_id.'</span></td>
+<td width="25%"><span  style="font-size:12px;"><b> Notice of Date : </b></span> <br/><span style="font-size:12px;">'.$notice_of_date.'</span></td>
 </tr>
 <tr>
-<td ><span  style="font-size:14px;"><b> Location : </b></span> <br/><span><?php echo $location; ?></span></td>
-<td ><span  style="font-size:14px;"><b> Date of Meeting : </b></span><br/> <span><?php echo $date; ?></span></td>
-<td><span  style="font-size:14px;"><b> Time : </b></span> <br/><span><?php echo $time; ?></span></td>
+<td ><span  style="font-size:12px;"><b> Location : </b></span> <br/><span style="font-size:12px;">'.$location.'</span></td>
+<td ><span  style="font-size:12px;"><b> Date of Meeting : </b></span><br/> <span style="font-size:12px;">'.$date.'</span></td>
+<td><span  style="font-size:12px;"><b> Time : </b></span> <br/><span style="font-size:12px;">'.$time.'</span></td>
 </tr>
 </table>
-<table cellpadding="5" width='100%;'>
+<table cellpadding="5" width="100%" >
 <tr>
-<td><span  style="font-size:14px;"><b>Title : </b></span> <span><?php echo $title; ?></span></td>
+<td><span  style="font-size:12px;"><b>Title : </b></span> <span style="font-size:12px;">'.$title.'</span></td>
 </tr>
 </table>
 </div>';
-
-
+$html.='<div  style="padding: 5px;">
+<span style="font-size:12px;"><b>Any Other</b></span><br/>
+<span>'.urldecode($any_other).'</span>
+</div>';
 $html.='<div  align="" style="padding: 10px;">
 <table border="1" cellpadding="4" width="100%"><tr>
 <td width="70%"><span  style="font-size:12px;"><b> Agenda: </b></span></td>

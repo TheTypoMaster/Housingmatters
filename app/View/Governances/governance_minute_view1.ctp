@@ -126,18 +126,17 @@ foreach($message_web as $data)
 </table>
 </div>
 <?php if(!empty($file)) { ?>
-<div class="hide_at_print">
-<p style="font-size:14px; padding:5px;"><b>Attachment</b></p>
-<div style="padding:5px;" >
+<div class="hide_at_print" style="font-size:14px; padding:5px;">
+<p ><b>Attachment</b></p>
+<div  >
 <a href="<?php echo $webroot_path ; ?>/governances_file/<?php echo $file; ?>" target="_blank" class="btn mini green tooltips" data-placement="bottom" data-original-title="<?php echo $file; ?>" download="download"><i class=" icon-download-alt"></i></a>
 </div>
 </div>
 <?php } ?>
-<br/>
+
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;">
 <span>Your Society is empowered by HousingMatters - 
 <i>"Making Life Simpler"</i></span><br>
 <span style="color:#FFF;">Email: support@housingmatters.in</span> &nbsp;|&nbsp; <span>Phone : 022-41235568</span> &nbsp;|&nbsp; <span style="color:#FFF;">www.housingmatters.co.in</span></div>
-
 
 </div>
