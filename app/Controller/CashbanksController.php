@@ -3918,324 +3918,256 @@ $this->set('cursor2',$cursor2);
 }
 ////////////////////////////// End bank_receipt_import_ajax //////////////////////////////////////////////////////////
 ///////////////////////////////// Start Save bank Imp ///////////////////////////////////////////////////////////////
-function save_bank_imp()
-{
-$this->layout='blank';
-$s_society_id = (int)$this->Session->read('society_id');
-$s_user_id = (int)$this->Session->read('user_id');
+function save_bank_imp(){
+	$this->layout='blank';
+	$s_society_id = (int)$this->Session->read('society_id');
+	$s_user_id = (int)$this->Session->read('user_id');
 	
-$q=$this->request->query('q'); 
-$myArray = json_decode($q, true);
+	$q=$this->request->query('q'); 
+	$myArray = json_decode($q, true);
 
 $r=1;
-foreach($myArray as $child)
-{
-$r++;
-$TransactionDate = $child[0];
-$ReceiptMod = $child[1];
-//$ChequeNo = $child[2];
-//$DrawnBankname = $child[4];
-//$Date1 = $child[6];
-$bank_id = $child[4];
-$auto_id = $child[6];
-$Amount = $child[7];
+foreach($myArray as $child){
+	$r++;
+	$TransactionDate = $child[0];
+	$ReceiptMod = $child[1];
+	$bank_id = $child[4];
+	$auto_id = $child[6];
+	$Amount = $child[7];
 
-if(empty($TransactionDate))
-{
-$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Transaction Date in row'.$r));
-die($output);
-}
-
-if(empty($ReceiptMod))
-{
-$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Receipt Mode in row'.$r));
-die($output);
-}
-$c = (int)strcasecmp("Cheque",$ReceiptMod);
-$n = (int)strcasecmp("NEFT",$ReceiptMod);
-$p = (int)strcasecmp("PG",$ReceiptMod);
-if($c == 0)
-{
-$ChequeNo = $child[2];
-$DrawnBankname = $child[3];
-$Date1 = $child[8];	
-
-if(empty($ChequeNo))
-{
-$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Cheque Number in row'.$r));
-die($output);
-}
-
-if(empty($DrawnBankname))
-{
-$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Drawn Bank name in row'.$r));
-die($output);
-}
-
-if(empty($Date1))
-{
-$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Date in row'.'30'));
-die($output);
-}
-}
-else if($n == 0)
-{
-//$Reference = $child[3];
-$Date1 = $child[4];
-
-//if(empty($Reference))
-//{
-//$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Reference in row'.$r));
-//die($output);
-//}
-
-if(empty($Date1))
-{
-$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Date in row'.$r));
-die($output);
-}
-
-}
-else if($p == 0)
-{
-//$Reference = $child[3];
-$Date1 = $child[4];	
-
-//if(empty($Reference))
-//{
-//$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Reference in row'.$r));
-//die($output);
-//}
-if(empty($Date1))
-{
-$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Date in row'.$r));
-die($output);
-}
-}
-else
-{
-$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill "Cheque", "NEFT" or PG in Receipt Mode in row'.$r));
-die($output);
-}
-
-$this->loadmodel('financial_year');
-$conditions=array("society_id" => $s_society_id,"status"=>1);
-$cursor = $this->financial_year->find('all',array('conditions'=>$conditions));
-$abc = 555;
-foreach($cursor as $collection)
-{
-$from = $collection['financial_year']['from'];
-$to = $collection['financial_year']['to'];
-$from1 = date('Y-m-d',$from->sec);
-$to1 = date('Y-m-d',$to->sec);
-$from2 = strtotime($from1);
-$to2 = strtotime($to1);
-$transaction1 = date('Y-m-d',strtotime($TransactionDate));
-$transaction2 = strtotime($transaction1);
-if($transaction2 <= $to2 && $transaction2 >= $from2)
-{
-$abc = 5;
-break;
-}
-}
-if($abc == 555)
-{
-$output=json_encode(array('report_type'=>'validation','text'=>'Transaction date is not in open Financial Year in row'.$r));
-die($output);
-}
-
-if(is_numeric($Amount))
-{
-}
-else
-{
-$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Numeric Amount in row'.$r));
-die($output);
-}
-}
-
-$r=0;
-
-foreach($myArray as $child)
-{
-$r++;
-$type = (int)$child[9];
-$current_date = date('Y-m-d');
-$TransactionDate = $child[0];
-$ReceiptMod = $child[1];
-//$ChequeNo = $child[2];
-//$Reference = $child[3];
-//$DrawnBankname = $child[4];
-//$Date1 = $child[6];
-$bank_id = (int)$child[6];
-$auto_id77 = (int)$child[7];
-$amount = $child[8];
-
-
-
-
-$ledger_sub_account = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($auto_id77)));
-foreach($ledger_sub_account as $data)
-{
-$user_id = (int)$data['ledger_sub_account']['user_id'];
-}
-
-
-
-$user_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));	
-foreach($user_fetch as $data2)
-{
-$flat_id = (int)$data2['user']['flat'];	
-}
-
-$current_date = date('Y-m-d');
-$c = (int)strcasecmp("Cheque",$ReceiptMod);
-$n = (int)strcasecmp("NEFT",$ReceiptMod);
-$p = (int)strcasecmp("PG",$ReceiptMod);
-if($c == 0)
-{
-$ChequeNo = $child[2];
-$DrawnBankname = $child[4];
-$cheque_date = $child[5];
-}
-else if($n == 0)
-{
-$Reference = $child[3];
-$cheque_date = $child[5];
-}
-else if($p == 0)
-{
-$Reference = $child[3];
-$cheque_date = $child[5];	
-}
-
-
-
-
-$result_rb1 = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array(@$flat_id)));
-foreach($result_rb1 as $data2)
-{
-$user_id = (int)$data2['user']['user_id'];
-}
-
-$result_rb = $this->requestAction(array('controller' => 'hms', 'action' => 'new_regular_bill_detail_via_flat_id'),array('pass'=>array(@$flat_id)));
-foreach ($result_rb as $collection)
-{
-$bill_no = (int)$collection['new_regular_bill']['bill_no'];
-}
-
-
-
-if($type == 2)
-{
-
-$t1=$this->autoincrement('new_cash_bank','transaction_id');	
-$k = (int)$this->autoincrement_with_society_ticket('new_cash_bank','receipt_id');
-$this->loadmodel('new_cash_bank');
-$multipleRowData = Array( Array("transaction_id"=> $t1, "receipt_id" => $k, "receipt_date" => strtotime($TransactionDate), "receipt_mode" => $ReceiptMod, "cheque_number" =>@$ChequeNo,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>@$DrawnBankname,"reference_utr" => @$Reference,"deposited_bank_id" => $bank_id,"member_type" => 1,"party_name_id"=>$flat_id,"receipt_type" => 1,"amount"=>$amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$flat_id));
-$this->new_cash_bank->saveAll($multipleRowData);
-
-
-//$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($flat_id)));
-	//foreach($result_flat_info as $flat_info){
-	  // $user_id = (int)$flat_info["user"]["user_id"];
-	//}
-
-	$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'ledger_sub_account_fetch3'),array('pass'=>array($user_id)));
-	foreach($result_flat_info as $flat_info){
-	    $account_id = (int)$flat_info["ledger_sub_account"]["auto_id"];
+	if(empty($TransactionDate)){
+		$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Transaction Date in row'.$r));
+		die($output);
 	}
 
-	
-	
-	
-$l=$this->autoincrement('ledger','auto_id');
-$this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($TransactionDate), "debit" => $amount, "credit" =>null, "ledger_account_id" => 33, "ledger_sub_account_id" => $bank_id,"table_name" => "new_cash_bank","element_id" => $t1, "society_id" => $s_society_id,));
-$this->ledger->saveAll($multipleRowData); 
-
-$l=$this->autoincrement('ledger','auto_id');
-$this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($TransactionDate), "credit" => $amount,"debit" =>null,"ledger_account_id" => 34, "ledger_sub_account_id" => $account_id,"table_name" => "new_cash_bank","element_id" => $t1, "society_id" => $s_society_id,));
-$this->ledger->saveAll($multipleRowData);
-
-
-
-    $this->loadmodel('new_regular_bill');
-	$condition=array('society_id'=>$s_society_id,"flat_id"=>$flat_id);
-	$order=array('new_regular_bill.one_time_id'=>'DESC');
-	$result_new_regular_bill=$this->new_regular_bill->find('first',array('conditions'=>$condition,'order'=>$order)); 
-	$this->set('result_new_regular_bill',$result_new_regular_bill);
-	foreach($result_new_regular_bill as $data){
-	$auto_id=$data["auto_id"]; 
-	$arrear_intrest=$data["arrear_intrest"];
-	$intrest_on_arrears=$data["intrest_on_arrears"];
-	$total=$data["total"];
-	$arrear_maintenance=$data["arrear_maintenance"];
-	$regular_bill_one_time_id = (int)$data["one_time_id"];
+	if(empty($ReceiptMod)){
+		$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Receipt Mode in row'.$r));
+		die($output);
 	}
-	
-	
+	$c = (int)strcasecmp("Cheque",$ReceiptMod);
+	$n = (int)strcasecmp("NEFT",$ReceiptMod);
+	$p = (int)strcasecmp("PG",$ReceiptMod);
+	if($c == 0){
+		$ChequeNo = $child[2];
+		$DrawnBankname = $child[3];
+		$Date1 = $child[8];	
 
-	
-    	$amount_after_arrear_intrest=$amount-$arrear_intrest;
-		if($amount_after_arrear_intrest<0)
-		{
-		$new_arrear_intrest=abs($amount_after_arrear_intrest);
-		$new_intrest_on_arrears=$intrest_on_arrears;
-		$new_arrear_maintenance=$arrear_maintenance;
-		$new_total=$total;
+		if(empty($ChequeNo)){
+			$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Cheque Number in row'.$r));
+			die($output);
 		}
-		else
-		{
-		$new_arrear_intrest=0;
-		$amount_after_intrest_on_arrears=$amount_after_arrear_intrest-$intrest_on_arrears;
-			if($amount_after_intrest_on_arrears<0)
-			{
-			$new_intrest_on_arrears=abs($amount_after_intrest_on_arrears);
-			$new_arrear_maintenance=$arrear_maintenance;
-			$new_total=$total;
+
+		if(empty($DrawnBankname)){
+			$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Drawn Bank name in row'.$r));
+			die($output);
+		}
+
+		if(empty($Date1)){
+			$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Date in row'.'30'));
+			die($output);
+		}
+	}
+	else if($n == 0){
+		$Date1 = $child[4];
+		if(empty($Date1)){
+			$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Date in row'.$r));
+			die($output);
+		}
+	}
+	else if($p == 0){
+		$Date1 = $child[4];	
+		
+		if(empty($Date1)){
+			$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Date in row'.$r));
+			die($output);
+		}
+	}
+	else{
+		$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill "Cheque", "NEFT" or PG in Receipt Mode in row'.$r));
+		die($output);
+	}
+
+	$this->loadmodel('financial_year');
+	$conditions=array("society_id" => $s_society_id,"status"=>1);
+	$cursor = $this->financial_year->find('all',array('conditions'=>$conditions));
+	$abc = 555;
+	foreach($cursor as $collection){
+		$from = $collection['financial_year']['from'];
+		$to = $collection['financial_year']['to'];
+		$from1 = date('Y-m-d',$from->sec);
+		$to1 = date('Y-m-d',$to->sec);
+		$from2 = strtotime($from1);
+		$to2 = strtotime($to1);
+		$transaction1 = date('Y-m-d',strtotime($TransactionDate));
+		$transaction2 = strtotime($transaction1);
+		if($transaction2 <= $to2 && $transaction2 >= $from2){
+			$abc = 5;
+			break;
+		}
+	}
+	if($abc == 555){
+		$output=json_encode(array('report_type'=>'validation','text'=>'Transaction date is not in open Financial Year in row'.$r));
+		die($output);
+	}
+
+	if(is_numeric($Amount)){
+	}
+	else{
+		$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Numeric Amount in row'.$r));
+		die($output);
+	}
+	}
+
+	$r=0;
+
+	foreach($myArray as $child)	{
+		$r++;
+		$type = (int)$child[9];
+		$current_date = date('Y-m-d');
+		$TransactionDate = $child[0];
+		$ReceiptMod = $child[1];
+		$bank_id = (int)$child[6];
+		$auto_id77 = (int)$child[7];
+		$amount = $child[8];
+
+		$ledger_sub_account = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($auto_id77)));
+		foreach($ledger_sub_account as $data){
+			$user_id = (int)$data['ledger_sub_account']['user_id'];
+		}
+
+
+
+		$user_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));	
+		foreach($user_fetch as $data2){
+			$flat_id = (int)$data2['user']['flat'];	
+		}
+
+		$current_date = date('Y-m-d');
+		$c = (int)strcasecmp("Cheque",$ReceiptMod);
+		$n = (int)strcasecmp("NEFT",$ReceiptMod);
+		$p = (int)strcasecmp("PG",$ReceiptMod);
+		if($c == 0){
+			$ChequeNo = $child[2];
+			$DrawnBankname = $child[4];
+			$cheque_date = $child[5];
+		}
+		else if($n == 0){
+			$Reference = $child[3];
+			$cheque_date = $child[5];
+		}
+		else if($p == 0){
+			$Reference = $child[3];
+			$cheque_date = $child[5];	
+		}
+
+
+		$result_rb1 = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array(@$flat_id)));
+		foreach($result_rb1 as $data2){
+			$user_id = (int)$data2['user']['user_id'];
+		}
+
+		$result_rb = $this->requestAction(array('controller' => 'hms', 'action' => 'new_regular_bill_detail_via_flat_id'),array('pass'=>array(@$flat_id)));
+		foreach ($result_rb as $collection){
+			$bill_no = (int)$collection['new_regular_bill']['bill_no'];
+		}
+
+
+
+	if($type == 2){
+
+		
+
+
+
+			$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'ledger_sub_account_fetch3'),array('pass'=>array($user_id)));
+			foreach($result_flat_info as $flat_info){
+				$account_id = (int)$flat_info["ledger_sub_account"]["auto_id"];
 			}
-			else
-			{
-			$new_intrest_on_arrears=0;
-			$amount_after_arrear_maintenance=$amount_after_intrest_on_arrears-$arrear_maintenance;
-				if($amount_after_arrear_maintenance<0){
-				$new_arrear_maintenance=abs($amount_after_arrear_maintenance);
+
+			
+			
+			
+		$l=$this->autoincrement('ledger','auto_id');
+		$this->loadmodel('ledger');
+		$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($TransactionDate), "debit" => $amount, "credit" =>null, "ledger_account_id" => 33, "ledger_sub_account_id" => $bank_id,"table_name" => "new_cash_bank","element_id" => $t1, "society_id" => $s_society_id,));
+		$this->ledger->saveAll($multipleRowData); 
+
+		$l=$this->autoincrement('ledger','auto_id');
+		$this->loadmodel('ledger');
+		$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($TransactionDate), "credit" => $amount,"debit" =>null,"ledger_account_id" => 34, "ledger_sub_account_id" => $account_id,"table_name" => "new_cash_bank","element_id" => $t1, "society_id" => $s_society_id,));
+		$this->ledger->saveAll($multipleRowData);
+
+			
+			$amount=$amount;
+			//apply receipt in regular bill
+			$this->loadmodel('new_regular_bill');
+			$condition=array('society_id'=>$s_society_id,"flat_id"=>$flat_id);
+			$order=array('new_regular_bill.one_time_id'=>'DESC');
+			$result_new_regular_bill=$this->new_regular_bill->find('first',array('conditions'=>$condition,'order'=>$order)); 
+			$this->set('result_new_regular_bill',$result_new_regular_bill);
+			foreach($result_new_regular_bill as $regular_bill){
+				$auto_id=$regular_bill["auto_id"]; 
+				$arrear_intrest=$regular_bill["arrear_intrest"];
+				$intrest_on_arrears=$regular_bill["intrest_on_arrears"];
+				$total=$regular_bill["total"];
+				$arrear_maintenance=$regular_bill["arrear_maintenance"];
+				$regular_bill_one_time_id = (int)$regular_bill["one_time_id"];
+			}
+			$amount_after_arrear_intrest=$amount-$arrear_intrest;
+			if($amount_after_arrear_intrest<0){
+				$new_arrear_intrest=abs($amount_after_arrear_intrest);
+				$new_intrest_on_arrears=$intrest_on_arrears;
+				$new_arrear_maintenance=$arrear_maintenance;
 				$new_total=$total;
-				}else{
-				$new_arrear_maintenance=0;
-				$amount_after_total=$amount_after_arrear_maintenance-$total; 
-				if($amount_after_total>0){
-				$new_total=0;
-				$new_arrear_maintenance=-$amount_after_total;
-				}else{
-							$new_total=abs($amount_after_total);
-							
+			}
+			else{
+				$new_arrear_intrest=0;
+				$amount_after_intrest_on_arrears=$amount_after_arrear_intrest-$intrest_on_arrears;
+					if($amount_after_intrest_on_arrears<0)
+					{
+					$new_intrest_on_arrears=abs($amount_after_intrest_on_arrears);
+					$new_arrear_maintenance=$arrear_maintenance;
+					$new_total=$total;
+					}
+					else
+					{
+					$new_intrest_on_arrears=0;
+					$amount_after_arrear_maintenance=$amount_after_intrest_on_arrears-$arrear_maintenance;
+						if($amount_after_arrear_maintenance<0){
+						$new_arrear_maintenance=abs($amount_after_arrear_maintenance);
+						$new_total=$total;
+						}else{
+						$new_arrear_maintenance=0;
+						$amount_after_total=$amount_after_arrear_maintenance-$total; 
+						if($amount_after_total>0){
+						$new_total=0;
+						$new_arrear_maintenance=-$amount_after_total;
+						}else{
+									$new_total=abs($amount_after_total);
+									
+							}
 						}
-						}
-				        }
-			            }
-	
+					}
+			}
+
 			
 			$this->loadmodel('new_regular_bill');
 			$this->new_regular_bill->updateAll(array('new_arrear_intrest'=>$new_arrear_intrest,"new_intrest_on_arrears"=>$new_intrest_on_arrears,"new_arrear_maintenance"=>$new_arrear_maintenance,"new_total"=>$new_total),array('auto_id'=>$auto_id));
+			
+			
+			
+			$t1=$this->autoincrement('new_cash_bank','transaction_id');	
+			$k = (int)$this->autoincrement_with_society_ticket('new_cash_bank','receipt_id');
+			$this->loadmodel('new_cash_bank');
+			$multipleRowData = Array( Array("transaction_id"=> $t1, "receipt_id" => $k, "receipt_date" => strtotime($TransactionDate), "receipt_mode" => $ReceiptMod, "cheque_number" =>@$ChequeNo,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>@$DrawnBankname,"reference_utr" => @$Reference,"deposited_bank_id" => $bank_id,"member_type" => 1,"party_name_id"=>$flat_id,"receipt_type" => 1,"amount"=>$amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$flat_id,"bill_auto_id"=>$auto_id,"bill_one_time_id"=>$regular_bill_one_time_id));
+			$this->new_cash_bank->saveAll($multipleRowData);
 
 
+	}
+	}
 
-
-
-
-
-
-
-
-
-}
-}
-
-$output=json_encode(array('report_type'=>'done','text'=>'Please Fill Date in row'));
-die($output);
+	$output=json_encode(array('report_type'=>'done','text'=>'Please Fill Date in row'));
+	die($output);
 }
 ///////////////////////////////// End Save bank Imp ///////////////////////////////////////////////////////////////
 ///////////////////////////// Start bank receipt html view //////////////////////////////////////////////////////////////
