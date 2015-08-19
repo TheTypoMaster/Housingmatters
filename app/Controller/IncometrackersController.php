@@ -377,7 +377,8 @@ function regular_bill_preview_screen(){
 		$signature=$data["society"]["signature"];
 	    $neft_type = @$data["society"]["neft_type"];
 	    $neft_detail = @$data["society"]["neft_detail"];
-	    }
+	    $society_logo = @$data["society"]["logo"];
+		}
 	
 	
 		$this->loadmodel('user');
@@ -481,7 +482,13 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 					<div style="border:solid 1px; overflow:auto;">
 						<div style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;" align="center">'.strtoupper($society_name).'</div>
 						<div style="padding:5px;">
-							<div style="float:left;"><img src="http://123.63.2.150:8080/cakephp/logo/logo.jpg" class="" height="45px" width="45px"></div>
+							<div style="float:left;">';
+							if(!empty($society_logo))
+							{
+		$bill_html.='<img src="'.$webroot_path.'/logo/'.$society_logo.'"  height="45px" width="45px">';	
+							}
+							
+				$bill_html.='</div>
 							<div style="float:right;" align="right">
 							<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$society_reg_num.'</span><br>
 							<span style="color: rgb(100, 100, 99); ">'.$society_address.'</span><br><span>Email: '.$society_email.'</span> | <span>Phone : '.$society_phone.'</span></div>
@@ -689,6 +696,14 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 			$this->new_regular_bill->saveAll(array("auto_id" => $new_regular_bill_auto_id, "flat_id" => $flat_id, "bill_no" => $bill_number, "income_head_array" => $income_head_array, "noc_charges" => $noc_charges,"total" => $total, "arrear_maintenance"=> $arrear_maintenance, "arrear_intrest" => $arrear_intrest, "intrest_on_arrears" => $intrest_on_arrears,"due_for_payment" => $due_for_payment,"one_time_id"=>$one_time_id,"society_id"=>$s_society_id,"due_date"=>strtotime($due_date),"bill_start_date"=>strtotime($bill_start_date),"bill_end_date"=>strtotime($bill_end_date),"approval_status"=>0,"bill_html"=>$bill_html,"credit_stock"=>$credit_stock,"current_date"=>strtotime($current_date)));
 			
 			
+			
+	//$ussrs[]=$user_id;
+
+//$this->send_notification('<span class="label label-warning" ><i class="icon-money"></i></span>','New bill for your flat '.$wing_flat.' is generated ',10,$5,$this->webroot.'Incometrackers/ac_statement_bill_view/'.$r,0,$ussrs);
+		//unset($ussrs);
+
+			
+			
 			//LEDGER CODE START//
 			foreach($income_head_array as $income_head_id=>$income_head_amount){
 				if(!empty($income_head_amount)){
@@ -731,8 +746,13 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 			}
 				
 			unset($income_head_array);
+<<<<<<< HEAD
 		} }
 		$this->response->header('Location','it_regular_bill');
+=======
+		}
+		$this->response->header('Location','aprrove_bill');
+>>>>>>> origin/master
 	}
 	
 }
@@ -6190,7 +6210,7 @@ if(isset($this->request->data['approve'])){
 							$sms_sender=$r_sms->sms_sender; 
 							$sms_allow=(int)$r_sms->sms_allow;
 
-							$subject="[".$society_name."]- Maintanance bill, ".date('d-M',$bill_start_date)." to ".date('d-M-Y',$bill_end_date)."";
+							$subject="[".$society_name."]- Maintenance bill, ".date('d-M',$bill_start_date)." to ".date('d-M-Y',$bill_end_date)."";
 							$this->send_email($email,'accounts@housingmatters.in','HousingMatters',$subject,$bill_html,'donotreply@housingmatters.in');
 					}
 				}
@@ -6198,7 +6218,7 @@ if(isset($this->request->data['approve'])){
 				if($sms_is_on_off==1){
 					////sms code//
 					if(!empty($mobile)){
-							$sms="Dear ".$user_name." ".$wing_flat.",your maintenance bill for period ".date('d-M',$bill_start_date)." to ".date('d-M-Y',$bill_end_date)." is Rs ".$due_for_payment.".Kindly pay by due ".date('d-M',$due_date).".".$society_name;
+							$sms="Dear ".$user_name." ".$wing_flat.",your maintenance bill for period ".date('d-M',$bill_start_date)." to ".date('d-M-Y',$bill_end_date)." is Rs ".$due_for_payment.".Kindly pay by ".date('d-M',$due_date).".".$society_name;
 							$sms1=str_replace(' ', '+', $sms);
 							if($sms_allow==1){
 							$payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingkey='.$working_key.'&sender='.$sms_sender.'&to='.$mobile.'&message='.$sms1.''); 

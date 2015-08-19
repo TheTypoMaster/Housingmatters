@@ -71,7 +71,7 @@ $i++;
 	 <td><?php echo $time ; ?></td>
 	 <td><?php echo $location ; ?></td>
 	  <td><span class="label label-info"><?php echo $invite_user ; ?></span></td>
-    <td><a href="<?php echo $webroot_path; ?>Governances/governance_invite_view1/<?php echo $gov_id; ?>" rel='tab' class="btn mini yellow tooltips" ><i class="icon-search"></i> View </a>
+    <td><a href="<?php echo $webroot_path; ?>Governances/governance_invite_view1/<?php echo $gov_id; ?>" rel='tab' class="btn mini yellow tooltips" data-placement="bottom" data-original-title="View" ><i class="icon-search"></i>  </a>
 	</td>
 <?php } ?>	
 	

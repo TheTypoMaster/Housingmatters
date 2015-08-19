@@ -40,12 +40,13 @@ if($nnn == 555)
 <table  width="100%" style=" background-color:white;" id="report_tb">
 </tr>
 <tr>
-<th colspan="9" >From : <?php echo $from; ?> &nbsp;&nbsp; To : <?php echo $to; ?></th>
+<th colspan="10" >From : <?php echo $from; ?> &nbsp;&nbsp; To : <?php echo $to; ?></th>
 </tr>
 <tr>
 <th>Receipt#</th>
 <th>Receipt Date </th>
 <th>Party Name</th>
+<th>Unit Detail</th>
 <th>Payment Mode</th>
 <th>Instrument/UTR</th>
 <th>Deposit Bank</th>
@@ -104,7 +105,7 @@ $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing
 			$current_date = $collection['new_cash_bank']['current_date'];
 			if($receipt_mode == "Cheque")
 			{
-			$receipt_mode = $receipt_mode."(".$cheque_number.")";
+			$receipt_mode = $receipt_mode;
 			}
 			
 			
@@ -118,12 +119,16 @@ if($s_role_id == 3)
 {
 $date = date('d-m-Y',($receipt_date));
 $total_debit =  $total_debit + $amount; 
-
+if(empty($reference_utr))
+{
+$reference_utr = $cheque_number;
+}
 ?>
 <tr>
 <td><?php echo $receipt_no; ?> </td>
-<td><?php echo $date; ?> </td>
-<td><?php echo $party_name; ?> &nbsp&nbsp&nbsp&nbsp<?php echo $wing_flat; ?> </td>
+<td><?php echo $date; ?></td>
+<td><?php echo $party_name; ?></td>
+<td> <?php echo $wing_flat; ?></td>
 <td><?php echo $receipt_mode; ?> </td>
 <td><?php echo @$reference_utr; ?> </td>
 <td><?php echo $deposited_bank_name; ?> </td>
@@ -141,7 +146,7 @@ $total_debit =  $total_debit + $amount;
 
 ?>
 <tr>
-<th colspan="7" style="text-align:right;">Total</th>
+<th colspan="8" style="text-align:right;">Total</th>
 <th><?php 
 $total_debit = number_format($total_debit);
 echo $total_debit; ?> <?php //echo "  dr"; ?></th>

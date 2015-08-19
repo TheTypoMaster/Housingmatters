@@ -18,8 +18,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			<h4 id="myModalLabel1">Import csv</h4>
 		</div>
 		<div class="modal-body">
-			<input type="file" name="file" class="default">
-			
+			<input type="file" name="file" class="default"  id="image-file">
+			  <label id="vali"></label>	
 			<strong><a href="<?php echo $this->webroot; ?>csv_file/demo/demo.csv" download>Click here for sample format</a></strong>
 			<br/>
 			<h4>Instruction set to import users</h4>
@@ -216,6 +216,25 @@ $(document).ready(function(){
 	
 	   $('form#form1').submit( function(ev){
 		ev.preventDefault();
+		
+		im_name=$("#image-file").val();
+		var insert = 1;
+		if(im_name==""){
+			$("#vali").html("<span style='color:red;'>Please Select a Csv File</span>");	
+			return false;
+		}
+		
+		var ext = $('#image-file').val().split('.').pop().toLowerCase();
+		if($.inArray(ext, ['csv']) == -1) {
+			$("#vali").html("<span style='color:red;'>Please Select a Csv File</span>");
+			return false;
+		}
+		
+		
+		
+		
+		
+		
 		$(".import_btn").text("Importing...");
 		var m_data = new FormData();
 		m_data.append( 'file', $('input[name=file]')[0].files[0]);

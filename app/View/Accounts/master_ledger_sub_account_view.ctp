@@ -41,6 +41,23 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 					$ledger_id = (int)$collection['ledger_sub_account']['ledger_id'];
 					$name = $collection['ledger_sub_account']['name'];
                     $auto_id = (int)$collection['ledger_sub_account']['auto_id'];
+					$wing_flat = "";
+					$wing_id = "";
+                    $flat_id = "";
+					$user_id = "";
+					if($ledger_id == 34)
+					{
+					$user_id = (int)$collection['ledger_sub_account']['user_id'];	
+					}
+$result_la2 = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));				
+foreach($result_la2	as $data)
+{
+$wing_id = (int)$data['user']['wing'];
+$flat_id = (int)$data['user']['flat'];
+}
+
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
+					
   $result_la = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account'),array('pass'=>array($ledger_id)));
 					foreach ($result_la as $collection) 
 					{
@@ -71,7 +88,7 @@ $main_name = $collection['accounts_category']['category_name'];
 <td><?php echo $main_name; ?></td>
 <td><?php echo $group_name; ?></td>
 <td><?php echo $ledger_name; ?></td>
-<td><?php echo $name;     ?> </td>
+<td><?php echo $name; ?> &nbsp;&nbsp;&nbsp;&nbsp; <?php echo $wing_flat; ?> </td>
 </tr>           
 <?php $n++; } ?> 
 </tbody>  
