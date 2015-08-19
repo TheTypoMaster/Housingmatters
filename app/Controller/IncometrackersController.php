@@ -746,13 +746,10 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 			}
 				
 			unset($income_head_array);
-<<<<<<< HEAD
+
 		} }
-		$this->response->header('Location','it_regular_bill');
-=======
-		}
 		$this->response->header('Location','aprrove_bill');
->>>>>>> origin/master
+
 	}
 	
 }
