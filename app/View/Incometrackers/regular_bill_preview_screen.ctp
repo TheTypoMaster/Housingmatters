@@ -196,7 +196,7 @@ foreach($result_society as $data){
 								}else { $maintanence_charges=0; }
 							} ?>
 							</td>	
-						<?php } ?>
+						<?php } echo $maintanence_charges ?>
 						
 						<td>
 						<?php  if($noc_ch_id==2){
