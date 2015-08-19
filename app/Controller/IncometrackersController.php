@@ -687,10 +687,10 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 			
 			
 			
-	$ussrs[]=$user_id;
+	//$ussrs[]=$user_id;
 
-$this->send_notification('<span class="label label-warning" ><i class="icon-money"></i></span>','New bill for your flat '.$wing_flat.' is generated ',10,$5,$this->webroot.'Incometrackers/ac_statement_bill_view/'.$r,0,$ussrs);
-		unset($ussrs);
+//$this->send_notification('<span class="label label-warning" ><i class="icon-money"></i></span>','New bill for your flat '.$wing_flat.' is generated ',10,$5,$this->webroot.'Incometrackers/ac_statement_bill_view/'.$r,0,$ussrs);
+		//unset($ussrs);
 
 			
 			
