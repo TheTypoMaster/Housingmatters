@@ -22,8 +22,10 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </label> 
 
 <div class="controls">
-<input type="file" name="file" class="default">
+<input type="file" name="file" id="image-file">
+ 
 <button type="submit" class="btn blue import_btn">Import</button>
+<label id="vali"></label>
 </div>
 </div>
 
@@ -56,6 +58,22 @@ $('#tr'+id).remove();
 
 $('form#form1').submit( function(ev){
 		ev.preventDefault();
+		
+		 im_name=$("#image-file").val();
+		var insert = 1;
+		if(im_name==""){
+		$("#vali").html("<span style='color:red;'>Please Select a Csv File</span>");	
+		return false;
+		}
+		
+		var ext = $('#image-file').val().split('.').pop().toLowerCase();
+		if($.inArray(ext, ['csv']) == -1) {
+			$("#vali").html("<span style='color:red;'>Please Select a Csv File</span>");
+			return false;
+		}
+		
+		
+		
 		$(".import_btn").text("Importing...");
 		
 		var m_data = new FormData();
@@ -168,10 +186,26 @@ $("#done").html('<div class="alert alert-block alert-success fade in"><h4 class=
 });
 });
 });
-
-
-
-
-
 });
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
