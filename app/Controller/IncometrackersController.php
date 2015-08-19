@@ -373,7 +373,8 @@ function regular_bill_preview_screen(){
 		$signature=$data["society"]["signature"];
 	    $neft_type = @$data["society"]["neft_type"];
 	    $neft_detail = @$data["society"]["neft_detail"];
-	    }
+	    $society_logo = @$data["society"]["logo"];
+		}
 	
 	$this->loadmodel('user');
 	$condition=array('society_id'=>$s_society_id,'tenant'=>1,'deactive'=>0);
@@ -471,7 +472,13 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 					<div style="border:solid 1px; overflow:auto;">
 						<div style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;" align="center">'.strtoupper($society_name).'</div>
 						<div style="padding:5px;">
-							<div style="float:left;"><img src="http://123.63.2.150:8080/cakephp/logo/logo.jpg" class="" height="45px" width="45px"></div>
+							<div style="float:left;">';
+							if(!empty($society_logo))
+							{
+		$bill_html.='<img src="'.$webroot_path.'/logo/'.$society_logo.'"  height="45px" width="45px">';	
+							}
+							
+				$bill_html.='</div>
 							<div style="float:right;" align="right">
 							<span style="color: rgb(100, 100, 99); ">Regn# &nbsp; '.$society_reg_num.'</span><br>
 							<span style="color: rgb(100, 100, 99); ">'.$society_address.'</span><br><span>Email: '.$society_email.'</span> | <span>Phone : '.$society_phone.'</span></div>
