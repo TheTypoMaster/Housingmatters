@@ -217,6 +217,7 @@ foreach($result_society as $data){
 							}
 							if($noc_charge[0]==4){
 								echo "hello";
+								echo $maintanence_charges;
 								$noc_charges=$maintanence_charges*(0.1);
 								echo '<input type="text" class="text_bx call_calculation" name="noc_charges'.$inc.'" value='.$noc_charges.'  row_id="'.$inc.'" />';
 								$total+=$noc_charges;
