@@ -192,14 +192,14 @@ foreach($result_society as $data){
 									$total+=$ih_charges;
 								}
 								if($income_head==42){
-									$maintanence_charges=$ih_charges;
+									echo $maintanence_charges=$ih_charges;
 								}else { $maintanence_charges=0; }
 							} ?>
 							</td>	
 						<?php } ?>
 						
 						<td>
-						<?php echo $maintanence_charges; if($noc_ch_id==2){
+						<?php  if($noc_ch_id==2){
 							if($noc_charge[0]==1){
 								$noc_charges=$noc_charge[1];
 								echo '<input type="text" class="text_bx call_calculation" name="noc_charges'.$inc.'" value='.$noc_charges.'  row_id="'.$inc.'" />';
