@@ -165,7 +165,7 @@ var key = 1;
 		}
 		.print_margin {
 			margin-left:5%;
-		}
+			}
 		</style>
 		
 		

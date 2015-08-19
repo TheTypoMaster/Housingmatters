@@ -951,6 +951,43 @@ function governance_minute_view1($idd){
 
 }
 
+function governance_minute_drft_submit()
+{
+	$this->layout=null;
+	$post_data=$this->request->data;
+	$this->ath();
+	$s_society_id=$this->Session->read('society_id');
+	$s_role_id=$this->Session->read('role_id'); 
+	$s_user_id=$this->Session->read('user_id');
+	$minute_id=(int)$post_data['minute_id'];
+	$present_user1=$post_data['present_user'];
+	$present_user1=explode(',',$present_user1);
+	foreach($present_user1 as $data2){
+		$present_user[]=(int)$data2;
+	}
+	
+	$meeting_id=$post_data['meeting_id'];
+	
+	$any_other=$post_data['any_other'];
+	$minute_agenda=$post_data['minute_agenda'];
+	$minute_agenda=explode(',',$minute_agenda);
+	$result_governance_invite=$this->governace_invite_meeting($meeting_id);
+	foreach($result_governance_invite as $data3){
+		$message_1=$data3['governance_invite']['message'];
+		}
+		foreach($message_1 as $key=>$value){
+		$value[]=$minute_agenda[$key];
+	    $message[]=$value;
+		}
+	
+	$this->loadmodel('governance_minute');
+	$this->governance_minute->updateAll(array('present_user'=>$present_user,'any_other'=>$any_other,'message'=>$message),array('governance_minute_id'=>$minute_id));
+	
+	$output = json_encode(array('type'=>'created', 'text' =>'Minutes successfully submitted'));
+	die($output);
+	
+}
+
 function governance_minute_draft($idd)
 {
 	if($this->RequestHandler->isAjax()){
@@ -960,11 +997,15 @@ function governance_minute_draft($idd)
 	}
 	$this->ath();
 	//$this->set('governance_minute_id',$idd);
-	
+	 $s_society_id=$this->Session->read('society_id');
 	$this->loadmodel('governance_minute');
 	$conditions=array('governance_minute_id'=>(int)$idd);
 	$result_gov_inv=$this->governance_minute->find('all',array('conditions'=>$conditions));
 	$this->set('result_gov_minute',$result_gov_inv);
+	
+	$this->loadmodel('user');
+	$conditions1=array("society_id"=>$s_society_id,'deactive'=>0);
+	$this->set('result_users',$this->user->find('all',array('conditions'=>$conditions1))); 
 	
 }
 

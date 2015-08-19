@@ -22,7 +22,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 	 <th>Meeting Location</th>
 	 <th>Invitees </th>
      <th>Agenda view</th>
-	 <th>Minutes view</th>
+	 <th>Minutes Draft</th>
     </tr>
 </thead>
 <tbody id="table">
@@ -82,9 +82,13 @@ $i++;
 	 <td><?php echo $time ; ?></td>
 	 <td><?php echo $location ; ?></td>
 	<td><span class="label label-info"><?php echo $invite_user ; ?></span></td>
-    <td><a href="<?php echo $webroot_path; ?>Governances/governance_invite_view1/<?php echo $gov_id; ?>" rel='tab' class="btn mini yellow tooltips" ><i class="icon-search"></i> View </a>
+    <td><a href="<?php echo $webroot_path; ?>Governances/governance_invite_view1/<?php echo $gov_id; ?>" rel='tab' class="btn mini yellow tooltips" data-placement="bottom" data-original-title="View" ><i class="icon-search"></i></a>
 	</td>
-	 <td><a href="<?php echo $webroot_path; ?>Governances/governance_minute_view1/<?php echo $governance_minute_id; ?>" rel='tab' class="btn mini yellow tooltips" ><i class="icon-search"></i> View </a>
+	 <td><a href="<?php echo $webroot_path; ?>Governances/governance_minute_view1/<?php echo $governance_minute_id; ?>" rel='tab' class="btn mini yellow tooltips" data-placement="bottom" data-original-title="View" ><i class="icon-search"></i></a>
+	 <a href="<?php echo $webroot_path; ?>Governances/governance_minute_draft/<?php echo $governance_minute_id; ?>" rel='tab' class="btn mini blue tooltips" data-placement="bottom" data-original-title="Draft" ><i class="icon-inbox"></i></a>
+	 
+	 
+	 
 	</td>
 <?php } } ?>	
 	
