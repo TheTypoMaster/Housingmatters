@@ -192,11 +192,11 @@ foreach($result_society as $data){
 									$total+=$ih_charges;
 								}
 								if($income_head==42){
-									echo $maintanence_charges=$ih_charges;
-								}else { $maintanence_charges=0; }
+									$maintanence_charges=$ih_charges;
+								}else{ $maintanence_charges=0; }
 							} ?>
 							</td>	
-						<?php } echo $maintanence_charges ?>
+						<?php } ?>
 						
 						<td>
 						<?php  if($noc_ch_id==2){
@@ -216,8 +216,6 @@ foreach($result_society as $data){
 								$total+=$noc_charges;
 							}
 							if($noc_charge[0]==4){
-								echo "hello";
-								echo $maintanence_charges;
 								$noc_charges=$maintanence_charges*(0.1);
 								echo '<input type="text" class="text_bx call_calculation" name="noc_charges'.$inc.'" value='.$noc_charges.'  row_id="'.$inc.'" />';
 								$total+=$noc_charges;
