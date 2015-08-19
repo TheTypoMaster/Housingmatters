@@ -84,7 +84,7 @@ $flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat')
 <!------------------------->
 <br/>
 
-<label style="font-size:14px; font-weight:bold;">Any Other </label>
+<label style="font-size:14px; font-weight:bold;">Any Other business </label>
 <div class="control-group">
 	<div class="controls">
 	 <textarea name="any_other" class="span12" rows="5" ></textarea>

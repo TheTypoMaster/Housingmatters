@@ -883,6 +883,7 @@ function governance_minutes()
 }
 
 
+
 function governance_minute_ajax()
 {
 	$this->layout=null;
@@ -950,6 +951,22 @@ function governance_minute_view1($idd){
 
 }
 
+function governance_minute_draft($idd)
+{
+	if($this->RequestHandler->isAjax()){
+	$this->layout='blank';
+	}else{
+	$this->layout='session';
+	}
+	$this->ath();
+	//$this->set('governance_minute_id',$idd);
+	
+	$this->loadmodel('governance_minute');
+	$conditions=array('governance_minute_id'=>(int)$idd);
+	$result_gov_inv=$this->governance_minute->find('all',array('conditions'=>$conditions));
+	$this->set('result_gov_minute',$result_gov_inv);
+	
+}
 
 function governace_minute_pdf(){
 	$this->layout=null;	
