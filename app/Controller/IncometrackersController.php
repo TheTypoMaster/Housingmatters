@@ -346,6 +346,10 @@ function regular_bill_preview_screen(){
 	
 	if($bill_for==1){
 		$wing_array=array_filter(explode(',',$wing_arr_im));
+		$this->set("wing_array",$wing_array);
+	}else{
+		$wing_array=array();
+		$this->set("wing_array",$wing_array);
 	}
 	
 
@@ -375,11 +379,11 @@ function regular_bill_preview_screen(){
 	    $neft_detail = @$data["society"]["neft_detail"];
 	    }
 	
-	$this->loadmodel('user');
-	$condition=array('society_id'=>$s_society_id,'tenant'=>1,'deactive'=>0);
-	$result_user=$this->user->find('all',array('conditions'=>$condition)); 
-	$this->set('result_user',$result_user);
 	
+		$this->loadmodel('user');
+		$condition=array('society_id'=>$s_society_id,'tenant'=>1,'deactive'=>0);
+		$result_user=$this->user->find('all',array('conditions'=>$condition));
+		$this->set('result_user',$result_user);
 	
 	
 			
@@ -388,6 +392,10 @@ function regular_bill_preview_screen(){
 		$inc=0;
 		$one_time_id=$this->autoincrement('new_regular_bill','one_time_id');
 		foreach($result_user as $user){ $inc++;
+		
+			$wing=$user["user"]["wing"];
+			if(($bill_for==1 && in_array($wing,$wing_array)) || $bill_for==2){
+			
 			$flat_id = (int)$this->request->data['flat_id'.$inc];
 			$bill_number = (int)$this->request->data['bill_number'.$inc];
 			
@@ -397,6 +405,8 @@ function regular_bill_preview_screen(){
 			foreach($result_flat_info as $flat_info){
 				$wing_id=$flat_info["flat"]["wing_id"];
 			}
+			
+			
 			
 			$wing_flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing_id,$flat_id))); 
 			
@@ -721,7 +731,7 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 			}
 				
 			unset($income_head_array);
-		}
+		} }
 		$this->response->header('Location','it_regular_bill');
 	}
 	

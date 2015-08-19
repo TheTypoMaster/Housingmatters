@@ -69,10 +69,14 @@ foreach($result_society as $data){
 				$inc=0; 
 				$bill_number = $this->requestAction(array('controller' => 'Hms', 'action' => 'autoincrement_with_society_ticket'),array('pass'=>array('new_regular_bill','bill_no'))); $bill_number--;
 				foreach($result_user as $user){ $inc++; $bill_number++; $total=0; $due_for_payment=0;
+				
 					$user_id=(int)$user["user"]["user_id"];
 					$user_name=$user["user"]["user_name"];
 					$wing=$user["user"]["wing"];
 					$flat=$user["user"]["flat"];
+					
+					if(($bill_for==1 && in_array($wing,$wing_array)) || $bill_for==2){
+						
 					$wing_flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing,$flat))); 
 					$result_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch2'),array('pass'=>array(@$flat,$wing))); 
 					foreach($result_flat as $data2){
@@ -278,6 +282,10 @@ foreach($result_society as $data){
 						}
 						//INTRST COMPUTATION END//
 						$due_for_payment+=$intrest_on_arrears;
+						
+						if($penalty==2){
+							$intrest_on_arrears=0;
+						}
 						echo '<input type="text" class="text_bx call_calculation" name="intrest_on_arrears'.$inc.'" value='.$intrest_on_arrears.'  row_id="'.$inc.'" />'; ?>
 						</td>
 						<td style="background-color:#F8D5D5;"><input type="text" class="text_bx call_calculation" name="credit_stock<?php echo $inc; ?>" value="0" row_id="<?php echo $inc; ?>" /></td>
@@ -287,7 +295,7 @@ foreach($result_society as $data){
 						?>
 						</td>
 					</tr>
-				<?php } ?>
+				<?php } } ?>
 			</tbody>
 		</table>
 	</div>
