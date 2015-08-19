@@ -29,7 +29,6 @@ foreach($result_society as $data){
 	margin-bottom: 0px !important;
 	font-size: 10px;
 }
-
 </style>
 <div align="center">
 <span style="font-size:20px;"><?php echo strtoupper($society_name); ?></span><br/>

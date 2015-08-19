@@ -343,6 +343,11 @@ function regular_bill_preview_screen(){
 	$penalty = (int)$this->decode($pen,'housingmatters');
 	$wing_arr_im = $this->decode($wing_arr_en,'housingmatters');
 	$bill_for = (int)$this->decode($bill_for_en,'housingmatters');
+	
+	if($bill_for==1){
+		$wing_array=array_filter(explode(',',$wing_arr_im));
+	}
+	
 
 	$this->set('bill_for',$bill_for);
 	$this->set('wing_arr_im',$wing_arr_im);
