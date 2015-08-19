@@ -199,7 +199,7 @@ foreach($result_society as $data){
 						<?php } ?>
 						
 						<td>
-						<?php if($noc_ch_id==2){
+						<?php echo $maintanence_charges; if($noc_ch_id==2){
 							if($noc_charge[0]==1){
 								$noc_charges=$noc_charge[1];
 								echo '<input type="text" class="text_bx call_calculation" name="noc_charges'.$inc.'" value='.$noc_charges.'  row_id="'.$inc.'" />';
