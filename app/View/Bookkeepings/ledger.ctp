@@ -106,10 +106,8 @@ $name = $collection['flat']['flat_name'];
 
 
 <?php //////////////////////////////////////////////////////////////////////////////////?>		
-<center>
 <div id="result" style="width:100%;">
 </div>
-</center>		
 		
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?> 		
 		
@@ -120,14 +118,7 @@ $name = $collection['flat']['flat_name'];
 $(document).ready(function() {
 	$("#main_id").bind('change',function(){
 		var c1 = document.getElementById('main_id').value;
-		
-		
-		
-		
-		
 		$("#result1").load("ledger_ajax?c1=" +c1+ "");
-		
-		
 	});
 	
 });
@@ -160,7 +151,8 @@ $(document).ready(function() {
 		}
 		else
 		{
-		$("#result").html('<div align="center" style="padding:10px;"><img src="as/loding.gif" />Loading....</div>').load("ledger_show_ajax?date1=" +date1+ "&date2=" +date2+ "&main_id=" +main_id+ "&sub_id=" +sub_id+ "&type=1");
+		$("#result").html('<div align="center" style="padding:10px;"><img src="<?php echo $webroot_path; ?>as/loding.gif" />Loading....</div>').load("ledger_show_ajax?date1=" +date1+ "&date2=" +date2+ "&main_id=" +main_id+ "&sub_id=" +sub_id+ "&type=1");
+		$("#validate_result").hide();
 		}
 		
 	});

@@ -13,21 +13,26 @@ table#report_tb tr:hover td {
 background-color: #E6ECE7;
 }
 </style>
-<div style="background-color:#fff;" >
+<div style="overflow:auto;">
+<a href="#" class="btn blue pull-right" onclick="window.print()"><i class="icon-print"></i> Print</a>
+</div>
+<div style="background-color:#fff;" align="center">
 <?php
 $result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($ledger_account_id)));	
 $ledger_account_name=$result_income_head[0]["ledger_account"]["ledger_name"];
+
+
 ?>
 <div style="font-size:14px;">
-	<span style="color:#6F6D6D;font-size:16px;">Ledger Report</span><br/>
+	<span style="color:#6F6D6D;font-size:16px;">LEDGER REPORT</span><br/>
 	<span><b><?php echo $ledger_account_name; ?></b></span><br/>
 	<span>From: <?php echo date("d-m-Y",strtotime($from)); ?> To: <?php echo date("d-m-Y",strtotime($to)); ?></span>
 </div>
-<table id="report_tb">
+<table id="report_tb" width="100%">
 	<thead>
 		<tr>
 			<th>Sr.No.</th>
-			<th>Tranjection Date</th>
+			<th>Transaction Date</th>
 			<th>Source</th>
 			<th>Refrence</th>
 			<th>Debit</th>
@@ -40,21 +45,27 @@ $ledger_account_name=$result_income_head[0]["ledger_account"]["ledger_name"];
 	foreach($result_ledger as $data){ $i++;
 		$debit=$data["ledger"]["debit"];
 		$credit=$data["ledger"]["credit"];
-		$tranjection_date=$data["ledger"]["tranjection_date"];
+		$transaction_date=$data["ledger"]["transaction_date"];
+		$arrear_int_type=@$data["ledger"]["arrear_int_type"];
 		$table_name=$data["ledger"]["table_name"];
 		$element_id=(int)$data["ledger"]["element_id"];
 		$refrence_no="";
 		$total_debit=$total_debit+$debit;
 		$total_credit=$total_credit+$credit;
 		if($table_name=="new_regular_bill"){
-			$source="Bill";
+			$source="Regular Bill";
 			$result_regular_bill=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'regular_bill_info_via_auto_id'), array('pass' => array($element_id)));
 			$refrence_no=$result_regular_bill[0]["new_regular_bill"]["bill_no"]; 
 		}
 		if($table_name=="new_cash_bank"){
-			$source="Receipt";
+			$source="Receipt"; 
+			$element_id=$element_id+1000;
+			$result_cash_bank=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'receipt_info_via_auto_id'), array('pass' => array($element_id)));
+			$refrence_no=$result_cash_bank[0]["new_cash_bank"]["receipt_id"]; 
 		}
-		if($table_name=="opening_balance"){
+		if($table_name=="opening_balance" && $arrear_int_type=="YES"){
+			$source="Opening Balance (Penalty)";
+		}elseif($table_name=="opening_balance"){
 			$source="Opening Balance";
 		}
 		
@@ -62,9 +73,16 @@ $ledger_account_name=$result_income_head[0]["ledger_account"]["ledger_name"];
 		?>
 		<tr>
 			<td><?php echo $i; ?></td>
-			<td><?php echo date("d-m-Y",$tranjection_date); ?></td>
+			<td><?php echo date("d-m-Y",$transaction_date); ?></td>
 			<td><?php echo $source; ?></td>
-			<td><a href="<?php echo $this->webroot; ?>/Incometrackers/regular_bill_view/<?php echo $element_id; ?>" target="_blank"><?php echo $refrence_no; ?></a></td>
+			<td>
+			<?php if($table_name=="new_regular_bill"){
+				echo '<a href="'.$this->webroot.'Incometrackers/regular_bill_view/'.$element_id.'" target="_blank">'.$refrence_no.'</a>';
+			}
+			if($table_name=="new_cash_bank"){
+				echo '<a href="'.$this->webroot.'Cashbanks/bank_receipt_html_view/'.$element_id.'" target="_blank">'.$refrence_no.'</a>';
+			} ?>
+			</td>
 			<td><?php echo $debit; ?></td>
 			<td><?php echo $credit; ?></td>
 		</tr>
