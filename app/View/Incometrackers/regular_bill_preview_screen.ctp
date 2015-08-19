@@ -173,7 +173,7 @@ foreach($result_society as $data){
 						</td>
 						
 						<?php $in_count=0;
-						foreach($income_heads as $income_head){ $in_count++; ?>
+						foreach($income_heads as $income_head){ $in_count++;?>
 							<td>
 							<?php foreach($charge as $data4){
 								if($data4[0]==$income_head){
@@ -192,6 +192,7 @@ foreach($result_society as $data){
 									$total+=$ih_charges;
 								}
 								if($income_head==42){
+									echo "hello"; var_dump($income_head);
 									$maintanence_charges=$ih_charges;
 								}else { $maintanence_charges=0; }
 							} ?>
