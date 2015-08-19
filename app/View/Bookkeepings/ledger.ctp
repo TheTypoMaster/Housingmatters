@@ -17,16 +17,8 @@ $default_date_to = date('d-m-Y')
 ?> 
 <center>
 <form method="post" onSubmit="return valid()">
-<div id="validate_result"></div>
+
 <div  class="hide_at_print">
-<label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="optionsRadios1" value="1" style="opacity: 0;" checked="checked" onclick="view_show(1)"></span></div>
-Account Wise
-</label>
-<label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="optionsRadios1" value="2" style="opacity: 0;" onclick="view_show(2)"></span></div>
-Flat Wise
-</label> 
              
 <div id="div1">             
 <table style="width:60%;">
@@ -45,9 +37,9 @@ $name = $collection['ledger_account']['ledger_name'];
 </select>
 </td>
 <td id="result1">
-<select class="medium m-wrap" tabindex="1" name="user_name" id="sub_id" style="margin-top:7px;">
+<!--<select class="medium m-wrap" tabindex="1" name="user_name" id="sub_id" style="margin-top:7px;">
 <option value="0">Select Sub Ledger A/c</option>
-</select>
+</select>-->
 </td>
 
 <td>
@@ -96,6 +88,7 @@ $name = $collection['flat']['flat_name'];
 </tr>
 </table>
 </div>
+<div id="validate_result"></div>
 <?php ///////////////////////////////////////////////////// ?>
 <br>
 </div>	 
@@ -131,11 +124,11 @@ $(document).ready(function() {
 		var main_id = document.getElementById('main_id').value;
 		
 		
-		if(main_id=== '') { $('#validate_result').html('<div style="background-color:#f2dede; color:#b94a48; padding:5px;"><b>Please Select Ledger Type</b></div>'); return false; }
+		if(main_id=== '') { $('#validate_result').html('<div style="background-color:#f2dede; color:#b94a48; padding:5px;">Please Select Ledger Type</div>'); return false; }
 		var sub_id = document.getElementById('sub_id').value;
 		if(main_id == 15 || main_id == 33 || main_id == 34 || main_id == 35)
 		{		
-				if(sub_id=== '') { $('#validate_result').html('<div style="background-color:#f2dede; color:#b94a48; padding:5px;"><b>Please Select Sub Ledger</b></div>'); return false; }
+				if(sub_id=== '') { $('#validate_result').html('<div style="background-color:#f2dede; color:#b94a48; padding:5px;">Please Select Sub Ledger</div>'); return false; }
 		}
 		
 		
@@ -143,10 +136,10 @@ $(document).ready(function() {
 		var date1=document.getElementById('date1').value;
 		var date2=document.getElementById('date2').value;
 		if((date1=='')) { 
-		$('#validate_result').html('<div style="background-color:#f2dede; color:#b94a48; padding:5px;"><b>Please Select From Date</b></div>'); return false;
+		$('#validate_result').html('<div style="background-color:#f2dede; color:#b94a48; padding:5px;">Please Select From Date</div>'); return false;
 		}
 		if((date2=='')) {
-		$('#validate_result').html('<div style="background-color:#f2dede; color:#b94a48; padding:5px;"><b>Please Select To Date</b></div>'); return false; 
+		$('#validate_result').html('<div style="background-color:#f2dede; color:#b94a48; padding:5px;">Please Select To Date<</div>'); return false; 
 		
 		}
 		else

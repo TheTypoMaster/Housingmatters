@@ -188,7 +188,7 @@ else
  $reference_utr = $this->request->data['reference_number'];
  $cheque_date = $this->request->data['cheque_date'];
 }
- $deposited_bank_id = $this->request->data['deposited_bank_id'];
+ $deposited_bank_id = (int)$this->request->data['deposited_bank_id'];
  $member_type = $this->request->data['member_type'];
 if($member_type == 1)
 {

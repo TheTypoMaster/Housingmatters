@@ -5347,6 +5347,25 @@ $conditions=array("society_id" => $s_society_id);
 $result_society=$this->society->find('all',array('conditions'=>$conditions));
 $this->set('result_society',$result_society);
 
+$this->loadmodel('new_regular_bill');
+$conditions=array("auto_id"=>$auto_id);
+$cursor=$this->new_regular_bill->find('all',array('conditions'=>$conditions));
+foreach($cursor as $data)
+{
+$last_bill_one_time_id = (int)$data['new_regular_bill']['one_time_id'];
+$flat = (int)$data['new_regular_bill']['flat_id'];
+}
+$last_bill_one_time_id--;
+$result_new_cash_bank = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'fetch_last_receipt_info_via_flat_id'),array('pass'=>array($flat,$last_bill_one_time_id)));
+$this->set('result_new_cash_bank',$result_new_cash_bank);
+$size = sizeof($result_new_cash_bank);
+$this->set('size',$size);
+
+
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor2=$this->society->find('all',array('conditions'=>$conditions));
+$this->set('cursor2',$cursor2);
 
 }
 

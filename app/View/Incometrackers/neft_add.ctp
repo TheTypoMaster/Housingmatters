@@ -59,7 +59,6 @@ $ifsc_code = "";
 </td>
 </tr>
 </table> 
-
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
 <div style="background-color:#fff;padding:5px;width:96%;margin:auto; overflow:auto;" class="form_div">

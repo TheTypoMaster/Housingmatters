@@ -21,11 +21,35 @@ background-color: #E6ECE7;
 $result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($ledger_account_id)));	
 $ledger_account_name=$result_income_head[0]["ledger_account"]["ledger_name"];
 
+$result_income_head2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($ledger_sub_account_id)));
+$account_number = "";
+$wing_flat = "";
+$sub_ledger_name=$result_income_head2[0]["ledger_sub_account"]["name"];
+if($ledger_account_id == 33)
+{
+$account_number = $result_income_head2[0]['ledger_sub_account']['bank_account'];	
+}
+if($ledger_account_id == 34)
+{
+$user_id = (int)$result_income_head2[0]['ledger_sub_account']['user_id'];
+
+				$result_user = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
+				foreach ($result_user as $collection) 
+				{
+				$user_name = $collection['user']['user_name'];  
+				$wing_id = $collection['user']['wing'];
+				$flat_id = $collection['user']['flat'];
+				}
+
+
+$wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'wing_flat'), array('pass' => array($wing_id,$flat_id)));
+
+}
 
 ?>
 <div style="font-size:14px;">
 	<span style="color:#6F6D6D;font-size:16px;">LEDGER REPORT</span><br/>
-	<span><b><?php echo $ledger_account_name; ?></b></span><br/>
+	<span><b><?php echo $ledger_account_name; ?></b>=><span style="font-size:12px;"><?php echo $sub_ledger_name; ?> &nbsp;&nbsp; <?php echo $account_number; ?>  <?php echo $wing_flat; ?></span></span><br/>
 	<span>From: <?php echo date("d-m-Y",strtotime($from)); ?> To: <?php echo date("d-m-Y",strtotime($to)); ?></span>
 </div>
 <table id="report_tb" width="100%">
