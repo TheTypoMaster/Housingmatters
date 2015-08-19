@@ -126,7 +126,7 @@ foreach($message_web as $data)
 </div>
 
 <div  align="" style="padding: 5px;">
-<span  style="font-size:14px;"><b> Any Other: </b></span><br/>
+<span  style="font-size:14px;"><b> Any Other business : </b></span><br/>
 <span  style="font-size:14px;"><?php echo urldecode($any_other); ?> </span>
 </div>
 <br/>

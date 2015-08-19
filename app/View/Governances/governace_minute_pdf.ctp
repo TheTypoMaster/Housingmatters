@@ -109,7 +109,7 @@ $html.='<tr>
 }	
 $html.='</table></div>';
 $html.='<div  style="padding: 5px;">
-<span style="font-size:12px;"><b>Any Other</b></span><br/>
+<span style="font-size:12px;"><b>Any Other business :</b></span><br/>
 <span>'.urldecode($any_other).'</span>
 </div>';
 $html.='<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;">

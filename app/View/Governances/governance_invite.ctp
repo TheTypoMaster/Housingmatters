@@ -261,8 +261,8 @@ $group_id=$collection["group"]["group_id"];
 <div id="url_main">
 <div>
 <input type="text" class="m-wrap span2"  id="num" name='time_1' placeholder="Time" style="height: 50px!important;">
-<input type="text" class="m-wrap span4"  id="nu" name='comm_1' placeholder='Agenda1'style="height: 50px!important;">
-<textarea class="span4" name="comment_1" placeholder="description" ></textarea>
+<input type="text" class="m-wrap span5"  id="nu" name='comm_1' placeholder='Agenda1'style="height: 50px!important;">
+<textarea class=" m-wrap span5" name="comment_1" placeholder="description" style="resize:none;" ></textarea>
 <a href="#" role="button" id="add_row" class="btn  mini"><i class="icon-plus-sign"></i> </a>
 </div>
 </div>
@@ -311,7 +311,7 @@ $("#add_row").bind('click',function(){
 	count++;
 	var agenda="Agenda";
 	$("#hid_v").val(count);
-	$("#url_main").append('<div class="content_'+count+'"><input type="text" class="m-wrap span2" placeholder="Time" id="nu" name="time_'+count+'" style="height: 50px!important;"> <input type="text" class="m-wrap span4"  id="nu" name="comm_'+count+'" placeholder='+agenda+count+' style="height: 50px!important;"> <textarea class="span4" name="comment_'+count+'" placeholder="description" ></textarea> <a href="#" role="button" id='+count+' class="btn black mini delete_btn"><i class="icon-remove-sign"></i></a></div>');
+	$("#url_main").append('<div class="content_'+count+'"><input type="text" class="m-wrap span2" placeholder="Time" id="nu" name="time_'+count+'" style="height: 50px!important;"> <input type="text" class="m-wrap span5"  id="nu" name="comm_'+count+'" placeholder='+agenda+count+' style="height: 50px!important;"> <textarea class="m-wrap span5" style="resize:none;" name="comment_'+count+'" placeholder="description" ></textarea> <a href="#" role="button" id='+count+' class="btn black mini delete_btn"><i class="icon-remove-sign"></i></a></div>');
 
 
 });
