@@ -118,15 +118,15 @@ Note: File size must be less than 2 MB and All extension are allowed.
 <div class="controls">
  <label class="radio">
  <div class="radio" id="uniform-undefined"><input type="radio"  id="r1" checked name="radio" value="1" style="opacity: 0;"></div>
- <span style="font-size:16px;" >Send Draft Minutes to Individuals</span>
+ <span style="font-size:16px;" >Send <span style="color:red;">Draft </span> Minutes to Individuals</span>
  </label>
  <label class="radio">
  <div class="radio" id="uniform-undefined"><input type="radio"  id="r3"  name="radio" value="3" style="opacity: 0;"></div>
- <span style="font-size:16px;" >Send Draft Minutes to Default Groups</span>
+ <span style="font-size:16px;" >Send <span style="color:red;">Draft </span> Minutes to Default Groups</span>
  </label>
  <label class="radio">
  <div class="radio" id="uniform-undefined"><input type="radio" id="r2" name="radio" value="2"  style="opacity: 0;"></div>
- <span style="font-size:16px;" >Send Draft Minutes to Customized Group</span>
+ <span style="font-size:16px;" >Send <span style="color:red;">Draft </span> Minutes to Customized Group</span>
  </label>  
 
  

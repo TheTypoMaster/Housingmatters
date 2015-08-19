@@ -9,7 +9,7 @@ $tcpdf->SetAutoPageBreak( true );
 $tcpdf->xheadercolor = array(255,255,255); 
 $tcpdf->xheadertext = ''; 
 $tcpdf->xfootertext = 'HousingMatters'; 
-
+$tcpdf->SetMargins(15, 10, 10, true);
 // add a page (required with recent versions of tcpdf) 
 $tcpdf->AddPage(); 
 
@@ -69,14 +69,12 @@ $html='<div style="background-color:#fff; width:100%;">
 </td>
 </tr>
 </table>
-<br/>
-<table  cellpadding="5" width="100%;" >
-<tr>
-<td ><span  style="font-size:12px;"><b>Meeting Title : </b></span> <span>'.$subject.'</span></td>
-</tr>
-</table>
-</div>
-<div  align="" style="padding: 2px;">
+</div>';
+
+$html.='<div  align="" style="padding: 2px;">
+<span  style="font-size:12px;"> <b>Meeting Title : </b> </span> <span>'.$subject.'</span>
+</div>';
+$html.='<div  align="" style="padding: 2px;">
 <span style="font-size:12px;"> <b>Invitees : </b> </span>';
 if($type==1){
 foreach($user as $id){
@@ -151,7 +149,7 @@ $z=0;
 foreach($message_web as $data){ $z++; 
 $html.='<tr>
 <td  style="" valign="top"><span style="font-size:12px;">'.urldecode(@$data[2]).'</span> </td>
-	<td style=""><span style="font-size:12px;text-align:justify;"> '. $z.' '. urldecode($data[0]).' </span><br/><span>'.urldecode($data[1]).'</span></td>
+	<td style=""><span style="font-size:12px;text-align:justify;"> '. $z.' '. urldecode($data[0]).' </span><br/><span style="font-size:12px;text-align:justify;"> '.urldecode($data[1]).'</span></td>
 	</tr>';
 }
 $html.='</table>

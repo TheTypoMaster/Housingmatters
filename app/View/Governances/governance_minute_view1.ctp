@@ -42,7 +42,7 @@ foreach($result_gov_minute as $data){
 
 ?>
 
-<div style="background-color:#fff; border:solid 1px;">
+<div style="background-color:#fff; border:solid 1px;" class="print_margin">
 <div class="bg_co" align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">
 <?php echo $society_name; ?>
 </div>
@@ -102,10 +102,7 @@ $to=$user_name.' '.$flat_name.' '.$designation_name.',';
 <span  style="font-size:14px;"><b>Title : </b></span> <span><?php echo $title; ?></span>
 </div>
 
-<div  align="" style="padding: 5px;">
-<span  style="font-size:14px;"><b> Any Other: </b></span><br/>
-<span  style="font-size:14px;"><?php echo urldecode($any_other); ?> </span>
-</div>
+
 <br/>
 <div  align="" style="padding: 5px;">
 <table  cellpadding='5' width="100%" border="">
@@ -127,6 +124,12 @@ foreach($message_web as $data)
 } ?>
 </table>
 </div>
+
+<div  align="" style="padding: 5px;">
+<span  style="font-size:14px;"><b> Any Other: </b></span><br/>
+<span  style="font-size:14px;"><?php echo urldecode($any_other); ?> </span>
+</div>
+<br/>
 <?php if(!empty($file)) { ?>
 <div class="hide_at_print" style="font-size:14px; padding:5px;">
 <p ><b>Attachment</b></p>
