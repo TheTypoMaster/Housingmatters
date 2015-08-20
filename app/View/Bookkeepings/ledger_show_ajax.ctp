@@ -24,7 +24,7 @@ $ledger_account_name=$result_income_head[0]["ledger_account"]["ledger_name"];
 $result_income_head2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($ledger_sub_account_id)));
 $account_number = "";
 $wing_flat = "";
-$sub_ledger_name=$result_income_head2[0]["ledger_sub_account"]["name"];
+$sub_ledger_name=@$result_income_head2[0]["ledger_sub_account"]["name"];
 if($ledger_account_id == 33)
 {
 $account_number = $result_income_head2[0]['ledger_sub_account']['bank_account'];	
@@ -49,7 +49,12 @@ $wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' =
 ?>
 <div style="font-size:14px;">
 	<span style="color:#6F6D6D;font-size:16px;">LEDGER REPORT</span><br/>
-	<span><b><?php echo $ledger_account_name; ?></b>=><span style="font-size:12px;"><?php echo $sub_ledger_name; ?> &nbsp;&nbsp; <?php echo $account_number; ?>  <?php echo $wing_flat; ?></span></span><br/>
+	<span><b><?php echo $ledger_account_name; ?> </b></span>
+	<?php if(!empty($sub_ledger_name)){
+		echo '<i class="icon-chevron-right" style="font-size: 11px;"></i>';
+	} ?>
+	
+	<span ><b> <?php echo $sub_ledger_name; ?> &nbsp;&nbsp; <?php echo $account_number; ?>  <?php echo $wing_flat; ?></b></span><br/>
 	<span>From: <?php echo date("d-m-Y",strtotime($from)); ?> To: <?php echo date("d-m-Y",strtotime($to)); ?></span>
 </div>
 <table id="report_tb" width="100%">
@@ -79,7 +84,12 @@ $wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' =
 		if($table_name=="new_regular_bill"){
 			$source="Regular Bill";
 			$result_regular_bill=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'regular_bill_info_via_auto_id'), array('pass' => array($element_id)));
-			$refrence_no=$result_regular_bill[0]["new_regular_bill"]["bill_no"]; 
+			
+			$bill_approved="";
+			if(sizeof($result_regular_bill)>0){
+				$bill_approved="yes";
+				$refrence_no=$result_regular_bill[0]["new_regular_bill"]["bill_no"];
+			}
 		}
 		if($table_name=="new_cash_bank"){
 			$source="Receipt"; 
@@ -93,6 +103,7 @@ $wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' =
 			$source="Opening Balance";
 		}
 		
+		if(($table_name=="new_regular_bill"  &&  $bill_approved=="yes") || $table_name=="new_cash_bank" || $table_name=="opening_balance"){
 		
 		?>
 		<tr>
@@ -110,7 +121,7 @@ $wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' =
 			<td><?php echo $debit; ?></td>
 			<td><?php echo $credit; ?></td>
 		</tr>
-	<?php } ?>
+	<?php } } ?>
 		<tr>
 			<td colspan="4" align="right"><b>Total</b></td>
 			<td><b><?php echo $total_debit; ?></b></td>

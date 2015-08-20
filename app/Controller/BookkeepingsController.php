@@ -1354,11 +1354,12 @@ function ledger_show_ajax(){
 		$this->set('result_ledger',$result_ledger);
 	}
 	
+	
 }
 function regular_bill_info_via_auto_id($auto_id){
 	$auto_id=(int)$auto_id;
 	$this->loadmodel('new_regular_bill');
-	$conditions=array('auto_id'=>$auto_id);
+	$conditions=array('auto_id'=>$auto_id,'approval_status'=>1);
 	return $this->new_regular_bill->find('all',array('conditions'=>$conditions)); 
 }
 function receipt_info_via_auto_id($auto_id){

@@ -37,9 +37,9 @@ $name = $collection['ledger_account']['ledger_name'];
 </select>
 </td>
 <td id="result1">
-<!--<select class="medium m-wrap" tabindex="1" name="user_name" id="sub_id" style="margin-top:7px;">
+<select class="medium m-wrap" tabindex="1" name="user_name" id="sub_id" style="margin-top:7px;">
 <option value="0">Select Sub Ledger A/c</option>
-</select>-->
+</select>
 </td>
 
 <td>
@@ -120,69 +120,18 @@ $(document).ready(function() {
 <script>
 $(document).ready(function() {
 	$("#go").bind('click',function(){
-		
 		var main_id = document.getElementById('main_id').value;
-		
-		
-		if(main_id=== '') { $('#validate_result').html('<div style="background-color:#f2dede; color:#b94a48; padding:5px;">Please Select Ledger Type</div>'); return false; }
-		var sub_id = document.getElementById('sub_id').value;
-		if(main_id == 15 || main_id == 33 || main_id == 34 || main_id == 35)
-		{		
-				if(sub_id=== '') { $('#validate_result').html('<div style="background-color:#f2dede; color:#b94a48; padding:5px;">Please Select Sub Ledger</div>'); return false; }
+		if(main_id==15 ||  main_id==33 || main_id==34 ||  main_id==35){
+			var sub_id = document.getElementById('sub_id').value;
+		}else{
+			var sub_id =null;
 		}
-		
-		
-		
 		var date1=document.getElementById('date1').value;
 		var date2=document.getElementById('date2').value;
-		if((date1=='')) { 
-		$('#validate_result').html('<div style="background-color:#f2dede; color:#b94a48; padding:5px;">Please Select From Date</div>'); return false;
-		}
-		if((date2=='')) {
-		$('#validate_result').html('<div style="background-color:#f2dede; color:#b94a48; padding:5px;">Please Select To Date<</div>'); return false; 
-		
-		}
-		else
-		{
 		$("#result").html('<div align="center" style="padding:10px;"><img src="<?php echo $webroot_path; ?>as/loding.gif" />Loading....</div>').load("ledger_show_ajax?date1=" +date1+ "&date2=" +date2+ "&main_id=" +main_id+ "&sub_id=" +sub_id+ "&type=1");
-		$("#validate_result").hide();
-		}
-		
 	});
 
 
-
-
-$("#go2").bind('click',function(){
-
-var flat_id = $("#flat_id").val();
-var date1=document.getElementById('date1').value;
-var date2=document.getElementById('date2').value;
-
-
-$("#result").html('<div align="center" style="padding:10px;"><img src="as/loding.gif" />Loading....</div>').load("ledger_show_ajax?date1=" +date1+ "&date2=" +date2+ "&flat_id=" +flat_id+ "&type=2");
-
-});
 	
 });
 </script>			
-		
-<script>		
-function view_show(h)
-{
-if(h == 1)
-{
-$("#div1").show();
-$("#flat1").hide();
-	
-}
-else if(h == 2)
-{
-$("#flat1").show();
-$("#div1").hide();	
-}
-
-}
-</script>
-		
-		
