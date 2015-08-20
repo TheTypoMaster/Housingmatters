@@ -172,7 +172,7 @@ foreach($result_society as $data){
 						<input type="hidden" name="bill_number<?php echo $inc; ?>" value="<?php echo $bill_number; ?>"/>
 						</td>
 						
-						<?php $in_count=0;
+						<?php $in_count=0; $maintanence_charges=0;
 						foreach($income_heads as $income_head){ $in_count++;?>
 							<td>
 							<?php foreach($charge as $data4){
@@ -190,10 +190,13 @@ foreach($result_society as $data){
 										echo '<input type="text" class="text_bx call_calculation" name="income_head'.$income_head.$inc.'" value='.$ih_charges.' row_id="'.$inc.'" id="income_head'.$in_count.$inc.'" />';
 									}
 									$total+=$ih_charges;
+									
+									if(in_array(42,$income_heads) && $income_head==42){
+										$maintanence_charges=$ih_charges;
+									}
 								}
-								if($income_head==42){
-									$maintanence_charges=$ih_charges;
-								}else{ $maintanence_charges=0; }
+								
+								
 							} ?>
 							</td>	
 						<?php } ?>
