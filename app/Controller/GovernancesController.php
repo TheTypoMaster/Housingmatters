@@ -37,13 +37,12 @@ function governance_invite_submit()
 	
 	$this->layout=null;
 	$post_data=$this->request->data;
-	
 	$this->ath();
 	$s_society_id=$this->Session->read('society_id');
 	$s_role_id=$this->Session->read('role_id'); 
 	$s_user_id=$this->Session->read('user_id');
 	$current_date=date("d-m-Y");
-	
+	$save=(int)$post_data['save'];
 	$ip=$this->hms_email_ip();
 	$Invitations_type=(int)$post_data['Invitations_type'];
 	$type_mettings=(int)$post_data['type_mettings'];
@@ -67,6 +66,12 @@ function governance_invite_submit()
 		}
 		if(empty($date)){
 		$report[]=array('label'=>'date', 'text' => 'Please fill date');
+		}
+		if(!empty($date)){
+			if(strtotime($date) < strtotime($current_date)){
+				
+			$report[]=array('label'=>'date', 'text' => 'you are selected wrong date');
+			}
 		}
 		if(empty($time)){
 		$report[]=array('label'=>'time', 'text' => 'Please fill time');
@@ -131,11 +136,11 @@ function governance_invite_submit()
 						
 					}
 		
-					  $email_id=$this->autoincrement('governance_invite','governance_invite_id');
-
+				$email_id=$this->autoincrement('governance_invite','governance_invite_id');
+				
+	if($save==1){
 		
-		if($Invitations_type==1)
-		{
+		if($Invitations_type==1){
 			$invite_user_multi=$post_data['Invite_user1'];
 			$invite_user_multi=explode(",",$invite_user_multi);
 			
@@ -235,6 +240,7 @@ function governance_invite_submit()
 			
 		
 		}
+		
 		
 		if($Invitations_type==2)
 		{
@@ -360,6 +366,8 @@ function governance_invite_submit()
 			
 		}
 		
+		
+		
 		if($Invitations_type==3)
 		{
 			 $visible=(int)$post_data['visible'];
@@ -482,11 +490,132 @@ function governance_invite_submit()
 			$output=json_encode(array('report_type'=>'error','report'=>$report));
 			die($output);
 			}
-		$this->send_notification('<span class="label label-info" ><i class="icon-bullhorn"></i></span>','New Meeting Invitation published - <b>'.$subject.'</b> by',40,$email_id,$this->webroot.'Governances/governance_invite_view/',$s_user_id,$da_user_id);
+			$this->send_notification('<span class="label label-info" ><i class="icon-bullhorn"></i></span>','New Meeting Invitation published - <b>'.$subject.'</b> by',40,$email_id,$this->webroot.'Governances/governance_invite_view/',$s_user_id,$da_user_id);
+
+			$output = json_encode(array('type'=>'created', 'text' =>'Invitation successfully submitted'));
+			die($output);
+
+	}else{
+		
+		if($Invitations_type==1){
+					$invite_user_multi=$post_data['Invite_user1'];
+					$invite_user_multi=explode(",",$invite_user_multi);
+					
+			////////////////////////////// validation check//////////////////
 			
-	$output = json_encode(array('type'=>'created', 'text' =>'Invitation successfully submitted'));
-	die($output);
-	
+					if($invite_user_multi[0]=='null'){
+
+					$report[]=array('label'=>'multi', 'text' => 'Please select at-least one recipient.');
+					}
+
+					if(sizeof($report)>0){
+					$output=json_encode(array('report_type'=>'error','report'=>$report));
+					die($output);
+					}
+			
+			//////////////////////////////// end ////////////////////////////////
+			
+			foreach($invite_user_multi as $data){
+					$da_user_id[]=(int)$data;
+					$user[]=(int)$data;
+			}
+			
+				$this->loadmodel('governance_invite');
+				$multipleRowData = Array( Array("governance_invite_id" => $email_id,"message"=>$message,"user_id"=>$s_user_id,"date"=>$date,"time"=>$time,"society_id"=>$s_society_id,"subject"=>$subject,"type"=>$Invitations_type,"file"=>@$file_name,"deleted"=>1,'user'=>$user,'location'=>$location,'meeting_type'=>$type_mettings,'covering_note'=>$covering_note,'agenda_id'=>0,'notice_of_date'=>$current_date));
+				$this->governance_invite->saveAll($multipleRowData); 
+		}
+		
+		if($Invitations_type==2)
+		{
+			    //$to=$post_data['Invite_user2'];
+				 $Invite_group=$post_data['Invite_group'];
+				$Invite_group=explode(",",$Invite_group);
+				
+				
+				////////////////////////////// validation check//////////////////
+			
+					if($Invite_group[0]=='null' || $Invite_group[0]=='' ){
+
+					$report[]=array('label'=>'multi_check', 'text' => 'Please check at-least one ');
+					}
+
+					if(sizeof($report)>0){
+					$output=json_encode(array('report_type'=>'error','report'=>$report));
+					die($output);
+					}
+			
+			//////////////////////////////// end ////////////////////////////////
+			foreach($Invite_group as $group_id){
+					
+					$this->loadmodel('group');
+					$conditions=array('group_id'=>(int)$group_id);
+					$result_group=$this->group->find('all',array('conditions'=>$conditions));
+					foreach($result_group as $data2)
+					{
+						$userl_group=$data2['group']['users'];
+						
+						foreach($userl_group as $data3)
+						{
+							$user[]=(int)$data3;
+							
+						}
+						
+						
+					}
+					
+				}
+
+				$user=array_unique($user);
+				$user=array_values($user);
+				$da_user_id=$user;
+			$this->loadmodel('governance_invite');
+			$multipleRowData = Array( Array("governance_invite_id" => $email_id,"message"=>$message,"user_id"=>$s_user_id,"date"=>$date,"time"=>$time,"society_id"=>$s_society_id,"subject"=>$subject,"type"=>$Invitations_type,"file"=>@$file_name,"deleted"=>1,'location'=>$location,'meeting_type'=>$type_mettings,'covering_note'=>$covering_note,'user'=>$user,'group_id'=>$Invite_group,'agenda_id'=>0,'notice_of_date'=>$current_date));
+			$this->governance_invite->saveAll($multipleRowData); 
+			
+			
+			
+		}
+		if($Invitations_type==3){
+			 $visible=(int)$post_data['visible'];
+			$sub_visible=$post_data['sub_visible'];
+			$sub_visible=explode(",",$sub_visible);
+			
+			//////////////////// validation //////////////
+			
+				if($visible==2){
+					if($post_data['sub_visible']==0){
+						$report[]=array('label'=>'role_check', 'text' => 'Please select at-least one');
+						}
+				}
+				if($visible==3){
+					if($post_data['sub_visible']==0){
+						$report[]=array('label'=>'wing_check', 'text' => 'Please select at-least one');
+					}
+				}
+				if(sizeof($report)>0){
+					$output=json_encode(array('report_type'=>'error','report'=>$report));
+					die($output);
+					}
+			
+			///////////////  end /////////////////////////
+			$recieve_info=$this->visible_subvisible($visible,$sub_visible);
+			foreach($recieve_info[0] as $data=>$key){
+				 $to = @$key;
+				 $d_user_id = @$data;	
+				 $da_user_id[]=$d_user_id;	
+			}
+			
+			$this->loadmodel('governance_invite');
+			$multipleRowData = Array( Array("governance_invite_id" => $email_id,"message"=>$message,"user_id"=>$s_user_id,"date"=>$date,"time"=>$time,"society_id"=>$s_society_id,"subject"=>$subject,"type"=>$Invitations_type,"file"=>@$file_name,"deleted"=>1,'user'=>$da_user_id,'location'=>$location,'visible'=>$visible,'sub_visible'=>$sub_visible,'meeting_type'=>$type_mettings,'covering_note'=>$covering_note,'agenda_id'=>0,'notice_of_date'=>$current_date));
+			$this->governance_invite->saveAll($multipleRowData);
+			
+		}
+		$output = json_encode(array('type'=>'created', 'text' =>'Invitation successfully Saved.'));
+		die($output);
+		
+		
+ }	
+				
 }
 
 
@@ -920,6 +1049,15 @@ function governace_invite_meeting($id){
 	return $this->governance_invite->find('all',array('conditions'=>$conditions));
 }
 
+function governace_minute_meeting($id){
+	
+	$this->loadmodel('governance_minute');
+	$conditions=array('meeting_id'=>(int)$id);
+	return $this->governance_minute->find('all',array('conditions'=>$conditions));
+}
+
+
+
 function designation_find_by_user($des_id){
 	$this->loadmodel('governance_designation');
 	$conditions=array('governance_designation_id'=>$des_id);
@@ -981,7 +1119,7 @@ function governance_minute_drft_submit()
 		}
 	
 	$this->loadmodel('governance_minute');
-	$this->governance_minute->updateAll(array('present_user'=>$present_user,'any_other'=>$any_other,'message'=>$message),array('governance_minute_id'=>$minute_id));
+	$this->governance_minute->updateAll(array('present_user'=>$present_user,'any_other'=>$any_other,'message'=>$message,'final'=>1),array('governance_minute_id'=>$minute_id));
 	
 	$output = json_encode(array('type'=>'created', 'text' =>'Minutes successfully submitted'));
 	die($output);
@@ -1189,7 +1327,7 @@ function governance_minute_submit()
 				$date=date("d-m-y");
 				$minut_id=$this->autoincrement('governance_minute','governance_minute_id');
 				$this->loadmodel('governance_minute');
-				$multipleRowData = Array( Array("governance_minute_id" => $minut_id,"message"=>$message,"user_id"=>$s_user_id,"society_id"=>$s_society_id,"file"=>@$file_name,'user'=>$user_minute,'meeting_id'=>$meeting_id,'present_user'=>$present_user,'date'=>$date,'invitation_type'=>$Invitations_type,'visible'=>@$visible,'sub_visible'=>@$sub_visible,'any_other'=>$any_other));
+				$multipleRowData = Array( Array("governance_minute_id" => $minut_id,"message"=>$message,"user_id"=>$s_user_id,"society_id"=>$s_society_id,"file"=>@$file_name,'user'=>$user_minute,'meeting_id'=>$meeting_id,'present_user'=>$present_user,'date'=>$date,'invitation_type'=>$Invitations_type,'visible'=>@$visible,'sub_visible'=>@$sub_visible,'any_other'=>$any_other,'final'=>0));
 				$this->governance_minute->saveAll($multipleRowData);
 				
 	////////////////  update  ///////////////////////////////////////////

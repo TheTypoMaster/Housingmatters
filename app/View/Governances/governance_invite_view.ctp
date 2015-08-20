@@ -10,7 +10,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 <div style="background-color:#fff;padding:10px;">
 <label class="m-wrap pull-right">Search: <input type="text" id="search" class="m-wrap medium" style="background-color:#FFF !important;"></label>
-<table class="table table-striped table-bordered dataTable" width="100%" >
+<table class="table table-striped table-bordered dataTable" width="100%">
 <thead>
     <tr>
     <th>Meeting ID </th>
@@ -21,7 +21,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 	 <th >Meeting Time</th>
 	 <th >Meeting Location</th>
 	 <th>Invitees </th>
-    <th></th>
+    <th>Meeting</th>
     </tr>
 </thead>
 <tbody id="table">
@@ -37,6 +37,7 @@ $time=$data['governance_invite']['time'];
 $type=$data['governance_invite']['type'];
 $location=$data['governance_invite']['location'];
 $meeting_type=(int)@$data['governance_invite']['meeting_type'];
+$gov_id=(int)$data['governance_invite']['governance_invite_id'];
  $user=@$data['governance_invite']['user'];
  $invite_user=sizeof($user);
  if($meeting_type==1)
@@ -60,6 +61,10 @@ if($type==3)
 $visible=$data['governance_invite']['visible'];
 $sub_visible=$data['governance_invite']['sub_visible'];
 }
+
+$result_gov_minute=$this->requestAction(array('controller' => 'governances', 'action' => 'governace_minute_meeting'), array('pass' => array($gov_id)));
+
+$minute_id=@$result_gov_minute[0]['governance_minute']['governance_minute_id'];
 $i++;
 ?>
 <tr>
@@ -71,7 +76,8 @@ $i++;
 	 <td><?php echo $time ; ?></td>
 	 <td><?php echo $location ; ?></td>
 	  <td><span class="label label-info"><?php echo $invite_user ; ?></span></td>
-    <td><a href="<?php echo $webroot_path; ?>Governances/governance_invite_view1/<?php echo $gov_id; ?>" rel='tab' class="btn mini yellow tooltips" data-placement="bottom" data-original-title="View" ><i class="icon-search"></i>  </a>
+    <td><a href="<?php echo $webroot_path; ?>Governances/governance_invite_view1/<?php echo $gov_id; ?>" rel='tab' class="btn mini yellow tooltips" data-placement="bottom" data-original-title="View" ><i class="icon-search"></i></a>
+	<?php if(!empty($minute_id)){ ?><a href="<?php echo $webroot_path; ?>Governances/governance_minute_view1/<?php echo $minute_id; ?>" rel='tab' class="btn mini yellow tooltips" data-placement="bottom" data-original-title="View" ><i class="icon-search"></i></a> <?php } ?>
 	</td>
 <?php } ?>	
 	

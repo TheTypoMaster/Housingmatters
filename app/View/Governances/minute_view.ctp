@@ -22,7 +22,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 	 <th>Meeting Location</th>
 	 <th>Invitees </th>
      <th>Agenda view</th>
-	 <th>Minutes Draft</th>
+	 <th>Minutes </th>
     </tr>
 </thead>
 <tbody id="table">
@@ -32,10 +32,10 @@ foreach($result_gov_inv as $data1)
 {
 	$governance_minute_id=(int)$data1['governance_minute']['governance_minute_id'];
 	$meeting_id=(int)$data1['governance_minute']['meeting_id'];
+	$final=(int)@$data1['governance_minute']['final'];
 	$invite_us=@$data1['governance_minute']['user'];
 	$invitees=sizeof($invite_us);
 $result_gov_invite=$this->requestAction(array('controller' => 'governances', 'action' => 'governace_invite_meeting'), array('pass' => array($meeting_id)));
-
 
 foreach($result_gov_invite as $data){
 $gov_id=(int)$data['governance_invite']['governance_invite_id'];
@@ -46,7 +46,7 @@ $time=$data['governance_invite']['time'];
 $type=$data['governance_invite']['type'];
 $location=$data['governance_invite']['location'];
 $meeting_type=(int)@$data['governance_invite']['meeting_type'];
- $user=@$data['governance_invite']['user'];
+$user=@$data['governance_invite']['user'];
  
  
  $invite_user=sizeof($user);
@@ -84,8 +84,8 @@ $i++;
 	<td><span class="label label-info"><?php echo $invite_user ; ?></span></td>
     <td><a href="<?php echo $webroot_path; ?>Governances/governance_invite_view1/<?php echo $gov_id; ?>" rel='tab' class="btn mini yellow tooltips" data-placement="bottom" data-original-title="View" ><i class="icon-search"></i></a>
 	</td>
-	 <td><a href="<?php echo $webroot_path; ?>Governances/governance_minute_view1/<?php echo $governance_minute_id; ?>" rel='tab' class="btn mini yellow tooltips" data-placement="bottom" data-original-title="View" ><i class="icon-search"></i></a>
-	 <a href="<?php echo $webroot_path; ?>Governances/governance_minute_draft/<?php echo $governance_minute_id; ?>" rel='tab' class="btn mini blue tooltips" data-placement="bottom" data-original-title="Draft" ><i class="icon-inbox"></i></a>
+	 <td><?php if($final!=0){?><a href="<?php echo $webroot_path; ?>Governances/governance_minute_view1/<?php echo $governance_minute_id; ?>" rel='tab' class="btn mini yellow tooltips" data-placement="bottom" data-original-title="View" ><i class="icon-search"></i></a> <?php } ?>
+	<?php if($final!=1){?> <a href="<?php echo $webroot_path; ?>Governances/governance_minute_draft/<?php echo $governance_minute_id; ?>" rel='tab' class="btn mini blue tooltips" data-placement="bottom" data-original-title="Draft" ><i class="icon-inbox"></i></a><?php } ?>
 	 
 	 
 	 

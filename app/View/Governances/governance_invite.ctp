@@ -7,7 +7,37 @@ $("#fix<?php echo $id_current_page; ?>").removeClass("blue");
 $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
+<style>
+a.tip {
+    //border-bottom: 1px dashed;
+    text-decoration: none;
+	
+}
+a.tip:hover {
+    //cursor: help;
+    position: relative
+	
+}
+a.tip span {
+    display: none;
+	
+}
+a.tip:hover span {
+	border: #c0c0c0 1px dotted;
+    padding: 5px 20px 5px 5px;
+    display: block;
+    z-index: 100;
+	color:blue;
+    background: url(../images/status-info.png) #f0f0f0 no-repeat 100% 5%;
+    left: 0px;
+    margin: 12px;
+    width:50px;
+    position: absolute;
+    top: 10px;
+    text-decoration: none
+}
 
+</style>
 <div style="border:solid 2px #4cae4c; width:90%; margin:auto;" class='portal'>
 <div style="border-bottom:solid 2px #4cae4c; color:white; background-color: #5cb85c; padding:4px; font-size:20px;" ><i class="icon-envelope-alt"></i> Meeting Invitations</div>
 <div style="padding:10px;background-color:#FFF;">
@@ -263,7 +293,7 @@ $group_id=$collection["group"]["group_id"];
 <input type="text" class="m-wrap span2"  id="num" name='time_1' placeholder="Time" style="height: 50px!important;">
 <input type="text" class="m-wrap span5"  id="nu" name='comm_1' placeholder='Agenda1'style="height: 50px!important;">
 <textarea class=" m-wrap span5" name="comment_1" placeholder="description" style="resize:none;" ></textarea>
-<a href="#" role="button" id="add_row" class="btn  mini"><i class="icon-plus-sign"></i> </a>
+<a href="#" role="button" id="add_row" class="btn mini tip" > <span> add-items</span> <i class="icon-plus-sign"></i></a>
 </div>
 </div>
 
@@ -294,7 +324,8 @@ Note: File size must be less than 2 MB and All extension are allowed.
 
 
 
-	<button type="submit" name="send" class="btn blue"><i class=" icon-envelope-alt "></i> Send</button>
+	<button type="submit" name="send" class="btn blue test" value="1"><i class=" icon-envelope-alt "></i> Send</button>
+	<button type="submit" name="draft" class="btn blue test " value="2"><i class=" icon-envelope-alt "></i> Save as Draft</button>
 </form>
 
 </div>
@@ -309,9 +340,10 @@ $(document).ready(function(){
 $("#add_row").bind('click',function(){
 	var count = $("#url_main div").length;
 	count++;
+	
 	var agenda="Agenda";
 	$("#hid_v").val(count);
-	$("#url_main").append('<div class="content_'+count+'"><input type="text" class="m-wrap span2" placeholder="Time" id="nu" name="time_'+count+'" style="height: 50px!important;"> <input type="text" class="m-wrap span5"  id="nu" name="comm_'+count+'" placeholder='+agenda+count+' style="height: 50px!important;"> <textarea class="m-wrap span5" style="resize:none;" name="comment_'+count+'" placeholder="description" ></textarea> <a href="#" role="button" id='+count+' class="btn black mini delete_btn"><i class="icon-remove-sign"></i></a></div>');
+	$("#url_main").append('<div class="content_'+count+'"><input type="text" class="m-wrap span2" placeholder="Time" id="nu" name="time_'+count+'" style="height: 50px!important;"> <input type="text" class="m-wrap span5"  id="nu" name="comm_'+count+'" placeholder='+agenda+count+' style="height: 50px!important;"> <textarea class="m-wrap span5" style="resize:none;" name="comment_'+count+'" placeholder="description" ></textarea> <a href="#" role="button" id='+count+' class="btn black mini delete_btn tip"><span> Delete</span><i class="icon-remove-sign"></i></a></div>');
 
 
 });
@@ -362,7 +394,7 @@ $(document).ready(function(){
   $("#r4").click(function(){
 	  
 	 value = +$('#r4').is( ':checked' );
-	 alert(value);
+	
 	$("#d1").hide();
 	$("#d3").hide();
 	$("#d4").show();
@@ -424,10 +456,18 @@ $(document).ready(function() {
 </script>
 <script>
 $(document).ready(function(){
+	$(".test").live('click', function(e){
+	$(this).addClass("e-clicked");
+	});
+	
+	
 $('form#contact-form').submit( function(ev){
 	ev.preventDefault();	
-var m_data = new FormData(); 
-var Invitations =$('input:radio[name=radio]:checked').val();
+	var m_data = new FormData(); 
+	var sub=$(this).find(".e-clicked").attr("value");
+	$(".e-clicked").removeClass("e-clicked");
+	m_data.append('save',sub);
+	var Invitations =$('input:radio[name=radio]:checked').val();
 	m_data.append( 'Invitations_type',Invitations );
 	if(Invitations==1)
 	{

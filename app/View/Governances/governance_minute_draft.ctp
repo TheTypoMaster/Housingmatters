@@ -166,7 +166,7 @@ Note: File size must be less than 2 MB and All extension are allowed.
 
 
 <input type="hidden" value="<?php echo $governance_minute_id; ?>" id="minute_id">
-<button type="submit" name="send" class="btn blue" id=""><i class=" icon-envelope-alt "></i> Send</button>
+<button type="submit" name="send" class="btn blue" id=""><i class=" icon-envelope-alt "></i> Approved</button>
 </form>
 
 </div>
