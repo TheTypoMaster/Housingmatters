@@ -3958,6 +3958,61 @@ $this->set('cursor3',$cursor3);
 }
 /////////////////////End Select Income Heads (Accounts)//////////////////////////////
 
+////START OTHER CHARGES//
+function other_charges(){
+	if($this->RequestHandler->isAjax()){
+	$this->layout='blank';
+	}else{
+	$this->layout='session';
+	}
+	$this->ath();
+	
+	$s_role_id=$this->Session->read('role_id');
+	$s_society_id = (int)$this->Session->read('society_id');
+	$s_user_id=$this->Session->read('user_id');	
+	
+	$this->loadmodel('ledger_account');
+	$conditions=array("group_id"=>7);
+	$result_ledger_account=$this->ledger_account->find('all',array('conditions'=>$conditions));
+	$this->set('result_ledger_account',$result_ledger_account);
+	
+	$this->loadmodel('user');	
+	$conditions=array('society_id'=>$s_society_id,'deactive'=>0);
+	$result=$this->user->find('all',array('conditions'=>$conditions));
+	$this->set('result_user',$result);	
+	
+	if(isset($this->request->data['add_charges'])){
+		$income_head_id=$this->request->data['income_head'];
+		$amount=$this->request->data['amount'];
+		$flats=$this->request->data['flats'];
+		foreach($flats as $flat_id){
+			
+			$this->loadmodel('flat');
+			$conditions=array("flat_id"=>(int)$flat_id);
+			$result_flat=$this->flat->find('all',array('conditions'=>$conditions));
+			$other_charges_database=@$result_flat[0]["flat"]["other_charges"];
+			if(sizeof($other_charges_database)>0){
+				$other_charges_database[$income_head_id]=$amount;
+				$this->loadmodel('flat');
+				$this->flat->updateAll(array('other_charges'=> $other_charges_database),array('flat_id'=>(int)$flat_id));
+			}else{
+				$other_charges[$income_head_id]=$amount;
+				$this->loadmodel('flat');
+				$this->flat->updateAll(array('other_charges'=> $other_charges),array('flat_id'=>(int)$flat_id));
+			}
+		}
+		
+	}
+
+}
+
+function fetch_other_charges_via_flat_id($flat_id){
+	$this->loadmodel('flat');
+	$conditions=array("flat_id"=>(int)$flat_id);
+	$result_flat=$this->flat->find('all',array('conditions'=>$conditions));
+	return @$result_flat[0]["flat"]["other_charges"];
+}
+//END OTHER CHARGES//
 /////////////////////////////////// Start It Setup (Accounts) ///////////////////////////////////////////////
 function it_setup()
 {

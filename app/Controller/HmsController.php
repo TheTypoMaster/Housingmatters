@@ -3528,15 +3528,12 @@ if ($this->request->is('post'))
 					$conditions5=array('signup_random'=>$password);
 					$res_n=$this->user->find('all',array('conditions'=>$conditions5));
 					$result_no=sizeof($res_n);
-					if($result_no>0)
-					{
-						
-					$de_user_id=$this->encode($user_id,'housingmatters');
-					$random=$de_user_id.'/'.$password;
-					$this->response->header('Location', $this->webroot.'hms/set_new_password?q='.$random.' ');
+					if($result_no>0){
+						$de_user_id=$this->encode($user_id,'housingmatters');
+						$random=$de_user_id.'/'.$password;
+						$this->response->header('Location', $this->webroot.'hms/set_new_password?q='.$random.' ');
 					}
-					else
-					{
+					else{
 						
 					date_default_timezone_set('Asia/kolkata');
 					$date=date("d-m-Y");
