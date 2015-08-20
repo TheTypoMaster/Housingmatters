@@ -706,10 +706,7 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 			$this->new_regular_bill->saveAll(array("auto_id" => $new_regular_bill_auto_id, "flat_id" => $flat_id, "bill_no" => $bill_number, "income_head_array" => $income_head_array, "noc_charges" => $noc_charges,"total" => $total, "arrear_maintenance"=> $arrear_maintenance, "arrear_intrest" => $arrear_intrest, "intrest_on_arrears" => $intrest_on_arrears,"due_for_payment" => $due_for_payment,"one_time_id"=>$one_time_id,"society_id"=>$s_society_id,"due_date"=>strtotime($due_date),"bill_start_date"=>strtotime($bill_start_date),"bill_end_date"=>strtotime($bill_end_date),"approval_status"=>0,"bill_html"=>$bill_html,"credit_stock"=>$credit_stock,"current_date"=>strtotime($current_date)));
 			
 			
-			//SEND NOTIFICATION//
-			$users[]=$user_id;
-			$this->send_notification('<i class="fa fa-file-text"></i>','New Maintanance Bill',10,$new_regular_bill_auto_id,'regular_bill_view/'.$new_regular_bill_auto_id,$s_user_id,$users);
-			unset($users);
+			
 			
 			
 			//LEDGER CODE START//
@@ -6206,6 +6203,11 @@ $this->layout='blank';
 $this->layout='session';
 }
 
+
+$s_society_id=$this->Session->read('society_id');
+$s_user_id=$this->Session->read('user_id');
+
+
 $s_society_id = (int)$this->Session->read('society_id');
 $this->ath();
 $this->check_user_privilages();
@@ -6239,6 +6241,7 @@ if(isset($this->request->data['approve'])){
 				$this->loadmodel('new_regular_bill');
 				$condition=array('auto_id'=>$auto_id);
 				$result_bill_info=$this->new_regular_bill->find('all',array('conditions'=>$condition));
+				$new_regular_bill_auto_id=$result_bill_info[0]["new_regular_bill"]["auto_id"];
 				$flat_id=$result_bill_info[0]["new_regular_bill"]["flat_id"];
 				$bill_start_date=$result_bill_info[0]["new_regular_bill"]["bill_start_date"];
 				$bill_end_date=$result_bill_info[0]["new_regular_bill"]["bill_end_date"];
@@ -6248,6 +6251,7 @@ if(isset($this->request->data['approve'])){
 				
 				$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($flat_id)));
 				foreach($result_user_info as $user_info){
+					$user_id=$user_info["user"]["user_id"];
 					$user_name=$user_info["user"]["user_name"];
 					$email=$user_info["user"]["email"];
 					$mobile=$user_info["user"]["mobile"];
@@ -6260,6 +6264,11 @@ if(isset($this->request->data['approve'])){
 				
 				$wing_flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing_id,$flat_id))); 
 				
+				
+				//SEND NOTIFICATION//
+				$users[]=$user_id;
+				$this->send_notification('<i class="fa fa-file-text"></i>','New Maintanance Bill',10,$new_regular_bill_auto_id,'regular_bill_view/'.$new_regular_bill_auto_id,$s_user_id,$users);
+				unset($users);
 				
 				
 				if($email_is_on_off==1){
