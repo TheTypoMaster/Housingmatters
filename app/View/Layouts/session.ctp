@@ -112,7 +112,7 @@ var key = 1;
 </div>
 </div>
 </div>
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 <link href="<?php echo $webroot_path; ?>assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 	<link href="<?php echo $webroot_path; ?>assets/css/metro.css" rel="stylesheet" />
 	
