@@ -571,7 +571,12 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 							$bill_html.='<tr>
 									<td style="text-align:left;">'.$income_head_name.'</td>
 									</tr>';
-						}		
+						}
+						if(!empty($noc_charges)){
+							$bill_html.='<tr>
+									<td style="text-align:left;">Non Occupancy charges</td>
+									</tr>';
+						}
 						
 									
 						$bill_html.='<tr>
@@ -583,6 +588,11 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 						foreach($income_head_array as $key=>$value){
 							$bill_html.='<tr>
 										<td style="text-align:right;padding-right: 8%;">'.$value.'</td>
+									</tr>';
+						}
+						if(!empty($noc_charges)){
+							$bill_html.='<tr>
+										<td style="text-align:right;padding-right: 8%;">'.$noc_charges.'</td>
 									</tr>';
 						}
 						$bill_html.='<tr>
