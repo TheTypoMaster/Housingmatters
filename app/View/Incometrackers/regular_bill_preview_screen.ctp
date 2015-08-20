@@ -30,13 +30,6 @@ foreach($result_society as $data){
 	font-size: 10px;
 }
 </style>
-<div align="center">
-<span style="font-size:20px;"><?php echo strtoupper($society_name); ?></span><br/>
-<span style="font-size:12px;">Regn# <?php echo $society_reg_num; ?></span><br/>
-<span style="font-size:12px;"><?php echo $society_address; ?></span><br/>
-<span style="font-size:12px;">Email: <?php echo $society_email; ?> | Phone : <?php echo $society_phone; ?></span><br/>
-<div style="font-size:14px;">from <b><?php echo date("d-M",strtotime($bill_start_date)); ?></b> to <b><?php echo date("d-M-Y",strtotime($bill_end_date)); ?></b></div>
-</div>
 
 <form method="Post" >
 <div class="container">
