@@ -6267,7 +6267,7 @@ if(isset($this->request->data['approve'])){
 				
 				//SEND NOTIFICATION//
 				$users[]=$user_id;
-				$this->send_notification('<i class="fa fa-file-text"></i>','New Maintanance Bill',10,$new_regular_bill_auto_id,'regular_bill_view/'.$new_regular_bill_auto_id,$s_user_id,$users);
+				$this->send_notification('<span style="color:#E35B5A"><i class="fa fa-file-text fa-lg" ></i></span>','New Maintanance Bill',10,$new_regular_bill_auto_id,'regular_bill_view/'.$new_regular_bill_auto_id,$s_user_id,$users);
 				unset($users);
 				
 				
