@@ -43,6 +43,8 @@ if(rs1=== '') { $('#validate_result').html('<div style="background-color:white; 
 <td>
 <a href="<?php echo $webroot_path; ?>Incometrackers/it_setup" class="btn" style="font-size:16px;" rel='tab'>Remarks</a>
 </td>
+<td><a href="<?php echo $webroot_path; ?>Incometrackers/other_charges" class="btn" rel='tab'>Other Charges</a>
+</td>
 </tr>
 </table> 
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
