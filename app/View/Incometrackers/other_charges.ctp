@@ -4,7 +4,6 @@ label.control-label{
 font-weight: bold;
 }
 </style>
-<div class="span12">
 	<!-- BEGIN VALIDATION STATES-->
 	<div class="portlet box purple">
 	 <div class="portlet-title">
@@ -61,7 +60,7 @@ font-weight: bold;
 						  </div>
 					</div>
 				</div>
-				<div class="span5"><button type="submit" name="add_charges" class="btn purple"><i class=" icon-plus-sign"></i> ADD CHARGE FOR SELECTED FLATS</button></div>
+				<div class="span5"><button type="submit" name="add_charges" class="btn purple"><i class=" icon-plus-sign"></i> Add charge for selected flats</button></div>
 			</div>
 			
 			
@@ -123,4 +122,3 @@ font-weight: bold;
 	 </div>
 	</div>
 	<!-- END VALIDATION STATES-->
-</div>
