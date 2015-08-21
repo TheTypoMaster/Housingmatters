@@ -60,7 +60,6 @@ $wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' =
 <table id="report_tb" width="100%">
 	<thead>
 		<tr>
-			<th>Sr.No.</th>
 			<th>Transaction Date</th>
 			<th>Source</th>
 			<th>Refrence</th>
@@ -107,7 +106,6 @@ $wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' =
 		
 		?>
 		<tr>
-			<td><?php echo $i; ?></td>
 			<td><?php echo date("d-m-Y",$transaction_date); ?></td>
 			<td><?php echo $source; ?></td>
 			<td>
