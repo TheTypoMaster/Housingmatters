@@ -234,12 +234,13 @@ foreach($result_society as $data){
 							
 							$flat_other_charges=@$other_charges_array[$flat];
 							if(sizeof($flat_other_charges)>0){
+								$otheramount=(int)@$flat_other_charges[$other_charges_id];
 								?>
-								<td><?php echo '<input type="text" class="text_bx call_calculation" name="other_charges'.$other_charges_id.$inc.'" value='.@$flat_other_charges[$other_charges_id].' row_id="'.$inc.'" id="other_charges'.$other_charges_id.$inc.'" />'; ?></td>
+								<td><?php echo '<input type="text" class="text_bx call_calculation" name="other_charges'.$other_charges_id.$inc.'" value='.$otheramount.' row_id="'.$inc.'" id="other_charges'.$other_charges_id.$inc.'" />'; ?></td>
 								<?php
 							}else{
 								?>
-								<td>0</td>
+								<td><?php echo '<input type="text" class="text_bx call_calculation" name="other_charges'.$other_charges_id.$inc.'" value=0 row_id="'.$inc.'" id="other_charges'.$other_charges_id.$inc.'" />'; ?></td>
 								<?php
 							}
 						} ?>
