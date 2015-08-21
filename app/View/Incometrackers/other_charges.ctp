@@ -119,13 +119,12 @@ font-weight: bold;
 						if(sizeof($result_other_charges)>0){
 						?>
 						<tr>
-							<td><?php echo $user_name.' '.$wing_flat; ?></td>
+							<td><b><?php echo $user_name.' '.$wing_flat; ?></b></td>
 							<td>
 							<?php 
 							if(sizeof($result_other_charges)>0){
 									echo '<div class="row-fluid">
-											<div class="span8"><b>CHARGE NAME</b></div>
-											<div class="span4"><b>AMOUNT</b></div>
+											
 										</div>';
 										
 								foreach($result_other_charges as $income_head_id=>$amount){ 
