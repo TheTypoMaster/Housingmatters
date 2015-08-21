@@ -2142,7 +2142,6 @@ $this->layout='session';
 			if(empty($account_zero_ammount))
 			{
 				$account_zero_ammount=0;
-				
 			}
 			
 			$this->loadmodel('society');

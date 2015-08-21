@@ -5420,7 +5420,7 @@ $this->set('tems_arr',$tems_arr);
 }
 //////////////////////////////////////////// End Supplimentry Bill Pdf (Accounts)///////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////// Start Regular Bill View (Accounts)//////////////////////////////////////////////////////////////
+//////////////////////////// Start Regular Bill View (Accounts)////////////////////////////////////////////////////////
 function regular_bill_view($auto_id=null)
 {
 $this->layout='session';
@@ -5449,10 +5449,9 @@ $last_bill_one_time_id = (int)$data['new_regular_bill']['one_time_id'];
 $flat = (int)$data['new_regular_bill']['flat_id'];
 }
 $last_bill_one_time_id--;
-$result_new_cash_bank = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'fetch_last_receipt_info_via_flat_id'),array('pass'=>array($flat,$last_bill_one_time_id)));
-$this->set('result_new_cash_bank',$result_new_cash_bank);
-$size = sizeof($result_new_cash_bank);
-$this->set('size',$size);
+
+
+
 
 
 $this->loadmodel('society');
@@ -5460,6 +5459,24 @@ $conditions=array("society_id" => $s_society_id);
 $cursor2=$this->society->find('all',array('conditions'=>$conditions));
 $this->set('cursor2',$cursor2);
 
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor3=$this->society->find('all',array('conditions'=>$conditions));
+foreach($cursor3 as $data)
+{
+$receipt_show_id = (int)$data['society']['merge_receipt'];
+}
+if($receipt_show_id == 1)
+{
+$result_new_cash_bank = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'fetch_last_receipt_info_via_flat_id'),array('pass'=>array($flat,$last_bill_one_time_id)));
+$this->set('result_new_cash_bank',$result_new_cash_bank);
+$size = sizeof($result_new_cash_bank);
+}
+else
+{
+$size=0;
+}
+$this->set('size',$size);
 }
 
 function regular_bill_edit2($auto_id=null){
