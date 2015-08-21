@@ -4000,7 +4000,7 @@ function other_charges(){
 	}
 	
 	$this->ath();
-	
+	$this->check_user_privilages();
 	$s_role_id=$this->Session->read('role_id');
 	$s_society_id = (int)$this->Session->read('society_id');
 	$s_user_id=$this->Session->read('user_id');	
@@ -4015,7 +4015,7 @@ function other_charges(){
 	$result=$this->user->find('all',array('conditions'=>$conditions));
 	$this->set('result_user',$result);	
 	
-	if(isset($this->request->data['add_charges'])){ exit;
+	if(isset($this->request->data['add_charges'])){ 
 		$income_head_id=$this->request->data['income_head'];
 		$amount=$this->request->data['amount'];
 		$flats=$this->request->data['flats'];
