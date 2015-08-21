@@ -465,7 +465,7 @@ function regular_bill_preview_screen(){
 			
 			$noc_charges = (int)@$this->request->data['noc_charges'.$inc];
 			
-			pr($other_charges_ids);
+		
 			
 			foreach($other_charges_ids as $other_charges_id){
 				$flat_other_charges=@$other_charges_array[$flat_id];
@@ -475,9 +475,10 @@ function regular_bill_preview_screen(){
 					if(!empty($other_charges_amount)){
 						$other_charges_insert[$other_charges_id]=$other_charges_amount;
 					}
-				}else{
-					//$other_charges_array=array();
 				}
+			}
+			if(@$other_charges_insert==null){
+				$other_charges_insert=array();
 			}
 			
 			
@@ -621,6 +622,17 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 									</tr>';
 						}
 						
+						foreach($other_charges_insert as $key=>$vlaue){
+							$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($key)));	
+							foreach($result_income_head as $data2){
+								$income_head_name = $data2['ledger_account']['ledger_name'];
+							}
+							
+							$bill_html.='<tr>
+										<td style="text-align:left;">'.$income_head_name.'</td>
+									</tr>';
+						} 
+						
 									
 						$bill_html.='<tr>
 									<td style="text-align:left;"><br><br></td>
@@ -638,6 +650,14 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 										<td style="text-align:right;padding-right: 8%;">'.$noc_charges.'</td>
 									</tr>';
 						}
+						
+						foreach($other_charges_insert as $key=>$vlaue){
+							$bill_html.='<tr>
+										<td style="text-align:right;padding-right: 8%;">'.$vlaue.'</td>
+									</tr>';
+						} 
+						
+						
 						$bill_html.='<tr>
 									<td style="text-align:left;"><br><br></td>
 									</tr></tbody></table>
