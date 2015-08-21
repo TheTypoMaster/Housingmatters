@@ -53,13 +53,13 @@ font-weight: bold;
 						<label class="control-label">Select Income Head</label>
 						<div class="controls">
 							<select name="income_head" class="span12 chosen" data-placeholder="Choose a Category" tabindex="1">
-								<option value="" />
+								<option value="">
 								<?php
 								foreach($result_ledger_account as $data){
 									$ledger_account_auto_id = (int)$data["ledger_account"]["auto_id"];
 									$ledger_name = $data["ledger_account"]["ledger_name"];
 									?>
-								<option value="<?php echo $ledger_account_auto_id; ?>" /><?php echo $ledger_name; ?>
+								<option value="<?php echo $ledger_account_auto_id; ?>"><?php echo $ledger_name; ?>
 								<?php } ?>
 							 </select>
 						</div>
@@ -80,7 +80,7 @@ font-weight: bold;
 						  <label class="control-label">Select Flats</label>
 						  <div class="controls">
 							<select name="flats[]" data-placeholder="Your Favorite Football Teams" class="chosen span12" multiple="multiple" tabindex="6">
-								<option value="" />
+								<option value="">
 								<?php foreach($result_user as $user_data){ 
 								$user_id=(int)$user_data["user"]["user_id"];
 								$user_name=$user_data["user"]["user_name"];
@@ -89,7 +89,7 @@ font-weight: bold;
 								
 								$wing_flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing,$flat))); 
 								?>
-								<option  value="<?php echo $flat; ?>" /><?php echo $user_name.' '.$wing_flat; ?>
+								<option  value="<?php echo $flat; ?>"><?php echo $user_name.' '.$wing_flat; ?>
 								<?php } ?>
 							</select>
 						  </div>

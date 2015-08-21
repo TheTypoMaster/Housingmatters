@@ -45,6 +45,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 					$wing_id = "";
                     $flat_id = "";
 					$user_id = "";
+					if($ledger_id==33){
+					$name.=' - '.$collection['ledger_sub_account']['bank_account'];
+					}
 					if($ledger_id == 34)
 					{
 					$user_id = (int)$collection['ledger_sub_account']['user_id'];	

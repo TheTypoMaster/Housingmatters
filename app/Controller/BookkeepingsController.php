@@ -1340,6 +1340,20 @@ function ledger_show_ajax(){
 	$this->set('from',$from);
 	$this->set('to',$to);
 	
+		if(empty($ledger_account_id)){
+			echo '<center><span style="color:red;"> Please select ledger accounts.</span></center>';
+			exit;
+		}
+		if($ledger_account_id == 15 || $ledger_account_id == 33 || $ledger_account_id == 34 || $ledger_account_id == 35){
+			if(empty($ledger_sub_account_id)){
+			echo '<center><span style="color:red;"> Please select sub-ledger accounts.</span></center>';
+			exit;
+		   }
+		}
+		if($from>$to){
+			echo '<center><span style="color:red;"> Please select valid date range.</span></center>';
+			exit;
+		}
 	$this->loadmodel('ledger');
 	$conditions=array('society_id'=>$s_society_id,"ledger_account_id"=>$ledger_account_id,'transaction_date'=>array('$gte'=>strtotime($from),'$lte'=>strtotime($to)));
 	$order=array('ledger.transaction_date'=>'ASC');

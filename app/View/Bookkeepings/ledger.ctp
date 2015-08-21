@@ -120,6 +120,7 @@ $(document).ready(function() {
 <script>
 $(document).ready(function() {
 	$("#go").bind('click',function(){
+		
 		var main_id = document.getElementById('main_id').value;
 		if(main_id==15 ||  main_id==33 || main_id==34 ||  main_id==35){
 			var sub_id = document.getElementById('sub_id').value;

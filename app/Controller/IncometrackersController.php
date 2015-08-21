@@ -3971,6 +3971,7 @@ function other_charges(){
 	}else{
 	$this->layout='session';
 	}
+	
 	$this->ath();
 	
 	$s_role_id=$this->Session->read('role_id');
@@ -3987,7 +3988,7 @@ function other_charges(){
 	$result=$this->user->find('all',array('conditions'=>$conditions));
 	$this->set('result_user',$result);	
 	
-	if(isset($this->request->data['add_charges'])){
+	if(isset($this->request->data['add_charges'])){ exit;
 		$income_head_id=$this->request->data['income_head'];
 		$amount=$this->request->data['amount'];
 		$flats=$this->request->data['flats'];
