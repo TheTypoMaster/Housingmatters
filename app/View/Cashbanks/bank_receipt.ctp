@@ -537,6 +537,13 @@ $("#myModal3").hide();
 <script>
 $(document).ready(function(){
 	
+	
+$(".delete").live('click',function(){
+var id = $(this).attr("del");
+$('#tr'+id).remove();
+});	
+	
+	
 	$('form#form1').submit( function(ev){
 		ev.preventDefault();
 		

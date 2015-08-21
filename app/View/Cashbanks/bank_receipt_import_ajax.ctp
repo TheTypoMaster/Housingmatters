@@ -20,8 +20,10 @@
 <th>Delete</th>
 </tr>
 <?php 
+$j=0;
 foreach($aaa as $data)
-{ 
+{
+$j++; 
 $TransactionDate = $data[0];
 $ReceiptMod = $data[1];
 $ChequeNo = $data[2];
@@ -50,7 +52,7 @@ $mode_id = 1;
 }
 */
 ?>
-<tr>
+<tr id="tr<?php echo $j; ?>">
 <td>
 <input type="text" class="date-picker m-wrap span12" data-date-format="dd-mm-yyyy" name="date" placeholder="Transaction Date" style="background-color:white !important;" id="date" value="<?php echo $TransactionDate; ?>">
 </td>
@@ -100,7 +102,7 @@ $name1 = $collection['ledger_sub_account']['name'];
 <td>
 <input type="text" name="" class="m-wrap span12" value="<?php echo $Amount; ?>" />
 </td>
-<th>Delete</th>
+<th><a href="#" role="button" class="btn mini red delete" del="<?php echo $j; ?>"><i class="icon-remove icon-white"></i></a></th>
 </tr>
 <?php
 }
