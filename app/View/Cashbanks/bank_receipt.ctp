@@ -28,9 +28,11 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 			<br/>
 			<h4>Instruction set to import receipts</h4>
 			<ol>
+            <li>Kindely delete second row, it is for example.</li>
 			<li>All the field are compulsory.</li>
 			<li>Wing and Flat number be valid as per society setting.</li>
-			</ol>
+            <li>Befor Import Bank Receipt Regular Bill must be generated</li>
+            </ol>
 		    </div>
 		    <div class="modal-footer">
 			<button type="button" class="btn" id="close_div">Close</button>

@@ -18041,8 +18041,10 @@ echo $string;
 
 function flat_fetch($flat_id) 
 {
+$s_society_id = (int)$this->Session->read('society_id');
+
 $this->loadmodel('flat');
-$conditions=array("flat_id" => $flat_id);
+$conditions=array("flat_id" => $flat_id,"society_id"=>$s_society_id);
 return $this->flat->find('all',array('conditions'=>$conditions));
 }
 

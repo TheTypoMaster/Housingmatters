@@ -541,10 +541,6 @@ $this->ledger->saveAll($multipleRowData);
 }
 else if($member_type == 2)
 {
-/////////////////////////
-
-//////////////////////////
-
 $t3=$this->autoincrement('new_cash_bank','transaction_id');
 $k = (int)$this->autoincrement_with_society_ticket('new_cash_bank','receipt_id');
 $this->loadmodel('new_cash_bank');
@@ -559,6 +555,24 @@ $bill_auto_id=$last_bill["auto_id"];
 $bill_one_time_id=$last_bill["one_time_id"];
 }
 }
+?>
+<div class="modal-backdrop fade in"></div>
+<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+<div class="modal-header">
+<center>
+<h3 id="myModalLabel3" style="color:#999;"><b>Bank Receipt</b></h3>
+</center>
+</div>
+<div class="modal-body">
+<center>
+<h5><b>Bank Receipt No. <?php echo $k; ?> is  generated successfully</b></h5>
+</center>
+</div>
+<div class="modal-footer">
+<a href="bank_receipt_view" class="btn blue">OK</a>
+</div>
+</div>
+<?php
 }
 }
 
@@ -3729,9 +3743,50 @@ $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id = (int)$this->Session->read('user_id');
 
-$excel = "Transaction Date,Receipt Mode,Cheque No.,Reference/UTR,Drawn Bank name,Deposited In,Date,Member Name,Wing,Flat,Amount";
+
+$this->loadmodel('ledger_sub_account');
+$conditions=array("society_id" => $s_society_id,"ledger_id"=>33);
+$cursor = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+foreach($cursor as $data)
+{
+$deposited_bank_name = $data['ledger_sub_account']['name'];
+}
 
 
+
+$this->loadmodel('ledger_sub_account');
+$conditions=array("society_id" => $s_society_id,"ledger_id"=>34);
+$cursor = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+foreach($cursor as $data)
+{
+$resident_name = $data['ledger_sub_account']['name'];
+$user_id = (int)$data['ledger_sub_account']['user_id'];
+}
+
+$user_detail = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'user_fetch'),array('pass'=>array($user_id)));
+foreach($user_detail as $data)
+{
+$flat_id = (int)$data['user']['flat'];
+$wing_id = (int)$data['user']['wing'];
+}
+
+$wing_detail = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'wing_fetch'),array('pass'=>array($wing_id)));
+foreach($wing_detail as $data)
+{
+$wing_name = $data['wing']['wing_name'];
+}
+
+$flat_detail = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'flat_fetch'),array('pass'=>array($flat_id)));
+foreach($flat_detail as $data)
+{
+$flat_name = $data['flat']['flat_name'];
+}
+
+
+
+$excel = "Transaction Date,Receipt Mode,Cheque No.,Reference/UTR,Drawn Bank name,Deposited In,Date,Member Name,Wing,Flat,Amount \n";
+
+$excel.="25-1-2015,Cheque,11001,31235 RRFF,SBBJ,$deposited_bank_name,10-1-2015,$resident_name,$wing_name,$flat_name,5000";
 echo $excel;
 }
 /////////////////////////////// End bank_receipt_import ////////////////////////////////////////////////////////////
