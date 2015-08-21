@@ -1,4 +1,5 @@
 <?php
+pr($maximum_array_of_other_charges);
 $webroot_path=$this->requestAction(array('controller' => 'Hms', 'action' => 'webroot_path'));
 $space='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 foreach($result_society as $data){
@@ -30,8 +31,7 @@ foreach($result_society as $data){
 	font-size: 10px;
 }
 </style>
-
-<form method="Post" >
+<form method="Post">
 <div class="container">
 	<div class="component">
 		<table class="overflow-y">
@@ -49,6 +49,7 @@ foreach($result_society as $data){
 					<th ><?php echo $income_head_name; ?><?php echo $space; ?></th>	
 					<?php } ?>
 					<th>Non Occupancy charges</th>
+					
 					<th>Total<?php echo $space; ?></th>
 					<th>Arrears (Maint.)</th>
 					<th>Arrears (Int.)</th>

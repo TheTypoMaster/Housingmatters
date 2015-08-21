@@ -386,6 +386,33 @@ function regular_bill_preview_screen(){
 		$condition=array('society_id'=>$s_society_id,'tenant'=>1,'deactive'=>0);
 		$result_user=$this->user->find('all',array('conditions'=>$condition));
 		$this->set('result_user',$result_user);
+		
+		foreach($result_user as $user_info){
+			$user_id=$user_info["user"]["user_id"];
+			$flat_id=$user_info["user"]["flat"];
+			
+			$this->loadmodel('flat');
+			$condition=array('flat_id'=>$flat_id);
+			$result_flat=$this->flat->find('all',array('conditions'=>$condition));
+			$other_charges=@$result_flat[0]["flat"]["other_charges"];
+			
+			if(sizeof($other_charges)>0){
+				$other_charges_array[$flat_id]=$other_charges;
+			}
+		}
+		
+		$sizeofother_charges_data=0; $sizeofother_charges_data2=0;
+		foreach($other_charges_array as $other_charges_data){
+			$sizeofother_charges_data=sizeof($other_charges_data);
+			$size_of_other_charges[]=$sizeofother_charges_data;
+			if($sizeofother_charges_data>$sizeofother_charges_data2){
+				$sizeofother_charges_data2=$sizeofother_charges_data;
+				$maximum_array_of_other_charges=$other_charges_data;
+			}
+		}
+		$this->set('maximum_array_of_other_charges',$maximum_array_of_other_charges);
+		$this->set('maximum_value_of_other_charges',max($size_of_other_charges));
+		$this->set('other_charges_array',$other_charges_array);
 	
 	
 			
