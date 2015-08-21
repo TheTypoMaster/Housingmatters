@@ -76,8 +76,8 @@ $i++;
 	 <td><?php echo $time ; ?></td>
 	 <td><?php echo $location ; ?></td>
 	  <td><span class="label label-info"><?php echo $invite_user ; ?></span></td>
-    <td><a href="<?php echo $webroot_path; ?>Governances/governance_invite_view1/<?php echo $gov_id; ?>" rel='tab' class="btn mini yellow tooltips" data-placement="bottom" data-original-title="View" ><i class="icon-search"></i></a>
-	<?php if(!empty($minute_id)){ ?><a href="<?php echo $webroot_path; ?>Governances/governance_minute_view1/<?php echo $minute_id; ?>" rel='tab' class="btn mini yellow tooltips" data-placement="bottom" data-original-title="View" ><i class="icon-search"></i></a> <?php } ?>
+    <td><a href="<?php echo $webroot_path; ?>Governances/governance_invite_view1/<?php echo $gov_id; ?>" rel='tab' class="btn mini yellow tooltips" data-placement="bottom" data-original-title="Agenda View" ><i class="icon-search"></i></a>
+	<?php if(!empty($minute_id)){ ?><a href="<?php echo $webroot_path; ?>Governances/governance_minute_view1/<?php echo $minute_id; ?>" rel='tab' class="btn mini yellow tooltips" data-placement="bottom" data-original-title="Minutes View" ><i class="icon-search"></i></a> <?php } ?>
 	</td>
 <?php } ?>	
 	
