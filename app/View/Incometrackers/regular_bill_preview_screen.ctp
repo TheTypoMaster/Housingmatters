@@ -48,7 +48,7 @@ foreach($result_society as $data){
 					<th ><?php echo $income_head_name; ?><?php echo $space; ?></th>	
 					<?php } ?>
 					<th>Non Occupancy charges</th>
-					<?php foreach($maximum_array_of_other_charges as $other_charges_id=>$other_charges_vlaue){
+					<?php foreach($other_charges_ids as $other_charges_id){
 						$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($other_charges_id)));	
 						foreach($result_income_head as $data2){
 							$income_head_name = $data2['ledger_account']['ledger_name'];
@@ -230,9 +230,19 @@ foreach($result_society as $data){
 						?>
 						</td>
 						
-						<?php foreach($maximum_array_of_other_charges as $other_charges_id=>$other_charges_vlaue){ ?>
-							<td><?php echo @$other_charges_array[$flat][$other_charges_id]; ?></td>
-						<?php } ?>
+						<?php foreach($other_charges_ids as $other_charges_id){
+							
+							$flat_other_charges=@$other_charges_array[$flat];
+							if(sizeof($flat_other_charges)>0){
+								?>
+								<td><?php echo '<input type="text" class="text_bx call_calculation" name="other_charges'.$other_charges_id.$inc.'" value='.@$flat_other_charges[$other_charges_id].' row_id="'.$inc.'" id="other_charges'.$other_charges_id.$inc.'" />'; ?></td>
+								<?php
+							}else{
+								?>
+								<td>0</td>
+								<?php
+							}
+						} ?>
 						
 						
 						

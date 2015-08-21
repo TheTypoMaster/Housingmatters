@@ -401,20 +401,17 @@ function regular_bill_preview_screen(){
 			}
 		}
 		
-		$sizeofother_charges_data=0; $sizeofother_charges_data2=0;
+		
 		foreach($other_charges_array as $other_charges_data){
-			$sizeofother_charges_data=sizeof($other_charges_data);
-			$size_of_other_charges[]=$sizeofother_charges_data;
-			if($sizeofother_charges_data>$sizeofother_charges_data2){
-				$sizeofother_charges_data2=$sizeofother_charges_data;
-				$maximum_array_of_other_charges=$other_charges_data;
+			foreach($other_charges_data as $key=>$vlaue){
+				$other_charges_ids[]=$key;
 			}
-		}
-		$this->set('maximum_array_of_other_charges',$maximum_array_of_other_charges);
-		$this->set('maximum_value_of_other_charges',max($size_of_other_charges));
+		} 
+		$other_charges_ids=array_unique($other_charges_ids);
+		
+		$this->set('other_charges_ids',$other_charges_ids);
 		$this->set('other_charges_array',$other_charges_array);
-	pr($other_charges_array);
-	
+
 			
 			
 	if(isset($this->request->data['generate_bill'])){
