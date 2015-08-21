@@ -48,14 +48,18 @@ foreach($result_society as $data){
 					<th ><?php echo $income_head_name; ?><?php echo $space; ?></th>	
 					<?php } ?>
 					<th>Non Occupancy charges</th>
-					<?php foreach($other_charges_ids as $other_charges_id){
+					<?php 
+					if(sizeof(@$other_charges_ids)>0){
+						foreach($other_charges_ids as $other_charges_id){
 						$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($other_charges_id)));	
 						foreach($result_income_head as $data2){
 							$income_head_name = $data2['ledger_account']['ledger_name'];
 						}
 						?>
 						<th><?php echo $income_head_name; ?></th>
-					<?php } ?>
+					<?php } 
+					} ?>
+					
 					<th>Total<?php echo $space; ?></th>
 					<th>Arrears (Maint.)</th>
 					<th>Arrears (Int.)</th>
@@ -230,7 +234,9 @@ foreach($result_society as $data){
 						?>
 						</td>
 						
-						<?php foreach($other_charges_ids as $other_charges_id){
+						<?php 
+						if(sizeof(@$other_charges_ids)>0){
+						foreach(@$other_charges_ids as $other_charges_id){
 							
 							$flat_other_charges=@$other_charges_array[$flat];
 							if(sizeof($flat_other_charges)>0){
@@ -244,7 +250,7 @@ foreach($result_society as $data){
 								<td><?php echo '<input type="text" class="text_bx call_calculation" name="other_charges'.$other_charges_id.$inc.'" value=0 row_id="'.$inc.'" id="other_charges'.$other_charges_id.$inc.'" />'; ?></td>
 								<?php
 							}
-						} ?>
+						} }?>
 						
 						
 						

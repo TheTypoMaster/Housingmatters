@@ -401,16 +401,18 @@ function regular_bill_preview_screen(){
 			}
 		}
 		
+		if(sizeof(@$other_charges_array)>0){
+			foreach($other_charges_array as $other_charges_data){
+				foreach($other_charges_data as $key=>$vlaue){
+					$other_charges_ids[]=$key;
+				}
+			} 
+			$other_charges_ids=array_unique($other_charges_ids);
+			
+			$this->set('other_charges_ids',$other_charges_ids);
+		}
 		
-		foreach($other_charges_array as $other_charges_data){
-			foreach($other_charges_data as $key=>$vlaue){
-				$other_charges_ids[]=$key;
-			}
-		} 
-		$other_charges_ids=array_unique($other_charges_ids);
-		
-		$this->set('other_charges_ids',$other_charges_ids);
-		$this->set('other_charges_array',$other_charges_array);
+		$this->set('other_charges_array',@$other_charges_array);
 
 			
 			
@@ -466,17 +468,19 @@ function regular_bill_preview_screen(){
 			$noc_charges = (int)@$this->request->data['noc_charges'.$inc];
 			
 		
-			
-			foreach($other_charges_ids as $other_charges_id){
-				$flat_other_charges=@$other_charges_array[$flat_id];
-				
-				if(sizeof($flat_other_charges)>0){
-					$other_charges_amount=(int)@$this->request->data['other_charges'.$other_charges_id.$inc];
-					if(!empty($other_charges_amount)){
-						$other_charges_insert[$other_charges_id]=$other_charges_amount;
+			if(sizeof(@$other_charges_ids)>0){
+				foreach($other_charges_ids as $other_charges_id){
+					$flat_other_charges=@$other_charges_array[$flat_id];
+					
+					if(sizeof($flat_other_charges)>0){
+						$other_charges_amount=(int)@$this->request->data['other_charges'.$other_charges_id.$inc];
+						if(!empty($other_charges_amount)){
+							$other_charges_insert[$other_charges_id]=$other_charges_amount;
+						}
 					}
 				}
 			}
+			
 			if(@$other_charges_insert==null){
 				$other_charges_insert=array();
 			}
@@ -3707,9 +3711,12 @@ function in_head_report(){
 	$this->set("result_new_regular_bill",$result_new_regular_bill);
 	foreach($result_new_regular_bill as $regular_bill){
 		$other_charges_array=@$regular_bill["new_regular_bill"]["other_charges_array"];
-		foreach($other_charges_array as $key=>$value){
-			$other_charges_ids[]=$key;
+		if(!empty($other_charges_array)){
+			foreach($other_charges_array as $key=>$value){
+				$other_charges_ids[]=$key;
+			}
 		}
+		
 	}
 	
 	$other_charges_ids=array_unique($other_charges_ids);
