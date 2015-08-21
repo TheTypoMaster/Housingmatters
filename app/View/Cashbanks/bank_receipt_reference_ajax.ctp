@@ -55,7 +55,8 @@ else if($type == 2)
 ?>	
 <label style="font-size:14px;">Amount<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" name="amount" class="m-wrap span9" />  	
+<input type="text" name="amount" class="m-wrap span9" id="amt_other" />  
+<label id="amt_other"></label>	
 </div>
 <br />	
 	
