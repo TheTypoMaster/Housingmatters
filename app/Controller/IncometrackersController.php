@@ -464,6 +464,24 @@ function regular_bill_preview_screen(){
 			}
 			
 			$noc_charges = (int)@$this->request->data['noc_charges'.$inc];
+			
+			pr($other_charges_ids);
+			
+			foreach($other_charges_ids as $other_charges_id){
+				$flat_other_charges=@$other_charges_array[$flat_id];
+				
+				if(sizeof($flat_other_charges)>0){
+					$other_charges_amount=(int)@$this->request->data['other_charges'.$other_charges_id.$inc];
+					if(!empty($other_charges_amount)){
+						$other_charges_insert[$other_charges_id]=$other_charges_amount;
+					}
+				}else{
+					//$other_charges_array=array();
+				}
+			}
+			
+			
+						
 			$total = (int)@$this->request->data['total'.$inc];
 			$arrear_maintenance = (int)@$this->request->data['arrear_maintenance'.$inc];
 			$arrear_intrest = (int)@$this->request->data['arrear_intrest'.$inc];
@@ -725,10 +743,13 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 	
 	        $current_date = date('Y-m-d');
 			
+			if(@$other_charges_insert==null){
+				$other_charges_insert=array();
+			}
 			
 			$this->loadmodel('new_regular_bill');
 			$new_regular_bill_auto_id=$this->autoincrement('new_regular_bill','auto_id');
-			$this->new_regular_bill->saveAll(array("auto_id" => $new_regular_bill_auto_id, "flat_id" => $flat_id, "bill_no" => $bill_number, "income_head_array" => $income_head_array, "noc_charges" => $noc_charges,"total" => $total, "arrear_maintenance"=> $arrear_maintenance, "arrear_intrest" => $arrear_intrest, "intrest_on_arrears" => $intrest_on_arrears,"due_for_payment" => $due_for_payment,"one_time_id"=>$one_time_id,"society_id"=>$s_society_id,"due_date"=>strtotime($due_date),"bill_start_date"=>strtotime($bill_start_date),"bill_end_date"=>strtotime($bill_end_date),"approval_status"=>0,"bill_html"=>$bill_html,"credit_stock"=>$credit_stock,"current_date"=>strtotime($current_date),"description"=>$description));
+			$this->new_regular_bill->saveAll(array("auto_id" => $new_regular_bill_auto_id, "flat_id" => $flat_id, "bill_no" => $bill_number, "income_head_array" => $income_head_array, "noc_charges" => $noc_charges,"total" => $total, "arrear_maintenance"=> $arrear_maintenance, "arrear_intrest" => $arrear_intrest, "intrest_on_arrears" => $intrest_on_arrears,"due_for_payment" => $due_for_payment,"one_time_id"=>$one_time_id,"society_id"=>$s_society_id,"due_date"=>strtotime($due_date),"bill_start_date"=>strtotime($bill_start_date),"bill_end_date"=>strtotime($bill_end_date),"approval_status"=>0,"bill_html"=>$bill_html,"credit_stock"=>$credit_stock,"current_date"=>strtotime($current_date),"description"=>$description,"other_charges_array"=>$other_charges_insert));
 			
 			
 			
@@ -775,9 +796,9 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 				$this->ledger->saveAll(array("auto_id" => $auto_id,"ledger_account_id" => 34,"ledger_sub_account_id" => $ledger_sub_account_id,"debit"=>null,"credit"=>abs($credit_stock),"table_name"=>"new_regular_bill","element_id"=>$new_regular_bill_auto_id,"society_id"=>$s_society_id,"transaction_date"=>strtotime($bill_start_date)));
 			}
 				
-			unset($income_head_array);
+			
 
-		} }
+		}  unset($other_charges_insert); }
 		$this->response->header('Location','aprrove_bill');
 
 	}
@@ -3664,6 +3685,16 @@ function in_head_report(){
 	$order=array('new_regular_bill.one_time_id'=> 'DESC');
 	$result_new_regular_bill = $this->new_regular_bill->find('all',array('conditions'=>$conditions,'order'=>$order));
 	$this->set("result_new_regular_bill",$result_new_regular_bill);
+	foreach($result_new_regular_bill as $regular_bill){
+		$other_charges_array=@$regular_bill["new_regular_bill"]["other_charges_array"];
+		foreach($other_charges_array as $key=>$value){
+			$other_charges_ids[]=$key;
+		}
+	}
+	
+	$other_charges_ids=array_unique($other_charges_ids);
+	$this->set('other_charges_ids',$other_charges_ids);
+	
 	
 	$this->loadmodel('society');
 	$condition=array('society_id'=>$s_society_id);
