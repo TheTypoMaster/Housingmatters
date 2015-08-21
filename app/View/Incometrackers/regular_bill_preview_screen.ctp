@@ -1,5 +1,4 @@
 <?php
-pr($maximum_array_of_other_charges);
 $webroot_path=$this->requestAction(array('controller' => 'Hms', 'action' => 'webroot_path'));
 $space='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 foreach($result_society as $data){
@@ -49,7 +48,14 @@ foreach($result_society as $data){
 					<th ><?php echo $income_head_name; ?><?php echo $space; ?></th>	
 					<?php } ?>
 					<th>Non Occupancy charges</th>
-					
+					<?php foreach($maximum_array_of_other_charges as $other_charges_id=>$other_charges_vlaue){
+						$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($other_charges_id)));	
+						foreach($result_income_head as $data2){
+							$income_head_name = $data2['ledger_account']['ledger_name'];
+						}
+						?>
+						<th><?php echo $income_head_name; ?></th>
+					<?php } ?>
 					<th>Total<?php echo $space; ?></th>
 					<th>Arrears (Maint.)</th>
 					<th>Arrears (Int.)</th>
@@ -223,6 +229,13 @@ foreach($result_society as $data){
 						}else { echo 'N/A'; }
 						?>
 						</td>
+						
+						<?php foreach($maximum_array_of_other_charges as $other_charges_id=>$other_charges_vlaue){ ?>
+							<td><?php echo @$other_charges_array[$flat][$other_charges_id]; ?></td>
+						<?php } ?>
+						
+						
+						
 						<td style="background-color:#FBF1C8;">
 						<?php echo '<input type="text" class="m-wrap text_rdoff" name="total'.$inc.'" value='.$total.' readonly/>'; ?></td>
 						<?php $due_for_payment+=$total; ?>

@@ -413,7 +413,7 @@ function regular_bill_preview_screen(){
 		$this->set('maximum_array_of_other_charges',$maximum_array_of_other_charges);
 		$this->set('maximum_value_of_other_charges',max($size_of_other_charges));
 		$this->set('other_charges_array',$other_charges_array);
-	
+	pr($other_charges_array);
 	
 			
 			
