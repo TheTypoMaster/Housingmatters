@@ -49,12 +49,12 @@ $wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' =
 ?>
 <div style="font-size:14px;">
 	<span style="color:#6F6D6D;font-size:16px;">LEDGER REPORT</span><br/>
-	<span><b><?php echo $ledger_account_name; ?> </b></span>
+	<!--<span><b><?php echo $ledger_account_name; ?> </b></span>
 	<?php if(!empty($sub_ledger_name)){
 		echo '<i class="icon-chevron-right" style="font-size: 11px;"></i>';
 	} ?>
 	
-	<span ><b> <?php echo $sub_ledger_name; ?> &nbsp;&nbsp; <?php echo $account_number; ?>  <?php echo $wing_flat; ?></b></span><br/>
+	<span ><b> <?php echo $sub_ledger_name; ?> &nbsp;&nbsp; <?php echo $account_number; ?>  <?php echo $wing_flat; ?></b></span><br/>-->
 	<span>From: <?php echo date("d-m-Y",strtotime($from)); ?> To: <?php echo date("d-m-Y",strtotime($to)); ?></span>
 </div>
 <table id="report_tb" width="100%">
@@ -62,6 +62,8 @@ $wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' =
 		<tr>
 			<th>Transaction Date</th>
 			<th>Source</th>
+            <th>Description</th>
+            <th>Party</th>
 			<th>Refrence</th>
 			<th>Debit</th>
 			<th>Credit</th>
@@ -87,14 +89,39 @@ $wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' =
 			$bill_approved="";
 			if(sizeof($result_regular_bill)>0){
 				$bill_approved="yes";
-				$refrence_no=$result_regular_bill[0]["new_regular_bill"]["bill_no"];
+				$refrence_no = $result_regular_bill[0]["new_regular_bill"]["bill_no"];
+			    $description = $result_regular_bill[0]["new_regular_bill"]["description"];
+			    $flat_id = (int)$result_regular_bill[0]["new_regular_bill"]["flat_id"]; 
+			
+$user_detail = $this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'fetch_user_info_via_flat_id'), array('pass' => array($flat_id)));		
+foreach($user_detail as $data)
+{
+$user_name = $data['user']['user_name'];	
+}
+			
 			}
 		}
 		if($table_name=="new_cash_bank"){
 			$source="Receipt"; 
 			$element_id=$element_id+1000;
+			
+
+
+
+			
+			
+			
 			$result_cash_bank=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'receipt_info_via_auto_id'), array('pass' => array($element_id)));
 			$refrence_no=$result_cash_bank[0]["new_cash_bank"]["receipt_id"]; 
+			$flat_id = (int)$result_cash_bank[0]["new_cash_bank"]["party_name_id"];
+			$description = @$result_cash_bank[0]["new_cash_bank"]["narration"];
+			$user_detail = $this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'fetch_user_info_via_flat_id'), array('pass' => array($flat_id)));		
+			foreach($user_detail as $data)
+			{
+			$user_name = $data['user']['user_name'];	
+			}	
+			
+			
 		}
 		if($table_name=="opening_balance" && $arrear_int_type=="YES"){
 			$source="Opening Balance (Penalty)";
@@ -108,7 +135,9 @@ $wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' =
 		<tr>
 			<td><?php echo date("d-m-Y",$transaction_date); ?></td>
 			<td><?php echo $source; ?></td>
-			<td>
+            <td><?php echo $description; ?></td>
+            <td><?php echo $user_name; ?></td>
+            <td>
 			<?php if($table_name=="new_regular_bill"){
 				echo '<a href="'.$this->webroot.'Incometrackers/regular_bill_view/'.$element_id.'" target="_blank">'.$refrence_no.'</a>';
 			}
@@ -121,7 +150,7 @@ $wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' =
 		</tr>
 	<?php } } ?>
 		<tr>
-			<td colspan="4" align="right"><b>Total</b></td>
+			<td colspan="5" align="right"><b>Total</b></td>
 			<td><b><?php echo $total_debit; ?></b></td>
 			<td><b><?php echo $total_credit; ?></b></td>
 		</tr>
