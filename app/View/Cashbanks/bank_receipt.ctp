@@ -26,13 +26,10 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
            <label id="vali"></label>			
 			<strong><a href="bank_receipt_import" download>Click here for sample format</a></strong>
 			<br/>
-			<h4>Instruction set to import users</h4>
+			<h4>Instruction set to import receipts</h4>
 			<ol>
 			<li>All the field are compulsory.</li>
 			<li>Wing and Flat number be valid as per society setting.</li>
-			<li>Flat type be valid as per society setting. </li>
-			<li>Flat area be valid as per society setting. </li>
-			<li>Flat number should be not same.</li>
 			</ol>
 		    </div>
 		    <div class="modal-footer">

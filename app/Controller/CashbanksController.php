@@ -4084,12 +4084,6 @@ foreach($myArray as $child){
 				$account_id = (int)$flat_info["ledger_sub_account"]["auto_id"];
 			}
 
-			
-			
-			
-		
-
-			
 			$amount=$amount;
 			//apply receipt in regular bill
 			$this->loadmodel('new_regular_bill');
@@ -4105,13 +4099,20 @@ foreach($myArray as $child){
 				$arrear_maintenance=$regular_bill["arrear_maintenance"];
 				$regular_bill_one_time_id = (int)$regular_bill["one_time_id"];
 			}
-			$amount_after_arrear_intrest=$amount-$arrear_intrest;
-			if($amount_after_arrear_intrest<0){
+				
+				
+
+		
+			    $amount_after_arrear_intrest=$amount-$arrear_intrest;
+				if($amount_after_arrear_intrest<0){
 				$new_arrear_intrest=abs($amount_after_arrear_intrest);
 				$new_intrest_on_arrears=$intrest_on_arrears;
 				$new_arrear_maintenance=$arrear_maintenance;
 				$new_total=$total;
-			}
+				}
+			
+			
+			
 			else{
 				$new_arrear_intrest=0;
 				$amount_after_intrest_on_arrears=$amount_after_arrear_intrest-$intrest_on_arrears;
@@ -4172,7 +4173,6 @@ foreach($myArray as $child){
 
 	}
 	}
-
 $output=json_encode(array('report_type'=>'done','text'=>'Please Fill Date in row'));
 die($output);
 
