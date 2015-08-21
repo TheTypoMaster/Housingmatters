@@ -46,13 +46,13 @@ font-weight: bold;
 	 </div>
 	 <div class="portlet-body form">
 		<!-- BEGIN FORM-->
-		<form METHOD="POST" class="form-horizontal">
+		<form METHOD="POST" class="form-horizontal" id="contact-form">
 		   <div class="row-fluid">
 				<div class="span6">
 					<div class="control-group">
 						<label class="control-label">Select Income Head</label>
 						<div class="controls">
-							<select name="income_head" class="span12 chosen" data-placeholder="Choose a Category" tabindex="1">
+							<select name="income_head"  id="income_head" class="span12 chosen" data-placeholder="Choose a Category" tabindex="1">
 								<option value="">
 								<?php
 								foreach($result_ledger_account as $data){
@@ -62,14 +62,17 @@ font-weight: bold;
 								<option value="<?php echo $ledger_account_auto_id; ?>"><?php echo $ledger_name; ?>
 								<?php } ?>
 							 </select>
+							  <label id="income_head"></label>
 						</div>
+						
 					</div>
 				</div>
 				<div class="span6">
 					<div class="control-group">
 						  <label class="control-label">Enter Amount</label>
 						  <div class="controls">
-							 <input name="amount" class="span8 m-wrap" type="text" placeholder="Amount">
+							 <input name="amount" class="span8 m-wrap" type="text" placeholder="Amount" id="amount">
+							 <label id="amount"></label>
 						  </div>
 					</div>
 				</div>
@@ -79,7 +82,7 @@ font-weight: bold;
 					<div class="control-group">
 						  <label class="control-label">Select Flats</label>
 						  <div class="controls">
-							<select name="flats[]" data-placeholder="Your Favorite Football Teams" class="chosen span12" multiple="multiple" tabindex="6">
+							<select name="flats[]" data-placeholder="Your Favorite Football Teams" id="flats" class="chosen span12" multiple="multiple" tabindex="6">
 								<option value="">
 								<?php foreach($result_user as $user_data){ 
 								$user_id=(int)$user_data["user"]["user_id"];
@@ -92,6 +95,7 @@ font-weight: bold;
 								<option  value="<?php echo $flat; ?>"><?php echo $user_name.' '.$wing_flat; ?>
 								<?php } ?>
 							</select>
+							 <label id="flats"></label>
 						  </div>
 					</div>
 				</div>
@@ -157,3 +161,53 @@ font-weight: bold;
 	 </div>
 	</div>
 	<!-- END VALIDATION STATES-->
+<script>
+$(document).ready(function(){
+$('#contact-form').validate({
+ignore: ".ignore",
+			errorElement: "label",
+                    //place all errors in a <div id="errors"> element
+                    errorPlacement: function(error, element) {
+                        //error.appendTo("label#errors");
+						error.appendTo('label#' + element.attr('id'));
+                    }, 
+	   	
+
+rules: {
+  amount: {
+	required: true,
+	number: true
+  },
+   "flats[]": {
+	required: true,
+  },
+   income_head: {
+	required: true
+  },
+ 
+  
+
+},
+
+messages: {
+			"multi[]": {
+				required: "Please select at-least one recipient."
+			},
+			file: {
+					accept: "File extension must be png or jpg",
+					filesize: "File size must be less than 2MB."
+				},
+		},
+	highlight: function(element) {
+		$(element).closest('.control-group').removeClass('success').addClass('error');
+	},
+	success: function(element) {
+		element
+		.text('OK!').addClass('valid')
+		.closest('.control-group').removeClass('error').addClass('success');
+	},
+	
+});
+
+}); 
+</script>
