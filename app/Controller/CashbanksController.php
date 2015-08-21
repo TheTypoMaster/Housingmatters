@@ -3859,7 +3859,6 @@ $Flat = $child_ex[9];
 $Amount = $child_ex[10];	  
 ////////////////////////////////////////////////////////////
 
-
 $this->loadmodel('wing'); 
 $conditions=array("wing_name"=> new MongoRegex('/^' . $Wing . '$/i'),"society_id"=>$s_society_id);
 $result_ac=$this->wing->find('all',array('conditions'=>$conditions));
@@ -3887,10 +3886,10 @@ $auto_id = (int)$collection['ledger_sub_account']['auto_id'];
 $hhhhhh = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));
 foreach($hhhhhh as $fff)
 {
-$wing = (int)$fff['user']['wing'];
-$flat = (int)$fff['user']['flat'];
+$wing_id2 = (int)$fff['user']['wing'];
+$flat_id2 = (int)$fff['user']['flat'];
 }
-if($wing_id == $wing && $flat_id == $flat)
+if(@$wing_id == $wing_id2 && @$flat_id == $flat_id2)
 {
 $id_auto = (int)$collection['ledger_sub_account']['auto_id'];
 }
@@ -3954,6 +3953,7 @@ break;
 $ledger_type = 1;
 }
 */
+
 $table[] = array(@$TransactionDate,@$ReceiptMod,@$ChequeNo,@$Reference,@$DrawnBankname,@$bank_id,@$Date1,@$id_auto,@$Amount);
 } 
 $i++;

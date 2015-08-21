@@ -33,7 +33,6 @@ $bank_id = $data[5];
 $Date1 = $data[6];
 $auto_id = $data[7];
 $Amount = $data[8];
-
 /*
 $c = (int)strcasecmp("Cheque",$ReceiptMod);
 $n = (int)strcasecmp("NEFT",$ReceiptMod);
@@ -91,9 +90,23 @@ $name = $collection['ledger_sub_account']['name'];
 foreach($cursor2 as $collection)
 {
 $a_id = (int)$collection['ledger_sub_account']['auto_id'];
-$name1 = $collection['ledger_sub_account']['name'];		
+$name1 = $collection['ledger_sub_account']['name'];
+$user_id = (int)$collection['ledger_sub_account']['user_id'];
+
+$user_detail = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'user_fetch'),array('pass'=>array($user_id)));
+foreach($user_detail as $data)
+{
+$flat_id = (int)$data['user']['flat'];
+$wing_id = (int)$data['user']['wing'];
+}
+
+
+$wing_flat = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
+		
 ?>
-<option value="<?php echo $a_id; ?>" <?php if($a_id == $auto_id) { ?> selected="selected" <?php } ?> ><?php echo $name1; ?></option>
+<option value="<?php echo $a_id; ?>" <?php if($a_id == $auto_id) { ?> selected="selected" <?php } ?> ><?php echo $name1; ?>
+&nbsp;&nbsp;<?php echo $wing_flat; ?>
+</option>
 <?php
 }
 ?>
