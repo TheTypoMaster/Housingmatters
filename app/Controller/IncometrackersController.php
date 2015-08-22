@@ -3718,10 +3718,10 @@ function in_head_report(){
 		}
 		
 	}
-	
+	if(sizeof($other_charges_ids)>0){
 	$other_charges_ids=array_unique($other_charges_ids);
-	$this->set('other_charges_ids',@$other_charges_ids);
-	
+	$this->set('other_charges_ids',$other_charges_ids);
+	}
 	
 	$this->loadmodel('society');
 	$condition=array('society_id'=>$s_society_id);
