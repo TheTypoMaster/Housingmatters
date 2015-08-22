@@ -111,6 +111,7 @@ $name = $collection['flat']['flat_name'];
 $(document).ready(function() {
 	$("#main_id").bind('change',function(){
 		var c1 = document.getElementById('main_id').value;
+		$("#result1").html('loading...');
 		$("#result1").load("ledger_ajax?c1=" +c1+ "");
 	});
 	

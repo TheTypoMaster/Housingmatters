@@ -94,10 +94,12 @@ $wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' =
 			    $flat_id = (int)$result_regular_bill[0]["new_regular_bill"]["flat_id"]; 
 			
 $user_detail = $this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'fetch_user_info_via_flat_id'), array('pass' => array($flat_id)));		
-foreach($user_detail as $data)
-{
-$user_name = $data['user']['user_name'];	
-}
+		foreach($user_detail as $data){
+		$user_name = $data['user']['user_name'];
+		$wing_id = $data['user']['wing'];
+		$flat_id = $data['user']['flat'];	
+		$wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'wing_flat'), array('pass' => array($wing_id,$flat_id)));
+		}
 			
 			}
 		}
@@ -116,9 +118,11 @@ $user_name = $data['user']['user_name'];
 			$flat_id = (int)$result_cash_bank[0]["new_cash_bank"]["party_name_id"];
 			$description = @$result_cash_bank[0]["new_cash_bank"]["narration"];
 			$user_detail = $this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'fetch_user_info_via_flat_id'), array('pass' => array($flat_id)));		
-			foreach($user_detail as $data)
-			{
-			$user_name = $data['user']['user_name'];	
+			foreach($user_detail as $data){
+			$user_name = $data['user']['user_name'];
+			$wing_id = $data['user']['wing'];
+			$flat_id = $data['user']['flat'];	
+			$wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'wing_flat'), array('pass' => array($wing_id,$flat_id)));
 			}	
 			
 			
@@ -136,7 +140,7 @@ $user_name = $data['user']['user_name'];
 			<td><?php echo date("d-m-Y",$transaction_date); ?></td>
 			<td><?php echo $source; ?></td>
             <td><?php echo $description; ?></td>
-            <td><?php echo $user_name; ?></td>
+            <td><?php echo $user_name; ?>  <?php echo $wing_flat; ?></td>
             <td>
 			<?php if($table_name=="new_regular_bill"){
 				echo '<a href="'.$this->webroot.'Incometrackers/regular_bill_view/'.$element_id.'" target="_blank">'.$refrence_no.'</a>';
