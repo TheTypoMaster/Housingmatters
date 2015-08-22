@@ -1,4 +1,9 @@
 <?php
+if($period_id==1){ $multiply=1; } 
+if($period_id==2){ $multiply=2; } 
+if($period_id==3){ $multiply=3; } 
+if($period_id==4){ $multiply=6; } 
+if($period_id==5){ $multiply=12; } 
 $webroot_path=$this->requestAction(array('controller' => 'Hms', 'action' => 'webroot_path'));
 $space='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 foreach($result_society as $data){
@@ -183,14 +188,17 @@ foreach($result_society as $data){
 								if($data4[0]==$income_head){
 									if($data4[1]==1){
 										$ih_charges=$data4[2];
+										$ih_charges=$ih_charges*$multiply;
 										echo '<input type="text" class="text_bx call_calculation" name="income_head'.$income_head.$inc.'" value='.$ih_charges.' row_id="'.$inc.'" id="income_head'.$in_count.$inc.'" />';
 									}
 									if($data4[1]==2){
 										$ih_charges=$sq_feet*$data4[2];
+										$ih_charges=$ih_charges*$multiply;
 										echo '<input type="text" class="text_bx call_calculation" name="income_head'.$income_head.$inc.'" value='.$ih_charges.' row_id="'.$inc.'" id="income_head'.$in_count.$inc.'" />';
 									}
 									if($data4[1]==3){
 										$ih_charges=$data4[2];
+										$ih_charges=$ih_charges*$multiply;
 										echo '<input type="text" class="text_bx call_calculation" name="income_head'.$income_head.$inc.'" value='.$ih_charges.' row_id="'.$inc.'" id="income_head'.$in_count.$inc.'" />';
 									}
 									$total+=$ih_charges;
@@ -209,21 +217,25 @@ foreach($result_society as $data){
 						<?php  if($noc_ch_id==2){
 							if($noc_charge[0]==1){
 								$noc_charges=$noc_charge[1];
+								$noc_charges=$noc_charges*$multiply;
 								echo '<input type="text" class="text_bx call_calculation" name="noc_charges'.$inc.'" value='.$noc_charges.'  row_id="'.$inc.'" />';
 								$total+=$noc_charges;
 							}
 							if($noc_charge[0]==2){
 								$noc_charges=$sq_feet*$noc_charge[1];
+								$noc_charges=$noc_charges*$multiply;
 								echo '<input type="text" class="text_bx call_calculation" name="noc_charges'.$inc.'" value='.$noc_charges.'  row_id="'.$inc.'" />';
 								$total+=$noc_charges;
 							}
 							if($noc_charge[0]==3){
 								$noc_charges=$noc_charge[1];
+								$noc_charges=$noc_charges*$multiply;
 								echo '<input type="text" class="text_bx call_calculation" name="noc_charges'.$inc.'" value='.$noc_charges.'  row_id="'.$inc.'" />';
 								$total+=$noc_charges;
 							}
 							if($noc_charge[0]==4){
 								$noc_charges=$maintanence_charges*(0.1);
+								$noc_charges=$noc_charges*$multiply;
 								echo '<input type="text" class="text_bx call_calculation" name="noc_charges'.$inc.'" value='.$noc_charges.'  row_id="'.$inc.'" />';
 								$total+=$noc_charges;
 							}
@@ -241,6 +253,7 @@ foreach($result_society as $data){
 							$flat_other_charges=@$other_charges_array[$flat];
 							if(sizeof($flat_other_charges)>0){
 								$otheramount=(int)@$flat_other_charges[$other_charges_id];
+								$otheramount=$otheramount*$multiply;
 								$total+=$otheramount;
 								?>
 								<td><?php echo '<input type="text" class="text_bx call_calculation" name="other_charges'.$other_charges_id.$inc.'" value='.$otheramount.' row_id="'.$inc.'" id="other_charges'.$other_charges_id.$inc.'" />'; ?></td>
