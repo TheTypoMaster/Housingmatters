@@ -35,6 +35,7 @@ foreach($result_society as $data){
 	font-size: 10px;
 }
 </style>
+<div align="center"><span style="font-size:20px;">Bill Preview</h4></div>
 <form method="Post">
 <div class="container">
 	<div class="component">
@@ -360,6 +361,25 @@ $(document).ready(function() {
 		calculation(row_id);
 	 });
 });
+
+
+
+	function make_full_page(){
+		$(document).ready(function() {
+			$(".page-sidebar").css("display","none");
+			$(".page-content").css("margin-left","0px");
+			
+			$('html, body').css({
+				'overflow': 'hidden',
+				'height': '100%'
+			});
+
+		});
+	}
+	make_full_page();
+
+
+
 function calculation(row_id){
 	$(document).ready(function() {
 		var total=0; var due_for_payment=0;
