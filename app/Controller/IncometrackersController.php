@@ -588,7 +588,7 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 								</tr>
 								<tr>
 									<td style="text-align:left;font-weight: bold;">Area:</td>
-									<td style="text-align:left;">'.$sq_feet.' Sq Feet</td>
+									<td style="text-align:left;">-</td>
 								</tr>
 								<tr>
 									<td style="text-align:left;font-weight: bold;">Billing Period:</td>
