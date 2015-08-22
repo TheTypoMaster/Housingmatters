@@ -3719,7 +3719,7 @@ function in_head_report(){
 		
 	}
 	
-	$other_charges_ids=array_unique($other_charges_ids);
+	$other_charges_ids=array_unique(@$other_charges_ids);
 	$this->set('other_charges_ids',$other_charges_ids);
 	
 	
