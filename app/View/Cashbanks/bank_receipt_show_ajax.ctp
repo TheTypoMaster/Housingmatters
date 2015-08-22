@@ -73,7 +73,7 @@ if($nnn == 555)
 			}
 			else
 			{
- 			 $reference_utr = $collection['new_cash_bank']['reference_utr'];
+ 			  $reference_utr = $collection['new_cash_bank']['reference_utr'];
  			 $cheque_date = $collection['new_cash_bank']['cheque_date'];
 			}
 			$member_type = $collection['new_cash_bank']['member_type'];
@@ -121,7 +121,7 @@ $date = date('d-m-Y',($receipt_date));
 $total_debit =  $total_debit + $amount; 
 if(empty($reference_utr))
 {
-$reference_utr = $cheque_number;
+$reference_utr = '';
 }
 ?>
 <tr>
@@ -133,7 +133,7 @@ $reference_utr = $cheque_number;
 <td><?php echo @$reference_utr; ?> </td>
 <td><?php echo $deposited_bank_name; ?> </td>
 <td><?php echo $narration; ?> </td>
-<td><?php echo $amount; ?></td>
+<td align='right'><?php echo $amount; ?></td>
 <td class="hide_at_print"><center>
 <a href="bank_receipt_html_view/<?php echo $receipt_no; ?>" target="_blank" class="btn mini yellow"><i class="icon-search"></i></a>
 <a href="b_receipt_edit/<?php echo $receipt_no; ?>" class="btn mini blue"><i class="icon-edit"></i></a> 
@@ -147,7 +147,7 @@ $reference_utr = $cheque_number;
 ?>
 <tr>
 <th colspan="8" style="text-align:right;">Total</th>
-<th><?php 
+<th align="right"><?php 
 $total_debit = number_format($total_debit);
 echo $total_debit; ?> <?php //echo "  dr"; ?></th>
 <th class="hide_at_print"></th>
