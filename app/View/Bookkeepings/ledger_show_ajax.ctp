@@ -139,7 +139,7 @@ $user_detail = $this->requestAction(array('controller' => 'Bookkeepings', 'actio
 		<tr>
 			<td><?php echo date("d-m-Y",$transaction_date); ?></td>
 			<td><?php echo $source; ?></td>
-            <td><?php echo $description; ?></td>
+            <td><?php echo @$description; ?></td>
             <td><?php echo $user_name; ?>  <?php echo $wing_flat; ?></td>
             <td>
 			<?php if($table_name=="new_regular_bill"){
