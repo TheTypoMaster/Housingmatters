@@ -2,7 +2,7 @@
 <div class="modal-header">
 <h4 id="myModalLabel1">Import csv</h4>
 </div>
-<div class="modal-body" style="overflow:auto;">
+<div class="modal-body" style="overflow:auto;" id="done">
 <div id="vali"></div>
 <table id="open_bal2" style="width:30%;">
 <tr><td>
@@ -69,7 +69,8 @@ else
 $ledger_type = (int)$data[4];
 $auto_id = (int)$data[3];
 ?>
-<input type="text" value="<?php echo $data[0]; ?>   <?php echo $wing_flat; ?>" class="m-wrap span12" style="background-color:white !important;" readonly="readonly"/>
+<input type="text" value="<?php echo $data[0]; ?> " class="m-wrap span12" style="background-color:white !important;" readonly="readonly"/>
+
 <td>
 <?php
 $e = (int)strcasecmp("Debit",$type);

@@ -3654,7 +3654,6 @@ if($insert == 2){
 		$ledger_type = 2;
 	}
 
-
 	
 	$this->loadmodel('ledger_sub_account'); 
 	$conditions=array("name"=> new MongoRegex('/^' .  $ac_name . '$/i'),"ledger_id"=>$group_id);
@@ -3663,6 +3662,8 @@ if($insert == 2){
 		$auto_id = (int)$collection2['ledger_sub_account']['auto_id'];
 		$user_id = (int)$collection2['ledger_sub_account']['user_id'];
 		$ledger_id = (int)$collection2['ledger_sub_account']['ledger_id'];
+		
+		
 		if($ledger_id == 34){
 			
 			$flat = (int)$child[7];
@@ -3822,10 +3823,6 @@ if($insert == 2){
 	$this->ledger->saveAll($multipleRowData); 
 	}
 
-
-
-
-		
 	}
 	}
 	}
