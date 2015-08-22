@@ -94,9 +94,8 @@ $amt = "";
 <option value="5" <?php if($type == 5) { ?> selected="selected" <?php } ?>>Not Applicable</option>
 </select>
 
-<input type="text" name="amt<?php echo $auto_id; ?>" <?php if($type == 4) { ?> disabled="disabled" <?php } ?>  class="m-wrap medium" id="tx<?php echo $n; ?>" value="<?php echo $amt; ?>"/>
+<input type="text" name="amt<?php echo $auto_id; ?>" <?php if($type == 4) { ?> disabled="disabled" <?php } ?>  class="m-wrap medium" id="tx<?php echo $n; ?>" value="<?php echo $amt; ?>" />
 <input type="hidden" value="<?php echo $auto_id; ?>" id="fltp<?php echo $n; ?>" />
-
 </td>
 </tr>
 <?php
