@@ -93,9 +93,12 @@ $amt = "";
 <option value="4" <?php if($type == 4) { ?> selected="selected" <?php } ?>>10% of Maintanance Charge</option>
 <option value="5" <?php if($type == 5) { ?> selected="selected" <?php } ?>>Not Applicable</option>
 </select>
-
+</td>
+<td style="border-left-color:#FFF;">
+<div id="show<?php echo $n; ?>" <?php if($type == 5) { ?> class="hide" <?php } ?>>
 <input type="text" name="amt<?php echo $auto_id; ?>" <?php if($type == 4) { ?> disabled="disabled" <?php } ?>  class="m-wrap medium" id="tx<?php echo $n; ?>" value="<?php echo $amt; ?>" />
 <input type="hidden" value="<?php echo $auto_id; ?>" id="fltp<?php echo $n; ?>" />
+</div>
 </td>
 </tr>
 <?php
@@ -152,6 +155,7 @@ $("#tx" + i).hide();
 }
 else
 {
+$("#show" + i).show();
 $("#tx" + i).show();	
 }
 
