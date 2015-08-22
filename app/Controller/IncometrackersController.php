@@ -616,9 +616,11 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 							foreach($result_income_head as $data2){
 								$income_head_name = $data2['ledger_account']['ledger_name'];
 							}
-							$bill_html.='<tr>
+							if(!empty($value)){
+								$bill_html.='<tr>
 									<td style="text-align:left;">'.$income_head_name.'</td>
 									</tr>';
+							}
 						}
 						if(!empty($noc_charges)){
 							$bill_html.='<tr>
@@ -645,9 +647,11 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 								<td valign="top">
 									<table style="width:100%;" border="0"><tbody>';
 						foreach($income_head_array as $key=>$value){
-							$bill_html.='<tr>
+							if(!empty($value)){
+								$bill_html.='<tr>
 										<td style="text-align:right;padding-right: 8%;">'.$value.'</td>
 									</tr>';
+							}
 						}
 						if(!empty($noc_charges)){
 							$bill_html.='<tr>
@@ -703,11 +707,11 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 									</tr><tr>
 									<td style="text-align:right; padding-right:2%;" width="100%">Arrears &nbsp; (Int.):</td>
 									</tr>';
-						if(!empty($credit_stock)){
+						
 							$bill_html.='<tr>
-									<td style="text-align:right; padding-right:2%;" width="100%">Credit/Stock</td>
+									<td style="text-align:right; padding-right:2%;" width="100%">Reversals & Adjustments</td>
 									</tr>';
-						}
+						
 						
 						$bill_html.='<tr>
 									<th style="text-align:right; padding-right:2%;" width="100%">Due For Payment:</th>
@@ -724,11 +728,14 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 									</tr><tr>
 									<td style="text-align:right; padding-right:8%;">'.$arrear_intrest.'</td>
 									</tr>';
-						if(!empty($credit_stock)){
+							if($credit_stock==0){
+								$credit_stock_text=0;
+							}else{
+								$credit_stock_text="-".$credit_stock;
+							}
 							$bill_html.='<tr>
-									<td style="text-align:right; padding-right:8%;">-'.$credit_stock.'</td>
+									<td style="text-align:right; padding-right:8%;">'.$credit_stock_text.'</td>
 									</tr>';
-						}
 						$bill_html.='<tr>
 									<th style="text-align:right; padding-right:8%;">'.$due_for_payment.'</th>
 									</tr></tbody></table>
@@ -794,6 +801,16 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 				$this->ledger->saveAll(array("auto_id" => $auto_id,"ledger_account_id" => 43,"ledger_sub_account_id" => null,"debit"=>null,"credit"=>$noc_charges,"table_name"=>"new_regular_bill","element_id"=>$new_regular_bill_auto_id,"society_id"=>$s_society_id,"transaction_date"=>strtotime($bill_start_date)));
 			}
 			
+			
+			foreach($other_charges_insert as $key=>$vlaue){
+				if(!empty($value)){
+					$this->loadmodel('ledger');
+					$auto_id=$this->autoincrement('ledger','auto_id');
+					$this->ledger->saveAll(array("auto_id" => $auto_id,"ledger_account_id" => $key,"ledger_sub_account_id" => null,"debit"=>null,"credit"=>$vlaue,"table_name"=>"new_regular_bill","element_id"=>$new_regular_bill_auto_id,"society_id"=>$s_society_id,"transaction_date"=>strtotime($bill_start_date)));
+				}
+			} 
+						
+						
 			if(!empty($total)){
 				$this->loadmodel('ledger');
 				$auto_id=$this->autoincrement('ledger','auto_id');
