@@ -194,7 +194,7 @@ foreach($result_new_regular_bill as $regular_bill){
 			<td><?php echo $value; ?></td>	
 			<?php } ?>
 			<td><?php echo $noc_charges; ?></td>
-			<?php foreach($other_charges_ids as $other_charges_id){
+			<?php foreach(@$other_charges_ids as $other_charges_id){
 				?>
 				<td><?php echo @(int)$other_charges_array[$other_charges_id]; ?></td>
 				<?php
