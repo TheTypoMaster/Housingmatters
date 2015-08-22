@@ -248,19 +248,20 @@ foreach($result_society as $data){
 						
 						<?php 
 						if(sizeof(@$other_charges_ids)>0){
+							$qwe=0;
 						foreach(@$other_charges_ids as $other_charges_id){
-							
+							$qwe++;
 							$flat_other_charges=@$other_charges_array[$flat];
 							if(sizeof($flat_other_charges)>0){
 								$otheramount=(int)@$flat_other_charges[$other_charges_id];
 								$otheramount=$otheramount*$multiply;
 								$total+=$otheramount;
 								?>
-								<td><?php echo '<input type="text" class="text_bx call_calculation" name="other_charges'.$other_charges_id.$inc.'" value='.$otheramount.' row_id="'.$inc.'" id="other_charges'.$other_charges_id.$inc.'" />'; ?></td>
+								<td><?php echo '<input type="text" class="text_bx call_calculation" name="other_charges'.$other_charges_id.$inc.'" value='.$otheramount.' row_id="'.$inc.'" id="other_charges'.$qwe.$inc.'" />'; ?></td>
 								<?php
 							}else{
 								?>
-								<td><?php echo '<input type="text" class="text_bx call_calculation" name="other_charges'.$other_charges_id.$inc.'" value=0 row_id="'.$inc.'" id="other_charges'.$other_charges_id.$inc.'" />'; ?></td>
+								<td><?php echo '<input type="text" class="text_bx call_calculation" name="other_charges'.$other_charges_id.$inc.'" value=0 row_id="'.$inc.'" id="other_charges'.$qwe.$inc.'" />'; ?></td>
 								<?php
 							}
 						} }?>
@@ -347,7 +348,7 @@ foreach($result_society as $data){
 </div>
 </form>
 <input type="hidden" value="<?php echo sizeof($income_heads); ?>" id="income_head_count"/>
-<input type="hidden" value="<?php echo sizeof($other_charges_ids); ?>" id="income_head_count"/>
+<input type="hidden" value="<?php echo sizeof($other_charges_ids); ?>" id="other_charges_count"/>
 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
 <script src="<?php echo $webroot_path; ?>table/js/jquery.stickyheader.js"></script>
@@ -363,7 +364,7 @@ function calculation(row_id){
 	$(document).ready(function() {
 		var total=0; var due_for_payment=0;
 		var income_head_count=$('#income_head_count').val();
-		var income_head_count=$('#income_head_count').val();
+		var other_charges_count=$('#other_charges_count').val();
 		
 		for(var i=1;i<=income_head_count;i++){
 			var income_head_vlaue=parseFloat($('#income_head'+i+row_id).val());
@@ -375,7 +376,14 @@ function calculation(row_id){
 		if($.isNumeric(noc_charges)==false){ noc_charges=0; }
 		total=total+noc_charges;
 		
-		
+		for(var i=1;i<=other_charges_count;i++){
+			alert('other_charges'+i+row_id);
+			var other_charges_vlaue=parseFloat($('#other_charges'+i+row_id).val());
+			if($.isNumeric(other_charges_vlaue)==false){ other_charges_vlaue=0; }
+			alert(other_charges_vlaue);
+			total=total+other_charges_vlaue;
+			
+		}
 		
 		$('input[name=total'+row_id+']').val(total);
 		
