@@ -347,6 +347,7 @@ foreach($result_society as $data){
 </div>
 </form>
 <input type="hidden" value="<?php echo sizeof($income_heads); ?>" id="income_head_count"/>
+<input type="hidden" value="<?php echo sizeof($other_charges_ids); ?>" id="income_head_count"/>
 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
 <script src="<?php echo $webroot_path; ?>table/js/jquery.stickyheader.js"></script>
@@ -362,6 +363,8 @@ function calculation(row_id){
 	$(document).ready(function() {
 		var total=0; var due_for_payment=0;
 		var income_head_count=$('#income_head_count').val();
+		var income_head_count=$('#income_head_count').val();
+		
 		for(var i=1;i<=income_head_count;i++){
 			var income_head_vlaue=parseFloat($('#income_head'+i+row_id).val());
 			if($.isNumeric(income_head_vlaue)==false){ income_head_vlaue=0; }
@@ -371,6 +374,9 @@ function calculation(row_id){
 		var noc_charges=parseFloat($('input[name=noc_charges'+row_id+']').val());
 		if($.isNumeric(noc_charges)==false){ noc_charges=0; }
 		total=total+noc_charges;
+		
+		
+		
 		$('input[name=total'+row_id+']').val(total);
 		
 		var arrear_maintenance=parseFloat($('input[name=arrear_maintenance'+row_id+']').val());
