@@ -129,7 +129,7 @@ foreach($result_new_regular_bill as $regular_bill){
 			<th>Non Occupancy charges</th>
 			
 			<?php 
-			if(sizeof($other_charges_ids)>0){
+			if(sizeof(@$other_charges_ids)>0){
 				foreach($other_charges_ids as $other_charges_id){
 					$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($other_charges_id)));	
 						foreach($result_income_head as $data2){
@@ -194,7 +194,7 @@ foreach($result_new_regular_bill as $regular_bill){
 			<td><?php echo $bill_no; ?></td>
 			<?php foreach($income_head_array as $income_head=>$value){ 
 			 ?>
-			<td><?php echo $value; ?></td>	
+			<td><?php echo @$value; ?></td>	
 			<?php } ?>
 			<td><?php echo $noc_charges; ?></td>
 			<?php foreach(@$other_charges_ids as $other_charges_id){
