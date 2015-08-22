@@ -348,7 +348,7 @@ foreach($result_society as $data){
 </div>
 </form>
 <input type="hidden" value="<?php echo sizeof($income_heads); ?>" id="income_head_count"/>
-<input type="hidden" value="<?php echo sizeof($other_charges_ids); ?>" id="other_charges_count"/>
+<input type="hidden" value="<?php echo sizeof(@$other_charges_ids); ?>" id="other_charges_count"/>
 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
 <script src="<?php echo $webroot_path; ?>table/js/jquery.stickyheader.js"></script>
