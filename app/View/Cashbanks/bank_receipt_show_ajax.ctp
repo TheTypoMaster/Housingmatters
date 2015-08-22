@@ -121,7 +121,7 @@ $date = date('d-m-Y',($receipt_date));
 $total_debit =  $total_debit + $amount; 
 if(empty($reference_utr))
 {
-$reference_utr = '';
+$reference_utr1 = $cheque_number;
 }
 ?>
 <tr>
@@ -130,7 +130,7 @@ $reference_utr = '';
 <td><?php echo $party_name; ?></td>
 <td> <?php echo $wing_flat; ?></td>
 <td><?php echo $receipt_mode; ?> - <?php echo $drawn_on_which_bank; ?></td>
-<td><?php echo @$reference_utr; ?> </td>
+<td><?php echo @$reference_utr1; ?> </td>
 <td><?php echo $deposited_bank_name; ?> </td>
 <td><?php echo $narration; ?> </td>
 <td align='right'><?php 
