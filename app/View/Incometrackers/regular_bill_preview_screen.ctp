@@ -379,7 +379,6 @@ function calculation(row_id){
 		for(var i=1;i<=other_charges_count;i++){
 			var other_charges_vlaue=parseFloat($('#other_charges'+i+row_id).val());
 			if($.isNumeric(other_charges_vlaue)==false){ other_charges_vlaue=0; }
-			alert(other_charges_vlaue);
 			total=total+other_charges_vlaue;
 			
 		}
