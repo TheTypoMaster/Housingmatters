@@ -344,7 +344,7 @@ foreach($result_society as $data){
 	</div>
 </div>
 <div style="padding-right:20%">
-	<button type="submit" name="generate_bill" class="btn blue pull-right">Generate Bill</button>
+	<button type="submit" name="generate_bill" id="generate_bill" class="btn blue pull-right">Generate Bill</button>
 	<a href="it_regular_bill" class="btn pull-right"><i class="icon-arrow-left"></i> Back</a>
 </div>
 </form>
@@ -360,6 +360,13 @@ $(document).ready(function() {
 		var row_id=$(this).attr('row_id');
 		calculation(row_id);
 	 });
+	 
+	$('#generate_bill').live('click',function(){
+		
+		$(this).hide();
+		$("#submiting_div").show();
+	});
+	 
 });
 
 
@@ -427,3 +434,16 @@ function calculation(row_id){
 	});
 }
 </script>
+
+<div id="submiting_div" style="display:none;">
+	<div class="modal-backdrop fade in"></div>
+	<div class="modal" id="poll_edit_content">
+		<div class="modal-body">
+		<div align="center">
+		<img src="<?php echo $webroot_path; ?>as/fb_loading.gif" style="height: 15px;" />
+		<h4>Please Wait</h4>
+		<h5>Your data is submiting to database.</h5>
+		</div>
+        </div>
+	</div>
+</div>
