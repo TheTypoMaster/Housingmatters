@@ -62,6 +62,7 @@ else
 <?php 
 }} ?>
 </select>
+<input type="hidden" value="<?php echo $flat; ?>"
 </td>
 <td>
 <?php
@@ -111,7 +112,7 @@ else
 </td>
 
 <td>
-<input type="hidden" value="<?php echo $flat; ?>"
+
 <a href="#" role="button" class="btn mini red delete" del="<?php echo $j; ?>"><i class="icon-remove icon-white"></i></a></td>	
 </tr>
 <?php }} ?>
