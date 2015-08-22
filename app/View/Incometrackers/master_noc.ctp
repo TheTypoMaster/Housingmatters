@@ -96,6 +96,7 @@ $amt = "";
 
 <input type="text" name="amt<?php echo $auto_id; ?>" <?php if($type == 4) { ?> disabled="disabled" <?php } ?>  class="m-wrap medium" id="tx<?php echo $n; ?>" value="<?php echo $amt; ?>"/>
 <input type="hidden" value="<?php echo $auto_id; ?>" id="fltp<?php echo $n; ?>" />
+
 </td>
 </tr>
 <?php
@@ -141,10 +142,20 @@ $amt = "";
 <script>
 $(document).ready(function() {
 $(".go").live('change',function(){
+
 var count = document.getElementById("cnt").value;		
 for(var i=1; i<=count; i++)
 {
 var tp = document.getElementById("tp" + i).value;
+if(tp == 5)
+{
+$("#tx" + i).hide();
+}
+else
+{
+$("#tx" + i).show();	
+}
+
 if(tp == 4)
 {
 $("#tx" + i).value = "none";
@@ -154,6 +165,7 @@ else
 {
 $("#tx" + i).removeAttr('disabled');	
 }
+
 }
 });
 });
