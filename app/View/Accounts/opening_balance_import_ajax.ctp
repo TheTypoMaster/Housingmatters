@@ -37,11 +37,11 @@ $type = $data[1];
 $group_id = (int)$data[5];
 $group = $data[6];
 $flat = (int)$data[8];
-
+$wing_flat = $data[9];
 ?>
 <tr id="tr<?php echo $j; ?>">
 <td>
-<select class="m-wrap span10">
+<select class="m-wrap span6">
 <option value="">Select Group Account</option>
 <?php
 foreach($cursor3 as $collection)
@@ -69,7 +69,7 @@ else
 $ledger_type = (int)$data[4];
 $auto_id = (int)$data[3];
 ?>
-<input type="text" value="<?php echo $data[0]; ?>" class="m-wrap span10" style="background-color:white !important;" />
+<input type="text" value="<?php echo $data[0]; ?>   <?php echo $wing_flat; ?>" class="m-wrap span12" style="background-color:white !important;" readonly="readonly"/>
 <td>
 <?php
 $e = (int)strcasecmp("Debit",$type);

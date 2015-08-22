@@ -3400,6 +3400,8 @@ $amt_type = $child_ex[4];
 $amt = $child_ex[5];
 $pen_amt = $child_ex[6];
 
+$wing_flat = "";
+
 if($group == 'Sundry Creditors Control A/c ')
 {
 $group_id = 15;
@@ -3481,16 +3483,19 @@ foreach($hhhhhh as $fff)
 $wing_id = (int)$fff['user']['wing'];
 $flat_id = (int)$fff['user']['flat'];
 }
-if($flat_id == $flat)
-break;
+
+
 }
+
+
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing,$flat)));
 
 
 $ledger_type = 1;
 }
 
 
- $table[] = array(@$ac_name,@$amt_type,@$amt,@$auto_id,@$ledger_type,@$group_id,@$group,@$pen_amt,@$flat_id);
+ $table[] = array(@$ac_name,@$amt_type,@$amt,@$auto_id,@$ledger_type,@$group_id,@$group,@$pen_amt,@$flat_id,@$wing_flat);
 
 	  } 
       $i++;
