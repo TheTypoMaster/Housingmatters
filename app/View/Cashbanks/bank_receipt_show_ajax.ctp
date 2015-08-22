@@ -73,7 +73,7 @@ if($nnn == 555)
 			}
 			else
 			{
- 			  $reference_utr = $collection['new_cash_bank']['reference_utr'];
+ 			 $reference_utr = $collection['new_cash_bank']['reference_utr'];
  			 $cheque_date = $collection['new_cash_bank']['cheque_date'];
 			}
 			$member_type = $collection['new_cash_bank']['member_type'];
@@ -133,7 +133,9 @@ $reference_utr = '';
 <td><?php echo @$reference_utr; ?> </td>
 <td><?php echo $deposited_bank_name; ?> </td>
 <td><?php echo $narration; ?> </td>
-<td align='right'><?php echo $amount; ?></td>
+<td align='right'><?php 
+$amount = number_format($amount);
+echo $amount; ?></td>
 <td class="hide_at_print"><center>
 <a href="bank_receipt_html_view/<?php echo $receipt_no; ?>" target="_blank" class="btn mini yellow"><i class="icon-search"></i></a>
 <a href="b_receipt_edit/<?php echo $receipt_no; ?>" class="btn mini blue"><i class="icon-edit"></i></a> 
