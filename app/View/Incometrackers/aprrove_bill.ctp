@@ -126,7 +126,7 @@ foreach($result_society as $data){
 	?>
 	</tbody>
 </table>
-<button type="submit" name="approve" class="btn green">APPROVE BILLS</button>
+<button type="submit" name="approve" class="btn green">APPROVE Selected Bills</button>
 </div> 
 </form>
 
