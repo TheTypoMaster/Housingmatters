@@ -79,7 +79,7 @@ echo '<div style="width:80%;margin:auto;border:solid 1px;background-color:#FFF;"
 echo '<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'</div>
 <div align="center" style="border-bottom:solid 1px;">
 <span style="font-size:12px;color:rgb(100, 100, 99);">Regn# '.$society_reg_no.'</span><br/>
-<span style="font-size:12px;color:rgb(100, 100, 99);">Regn# '.$society_address.'</span>
+<span style="font-size:12px;color:rgb(100, 100, 99);">'.$society_address.'</span>
 </div>
 <table width="100%" >
 <tr>

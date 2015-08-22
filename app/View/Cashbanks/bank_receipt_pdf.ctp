@@ -75,12 +75,16 @@ $bank_name = $collection['ledger_sub_account']['name'];
 
 $date=date("d-m-Y",($d_date));
 
+
+
+
+
 $q='<table style="width:100%; background-color:#FFF;" border="1">';
 $q.='<tr><td>';
 $q.='<div align="center" style="width:100%; background-color: rgb(0, 141, 210); font-size:16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'</div>';
 $q.='<div align="center">
 <span style="font-size:12px;color:rgb(100, 100, 99);">Regn# '.$society_reg_no.'</span><br/>
-<span style="font-size:12px;color:rgb(100, 100, 99);">Regn# '.$society_address.'</span>
+<span style="font-size:12px;color:rgb(100, 100, 99);">'.$society_address.'</span>
 </div></td></tr><tr><td>';
 
 $q.='<table width="100%" cellpadding="5px">
