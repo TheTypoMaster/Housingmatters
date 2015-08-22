@@ -150,7 +150,7 @@ echo $amount; ?></td>
 <tr>
 
 <td colspan="8" style="text-align:right;"><b>Total</b></td>
-<td><b><?php 
+<td align="right"><b><?php 
 $total_debit = number_format($total_debit);
 echo $total_debit; ?> <?php //echo "  dr"; ?></b></td>
 <td class="hide_at_print"></td>
