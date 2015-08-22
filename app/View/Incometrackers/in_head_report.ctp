@@ -197,11 +197,14 @@ foreach($result_new_regular_bill as $regular_bill){
 			<td><?php echo @$value; ?></td>	
 			<?php } ?>
 			<td><?php echo $noc_charges; ?></td>
-			<?php foreach(@$other_charges_ids as $other_charges_id){
-				?>
-				<td><?php echo @(int)$other_charges_array[$other_charges_id]; ?></td>
-				<?php
-			} ?>
+			<?php 
+			if(sizeof(@$other_charges_ids)>0){
+				foreach(@$other_charges_ids as $other_charges_id){
+					?>
+					<td><?php echo @(int)$other_charges_array[$other_charges_id]; ?></td>
+					<?php
+				} 
+			}?>
 			<td><?php echo $total; ?></td>
 			<td><?php echo $arrear_maintenance; ?></td>
 			<td><?php echo $arrear_intrest; ?></td>
