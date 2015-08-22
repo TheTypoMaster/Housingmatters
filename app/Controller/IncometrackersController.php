@@ -376,6 +376,7 @@ function regular_bill_preview_screen(){
 		$society_phone=$data["society"]["society_phone"];
 		$terms_conditions=$data["society"]["terms_conditions"];
 		$signature=$data["society"]["signature"];
+		$sig_title=$data["society"]["sig_title"];
 	    $neft_type = @$data["society"]["neft_type"];
 	    $neft_detail = @$data["society"]["neft_detail"];
 	    $society_logo = @$data["society"]["logo"];
@@ -759,7 +760,7 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 			}
 			
 			$bill_html.='</div>
-						<div style="width:30%;float:right;" align="center">For  <b>'.$society_name.'<br><br><br><div align="center"><span style="border-top: solid 1px #424141;">'.$signature.'</span></div></b></div>
+						<div style="width:30%;float:right;" align="center">For  <b>'.$society_name.'<br><br><br><div align="center"><span style="border-top: solid 1px #424141;">'.$sig_title.'</span></div></b></div>
 					</div>
 					<b>
 						<div style="color: #6F6D6D;border: solid 1px black;border-top: dotted 1px;" align="center">Note: This is a computer generated bill hence no signature required.</div>
