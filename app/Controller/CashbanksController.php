@@ -178,9 +178,7 @@ if($receipt_mode == "Cheque")
 {
 
 	 $cheque_number = $this->request->data['cheque_number'];
-	
-	 $cheque_date = $this->request->data['cheque_date'];
-	
+	 $cheque_date = $this->request->data['cheque_date1'];
 	 $drawn_on_which_bank = $this->request->data['drawn_on_which_bank'];
 	}
 else
