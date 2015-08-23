@@ -3653,32 +3653,30 @@ if($insert == 2){
 	
 	
 	
-	$this->loadmodel('ledger_account'); 
-	$conditions=array("ledger_name"=> new MongoRegex('/^' .  $ac_nameqqqq . '$/i'),"group_id"=>$group_id);
-	$result_sac1=$this->ledger_account->find('all',array('conditions'=>$conditions));
+		$this->loadmodel('ledger_account'); 
+		$conditions=array("ledger_name"=> new MongoRegex('/^' .  $ac_nameqqqq . '$/i'),"group_id"=>$group_id);
+		$result_sac1=$this->ledger_account->find('all',array('conditions'=>$conditions));
+		foreach($result_sac1 as $collection2){
+		
 
-	foreach($result_sac1 as $collection2){
-	
-	
-	
+
 		$auto_id = (int)$collection2['ledger_account']['auto_id'];
-		$ledger_type = 2;
-}	
+			$ledger_type = 2;
+		
+		
+		
+		}	
 
-
+	
 	
 	$this->loadmodel('ledger_sub_account'); 
-	$conditions=array("name"=> new MongoRegex('/^' .  $ac_name . '$/i'),"ledger_id"=>$group_id);
+	$conditions=array("name"=> new MongoRegex('/^' .  $ac_nameqqqq . '$/i'),"ledger_id"=>$group_id);
 	$result_sac2=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
 	foreach($result_sac2 as $collection2){
 		$auto_id = (int)$collection2['ledger_sub_account']['auto_id'];
 		$ledger_id = (int)$collection2['ledger_sub_account']['ledger_id'];
 		$ledger_type = 1;
-	
-	
-	
-	
-	}
+		}
 
 
 	
@@ -3723,12 +3721,22 @@ if($insert == 2){
 	$this->ledger->saveAll($multipleRowData); 
 	}
 	}
+	
+	
+	
+	
 	}
+	
+	
 	else if(@$ledger_type == 2)
 	{
 	$current_date = date('Y-m-d');
 	$current_date = new MongoDate(strtotime($current_date));
 
+	
+
+	
+	
 	$op_date = date('Y-m-d',strtotime($date));
 	if($opening_bal != 0)
 	{
