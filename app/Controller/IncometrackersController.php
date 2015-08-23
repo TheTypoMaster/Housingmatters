@@ -710,7 +710,7 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 									</tr>';
 						
 							$bill_html.='<tr>
-									<td style="text-align:right; padding-right:2%;" width="100%">Reversals & Adjustments</td>
+									<td style="text-align:right; padding-right:2%;" width="100%">Credit/Rebates</td>
 									</tr>';
 						
 						
