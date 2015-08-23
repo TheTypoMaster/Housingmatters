@@ -3450,11 +3450,12 @@ $ledger_type = 2;
 $this->loadmodel('ledger_sub_account'); 
 $conditions=array("name"=> new MongoRegex('/^' .  $ac_name . '$/i'),"ledger_id"=>$group_id);
 $result_sac2=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+
 foreach($result_sac2 as $collection2)
 {
 $auto_id = (int)$collection2['ledger_sub_account']['auto_id'];
 if($group_id == 34)
-{
+{ 
 ////////////////
 $wing_name = $child_ex[2];
 $flat_name = $child_ex[3];
@@ -3627,7 +3628,10 @@ die($output);
 foreach($myArray as $child){
 	$opening_bal = 0;
 	$group_id = (int)$child[0];
-	$ac_name = $child[1];
+	$ac_nameqqqq = trim($child[1]);
+	
+
+
 	$debit = $child[2];
 	$credit = $child[3];
 	$insert = (int)$child[4];
@@ -3647,22 +3651,21 @@ foreach($myArray as $child){
 if($insert == 2){
 	$auto_id = "";
 	
+	
+	
 	$this->loadmodel('ledger_account'); 
-	$conditions=array("ledger_name"=> new MongoRegex('/^' .  $ac_name . '$/i'),"group_id"=>$group_id);
+	$conditions=array("ledger_name"=> new MongoRegex('/^' .  $ac_nameqqqq . '$/i'),"group_id"=>$group_id);
 	$result_sac1=$this->ledger_account->find('all',array('conditions'=>$conditions));
+
 	foreach($result_sac1 as $collection2){
 	
-	$output=json_encode(array('report_type'=>'fina','text'=>'Amount (Opening Balance Should be EEE in row '.$group_id));
-die($output);
+	
 	
 		$auto_id = (int)$collection2['ledger_account']['auto_id'];
 		$ledger_type = 2;
 }	
 
-	
 
-$output=json_encode(array('report_type'=>'fina','text'=>'Amount (Opening Balance Should be AAA in row '.$group_id));
-die($output);
 	
 	$this->loadmodel('ledger_sub_account'); 
 	$conditions=array("name"=> new MongoRegex('/^' .  $ac_name . '$/i'),"ledger_id"=>$group_id);
