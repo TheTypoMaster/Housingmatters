@@ -189,17 +189,17 @@ foreach($result_society as $data){
 								if($data4[0]==$income_head){
 									if($data4[1]==1){
 										$ih_charges=$data4[2];
-										$ih_charges=$ih_charges*$multiply;
+										$ih_charges=round($ih_charges*$multiply);
 										echo '<input type="text" class="text_bx call_calculation" name="income_head'.$income_head.$inc.'" value='.$ih_charges.' row_id="'.$inc.'" id="income_head'.$in_count.$inc.'" />';
 									}
 									if($data4[1]==2){
 										$ih_charges=$sq_feet*$data4[2];
-										$ih_charges=$ih_charges*$multiply;
+										$ih_charges=round($ih_charges*$multiply);
 										echo '<input type="text" class="text_bx call_calculation" name="income_head'.$income_head.$inc.'" value='.$ih_charges.' row_id="'.$inc.'" id="income_head'.$in_count.$inc.'" />';
 									}
 									if($data4[1]==3){
 										$ih_charges=$data4[2];
-										$ih_charges=$ih_charges*$multiply;
+										$ih_charges=round($ih_charges*$multiply);
 										echo '<input type="text" class="text_bx call_calculation" name="income_head'.$income_head.$inc.'" value='.$ih_charges.' row_id="'.$inc.'" id="income_head'.$in_count.$inc.'" />';
 									}
 									$total+=$ih_charges;
