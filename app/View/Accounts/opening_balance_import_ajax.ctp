@@ -2,7 +2,7 @@
 <div class="modal-header">
 <h4 id="myModalLabel1">Import csv</h4>
 </div>
-<div class="modal-body" style="overflow:auto;">
+<div class="modal-body" style="overflow:auto;" id="done">
 <div id="vali"></div>
 <table id="open_bal2" style="width:30%;">
 <tr><td>
