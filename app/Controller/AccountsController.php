@@ -3968,7 +3968,7 @@ $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id = (int)$this->Session->read('user_id');
 
 
-$excel = "Group Name,A/c name,wing,unit,Amount Type(Debit or Credit),Amount(Opening Balance),Penalty\n";
+$excel = "Group Name,A/c name,wing,unit,Amount Type(Debit or Credit),Amount(Opening Balance),Penalty \n";
 
 $this->loadmodel('ledger_accounts');
 $conditions = array( '$or' => array( 
@@ -3988,7 +3988,7 @@ $accounts_id = (int)$collection['accounts_group']['accounts_id'];
 $group_name = $collection['accounts_group']['group_name'];	
 }
 
-$excel.= "$group_name,$ledger_name\n";
+$excel.= "$group_name,$ledger_name \n";
 
 }
 
@@ -3999,22 +3999,28 @@ foreach($result1 as $data)
 {
 $ledger_id = (int)$data['ledger_sub_account']['ledger_id'];
 $name = $data['ledger_sub_account']['name'];
+$user_id = @$data['ledger_sub_account']['user_id'];
 
 if($ledger_id==34){
-	$user_id = $data['ledger_sub_account']['user_id'];
-	$profile_picture = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));foreach($profile_picture as $collection){
+
+$profile_picture = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));foreach($profile_picture as $collection){
 		$wing = $collection['user']['wing'];
-		$flat = $collection['user']['flat'];
+		$flat = $collection['user']['flat'];	
 	}
+	}
+
+	
 	$wing_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_fetch'),array('pass'=>array($wing)));
 	foreach($wing_fetch as $collection){
 		$wing_name = $collection['wing']['wing_name'];
 	}
+
+	
 	$flat_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch'),array('pass'=>array($flat)));
 	foreach($flat_fetch as $collection){
 		$flat_name = $collection['flat']['flat_name'];
 	}
-}
+
 
 $result_la = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account'),array('pass'=>array($ledger_id)));
 foreach ($result_la as $collection) 
@@ -4022,10 +4028,12 @@ foreach ($result_la as $collection)
 //$group_id = (int)$collection['ledger_account']['group_id'];	
 $ledger_name = $collection['ledger_account']['ledger_name'];	
 }
+
+
 if($ledger_id==34){
-	$excel.= "$ledger_name,$name,$wing_name,$flat_name\n";
+	$excel.= "$ledger_name,$name,$wing_name,$flat_name \n";
 }else{
-	$excel.= "$ledger_name,$name\n";
+	$excel.= "$ledger_name,$name \n";
 }
 
 }
