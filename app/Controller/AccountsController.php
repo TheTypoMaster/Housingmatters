@@ -3646,15 +3646,23 @@ foreach($myArray as $child){
 
 if($insert == 2){
 	$auto_id = "";
+	
 	$this->loadmodel('ledger_account'); 
 	$conditions=array("ledger_name"=> new MongoRegex('/^' .  $ac_name . '$/i'),"group_id"=>$group_id);
-	$result_ac=$this->ledger_account->find('all',array('conditions'=>$conditions));
-	foreach($result_ac as $collection){
-		$auto_id = (int)@$collection['ledger_account']['auto_id'];
+	$result_sac1=$this->ledger_account->find('all',array('conditions'=>$conditions));
+	foreach($result_sac1 as $collection2){
+	
+	$output=json_encode(array('report_type'=>'fina','text'=>'Amount (Opening Balance Should be EEE in row '.$group_id));
+die($output);
+	
+		$auto_id = (int)$collection2['ledger_account']['auto_id'];
 		$ledger_type = 2;
-	}
+}	
 
+	
 
+$output=json_encode(array('report_type'=>'fina','text'=>'Amount (Opening Balance Should be AAA in row '.$group_id));
+die($output);
 	
 	$this->loadmodel('ledger_sub_account'); 
 	$conditions=array("name"=> new MongoRegex('/^' .  $ac_name . '$/i'),"ledger_id"=>$group_id);
@@ -3663,6 +3671,10 @@ if($insert == 2){
 		$auto_id = (int)$collection2['ledger_sub_account']['auto_id'];
 		$ledger_id = (int)$collection2['ledger_sub_account']['ledger_id'];
 		$ledger_type = 1;
+	
+	
+	
+	
 	}
 
 
