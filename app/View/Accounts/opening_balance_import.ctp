@@ -85,6 +85,7 @@ $('form#form1').submit( function(ev){
 		contentType: false,
 		type: 'POST',
 		}).done(function(response) {
+			
 		$(".show_record").html(response);
 var insert = 1;
 var count = $("#open_bal tr").length;
@@ -114,6 +115,7 @@ url: "save_open_bal?q="+myJsonString,
 type: 'POST',
 dataType:'json',
 }).done(function(response) {
+	
 if(response.report_type=='error'){
 jQuery.each(response.report, function(i, val) {
 	
