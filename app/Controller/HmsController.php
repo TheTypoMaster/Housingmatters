@@ -2488,7 +2488,6 @@ foreach($result as $data)
 {
 $wing_name=$data['wing']['wing_name'];
 }
-
 $this->loadmodel('flat');
 $conditions=array("flat_id" => $flat_id);
 $result2=$this->flat->find('all',array('conditions'=>$conditions));
@@ -2496,14 +2495,36 @@ foreach($result2 as $data)
 {
 $flat_name=$data['flat']['flat_name'];
 }
-
 if(!empty($wing_name) && !empty($flat_name))
 {
 return '('.@$wing_name.'-'.@$flat_name.') ';
 }
-
-
 }
+
+///////////////////////// Start wing flat with bracket ///////////////////////////////////
+function wing_flat_with_brackets($wing_id,$flat_id)
+{
+$this->loadmodel('wing');
+$conditions=array("wing_id" => $wing_id);
+$result=$this->wing->find('all',array('conditions'=>$conditions));
+foreach($result as $data)
+{
+$wing_name=$data['wing']['wing_name'];
+}
+$this->loadmodel('flat');
+$conditions=array("flat_id" => $flat_id);
+$result2=$this->flat->find('all',array('conditions'=>$conditions));
+foreach($result2 as $data)
+{
+$flat_name=$data['flat']['flat_name'];
+}
+if(!empty($wing_name) && !empty($flat_name))
+{
+$wing_flat = "(".$wing_name."-".$flat_name.")";
+return $wing_flat;
+}
+}
+///////////////////// End wing flat with bracket ////////////////////////////////// 
 
 function fetch_wing_id_via_flat_id($flat_id){
 	$s_society_id=$this->Session->read('society_id');

@@ -79,7 +79,6 @@ else
 </center>
 </div> 
 <?php } ?>
-
 <a href="#" class="btn purple pull-right" role="button" id="import">Import csv</a> 
 <br /> 
 <form id="contact-form" method="post" >

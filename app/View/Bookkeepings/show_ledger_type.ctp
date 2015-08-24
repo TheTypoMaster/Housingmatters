@@ -50,10 +50,14 @@ $result_user = $this->requestAction(array('controller' => 'hms', 'action' => 'pr
 	foreach ($result_user as $collection) 
 	{
 	$user_name = $collection['user']['user_name'];  
+	$wing_id = (int)$collection['user']['wing'];
+	$flat_id = (int)$collection['user']['flat'];
 	}
+	
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat_with_brackets'),array('pass'=>array($wing_id,$flat_id)));	
 
 ?>	
-<option value="<?php echo $auto_id; ?>"><?php echo $user_name; ?></option>
+<option value="<?php echo $auto_id; ?>"><?php echo $user_name; ?> &nbsp;&nbsp; <?php echo $wing_flat; ?></option>
 <?php } ?>
 </select>
 </div>
