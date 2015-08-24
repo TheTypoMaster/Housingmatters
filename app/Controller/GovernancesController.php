@@ -915,6 +915,17 @@ function governance_invite_view()
 	}
 }
 
+function governance_invite_draft($invit_id){
+	
+	if($this->RequestHandler->isAjax()){
+	$this->layout='blank';
+	}else{
+	$this->layout='session';
+	}
+	$this->ath();
+		
+}
+
 function governance_invite_view1($id)
 {
 	if($this->RequestHandler->isAjax()){
@@ -999,7 +1010,7 @@ function governance_minutes()
 	
 	
 	$this->loadmodel('governance_invite');
-	$conditions1=array("society_id"=>$s_society_id,'agenda_id'=>0);
+	$conditions1=array("society_id"=>$s_society_id,'agenda_id'=>0,'deleted'=>0);
 	$order=array('governance_invite.governance_invite_id'=>'DESC');
 	$result_gover=$this->governance_invite->find('all',array('conditions'=>$conditions1,'order'=>$order));
 	$this->set('result_governance_invite',$result_gover);
