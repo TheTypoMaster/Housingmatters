@@ -5674,6 +5674,14 @@ function print_all_bill($last_one_time_id=null){
 	$conditions=array("society_id" => $s_society_id);
 	$result_society=$this->society->find('all',array('conditions'=>$conditions));
 	$this->set('result_society',$result_society);
+	
+	
+$this->loadmodel('society');
+$conditions=array("society_id" => $s_society_id);
+$cursor2=$this->society->find('all',array('conditions'=>$conditions));
+$this->set('cursor2',$cursor2);
+	
+	
 }
 ////////////////////////////////// End Regular Bill View (Accounts)//////////////////////////////////////////
 
@@ -6728,14 +6736,6 @@ $reply="accounts@housingmatters.in";
 $this->send_email($email,$from,$from_name,$subject,$html,$reply);
 
 }
-
-
-
-
-
-
-
-
 }
 /////////////////////////////////////// Start Bill bill_reminder ////////////////////////////////////////////////
 function test_page(){
