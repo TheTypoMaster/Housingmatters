@@ -129,8 +129,10 @@ $user_detail = $this->requestAction(array('controller' => 'Bookkeepings', 'actio
 		}
 		if($table_name=="opening_balance" && $arrear_int_type=="YES"){
 			$source="Opening Balance (Penalty)";
+			$description=' - ';
 		}elseif($table_name=="opening_balance"){
 			$source="Opening Balance";
+			$description=' - ';
 		}
 		
 		if(($table_name=="new_regular_bill"  &&  $bill_approved=="yes") || $table_name=="new_cash_bank" || $table_name=="opening_balance"){

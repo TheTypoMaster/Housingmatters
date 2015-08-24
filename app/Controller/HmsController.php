@@ -2499,7 +2499,7 @@ $flat_name=$data['flat']['flat_name'];
 
 if(!empty($wing_name) && !empty($flat_name))
 {
-return @$wing_name.'-'.@$flat_name;
+return '('.@$wing_name.'-'.@$flat_name.') ';
 }
 
 
