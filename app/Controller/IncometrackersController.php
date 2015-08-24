@@ -6757,53 +6757,5 @@ $cursor1 = $this->society->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);
 }
 /////////////////////////////////////// End NEFT Show Ajax ///////////////////////////////////////////////////
-
-/////////////////////////////// Start other_charges_ajax_for_delete //////////////////////////////////////
-function other_charges_ajax_for_delete()
-{
-$this->layout='blank';
-$s_society_id = (int)$this->Session->read('society_id');
-$s_user_id = (int)$this->Session->read('user_id');
-
-$flat_id = (int)$this->request->query('flat');
-$this->set('flat_id',$flat_id);
-
-
-$this->loadmodel('flat');
-$conditions=array("society_id"=>$s_society_id,"flat_id"=>$flat_id);
-$flat_detail = $this->flat->find('all',array('conditions'=>$conditions));
-$this->set('flat_detail',$flat_detail);
-
-$this->loadmodel('ledger_account');
-$conditions=array("group_id"=>7);
-$result_ledger_account=$this->ledger_account->find('all',array('conditions'=>$conditions));
-$this->set('result_ledger_account',$result_ledger_account);
-
-}
-/////////////////////////////// End other_charges_ajax_for_delete //////////////////////////////////////
-////////////////////////// Start delete_other_charges /////////////////////////////////////////////////
-function delete_other_charges()
-{
-if($this->RequestHandler->isAjax()){
-$this->layout='blank';
-}else{
-$this->layout='session';
-}
-
-$other_charges_id = (int)$this->request->query('delete_id');
-echo $flat = (int)$this->request->query('flat');
-exit;
-
-
-
-
-
-
-
-
-
-
-}
-////////////////////////// End delete_other_charges /////////////////////////////////////////////////
 }
 ?>
