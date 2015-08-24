@@ -4068,9 +4068,29 @@ $this->set('cursor3',$cursor3);
 
 function other_charges_all_remove(){
 	$this->layout=null;
-	$flat_id=(int)$this->request->query('con');	
-	$this->loadmodel('flat');
-	$this->flat->updateAll(array('other_charges'=>null),array('flat_id'=>$flat_id));
+	 $status=(int)$this->request->query('con2');
+	 if($status==0){
+			$flat_id=(int)$this->request->query('con');	
+			$this->loadmodel('flat');
+			$this->flat->updateAll(array('other_charges'=>null),array('flat_id'=>$flat_id));
+	 }
+	 if($status==1){
+		
+			 $flat_id=(int)$this->request->query('con');
+		     $inc_head_id=(int)$this->request->query('con3');
+			 $this->loadmodel('flat');
+			 $result_flat=$this->flat->find('all',array('conditions'=>array('flat_id'=>$flat_id)));
+			 $charges=$result_flat[0]['flat']['other_charges'];
+			
+			foreach($charges as $key=>$value){
+				if($key==$inc_head_id){
+					unset($charges[$key]);
+				}
+			}
+		
+			 $this->flat->updateAll(array('other_charges'=>$charges),array('flat_id'=>$flat_id));
+	 }
+	
 	$this->response->header('location:other_charges');
 }
 

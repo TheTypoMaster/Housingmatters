@@ -17,7 +17,7 @@ foreach($result_new_regular_bill as $regular_bill){
 </style>
 <a href="#" class="btn green pull-right hide_at_print" role="button" onclick="window.print()">Print</a>
 <?php echo $bill_html; ?>
-<br />
+
 <?php
 if($size > 0)
 {
@@ -75,7 +75,7 @@ $bank_name = $collection['ledger_sub_account']['name'];
 $date=date("d-m-Y",($d_date));
 ?>
 <?php 
-echo '<div style="width:80%;margin:auto;border:solid 1px;background-color:#FFF;" class="bill_on_screen">';
+echo '<div style="width:80%;margin:auto;border:solid 1px;background-color:#FFF;margin-top:2px;" class="bill_on_screen">';
 echo '<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'</div>
 <div align="center" style="border-bottom:solid 1px;">
 <span style="font-size:12px;color:rgb(100, 100, 99);">Regn# '.$society_reg_no.'</span><br/>

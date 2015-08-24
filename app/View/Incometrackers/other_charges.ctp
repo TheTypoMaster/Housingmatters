@@ -121,9 +121,12 @@ font-weight: bold;
 						<tr>
 							<td><b><?php echo $user_name.' '.$wing_flat; ?></b></td>
 							<td>
-							<span style="float:right;">
-							<a href="#" role="button" idd="<?php echo $flat ; ?>" class="btn black mini other_charges_delete"><i class="icon-remove-sign"></i></a>
+							<span style="float:right;" class="" data-placement="left" data-original-title="delete all charge">
+							<a href="#" role="button" idd="<?php echo $flat ; ?>" class="btn black mini other_charges_delete">Delete All</a>
 							</span>
+							
+							
+							
 							<?php 
 							if(sizeof($result_other_charges)>0){
 									echo '<div class="row-fluid">
@@ -137,9 +140,10 @@ font-weight: bold;
 										$income_head_name = $data2['ledger_account']['ledger_name'];
 									} ?>
 									<div class="row-fluid">
-										<div class="span8"><?php echo $income_head_name; ?>  </div> 
-										<div class="span4"><?php echo $amount; ?>  <span style="float:right;">
-							<a href="#" role="button" idd="<?php echo $flat ; ?>" class="btn black mini other_charges_delete_oneby"><i class="icon-remove-sign"></i></a>
+							<div class="span8"><?php echo $income_head_name; ?></div> 
+							<div class="span4"><?php echo $amount; ?> 
+							<span style="float:right;" class="tooltips" data-placement="left" data-original-title="delete current charge">
+							<a href="#" role="button" idd="<?php echo $flat ; ?>" inch_id="<?php echo $income_head_id ; ?>" class="btn black mini other_charges_delete_oneby"><i class="icon-remove-sign"></i></a>
 							</span></div> 
 									</div>
 								<?php } ?>
@@ -217,11 +221,20 @@ messages: {
 $('.other_charges_delete').bind('click',function(){
 	var id=$(this).attr('idd');
    
-	$('#delete_topic_result').html('<div id="pp"><div class="modal-backdrop fade in"></div><div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true"><div class="modal-body" style="font-size:14px;"><i class="icon-warning-sign" style="color:#d84a38;"></i> Are you sure you want to delete all charges for this flat ? </div><div class="modal-footer"><a href="<?php echo $webroot_path; ?>Incometrackers/other_charges_all_remove?con='+id+'" class="btn blue" id="yes">Yes</a><a href="#"  role="button" id="can" class="btn">No</a></div></div></div>');
+	$('#delete_topic_result').html('<div id="pp"><div class="modal-backdrop fade in"></div><div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true"><div class="modal-body" style="font-size:14px;"><i class="icon-warning-sign" style="color:#d84a38;"></i> Are you sure you want to delete all charges for this flat ? </div><div class="modal-footer"><a href="<?php echo $webroot_path; ?>Incometrackers/other_charges_all_remove?con='+id+'&con2=0" class="btn blue" id="yes">Yes</a><a href="#"  role="button" id="can" class="btn">No</a></div></div></div>');
 	$("#can").live('click',function(){
 	   $('#pp').hide();
 	});
 }); 
+$('.other_charges_delete_oneby').bind('click',function(){
+	var id=$(this).attr('idd');
+    var inch_id=$(this).attr('inch_id');
+	
+	$('#delete_topic_result').html('<div id="pp"><div class="modal-backdrop fade in"></div><div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true"><div class="modal-body" style="font-size:14px;"><i class="icon-warning-sign" style="color:#d84a38;"></i> Are you sure you want to delete this charge for flat ? </div><div class="modal-footer"><a href="<?php echo $webroot_path; ?>Incometrackers/other_charges_all_remove?con='+id+'&con2=1&con3='+inch_id+'" class="btn blue" id="yes">Yes</a><a href="#"  role="button" id="can" class="btn">No</a></div></div></div>');
+	$("#can").live('click',function(){
+	   $('#pp').hide();
+	});
+});
 
 }); 
 </script>
