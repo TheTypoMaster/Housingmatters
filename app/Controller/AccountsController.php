@@ -3243,7 +3243,7 @@ $flat_id = (int)$fff['user']['flat'];
 }
 
 
-$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing,$flat)));
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat_with_brackets'),array('pass'=>array($wing,$flat)));
 
 
 $ledger_type = 1;
