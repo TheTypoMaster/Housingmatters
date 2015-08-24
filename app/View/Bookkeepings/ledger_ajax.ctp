@@ -50,7 +50,7 @@ elseif($get_id == 34)
 				}
 
 
-$wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'wing_flat'), array('pass' => array($wing_id,$flat_id)));
+$wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'wing_flat_with_brackets'), array('pass' => array($wing_id,$flat_id)));
 
 
 

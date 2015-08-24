@@ -90,7 +90,7 @@ $user_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'fet
 			$wing_id = $rrr['user']['wing'];
 			}
 			
-$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat_new'),array('pass'=>array($wing_id,$party_name_id)));
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat_with_brackets'),array('pass'=>array($wing_id,$party_name_id)));
 
 			}
 			else
