@@ -438,7 +438,7 @@ $(document).ready(function() {
 
 		});
 	}
-	make_full_page();
+	//make_full_page();
 
 
 
