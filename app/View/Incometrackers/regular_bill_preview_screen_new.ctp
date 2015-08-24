@@ -449,10 +449,13 @@ function calculation(row_id){
 		var other_charges_count=$('#other_charges_count').val();
 		
 		for(var iqq=1;iqq<=income_head_count;iqq++){
+			//alert('income_head'+iqq+row_id);
 			var income_head_vlaue=parseFloat($('#income_head'+iqq+row_id).val());
 			if($.isNumeric(income_head_vlaue)==false){ income_head_vlaue=0; }
 			total=Math.round(parseFloat(total)+parseFloat(income_head_vlaue));
+			//alert(total);
 		}
+		
 		var noc_charges=parseFloat($('input[name=noc_charges'+row_id+']').val());
 		if($.isNumeric(noc_charges)==false){ noc_charges=0; }
 		total=Math.round(parseFloat(total)+parseFloat(noc_charges));
