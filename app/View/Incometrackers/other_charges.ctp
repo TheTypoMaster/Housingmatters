@@ -107,35 +107,49 @@ font-weight: bold;
 <p style="font-size:18px; font-weight:500;">Delete Other Charges</p>		
 <hr />
 
-<select name="flats[]" data-placeholder="Your Favorite Football Teams" id="flats" class="chosen span12" multiple="multiple" tabindex="6">
-								<option value="">
-								<?php foreach($result_user as $user_data){ 
-								$user_id=(int)$user_data["user"]["user_id"];
-								$user_name=$user_data["user"]["user_name"];
-								$wing=$user_data["user"]["wing"];
-								$flat=$user_data["user"]["flat"];
-								
-								$wing_flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing,$flat))); 
-								?>
-								<option  value="<?php echo $flat; ?>"><?php echo $user_name.' '.$wing_flat; ?>
-								<?php } ?>
-							</select>
+
+
+<label style="font-size:14px;">Select Member</label>
+<div class="controls">
+<select name="flat_resident" class="m-wrap span6" id="flat">
+<option value="" style="display:none;">Select</option>
+<?php
+foreach($flat_detail as $data)
+{
+$flat = (int)$data['flat']['flat_id'];	
+$wing = (int)$data['flat']['wing_id'];
+
+$user_name = "";
+
+	
+$user_detail=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'fetch_user_info_via_flat_id'), array('pass' => array($flat)));
+foreach($user_detail as $user_data)
+{
+$user_name = $user_data['user']['user_name'];	
+}
+
+$wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'wing_flat_with_brackets'), array('pass' => array($wing,$flat)));
+if(!empty($user_name))
+{
+?>
+<option value="<?php echo $flat; ?>"><?php echo $user_name; ?>&nbsp;&nbsp;<?php echo $wing_flat; ?></option>
+<?php
+}
+}
+?>
+</select>
+</div>
+<br />
+
+<div id="show_other_charges">
+</div>
 
 
 
 		
-		
-		<!-- END FORM-->
-		
-		
-		
-		
-
-		
-		
-	 </div>
-	</div>
-	<!-- END VALIDATION STATES-->
+</div>
+</div>
+<!-- END VALIDATION STATES-->
 <script>
 $(document).ready(function(){
 $('#contact-form').validate({
@@ -186,3 +200,34 @@ messages: {
 
 }); 
 </script>
+
+<script>
+$(document).ready(function() {
+$("#flat").bind('change',function(){
+
+var flat_value = $("#flat").val();
+
+$("#show_other_charges").html('Loading...').load("other_charges_ajax_for_delete?flat_id="+flat_value"");
+
+});
+});
+</script>	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
