@@ -6781,6 +6781,16 @@ $this->set('result_ledger_account',$result_ledger_account);
 
 }
 /////////////////////////////// End other_charges_ajax_for_delete //////////////////////////////////////
+////////////////////////// Start delete_other_charges /////////////////////////////////////////////////
+function delete_other_charges()
+{
+if($this->RequestHandler->isAjax()){
+$this->layout='blank';
+}else{
+$this->layout='session';
+}
+
+$other_charges_id = (int)$this->request->query('delete_id');
 
 
 
@@ -6790,5 +6800,10 @@ $this->set('result_ledger_account',$result_ledger_account);
 
 
 
+
+
+
+}
+////////////////////////// End delete_other_charges /////////////////////////////////////////////////
 }
 ?>
