@@ -38,8 +38,8 @@ foreach($result_society as $data){
 <div align="center"><span style="font-size:20px;">Bill Preview</h4></div>
 <form method="Post">
 <div class="container">
-	<div class="component">
-		<table class="overflow-y">
+	<div class="component" style="height:500px;">
+		<table style="height:100%; overflow:auto;">
 			<thead>
 				<tr>
 					<th>Unit Number</th>
