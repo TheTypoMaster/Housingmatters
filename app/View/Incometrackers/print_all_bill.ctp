@@ -4,7 +4,7 @@ foreach($result_new_regular_bill as $regular_bill){
 	echo $bill_html=$regular_bill["new_regular_bill"]["bill_html"];
 	$flat_id=$regular_bill["new_regular_bill"]["flat_id"];
 	$one_time_id=(int)$regular_bill["new_regular_bill"]["one_time_id"];
-	echo '<DIV style="page-break-after:always"></DIV>';
+	
 
 $one_time_id--;	
 $result_new_cash_bank = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'fetch_last_receipt_info_via_flat_id'),array('pass'=>array($flat_id,$one_time_id)));
@@ -137,16 +137,8 @@ echo '<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px
 </tr>
 </table>';
 echo '</div>';
-
-
-
-
-
-
-
-
-
 }
+echo '<DIV style="page-break-after:always"></DIV>';
 }
  ?>
 
