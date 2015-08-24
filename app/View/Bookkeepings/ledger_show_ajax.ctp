@@ -13,6 +13,30 @@ table#report_tb tr:hover td {
 background-color: #E6ECE7;
 }
 </style>
+<?php 
+function substrwords($text, $maxchar, $end='...') {
+    if (strlen($text) > $maxchar || $text == '') {
+        $words = preg_split('/\s/', $text);      
+        $output = '';
+        $i      = 0;
+        while (1) {
+            @$length = strlen($output)+strlen($words[$i]);
+            if ($length > $maxchar) {
+                break;
+            } 
+            else {
+                @$output .= " " . $words[$i];
+                ++$i;
+            }
+        }
+        $output .= $end;
+    } 
+    else {
+        $output = $text;
+    }
+    return $output;
+}
+?>
 <div style="overflow:auto;">
 <a href="#" class="btn blue pull-right" onclick="window.print()"><i class="icon-print"></i> Print</a>
 </div>
@@ -91,6 +115,7 @@ $wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' =
 				$bill_approved="yes";
 				$refrence_no = $result_regular_bill[0]["new_regular_bill"]["bill_no"];
 			    $description = $result_regular_bill[0]["new_regular_bill"]["description"];
+				$description=substrwords($description,200,'...');
 			    $flat_id = (int)$result_regular_bill[0]["new_regular_bill"]["flat_id"]; 
 			
 $user_detail = $this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'fetch_user_info_via_flat_id'), array('pass' => array($flat_id)));		
@@ -106,17 +131,12 @@ $user_detail = $this->requestAction(array('controller' => 'Bookkeepings', 'actio
 		if($table_name=="new_cash_bank"){
 			$source="Receipt"; 
 			$element_id=$element_id+1000;
-			
-
-
-
-			
-			
-			
+					
 			$result_cash_bank=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'receipt_info_via_auto_id'), array('pass' => array($element_id)));
 			$refrence_no=$result_cash_bank[0]["new_cash_bank"]["receipt_id"]; 
 			$flat_id = (int)$result_cash_bank[0]["new_cash_bank"]["party_name_id"];
 			$description = @$result_cash_bank[0]["new_cash_bank"]["narration"];
+			$description=substrwords($description,200,'...');
 			$user_detail = $this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'fetch_user_info_via_flat_id'), array('pass' => array($flat_id)));		
 			foreach($user_detail as $data){
 			$user_name = $data['user']['user_name'];
