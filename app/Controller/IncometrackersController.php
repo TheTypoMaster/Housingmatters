@@ -4116,6 +4116,12 @@ function other_charges(){
 	$conditions=array('society_id'=>$s_society_id,'deactive'=>0);
 	$result=$this->user->find('all',array('conditions'=>$conditions));
 	$this->set('result_user',$result);	
+		
+	$this->loadmodel('flat');	
+	$conditions=array('society_id'=>$s_society_id);
+	$flat_detail=$this->flat->find('all',array('conditions'=>$conditions));
+	$this->set('flat_detail',$flat_detail);	
+		
 	
 	if(isset($this->request->data['add_charges'])){ 
 		$income_head_id=$this->request->data['income_head'];
@@ -6749,9 +6755,36 @@ $this->loadmodel('society');
 $conditions=array("society_id"=>$s_society_id);
 $cursor1 = $this->society->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);
+}
+/////////////////////////////////////// End NEFT Show Ajax ///////////////////////////////////////////////////
+
+/////////////////////////////// Start other_charges_ajax_for_delete //////////////////////////////////////
+function other_charges_ajax_for_delete()
+{
+$this->layout='blank';
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id = (int)$this->Session->read('user_id');
+
+$flat_id = (int)$this->request->query('flat_id');
+$this->set('flat_id',$flat_id);
+
+
+
+
+
+
 
 
 }
-/////////////////////////////////////// End NEFT Show Ajax ///////////////////////////////////////////////////
+/////////////////////////////// End other_charges_ajax_for_delete //////////////////////////////////////
+
+
+
+
+
+
+
+
+
 }
 ?>

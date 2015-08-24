@@ -101,7 +101,9 @@ font-weight: bold;
 				</div>
 				<div class="span5"><button type="submit" name="add_charges" class="btn purple"><i class=" icon-plus-sign"></i> Add charge for selected flats</button></div>
 			</div>
+			</form>
 			
+<<<<<<< HEAD
 			
 			<hr>
 			
@@ -170,6 +172,55 @@ font-weight: bold;
 	</div>
 	<div id="delete_topic_result"></div>
 	<!-- END VALIDATION STATES-->
+=======
+<hr>
+<p style="font-size:18px; font-weight:500;">Delete Other Charges</p>		
+<hr />
+
+
+
+<label style="font-size:14px;">Select Member</label>
+<div class="controls">
+<select name="flat_resident" class="m-wrap span6" id="flat">
+<option value="" style="display:none;">Select</option>
+<?php
+foreach($flat_detail as $data)
+{
+$flat = (int)$data['flat']['flat_id'];	
+$wing = (int)$data['flat']['wing_id'];
+
+$user_name = "";
+
+	
+$user_detail=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'fetch_user_info_via_flat_id'), array('pass' => array($flat)));
+foreach($user_detail as $user_data)
+{
+$user_name = $user_data['user']['user_name'];	
+}
+
+$wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'wing_flat_with_brackets'), array('pass' => array($wing,$flat)));
+if(!empty($user_name))
+{
+?>
+<option value="<?php echo $flat; ?>"><?php echo $user_name; ?>&nbsp;&nbsp;<?php echo $wing_flat; ?></option>
+<?php
+}
+}
+?>
+</select>
+</div>
+<br />
+
+<div id="show_other_charges">
+</div>
+
+
+
+		
+</div>
+</div>
+<!-- END VALIDATION STATES-->
+>>>>>>> origin/master
 <script>
 $(document).ready(function(){
 $('#contact-form').validate({
@@ -238,3 +289,34 @@ $('.other_charges_delete_oneby').bind('click',function(){
 
 }); 
 </script>
+
+<script>
+$(document).ready(function() {
+$("#flat").bind('change',function(){
+
+var flat_value = $("#flat").val();
+
+$("#show_other_charges").html('Loading...').load("other_charges_ajax_for_delete?flat_id="+flat_value"");
+
+});
+});
+</script>	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

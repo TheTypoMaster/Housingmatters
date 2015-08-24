@@ -38,8 +38,8 @@ foreach($result_society as $data){
 <div align="center"><span style="font-size:20px;">Bill Preview</h4></div>
 <form method="Post">
 <div class="container">
-	<div class="component">
-		<table class="overflow-y">
+	<div class="component" style="height:500px;">
+		<table style="height:100%; overflow:auto;">
 			<thead>
 				<tr>
 					<th>Unit Number</th>
@@ -396,18 +396,18 @@ function calculation(row_id){
 		for(var i=1;i<=income_head_count;i++){
 			var income_head_vlaue=parseFloat($('#income_head'+i+row_id).val());
 			if($.isNumeric(income_head_vlaue)==false){ income_head_vlaue=0; }
-			total=total+income_head_vlaue;
-			
+			total=parseFloat(total)+parseFloat(income_head_vlaue);
 		}
 		var noc_charges=parseFloat($('input[name=noc_charges'+row_id+']').val());
 		if($.isNumeric(noc_charges)==false){ noc_charges=0; }
-		total=total+noc_charges;
+		total=parseFloat(total)+parseFloat(noc_charges);
+		
+		
 		
 		for(var i=1;i<=other_charges_count;i++){
 			var other_charges_vlaue=parseFloat($('#other_charges'+i+row_id).val());
 			if($.isNumeric(other_charges_vlaue)==false){ other_charges_vlaue=0; }
-			total=total+other_charges_vlaue;
-			
+			total=parseFloat(total)+parseFloat(other_charges_vlaue);
 		}
 		
 		$('input[name=total'+row_id+']').val(total);
