@@ -448,8 +448,8 @@ function calculation(row_id){
 		var income_head_count=$('#income_head_count').val();
 		var other_charges_count=$('#other_charges_count').val();
 		
-		for(var i=1;i<=income_head_count;i++){
-			var income_head_vlaue=parseFloat($('#income_head'+i+row_id).val());
+		for(var iqq=1;iqq<=income_head_count;iqq++){
+			var income_head_vlaue=parseFloat($('#income_head'+iqq+row_id).val());
 			if($.isNumeric(income_head_vlaue)==false){ income_head_vlaue=0; }
 			total=Math.round(parseFloat(total)+parseFloat(income_head_vlaue));
 		}
@@ -459,8 +459,8 @@ function calculation(row_id){
 		
 		
 		
-		for(var i=1;i<=other_charges_count;i++){
-			var other_charges_vlaue=parseFloat($('#other_charges'+i+row_id).val());
+		for(var iq=1;iq<=other_charges_count;iq++){
+			var other_charges_vlaue=parseFloat($('#other_charges'+iq+row_id).val());
 			if($.isNumeric(other_charges_vlaue)==false){ other_charges_vlaue=0; }
 			total=Math.round(parseFloat(total)+parseFloat(other_charges_vlaue));
 		}
