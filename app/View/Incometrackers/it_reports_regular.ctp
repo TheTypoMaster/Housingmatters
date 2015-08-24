@@ -69,8 +69,13 @@ foreach($cursor3 as $collection)
 $user_id = (int)$collection['user']['user_id'];	
 $user_name = $collection['user']['user_name'];	
 $flat_id = (int)$collection['user']['flat'];
+$wing_id = (int)$collection['user']['wing'];
+
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat_with_brackets'),array('pass'=>			array($wing_id,$flat_id)));	
+
+
 ?>
-<option value="<?php echo $flat_id; ?>"><?php echo $user_name; ?></option>
+<option value="<?php echo $flat_id; ?>"><?php echo $user_name; ?> &nbsp;&nbsp; <?php echo $wing_flat; ?></option>
 <?php } ?>
 </select>
 </div>
