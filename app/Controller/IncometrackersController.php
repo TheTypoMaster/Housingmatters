@@ -4065,6 +4065,15 @@ $this->set('cursor3',$cursor3);
 /////////////////////End Select Income Heads (Accounts)//////////////////////////////
 
 ////START OTHER CHARGES//
+
+function other_charges_all_remove(){
+	$this->layout=null;
+	$flat_id=(int)$this->request->query('con');	
+	$this->loadmodel('flat');
+	$this->flat->updateAll(array('other_charges'=>null),array('flat_id'=>$flat_id));
+	$this->response->header('location:other_charges');
+}
+
 function other_charges(){
 	if($this->RequestHandler->isAjax()){
 	$this->layout='blank';
