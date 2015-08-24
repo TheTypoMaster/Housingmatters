@@ -101,54 +101,30 @@ font-weight: bold;
 				</div>
 				<div class="span5"><button type="submit" name="add_charges" class="btn purple"><i class=" icon-plus-sign"></i> Add charge for selected flats</button></div>
 			</div>
+			</form>
 			
-			
-			<hr>
-			
-			<table class="table table-striped table-bordered table-advance">
-				<tbody>
-				<?php  $sr_no=0; foreach($result_user as $user_data){ $sr_no++;
-					$user_id=(int)$user_data["user"]["user_id"];
-					$user_name=$user_data["user"]["user_name"];
-					$wing=$user_data["user"]["wing"];
-					$flat=$user_data["user"]["flat"];
-					if(!empty($flat)){
-						$wing_flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing,$flat))); 
-						
-						$result_other_charges = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'fetch_other_charges_via_flat_id'),array('pass'=>array($flat))); 
-						if(sizeof($result_other_charges)>0){
-						?>
-						<tr>
-							<td><b><?php echo $user_name.' '.$wing_flat; ?></b></td>
-							<td>
-							<?php 
-							if(sizeof($result_other_charges)>0){
-									echo '<div class="row-fluid">
-											
-										</div>';
-										
-								foreach($result_other_charges as $income_head_id=>$amount){ 
-								 
-									$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($income_head_id)));	
-									foreach($result_income_head as $data2){
-										$income_head_name = $data2['ledger_account']['ledger_name'];
-									} ?>
-									<div class="row-fluid">
-										<div class="span8"><?php echo $income_head_name; ?></div>
-										<div class="span4"><?php echo $amount; ?></div>
-									</div>
-								<?php } ?>
-							<?php } ?>
-							
+<hr>
+<p style="font-size:18px; font-weight:500;">Delete Other Charges</p>		
+<hr />
+
+<select name="flats[]" data-placeholder="Your Favorite Football Teams" id="flats" class="chosen span12" multiple="multiple" tabindex="6">
+								<option value="">
+								<?php foreach($result_user as $user_data){ 
+								$user_id=(int)$user_data["user"]["user_id"];
+								$user_name=$user_data["user"]["user_name"];
+								$wing=$user_data["user"]["wing"];
+								$flat=$user_data["user"]["flat"];
 								
-							</td>
-						</tr>
-				<?php } } }?>
-				</tbody>
-			</table>
+								$wing_flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing,$flat))); 
+								?>
+								<option  value="<?php echo $flat; ?>"><?php echo $user_name.' '.$wing_flat; ?>
+								<?php } ?>
+							</select>
+
+
+
 		
 		
-		</form>
 		<!-- END FORM-->
 		
 		
