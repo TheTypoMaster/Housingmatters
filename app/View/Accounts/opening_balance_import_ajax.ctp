@@ -69,7 +69,7 @@ else
 $ledger_type = (int)$data[4];
 $auto_id = (int)$data[3];
 ?>
-<input type="text" value="<?php echo $data[0]; ?>" class="m-wrap span12" style="background-color:white !important;" readonly="readonly"/>
+<input type="text" value="<?php echo $data[0]; ?>" class="m-wrap span12" style="background-color:white !important;" readonly="readonly"/>&nbsp;&nbsp;<?php echo $wing_flat; ?>
 <td>
 <?php
 $e = (int)strcasecmp("Debit",$type);
