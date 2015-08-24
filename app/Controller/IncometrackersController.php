@@ -6765,15 +6765,19 @@ $this->layout='blank';
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id = (int)$this->Session->read('user_id');
 
-$flat_id = (int)$this->request->query('flat_id');
+$flat_id = (int)$this->request->query('flat');
 $this->set('flat_id',$flat_id);
 
 
+$this->loadmodel('flat');
+$conditions=array("society_id"=>$s_society_id,"flat_id"=>$flat_id);
+$flat_detail = $this->flat->find('all',array('conditions'=>$conditions));
+$this->set('flat_detail',$flat_detail);
 
-
-
-
-
+$this->loadmodel('ledger_account');
+$conditions=array("group_id"=>7);
+$result_ledger_account=$this->ledger_account->find('all',array('conditions'=>$conditions));
+$this->set('result_ledger_account',$result_ledger_account);
 
 }
 /////////////////////////////// End other_charges_ajax_for_delete //////////////////////////////////////

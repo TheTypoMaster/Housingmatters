@@ -296,7 +296,7 @@ $("#flat").bind('change',function(){
 
 var flat_value = $("#flat").val();
 
-$("#show_other_charges").html('Loading...').load("other_charges_ajax_for_delete?flat_id="+flat_value"");
+$("#show_other_charges").load("other_charges_ajax_for_delete?flat="+flat_value+"");
 
 });
 });
