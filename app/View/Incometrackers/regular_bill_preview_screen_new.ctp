@@ -46,11 +46,15 @@ td{
 				{
 					if($i==1){
 						?>
-						{ width: 50, align: 'center' },
+						{ width: 100, align: 'left' },
+						<?php
+					}elseif($i==2){
+						?>
+						{ width: 200, align: 'left' },
 						<?php
 					}else{
 						?>
-						{ width: 100, align: 'center' },
+						{ width: 150, align: 'center' },
 						<?php
 					}
 					
