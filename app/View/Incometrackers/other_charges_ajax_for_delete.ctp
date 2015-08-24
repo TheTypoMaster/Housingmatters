@@ -32,7 +32,7 @@ if(!empty($other_charges_name))
 <tr>
 <td style="text-align:left;"><?php echo $ledger_name; ?></td>
 <td style="text-align:left;"><?php echo $other_charges_name; ?></td>
-<td style="text-align:center;"><a href="delete_other_charges?delete_id=<?php echo $ledger_id; ?>" class="btn mini black">delete</a></td>
+<td style="text-align:center;"><a href="delete_other_charges?delete_id=<?php echo $ledger_id; ?>&flat=<?php echo $flat_id; ?>"class="btn mini black">delete</a></td>
 </tr>
 <?php
 }

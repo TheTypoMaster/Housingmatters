@@ -6791,8 +6791,8 @@ $this->layout='session';
 }
 
 $other_charges_id = (int)$this->request->query('delete_id');
-
-
+echo $flat = (int)$this->request->query('flat');
+exit;
 
 
 
