@@ -1,6 +1,7 @@
 <a href="#" class="btn green pull-right hide_at_print" role="button" onclick="window.print()"><i class="icon-print"></i> Print All</a>
 <?php 
 foreach($result_new_regular_bill as $regular_bill){
+	echo '<div style="height: 8px;"></div>';
 	echo $bill_html=$regular_bill["new_regular_bill"]["bill_html"];
 	$flat_id=$regular_bill["new_regular_bill"]["flat_id"];
 	$one_time_id=(int)$regular_bill["new_regular_bill"]["one_time_id"];
@@ -65,12 +66,9 @@ $bank_name = $collection['ledger_sub_account']['name'];
 $date=date("d-m-Y",($d_date));
 ?>
 <?php 
-echo '<div style="width:80%;margin:auto;border:solid 1px;background-color:#FFF;margin-top:2px;" class="bill_on_screen">';
-echo '<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;">'.strtoupper($society_name).'</div>
-<div align="center" style="border-bottom:solid 1px;">
-<span style="font-size:12px;color:rgb(100, 100, 99);">Regn# '.$society_reg_no.'</span><br/>
-<span style="font-size:12px;color:rgb(100, 100, 99);">'.$society_address.'</span>
-</div>
+echo '<div style="width:80%;margin:auto;border:solid 1px;background-color:#FFF;margin-top:2px;font-size: 12px; line-height: 18px;" class="bill_on_screen">';
+echo '<div align="center" style="background-color:#fff;padding: 5px;font-size: 16px;font-weight: bold;color: #000;border-bottom: solid 1px;">Receipt</div>
+
 <table width="100%" >
 <tr>
 <td>
@@ -107,32 +105,11 @@ echo '<div align="center" style="background-color: rgb(0, 141, 210);padding: 5px
 					echo 'Subject to realization of Cheque(s)';
 				}
 				echo '</td>
+				
+				<td width="50%"><div align="center">For '.$society_name.'<br/><br/>'.$sig_title.'</div></td>
 			</tr>
 		</table>
-		<table width="100%" cellpadding="5px">
-			<tr>
-				<td width="50%"></td>
-				<td align="right">
-				<table width="100%">
-					<tr>
-						<td align="center">
-						For '.$society_name.'
-						</td>
-					</tr>
-				</table>
-				</td>
-			</tr>
-			<tr>
-			<td width="50%"></td>
-			<td align="right">
-			<table width="100%">
-					<tr>
-						<td align="center"><br/>'.$sig_title.'</td>
-					</tr>
-				</table>
-			</td>
-			</tr>
-		</table>
+		
 </td>
 </tr>
 </table>';

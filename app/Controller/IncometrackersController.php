@@ -525,7 +525,7 @@ function regular_bill_preview_screen_new(){
 			}
 	
 /////START BILL HTML////
-$bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
+$bill_html='<div style="width:80%;margin:auto;line-height: 18px;" class="bill_on_screen">
 				<div style="background-color:white; overflow:auto;">
 					<div style="border:solid 1px; overflow:auto;">
 						<div style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;" align="center">'.strtoupper($society_name).'</div>
@@ -640,9 +640,7 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 						} 
 						
 									
-						$bill_html.='<tr>
-									<td style="text-align:left;"><br><br></td>
-									</tr></tbody></table>
+						$bill_html.='</tbody></table>
 								</td>
 								<td valign="top">
 									<table style="width:100%;" border="0"><tbody>';
@@ -666,9 +664,7 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 						} 
 						
 						
-						$bill_html.='<tr>
-									<td style="text-align:left;"><br><br></td>
-									</tr></tbody></table>
+						$bill_html.='</tbody></table>
 								</td>
 							</tr>
 							<tr>
@@ -703,9 +699,9 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 									</tr><tr>
 									<td style="text-align:right; padding-right:2%;" width="100%">Interest on arrears:</td>
 									</tr><tr>
-									<td style="text-align:right; padding-right:2%;" width="100%">Arrears &nbsp; (Maint.):</td>
+									<td style="text-align:right; padding-right:2%;" width="100%">Arrears-Principal:</td>
 									</tr><tr>
-									<td style="text-align:right; padding-right:2%;" width="100%">Arrears &nbsp; (Int.):</td>
+									<td style="text-align:right; padding-right:2%;" width="100%">Arrears-Interest:</td>
 									</tr>';
 						
 							$bill_html.='<tr>
@@ -762,7 +758,7 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 						<div style="width:30%;float:right;" align="center">For  <b>'.$society_name.'<br><br><br><div align="center"><span style="border-top: solid 1px #424141;">'.$sig_title.'</span></div></b></div>
 					</div>
 					<b>
-						<div style="color: #6F6D6D;border: solid 1px black;border-top: dotted 1px;" align="center">Note: This is a computer generated bill hence no signature required.</div>
+						<div style="color: #6F6D6D;border: solid 1px black;border-top: dotted 1px;font-size:12px;font-weight:500;" align="center">Note: This is a computer generated bill hence no signature required.</div>
 						<div style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;border: solid 1px #000;border-top: none;" align="center">
 						<span>Your Society is empowered by HousingMatters - 
 						<i>"Making Life Simpler"</i></span><br>
@@ -1058,7 +1054,7 @@ function regular_bill_preview_screen(){
 			}
 	
 /////START BILL HTML////
-$bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
+$bill_html='<div style="width:80%;margin:auto;line-height: 18px;" class="bill_on_screen">
 				<div style="background-color:white; overflow:auto;">
 					<div style="border:solid 1px; overflow:auto;">
 						<div style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 16px;font-weight: bold;color: #fff;" align="center">'.strtoupper($society_name).'</div>
@@ -1173,9 +1169,7 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 						} 
 						
 									
-						$bill_html.='<tr>
-									<td style="text-align:left;"><br><br></td>
-									</tr></tbody></table>
+						$bill_html.='</tbody></table>
 								</td>
 								<td valign="top">
 									<table style="width:100%;" border="0"><tbody>';
@@ -1199,9 +1193,7 @@ $bill_html='<div style="width:80%;margin:auto;" class="bill_on_screen">
 						} 
 						
 						
-						$bill_html.='<tr>
-									<td style="text-align:left;"><br><br></td>
-									</tr></tbody></table>
+						$bill_html.='</tbody></table>
 								</td>
 							</tr>
 							<tr>
