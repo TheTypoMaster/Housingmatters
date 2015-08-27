@@ -88,7 +88,7 @@ $wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' =
 			<th>Source</th>
             <th>Description</th>
             <th>Party</th>
-			<th>Refrence</th>
+			<th>Reference</th>
 			<th>Debit</th>
 			<th>Credit</th>
 		</tr>
