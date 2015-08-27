@@ -3965,13 +3965,10 @@ foreach($myArray as $child){
 	$p = (int)strcasecmp("PG",$ReceiptMod);
 	if($c == 0){
 		$ChequeNo = $child[2];
-		$DrawnBankname = $child[3];
+		$DrawnBankname = $child[4];
 		$Date1 = $child[8];	
 
-		if(empty($ChequeNo)){
-			$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Cheque Number in row'.$r));
-			die($output);
-		}
+	
 
 		if(empty($DrawnBankname)){
 			$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Drawn Bank name in row'.$r));
