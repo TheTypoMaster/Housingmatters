@@ -41,7 +41,7 @@ $wing_flat = $data[9];
 ?>
 <tr id="tr<?php echo $j; ?>">
 <td>
-<select class="m-wrap span6">
+<select class="m-wrap span10" disabled="disabled">
 <option value="">Select Group Account</option>
 <?php
 foreach($cursor3 as $collection)
@@ -55,7 +55,8 @@ if($group_id == 15 || $group_id == 34 || $group_id == 33 || $group_id == 35)
 <option value="34" <?php if($group_id == 34) { ?> selected="selected" <?php } ?>>Sundry Debtors Control A/c </option>
 <option value="33" <?php if($group_id == 33) { ?> selected="selected" <?php } ?>>Bank Accounts</option>
 <option value="35" <?php if($group_id == 35) { ?> selected="selected" <?php } ?>>Tax deducted at source (TDS receivable)</option>
-<?php }
+<?php 
+}
 else
 { ?>
 <option value="<?php echo $group_id; ?>" <?php if($group_id5 == $group_id) { ?> selected="selected" <?php } ?>><?php echo $group_name1; ?></option>

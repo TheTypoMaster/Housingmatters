@@ -338,7 +338,7 @@ $("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background
 
 $("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
 
-$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
+
 });
 }	
 });
@@ -378,7 +378,6 @@ $("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background
 
 $("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
 
-$("#open_bal tr:nth-child("+val.tr+") td:nth-child("+val.td+")").css("background-color", "#f2dede");
 });
 }
 if(response.report_type=='vali')

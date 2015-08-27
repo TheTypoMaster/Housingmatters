@@ -17,6 +17,7 @@
 <th>Deposited In</th>
 <th>Party Name</th>
 <th>Amount</th>
+<th>Narration</th>
 <th>Delete</th>
 </tr>
 <?php 
@@ -33,6 +34,9 @@ $bank_id = $data[5];
 $Date1 = $data[6];
 $auto_id = $data[7];
 $Amount = $data[8];
+$narration = $data[9];
+
+
 /*
 $c = (int)strcasecmp("Cheque",$ReceiptMod);
 $n = (int)strcasecmp("NEFT",$ReceiptMod);
@@ -114,6 +118,9 @@ $wing_flat = $this->requestAction(array('controller' => 'Incometrackers', 'actio
 </td>
 <td>
 <input type="text" name="" class="m-wrap span12" value="<?php echo $Amount; ?>" />
+</td>
+<td>
+<input type="text" value="<?php echo $narration; ?>" class="m-wrap span12" />
 </td>
 <th><a href="#" role="button" class="btn mini red delete" del="<?php echo $j; ?>"><i class="icon-remove icon-white"></i></a></th>
 </tr>

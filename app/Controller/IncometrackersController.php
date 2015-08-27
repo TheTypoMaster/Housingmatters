@@ -6455,28 +6455,7 @@ $myArray = json_decode($q, true);
 
 if($typ2 == 1)
 {
-foreach($myArray as $child)
-{
 
-if(empty($child[0])){
-$output = json_encode(array('type'=>'error', 'text' => 'Please Fill All Fields'));
-die($output);
-}	
-
-if(empty($child[1]) && $child[1] != 0){
-$output = json_encode(array('type'=>'error', 'text' => 'Please Fill All Fields'));
-die($output);
-}
-
-if(is_numeric($child[1]))
-{
-}	
-else
-{
-$output = json_encode(array('type'=>'error', 'text' => 'Please Fill Numeric value'));
-die($output);
-}
-}
 $output = json_encode(array('type'=>'succ', 'text' => 'Are You Sure'));
 die($output);
 }

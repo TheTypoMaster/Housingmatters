@@ -3230,7 +3230,7 @@ $flat = (int)$flat_id2;
 }
 }
 ///////////////
-$user_id = (int)$collection2['ledger_sub_account']['user_id'];
+$user_id = (int)@$collection2['ledger_sub_account']['user_id'];
 
 $hhhhhh = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));
 foreach($hhhhhh as $fff)
@@ -3379,6 +3379,8 @@ $output=json_encode(array('report_type'=>'fina','text'=>'Total Debit must be Equ
 die($output);
 }
 
+
+
 foreach($myArray as $child){
 	
 	$excel_ledger_id = (int)$child[0];
@@ -3400,31 +3402,53 @@ if($insert == 2){
 		$result_ledger_sub_account=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
 		$ledger_sub_account_id=$result_ledger_sub_account[0]["ledger_sub_account"]["auto_id"];
 
+		
+	
+		
+		
 		$this->loadmodel('ledger');
 		$ledger_auto_id=$this->autoincrement('ledger','auto_id');
 		$this->ledger->saveAll(array("auto_id" => $ledger_auto_id,"ledger_account_id" => 34,"ledger_sub_account_id" => $ledger_sub_account_id,"debit"=>$debit,"credit"=>$credit,"table_name"=>"opening_balance","element_id"=>null,"society_id"=>$s_society_id,"transaction_date"=>strtotime($transaction_date)));
+		
+		
+		
+		
+		
 		
 		if($intrest_arrear>0){
 			$this->loadmodel('ledger');
 			$ledger_auto_id=$this->autoincrement('ledger','auto_id');
 			$this->ledger->saveAll(array("auto_id" => $ledger_auto_id,"ledger_account_id" => 34,"ledger_sub_account_id" => $ledger_sub_account_id,"debit"=>$intrest_arrear,"credit"=>null,"table_name"=>"opening_balance","element_id"=>null,"society_id"=>$s_society_id,"transaction_date"=>strtotime($transaction_date),"arrear_int_type"=>"YES"));
 		}
-		
+	
+
+
+
+	
 	}else{
+	
+	
+		
 		$this->loadmodel('ledger_account'); 
 		$conditions=array("group_id"=>$excel_ledger_id,"ledger_name"=> new MongoRegex('/^' .  $excel_account_name . '$/i'));
 		$result_ledger_account=$this->ledger_account->find('all',array('conditions'=>$conditions));
 		$ledger_account_id=$result_ledger_account[0]["ledger_account"]["auto_id"];
 		
+		
+	
 		$this->loadmodel('ledger');
 		$ledger_auto_id=$this->autoincrement('ledger','auto_id');
 		$this->ledger->saveAll(array("auto_id" => $ledger_auto_id,"ledger_account_id" => $ledger_account_id,"ledger_sub_account_id" => null,"debit"=>$debit,"credit"=>$credit,"table_name"=>"opening_balance","element_id"=>null,"society_id"=>$s_society_id,"transaction_date"=>strtotime($transaction_date)));
-	}
-	
-	
 		
+		
+		
+	}
 }
 } 
+
+
+		
+
 $output=json_encode(array('report_type'=>'done','text'=>'Total Debit must be Equal to Total Credit'));
 die($output);
 }

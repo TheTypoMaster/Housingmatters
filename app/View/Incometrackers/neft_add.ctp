@@ -10,8 +10,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </script>
 </div>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-
-
 <?php
 //echo $d = date('Y-m-d',($d_from));
 //echo $t = date('Y-m-d',($d_to));

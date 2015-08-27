@@ -3741,50 +3741,11 @@ $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id = (int)$this->Session->read('user_id');
 
+$excel = "Transaction Date,Receipt Mode,Cheque No.,Reference/UTR,Drawn Bank name,Deposited In,Date,Member Name,Wing,Flat,Amount,Narration \n";
 
-$this->loadmodel('ledger_sub_account');
-$conditions=array("society_id" => $s_society_id,"ledger_id"=>33);
-$cursor = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
-foreach($cursor as $data)
-{
-$deposited_bank_name = $data['ledger_sub_account']['name'];
-}
+$excel.="12-5-2015,Cheque,55434,445566H,SBBJ,SBBJ,33-5-2015,Abhilash,Wing A,101,5000,Receipt for bill";
 
 
-
-$this->loadmodel('ledger_sub_account');
-$conditions=array("society_id" => $s_society_id,"ledger_id"=>34);
-$cursor = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
-foreach($cursor as $data)
-{
-$resident_name = $data['ledger_sub_account']['name'];
-$user_id = (int)$data['ledger_sub_account']['user_id'];
-}
-
-$user_detail = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'user_fetch'),array('pass'=>array($user_id)));
-foreach($user_detail as $data)
-{
-$flat_id = (int)$data['user']['flat'];
-$wing_id = (int)$data['user']['wing'];
-}
-
-$wing_detail = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'wing_fetch'),array('pass'=>array($wing_id)));
-foreach($wing_detail as $data)
-{
-$wing_name = $data['wing']['wing_name'];
-}
-
-$flat_detail = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'flat_fetch'),array('pass'=>array($flat_id)));
-foreach($flat_detail as $data)
-{
-$flat_name = $data['flat']['flat_name'];
-}
-
-
-
-$excel = "Transaction Date,Receipt Mode,Cheque No.,Reference/UTR,Drawn Bank name,Deposited In,Date,Member Name,Wing,Flat,Amount \n";
-
-$excel.="25-1-2015,Cheque,11001,31235 RRFF,SBBJ,$deposited_bank_name,10-1-2015,$resident_name,$wing_name,$flat_name,5000";
 echo $excel;
 }
 /////////////////////////////// End bank_receipt_import ////////////////////////////////////////////////////////////
@@ -3854,7 +3815,9 @@ $Date1 = $child_ex[6];
 $MemberName = $child_ex[7];
 $Wing = $child_ex[8];
 $Flat = $child_ex[9];
-$Amount = $child_ex[10];	  
+$Amount = $child_ex[10];
+$narration = $child_ex[11];
+	  
 ////////////////////////////////////////////////////////////
 
 $this->loadmodel('wing'); 
@@ -3952,7 +3915,7 @@ $ledger_type = 1;
 }
 */
 
-$table[] = array(@$TransactionDate,@$ReceiptMod,@$ChequeNo,@$Reference,@$DrawnBankname,@$bank_id,@$Date1,@$id_auto,@$Amount);
+$table[] = array(@$TransactionDate,@$ReceiptMod,@$ChequeNo,@$Reference,@$DrawnBankname,@$bank_id,@$Date1,@$id_auto,@$Amount,@$narration);
 } 
 $i++;
 }
@@ -4075,6 +4038,7 @@ foreach($myArray as $child){
 
 	foreach($myArray as $child)	{
 		$r++;
+		$Reference="";
 		$type = (int)$child[9];
 		$current_date = date('Y-m-d');
 		$TransactionDate = $child[0];
@@ -4082,7 +4046,7 @@ foreach($myArray as $child){
 		$bank_id = (int)$child[6];
 		$auto_id77 = (int)$child[7];
 		$amount = $child[8];
-
+        $narration = $child[10];
 		$ledger_sub_account = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($auto_id77)));
 		foreach($ledger_sub_account as $data){
 			$user_id = (int)$data['ledger_sub_account']['user_id'];
@@ -4128,12 +4092,8 @@ foreach($myArray as $child){
 
 	if($type == 2){
 
-		
-
-
-
-			$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'ledger_sub_account_fetch3'),array('pass'=>array($user_id)));
-			foreach($result_flat_info as $flat_info){
+					$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'ledger_sub_account_fetch3'),array('pass'=>array($user_id)));
+						foreach($result_flat_info as $flat_info){
 				$account_id = (int)$flat_info["ledger_sub_account"]["auto_id"];
 			}
 
@@ -4207,7 +4167,7 @@ foreach($myArray as $child){
 			$t1=$this->autoincrement('new_cash_bank','transaction_id');	
 			$k = (int)$this->autoincrement_with_society_ticket('new_cash_bank','receipt_id');
 			$this->loadmodel('new_cash_bank');
-			$multipleRowData = Array( Array("transaction_id"=> $t1, "receipt_id" => $k, "receipt_date" => strtotime($TransactionDate), "receipt_mode" => $ReceiptMod, "cheque_number" =>@$ChequeNo,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>@$DrawnBankname,"reference_utr" => @$Reference,"deposited_bank_id" => $bank_id,"member_type" => 1,"party_name_id"=>$flat_id,"receipt_type" => 1,"amount"=>$amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$flat_id,"bill_auto_id"=>$auto_id,"bill_one_time_id"=>$regular_bill_one_time_id));
+			$multipleRowData = Array( Array("transaction_id"=> $t1, "receipt_id" => $k, "receipt_date" => strtotime($TransactionDate), "receipt_mode" => $ReceiptMod, "cheque_number" =>@$ChequeNo,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>@$DrawnBankname,"reference_utr" => @$Reference,"deposited_bank_id" => $bank_id,"member_type" => 1,"party_name_id"=>$flat_id,"receipt_type" => 1,"amount"=>$amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$flat_id,"bill_auto_id"=>$auto_id,"bill_one_time_id"=>$regular_bill_one_time_id,"narration"=>$narration));
 			$this->new_cash_bank->saveAll($multipleRowData);
 
 			

@@ -14970,8 +14970,8 @@ function import_flat_configuration()
 					 $wing_name=$child_ex[0];
 					 $flat_name=$child_ex[1];
 					 $flat_type=$child_ex[2];
-					 $flat_area=$child_ex[3];
-			if(!empty($flat_type) && !empty($flat_area))
+					 @$flat_area=$child_ex[3];
+			if(!empty($flat_type))
             {			
 			$this->loadmodel('wing'); 
 			$conditions=array("society_id"=>$s_society_id,"wing_name"=> new MongoRegex('/^' .  $wing_name . '$/i'));
@@ -15004,7 +15004,7 @@ function import_flat_configuration()
 					$flat_type_id=0;
 				}	 
 					
-					 $table[]=array($wing_id,$flat_name,$flat_type_id,$flat_area);
+					 $table[]=array($wing_id,$flat_name,$flat_type_id,@$flat_area);
 			}
 		} $i++;
 	}
@@ -21439,9 +21439,6 @@ if(empty($child[2])){
 $report[]=array('tr'=>$c,'td'=>3, 'text' => 'Required');
 }
 
-if(empty($child[3])){
-$report[]=array('tr'=>$c,'td'=>4, 'text' => 'Required');
-}
 
 }
 if(sizeof($report)>0){
@@ -21480,14 +21477,7 @@ if($nnn == 55)
 $output=json_encode(array('report_type'=>'vali','text'=>'Wing and Flat Already Exist in row '.$t));
 die($output);
 }
-if(is_numeric($area))
-{
-}
-else
-{
-$output=json_encode(array('report_type'=>'vali','text'=>'Flat Area Should be Numeric in row '.$t));
-die($output);
-}
+
 }
 $bbbb = "pp";
 foreach($myArray as $child)

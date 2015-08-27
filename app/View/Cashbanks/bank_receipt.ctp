@@ -592,8 +592,8 @@ var Date1=$("#open_bal tr:nth-child("+i+") td:nth-child(6) input").val();
 var bank_id=$("#open_bal tr:nth-child("+i+") td:nth-child(7) select").val();
 var auto_id=$("#open_bal tr:nth-child("+i+") td:nth-child(8) select").val();
 var Amount=$("#open_bal tr:nth-child("+i+") td:nth-child(9) input").val();
-
-ar.push([TransactionDate,ReceiptMod,ChequeNo,Reference,DrawnBankname,Date1,bank_id,auto_id,Amount,insert]);
+var narration=$("#open_bal tr:nth-child("+i+") td:nth-child(10) input").val();
+ar.push([TransactionDate,ReceiptMod,ChequeNo,Reference,DrawnBankname,Date1,bank_id,auto_id,Amount,insert,narration]);
 }
 
 var myJsonString = JSON.stringify(ar);

@@ -9,6 +9,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </script>
 
 <script>
+/*
 function validat()
 {
 var nn = document.getElementById("typ").value;
@@ -24,6 +25,7 @@ if(rs1=== '') { $('#validate_result').html('<div style="background-color:white; 
 }
 }
 }
+*/
 </script>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?><table  align="center" border="1" bordercolor="#FFFFFF" cellpadding="0">
 <tr>
@@ -256,7 +258,7 @@ $(document).ready(function() {
 				if(response.type=='okk'){
 				$("#shwd").hide();
 				}
-				$("#error_msg").html(output);
+				//$("#error_msg").html(output);
 			});
 
 	 
