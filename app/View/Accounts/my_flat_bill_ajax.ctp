@@ -7,9 +7,23 @@ foreach($result_society as $data){
 	$society_phone=$data["society"]["society_phone"];
 }
 
-$result_opening_balance= $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'fetch_opening_balance_via_user_id'),array('pass'=>array($s_user_id)));
 
 
+foreach($result_ledger as $ledger_data){
+	$table_name=$ledger_data["ledger"]["table_name"];
+	$debit=$ledger_data["ledger"]["debit"];
+	$credit=$ledger_data["ledger"]["credit"];
+	$credit=$ledger_data["ledger"]["credit"];
+	$arrear_int_type=@$ledger_data["ledger"]["arrear_int_type"];
+	if($table_name=="opening_balance"){
+		if($arrear_int_type=="YES"){
+			$opening_balance_int=$debit+$credit;
+		}else{
+			$opening_balance=$debit+$credit;
+		}
+	}
+	
+}
 ?>
 	<div align="center" style="color:#606060;">
 		<h4 style="color:#5D9B5D;"><b><?php echo strtoupper($society_name); ?></b></h4>
@@ -30,70 +44,114 @@ $result_opening_balance= $this->requestAction(array('controller' => 'Incometrack
 		<table id="report_tb" width="100%">
 			<tr>
 				<th>Date</th>
+				<th>Reference</th>
 				<th>Description</th>
-				<th>Credit</th>
-				<th>Amount</th>
+				<th>Maint. Charges</th>
+				<th>Interest</th>
+				<th>Credits</th>
+				<th>Account Balance</th>
 			</tr>
-			<?php $no_record=0; ?>
-			<?php foreach($result_opening_balance as $data){
-				$opening_blalance_date= date('Y-m-d',$data["ledger"]["op_date"]->sec);
-				$opening_blalance_date= date("d-M-Y",strtotime($opening_blalance_date));
-				$opening_blalance_compare_date= date("Y-m-d",strtotime($opening_blalance_date));
-				$penalty=@$data["ledger"]["penalty"];
-				$amount=@$data["ledger"]["amount"];
-				$amount_category_id=@$data["ledger"]["amount_category_id"];
-				if(strtotime($opening_blalance_compare_date)>=$from && strtotime($opening_blalance_compare_date)<=$to){
-					$no_record=1;
-			?>
-			<tr>
-				<td><?php echo $opening_blalance_date; ?></td>
-				<td>
-				<?php if($penalty=="YES"){ 
-					echo 'Opening Balance (Intrest Arrears)';
-				}else{
-					echo 'Opening Balance (Maintenance Arrears)';
-				} ?>
-				</td>
-				<td align="right"><?php if($amount_category_id==2){ echo $amount; }else{ echo "-"; } ?></td>
-				<td align="right"><?php if($amount_category_id==1){ echo $amount; }else{ echo "-"; } ?></td>
-			</tr>
-			<?php } } ?>
-			<?php
-			foreach($result_new_regular_bill as $regular_bill){
-				$flat_id=$regular_bill["new_regular_bill"]["flat_id"];
-				$one_time_id=$regular_bill["new_regular_bill"]["one_time_id"];
-				$bill_start_date=$regular_bill["new_regular_bill"]["bill_start_date"];
-				$due_for_payment=$regular_bill["new_regular_bill"]["due_for_payment"];
-				$no_record=1;
+			<?php 
+			if(sizeof($result_ledger)==0){
 				?>
 				<tr>
-					<td><?php echo date("d-M-Y",$bill_start_date); ?></td>
-					<td>Bill for <?php echo date("M-Y",$bill_start_date); ?></td>
-					<td align="right">-</td>
-					<td align="right"><?php echo $due_for_payment; ?></td>
+					<td colspan="7" align="center">No Record Found for above selected period.</td>
 				</tr>
 				<?php
-				$result_new_cash_bank = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'fetch_last_receipt_info_via_flat_id'),array('pass'=>array($flat_id,$one_time_id)));
-					if(sizeof($result_new_cash_bank)>=1){
-						foreach($result_new_cash_bank as $last_receipt){
-							$receipt_date=@$last_receipt["new_cash_bank"]["receipt_date"]; 
-							$receipt_amount=$last_receipt["new_cash_bank"]["amount"];
-						}
-						?>
-						<tr>
-							<td><?php echo date("d-M-Y",$receipt_date); ?></td>
-							<td>Receipt</td>
-							<td align="right"><?php echo $receipt_amount; ?></td>
-							<td align="right">-</td>
-						</tr>
-						<?php
-					}
 			}
-			?>
-			<?php if($no_record==0){
+			$account_balance=0; $total_maint_charges=0; $total_interest=0; $total_credits=0;  $total_account_balance=0; 
+			foreach($result_ledger as $ledger_data){ 
+				$transaction_date=$ledger_data["ledger"]["transaction_date"];
+				$table_name=$ledger_data["ledger"]["table_name"];
+				$element_id=$ledger_data["ledger"]["element_id"];
+				$debit=$ledger_data["ledger"]["debit"];
+				$credit=$ledger_data["ledger"]["credit"];
+				$credit=$ledger_data["ledger"]["credit"];
+				$arrear_int_type=@$ledger_data["ledger"]["arrear_int_type"];
+				$intrest_on_arrears=@$ledger_data["ledger"]["intrest_on_arrears"];
+				if($table_name=="opening_balance"){
+					$description="Opening Balance/Arrears";
+					$refrence_no="";
+					if($arrear_int_type=="YES"){
+						$maint_charges="";
+						$interest=$debit+$credit;
+						$account_balance=$account_balance+(int)$interest;
+					}else{
+						$interest="";
+						$maint_charges=$debit+$credit;
+						$account_balance=$account_balance+(int)$maint_charges;
+					}
+					$credits="";
+					
+					
+				}
+				if($table_name=="new_regular_bill"){
+					$result_regular_bill=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'regular_bill_info_via_auto_id'), array('pass' => array($element_id)));
+					if(sizeof($result_regular_bill)>0){
+						$bill_approved="yes";
+						$refrence_no = $result_regular_bill[0]["new_regular_bill"]["bill_no"];
+						$description = $result_regular_bill[0]["new_regular_bill"]["description"];
+					}
+					
+					
+					if($intrest_on_arrears=="YES"){
+						$maint_charges="";
+						$interest=$debit+$credit;
+						$account_balance=$account_balance+(int)$interest;
+					}else{
+						$interest="";
+						$maint_charges=$debit+$credit;
+						$account_balance=$account_balance+(int)$maint_charges;
+					}
+					$credits="";
+				}
+				if($table_name=="new_cash_bank"){
+					
+					$element_id=$element_id+1000;
+					
+					$result_cash_bank=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'receipt_info_via_auto_id'), array('pass' => array($element_id)));
+					$refrence_no=$result_cash_bank[0]["new_cash_bank"]["receipt_id"]; 
+					$flat_id = (int)$result_cash_bank[0]["new_cash_bank"]["party_name_id"];
+					$description = @$result_cash_bank[0]["new_cash_bank"]["narration"];
+			
+					
+					$interest="";
+					$maint_charges="";
+					$credits=$debit+$credit;
+					$account_balance=$account_balance-(int)$credits;
+				} 
+				$total_maint_charges=$total_maint_charges+(int)$maint_charges;
+				$total_interest=$total_interest+(int)$interest;
+				$total_credits=$total_credits+(int)$credits;
 				?>
-				<tr><td colspan="4" align="center">No Record Found</td></tr>
-				<?php
-			} ?>
+					<tr>
+						<td><?php echo date("d-m-Y",$transaction_date); ?></td>
+						<td>
+						<?php if($table_name=="new_regular_bill"){
+							echo '<a class="tooltips" data-original-title="Click for view Source" data-placement="bottom" href="'.$this->webroot.'Incometrackers/regular_bill_view/'.$element_id.'" target="_blank">'.$refrence_no.'</a>';
+						}
+						if($table_name=="new_cash_bank"){
+							echo '<a class="tooltips" data-original-title="Click for view Source" data-placement="bottom" href="'.$this->webroot.'Cashbanks/bank_receipt_html_view/'.$element_id.'" target="_blank">'.$refrence_no.'</a>';
+						} ?>
+						</td>
+						<td><?php echo $description; ?></td>
+						<td><?php echo $maint_charges; ?></td>
+						<td><?php echo $interest; ?></td>
+						<td><?php echo $credits; ?></td>
+						<td><?php echo $account_balance; ?></td>
+					</tr>
+				
+			<?php } ?>
+					<tr>
+						<td colspan="3" align="right"><b>Total</b></td>
+						<td><b><?php echo $total_maint_charges; ?></b></td>
+						<td><b><?php echo $total_interest; ?></b></td>
+						<td><b><?php echo $total_credits; ?></b></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td colspan="6" align="right" style="color:#33773E;"><b>Closing Balance</b></td>
+						<td style="color:#33773E;"><b><?php echo $account_balance; ?></b></td>
+					</tr>
 		</table>
 	</div>

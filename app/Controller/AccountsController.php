@@ -1065,11 +1065,11 @@ function my_flat_bill(){
 	$this->set("s_user_id",$s_user_id);
 	//fetch user ifp via user_id//
 	$result_user_info=$this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'), array('pass' => array($s_user_id)));
-	foreach ($result_user_info as $collection2) 
-	{
-	$user_name=$collection2["user"]["user_name"];
-	$this->set('user_name',$user_name);
-	$flat_id=$collection2["user"]["flat"];
+	foreach ($result_user_info as $collection2){
+		$user_id=$collection2["user"]["user_id"];
+		$user_name=$collection2["user"]["user_name"];
+		$this->set('user_name',$user_name);
+		$flat_id=$collection2["user"]["flat"];
 	}
 	
 	$this->loadmodel('society');
@@ -1077,11 +1077,17 @@ function my_flat_bill(){
 	$result_society=$this->society->find('all',array('conditions'=>$conditions));
 	$this->set('result_society',$result_society);
 	
-	$this->loadmodel('new_regular_bill');
-	$conditions=array("society_id" => $s_society_id,"flat_id" => $flat_id,'bill_start_date'=> array('$gte' => strtotime($from),'$lte' => strtotime($to)));
+	$this->loadmodel('ledger_sub_account');
+	$conditions=array("society_id" => $s_society_id,"user_id" => (int)$user_id);
+	$result_ledger_sub_account=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+	$ledger_sub_account_id=$result_ledger_sub_account[0]["ledger_sub_account"]["auto_id"];
+	
+	$this->loadmodel('ledger');
+	$conditions=array("society_id" => $s_society_id,"ledger_account_id" => 34,"ledger_sub_account_id" => $ledger_sub_account_id,'transaction_date'=> array('$gte' => strtotime($from),'$lte' => strtotime($to)));
 	$order=array('new_regular_bill.one_time_id'=>'ASC');
-	$result_new_regular_bill=$this->new_regular_bill->find('all',array('conditions'=>$conditions,'order'=>$order));
-	$this->set('result_new_regular_bill',$result_new_regular_bill);
+	$result_ledger=$this->ledger->find('all',array('conditions'=>$conditions,'order'=>$order));
+	$this->set('result_ledger',$result_ledger);
+	//pr($result_ledger);
 
 }
 
@@ -1090,7 +1096,7 @@ function my_flat_bill_ajax($from=null,$to=null){
 	$this->layout='blank';
 	}else{
 	$this->layout='session';
-	}
+	} 
 	 $from=date("Y-m-d",strtotime($from));
 	 $this->set("from",$from);
 	 $to=date("Y-m-d",strtotime($to));
@@ -1103,11 +1109,11 @@ function my_flat_bill_ajax($from=null,$to=null){
 	$this->set("s_user_id",$s_user_id);
 	//fetch user ifp via user_id//
 	$result_user_info=$this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'), array('pass' => array($s_user_id)));
-	foreach ($result_user_info as $collection2) 
-	{
-	$user_name=$collection2["user"]["user_name"];
-	$this->set('user_name',$user_name);
-	$flat_id=$collection2["user"]["flat"];
+	foreach ($result_user_info as $collection2){
+		
+		$user_name=$collection2["user"]["user_name"];
+		$this->set('user_name',$user_name);
+		$flat_id=$collection2["user"]["flat"];
 	}
 	
 	$this->loadmodel('society');
@@ -1115,11 +1121,18 @@ function my_flat_bill_ajax($from=null,$to=null){
 	$result_society=$this->society->find('all',array('conditions'=>$conditions));
 	$this->set('result_society',$result_society);
 	
-	$this->loadmodel('new_regular_bill');
-	$conditions=array("society_id" => $s_society_id,"flat_id" => $flat_id,'bill_start_date'=> array('$gte' => strtotime($from),'$lte' => strtotime($to)));
-	$order=array('new_regular_bill.one_time_id'=>'ASC');
-	$result_new_regular_bill=$this->new_regular_bill->find('all',array('conditions'=>$conditions,'order'=>$order));
-	$this->set('result_new_regular_bill',$result_new_regular_bill);
+	$this->loadmodel('ledger_sub_account');
+	$conditions=array("society_id" => $s_society_id,"user_id" => (int)$s_user_id);
+	$result_ledger_sub_account=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+	$ledger_sub_account_id=$result_ledger_sub_account[0]["ledger_sub_account"]["auto_id"];
+	
+	$this->loadmodel('ledger');
+	$conditions=array("society_id" => $s_society_id,"ledger_account_id" => 34,"ledger_sub_account_id" => $ledger_sub_account_id,'transaction_date'=> array('$gte' => strtotime($from),'$lte' => strtotime($to)));
+	$order=array('ledger.transaction_date'=>'ASC');
+	$result_ledger=$this->ledger->find('all',array('conditions'=>$conditions,'order'=>$order));
+	$this->set('result_ledger',$result_ledger);
+	
+	
 
 }
 /////////////////////////// End My Flat Bill (Accounts) ////////////////////////////
