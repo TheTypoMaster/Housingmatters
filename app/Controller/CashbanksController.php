@@ -3947,9 +3947,9 @@ foreach($myArray as $child){
 	$r++;
 	$TransactionDate = $child[0];
 	$ReceiptMod = $child[1];
-	$bank_id = $child[4];
-	$auto_id = $child[6];
-	$Amount = $child[7];
+	$bank_id = $child[6];
+	$auto_id = $child[7];
+	$Amount = $child[8];
 
 	if(empty($TransactionDate)){
 		$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Transaction Date in row'.$r));
@@ -3966,7 +3966,7 @@ foreach($myArray as $child){
 	if($c == 0){
 		$ChequeNo = $child[2];
 		$DrawnBankname = $child[4];
-		$Date1 = $child[8];	
+		$Date1 = $child[5];	
 
 	
 
@@ -3981,14 +3981,16 @@ foreach($myArray as $child){
 		}
 	}
 	else if($n == 0){
-		$Date1 = $child[4];
+		
+		
+		$Date1 = $child[5];
 		if(empty($Date1)){
 			$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Date in row'.$r));
 			die($output);
 		}
 	}
 	else if($p == 0){
-		$Date1 = $child[4];	
+		$Date1 = $child[5];	
 		
 		if(empty($Date1)){
 			$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Date in row'.$r));
@@ -4000,6 +4002,10 @@ foreach($myArray as $child){
 		die($output);
 	}
 
+		
+	
+	
+	
 	$this->loadmodel('financial_year');
 	$conditions=array("society_id" => $s_society_id,"status"=>1);
 	$cursor = $this->financial_year->find('all',array('conditions'=>$conditions));
@@ -4023,6 +4029,12 @@ foreach($myArray as $child){
 		die($output);
 	}
 
+	if(empty($Amount)){
+		$output=json_encode(array('report_type'=>'validation','text'=>'Please Fill Amount in row'.$r));
+		die($output);
+	
+	}
+	
 	if(is_numeric($Amount)){
 	}
 	else{
@@ -4185,7 +4197,7 @@ foreach($myArray as $child){
 	}
 $output=json_encode(array('report_type'=>'done','text'=>'Please Fill Date in row'));
 die($output);
-
+  
 }
 ///////////////////////////////// End Save bank Imp ///////////////////////////////////////////////////////////////
 ///////////////////////////// Start bank receipt html view //////////////////////////////////////////////////////////////
