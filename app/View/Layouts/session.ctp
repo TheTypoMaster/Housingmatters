@@ -4,7 +4,6 @@
 <title>HousingMatters</title>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 <!-- Include external files and scripts here (See HTML helper for more info.) -->
-
 <?php
 echo $this->fetch('meta');
 $webroot_path=$this->requestAction(array('controller' => 'Hms', 'action' => 'webroot_path'));
