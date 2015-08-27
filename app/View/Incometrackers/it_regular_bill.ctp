@@ -39,8 +39,10 @@ $society_detail = "YES";
 $income_head_detail = 'YES'; 
 foreach($flat_tpp as $data2)
 {
+
 $charge = @$data2['flat_type']['charge'];
 $noc_charge = @$data2['flat_type']['noc_charge'];
+
 if(empty($charge) && empty($noc_charge))
 {
 $income_head_detail = "NOT";
@@ -51,6 +53,28 @@ if(empty($society_income_head) && empty($charge))
 $income_head_detail = "YES";
 break;
 }
+
+$s=55;
+for($t=0; $t<sizeof($charge); $t++)
+{
+$charge_array = $charge[$t];
+if(empty($charge_array[2]))
+{
+$s=555;
+break;	
+}
+}
+if($s == 555)
+{
+$income_head_detail = "NOT";
+break;	
+}
+
+
+
+
+
+
 }
 
 if($income_head_detail == 'YES')
