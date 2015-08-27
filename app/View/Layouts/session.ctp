@@ -4,6 +4,11 @@
 <title>HousingMatters</title>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 <!-- Include external files and scripts here (See HTML helper for more info.) -->
+<script type="text/javascript">
+var key = 1;
+(function(a) {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = 'http://localhost/growth_booster/get_growth_booster.js';var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);}(window, document))
+</script>
+<div id="textDiv"></div>
 <?php
 echo $this->fetch('meta');
 $webroot_path=$this->requestAction(array('controller' => 'Hms', 'action' => 'webroot_path'));
