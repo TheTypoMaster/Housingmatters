@@ -60,11 +60,90 @@ foreach($income_head_arr2 as $data)
 {
 $income_arrr[] = $data;
 }
-
 ?>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+    <div style=" border:solid #CCC;  background:#FFF; width:100%; height:auto !important; overflow:auto;">
+            <h4 style="color: #03C;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;">&nbsp;&nbsp;&nbsp;<i class="icon-money"></i>   Select Income Heads for Bill Charges</h4>
+           
+           
+   <div style="width:40%;  float:left;">        
+            <form method="post" id="contact-form">
+            <br />
+            <label style="font-size:14px;"> &nbsp;&nbsp;&nbsp; Select Income Heads<span style="color:red;">*</span></label>
+            <div class="controls">
+            	&nbsp;&nbsp;&nbsp;	<select data-placeholder="Select Account Heads"  name="i_head[]" id="i_head" class="m-wrap span10 chosen" multiple="multiple" tabindex="6">	
+           			 <option value="" style="display:none;">Select</option>
+            		<?php
+            		for($r=0; $r<sizeof($income_arrr); $r++)
+           			 { 
+            		$income_id = (int)$income_arrr[$r];
+            
+					$ledgerac = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($income_id)));			
+					foreach($ledgerac as $collection2)
+					{
+					$ac_name = $collection2['ledger_account']['ledger_name'];
+					$ac_id = (int)$collection2['ledger_account']['auto_id'];		
+					}
+					?>
+					<option value="<?php echo $income_id; ?>"><?php echo $ac_name; ?></option>
+					<?php } ?>
+					</select>
+					<label report="head" class="remove_report"></label>
+</div>
+<br />        
+ &nbsp;&nbsp;&nbsp; <a href="<?php echo $webroot_path; ?>Incometrackers/select_income_heads" class="btn" rel='tab'>Cancel</a>
+<button type="submit" class="btn green form_post" name="sub" submit_type="sub">Submit</button>
+<br />
+</form>
+</div>
 
-<div style="background-color:#fff;padding:5px;width:96%;margin:auto;" class="form_div">
+<div style="width:55%; float:right; overflow:hidden;">
+<table class="table table-bordered table-stripped" style="width:100%; overflow:Y-scroll;">
+<tr>
+<th>Sr #</th>
+<th>Account Name</th>
+</tr>
+<?php 
+$m=0;
+foreach($cursor3 as $collection)
+{
+$income_head_arr = @$collection['society']['income_head'];
+}
+$m=0;
+for($i=0; $i<sizeof(@$income_head_arr); $i++)
+{
+$m++;
+$income_head_id = (int)$income_head_arr[$i];	
+$result1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($income_head_id)));	
+foreach($result1 as $collection)
+{
+$income_head_name = $collection['ledger_account']['ledger_name'];	
+}
+?>
+<tr>
+<td><?php echo $m; ?></td>
+<td><?php echo $income_head_name; ?>
+<input type="hidden" id="delinc" value="<?php echo $income_head_id; ?>" />
+</td>
+<td>
+<a onclick="delt(<?php echo $income_head_id; ?>)" class="btn mini black">Delete</a>
+</td>
+</tr>
+<?php } ?>
+</table>
+</div>
+
+
+</div>
+<br />
+<br />
+<?php //////////////////////////////////////////////////////////////////////////////////////////////////////////?>
+
+
+
+<?php
+/*
+<div style="background-color:#fff;padding:5px;width:96%;margin:auto; height:1200px; !important;">
 <h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Select Income Heads for Bill Charges</h4>
 <form method="post" id="contact-form">
 <div class="row-fluid">
@@ -138,9 +217,10 @@ $income_head_name = $collection['ledger_account']['ledger_name'];
 </div>
 </div>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<?php //////////////////////////////////////////////////////////////////////////////////////////////////////////?>
 </form> 
 </div>
+<?php
+*/ ?>
 <?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 
   <script>
