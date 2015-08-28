@@ -1,4 +1,2 @@
-Transaction Date,Receipt Mode,Cheque No.,Reference/UTR,Drawn Bank name,Deposited In,Date,Member Name,Wing,Flat,Amount,Narration
-25-01-2015,Cheque,3432,fg,SBI,SBI,25-01-2015,Rohit Joshi,A,101,5000,
-25-01-2015,NEFT,3432,gfdg,SBI,SBI,25-01-2015,Nikhil,A,102,6000,
-25-01-2015,PG,3432,dfg,SBI,SBI,25-01-2015,Rohit Joshi,A,106,7000,
+Transaction Date,Receipt Mode,Cheque No.,Reference/UTR,Drawn Bank name,Deposited In,Date,Member Name,Wing,Flat,Amount,Narration 
+25-08-2015,NEFT,646,reference,SBI,SBI,15-08-2015,Rohit,A,104,10000,narration

@@ -54,7 +54,6 @@ $to_strtotime = strtotime($date_to);
 $this->set('from',$from);
 $this->set('to',$to);
 
-
 $this->loadmodel('new_cash_bank');
 $conditions=array('society_id'=>$s_society_id,'new_cash_bank.receipt_date'=>array('$gte'=>$from_strtotime,'$lte'=>$to_strtotime));
 $cursor2=$this->new_cash_bank->find('all',array('conditions'=>$conditions));
@@ -165,19 +164,15 @@ $conditions=array("ledger_id" => 33,"society_id"=>$s_society_id);
 $cursor3=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
 $this->set('cursor3',$cursor3);
 
-if(isset($this->request->data['bank_receipt_add']))
-{
-
-///////////////////////////////////////////
-$current_date = date('Y-m-d');
-
- $transaction_date = $this->request->data['transaction_date'];
- $transaction_date = date('Y-m-d',strtotime($transaction_date));
- $receipt_mode = $this->request->data['receipt_mode'];
+	if(isset($this->request->data['bank_receipt_add']))
+	{
+	$current_date = date('Y-m-d');
+	$receipt_date = $this->request->data['transaction_date'];
+	$receipt_date2 = date('Y-m-d',strtotime($receipt_date));
+	$receipt_mode = $this->request->data['receipt_mode'];
 if($receipt_mode == "Cheque")
 {
-
-	 $cheque_number = $this->request->data['cheque_number'];
+ $cheque_number = $this->request->data['cheque_number'];
 	 $cheque_date = $this->request->data['cheque_date1'];
 	 $drawn_on_which_bank = $this->request->data['drawn_on_which_bank'];
 	}
@@ -287,11 +282,10 @@ if($member_type == 1)
 			$this->loadmodel('new_regular_bill');
 			$this->new_regular_bill->updateAll(array('new_arrear_intrest'=>$new_arrear_intrest,"new_intrest_on_arrears"=>$new_intrest_on_arrears,"new_arrear_maintenance"=>$new_arrear_maintenance,"new_total"=>$new_total),array('auto_id'=>$auto_id));
 
-/////////////////////////////////////////////////////////////////////////////
-    $t1=$this->autoincrement('new_cash_bank','transaction_id');
+	$t1=$this->autoincrement('new_cash_bank','transaction_id');
 	$k = (int)$this->autoincrement_with_society_ticket('new_cash_bank','receipt_id');
 	$this->loadmodel('new_cash_bank');
-	$multipleRowData = Array( Array("transaction_id"=> $t1,"receipt_id" => $k, "receipt_date" => strtotime($transaction_date), "receipt_mode" => $receipt_mode, "cheque_number" =>@$cheque_number,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>@$drawn_on_which_bank,"reference_utr" => @$reference_utr,"deposited_bank_id" => $deposited_bank_id,"member_type" => $member_type,"party_name_id"=>$party_name,"receipt_type" => $receipt_type,"amount" => $amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$party_name,"bill_auto_id"=>$auto_id,"bill_one_time_id"=>$regular_bill_one_time_id,"narration"=>$narration));
+	$multipleRowData = Array( Array("transaction_id"=> $t1,"receipt_id" => $k, "receipt_date" => strtotime($receipt_date2), "receipt_mode" => $receipt_mode, "cheque_number" =>@$cheque_number,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>@$drawn_on_which_bank,"reference_utr" => @$reference_utr,"deposited_bank_id" => $deposited_bank_id,"member_type" => $member_type,"party_name_id"=>$party_name,"receipt_type" => $receipt_type,"amount" => $amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$party_name,"bill_auto_id"=>$auto_id,"bill_one_time_id"=>$regular_bill_one_time_id,"narration"=>$narration));
 	$this->new_cash_bank->saveAll($multipleRowData);
 	
 	
@@ -308,12 +302,12 @@ if($member_type == 1)
 
 $l=$this->autoincrement('ledger','auto_id');
 $this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($transaction_date), "debit" => $amount, "credit" =>null,"ledger_account_id" => 33, "ledger_sub_account_id" => $deposited_bank_id, "table_name" => "new_cash_bank","element_id" => $t1, "society_id" => $s_society_id));
+$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($receipt_date2), "debit" => $amount, "credit" =>null,"ledger_account_id" => 33, "ledger_sub_account_id" => $deposited_bank_id, "table_name" => "new_cash_bank","element_id" => $t1, "society_id" => $s_society_id));
 $this->ledger->saveAll($multipleRowData); 
 
 $l=$this->autoincrement('ledger','auto_id');
 $this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($transaction_date), "credit" => $amount, "debit" =>null,"ledger_account_id" => 34, "ledger_sub_account_id" => $account_id,"table_name" => "new_cash_bank","element_id" => $t1, "society_id" => $s_society_id));
+$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($receipt_date2), "credit" => $amount, "debit" =>null,"ledger_account_id" => 34, "ledger_sub_account_id" => $account_id,"table_name" => "new_cash_bank","element_id" => $t1, "society_id" => $s_society_id));
 $this->ledger->saveAll($multipleRowData);
 //////////////////////////////////////////////////
 
@@ -512,7 +506,7 @@ if($receipt_type == 2)
 	$t2=$this->autoincrement('new_cash_bank','transaction_id');
 	$k = (int)$this->autoincrement_with_society_ticket('new_cash_bank','receipt_id');
 	$this->loadmodel('new_cash_bank');
-	$multipleRowData = Array( Array("transaction_id"=>$t2, "receipt_id" => $k, "receipt_date" => strtotime($transaction_date), "receipt_mode" => $receipt_mode, "cheque_number" =>@$cheque_number,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>@$drawn_on_which_bank,"reference_utr" => @$reference_utr,"deposited_bank_id" => $deposited_bank_id,"member_type" => $member_type,"party_name_id"=>$party_name,"receipt_type" => $receipt_type,"amount" => $amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$party_name,"narration"=>$narration));
+	$multipleRowData = Array( Array("transaction_id"=>$t2, "receipt_id" => $k, "receipt_date" => strtotime($receipt_date2), "receipt_mode" => $receipt_mode, "cheque_number" =>@$cheque_number,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>@$drawn_on_which_bank,"reference_utr" => @$reference_utr,"deposited_bank_id" => $deposited_bank_id,"member_type" => $member_type,"party_name_id"=>$party_name,"receipt_type" => $receipt_type,"amount" => $amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$party_name,"narration"=>$narration));
 	$this->new_cash_bank->saveAll($multipleRowData);
 
 	$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($party_name)));
@@ -527,12 +521,12 @@ if($receipt_type == 2)
 
 $l=$this->autoincrement('ledger','auto_id');
 $this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($transaction_date), "debit" => $amount, "credit" =>null, "ledger_account_id" => 33, "ledger_sub_account_id" => $deposited_bank_id,"table_name" => "new_cash_bank","element_id" => $t2, "society_id" => $s_society_id,));
+$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($receipt_date2), "debit" => $amount, "credit" =>null, "ledger_account_id" => 33, "ledger_sub_account_id" => $deposited_bank_id,"table_name" => "new_cash_bank","element_id" => $t2, "society_id" => $s_society_id,));
 $this->ledger->saveAll($multipleRowData); 
 
 $l=$this->autoincrement('ledger','auto_id');
 $this->loadmodel('ledger');
-$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($transaction_date), "credit" => $amount, "debit" =>null, "ledger_account_id" => 34, "ledger_sub_account_id" => $account_id,"table_name" => "new_cash_bank","element_id" => $t2, "society_id" => $s_society_id,));
+$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($receipt_date2), "credit" => $amount, "debit" =>null, "ledger_account_id" => 34, "ledger_sub_account_id" => $account_id,"table_name" => "new_cash_bank","element_id" => $t2, "society_id" => $s_society_id,));
 $this->ledger->saveAll($multipleRowData);
 	
 }
@@ -542,7 +536,7 @@ else if($member_type == 2)
 $t3=$this->autoincrement('new_cash_bank','transaction_id');
 $k = (int)$this->autoincrement_with_society_ticket('new_cash_bank','receipt_id');
 $this->loadmodel('new_cash_bank');
-$multipleRowData = Array( Array("transaction_id"=>$t3,"receipt_id" => $k, "receipt_date" => strtotime($transaction_date), "receipt_mode" => $receipt_mode, "cheque_number" =>@$cheque_number,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>@$drawn_on_which_bank,"reference_utr" => @$reference_utr,"deposited_bank_id" => $deposited_bank_id,"member_type" => $member_type,"party_name_id"=>$party_name,"receipt_type" => @$receipt_type,"amount" => $amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$party_name,"narration"=>$narration,"bill_reference"=>$bill_reference));
+$multipleRowData = Array( Array("transaction_id"=>$t3,"receipt_id" => $k, "receipt_date" => strtotime($receipt_date2), "receipt_mode" => $receipt_mode, "cheque_number" =>@$cheque_number,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>@$drawn_on_which_bank,"reference_utr" => @$reference_utr,"deposited_bank_id" => $deposited_bank_id,"member_type" => $member_type,"party_name_id"=>$party_name,"receipt_type" => @$receipt_type,"amount" => $amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$party_name,"narration"=>$narration,"bill_reference"=>$bill_reference));
 $this->new_cash_bank->saveAll($multipleRowData);
 }
 	
@@ -4051,6 +4045,7 @@ foreach($myArray as $child){
 		$type = (int)$child[9];
 		$current_date = date('Y-m-d');
 		$TransactionDate = $child[0];
+		$TransactionDate = date('Y-m-d',strtotime($TransactionDate));
 		$ReceiptMod = $child[1];
 		$bank_id = (int)$child[6];
 		$auto_id77 = (int)$child[7];
