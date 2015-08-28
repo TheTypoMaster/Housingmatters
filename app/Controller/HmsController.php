@@ -21798,7 +21798,7 @@ function set_ledger_sub_acc_users(){
 function convert_number_to_words($number) {
             $hyphen      = '-';
             $conjunction = ' and ';
-            $separator   = ', ';
+            $separator   = '  ';
             $negative    = 'negative ';
             $decimal     = ' point ';
             $dictionary  = array(
