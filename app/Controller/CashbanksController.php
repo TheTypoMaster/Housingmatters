@@ -170,9 +170,9 @@ $this->set('cursor3',$cursor3);
 	{
 	$current_date = date('Y-m-d');
 	$receipt_date = $this->request->data['transaction_date']; 
-	echo strtotime("1-2-2015"); exit;
+	 
 	$TransactionDate = date('Y-m-d',strtotime($receipt_date));
-	echo $TransactionDate = strtotime($TransactionDate); exit;
+	$TransactionDate = strtotime($TransactionDate);
 	
 	$receipt_mode = $this->request->data['receipt_mode'];
 	if($receipt_mode == "Cheque")
