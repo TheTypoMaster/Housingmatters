@@ -51,10 +51,25 @@ foreach($result_society as $data){
 			<th><?php echo $income_head_name; ?></th>	
 			<?php } ?>
 			<th width="170px">Non Occupancy charges</th>
+			
+			<?php 
+			if(sizeof(@$other_charges_ids)>0){
+				foreach($other_charges_ids as $other_charges_id){
+					$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($other_charges_id)));	
+						foreach($result_income_head as $data2){
+							$income_head_name = $data2['ledger_account']['ledger_name'];
+						}
+					?>
+					<th><?php echo $income_head_name; ?></th>
+					<?php
+				} 
+			}?>
+			
 			<th width="50px">Total</th>
 			<th width="120px">Arrears (Maint.)</th>
 			<th width="120px">Arrears (Int.)</th>
 			<th width="120px">Interest on Arrears </th>
+			<th>Credit/Rebates</th>
 			<th width="120px">Due For Payment</th>
 			<th><input style="opacity: 0;" value="" type="checkbox" id="select_all" onclick="select_all_check()"></th>
 		</tr>
@@ -67,11 +82,13 @@ foreach($result_society as $data){
 			$flat_id=$data3["new_regular_bill"]["flat_id"];
 			$bill_no=$data3["new_regular_bill"]["bill_no"];
 			$income_head_array=$data3["new_regular_bill"]["income_head_array"];
+			$other_charges_array=$data3["new_regular_bill"]["other_charges_array"];
 			$noc_charges=$data3["new_regular_bill"]["noc_charges"];
 			$total=$data3["new_regular_bill"]["total"];
 			$arrear_maintenance=$data3["new_regular_bill"]["arrear_maintenance"];
 			$arrear_intrest=$data3["new_regular_bill"]["arrear_intrest"];
 			$intrest_on_arrears=$data3["new_regular_bill"]["intrest_on_arrears"];
+			$credit_stock=$data3["new_regular_bill"]["credit_stock"];
 			$due_for_payment=$data3["new_regular_bill"]["due_for_payment"];
 			
 			//wing_id via flat_id//
@@ -109,10 +126,21 @@ foreach($result_society as $data){
 			<td><?php echo $income_head_array[$income_head_id]; ?></td>	
 			<?php } ?>
 			<td><?php echo $noc_charges; ?></td>
+			
+			<?php 
+			if(sizeof(@$other_charges_ids)>0){
+				foreach(@$other_charges_ids as $other_charges_id){
+					?>
+					<td><?php echo @(int)$other_charges_array[$other_charges_id]; ?></td>
+					<?php
+				} 
+			}?>
+			
 			<td><?php echo $total; ?></td>
 			<td><?php echo $arrear_maintenance; ?></td>
 			<td><?php echo $arrear_intrest; ?></td>
 			<td><?php echo $intrest_on_arrears; ?></td>
+			<td><?php echo $credit_stock; ?></td>
 			<td><?php echo $due_for_payment; ?></td>
 			<td>
 			<label class="checkbox">

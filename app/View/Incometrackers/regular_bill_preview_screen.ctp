@@ -70,7 +70,7 @@ foreach($result_society as $data){
 					<th>Arrears (Maint.)</th>
 					<th>Arrears (Int.)</th>
 					<th>Interest on Arrears </th>
-					<th>Credit/Stock</th>
+					<th>Credit/Rebates</th>
 					<th>Due For Payment</th>
 				</tr>
 			</thead>

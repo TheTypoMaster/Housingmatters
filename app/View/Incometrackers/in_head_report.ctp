@@ -143,7 +143,8 @@ foreach($result_new_regular_bill as $regular_bill){
 			<th>Total</th>
 			<th>Arrears (Maint.)</th>
 			<th>Arrears (Int.)</th>
-			<th>Interest on Arrears </th>
+			<th>Interest on Arrears</th>
+			<th>Credit/Rebates</th>
 			<th>Due For Payment</th>
 			<th>View|Edit</th>
 		</tr>
@@ -165,6 +166,7 @@ foreach($result_new_regular_bill as $regular_bill){
 		$arrear_maintenance=$regular_bill["new_regular_bill"]["arrear_maintenance"];
 		$arrear_intrest=$regular_bill["new_regular_bill"]["arrear_intrest"];
 		$intrest_on_arrears=$regular_bill["new_regular_bill"]["intrest_on_arrears"];
+		$credit_stock=$regular_bill["new_regular_bill"]["credit_stock"];
 		$due_for_payment=$regular_bill["new_regular_bill"]["due_for_payment"];
 		//wing_id via flat_id//
 		$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_id)));
@@ -209,6 +211,7 @@ foreach($result_new_regular_bill as $regular_bill){
 			<td><?php echo $arrear_maintenance; ?></td>
 			<td><?php echo $arrear_intrest; ?></td>
 			<td><?php echo $intrest_on_arrears; ?></td>
+			<td><?php echo $credit_stock; ?></td>
 			<td><?php echo $due_for_payment; ?></td>
 			<td><a href="regular_bill_view/<?php echo $auto_id; ?>" target="_blank" class="btn mini yellow"><i class="icon-search"></i></a>
 			<a href="regular_bill_edit2/<?php echo $auto_id; ?>" role="button" rel='tab' class="btn mini blue"><i class="icon-edit"></i></a>

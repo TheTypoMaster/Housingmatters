@@ -423,24 +423,24 @@ $(document).ready(function() {
 </script>
 <script src="<?php echo $webroot_path ; ?>/as/bootstrap-maxlength.min.js"></script>
 	
-    <script>
-        $(document).ready(function () {
-            $(
-                'input#alloptions'
-            ).maxlength({
-                alwaysShow: true,
-                warningClass: "label label-success",
-                limitReachedClass: "label label-warning",
-                separator: ' out of ',
-                preText: 'You typed ',
-                postText: ' chars available.',
-                validate: true
-            });
+<script>
+	$(document).ready(function () {
+		$(
+			'input#alloptions'
+		).maxlength({
+			alwaysShow: true,
+			warningClass: "label label-success",
+			limitReachedClass: "label label-warning",
+			separator: ' out of ',
+			preText: 'You typed ',
+			postText: ' chars available.',
+			validate: true
+		});
 
-            $(
-                'textarea#textarea'
-            ).maxlength({
-                alwaysShow: true
-            });
-        });
-    </script>
+		$(
+			'textarea#textarea'
+		).maxlength({
+			alwaysShow: true
+		});
+	});
+</script>
