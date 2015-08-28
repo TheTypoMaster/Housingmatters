@@ -99,7 +99,7 @@ foreach($result_society as $data){
 				<tr>
 					<th>Unit Number</th>
 					<th width="200px;">Name<?php echo $space; ?></th>
-					<th>Area<?php echo $space; ?></th>
+					<th>Area (sq. feet)<?php echo $space; ?></th>
 					<th>Bill No.</th>
 					<?php foreach($income_heads as $income_head){ 
 					$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($income_head)));	
@@ -125,7 +125,7 @@ foreach($result_society as $data){
 					<th>Arrears (Maint.)</th>
 					<th>Arrears (Int.)</th>
 					<th>Interest on Arrears </th>
-					<th>Credit/Stock</th>
+					<th>Credit/Rebates</th>
 					<th>Due For Payment</th>
 				</tr>
 			</thead>
