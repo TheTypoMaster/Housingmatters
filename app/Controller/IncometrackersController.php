@@ -762,7 +762,7 @@ $bill_html='<div style="width:80%;margin:auto;line-height: 18px;" class="bill_on
 						<div style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;border: solid 1px #000;border-top: none;" align="center">
 						<span>Your Society is empowered by HousingMatters - 
 						<i>"Making Life Simpler"</i></span><br>
-						<span style="color:#FFF;">Email: support@housingmatters.in</span> &nbsp;|&nbsp; <span>Phone : 022-41235568</span> &nbsp;|&nbsp; <span style="color:#FFF;">www.housingmatters.co.in</span></div>
+						<span style="color:#FFF;">Email: <a href="#" style="color:#FFF;">support@housingmatters.in</a></span> &nbsp;|&nbsp; <span>Phone : 022-41235568</span> &nbsp;|&nbsp; <span style="color:#FFF;"><a href="#"  style="color:#FFF;">www.housingmatters.co.in</a></span></div>
 					</b>
 				</div>
 			</div>';
