@@ -54,16 +54,16 @@ if($nnn == 555)
 <th>Amount</th>
 <th class="hide_at_print">View|Edit|Pdf</th> 
 </tr>
-<?php
-			$total_credit = 0;
-			$total_debit = 0;
-			$n=0;
-			foreach ($cursor2 as $collection) 
-			{
-			$n++;
-			$receipt_no = $collection['new_cash_bank']['receipt_id'];
-			$receipt_mode = $collection['new_cash_bank']['receipt_mode'];
-			$TransactionDate = $collection['new_cash_bank']['receipt_date'];
+		<?php
+        	$total_credit = 0;
+        	$total_debit = 0;
+       		 $n=0;
+        foreach ($cursor2 as $collection) 
+        	{
+       	 	$n++;
+        	$receipt_no = $collection['new_cash_bank']['receipt_id'];
+        	$receipt_mode = $collection['new_cash_bank']['receipt_mode'];
+        	$TransactionDate = $collection['new_cash_bank']['receipt_date'];
 						
 					if($receipt_mode == "Cheque")
 					{
