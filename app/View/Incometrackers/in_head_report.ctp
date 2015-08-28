@@ -141,8 +141,8 @@ foreach($result_new_regular_bill as $regular_bill){
 				} 
 			}?>
 			<th>Total</th>
-			<th>Arrears (Maint.)</th>
-			<th>Arrears (Int.)</th>
+			<th>Arrears-Principal</th>
+			<th>Arrears-Interest</th>
 			<th>Interest on Arrears</th>
 			<th>Credit/Rebates</th>
 			<th>Due For Payment</th>

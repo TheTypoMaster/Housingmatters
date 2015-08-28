@@ -66,8 +66,8 @@ foreach($result_society as $data){
 			}?>
 			
 			<th width="50px">Total</th>
-			<th width="120px">Arrears (Maint.)</th>
-			<th width="120px">Arrears (Int.)</th>
+			<th width="120px">Arrears-Principal</th>
+			<th width="120px">Arrears-Interest</th>
 			<th width="120px">Interest on Arrears </th>
 			<th>Credit/Rebates</th>
 			<th width="120px">Due For Payment</th>
