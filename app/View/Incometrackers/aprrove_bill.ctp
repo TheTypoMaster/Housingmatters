@@ -41,7 +41,7 @@ foreach($result_society as $data){
 		<tr>
 			<th width="100px">Unit Number</th>
 			<th width="40px">Name</th>
-			<th width="40px">Area</th>
+			<th width="40px">Area (sq. feet)</th>
 			<th width="70px">Bill No.</th>
 			<?php foreach($income_heads as $income_head){ 
 			$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($income_head)));	

@@ -117,7 +117,7 @@ foreach($result_new_regular_bill as $regular_bill){
 		    <tr>
 			<th>Unit Number</th>
 			<th>Name</th>
-			<th>Area</th>
+			<th>Area (sq. feet)</th>
 			<th>Bill No.</th>
 			<?php foreach($income_head_array as $income_head=>$value){ 
 			$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($income_head)));	

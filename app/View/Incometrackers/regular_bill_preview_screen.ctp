@@ -44,7 +44,7 @@ foreach($result_society as $data){
 				<tr>
 					<th>Unit Number</th>
 					<th width="200px;">Name<?php echo $space; ?></th>
-					<th>Area<?php echo $space; ?></th>
+					<th>Area (sq. feet)<?php echo $space; ?></th>
 					<th>Bill No.</th>
 					<?php foreach($income_heads as $income_head){ 
 					$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($income_head)));	
@@ -442,7 +442,7 @@ function calculation(row_id){
 		<div align="center">
 		<img src="<?php echo $webroot_path; ?>as/fb_loading.gif" style="height: 15px;" />
 		<h4>Please Wait</h4>
-		<h5>Your data is submiting to database.</h5>
+		<h5>Your data is under processing, kindly wait.</h5>
 		</div>
         </div>
 	</div>

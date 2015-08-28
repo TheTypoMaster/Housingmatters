@@ -556,7 +556,7 @@ Dear Sir, For Regular Bill genereation you have to full fill the Non Occupancy C
 		<div align="center">
 		<img src="<?php echo $webroot_path; ?>as/fb_loading.gif" style="height: 15px;" />
 		<h4>Please Wait</h4>
-		<h5>Your data is submiting to database.</h5>
+		<h5>Your data is under processing, kindly wait.</h5>
 		</div>
         </div>
 	</div>
