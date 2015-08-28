@@ -63,9 +63,8 @@ if($nnn == 555)
 			$n++;
 			$receipt_no = $collection['new_cash_bank']['receipt_id'];
 			$receipt_mode = $collection['new_cash_bank']['receipt_mode'];
-			echo $TransactionDate = $collection['new_cash_bank']['receipt_date'];
-			echo date("Y-m-d",$TransactionDate);
-			
+			$TransactionDate = $collection['new_cash_bank']['receipt_date'];
+						
 					if($receipt_mode == "Cheque")
 					{
 						$reference_utr = $collection['new_cash_bank']['cheque_number'];
