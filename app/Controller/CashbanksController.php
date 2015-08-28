@@ -34,6 +34,7 @@ $this->set('s_role_id',$s_role_id);
 function bank_receipt_show_ajax()
 {
 $this->layout='blank';
+
 $this->ath();
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = $this->Session->read('society_id');
