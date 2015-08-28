@@ -162,7 +162,7 @@ $user_detail = $this->requestAction(array('controller' => 'Bookkeepings', 'actio
 			<td><?php echo date("d-m-Y",$transaction_date); ?></td>
 			<td><?php echo $source; ?></td>
             <td><?php echo @$description; ?></td>
-            <td><?php echo $user_name; ?>  <?php echo $wing_flat; ?></td>
+            <td><?php echo @$user_name; ?>  <?php echo $wing_flat; ?></td>
             <td>
 			<?php if($table_name=="new_regular_bill"){
 				echo '<a href="'.$this->webroot.'Incometrackers/regular_bill_view/'.$element_id.'" target="_blank">'.$refrence_no.'</a>';
