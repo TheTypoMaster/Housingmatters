@@ -27,9 +27,7 @@ foreach($result_ledger as $ledger_data){
 ?>
 	<div align="center" style="color:#606060;">
 		<h4 style="color:#5D9B5D;"><b><?php echo strtoupper($society_name); ?></b></h4>
-		Regn # <?php echo $society_reg_num; ?><br/>
-		<?php echo $society_address; ?><br/>
-		Email: <?php echo $society_email; ?> | Phone : <?php echo $society_phone; ?>
+		
 	</div>
 	<div class="row-fluid" style="font-size:14px;">
 		<div class="span6">
@@ -46,7 +44,7 @@ foreach($result_ledger as $ledger_data){
 				<th>Date</th>
 				<th>Reference</th>
 				<th>Description</th>
-				<th>Maint. Charges</th>
+				<th>Maintenance Bill</th>
 				<th>Interest</th>
 				<th>Credits</th>
 				<th>Account Balance</th>
