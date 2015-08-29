@@ -29,13 +29,13 @@ if($type == 1 && !empty($flat_id)){
        
        
         <div id="myModal2" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="false" style="display: block;">
-        <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-        <h3 id="myModalLabel2">Alert Header</h3>
-        </div>
-        <div class="modal-body">
-        <p>Body goes here...</p>
-        </div>
+       <table class="table">
+      	<tr><th style="background-color:#3CF;">Bill Detail (<?php echo $bill_no; ?>)</th></tr>
+       	<tr><td><?php echo $bill_start_date; ?></td></tr>
+       	<tr><td><?php echo $due_date; ?></td></tr>
+        <tr><td><?php echo $due_for_payment; ?></td></tr>
+        <tr><td><?php echo $due_for_payment-$total_amount; ?></td></tr>
+        </table>
         <div class="modal-footer">
         <button data-dismiss="modal" class="btn green">OK</button>
         </div>
