@@ -72,7 +72,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;Cheque No.<span style="color:red;">*</span></label>
 <div class="controls">
 &nbsp;&nbsp;&nbsp;<input type="text"  name="cheque_number" class="m-wrap span3" placeholder="Cheque No." style="background-color:white !important;" id="ins"> &nbsp;&nbsp; 
-<input type="text"  class="date-picker m-wrap span4" name="cheque_date1" data-date-format="dd-mm-yyyy" />
+<input type="text"  class="date-picker m-wrap span4" name="cheque_date1" data-date-format="dd-mm-yyyy" placeholder="Date" />
 &nbsp;&nbsp;&nbsp;<label id="ins"></label> &nbsp;&nbsp; <label id="ins"></label>
 </div>
 
@@ -106,9 +106,9 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <br /> 
 </div> 
  
-<label style="font-size:14px;">Deposited In<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select deposit bank "> </i></label>
+<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Deposited In<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select deposit bank "> </i></label>
 <div class="controls">
-<select name="deposited_bank_id" class="span9 m-wrap chosen" id="bank">
+&nbsp;&nbsp;<select name="deposited_bank_id" class="span9 m-wrap chosen" id="bank">
 <option value="" style="display:none;">which bank?</option>    
 <?php
 foreach ($cursor3 as $db) 
@@ -121,7 +121,7 @@ $bank_account_number = $db['ledger_sub_account']["bank_account"];
 <option value="<?php echo $bank_id; ?>"><?php echo $bank_ac; ?> &nbsp;&nbsp; <?php echo $bank_account_number; ?></option>
 <?php } ?>
 </select>
-<label id="bank"></label>
+&nbsp;&nbsp;<label id="bank"></label>
 </div>
 <br />
 
@@ -184,22 +184,7 @@ PG
 
  
 <!-----------------------------------------------------------------------------------------------
-<label style="font-size:14px;">Deposited In<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select deposit bank "> </i></label>
-<div class="controls">
-<select name="bank_account" class="span9 m-wrap chosen" id="bank">
-<option value="" style="display:none;">which bank?</option>    
-<?php
-foreach ($cursor3 as $db) 
-{
-$bank_id = (int)$db['ledger_sub_account']["auto_id"];
-$bank_ac = $db['ledger_sub_account']["name"];
-?>
-<option value="<?php //echo $bank_id; ?>"><?php //echo $bank_ac; ?></option>
-<?php } ?>
-</select>
-<label id="bank"></label>
-</div>
-<br />
+
 
 
 <label style="font-size:14px;">Narration<span style="color:red;">*</span></label>
@@ -513,25 +498,10 @@ error.appendTo('label#' + element.attr('id'));
 		</script>	
 		
 <script>
-$(document).ready(function() {
-$(".chn").live('click',function(){
-$('#cheque_div').show();    
-$('#neft_div').hide();
-$('#aaa').hide();
-});
 
-$(".neft").live('click',function(){
-$('#cheque_div').hide();    
-$('#neft_div').show(); 
-$('#aaa').show();	
-});
 
-$(".pg").live('click',function(){
-$('#cheque_div').hide();    
-$('#neft_div').show(); 
-$('#aaa').show();	
-});
-});
+
+
 </script>	
 
 
