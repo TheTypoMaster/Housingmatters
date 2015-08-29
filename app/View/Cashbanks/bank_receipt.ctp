@@ -151,24 +151,27 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Received from<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose member/non-member "> </i></label>
 <div class="controls">
 &nbsp;&nbsp;<label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="member_type" class="hhh" value="1" style="opacity: 0;" id="mem"></span></div>
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="member_type" class="hhh" value="1" style="opacity: 0;" id="mem" onclick="for_residential()"></span></div>
 Residential
 </label>
 <label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="member_type" class="go6" value="2" style="opacity: 0;" onclick="hidediv('div12')" id="mem"></span></div>
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="member_type" class="go6" value="2" style="opacity: 0;" onclick="hidediv('div12')" id="mem" onclick="for_non_residential()"></span></div>
 Non-Residential
 </label>
 <label id="mem"></label>
 </div>
 <br />
-
 </div>
 
 <div style="background-color:#FFF; width:50%; float:right; overflow:hidden;">
 
+
+<div id="for_resident_view">
+
+
 <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Select Resident<span style="color:red;">*</span></label>
 <div class="control">
-&nbsp;&nbsp;<select name="resident_name" class="m-wrap span9">
+&nbsp;&nbsp;<select name="resident_name" class="m-wrap span9" id="resident_flat_id">
 <option value="">Select Resident</option>
 <?php
 foreach($cursor1 as $data)
@@ -193,13 +196,21 @@ $flat_id = (int)$user_data['user']['flat'];
 <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Receipt Type<span style="color:red;">*</span></label>
 <div class="controls">
 &nbsp;&nbsp;<label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="member_type" class="hhh" value="1" style="opacity: 0;" id="mem"></span></div>Maintanace Receipt</label>
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_type" class="hhh" value="1" style="opacity: 0;" id="receipt_for"></span></div>Maintanace Receipt</label>
 <label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="member_type" class="go6" value="2" style="opacity: 0;" onclick="hidediv('div12')" id="mem"></span></div>Other Receipt</label>
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_type" class="go6" value="2" style="opacity: 0;" onclick="hidediv('div12')" id="receipt_for"></span></div>Other Receipt</label>
 <label id="mem"></label>
 <br />
+</div>
+</div>
 
 
+<div id="result">
+
+
+</div>
+
+<!--
 <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Amount<span style="color:red;">*</span></label>
 <div class="controls">
 &nbsp;&nbsp;<input type="text" name="amount" class="m-wrap span9" placeholder="Amount" style="background-color:white !important;" id="amount"/>
@@ -211,7 +222,7 @@ $flat_id = (int)$user_data['user']['flat'];
 <div class="controls">
 &nbsp;&nbsp;<textarea   rows="4" name="description" class="span9 m-wrap" placeholder="Narration" style="background-color:white !important;resize:none;" id="nar" ></textarea>
 </div>
-
+-->
 
 
 
@@ -235,6 +246,14 @@ $("#cheque_show_by_query").hide();
 $("#neft_show").show();
 }
 
+function for_non_residential()
+{
+alert();	
+}
+function for_residential()
+{
+$("#for_resident_view").show();
+}
 </script>	
 
 
@@ -242,17 +261,24 @@ $("#neft_show").show();
 
 <!--  End Bank Receipt form Front End  -->
  
-		<?php
-		/*
-		<script>
-		$(document).ready(function() {
-		$("#ttt").live('click',function(){
 		
-		var type = $('#ttt:checked').val();
-		var value1 = document.getElementById('go').value;
-		//var date2=document.getElementById('date2').value;
-		$("#result").load("bank_receipt_reference_ajax?value1=" +value1+ "&t=" +type+ "");
+		
+		<script>
+		$(document).ready(function(){
+		
+		$("#resident_flat_id").bind('change',function(){
+		var flat_id = document.getElementById('resident_flat_id').value;
+		var receipt_for = $('#receipt_for:checked').val();
+		$("#result").load("bank_receipt_reference_ajax?flat=" +flat_id+ "&rf=" +receipt_for+ "");
 		});
+				
+		$("#receipt_for").bind('click',function(){
+		var flat_id = document.getElementById('resident_flat_id').value;
+		var receipt_for = $('#receipt_for:checked').val();
+		$("#result").load("bank_receipt_reference_ajax?flat=" +flat_id+ "&rf=" +receipt_for+ "");
+		});
+		
+
 		
 		$("#i_head").live('change',function(){
 		
@@ -264,27 +290,24 @@ $("#neft_show").show();
 		
 		});
 		</script>	  
-		*/
-		?>		  
+			  
 		
 		
 	
 <script>
-function hidediv(id)
-{
-	document.getElementById('div13').style.display='block';
-	document.getElementById(id).style.display='none';
-}
-$(document).ready(function() {
-	$(".hhh").live('click',function(){
+		function hidediv(id)
+		{
+		document.getElementById('div13').style.display='block';
+		document.getElementById(id).style.display='none';
+		}
+		$(document).ready(function() {
+		$(".hhh").live('click',function(){
 		document.getElementById('div12').style.display='block';
 		document.getElementById('div13').style.display='none';
 		
 		
 	
 	$("#div11").html('Loading...').load("bank_receipt_ajax?ff=" + 5 + "");
-	
-	
 	});
 	
 	$(".go6").live('click',function(){
@@ -421,60 +444,58 @@ error.appendTo('label#' + element.attr('id'));
 
 }); 
 </script>
+
 <script>
-		$(document).ready(function() {
+$(document).ready(function() {
+
 		$("#vali").bind('click',function(){
-        
 		var fi = document.getElementById("fi").value;
 		var ti = document.getElementById("ti").value;
 		var cn = document.getElementById("cn").value;
 		var fe = fi.split(",");
 		var te = ti.split(",");
 		var date1 = document.getElementById("date").value;
-		
 		var date = date1.split("-").reverse().join("-");
-				
 		var nnn = 55;
-		for(var i=0; i<cn; i++)
-		{
-		var fd = fe[i];
-		var td = te[i]
-		
-		    if(date == "")
+			for(var i=0; i<cn; i++)
 			{
-				nnn = 555;
+			var fd = fe[i];
+			var td = te[i]
+			if(date == "")
+			{
+			nnn = 555;
 			break;	
 			}
 			else if(Date.parse(fd) <= Date.parse(date))
-		     {
-			 if(Date.parse(td) >= Date.parse(date))
-			 {
-				 nnn = 5;
-				 break;
-			 }
-			 else
-			 {
+			{
+			if(Date.parse(td) >= Date.parse(date))
+			{
+			nnn = 5;
+			break;
+			}
+			else
+			{
 				 
-			 }
-        	 } 
-			 }
+			}
+        	} 
+			}
 			 
 		
-		if(nnn == 55)
-		{
-		$("#result11").load("cash_bank_vali?ss=" + 2 + "");
-        return false;	
-		}
-		else if(nnn == 555)
-		{
+			if(nnn == 55)
+			{
+			$("#result11").load("cash_bank_vali?ss=" + 2 + "");
+			return false;	
+			}
+			else if(nnn == 555)
+			{
 			
-		}
-		else
-		{
-		$("#result11").load("cash_bank_vali?ss=" + 12 + "");		
-		}
-		});
-		});
+			}
+			else
+			{
+			$("#result11").load("cash_bank_vali?ss=" + 12 + "");		
+			}
+			});
+			});
 		</script>	
 		
 
@@ -494,17 +515,17 @@ $("#myModal3").hide();
 });
 </script>
 
-<script>
-$(document).ready(function(){
-	
-	
-$(".delete").live('click',function(){
-var id = $(this).attr("del");
-$('#tr'+id).remove();
-});	
-	
-	
-	$('form#form1').submit( function(ev){
+
+	<!-- Start Bank Receipt query -->
+
+		<script>
+        $(document).ready(function(){
+
+		$(".delete").live('click',function(){
+		var id = $(this).attr("del");
+		$('#tr'+id).remove();
+		});	
+		$('form#form1').submit( function(ev){
 		ev.preventDefault();
 		
 		var im_name=$("#image-file").val();
@@ -516,70 +537,67 @@ $('#tr'+id).remove();
 		
 		var ext = $('#image-file').val().split('.').pop().toLowerCase();
 		if($.inArray(ext, ['csv']) == -1) {
-			$("#vali").html("<span style='color:red;'>Please Select a Csv File</span>");
-			return false;
+		$("#vali").html("<span style='color:red;'>Please Select a Csv File</span>");
+		return false;
 		}
 
-		$(".import_btn").text("Importing...");
-		var m_data = new FormData();
-		
-		m_data.append( 'file', $('input[name=file]')[0].files[0]);
-		$.ajax({
+			$(".import_btn").text("Importing...");
+			var m_data = new FormData();
+			m_data.append( 'file', $('input[name=file]')[0].files[0]);
+			$.ajax({
 			url: "bank_receipt_import_ajax",
 			data: m_data,
 			processData: false,
 			contentType: false,
 			type: 'POST',
-		}).done(function(response){
+			}).done(function(response){
 			$("#myModal3").hide();
 			$("#url_main").html(response);
 		
-$(".bank_receipt_import").bind('click',function(){
-var count = $("#open_bal tr").length;
-var ar = [];
+			$(".bank_receipt_import").bind('click',function(){
+			var count = $("#open_bal tr").length;
+			var ar = [];
+			var insert = 2;
 
-var insert = 2;
+			for(var i=2; i<=count; i++)
+			{
+			$("#open_bal tr:nth-child("+i+") span.report").remove();
+			$("#open_bal tr:nth-child("+i+") span.report").css("background-color","#FFF;");
+			var TransactionDate = $("#open_bal tr:nth-child("+i+") td:nth-child(1) input").val();
+			var ReceiptMod=$("#open_bal tr:nth-child("+i+") td:nth-child(2) input").val();
+			var ChequeNo=$("#open_bal tr:nth-child("+i+") td:nth-child(3) input").val();
+			var Reference=$("#open_bal tr:nth-child("+i+") td:nth-child(4) input").val();
+			var DrawnBankname=$("#open_bal tr:nth-child("+i+") td:nth-child(5) input").val();
+			var Date1=$("#open_bal tr:nth-child("+i+") td:nth-child(6) input").val();
+			var bank_id=$("#open_bal tr:nth-child("+i+") td:nth-child(7) select").val();
+			var auto_id=$("#open_bal tr:nth-child("+i+") td:nth-child(8) select").val();
+			var Amount=$("#open_bal tr:nth-child("+i+") td:nth-child(9) input").val();
+			var narration=$("#open_bal tr:nth-child("+i+") td:nth-child(10) input").val();
+			ar.push([TransactionDate,ReceiptMod,ChequeNo,Reference,DrawnBankname,Date1,bank_id,auto_id,Amount,insert,narration				]);
+			}
 
-for(var i=2; i<=count; i++)
-{
-$("#open_bal tr:nth-child("+i+") span.report").remove();
-$("#open_bal tr:nth-child("+i+") span.report").css("background-color","#FFF;");
-var TransactionDate = $("#open_bal tr:nth-child("+i+") td:nth-child(1) input").val();
-var ReceiptMod=$("#open_bal tr:nth-child("+i+") td:nth-child(2) input").val();
-var ChequeNo=$("#open_bal tr:nth-child("+i+") td:nth-child(3) input").val();
-var Reference=$("#open_bal tr:nth-child("+i+") td:nth-child(4) input").val();
-var DrawnBankname=$("#open_bal tr:nth-child("+i+") td:nth-child(5) input").val();
-var Date1=$("#open_bal tr:nth-child("+i+") td:nth-child(6) input").val();
-var bank_id=$("#open_bal tr:nth-child("+i+") td:nth-child(7) select").val();
-var auto_id=$("#open_bal tr:nth-child("+i+") td:nth-child(8) select").val();
-var Amount=$("#open_bal tr:nth-child("+i+") td:nth-child(9) input").val();
-var narration=$("#open_bal tr:nth-child("+i+") td:nth-child(10) input").val();
-ar.push([TransactionDate,ReceiptMod,ChequeNo,Reference,DrawnBankname,Date1,bank_id,auto_id,Amount,insert,narration]);
-}
-
-var myJsonString = JSON.stringify(ar);
-myJsonString=encodeURIComponent(myJsonString);
-
-$.ajax({
-url: "save_bank_imp?q="+myJsonString,
-type: 'POST',
-dataType:'json',
-}).done(function(response) {
-if(response.report_type=='validation')
-{
-$(".validat_text").html('<b style="color:red;">'+response.text+'</b>');
-}
-if(response.report_type=='done')
-{
-$(".bank_rr").html('<div class="alert alert-block alert-success fade in"><h4 class="alert-heading">Success!</h4><p>Record Inserted Successfully</p><p><a class="btn green" href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt" rel="tab">OK</a></p></div>');
-}
-});
-});
-});
-});
-});
+			var myJsonString = JSON.stringify(ar);
+			myJsonString=encodeURIComponent(myJsonString);
+			$.ajax({
+			url: "save_bank_imp?q="+myJsonString,
+			type: 'POST',
+			dataType:'json',
+			}).done(function(response) {
+			if(response.report_type=='validation')
+			{
+			$(".validat_text").html('<b style="color:red;">'+response.text+'</b>');
+			}
+			if(response.report_type=='done')
+			{
+			$(".bank_rr").html('<div class="alert alert-block alert-success fade in"><h4 class="alert-heading">Success!</h4><p>Record Inserted Successfully</p><p><a class="btn green" href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt" rel="tab">OK</a></p></div>');
+		}
+		});
+		});
+		});
+		});
+		});
 </script>	
-
+<!--   End Receipt Import query -->
 
 
 

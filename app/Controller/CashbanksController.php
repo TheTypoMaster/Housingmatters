@@ -2330,7 +2330,7 @@ $s_user_id=$this->Session->read('user_id');
 
 //$flat_id = (int)$this->request->query('value1'); 
 $flat_id = (int)$this->request->query('flat');
-$type = (int)$this->request->query('type');
+$type = (int)$this->request->query('rf');
 $this->set('type',$type);
 $this->set('flat_id',$flat_id);
 //$this->set('flat_id',$flat_id);

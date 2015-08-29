@@ -19,8 +19,47 @@ if($type == 1 && !empty($flat_id)){
 		$total_amount+=$amount;
 		}
 		?>
-		<h4>Receipt Applied towards following bill:</h4>
-		<table style="width:100%;" border="1" class="table table-bordered">
+		
+        <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Amount Applied for Bill <b><?php echo $bill_no; ?></b><span style="color:red;">*</span></label>
+        <div class="controls">
+        &nbsp;&nbsp;<input type="text" name="amount" class="m-wrap span5" id="amt_other" /><a href="#myModal2" role="button" class="btn btn-danger" data-toggle="modal">Bill Detail</a> 
+        &nbsp;&nbsp;<label id="amt_other"></label>	      
+        </div>
+       
+       
+       
+        <div id="myModal2" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="false" style="display: block;">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h3 id="myModalLabel2">Alert Header</h3>
+        </div>
+        <div class="modal-body">
+        <p>Body goes here...</p>
+        </div>
+        <div class="modal-footer">
+        <button data-dismiss="modal" class="btn green">OK</button>
+        </div>
+        </div>
+        
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+        
+        <!--<table style="width:100%;" border="1" class="table table-bordered">
 		<tr>
 		<th style="text-align:center;">Bill No.</th>
 		<th style="text-align:center;">Bill Date</th>
@@ -46,7 +85,7 @@ $due_date = date('d-m-Y',($due_date));
 		<tr>
 		<td colspan="6" style="text-align:right;"><label id="ab"></label></td>
 		</table>
-        <br />
+        <br /> -->
 		<?php
 }
 }
@@ -58,8 +97,7 @@ else if($type == 2)
 <input type="text" name="amount" class="m-wrap span9" id="amt_other" />  
 <label id="amt_other"></label>	
 </div>
-<br />	
-	
+<br />	 
 <?php	
 }
-?>
+?> 
