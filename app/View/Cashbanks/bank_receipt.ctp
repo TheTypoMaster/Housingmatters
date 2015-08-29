@@ -10,134 +10,91 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <input type="hidden" id="fi" value="<?php echo $datef1; ?>" />
 <input type="hidden" id="ti" value="<?php echo $datet1; ?>" />
 <input type="hidden" id="cn" value="<?php echo $count; ?>" />
-<?php ////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<div id='suces'>
-<div id="error_msg"></div>
-<div id="myModal3" class="modal hide fade in" style="display:none;">
 
-<div class="modal-backdrop fade in"></div>
-<form id="form1" method="post" enctype="multipart/form-data">
-<div class="modal">
-<div class="modal-header">
-<h4 id="myModalLabel1">Import csv</h4>
-</div>
-           <div class="modal-body">
-           <input type="file" name="file" class="default" id="image-file">
-           <label id="vali"></label>			
-			<strong><a href="bank_receipt_import" download>Click here for sample format</a></strong>
-			<br/>
-			<h4>Instruction set to import receipts</h4>
-			<ol>
-            <li>Kindely delete second row, it is for example.</li>
-			<li>All the field are compulsory.</li>
-			<li>Wing and Flat number be valid as per society setting.</li>
-            <li>Befor Import Bank Receipt Regular Bill must be generated</li>
-            </ol>
-		    </div>
-		    <div class="modal-footer">
-			<button type="button" class="btn" id="close_div">Close</button>
-			<button type="submit" class="btn blue import_btn">Import</button>
-		    </div>
-</div>
-</form>
-</div>
-</div>
-</div>
 
-	
-<?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>			
+
+<!--  Start Bank Receipt form Front End  -->
 <center>
 <a href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt" class="btn yellow" rel='tab'>Create</a>
 <a href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt_view" class="btn" rel='tab'>View</a>
-</center>	
-<?php /////////////////////////////////////////////////////////////////////////////////////////?>
-<?php 
-$default_date = date('d-m-Y')
-?>
-<div id="url_main">
-<div style="background-color:#fff;padding:5px;width:96%;margin:auto;" class="form_div">
-<h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Post Bank Receipt</h4>
-
-
-<?php
-if($zz == 0)
-{
-?>
-<div style="background-color:#FCEBF8;">
-<center>
-<p style="color:#A99185;">No Previous Receipt</p>
+<a href="#" class="btn purple" role="button" id="import">Import csv</a> 
 </center>
-</div> 
-<?php
-}
-else
-{
-?>
-<div style="background-color:#FCEBF8;">
-<center>
-<p style="color:#A99185;">The Last Receipt Number is : <?php echo $zz; ?></p>
-</center>
-</div> 
-<?php } ?>
-<a href="#" class="btn purple pull-right" role="button" id="import">Import csv</a> 
-<br /> 
-<form id="contact-form" method="post" >
-<div class="row-fluid">
-<div class="span6">  
-  
+<!---- Start Import Code -->
+        <div id='suces'>
+        <div id="error_msg"></div>
+        <div id="myModal3" class="modal hide fade in" style="display:none;">
+        <div class="modal-backdrop fade in"></div>
+        <form id="form1" method="post" enctype="multipart/form-data">
+        <div class="modal">
+        <div class="modal-header">
+        <h4 id="myModalLabel1">Import csv</h4>
+        </div>
+        <div class="modal-body">
+        <input type="file" name="file" class="default" id="image-file">
+        <label id="vali"></label>			
+        <strong><a href="bank_receipt_import" download>Click here for sample format</a></strong>
+        <br/>
+        <h4>Instruction set to import receipts</h4>
+        <ol>
+        <li>Kindely delete second row, it is for example.</li>
+        <li>All the field are compulsory.</li>
+        <li>Wing and Flat number be valid as per society setting.</li>
+        <li>Befor Import Bank Receipt Regular Bill must be generated</li>
+        </ol>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn" id="close_div">Close</button>
+        <button type="submit" class="btn blue import_btn">Import</button>
+        </div>
+        </div>
+        </form>
+        </div>
+        </div>
+        </div>
+<!-- End Import Code -->
 
 
-<label style="font-size:14px;">Transaction date<span style="color:red;">*</span></label>
+<div style="background-color:#FFF; overflow:auto; border:solid #CCC; width:100%;">
+<h4 style="color: #03F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;">&nbsp;&nbsp;&nbsp;<i class="icon-money"></i> Post Bank Receipt</h4>
+
+<div style="background-color:#FFF; width:48%; float:left;">
+
+<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp; Transaction date<span style="color:red;">*</span></label>
 <div class="controls">
-<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="transaction_date" placeholder="Transaction Date" style="background-color:white !important;" id="date" value="<?php echo $default_date; ?>">
-<label id="date"></label>
+&nbsp;&nbsp;&nbsp; <input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="transaction_date" placeholder="Transaction Date" style="background-color:white !important;" id="date" value="<?php echo $default_date; ?>">
+&nbsp;&nbsp;&nbsp; <label id="date"></label>
 <div id="result11"></div>
 </div>
 <br /> 
- 
 
 
-<label  style="font-size:14px;">Receipt Mode<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose receipt mode"> </i></label>
+
+<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;Cheque No.<span style="color:red;">*</span></label>
 <div class="controls">
-<label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_mode" value="Cheque" style="opacity: 0;" id="mode" class="chn"></span></div>
-Cheque
-</label>
-<label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_mode" value="NEFT" style="opacity: 0;" id="mode" class="neft"></span></div>
-NEFT
-</label>
-<label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_mode" value="PG" style="opacity: 0;" id="mode" class="pg"></span></div>
-PG
-</label> 
-<label id="mode"></label>
-</div>
-<br />
- 
-<div id="cheque_div" class="hide">
-<label style="font-size:14px;">Cheque No.<span style="color:red;">*</span></label>
-<div class="controls">
-<input type="text"  name="cheque_number" class="m-wrap span3" placeholder="Cheque No." style="background-color:white !important;" id="ins"> &nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp;<input type="text"  name="cheque_number" class="m-wrap span3" placeholder="Cheque No." style="background-color:white !important;" id="ins"> &nbsp;&nbsp; 
 <input type="text"  class="date-picker m-wrap span4" name="cheque_date1" data-date-format="dd-mm-yyyy" />
-<label id="ins"></label> &nbsp;&nbsp; <label id="ins"></label>
+&nbsp;&nbsp;&nbsp;<label id="ins"></label> &nbsp;&nbsp; <label id="ins"></label>
 </div>
 
-<label style="font-size:14px;">Drawn on which bank?<span style="color:red;">*</span> </label>
+<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;Drawn on which bank?<span style="color:red;">*</span> </label>
 <div class="controls">
-<input type="text"  name="drawn_on_which_bank" class="m-wrap span9" placeholder="Drawn on which bank?" style="background-color:white !important;" id="ins">
+&nbsp;&nbsp;&nbsp;<input type="text"  name="drawn_on_which_bank" class="m-wrap span9" placeholder="Drawn on which bank?" style="background-color:white !important;" id="ins">
+&nbsp;&nbsp;&nbsp;<label id="ins"></label>
+</div>
+
+
+<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Reference/UTR #<span style="color:red;">*</span> </label>
+<div class="controls">
+&nbsp;&nbsp;&nbsp;<input type="text"  name="reference_number" class="m-wrap span9 ignore" placeholder="Reference/UTR #" style="background-color:white !important;" id="ins">
 <label id="ins"></label>
 </div>
 
-</div>
-<div id="neft_div" style="display:none;">
-<label style="font-size:14px;">Reference/UTR #<span style="color:red;">*</span> </label>
+<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Date<span style="color:red;">*</span> </label>
 <div class="controls">
-<input type="text"  name="reference_number" class="m-wrap span9 ignore" placeholder="Reference/UTR #" style="background-color:white !important;" id="ins">
-<label id="ins"></label>
+&nbsp;&nbsp;<input type="text"  name="cheque_date" class="m-wrap span9 date-picker" placeholder="Date" data-date-format="dd-mm-yyyy" style="background-color:white !important;" id="ins">
+&nbsp;&nbsp;<label id="ins"></label>
 </div>
-
-</div>
+<br /> 
 
 
 <div id="aaa" class="hide">
@@ -166,7 +123,66 @@ $bank_account_number = $db['ledger_sub_account']["bank_account"];
 </select>
 <label id="bank"></label>
 </div>
-<br /> 
+<br />
+
+
+
+
+
+
+
+
+</div>
+<div style="background-color:#FFF; width:50%; float:right; overflow:hidden;">
+
+
+
+
+
+
+
+</div>
+</div>
+<!--  End Bank Receipt form Front End  -->
+<?php ////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php /*
+
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>			
+<center>
+<a href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt" class="btn yellow" rel='tab'>Create</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt_view" class="btn" rel='tab'>View</a>
+</center>	
+<?php /////////////////////////////////////////////////////////////////////////////////////////?>
+<?php 
+$default_date = date('d-m-Y')
+?>
+<div id="url_main">
+<div style="background-color:#fff;padding:5px;width:96%;margin:auto;" class="form_div">
+<h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Post Bank Receipt</h4>
+
+
+<label  style="font-size:14px;">Receipt Mode<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose receipt mode"> </i></label>
+<div class="controls">
+<label class="radio">
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_mode" value="Cheque" style="opacity: 0;" id="mode" class="chn"></span></div>
+Cheque
+</label>
+<label class="radio">
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_mode" value="NEFT" style="opacity: 0;" id="mode" class="neft"></span></div>
+NEFT
+</label>
+<label class="radio">
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_mode" value="PG" style="opacity: 0;" id="mode" class="pg"></span></div>
+PG
+</label> 
+<label id="mode"></label>
+</div>
+<br />
+ 
+
+
+
+ 
 <!-----------------------------------------------------------------------------------------------
 <label style="font-size:14px;">Deposited In<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select deposit bank "> </i></label>
 <div class="controls">
