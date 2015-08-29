@@ -56,165 +56,17 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 <div style="background-color:#FFF; overflow:auto; border:solid #CCC; width:100%;">
 <h4 style="color: #03F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;">&nbsp;&nbsp;&nbsp;<i class="icon-money"></i> Post Bank Receipt</h4>
+        
+        <div style="background-color:#FFF; width:48%; float:left;">
+        <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp; Transaction date<span style="color:red;">*</span></label>
+        <div class="controls">
+        &nbsp;&nbsp;&nbsp; <input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="transaction_date" placeholder="Transaction Date" style="background-color:white !important;" id="date" value="<?php echo $default_date; ?>">
+        &nbsp;&nbsp;&nbsp; <label id="date"></label>
+        <div id="result11"></div>
+        </div>
+      
 
-<div style="background-color:#FFF; width:48%; float:left;">
-
-<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp; Transaction date<span style="color:red;">*</span></label>
-<div class="controls">
-&nbsp;&nbsp;&nbsp; <input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="transaction_date" placeholder="Transaction Date" style="background-color:white !important;" id="date" value="<?php echo $default_date; ?>">
-&nbsp;&nbsp;&nbsp; <label id="date"></label>
-<div id="result11"></div>
-</div>
-<br /> 
-
-
-
-<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;Cheque No.<span style="color:red;">*</span></label>
-<div class="controls">
-&nbsp;&nbsp;&nbsp;<input type="text"  name="cheque_number" class="m-wrap span3" placeholder="Cheque No." style="background-color:white !important;" id="ins"> &nbsp;&nbsp; 
-<input type="text"  class="date-picker m-wrap span4" name="cheque_date1" data-date-format="dd-mm-yyyy" placeholder="Date" />
-&nbsp;&nbsp;&nbsp;<label id="ins"></label> &nbsp;&nbsp; <label id="ins"></label>
-</div>
-
-<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;Drawn on which bank?<span style="color:red;">*</span> </label>
-<div class="controls">
-&nbsp;&nbsp;&nbsp;<input type="text"  name="drawn_on_which_bank" class="m-wrap span9" placeholder="Drawn on which bank?" style="background-color:white !important;" id="ins">
-&nbsp;&nbsp;&nbsp;<label id="ins"></label>
-</div>
-
-
-<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Reference/UTR #<span style="color:red;">*</span> </label>
-<div class="controls">
-&nbsp;&nbsp;&nbsp;<input type="text"  name="reference_number" class="m-wrap span9 ignore" placeholder="Reference/UTR #" style="background-color:white !important;" id="ins">
-<label id="ins"></label>
-</div>
-
-<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Date<span style="color:red;">*</span> </label>
-<div class="controls">
-&nbsp;&nbsp;<input type="text"  name="cheque_date" class="m-wrap span9 date-picker" placeholder="Date" data-date-format="dd-mm-yyyy" style="background-color:white !important;" id="ins">
-&nbsp;&nbsp;<label id="ins"></label>
-</div>
-<br /> 
-
-
-<div id="aaa" class="hide">
-<label style="font-size:14px;">Date<span style="color:red;">*</span> </label>
-<div class="controls">
-<input type="text"  name="cheque_date" class="m-wrap span9 date-picker" placeholder="Date" data-date-format="dd-mm-yyyy" style="background-color:white !important;" id="ins">
-<label id="ins"></label>
-</div>
-<br /> 
-</div> 
- 
-<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Deposited In<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select deposit bank "> </i></label>
-<div class="controls">
-&nbsp;&nbsp;<select name="deposited_bank_id" class="span9 m-wrap chosen" id="bank">
-<option value="" style="display:none;">which bank?</option>    
-<?php
-foreach ($cursor3 as $db) 
-{
-$bank_id = (int)$db['ledger_sub_account']["auto_id"];
-$bank_ac = $db['ledger_sub_account']["name"];
-$bank_account_number = $db['ledger_sub_account']["bank_account"];
-
-?>
-<option value="<?php echo $bank_id; ?>"><?php echo $bank_ac; ?> &nbsp;&nbsp; <?php echo $bank_account_number; ?></option>
-<?php } ?>
-</select>
-&nbsp;&nbsp;<label id="bank"></label>
-</div>
-<br />
-
-
-
-
-
-
-
-
-</div>
-<div style="background-color:#FFF; width:50%; float:right; overflow:hidden;">
-
-
-
-
-
-
-
-</div>
-</div>
-<!--  End Bank Receipt form Front End  -->
-<?php ////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<?php /*
-
-<?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>			
-<center>
-<a href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt" class="btn yellow" rel='tab'>Create</a>
-<a href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt_view" class="btn" rel='tab'>View</a>
-</center>	
-<?php /////////////////////////////////////////////////////////////////////////////////////////?>
-<?php 
-$default_date = date('d-m-Y')
-?>
-<div id="url_main">
-<div style="background-color:#fff;padding:5px;width:96%;margin:auto;" class="form_div">
-<h4 style="color: #09F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;"><i class="icon-money"></i> Post Bank Receipt</h4>
-
-
-<label  style="font-size:14px;">Receipt Mode<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose receipt mode"> </i></label>
-<div class="controls">
-<label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_mode" value="Cheque" style="opacity: 0;" id="mode" class="chn"></span></div>
-Cheque
-</label>
-<label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_mode" value="NEFT" style="opacity: 0;" id="mode" class="neft"></span></div>
-NEFT
-</label>
-<label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_mode" value="PG" style="opacity: 0;" id="mode" class="pg"></span></div>
-PG
-</label> 
-<label id="mode"></label>
-</div>
-<br />
- 
-
-
-
- 
-<!-----------------------------------------------------------------------------------------------
-
-
-
-<label style="font-size:14px;">Narration<span style="color:red;">*</span></label>
-<div class="controls">
-<textarea   rows="4" name="description" class="span9 m-wrap" placeholder="Narration" style="background-color:white !important; resize:none; margin-right:70%;"  id="nar"></textarea>
-</div>
-<br />
-  
----------------------------------------------------------------------------------------------- -->  
-</div>
-
-<div class="span6">
-
-
-<label style="font-size:14px;">Received from<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose member/non-member "> </i></label>
-<div class="controls">
-<label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="member_type" class="hhh" value="1" style="opacity: 0;" id="mem"></span></div>
-Member
-</label>
-<label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="member_type" class="go6" value="2" style="opacity: 0;" onclick="hidediv('div12')" id="mem"></span></div>
-Non-Member
-</label>
-<label id="mem"></label>
-</div>
-<br />
-
-
-
+<!--
 <div id="div11"></div>
 <div id="div13" class="hide">
 <label style="font-size:14px;">Bill Reference<span style="color:red;">*</span></label>
@@ -223,67 +75,197 @@ Non-Member
 <label id="refn"></label>
 </div>
 <br />
+-->
 
-<label style="font-size:14px;">Amount<span style="color:red;">*</span></label>
+        <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Deposited In<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select deposit bank "> </i></label>
+        <div class="controls">
+        &nbsp;&nbsp;<select name="deposited_bank_id" class="span9 m-wrap chosen" id="bank">
+        <option value="" style="display:none;">which bank?</option>    
+        <?php
+        foreach ($cursor3 as $db) 
+        {
+        $bank_id = (int)$db['ledger_sub_account']["auto_id"];
+        $bank_ac = $db['ledger_sub_account']["name"];
+        $bank_account_number = $db['ledger_sub_account']["bank_account"];
+        ?>
+        <option value="<?php echo $bank_id; ?>"><?php echo $bank_ac; ?> &nbsp;&nbsp; <?php echo $bank_account_number; ?></option>
+        <?php } ?>
+        </select>
+        &nbsp;&nbsp;<label id="bank"></label>
+        </div>
+
+
+
+
+
+
+
+        
+        <label  style="font-size:14px;">&nbsp;&nbsp;&nbsp;Receipt Mode<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose receipt mode"> </i></label>
+        <div class="controls">
+       &nbsp;&nbsp; <label class="radio">
+        <div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_mode" value="Cheque" style="opacity: 0;" id="mode" class="chn" onclick="cheque_view()"></span></div>
+        Cheque
+        </label>
+        <label class="radio">
+        <div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_mode" value="NEFT" style="opacity: 0;" id="mode" class="neft" onclick="neft_text_view()"></span></div>
+        NEFT
+        </label>
+        <label class="radio">
+        <div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_mode" value="PG" style="opacity: 0;" id="mode" class="pg" onclick="pg_show()"></span></div>
+        PG
+        </label> 
+        <label id="mode"></label>
+        </div>
+        <br />
+
+
+<div id="cheque_show_by_query" class="hide">
+        <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;Cheque No.<span style="color:red;">*</span><span style="margin-left:12%;">Cheque Date<span style="color:red;">*</span></span></label>
+        <div class="controls">
+        &nbsp;&nbsp;&nbsp;<input type="text"  name="cheque_number" class="m-wrap span3" placeholder="Cheque No." style="background-color:white !important;" id="ins"> &nbsp;&nbsp; 
+        <input type="text"  class="date-picker m-wrap span4" name="cheque_date1" data-date-format="dd-mm-yyyy" placeholder="Date" />
+        &nbsp;&nbsp;&nbsp;<label id="ins"></label> 
+        </div>
+
+
+    <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;Drawn on which bank?<span style="color:red;">*</span> </label>
+    <div class="controls">
+    &nbsp;&nbsp;&nbsp;<input type="text"  name="drawn_on_which_bank" class="m-wrap span9" placeholder="Drawn on which bank?" style="background-color:white !important;" id="ins">
+    &nbsp;&nbsp;&nbsp;<label id="ins"></label>
+    </div>
+    </div>
+
+
+
+    <div class="hide" id="neft_show">
+    <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Reference/UTR #<span style="color:red;">*</span><span style="margin-left:8%;">Date<span style="color:red;">*</span></span></label>
+    <div class="controls">
+    &nbsp;&nbsp;&nbsp;<input type="text"  name="reference_number" class="m-wrap span3 ignore" placeholder="Reference/UTR #" style="background-color:white !important;" id="ins">&nbsp;&nbsp;
+    <input type="text"  name="cheque_date" class="m-wrap span4 date-picker" placeholder="Date" data-date-format="dd-mm-yyyy" style="background-color:white !important;" id="ins">
+    <label id="ins"></label>
+    </div>
+    </div>
+
+
+<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Received from<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose member/non-member "> </i></label>
 <div class="controls">
-<input type="text" name="amount" class="m-wrap span9" placeholder="Amount" style="background-color:white !important;" id="amount"/>
+&nbsp;&nbsp;<label class="radio">
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="member_type" class="hhh" value="1" style="opacity: 0;" id="mem"></span></div>
+Residential
+</label>
+<label class="radio">
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="member_type" class="go6" value="2" style="opacity: 0;" onclick="hidediv('div12')" id="mem"></span></div>
+Non-Residential
+</label>
+<label id="mem"></label>
+</div>
+<br />
+
+</div>
+
+<div style="background-color:#FFF; width:50%; float:right; overflow:hidden;">
+
+<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Select Resident<span style="color:red;">*</span></label>
+<div class="control">
+&nbsp;&nbsp;<select name="resident_name" class="m-wrap span9">
+<option value="">Select Resident</option>
+<?php
+foreach($cursor1 as $data)
+{
+$user_id = (int)$data['ledger_sub_account']['user_id'];	
+$resident_name = $data['ledger_sub_account']['name'];
+
+$user_detail = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));
+foreach($user_detail as $user_data)
+{
+$flat_id = (int)$user_data['user']['flat'];	
+}
+?>
+<option value="<?php echo $flat_id; ?>"><?php echo $resident_name; ?></option>
+<?php
+}
+?>
+</select>
+</div>
+
+
+<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Receipt Type<span style="color:red;">*</span></label>
+<div class="controls">
+&nbsp;&nbsp;<label class="radio">
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="member_type" class="hhh" value="1" style="opacity: 0;" id="mem"></span></div>Maintanace Receipt</label>
+<label class="radio">
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="member_type" class="go6" value="2" style="opacity: 0;" onclick="hidediv('div12')" id="mem"></span></div>Other Receipt</label>
+<label id="mem"></label>
+<br />
+
+
+<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Amount<span style="color:red;">*</span></label>
+<div class="controls">
+&nbsp;&nbsp;<input type="text" name="amount" class="m-wrap span9" placeholder="Amount" style="background-color:white !important;" id="amount"/>
 <label id="amount"></label>
 </div>
-<br />
-</div>
-
-<div id="show_amount"></div>
 
 
-
-<label style="font-size:14px;">Narration<span style="color:red;">*</span></label>
+<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Narration<span style="color:red;">*</span></label>
 <div class="controls">
-<textarea   rows="4" name="description" class="span9 m-wrap" placeholder="Narration" style="background-color:white !important; resize:none; margin-right:70%;" id="narration"></textarea>
+&nbsp;&nbsp;<textarea   rows="4" name="description" class="span9 m-wrap" placeholder="Narration" style="background-color:white !important;resize:none;" id="nar" ></textarea>
 </div>
-<br />
 
 
-<div id="div12">
-<div id="result" style="width:94%;">
-</div>
-</div>
+
 
 </div>
 </div>
-<br />  
-<button type="submit" class="btn green" name="bank_receipt_add" value="xyz" id="vali">Submit</button>
-<a href="bank_receipt" class="btn">Reset</a>
-</div>
-</form>
-<?php //////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-</div> 
+
+<script>
+function cheque_view()
+{
+$("#cheque_show_by_query").show();
+$("#neft_show").hide();
+}
+function neft_text_view()
+{	
+$("#cheque_show_by_query").hide();
+$("#neft_show").show();
+}
+function pg_show()
+{
+$("#cheque_show_by_query").hide();
+$("#neft_show").show();
+}
+
+</script>	
+
+
+
+
+<!--  End Bank Receipt form Front End  -->
  
-<?php /////////////////////////////////////////////////////////////////////////////////////////////// ?>              
-
-<?php
-/*
+		<?php
+		/*
 		<script>
 		$(document).ready(function() {
 		$("#ttt").live('click',function(){
-        
+		
 		var type = $('#ttt:checked').val();
 		var value1 = document.getElementById('go').value;
 		//var date2=document.getElementById('date2').value;
 		$("#result").load("bank_receipt_reference_ajax?value1=" +value1+ "&t=" +type+ "");
 		});
-
+		
 		$("#i_head").live('change',function(){
-
+		
 		var ss = $("[id=i_head]").val();
-
+		
 		$("#result2").html('Loading...').load("bank_receipt_amount_ajax?ss=" +ss + "");	
-
+		
 		});
-
+		
 		});
 		</script>	  
-*/
-?>		  
+		*/
+		?>		  
 		
 		
 	
@@ -297,9 +279,7 @@ $(document).ready(function() {
 	$(".hhh").live('click',function(){
 		document.getElementById('div12').style.display='block';
 		document.getElementById('div13').style.display='none';
-		//$("#div1").show();
-		//$("#div2").hide();
-		//$("#div13").hide();
+		
 		
 	
 	$("#div11").html('Loading...').load("bank_receipt_ajax?ff=" + 5 + "");
@@ -497,12 +477,7 @@ error.appendTo('label#' + element.attr('id'));
 		});
 		</script>	
 		
-<script>
 
-
-
-
-</script>	
 
 
 <script>
