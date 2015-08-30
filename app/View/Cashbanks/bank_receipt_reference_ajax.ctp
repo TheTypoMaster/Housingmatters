@@ -31,7 +31,7 @@ $result_new_regular_bill = $this->requestAction(array('controller' => 'Incometra
   		?>     
 <div id="myModal2" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="false" style="display: block;">
        <table class="table">
-      	<tr><th style="background-color:#3F9;" colspan="2">Bill Detail (<?php echo $bill_no; ?>)</th></tr>
+      	<tr><th style="background-color:#3F9;" colspan="2">Detail of Regular Bill No. <b><?php echo $bill_no; ?></b></th></tr>
        	<tr><th>Billing Start Date :</th><td><?php echo $bill_start_date; ?></td></tr>
        	<tr><th>Payment Due Date :</th><td><?php echo $due_date; ?></td></tr>
         <tr><th>Total Amount of Bill :</th><td><?php echo $due_for_payment; ?></td></tr>
