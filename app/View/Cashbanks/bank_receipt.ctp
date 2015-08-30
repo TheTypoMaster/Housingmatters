@@ -54,6 +54,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 <div style="background-color:#FFF; overflow:auto; border:solid #CCC; width:100%;">
 <h4 style="color: #03F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;">&nbsp;&nbsp;&nbsp;<i class="icon-money"></i> Post Bank Receipt</h4>
+<form method="post" id="contact-form">
+
         
         <div style="background-color:#FFF; width:48%; float:left;">
         <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp; Transaction date<span style="color:red;">*</span></label>
@@ -62,29 +64,32 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
         &nbsp;&nbsp;&nbsp; <label id="date"></label>
         <div id="result11"></div>
         </div>
+        <br />
+        
+        
       
-        <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Deposited In<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select deposit bank "> </i></label>
-        <div class="controls">
-        &nbsp;&nbsp;<select name="deposited_bank_id" class="span9 m-wrap chosen" id="bank">
-        <option value="" style="display:none;">which bank?</option>    
-        <?php
-        foreach ($cursor3 as $db) 
-        {
-        $bank_id = (int)$db['ledger_sub_account']["auto_id"];
-        $bank_ac = $db['ledger_sub_account']["name"];
-        $bank_account_number = $db['ledger_sub_account']["bank_account"];
-        ?>
-        <option value="<?php echo $bank_id; ?>"><?php echo $bank_ac; ?> &nbsp;&nbsp; <?php echo $bank_account_number; ?></option>
-        <?php } ?>
-        </select>
-        &nbsp;&nbsp;<label id="bank"></label>
-        </div>
-
+    <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Deposited In<span style="color:red;">*</span></label>
+    <div class="controls">
+    &nbsp;&nbsp;<select name="deposited_bank_id" class="span9 m-wrap chosen" id="bank">
+    <option value="" style="display:none;">which bank?</option>    
+    <?php
+    foreach ($cursor3 as $db) 
+    {
+    $bank_id = (int)$db['ledger_sub_account']["auto_id"];
+    $bank_ac = $db['ledger_sub_account']["name"];
+    $bank_account_number = $db['ledger_sub_account']["bank_account"];
+    ?>
+    <option value="<?php echo $bank_id; ?>"><?php echo $bank_ac; ?> &nbsp;&nbsp; <?php echo $bank_account_number; ?></option>
+    <?php } ?>
+    </select>
+    &nbsp;&nbsp;<label id="bank"></label>
+    </div>
+    <br />
 
         
-        <label  style="font-size:14px;">&nbsp;&nbsp;&nbsp;Receipt Mode<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose receipt mode"> </i></label>
+        <label  style="font-size:14px;">&nbsp;&nbsp;&nbsp;Receipt Mode<span style="color:red;">*</span></label>
         <div class="controls">
-       &nbsp;&nbsp; <label class="radio">
+        &nbsp;&nbsp; <label class="radio">
         <div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_mode" value="Cheque" style="opacity: 0;" id="mode" class="chn" onclick="cheque_view()"></span></div>
         Cheque
         </label>
@@ -99,15 +104,16 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
         <label id="mode"></label>
         </div>
         <br />
+  
 
-
-<div id="cheque_show_by_query" class="hide">
-        <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;Cheque No.<span style="color:red;">*</span><span style="margin-left:12%;">Cheque Date<span style="color:red;">*</span></span></label>
-        <div class="controls">
-        &nbsp;&nbsp;&nbsp;<input type="text"  name="cheque_number" class="m-wrap span3" placeholder="Cheque No." style="background-color:white !important;" id="ins"> &nbsp;&nbsp; 
-        <input type="text"  class="date-picker m-wrap span4" name="cheque_date1" data-date-format="dd-mm-yyyy" placeholder="Date" />
-        &nbsp;&nbsp;&nbsp;<label id="ins"></label> 
-        </div>
+    <div id="cheque_show_by_query" class="hide">
+    <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;Cheque No.<span style="color:red;">*</span><span style="margin-left:12%;">Cheque Date<span style="color:red;">*</span></span></label>
+    <div class="controls">
+    &nbsp;&nbsp;&nbsp;<input type="text"  name="cheque_number" class="m-wrap span3" placeholder="Cheque No." style="background-color:white !important;" id="ins"> &nbsp;&nbsp; 
+    <input type="text"  class="date-picker m-wrap span4" name="cheque_date1" data-date-format="dd-mm-yyyy" placeholder="Date" id="chh" />
+    <table border="0" width="65%"><tr><td style="width:44%;"><label id="ins"></label></td><td> <label id="chh"></label></td></tr></table>
+    </div>
+    <br />
 
 
     <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;Drawn on which bank?<span style="color:red;">*</span> </label>
@@ -115,97 +121,104 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
     &nbsp;&nbsp;&nbsp;<input type="text"  name="drawn_on_which_bank" class="m-wrap span9" placeholder="Drawn on which bank?" style="background-color:white !important;" id="ins">
     &nbsp;&nbsp;&nbsp;<label id="ins"></label>
     </div>
+    <br />
     </div>
 
 
 
-    <div class="hide" id="neft_show">
-    <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Reference/UTR #<span style="color:red;">*</span><span style="margin-left:15%;">Date<span style="color:red;">*</span></span></label>
+        <div class="hide" id="neft_show">
+        <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Reference/UTR #<span style="color:red;">*</span><span style="margin-left:15%;">Date<span style="color:red;">*</span></span></label>
+        <div class="controls">
+        &nbsp;&nbsp;&nbsp;<input type="text"  name="reference_number" class="m-wrap span4 ignore" placeholder="Reference/UTR #" style="background-color:white !important;" id="reff">&nbsp;&nbsp;
+        <input type="text"  name="cheque_date" class="m-wrap span3 date-picker" placeholder="Date" data-date-format="dd-mm-yyyy" style="background-color:white !important;" id="dtt">
+        <table border="1" width="80%"><tr><td style="width:44%;"><label id="reff">gdfg</label></td><td> <label id="dtt">gdfgd</label></td></tr></table>
+        </div>
+        <br />
+        </div>
+
+
+    <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Received from<span style="color:red;">*</span></label>
     <div class="controls">
-    &nbsp;&nbsp;&nbsp;<input type="text"  name="reference_number" class="m-wrap span4 ignore" placeholder="Reference/UTR #" style="background-color:white !important;" id="ins">&nbsp;&nbsp;
-    <input type="text"  name="cheque_date" class="m-wrap span3 date-picker" placeholder="Date" data-date-format="dd-mm-yyyy" style="background-color:white !important;" id="ins">
-    <label id="ins"></label>
+    &nbsp;&nbsp;<label class="radio">
+    <div class="radio" id="uniform-undefined"><span><input type="radio" name="member_type" class="hhh" value="1" style="opacity: 0;" id="mem" onclick="for_residential()"></span></div>
+    Residential
+    </label>
+    <label class="radio">
+    <div class="radio" id="uniform-undefined"><span><input type="radio" name="member_type" class="go6" value="2" style="opacity: 0;" onclick="for_non_residential()" id="mem" onclick="for_non_residential()"></span></div>
+    Non-Residential
+    </label>
+    <label id="mem"></label>
     </div>
+    <br />
     </div>
 
-
-<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Received from<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please choose member/non-member "> </i></label>
-<div class="controls">
-&nbsp;&nbsp;<label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="member_type" class="hhh" value="1" style="opacity: 0;" id="mem" onclick="for_residential()"></span></div>
-Residential
-</label>
-<label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="member_type" class="go6" value="2" style="opacity: 0;" onclick="for_non_residential()" id="mem" onclick="for_non_residential()"></span></div>
-Non-Residential
-</label>
-<label id="mem"></label>
-</div>
-<br />
-</div>
 
 <div style="background-color:#FFF; width:50%; float:right; overflow:hidden;">
 
+    <div id="for_resident_view" class="hide">
+    <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Select Resident<span style="color:red;">*</span></label>
+    <div class="control">
+    &nbsp;&nbsp;<select name="resident_name" class="m-wrap span9" id="resident_flat_id">
+    <option value="">Select Resident</option>
+    <?php
+    foreach($cursor1 as $data)
+    {
+    $user_id = (int)$data['ledger_sub_account']['user_id'];	
+    $resident_name = $data['ledger_sub_account']['name'];
+    
+    $user_detail = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));
+    foreach($user_detail as $user_data)
+    {
+    $flat_id = (int)$user_data['user']['flat'];	
+    }
+    ?>
+    <option value="<?php echo $flat_id; ?>"><?php echo $resident_name; ?></option>
+    <?php
+    }
+    ?>
+    </select>
+    </div>
+	<br />
 
-<div id="for_resident_view" class="hide">
-<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Select Resident<span style="color:red;">*</span></label>
-<div class="control">
-&nbsp;&nbsp;<select name="resident_name" class="m-wrap span9" id="resident_flat_id">
-<option value="">Select Resident</option>
-<?php
-foreach($cursor1 as $data)
-{
-$user_id = (int)$data['ledger_sub_account']['user_id'];	
-$resident_name = $data['ledger_sub_account']['name'];
 
-$user_detail = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));
-foreach($user_detail as $user_data)
-{
-$flat_id = (int)$user_data['user']['flat'];	
-}
-?>
-<option value="<?php echo $flat_id; ?>"><?php echo $resident_name; ?></option>
-<?php
-}
-?>
-</select>
-</div>
-
-
-<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Receipt Type<span style="color:red;">*</span></label>
-<div class="controls">
-&nbsp;&nbsp;<label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_type" class="hhh" value="1" style="opacity: 0;" id="receipt_for"></span></div>Maintanace Receipt</label>
-<label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_type" class="go6" value="2" style="opacity: 0;" onclick="hidediv('div12')" id="receipt_for2"></span></div>Other Receipt</label>
-<label id="mem"></label>
-<br />
-</div>
-</div>
+    <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Receipt Type<span style="color:red;">*</span></label>
+    <div class="controls">
+    &nbsp;&nbsp;<label class="radio">
+    <div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_type" class="hhh" value="1" style="opacity: 0;" id="receipt_for"></span></div>Maintanace Receipt</label>
+    <label class="radio">
+    <div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_type" class="go6" value="2" style="opacity: 0;" onclick="hidediv('div12')" id="receipt_for2"></span></div>Other Receipt</label>
+    <label id="mem"></label>
+    </div>
+    <br />
+    </div>
 
 
 <div id="result">
 </div>
 
 <div class="hide" id="non_residential_view">
- 
 <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Party Name<span style="color:red;">*</span></label>
 <div class="controls">
 &nbsp;&nbsp;<input type="text" class="m-wrap span9" name="party_name" id="party" />
 &nbsp;&nbsp;<label id="party"></label>
 </div>
+<br />
+
 
 <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Bill Reference<span style="color:red;">*</span></label>
 <div class="controls">
 &nbsp;&nbsp;<input type="text" class="m-wrap span9" name="bill_reference" id="bill_ref" />
 &nbsp;&nbsp;<label id="bill_ref"></label>
 </div>
+<br />
+
 
 <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Amount Applied<span style="color:red;">*</span></label>
 <div class="controls">
 &nbsp;&nbsp;<input type="text" class="m-wrap span9" name="amount" id="amt" />
 &nbsp;&nbsp;<label id="amt"></label>
 </div>
+<br />
 </div>
 
 
@@ -213,11 +226,16 @@ $flat_id = (int)$user_data['user']['flat'];
 <div class="controls">
 &nbsp;&nbsp;<textarea   rows="4" name="description" class="span9 m-wrap" placeholder="Narration" style="background-color:white !important;resize:none;" id="nar" ></textarea>
 </div>
-
-
-
-
+<br />
 </div>
+
+
+<div style="width:100%; overflow:auto;">
+<hr>
+<button type="submit" class="btn green" name="bank_receipt_add" style="margin-left:70%;">Submit</button>
+<a href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt" class="btn" rel='tab'>Reset</a>
+</div>
+</form>
 </div>
 
 <script>
@@ -364,7 +382,7 @@ $(document).ready(function(){
   return this.optional(element) || value !== param;
 }, "Please choose Other value!");
 	
-$.validator.setDefaults({ ignore: ":hidden:not(select)" });
+//$.validator.setDefaults({ ignore: ":hidden:not(select)" });
 
 $('#contact-form').validate({
 
@@ -376,76 +394,49 @@ error.appendTo('label#' + element.attr('id'));
 },
 					
 	    rules: {
-	      date: {
-	       
-	        required: true
-	      },
-		  
-		  aammtt: {
-			required: true  
-		  },
-		
-		 rr_type : {
-		   required: true  	
-		  },
-				  
-		   bank_account: {
-	       
-	        required: true
-	      },
-		  
-		 
-		 
-	         receipt_mode: {
-                required: true
-	      },
-
-	     member: {
-	       
-	        required: true
-	      },
-		
-		recieved_from2: {
-	       
-	        required: true
-	      },
-		
-		
-		
-		recieved_from: {
-	       
-	        required: true
-	      },
-		instruction: {
-			 required: true
-		         },
-		 
-		 
-		 amountn: {
-	        required: true,
-			number: true,
-			notEqual: "0"
-	      },
-		amount : {
-			required: true,
-			number: true,
-			notEqual: "0"
-		
-		},
-		no: {
-			required: true,
-			number: true
-		},
-		},
-			highlight: function(element) {
-				$(element).closest('.control-group').removeClass('success').addClass('error');
+			
+			transaction_date:{
+				required: true
 			},
-			success: function(element) {
-				element
-				.text('OK!').addClass('valid')
-				.closest('.control-group').removeClass('error').addClass('success');
-			}
-	  });
+		  
+			deposited_bank_id: {
+			required: true  
+			},
+		
+			receipt_mode : {
+			required: true  	
+			},
+
+			cheque_number : {
+			required: true  	
+			},
+
+			cheque_date1 : {
+			required: true  	
+			},
+		
+
+		
+		
+		 
+		 
+		
+		amount : {
+		required: true,
+		number: true,
+		notEqual: "0"
+		},
+		
+		},
+		highlight: function(element) {
+		$(element).closest('.control-group').removeClass('success').addClass('error');
+		},
+		success: function(element) {
+		element
+		.text('OK!').addClass('valid')
+		.closest('.control-group').removeClass('error').addClass('success');
+		}
+		});
 
 }); 
 </script>

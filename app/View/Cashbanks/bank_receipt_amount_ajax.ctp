@@ -19,7 +19,8 @@ $total_amount = $total_amount + $amount;
 }
 else
 {
-	?>
+?>
 <input type="text" readonly name="amount" class="m-wrap medium">	
-
-<?php } ?>
+<?php 
+} 
+?>
