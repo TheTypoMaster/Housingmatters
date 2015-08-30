@@ -21,7 +21,7 @@ $result_new_regular_bill = $this->requestAction(array('controller' => 'Incometra
 		
         <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Amount Applied for Bill <b><?php echo $bill_no; ?></b><span style="color:red;">*</span></label>
         <div class="controls">
-        &nbsp;&nbsp;<input type="text" name="amount" class="m-wrap span5" id="amt_other" /><a href="#myModal2" role="button" class="btn btn-danger" data-toggle="modal">Bill Detail</a> 
+        &nbsp;&nbsp;<input type="text" name="amount1" class="m-wrap span5" id="amt_other" /><a href="#myModal2" role="button" class="btn btn-danger" data-toggle="modal">Bill Detail</a> 
         &nbsp;&nbsp;<label id="amt_other"></label>	      
         </div>
         <br />
@@ -49,11 +49,10 @@ $result_new_regular_bill = $this->requestAction(array('controller' => 'Incometra
 if($type == 2)
 {
 ?>	
-
 <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Amount Applied<span style="color:red;">*</span></label>
 <div class="controls">
-&nbsp;&nbsp;<input type="text" name="amount" class="m-wrap span5" id="amt_other" />  
-&nbsp;&nbsp;<label id="amt_other"></label>	
+&nbsp;&nbsp;<input type="text" name="amount2" class="m-wrap span5" id="amt_other2" />  
+&nbsp;&nbsp;<label id="amt_other2"></label>	
 </div>
 <br />	 
 <?php	

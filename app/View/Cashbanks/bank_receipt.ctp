@@ -58,10 +58,10 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
         
         <div style="background-color:#FFF; width:48%; float:left;">
-        <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp; Transaction date<span style="color:red;">*</span></label>
+        <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Transaction date<span style="color:red;">*</span></label>
         <div class="controls">
-        &nbsp;&nbsp;&nbsp; <input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="transaction_date" placeholder="Transaction Date" style="background-color:white !important;" id="date" value="<?php echo $default_date; ?>">
-        &nbsp;&nbsp;&nbsp; <label id="date"></label>
+        &nbsp;&nbsp;<input type="text" class="date-picker m-wrap span7" data-date-format="dd-mm-yyyy" name="transaction_date" placeholder="Transaction Date" style="background-color:white !important;" id="date" value="<?php echo $default_date; ?>">
+        &nbsp;&nbsp;<label id="date"></label>
         <div id="result11"></div>
         </div>
         <br />
@@ -159,7 +159,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
     <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Select Resident<span style="color:red;">*</span></label>
     <div class="control">
     &nbsp;&nbsp;<select name="resident_name" class="m-wrap span9" id="resident_flat_id">
-    <option value="">Select Resident</option>
+    <option value="" style="display:none;">Select Resident</option>
     <?php
     foreach($cursor1 as $data)
     {
@@ -215,7 +215,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Amount Applied<span style="color:red;">*</span></label>
 <div class="controls">
-&nbsp;&nbsp;<input type="text" class="m-wrap span9" name="amount" id="amt" />
+&nbsp;&nbsp;<input type="text" class="m-wrap span5" name="amount" id="amt" />
 &nbsp;&nbsp;<label id="amt"></label>
 </div>
 <br />
@@ -390,7 +390,7 @@ $(document).ready(function(){
   return this.optional(element) || value !== param;
 }, "Please choose Other value!");
 	
-//$.validator.setDefaults({ ignore: ":hidden:not(select)" });
+//$.validator.setDefaults({ ignore: ":hidden:not()" });
 
 $('#contact-form').validate({
 
@@ -423,7 +423,11 @@ error.appendTo('label#' + element.attr('id'));
 			cheque_date1 : {
 			required: true  	
 			},
-				
+			
+			drawn_on_which_bank: {
+			required: true  	
+			},
+							
 			reference_number : {
 			required: true  	
 			},
@@ -442,6 +446,18 @@ error.appendTo('label#' + element.attr('id'));
 			
 			receipt_type : {
 			required: true  	
+			},
+				
+			amount1 : {
+			required: true,
+			number: true,
+			notEqual: "0"
+			},
+			
+			amount2 : {
+			required: true,
+			number: true,
+			notEqual: "0"
 			},
 		
 			amount : {

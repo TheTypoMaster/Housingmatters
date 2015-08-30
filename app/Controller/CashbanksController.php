@@ -193,24 +193,23 @@ $this->set('cursor3',$cursor3);
 			$party_name = (int)$this->request->data['resident_name'];
 			$receipt_type = (int)$this->request->data['receipt_type'];
 			$flat_id = $party_name;
-			
-				if($receipt_type == 1)
-				{
-				$amount = $this->request->data['amount'];
-				}
-				else
-				{
-				$amount = $this->request->data['amount'];
-				}
+			if($receipt_type == 1)
+			{
+			echo $amount = $this->request->data['amount1'];
 			}
-				else 
-				{
-				$party_name = $this->request->data['party_name'];
-				$bill_reference = $this->request->data['bill_reference'];
-				$amount = $this->request->data['amount'];
-				}
-
-              $narration = $this->request->data['description'];
+			else
+			{
+			$amount = $this->request->data['amount2'];
+			}
+			}
+			else 
+			{
+			$party_name = $this->request->data['party_name'];
+			$bill_reference = $this->request->data['bill_reference'];
+			$amount = $this->request->data['amount'];
+			}
+            
+		    $narration = $this->request->data['description'];
 
 
 
@@ -229,7 +228,7 @@ if($member_type == 1)
 {
 	if($receipt_type == 1)
 	{
-	$amount = $this->request->data['amount'];
+	//$amount = $this->request->data['amount'];
     //apply receipt in regular_bill//
 	$this->loadmodel('new_regular_bill');
 	$condition=array('society_id'=>$s_society_id,"flat_id"=>$flat_id);
