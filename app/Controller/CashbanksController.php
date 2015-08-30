@@ -170,47 +170,47 @@ $this->set('cursor3',$cursor3);
 	{
 	$current_date = date('Y-m-d');
 	$receipt_date = $this->request->data['transaction_date']; 
-	echo strtotime("1-2-2015"); exit;
 	$TransactionDate = date('Y-m-d',strtotime($receipt_date));
-	echo $TransactionDate = strtotime($TransactionDate); exit;
+	$TransactionDate = strtotime($TransactionDate); 
+	$deposited_bank_id = (int)$this->request->data['deposited_bank_id'];
 	
 	$receipt_mode = $this->request->data['receipt_mode'];
-	if($receipt_mode == "Cheque")
-{
- $cheque_number = $this->request->data['cheque_number'];
-	 $cheque_date = $this->request->data['cheque_date1'];
-	 $drawn_on_which_bank = $this->request->data['drawn_on_which_bank'];
-	}
-else
-{
- $reference_utr = $this->request->data['reference_number'];
- $cheque_date = $this->request->data['cheque_date'];
-}
- $deposited_bank_id = (int)$this->request->data['deposited_bank_id'];
- $member_type = $this->request->data['member_type'];
-if($member_type == 1)
-{
-$party_name = (int)$this->request->data['party_name_id'];
-$receipt_type = (int)$this->request->data['receipt_type'];
-$flat_id = $party_name;
-	if($receipt_type == 1)
-	{
-		$amount = $this->request->data['amount'];
-	}
-	else
-	{
-		$amount = $this->request->data['amount'];
-	}
+			if($receipt_mode == "Cheque")
+			{
+			$cheque_number = $this->request->data['cheque_number'];
+			$cheque_date = $this->request->data['cheque_date1'];
+			$drawn_on_which_bank = $this->request->data['drawn_on_which_bank'];
+			}
+			else
+			{
+			$reference_utr = $this->request->data['reference_number'];
+			$cheque_date = $this->request->data['cheque_date'];
+			}
+			$member_type = $this->request->data['member_type'];
+			
+			if($member_type == 1)
+			{
+			$party_name = (int)$this->request->data['resident_name'];
+			$receipt_type = (int)$this->request->data['receipt_type'];
+			$flat_id = $party_name;
+			
+				if($receipt_type == 1)
+				{
+				$amount = $this->request->data['amount'];
+				}
+				else
+				{
+				$amount = $this->request->data['amount'];
+				}
+			}
+				else 
+				{
+				$party_name = $this->request->data['party_name'];
+				$bill_reference = $this->request->data['bill_reference'];
+				$amount = $this->request->data['amount'];
+				}
 
-}
-else 
-{
-	 $party_name = $this->request->data['party_name'];
-	 $bill_reference = $this->request->data['bill_reference'];
-	 $amount = $this->request->data['amount'];
-}
-
- $narration = $this->request->data['description'];
+              $narration = $this->request->data['description'];
 
 
 

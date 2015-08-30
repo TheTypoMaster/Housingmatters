@@ -24,7 +24,7 @@ $result_new_regular_bill = $this->requestAction(array('controller' => 'Incometra
         &nbsp;&nbsp;<input type="text" name="amount" class="m-wrap span5" id="amt_other" /><a href="#myModal2" role="button" class="btn btn-danger" data-toggle="modal">Bill Detail</a> 
         &nbsp;&nbsp;<label id="amt_other"></label>	      
         </div>
-       
+        <br />
 		<?php  
 		$bill_start_date = date('d-m-Y',($bill_start_date));
 		$due_date = date('d-m-Y',($due_date));

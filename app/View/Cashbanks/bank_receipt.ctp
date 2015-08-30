@@ -131,7 +131,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
         <div class="controls">
         &nbsp;&nbsp;&nbsp;<input type="text"  name="reference_number" class="m-wrap span4 ignore" placeholder="Reference/UTR #" style="background-color:white !important;" id="reff">&nbsp;&nbsp;
         <input type="text"  name="cheque_date" class="m-wrap span3 date-picker" placeholder="Date" data-date-format="dd-mm-yyyy" style="background-color:white !important;" id="dtt">
-        <table border="1" width="80%"><tr><td style="width:44%;"><label id="reff">gdfg</label></td><td> <label id="dtt">gdfgd</label></td></tr></table>
+        <table border="0" width="80%"><tr><td style="width:44%;"><label id="reff"></label></td><td> <label id="dtt"></label></td></tr></table>
         </div>
         <br />
         </div>
@@ -177,6 +177,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
     }
     ?>
     </select>
+    <label id="resident_flat_id"></label>
     </div>
 	<br />
 
@@ -184,10 +185,10 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
     <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Receipt Type<span style="color:red;">*</span></label>
     <div class="controls">
     &nbsp;&nbsp;<label class="radio">
-    <div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_type" class="hhh" value="1" style="opacity: 0;" id="receipt_for"></span></div>Maintanace Receipt</label>
+    <div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_type" class="mainnt" value="1" style="opacity: 0;" id="receipt_for"></span></div>Maintanace Receipt</label>
     <label class="radio">
-    <div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_type" class="go6" value="2" style="opacity: 0;" onclick="hidediv('div12')" id="receipt_for2"></span></div>Other Receipt</label>
-    <label id="mem"></label>
+    <div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_type" class="othhher" value="2" style="opacity: 0;" id="receipt_for"></span></div>Other Receipt</label>
+    <label id="receipt_for"></label>
     </div>
     <br />
     </div>
@@ -212,7 +213,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </div>
 <br />
 
-
 <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Amount Applied<span style="color:red;">*</span></label>
 <div class="controls">
 &nbsp;&nbsp;<input type="text" class="m-wrap span9" name="amount" id="amt" />
@@ -222,7 +222,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </div>
 
 
-<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Narration<span style="color:red;">*</span></label>
+<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Narration</label>
 <div class="controls">
 &nbsp;&nbsp;<textarea   rows="4" name="description" class="span9 m-wrap" placeholder="Narration" style="background-color:white !important;resize:none;" id="nar" ></textarea>
 </div>
@@ -281,23 +281,31 @@ $("#non_residential_view").hide();
 		$("#resident_flat_id").bind('change',function(){
 		var flat_id = document.getElementById('resident_flat_id').value;
 		var receipt_for = $('#receipt_for:checked').val();
-			
 		$("#result").load("bank_receipt_reference_ajax?flat=" +flat_id+ "&rf=" +receipt_for+ "");
 		});
 				
-		$("#receipt_for").bind('click',function(){
+		$(".mainnt").bind('click',function(){
 		var flat_id = document.getElementById('resident_flat_id').value;
 		var receipt_for = $('#receipt_for:checked').val();
 		$("#result").load("bank_receipt_reference_ajax?flat=" +flat_id+ "&rf=" +receipt_for+ "");
 		});
 		
-        $("#receipt_for2").bind('click',function(){
-		//var flat_id = document.getElementById('resident_flat_id').value;
-		var receipt_for = $('#receipt_for2:checked').val();
-		
+		$(".othhher").bind('click',function(){
+		var receipt_for = $('#receipt_for:checked').val();
 		$("#result").load("bank_receipt_reference_ajax?rf=" +receipt_for+ "");
 		});
+		
+		
 
+		
+       // function othhher()
+		//{
+		//var flat_id = document.getElementById('resident_flat_id').value;
+		//var receipt_for = $('#receipt_for:checked').val();
+		
+		//
+		//});
+		//}
 
 	
 
@@ -408,24 +416,48 @@ error.appendTo('label#' + element.attr('id'));
 			},
 
 			cheque_number : {
-			required: true  	
+			required: true,  
+			number: true	
 			},
 
 			cheque_date1 : {
 			required: true  	
 			},
-		
-
-		
-		
+				
+			reference_number : {
+			required: true  	
+			},
+			
+			cheque_date : {
+			required: true  	
+			},
+		 		 
+			member_type : {
+			required: true  	
+			},
 		 
-		 
+		    resident_name : {
+			required: true  	
+			},
+			
+			receipt_type : {
+			required: true  	
+			},
 		
-		amount : {
-		required: true,
-		number: true,
-		notEqual: "0"
-		},
+			amount : {
+			required: true,
+			number: true,
+			notEqual: "0"
+			},
+		
+			party_name : {
+			required: true  	
+			},
+			
+			bill_reference : {
+			required: true  	
+			},
+		
 		
 		},
 		highlight: function(element) {
