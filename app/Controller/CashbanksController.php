@@ -190,6 +190,7 @@ $this->set('cursor3',$cursor3);
 			
 			if($member_type == 1)
 			{
+			
 			$party_name = (int)$this->request->data['resident_name'];
 			$receipt_type = (int)$this->request->data['receipt_type'];
 			$flat_id = $party_name;
