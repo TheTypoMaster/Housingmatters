@@ -11,8 +11,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <input type="hidden" id="ti" value="<?php echo $datet1; ?>" />
 <input type="hidden" id="cn" value="<?php echo $count; ?>" />
 
-
-
 <!--  Start Bank Receipt form Front End  -->
 <center>
 <a href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt" class="btn yellow" rel='tab'>Create</a>
@@ -65,18 +63,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
         <div id="result11"></div>
         </div>
       
-
-<!--
-<div id="div11"></div>
-<div id="div13" class="hide">
-<label style="font-size:14px;">Bill Reference<span style="color:red;">*</span></label>
-<div class="controls">
-<input type="text" class="m-wrap span9" name="bill_reference" placeholder="Bill Reference" style="background-color:white !important;" id="refn"/>
-<label id="refn"></label>
-</div>
-<br />
--->
-
         <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Deposited In<span style="color:red;">*</span> <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select deposit bank "> </i></label>
         <div class="controls">
         &nbsp;&nbsp;<select name="deposited_bank_id" class="span9 m-wrap chosen" id="bank">
@@ -93,11 +79,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
         </select>
         &nbsp;&nbsp;<label id="bank"></label>
         </div>
-
-
-
-
-
 
 
         
@@ -139,10 +120,10 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 
     <div class="hide" id="neft_show">
-    <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Reference/UTR #<span style="color:red;">*</span><span style="margin-left:8%;">Date<span style="color:red;">*</span></span></label>
+    <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Reference/UTR #<span style="color:red;">*</span><span style="margin-left:15%;">Date<span style="color:red;">*</span></span></label>
     <div class="controls">
-    &nbsp;&nbsp;&nbsp;<input type="text"  name="reference_number" class="m-wrap span3 ignore" placeholder="Reference/UTR #" style="background-color:white !important;" id="ins">&nbsp;&nbsp;
-    <input type="text"  name="cheque_date" class="m-wrap span4 date-picker" placeholder="Date" data-date-format="dd-mm-yyyy" style="background-color:white !important;" id="ins">
+    &nbsp;&nbsp;&nbsp;<input type="text"  name="reference_number" class="m-wrap span4 ignore" placeholder="Reference/UTR #" style="background-color:white !important;" id="ins">&nbsp;&nbsp;
+    <input type="text"  name="cheque_date" class="m-wrap span3 date-picker" placeholder="Date" data-date-format="dd-mm-yyyy" style="background-color:white !important;" id="ins">
     <label id="ins"></label>
     </div>
     </div>
@@ -155,7 +136,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 Residential
 </label>
 <label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="member_type" class="go6" value="2" style="opacity: 0;" onclick="hidediv('div12')" id="mem" onclick="for_non_residential()"></span></div>
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="member_type" class="go6" value="2" style="opacity: 0;" onclick="for_non_residential()" id="mem" onclick="for_non_residential()"></span></div>
 Non-Residential
 </label>
 <label id="mem"></label>
@@ -166,9 +147,7 @@ Non-Residential
 <div style="background-color:#FFF; width:50%; float:right; overflow:hidden;">
 
 
-<div id="for_resident_view">
-
-
+<div id="for_resident_view" class="hide">
 <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Select Resident<span style="color:red;">*</span></label>
 <div class="control">
 &nbsp;&nbsp;<select name="resident_name" class="m-wrap span9" id="resident_flat_id">
@@ -198,7 +177,7 @@ $flat_id = (int)$user_data['user']['flat'];
 &nbsp;&nbsp;<label class="radio">
 <div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_type" class="hhh" value="1" style="opacity: 0;" id="receipt_for"></span></div>Maintanace Receipt</label>
 <label class="radio">
-<div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_type" class="go6" value="2" style="opacity: 0;" onclick="hidediv('div12')" id="receipt_for"></span></div>Other Receipt</label>
+<div class="radio" id="uniform-undefined"><span><input type="radio" name="receipt_type" class="go6" value="2" style="opacity: 0;" onclick="hidediv('div12')" id="receipt_for2"></span></div>Other Receipt</label>
 <label id="mem"></label>
 <br />
 </div>
@@ -206,15 +185,27 @@ $flat_id = (int)$user_data['user']['flat'];
 
 
 <div id="result">
-
-
 </div>
 
-<!--
-<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Amount<span style="color:red;">*</span></label>
+<div class="hide" id="non_residential_view">
+ 
+<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Party Name<span style="color:red;">*</span></label>
 <div class="controls">
-&nbsp;&nbsp;<input type="text" name="amount" class="m-wrap span9" placeholder="Amount" style="background-color:white !important;" id="amount"/>
-<label id="amount"></label>
+&nbsp;&nbsp;<input type="text" class="m-wrap span9" name="party_name" id="party" />
+&nbsp;&nbsp;<label id="party"></label>
+</div>
+
+<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Bill Reference<span style="color:red;">*</span></label>
+<div class="controls">
+&nbsp;&nbsp;<input type="text" class="m-wrap span9" name="bill_reference" id="bill_ref" />
+&nbsp;&nbsp;<label id="bill_ref"></label>
+</div>
+
+<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Amount Applied<span style="color:red;">*</span></label>
+<div class="controls">
+&nbsp;&nbsp;<input type="text" class="m-wrap span9" name="amount" id="amt" />
+&nbsp;&nbsp;<label id="amt"></label>
+</div>
 </div>
 
 
@@ -222,7 +213,7 @@ $flat_id = (int)$user_data['user']['flat'];
 <div class="controls">
 &nbsp;&nbsp;<textarea   rows="4" name="description" class="span9 m-wrap" placeholder="Narration" style="background-color:white !important;resize:none;" id="nar" ></textarea>
 </div>
--->
+
 
 
 
@@ -248,11 +239,14 @@ $("#neft_show").show();
 
 function for_non_residential()
 {
-alert();	
+$("#non_residential_view").show();
+$("#for_resident_view").hide();
+$('#result').html('');
 }
 function for_residential()
 {
 $("#for_resident_view").show();
+$("#non_residential_view").hide();
 }
 </script>	
 
@@ -269,6 +263,7 @@ $("#for_resident_view").show();
 		$("#resident_flat_id").bind('change',function(){
 		var flat_id = document.getElementById('resident_flat_id').value;
 		var receipt_for = $('#receipt_for:checked').val();
+			
 		$("#result").load("bank_receipt_reference_ajax?flat=" +flat_id+ "&rf=" +receipt_for+ "");
 		});
 				
@@ -278,6 +273,16 @@ $("#for_resident_view").show();
 		$("#result").load("bank_receipt_reference_ajax?flat=" +flat_id+ "&rf=" +receipt_for+ "");
 		});
 		
+        $("#receipt_for2").bind('click',function(){
+		//var flat_id = document.getElementById('resident_flat_id').value;
+		var receipt_for = $('#receipt_for2:checked').val();
+		
+		$("#result").load("bank_receipt_reference_ajax?rf=" +receipt_for+ "");
+		});
+
+
+	
+
 
 		
 		$("#i_head").live('change',function(){

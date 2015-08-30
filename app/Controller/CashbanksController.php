@@ -2334,10 +2334,6 @@ $type = (int)$this->request->query('rf');
 $this->set('type',$type);
 $this->set('flat_id',$flat_id);
 //$this->set('flat_id',$flat_id);
-
-
-
-
 }
 
 /////////////////////////////////////////////////////////////End Bank Receipt Reference Ajax (Accounts)//////////////////////////////////////////////////
