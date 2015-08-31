@@ -173,13 +173,46 @@ $this->set('cursor3',$cursor3);
 	$TransactionDate = date('Y-m-d',strtotime($receipt_date));
 	$TransactionDate = strtotime($TransactionDate); 
 	$deposited_bank_id = (int)$this->request->data['deposited_bank_id'];
-	
 	$receipt_mode = $this->request->data['receipt_mode'];
 			if($receipt_mode == "Cheque")
 			{
 			$cheque_number = $this->request->data['cheque_number'];
 			$cheque_date = $this->request->data['cheque_date1'];
 			$drawn_on_which_bank = $this->request->data['drawn_on_which_bank'];
+			
+								$knddd = "&quot;".$drawn_on_which_bank."&quot;";
+								$this->loadmodel('reference');
+								$conditions=array();
+								$rfff=$this->reference->find('all',array('conditions'=>$conditions));
+								foreach($rfff as $dddttt)
+								{
+								$knnddd = @$dddttt['reference']['reference'];			
+								}
+								for($n=0; $n<sizeof($knnddd); $n++)
+								{
+									echo $kendo_name = $knnddd[$n];
+									if($kendo_name == $knddd)
+									{
+									$nnn = 5;
+									break;
+									}
+									else
+									{
+									$nnn = 555;
+									}
+								}
+							echo $nnn;
+							if($nnn == 555){
+                            
+							$knnddd[] = $knddd;
+					
+						$this->loadmodel('reference');
+						$this->reference->updateAll(array("reference" => $knnddd),array("auto_id" =>6));
+				        }
+			
+			
+			
+			
 			}
 			else
 			{
@@ -190,13 +223,12 @@ $this->set('cursor3',$cursor3);
 			
 			if($member_type == 1)
 			{
-			
 			$party_name = (int)$this->request->data['resident_name'];
 			$receipt_type = (int)$this->request->data['receipt_type'];
 			$flat_id = $party_name;
 			if($receipt_type == 1)
 			{
-			echo $amount = $this->request->data['amount1'];
+			$amount = $this->request->data['amount1'];
 			}
 			else
 			{
@@ -209,8 +241,7 @@ $this->set('cursor3',$cursor3);
 			$bill_reference = $this->request->data['bill_reference'];
 			$amount = $this->request->data['amount'];
 			}
-            
-		    $narration = $this->request->data['description'];
+            $narration = $this->request->data['description'];
 
 
 
@@ -572,6 +603,17 @@ $bill_one_time_id=$last_bill["one_time_id"];
 </div>
 <?php
 }
+
+
+$this->loadmodel('reference');
+$conditions=array();
+$rfff=$this->reference->find('all',array('conditions'=>$conditions));
+foreach($rfff as $dddtttt)
+{
+$kendo_array = @$dddtttt['reference']['reference'];			
+}
+$kendo_implode = implode(",",$kendo_array);
+$this->set('kendo_implode',$kendo_implode);
 }
 
 function upload_csv_cash_bank(){
@@ -4247,5 +4289,14 @@ $this->check_user_privilages();
 
 }
 ////////////////////////End Bank Receipt Deposit Slip /////////////////////////////////////////////////////////////
+
+/////////////////////////////Start print_deposit_slip /////////////////////////////////////////////////////////
+function print_deposit_slip()
+{
+$this->layout='blank';
+
+
+}
+/////////////////////////////End print_deposit_slip /////////////////////////////////////////////////////////
 }
 ?>
