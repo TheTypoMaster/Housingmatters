@@ -78,7 +78,6 @@ foreach ($cursor as $collection)
 {
 $d_from = $collection['new_regular_bill']['bill_start_date'];
 $d_to = $collection['new_regular_bill']['bill_end_date'];
-
 }
 
 
