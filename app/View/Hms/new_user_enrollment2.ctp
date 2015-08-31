@@ -41,7 +41,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 <div id="report_id"></div>								
 <div id="report"></div>
-<table class="table table-bordered">
+<table class="table table-bordered" style="background-color:#FFC;">
 <tr>
 <th width="15%">Name</th>
 <th width="10%">Wing</th>

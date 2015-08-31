@@ -20528,7 +20528,7 @@ foreach($myArray as $child)
 
 		 $this->loadmodel('ledger_sub_account');
 		 $j=$this->autoincrement('ledger_sub_account','auto_id');
-		  $this->ledger_sub_account->saveAll(array('auto_id'=>$j,'ledger_id'=>34,'name'=>$name,'society_id' => $s_society_id,'user_id'=>$i,'deactive'=>0));
+		  $this->ledger_sub_account->saveAll(array('auto_id'=>$j,'ledger_id'=>34,'name'=>$name,'society_id' => $s_society_id,'user_id'=>$i,'deactive'=>0,'flat_id'=>$flat));
 
 		/////////////  End code ledger sub accounts //////////////////////////
 		
@@ -20597,7 +20597,7 @@ foreach($myArray as $child)
 			 $subject="Welcome to ".$society_name." portal ";
 			if(!empty($email))
 			{
-			 $this->send_email($to,$from,$from_name,$subject,@$message_web,$reply);
+			$this->send_email($to,$from,$from_name,$subject,@$message_web,$reply);
 			}
 			
 
