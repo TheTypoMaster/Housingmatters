@@ -3800,21 +3800,21 @@ $user=(int)$this->request->query['user'];
 $this->set('user_id', $user);
 $this->loadmodel('society');
 $this->set('result', $this->society->find('all'));
-if($this->request->is('post')) 
-{
-@$ip=$this->hms_email_ip();
-$society_id=(int)$this->request->data['society'];
-$tenant=(int)$this->request->data['tenant'];
-if($tenant==1)
-{
-$committe=(int)$this->request->data['committe'];
-}
-else
-{
-$committe=2;
-}
-$wing=(int)$this->request->data['wing'];
-$flat=(int)$this->request->data['flat'];
+		if($this->request->is('post')) 
+		{
+		@$ip=$this->hms_email_ip();
+		$society_id=(int)$this->request->data['society'];
+		$tenant=(int)$this->request->data['tenant'];
+		if($tenant==1)
+		{
+		$committe=(int)$this->request->data['committe'];
+		}
+			else
+			{
+			$committe=2;
+			}
+	$wing=(int)$this->request->data['wing'];
+	$flat=(int)$this->request->data['flat'];
 //$residing=(int)$this->request->data['residing'];
 $this->loadmodel('user_temp');
 $this->user_temp->updateAll(array("society_id" => $society_id,"committee" => $committe, 
@@ -7801,7 +7801,7 @@ $this->user->save(array('user_id' => $i, 'user_name' => $user_name,'email' => $e
 
 $this->loadmodel('ledger_sub_account');
 $j=$this->autoincrement('ledger_sub_account','auto_id');
-$this->ledger_sub_account->save(array('auto_id'=>$j,'ledger_id'=>34,'name'=>$user_name,'society_id' => $society_id,'user_id'=>$i,'deactive'=>0));
+$this->ledger_sub_account->save(array('auto_id'=>$j,'ledger_id'=>34,'name'=>$user_name,'society_id' => $society_id,'user_id'=>$i,'deactive'=>0,"flat_id"=>$flat));
 
 /////////////  End code ledger sub accounts //////////////////////////
 
