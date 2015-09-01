@@ -2325,17 +2325,25 @@ function multiple_flat()
 			$s_society_id=(int)$this->Session->read('society_id');
 			$s_user_id=$this->Session->read('user_id');
 			
+			$this->set('s_society_id',$s_society_id);
+			
+			
 			$this->seen_alert(105,$s_user_id);
 			$result=$this->all_user_deactive();
 			$this->set('result_user',$result);
 	
 		if($this->request->is('post'))
 		{
-			$user_sel=(int)$this->request->data['user_sel'];
-			$wing=(int)$this->request->data['sel_wing_id'];
-			$flat=(int)$this->request->data['sel_flat_id'];
-			$noc_charg=(int)$this->request->data['noc_charg'];
-		   
+		
+		
+
+
+		
+			 $user_sel=(int)$this->request->data['resident_id'];
+			 $wing=(int)$this->request->data['wing'];
+			 $flat=(int)$this->request->data['fflt'];
+			 $noc_charg=(int)$this->request->data['flat_ttpp'];
+			
 				$this->loadmodel('user');
 				$conditions =array( '$or' => array( 
 				array("wing" => $wing, "flat" => $flat,'society_id'=>$s_society_id),
@@ -2383,7 +2391,7 @@ function multiple_flat()
 	///////////////  Insert code ledger Sub Accounts //////////////////////
 		$this->loadmodel('ledger_sub_account');
 		$j=$this->autoincrement('ledger_sub_account','auto_id');
-		$this->ledger_sub_account->save(array('auto_id'=>$j,'ledger_id'=>34,'name'=>$user_name,'society_id' => $s_society_id,'user_id'=>$user_sel,'deactive'=>0));
+		$this->ledger_sub_account->save(array('auto_id'=>$j,'ledger_id'=>34,'name'=>$user_name,'society_id' => $s_society_id,'user_id'=>$user_sel,'deactive'=>0,"flat_id"=>$flat));
 	/////////////  End code ledger sub accounts //////////////////////////
 			?>
 			<!----alert-------------->

@@ -17,9 +17,11 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <br />
 <div style="width:48%; float:left;">
 
+<input type="hidden" value="<?php echo $s_society_id; ?>" id="sss_id" />
+
 <label style="font-size:14px; margin-left:3%;">Select Resident<span style="color:#F00;">*</span></label>
 <div class="controls" style="margin-left:3%;">
-<select name="user_sel" class='m-wrap span9 sel_u chosen' onchange="userr_fffnctt(this.value)">
+<select name="resident_id" class='m-wrap span9 sel_u chosen' onchange="userr_fffnctt(this.value)">
 <option> Select User </option>
 <?php 
 foreach($result_user as $data)
@@ -35,7 +37,19 @@ $flat=$data['user']['flat'];
 </div>
 <br />
 
-<label style="font-size:14px; margin-left:3%;">Select Resident<span style="color:#F00;">*</span></label>
+
+<label style="font-size:14px; margin-left:3%;">Select Flat Type<span style="color:#F00;">*</span></label>
+<div class="controls" style="margin-left:3%;">
+<select name="flat_ttpp" class='m-wrap span9 sel_u chosen' id="flttt">
+<option style="display:none;">Select Flat Type</option>
+<option value='1'>Self Occupied</option>
+<option value='2'>Leased</option>
+</select>
+<label id="flttt"></label>
+</div>
+<br />
+
+<label style="font-size:14px; margin-left:3%;">Select Wing<span style="color:#F00;">*</span></label>
 <div class="controls" style="margin-left:3%;">
 <select class="m-wrap span9 chosen winggg" name="wing" id="wing_validation" onchange="wing_functtt(this.value)">
 <option value="" style="display:none;">Select Wing</option>
@@ -53,7 +67,6 @@ $wing_name = $data['wing']['wing_name'];
 </div>
 
 <div id='record' style="margin-left:3%;">
-
 </div>
 
 
@@ -65,10 +78,14 @@ $wing_name = $data['wing']['wing_name'];
 <div id="user_fl_detail">
 </div>
 
-
-
-
 </div>
+
+<div style="width:100%; overflow:auto;">
+<br /><br />
+<input type="submit" name="mutipll_fllt" class="btn green" value="Submit" style="margin-left:30%;"/>
+<br />
+</div> 
+
 </div>
 
 <!-- --------------------------------------- -->
@@ -126,19 +143,41 @@ $.validator.setDefaults({ ignore: ":hidden:not(select)" });
 		
 	    rules: {
 	     
-		 sel_wing_id: {
-			 required: true
-			
-			 
-	      },
-		   sel_flat_id: {
+		
+		  
+		   wing: {
 			 required: true,
 			
 	      },
-		  	noc_charg: {
+		  	flat_ttpp: {
 			required: true,
 
 			},
+
+
+			wing: {
+			required: true,
+			},
+		
+			fflt: {
+			required: true
+			},
+			
+			
+			
+		
+		remote: {
+				url: "flat_already_exits",
+				type: "post",
+				data: {
+				society: function(){
+				return $("#sss_id").val();
+				return $("#fll").val();
+				}
+		
+		}
+		}
+
 
 
            		},

@@ -44,9 +44,9 @@ foreach($flat_detaill as $ffllddd)
 $flat_name = $ffllddd['flat']['flat_name'];	
 }
 $wing_detail = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_fetch'),array('pass'=>array($wing_id)));
-foreach($wing_detail as $ffllddd)
+foreach($wing_detail as $fflldddd)
 {
-$wing_name = $ffllddd['wing']['wing_name'];	
+$wing_name = $fflldddd['wing']['wing_name'];	
 }
 ?>
 <tr>
@@ -69,9 +69,9 @@ foreach($flat_detaill as $ffllddd)
 $flat_name = $ffllddd['flat']['flat_name'];	
 }
 $wing_detail = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_fetch'),array('pass'=>array($wing_id)));
-foreach($flat_detaill as $ffllddd)
+foreach($wing_detail as $fflldddd)
 {
-$wing_name = $wing_detail['wing']['wing_name'];	
+$wing_name = $fflldddd['wing']['wing_name'];	
 }
 ?>
 <tr>
