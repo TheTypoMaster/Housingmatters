@@ -133,12 +133,22 @@ foreach($result_society as $data){
 				<?php 
 				$inc=0; 
 				$bill_number = $this->requestAction(array('controller' => 'Hms', 'action' => 'autoincrement_with_society_ticket'),array('pass'=>array('new_regular_bill','bill_no'))); $bill_number--;
-				foreach($result_user as $user){ $inc++; $bill_number++; $total=0; $due_for_payment=0;
+				foreach($flats_for_bill as $flat){ $inc++; $bill_number++; $total=0; $due_for_payment=0;
 				
-					$user_id=(int)$user["user"]["user_id"];
-					$user_name=$user["user"]["user_name"];
-					$wing=$user["user"]["wing"];
-					$flat=$user["user"]["flat"];
+				//wing_id via flat_id//
+				$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat)));
+				foreach($result_flat_info as $flat_info){
+					$wing=$flat_info["flat"]["wing_id"];
+				} 
+				
+				
+				//user info via flat_id//
+				$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($wing,$flat)));
+				foreach($result_user_info as $user_info){
+					$user_id=(int)$user_info["user"]["user_id"];
+					$user_name=$user_info["user"]["user_name"];
+				} 
+					
 					
 					if(($bill_for==1 && in_array($wing,$wing_array)) || $bill_for==2){ 
 						

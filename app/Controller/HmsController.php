@@ -358,7 +358,7 @@ $this->redirect(array('action' => 'index'));
 }
 function beforeFilter()
 {
-Configure::write('debug', 0);
+//Configure::write('debug', 0);
 }
 
 function menus_from_role_privileges()
@@ -2533,10 +2533,13 @@ function fetch_wing_id_via_flat_id($flat_id){
 	return $this->flat->find('all',array('conditions'=>$conditions));
 }
 
-function fetch_user_info_via_flat_id($flat_id){
+function fetch_user_info_via_flat_id($wing,$flat){
 	$s_society_id=$this->Session->read('society_id');
 	$this->loadmodel('user');
-	$conditions=array("flat" => $flat_id,"society_id"=>$s_society_id);
+	$conditions =array( '$or' => array( 
+	array('wing' =>$wing,'flat' =>$flat),
+	array('multiple_flat' => array('$in' => array(array((int)$wing,(int)$flat))))
+	));
 	return $this->user->find('all',array('conditions'=>$conditions));
 }
 
