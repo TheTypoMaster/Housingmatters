@@ -50,8 +50,8 @@ $wing_name = $fflldddd['wing']['wing_name'];
 }
 ?>
 <tr>
-<td style="text-align:left;"><?php echo $wing_name; ?></td>
-<td style="text-align:left;"><?php echo $flat_name; ?></td> 	    
+<td style="text-align:left;"><?php echo @$wing_name; ?></td>
+<td style="text-align:left;"><?php echo @$flat_name; ?></td> 	    
 </tr>
 <?php 
 } 
@@ -75,8 +75,8 @@ $wing_name = $fflldddd['wing']['wing_name'];
 }
 ?>
 <tr>
-<td style="text-align:left;"><?php echo $wing_name; ?></td>
-<td style="text-align:left;"><?php echo $flat_name; ?></td> 	    
+<td style="text-align:left;"><?php echo @$wing_name; ?></td>
+<td style="text-align:left;"><?php echo @$flat_name; ?></td> 	    
 </tr>
 <?php	
 }
