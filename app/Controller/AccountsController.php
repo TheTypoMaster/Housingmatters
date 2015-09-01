@@ -3557,50 +3557,43 @@ $excel = "Group Name,A/c name,wing,unit,Amount Type(Debit or Credit),Amount(Open
 			{
 			$group_id = (int)$collection['ledger_accounts']['group_id'];
 			$ledger_name = $collection['ledger_accounts']['ledger_name'];
-			
+		
+		$result_ag = $this->requestAction(array('controller' => 'hms', 'action' => 'accounts_group'),array('pass'=>array($group_id)));
+			foreach ($result_ag as $collection) 
+			{
+			$accounts_id = (int)$collection['accounts_group']['accounts_id'];	
+			$group_name = $collection['accounts_group']['group_name'];	
+			}
+		$excel.= "$group_name,$ledger_name \n";
+			}
 
-
-$result_ag = $this->requestAction(array('controller' => 'hms', 'action' => 'accounts_group'),array('pass'=>array($group_id)));
-foreach ($result_ag as $collection) 
-{
-$accounts_id = (int)$collection['accounts_group']['accounts_id'];	
-$group_name = $collection['accounts_group']['group_name'];	
-}
-$excel.= "$group_name,$ledger_name \n";
-}
-/*
 $this->loadmodel('ledger_sub_account');
 $conditions=array("society_id" => $s_society_id);
 $result1 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
-foreach($result1 as $data)
+foreach($result1 as $datadd)
 {
-$ledger_id = (int)$data['ledger_sub_account']['ledger_id'];
-$name = $data['ledger_sub_account']['name'];
+$ledger_id = (int)$datadd['ledger_sub_account']['ledger_id'];
+$name = $datadd['ledger_sub_account']['name'];
 
-		if($ledger_id==34){
-		
+		if($ledger_id == 34){
 		$user_id = @$data['ledger_sub_account']['user_id'];
-		$flat_id = (int)$date['ledger_sub_account']['flat_id'];
-			
-			$flat_data = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($flat_id)));
-			foreach($flat_data as $data){
-			$wing = $data['flat']['wing_id'];
-			$flat = $data['flat']['flat_id'];	
-			}
-			}
-
-	
-	$wing_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_fetch'),array('pass'=>array($wing)));
-	foreach($wing_fetch as $collection){
-		$wing_name = $collection['wing']['wing_name'];
+		$flat_id = @$data['ledger_sub_account']['flat_id'];
+		}
+	/*		
+	$flat_data = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch'),array('pass'=>array($flat_id)));
+	foreach($flat_data as $fll_data){
+	$wing_iddd = (int)$fll_data['flat']['wing_id'];
+	$flat = (int)$fll_data['flat']['flat_id'];	
+	$flat_name = $fll_data['flat']['flat_name'];
 	}
 
+	$wing_data = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_fetch'),array('pass'=>array($wing_iddd)));
+	foreach($flat_data as $fll_data){
 	
-	$flat_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch'),array('pass'=>array($flat)));
-	foreach($flat_fetch as $collection){
-		$flat_name = $collection['flat']['flat_name'];
 	}
 
+ 
+	
 
 $result_la = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account'),array('pass'=>array($ledger_id)));
 foreach ($result_la as $collection) 
@@ -3610,17 +3603,18 @@ $ledger_name = $collection['ledger_account']['ledger_name'];
 }
 
 
-if($ledger_id==34){
-	$excel.= "$ledger_name,$name,$wing_name,$flat_name \n";
-}else{
-	$excel.= "$ledger_name,$name \n";
-}
+		if($ledger_id==34){
+		$excel.= "$ledger_name,$name,$wing_name,$flat_name \n";
+		}
+		else {
+		$excel.= "$ledger_name,$name \n";
+		}
 
 }
 
 
 */
-
+}
 
 
 

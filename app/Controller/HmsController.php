@@ -19220,8 +19220,6 @@ return $this->due_tax->find('all',array('conditions'=>$conditions));
 }
 ////////////////// End Due Tax Fetch2(Accounts)///////////////////////////////////////////
 
-
-
 /////////////////////// Start Wing Fetch(Accounts) //////////////////////////////////
 function wing_fetch($wing) 
 {
