@@ -2335,22 +2335,18 @@ function multiple_flat()
 		if($this->request->is('post'))
 		{
 		
-		
-
-
-		
-			 $user_sel=(int)$this->request->data['resident_id'];
-			 $wing=(int)$this->request->data['wing'];
-			 $flat=(int)$this->request->data['fflt'];
-			 $noc_charg=(int)$this->request->data['flat_ttpp'];
+		$user_sel=(int)$this->request->data['resident_id'];
+		 $wing=(int)$this->request->data['wing'];
+		 $flat=(int)$this->request->data['fflt'];
+		 $noc_charg=(int)$this->request->data['flat_ttpp'];
 			
 				$this->loadmodel('user');
 				$conditions =array( '$or' => array( 
 				array("wing" => $wing, "flat" => $flat,'society_id'=>$s_society_id),
 				array("multiple_flat" => array($wing,$flat),'society_id'=>$s_society_id),
-			));
+			    ));
 			  $result_count=$this->user->find('all',array('conditions'=>$conditions));
-			   $n= sizeof($result_count);
+			   $n= (int)sizeof($result_count);
 		  	
 					if($n==0)
 					{
