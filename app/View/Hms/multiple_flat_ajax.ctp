@@ -32,7 +32,7 @@ if(!empty($value))
 <?php	
 foreach($user_data as $usss_ddd)
 {
-$multiple_flat = $usss_ddd['user']['multiple_flat'];
+@$multiple_flat = $usss_ddd['user']['multiple_flat'];
 }
 $wing_id = (int)$usss_ddd['user']['wing'];
 $flat_id = (int)$usss_ddd['user']['flat'];
