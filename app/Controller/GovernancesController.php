@@ -966,7 +966,7 @@ function governance_invite_submit_draft(){
 		if($type_mettings==3){ $moc="Special General Body"; }
 		
 		$this->loadmodel('governance_invite');		
-		//$this->governance_invite->updateAll(array('date'=>$date,'time'=>$time,'subject'=>$subject,'location'=>$location,'meeting_type'=>$type_mettings,'covering_note'=>$covering_note,'message'=>$message,'deleted'=>0,'notice_of_date'=>$current_date),array('governance_invite_id'=>$id));
+		$this->governance_invite->updateAll(array('date'=>$date,'time'=>$time,'subject'=>$subject,'location'=>$location,'meeting_type'=>$type_mettings,'covering_note'=>$covering_note,'message'=>$message,'deleted'=>0,'notice_of_date'=>$current_date),array('governance_invite_id'=>$id));
 
 
 		/////////////////////////// Send Email code start/////////////////////////////
