@@ -14773,7 +14773,7 @@ $this->user->save(array('user_id' => $i, 'user_name' => $name,'email' => $email,
 
 $this->loadmodel('ledger_sub_account');
 $j=$this->autoincrement('ledger_sub_account','auto_id');
-$this->ledger_sub_account->save(array('auto_id'=>$j,'ledger_id'=>34,'name'=>$name,'society_id' => $society_id,'user_id'=>$i,'deactive'=>0));
+$this->ledger_sub_account->save(array('auto_id'=>$j,'ledger_id'=>34,'name'=>$name,'society_id' => $society_id,'user_id'=>$i,'deactive'=>0,"flat_id"=>$flat));
 
 
 
