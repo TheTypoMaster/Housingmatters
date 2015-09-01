@@ -9,8 +9,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 });
 </script>
 
-
-
 <form method="post" id='contact-form'>
 <div style="background-color:#FFF; width:100%; border:solid #999; overflow:auto; height:700px;">
 <p style="color:#00F; font-weight:500; font-size:16px; border-bottom:solid 1px #DAD9D9; padding:10px;">Assign Multiple Flat</p>
@@ -37,7 +35,7 @@ $flat=$data['user']['flat'];
 </div>
 <br />
 
-
+<!--
 <label style="font-size:14px; margin-left:3%;">Select Flat Type<span style="color:#F00;">*</span></label>
 <div class="controls" style="margin-left:3%;">
 <select name="flat_ttpp" class='m-wrap span9 sel_u chosen' id="flttt">
@@ -47,7 +45,7 @@ $flat=$data['user']['flat'];
 </select>
 <label id="flttt"></label>
 </div>
-<br />
+<br />-->
 
 <label style="font-size:14px; margin-left:3%;">Select Wing<span style="color:#F00;">*</span></label>
 <div class="controls" style="margin-left:3%;">

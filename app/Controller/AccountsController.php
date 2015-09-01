@@ -3550,16 +3550,15 @@ $s_user_id = (int)$this->Session->read('user_id');
 
 $excel = "Group Name,A/c name,wing,unit,Amount Type(Debit or Credit),Amount(Opening Balance),Penalty \n";
 
-$this->loadmodel('ledger_accounts');
-$conditions = array( '$or' => array( 
-	array('society_id' =>$s_society_id),
-	array('society_id' =>0)
-	));
-$cursor = $this->ledger_accounts->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$group_id = (int)$collection['ledger_accounts']['group_id'];
-$ledger_name = $collection['ledger_accounts']['ledger_name'];
+		$this->loadmodel('ledger_accounts');
+		$conditions = array('$or'=>array(array('society_id' =>$s_society_id),array('society_id' =>0)));
+		$cursor = $this->ledger_accounts->find('all',array('conditions'=>$conditions));
+		foreach($cursor as $collection)
+			{
+			$group_id = (int)$collection['ledger_accounts']['group_id'];
+			$ledger_name = $collection['ledger_accounts']['ledger_name'];
+			
+
 
 $result_ag = $this->requestAction(array('controller' => 'hms', 'action' => 'accounts_group'),array('pass'=>array($group_id)));
 foreach ($result_ag as $collection) 
@@ -3567,11 +3566,9 @@ foreach ($result_ag as $collection)
 $accounts_id = (int)$collection['accounts_group']['accounts_id'];	
 $group_name = $collection['accounts_group']['group_name'];	
 }
-
 $excel.= "$group_name,$ledger_name \n";
-
 }
-
+/*
 $this->loadmodel('ledger_sub_account');
 $conditions=array("society_id" => $s_society_id);
 $result1 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
@@ -3579,15 +3576,18 @@ foreach($result1 as $data)
 {
 $ledger_id = (int)$data['ledger_sub_account']['ledger_id'];
 $name = $data['ledger_sub_account']['name'];
-$user_id = @$data['ledger_sub_account']['user_id'];
 
-if($ledger_id==34){
-
-$profile_picture = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));foreach($profile_picture as $collection){
-		$wing = $collection['user']['wing'];
-		$flat = $collection['user']['flat'];	
-	}
-	}
+		if($ledger_id==34){
+		
+		$user_id = @$data['ledger_sub_account']['user_id'];
+		$flat_id = (int)$date['ledger_sub_account']['flat_id'];
+			
+			$flat_data = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($flat_id)));
+			foreach($flat_data as $data){
+			$wing = $data['flat']['wing_id'];
+			$flat = $data['flat']['flat_id'];	
+			}
+			}
 
 	
 	$wing_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_fetch'),array('pass'=>array($wing)));
@@ -3619,7 +3619,7 @@ if($ledger_id==34){
 }
 
 
-
+*/
 
 
 
