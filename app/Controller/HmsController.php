@@ -2311,118 +2311,109 @@ function all_tenant_deactive()
 	$conditions=array('society_id'=>$s_society_id,'tenant'=>2,'deactive'=>0);
 	return $result_user=$this->user->find('all',array('conditions'=>$conditions));
 }
+
+///////////////////////// Start  multiple_flat ///////////////////////////////
 function multiple_flat()
 {
-	if($this->RequestHandler->isAjax()){
-		$this->layout='blank';
-	}else{
-		$this->layout='session';
-	}
-		$this->ath();
-		$this->check_user_privilages();	
-		$s_society_id=(int)$this->Session->read('society_id');
-		$s_user_id=$this->Session->read('user_id');
-		$this->seen_alert(105,$s_user_id);
-		$result=$this->all_user_deactive();
-		$this->set('result_user',$result);
-	if($this->request->is('post'))
-	{
-		
-		  $user_sel=(int)$this->request->data['user_sel'];
-		   $wing=(int)$this->request->data['sel_wing_id'];
-		    $flat=(int)$this->request->data['sel_flat_id'];
-		    $noc_charg=(int)$this->request->data['noc_charg'];
+		if($this->RequestHandler->isAjax()){
+			$this->layout='blank';
+			}else{
+			$this->layout='session';
+			}
+			$this->ath();
+			$this->check_user_privilages();	
+			$s_society_id=(int)$this->Session->read('society_id');
+			$s_user_id=$this->Session->read('user_id');
+			
+			$this->seen_alert(105,$s_user_id);
+			$result=$this->all_user_deactive();
+			$this->set('result_user',$result);
+	
+		if($this->request->is('post'))
+		{
+			$user_sel=(int)$this->request->data['user_sel'];
+			$wing=(int)$this->request->data['sel_wing_id'];
+			$flat=(int)$this->request->data['sel_flat_id'];
+			$noc_charg=(int)$this->request->data['noc_charg'];
 		   
-		$this->loadmodel('user');
-		$conditions =array( '$or' => array( 
-		array("wing" => $wing, "flat" => $flat,'society_id'=>$s_society_id),
-		array("multiple_flat" => array($wing,$flat),'society_id'=>$s_society_id),
-		));
-		
-		 $result_count=$this->user->find('all',array('conditions'=>$conditions));
-		   $n= sizeof($result_count);
+				$this->loadmodel('user');
+				$conditions =array( '$or' => array( 
+				array("wing" => $wing, "flat" => $flat,'society_id'=>$s_society_id),
+				array("multiple_flat" => array($wing,$flat),'society_id'=>$s_society_id),
+			));
+			  $result_count=$this->user->find('all',array('conditions'=>$conditions));
+			   $n= sizeof($result_count);
 		  	
-		if($n==0)
-		{
-		$this->loadmodel('user');
-		$result2=$this->user->find('all',array('conditions'=>array('user_id'=>$user_sel)));
-		foreach($result2 as $data)
-		{
-			  $wing_id=$data['user']['wing'];
-			  $user_name=$data['user']['user_name'];
-			  $flat_id=$data['user']['flat'];
-			  @$multiple_flat=$data['user']['multiple_flat'];
-		}
+					if($n==0)
+					{
+				$this->loadmodel('user');
+				$result2=$this->user->find('all',array('conditions'=>array('user_id'=>$user_sel)));
+					foreach($result2 as $data)
+					{
+					$wing_id=$data['user']['wing'];
+					$user_name=$data['user']['user_name'];
+					$flat_id=$data['user']['flat'];
+					@$multiple_flat=$data['user']['multiple_flat'];
+					}
+			
 			$this->loadmodel('flat');
 			$this->flat->updateAll(array("noc_ch_tp" =>$noc_charg),array("flat_id" =>$flat));
 			
 			
-		if(empty($multiple_flat))
-		{	
-			$ar[]=array($wing,$flat);
-			$ar[]=array($wing_id,$flat_id);
-								
-		}	
+			if(empty($multiple_flat))
+			{	
+				$ar[]=array($wing,$flat);
+				$ar[]=array($wing_id,$flat_id);
+			}	
 		
 		
-		if(!empty($multiple_flat))
+	if(!empty($multiple_flat))
+	{
+		$ar[]=array($wing,$flat);
+		foreach($multiple_flat as $da)
 		{
-			$ar[]=array($wing,$flat);
-			foreach($multiple_flat as $da)
-			{
-				$w=$da[0];
-				$f=$da[1];
-				$ar[]=array($w,$f);
-			}
-		}	
+		$w=$da[0];
+		$f=$da[1];
+		$ar[]=array($w,$f);
+		}
+	}	
 										
 		$this->loadmodel('user');
 		$this->user->updateAll(array('multiple_flat'=>$ar),array('user_id'=>$user_sel));
-		
-		
-///////////////  Insert code ledger Sub Accounts //////////////////////
-
-$this->loadmodel('ledger_sub_account');
-$j=$this->autoincrement('ledger_sub_account','auto_id');
-$this->ledger_sub_account->save(array('auto_id'=>$j,'ledger_id'=>34,'name'=>$user_name,'society_id' => $s_society_id,'user_id'=>$user_sel,'deactive'=>0));
-
-/////////////  End code ledger sub accounts //////////////////////////
-		
-		
-		
-		
-		?>
-		
+	///////////////  Insert code ledger Sub Accounts //////////////////////
+		$this->loadmodel('ledger_sub_account');
+		$j=$this->autoincrement('ledger_sub_account','auto_id');
+		$this->ledger_sub_account->save(array('auto_id'=>$j,'ledger_id'=>34,'name'=>$user_name,'society_id' => $s_society_id,'user_id'=>$user_sel,'deactive'=>0));
+	/////////////  End code ledger sub accounts //////////////////////////
+			?>
 			<!----alert-------------->
 			<div class="modal-backdrop fade in"></div>
 			<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
 			<div class="modal-body" style="font-size:16px;">
-				Successfully add multiple flat
+			Successfully add multiple flat
 			</div> 
 			<div class="modal-footer">
 			<a href="multiple_flat" class="btn green">OK</a>
 			</div>
 			</div>
 			<!----alert-------------->
-
-		
-		
-		
-		
-		
 		<?php
-		
-		
-		
-	 }	
+		}	
 		else
 		{
-			$this->set('wrong','<span style="color:red; font-size:14px;">Wing-Flat is already exits</span>');
-			
+		$this->set('wrong','<span style="color:red; font-size:14px;">Wing-Flat is already exits</span>');
 		}	
-	}
-	
-}
+		}
+
+
+		$this->loadmodel('wing');
+		$conditions=array("society_id"=>$s_society_id);
+		$cursor1 = $this->wing->find('all',array('conditions'=>$conditions));
+		$this->set('wing_data',$cursor1);
+
+		}
+
+///////////////////////// Start  multiple_flat ///////////////////////////////
 function multiple_flat_ajax1()
 {
     $this->layout="blank";
@@ -2433,17 +2424,27 @@ function multiple_flat_ajax1()
 }
 function multiple_flat_ajax()
 {
-	 $this->layout="blank";
-     $s_society_id=$this->Session->read('society_id');
-	 $user_id=(int)$this->request->query('con');
-	$conditions=array('user_id'=>$user_id);
-	$this->loadmodel('user');
-	$result=$this->user->find('all',array('conditions'=>$conditions));
-	$this->set('result_user',$result);
-	$this->loadmodel('wing');
-	$conditions2=array('society_id'=>$s_society_id);
-	
-	$this->set('result_wing',$this->wing->find('all',array('conditions'=>$conditions2)));
+		$this->layout="blank";
+		$s_society_id=$this->Session->read('society_id');
+		
+  		$wing_id = (int)$this->request->query('wngg');
+	    $value = $this->request->query('vv');	
+        $this->set('value',$value);
+		
+		
+		if(!empty($value))
+		{
+		$this->loadmodel('user');
+		$conditions=array('user_id'=>$wing_id,"society_id"=>$s_society_id);
+		$result2=$this->user->find('all',array('conditions'=>$conditions));
+		$this->set('user_data',$result2);
+		}
+		
+		$this->loadmodel('flat');
+		$conditions=array('wing_id'=>$wing_id,"society_id"=>$s_society_id);
+		$result=$this->flat->find('all',array('conditions'=>$conditions));
+		$this->set('flat_data',$result);
+
 }	
 
 
