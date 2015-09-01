@@ -68,7 +68,7 @@ $wing_name = $data['wing']['wing_name'];
 
 <div id='record' style="margin-left:3%;">
 </div>
-
+<p style="color:red; margin-left:3%;"><?php echo @$wrong; ?></p>
 
 
 </div>
