@@ -924,8 +924,140 @@ function governance_invite_draft($invit_id){
 	}
 	$this->ath();
 		
+	$this->loadmodel('governance_invite');
+	$conditions=array('governance_invite_id'=>(int)$invit_id);
+	$result_gov_inv=$this->governance_invite->find('all',array('conditions'=>$conditions));
+	$this->set('result_gov_invite',$result_gov_inv);
+		
 }
+function governance_invite_submit_draft(){
+ 
+ 
+ $this->layout=null;	
+ $post_data=$this->request->data;	
 
+ $s_society_id=$this->Session->read('society_id');
+ $s_user_id=$this->Session->read('user_id');
+ $current_date=date("d-m-Y");
+ $ip=$this->hms_email_ip();
+ $id=(int)$post_data['id'];
+ $type_mettings=$post_data['type_mettings'];
+ $date=$post_data['date'];
+ $time=$post_data['time'];
+ $subject=$post_data['subject'];
+ $location=$post_data['location'];
+ $covering_note=$post_data['covering_note'];
+ $meeting_agenda_time=$post_data['meeting_agenda_time'];
+ $meeting_agenda_time=explode(",",$meeting_agenda_time);
+ $meeting_agenda_input=$post_data['meeting_agenda_input'];
+ $meeting_agenda_input=explode(",",$meeting_agenda_input);
+ $meeting_agenda_textarea=$post_data['meeting_agenda_textarea'];
+ $meeting_agenda_textarea=explode(",",$meeting_agenda_textarea);
+	
+		
+	
+	    $message="";
+		for($z=0;$z<sizeof($meeting_agenda_input);$z++){
+			
+			$message[]=array($meeting_agenda_input[$z],$meeting_agenda_textarea[$z],$meeting_agenda_time[$z]);
+		}
+		if($type_mettings==1){ $moc="Managing Committee"; }
+		if($type_mettings==2){ $moc="General Body"; }
+		if($type_mettings==3){ $moc="Special General Body"; }
+		
+		$this->loadmodel('governance_invite');		
+		//$this->governance_invite->updateAll(array('date'=>$date,'time'=>$time,'subject'=>$subject,'location'=>$location,'meeting_type'=>$type_mettings,'covering_note'=>$covering_note,'message'=>$message,'deleted'=>0,'notice_of_date'=>$current_date),array('governance_invite_id'=>$id));
+
+
+		/////////////////////////// Send Email code start/////////////////////////////
+		
+			$result_society=$this->society_name($s_society_id);
+			$society_name=$result_society[0]['society']['society_name'];
+			
+			$result_user=$this->profile_picture($s_user_id);
+			$user_name=$result_user[0]['user']['user_name'];
+			
+			
+			$this->loadmodel('governance_invite');	
+			$conditions=array('governance_invite_id'=>$id);
+			$result_governance_invite=$this->governance_invite->find('all',array('conditions'=>$conditions));
+			$invite_user=$result_governance_invite[0]['governance_invite']['user'];
+			$file=$result_governance_invite[0]['governance_invite']['file'];
+				$file_att="";
+				if(!empty($file)){
+						@$file_att='<br/><a href="'.$ip.'/'.$this->webroot.'governances_file/'.$file.'" download>Download attachment</a>';
+				}
+			
+			
+			
+			
+			foreach($invite_user as $data){
+				$result_user=$this->profile_picture($data);
+				$to=$result_user[0]['user']['email'];
+				@$message_web="<div>
+						<img src='$ip".$this->webroot."/as/hm/hm-logo.png'/><span  style='float:right; margin:2.2%;'>
+						<span class='test' style='margin-left:5px;'><a href='https://www.facebook.com/HousingMatters.co.in' target='_blank' ><img src='$ip".$this->webroot."/as/hm/fb.png'/></a></span>
+						<a href='#' target='_blank'><img src='$ip".$this->webroot."/as/hm/tw.png'/></a><a href'#'><img src='$ip".$this->webroot."/as/hm/ln.png'/ class='test' style='margin-left:5px;'></a></span>
+						<br/><br/>
+						<p><center><b>[$society_name]</b></center></p>
+						<p><b>Meeting Type:</b> [ $moc Meeting ] </p>
+						<p><b>Meeting Title:</b>  $subject  </p>
+						<p><b>Date of Notice:</b>  $current_date  </p>
+						<table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
+						<tr class='tr_heading' style='background-color:#00A0E3;color:white;'>
+						<td width='10%'>Meeting ID</td>
+						<td width='20%'>Date of Meeting</td>
+						<td width='10%'>Time</td>
+						<td width='60%'>Location</td>
+						</tr>
+						<tr class='tr_content' style=background-color:#E9E9E9;'>
+						<td>$id</td>
+						<td>$date</td>
+						<td>$time</td>
+						<td>$location</td>
+						
+						</tr>
+						</table>
+						<div>
+						<p><b>Covering Note:</b><br/>
+						<p>$covering_note</p>
+						<p> <b>	Agenda to be discussed: </b></p>
+						<table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
+						<tr class='tr_heading' style='background-color:#00A0E3;color:white;'>
+						<td>Time</td>
+						<td>Meeting Agenda</td>
+						
+						</tr>";
+						$jj=0;
+						foreach($message as $ddd)
+						{	$jj++;
+
+						$message_web.="<tr>
+						<td width='10%'>".urldecode($ddd[2])."</td>
+						<td>".$jj.". ".urldecode($ddd[0]). " <br/> ".urldecode($ddd[1])."</td>
+						</tr>";	
+						}
+						$message_web.="</table>
+						</div>
+						<br/>
+						For [ $society_name ].<br/>
+						$user_name<br/>
+						$file_att <br/>
+						</div>";
+						
+					@$title.= '['. $society_name . ']  - '.'Notice of '.$moc.' Meeting scheduled'.'  on   '.''.$date.'';	
+					$this->send_email($to,'support@housingmatters.in','HousingMatters',$title,$message_web,'donotreply@housingmatters.in');
+					$title="";
+}
+			
+		//////////////////////// End email code //////////////////////////////////////
+		
+		
+		
+		$this->send_notification('<span class="label label-info" ><i class="icon-bullhorn"></i></span>','New Meeting Invitation published - <b>'.$subject.'</b> by',40,$id,$this->webroot.'Governances/governance_invite_view/',$s_user_id,$invite_user);
+		$output = json_encode(array('type'=>'created', 'text' =>'Invitation successfully submitted'));
+		die($output);		
+}
 function governance_invite_view1($id)
 {
 	if($this->RequestHandler->isAjax()){
