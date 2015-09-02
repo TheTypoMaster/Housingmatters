@@ -118,7 +118,13 @@ $wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' =
 				$description=substrwords($description,200,'...');
 			    $flat_id = (int)$result_regular_bill[0]["new_regular_bill"]["flat_id"]; 
 			
-$user_detail = $this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'fetch_user_info_via_flat_id'), array('pass' => array($flat_id)));		
+				//wing_id via flat_id//
+				$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_id)));
+				foreach($result_flat_info as $flat_info){
+					$wing_id=$flat_info["flat"]["wing_id"];
+				}
+				
+$user_detail = $this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'fetch_user_info_via_flat_id'), array('pass' => array($wing_id,$flat_id)));		
 		foreach($user_detail as $data){
 		$user_name = $data['user']['user_name'];
 		$wing_id = $data['user']['wing'];

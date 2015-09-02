@@ -39,24 +39,31 @@ elseif($get_id == 34)
 				{
 				$auto_id = (int)$collection['ledger_sub_account']['auto_id'];
                 $name = $collection['ledger_sub_account']['name'];
-				$user_id = (int)$collection['ledger_sub_account']['user_id'];
-
-				$result_user = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
-				foreach ($result_user as $collection) 
-				{
-				$user_name = $collection['user']['user_name'];  
-				$wing_id = $collection['user']['wing'];
-				$flat_id = $collection['user']['flat'];
+				$flat_id = (int)$collection['ledger_sub_account']['flat_id'];
+				
+				//wing_id via flat_id//
+				$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_id)));
+				foreach($result_flat_info as $flat_info){
+					$wing_id=$flat_info["flat"]["wing_id"];
 				}
+				
+				//user info via flat_id//
+				$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($wing_id,$flat_id)));
+				foreach($result_user_info as $user_info){
+					$user_id=(int)$user_info["user"]["user_id"];
+					$user_name=$user_info["user"]["user_name"];
+				} 
+				
+				
 
 
-$wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'wing_flat_with_brackets'), array('pass' => array($wing_id,$flat_id)));
+				$wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'wing_flat_with_brackets'), array('pass' => array($wing_id,$flat_id)));
 
 
 
 
 				?>
-                <option value="<?php echo $auto_id; ?>"><?php echo $user_name; ?> &nbsp;&nbsp; <?php echo $wing_flat; ?></option> 
+                <option value="<?php echo $auto_id; ?>"><?php echo $user_name; ?>&nbsp;&nbsp;<?php echo $wing_flat; ?></option> 
                 <?php } ?>
                 </select>
 
