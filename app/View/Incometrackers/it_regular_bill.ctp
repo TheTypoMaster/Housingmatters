@@ -478,6 +478,11 @@ $(document).ready(function(){
 		$("#result12").load("regular_vali?ss=" + 3 + "");
 		return false;
 		}
+		else if(Date.parse(due) > Date.parse(to))
+		{
+		$("#result12").load("regular_vali?ss=" + 505 + "");	
+		return false;
+		}
 		else
 		{
 		$("#result12").load("regular_vali?ss=" + 13 + "");	 
