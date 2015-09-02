@@ -6382,7 +6382,6 @@ foreach($result_new_regular_bill as $regular_bill){
 				$other_charges_ids[]=$key;
 			}
 		}
-		
 	}
 	if(sizeof(@$other_charges_ids)>0){
 	$other_charges_ids=array_unique($other_charges_ids);
@@ -6410,7 +6409,15 @@ if(isset($this->request->data['approve'])){
 				$due_for_payment=$result_bill_info[0]["new_regular_bill"]["due_for_payment"];
 				$due_date=$result_bill_info[0]["new_regular_bill"]["due_date"];
 				
-				$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($flat_id)));
+				
+				//wing_id via flat_id//
+				$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_id)));
+				foreach($result_flat_info as $flat_info){
+					$wing_id=$flat_info["flat"]["wing_id"];
+				} 
+				
+				
+				$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($wing_id,$flat_id)));
 				foreach($result_user_info as $user_info){
 					$user_id=$user_info["user"]["user_id"];
 					$user_name=$user_info["user"]["user_name"];
@@ -6433,7 +6440,7 @@ if(isset($this->request->data['approve'])){
 				
 				
 				if($email_is_on_off==1){
-					////email code//
+					////EMAIL CODE//
 					if(!empty($email)){
 							$r_sms=$this->hms_sms_ip();
 							$working_key=$r_sms->working_key;
@@ -6446,7 +6453,7 @@ if(isset($this->request->data['approve'])){
 				}
 				
 				if($sms_is_on_off==1){
-					////sms code//
+					////SMS CODE//
 					if(!empty($mobile)){
 							$sms="Dear ".$user_name." ".$wing_flat.",your maintenance bill for period ".date('d-M',$bill_start_date)." to ".date('d-M-Y',$bill_end_date)." is Rs ".$due_for_payment.".Kindly pay by ".date('d-M',$due_date).".".$society_name;
 							$sms1=str_replace(' ', '+', $sms);

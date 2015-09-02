@@ -59,7 +59,7 @@ foreach($result_new_regular_bill as $regular_bill){
 	$wing_flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing_id,$flat_id)));
 	
 	//user info via flat_id//
-	$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($flat_id)));
+	$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($wing_id,$flat_id)));
 	foreach($result_user_info as $user_info){
 		$user_name=$user_info["user"]["user_name"];
 	}
