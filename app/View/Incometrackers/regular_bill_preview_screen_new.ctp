@@ -460,12 +460,19 @@ function calculation(row_id){
 		
 		for(var iqq=1;iqq<=income_head_count;iqq++){
 			var income_head_vlaue=parseInt($('#income_head'+iqq+'_'+row_id).val());
+			if($.isNumeric(income_head_vlaue)==false){ income_head_vlaue=0; }
 			total=total+income_head_vlaue;
 		}
 		
 		var noc_charges=parseInt($('input[name=noc_charges'+row_id+']').val());
 		if($.isNumeric(noc_charges)==false){ noc_charges=0; }
 		total=total+noc_charges;
+		
+		for(var iq2=1;iq2<=other_charges_count;iq2++){
+			var other_charges_vlaue=parseInt($('#other_charges'+iq2+'_'+row_id).val());
+			if($.isNumeric(other_charges_vlaue)==false){ other_charges_vlaue=0; }
+			total=total+other_charges_vlaue;
+		}
 		
 		$('input[name=total'+row_id+']').val(total);
 		

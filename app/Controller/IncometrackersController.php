@@ -430,20 +430,21 @@ function regular_bill_preview_screen_new(){
 	if(isset($this->request->data['generate_bill'])){
 		$inc=0;
 		$one_time_id=$this->autoincrement('new_regular_bill','one_time_id');
-		foreach($users_for_bill as $user){ $inc++;
+		foreach($flats_for_bill as $flat_data_id){ $inc++;
 		
-			$wing=$user["user"]["wing"];
-			if(($bill_for==1 && in_array($wing,$wing_array)) || $bill_for==2){
+			//wing_id via flat_id//
+			$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_data_id)));
+			foreach($result_flat_info as $flat_info){
+				$wing_id=$flat_info["flat"]["wing_id"];
+			}
+				
+			if(($bill_for==1 && in_array($wing_id,$wing_array)) || $bill_for==2){
 			
 			$flat_id = (int)$this->request->data['flat_id'.$inc];
 			$bill_number = (int)$this->request->data['bill_number'.$inc];
 			
 			
-			//wing_id via flat_id//
-			$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_id)));
-			foreach($result_flat_info as $flat_info){
-				$wing_id=$flat_info["flat"]["wing_id"];
-			}
+			
 			
 			
 			
@@ -456,7 +457,7 @@ function regular_bill_preview_screen_new(){
 			
 			
 			//user info via flat_id//
-			$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($flat_id)));
+			$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($wing_id,$flat_id)));
 			foreach($result_user_info as $user_info){
 				$user_id=$user_info["user"]["user_id"];
 				$user_name=$user_info["user"]["user_name"];
@@ -848,7 +849,6 @@ $bill_html='<div style="width:80%;margin:auto;line-height: 18px;" class="bill_on
 
 		}  unset($other_charges_insert); }
 		$this->response->header('Location','aprrove_bill');
-
 	}
 	
 }
