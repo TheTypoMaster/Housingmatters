@@ -74,7 +74,7 @@ $noc_flat1= $this->requestAction(array('controller' => 'hms', 'action' => 'flat_
 </thead>
 <tbody>
 <?php 
-//pr($flats_for_bill);
+
 $i=0;
 
 foreach($flats_for_bill as $flat_data_id){
@@ -86,16 +86,17 @@ foreach($result_flat_info as $flat_info){
 	$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($wing_id,$flat_data_id)));
 	$wing_flat= $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_data_id)));
 	
-$noc_flat= $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch'),array('pass'=>array($flat_data_id)));
-foreach($noc_flat as $dafa)
-{
-@$noc_type=@$dafa['flat']['noc_ch_tp'];
-}
 
 	foreach($result_user_info as $user_info){
 		$user_id=(int)$user_info["user"]["user_id"];
 		$user_name=$user_info["user"]["user_name"];
 
+	$noc_flat= $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch'),array('pass'=>array($flat_data_id)));
+
+	foreach($noc_flat as $dafa){
+	@$noc_type=@$dafa['flat']['noc_ch_tp'];
+	}
+		
 	?>
 	<tr>
 	<td><?php echo $i ; ?></td>
@@ -104,8 +105,8 @@ foreach($noc_flat as $dafa)
 	
 	<td>
 	<div class="controls" id="residing_div1">
-	<label class="radio"><input type="radio" class="self_occ" name="<?php echo $user_id; ?>" <?php if(@$noc_type==1) { ?> checked <?php } ?>   value="1">Self Occupied</label>
-	<label class="radio"><input type="radio" class="leas"  name="<?php echo $user_id; ?>" <?php if(@$noc_type==2) { ?> checked <?php } ?>  value="2">Leased</label>
+	<label class="radio"><input type="radio" class="self_occ" name="<?php echo $flat_data_id; ?>" <?php if(@$noc_type==1) { ?> checked <?php } ?>   value="1">Self Occupied</label>
+	<label class="radio"><input type="radio" class="leas"  name="<?php echo $flat_data_id; ?>" <?php if(@$noc_type==2) { ?> checked <?php } ?>  value="2">Leased</label>
 	</div>
 	</td>
 	</tr>

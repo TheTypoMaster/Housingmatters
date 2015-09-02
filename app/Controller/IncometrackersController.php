@@ -4632,21 +4632,12 @@ $this->layout='session';
 
 $this->ath();
 $this->check_user_privilages();
-
-
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
-
-/* $this->loadmodel('user');	
-$conditions=array('society_id'=>$s_society_id,'deactive'=>0);
-$result=$this->user->find('all',array('conditions'=>$conditions));
-$this->set('result_user',$result);	*/
-
 	$this->loadmodel('ledger_sub_account');
 	$condition=array('society_id'=>$s_society_id,'ledger_id'=>34);
 	$result_ledger_sub_account=$this->ledger_sub_account->find('all',array('conditions'=>$condition));
-	//$this->set('result_ledger_sub_account',$result_ledger_sub_account);
 	foreach($result_ledger_sub_account as $ledger_sub_account){
 	$ledger_sub_account_user_id=$ledger_sub_account["ledger_sub_account"]["user_id"];
 	$ledger_sub_account_flat_id=$ledger_sub_account["ledger_sub_account"]["flat_id"];
@@ -4654,33 +4645,25 @@ $this->set('result_user',$result);	*/
 	}
 	$this->set('flats_for_bill',$flats_for_bill);
 
-
-
-if($this->request->is('post')) 
-{
-
-foreach($result as $data)
-{
-	  $user_id=$data['user']['user_id'];
-	   $flat_id1=(int)$data['user']['flat'];
-	   $value =@$this->request->data[$user_id]; 
-	if($value==1)
-	{
-		$this->loadmodel('flat');
-		$this->flat->updateAll(array('noc_ch_tp'=>1),array('flat_id'=>$flat_id1));
-		
-	}
-	if($value==2)
-	{
-		$this->loadmodel('flat');
-		$this->flat->updateAll(array('noc_ch_tp'=>2),array('flat_id'=>$flat_id1));
-		
-	}
-		
+	if($this->request->is('post')){
+	foreach($flats_for_bill as $flat_id1){
+	  
+			$value =@$this->request->data[$flat_id1]; 
+			if($value==1){
+				$this->loadmodel('flat');
+				$this->flat->updateAll(array('noc_ch_tp'=>1),array('flat_id'=>$flat_id1));
+				
+			}
+			if($value==2){
+				$this->loadmodel('flat');
+				$this->flat->updateAll(array('noc_ch_tp'=>2),array('flat_id'=>$flat_id1));
+				
+			}
+				
 	
-}
+		}
 
-}
+	}
 
 }
 ///////////////////////// End master Noc (Accounts)/////////////////////////////////
