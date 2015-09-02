@@ -1069,7 +1069,7 @@ function my_flat_bill(){
 		$user_id=$collection2["user"]["user_id"];
 		$user_name=$collection2["user"]["user_name"];
 		$this->set('user_name',$user_name);
-		$multiple_flat=$collection2["user"]["multiple_flat"];
+		$multiple_flat=@$collection2["user"]["multiple_flat"];
 		$this->set('multiple_flat',$multiple_flat);
 		$flat_id=$collection2["user"]["flat"];
 	}
@@ -1111,23 +1111,39 @@ function my_flat_bill_ajax($from=null,$to=null,$flat_id=null){
 	$s_user_id=$this->Session->read('user_id');
 	$this->set("s_user_id",$s_user_id);
 	
-	
-	//wing_id via flat_id//
-	$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array((int)$flat_id)));
-	foreach($result_flat_info as $flat_info){
-		$wing_id=$flat_info["flat"]["wing_id"];
-	} 
-	
-	$wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'wing_flat'), array('pass' => array($wing_id,(int)$flat_id)));
-	$this->set('wing_flat',$wing_flat);
-	
-	//user info via flat_id//
-	$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($wing_id,$flat_id)));
-	foreach($result_user_info as $user_info){
-		$user_id=(int)$user_info["user"]["user_id"];
-		$user_name=$user_info["user"]["user_name"];
+	$flat_id=(int)$flat_id; 
+	if($flat_id==0){
+		$result_user_info=$this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'), array('pass' => array($s_user_id)));
+		foreach($result_user_info as $collection2)
+		{
+		$user_name=$collection2["user"]["user_name"];
 		$this->set('user_name',$user_name);
-	} 
+		$wing_id=$collection2["user"]["wing"];
+		$flat_id=$collection2["user"]["flat"];
+
+		}
+
+		$wing_flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing_id,$flat_id)));
+		$this->set('wing_flat',$wing_flat);
+	}else{
+		//wing_id via flat_id//
+		$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array((int)$flat_id)));
+		foreach($result_flat_info as $flat_info){
+			$wing_id=$flat_info["flat"]["wing_id"];
+		} 
+		
+		$wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'wing_flat'), array('pass' => array($wing_id,(int)$flat_id)));
+		$this->set('wing_flat',$wing_flat);
+		
+		//user info via flat_id//
+		$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($wing_id,$flat_id)));
+		foreach($result_user_info as $user_info){
+			$user_id=(int)$user_info["user"]["user_id"];
+			$user_name=$user_info["user"]["user_name"];
+			$this->set('user_name',$user_name);
+		} 
+	}
+	
 
 	$this->loadmodel('society');
 	$conditions=array("society_id" => $s_society_id);

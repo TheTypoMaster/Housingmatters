@@ -32,10 +32,11 @@ background-color: #E6ECE7;
 <div align="center">
 	<table>
 		<tr>
+		<?php  if(sizeof($multiple_flat)>1){  ?>
 		<td>
 		<select class="m-wrap" data-placeholder="Choose a Category"  id="flat_select_box">
 			<option value="" style="display:none;" >Select...</option>
-			<?php foreach($multiple_flat as $flat_data){
+			<?php $count=0; foreach($multiple_flat as $flat_data){ $count++;
 				//wing_id via flat_id//
 				$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_data[1])));
 				foreach($result_flat_info as $flat_info){
@@ -44,10 +45,11 @@ background-color: #E6ECE7;
 				
 				$wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'wing_flat'), array('pass' => array($wing_id,$flat_data[1])));
 			?>
-			<option value="<?php echo $flat_data[1]; ?>"><?php echo $wing_flat; ?></option>
+			<option value="<?php echo $flat_data[1]; ?>" <?php if($count==1){ echo 'selected="selected"'; } ?> ><?php echo $wing_flat; ?></option>
 			<?php } ?>
 		</select>
 		</td>
+		<?php } ?>
 		<td><input class="date-picker m-wrap medium" id="from" data-date-format="dd-mm-yyyy" name="from" placeholder="From" style="background-color:white !important;" value="<?php echo date("d-m-Y",strtotime($from)); ?>" type="text"></td>
 		<td><input class="date-picker  m-wrap medium" id="to" data-date-format="dd-mm-yyyy" name="to" placeholder="To" style="background-color:white !important;" value="<?php echo date("d-m-Y",strtotime($to)); ?>" type="text"></td>
 		<td valign="top"><button type="button" name="sub" class="btn yellow" id="go">Go</button></td>
