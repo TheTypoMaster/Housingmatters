@@ -4086,7 +4086,7 @@ $mobile=$collection['user']['mobile'];
 $r=$this->hms_sms_ip();
 $working_key=$r->working_key;
 $sms_sender=$r->sms_sender; 
-$sms_allow=(int)$r_sms->sms_allow;
+$sms_allow=(int)$r->sms_allow;
 if($sms_allow==1){
 $sms='New Request for Society registration into HousingMatters. Kindly approve the request.';
 $sms1=str_replace(' ', '+', $sms);

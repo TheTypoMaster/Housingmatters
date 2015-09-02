@@ -37,25 +37,20 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <div align="right">
 <?php 
 $z=0;$j=0;
-foreach($result_user as $data)
-{
-	
-	$flat12=(int)$data['user']['flat'];
-	 $noc_flat1= $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch'),array('pass'=>array($flat12)));
-foreach($noc_flat1 as $dafa)
-{
-	@$noc_type1=@$dafa['flat']['noc_ch_tp'];
-}
-if(@$noc_type1==1)
-{
 
-$z++;
-}
-if(@$noc_type1==2)
-{
-$j++;
-}
-}
+foreach($flats_for_bill as $flat_data_id){
+$noc_flat1= $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch'),array('pass'=>array($flat_data_id)));
+	foreach($noc_flat1 as $dafa){
+		@$noc_type1=@$dafa['flat']['noc_ch_tp'];
+	}
+	if(@$noc_type1==1){
+
+	$z++;
+	}
+	if(@$noc_type1==2){
+	$j++;
+	}
+} 
 ?>
 <span class="label label-info"> Number of Self Occupied flats <span style="font-size:15px;"><?php echo $z; ?> </span> </span> 
 <span class="label label-info"> Number of Leased flats <span style="font-size:15px;"><?php echo $j; ?> </span></span>
@@ -79,21 +74,27 @@ $j++;
 </thead>
 <tbody>
 <?php 
-//pr($result_user);
+//pr($flats_for_bill);
 $i=0;
-foreach($result_user as $data)
-{
-	$i++;
-	$user_name=$data['user']['user_name'];
-	$user_id=(int)$data['user']['user_id'];
-	$flat=(int)$data['user']['flat'];
-	$wing=(int)$data['user']['wing'];
-	$wing_flat= $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing,$flat)));
-  $noc_flat= $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch'),array('pass'=>array($flat)));
+
+foreach($flats_for_bill as $flat_data_id){
+$i++;
+$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_data_id)));
+foreach($result_flat_info as $flat_info){
+	$wing_id=$flat_info["flat"]["wing_id"];
+
+	$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($wing_id,$flat_data_id)));
+	$wing_flat= $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_data_id)));
+	
+$noc_flat= $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch'),array('pass'=>array($flat_data_id)));
 foreach($noc_flat as $dafa)
 {
-	@$noc_type=@$dafa['flat']['noc_ch_tp'];
+@$noc_type=@$dafa['flat']['noc_ch_tp'];
 }
+
+	foreach($result_user_info as $user_info){
+		$user_id=(int)$user_info["user"]["user_id"];
+		$user_name=$user_info["user"]["user_name"];
 
 	?>
 	<tr>
@@ -109,6 +110,11 @@ foreach($noc_flat as $dafa)
 	</td>
 	</tr>
 	<?php
+} 	
+	
+	
+}
+
 }
 
 ?>

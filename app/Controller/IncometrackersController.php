@@ -4638,12 +4638,25 @@ $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
 
-$this->loadmodel('user');	
+/* $this->loadmodel('user');	
 $conditions=array('society_id'=>$s_society_id,'deactive'=>0);
 $result=$this->user->find('all',array('conditions'=>$conditions));
-$this->set('result_user',$result);	
+$this->set('result_user',$result);	*/
 
-if ($this->request->is('post')) 
+	$this->loadmodel('ledger_sub_account');
+	$condition=array('society_id'=>$s_society_id,'ledger_id'=>34);
+	$result_ledger_sub_account=$this->ledger_sub_account->find('all',array('conditions'=>$condition));
+	//$this->set('result_ledger_sub_account',$result_ledger_sub_account);
+	foreach($result_ledger_sub_account as $ledger_sub_account){
+	$ledger_sub_account_user_id=$ledger_sub_account["ledger_sub_account"]["user_id"];
+	$ledger_sub_account_flat_id=$ledger_sub_account["ledger_sub_account"]["flat_id"];
+	$flats_for_bill[]=$ledger_sub_account_flat_id;
+	}
+	$this->set('flats_for_bill',$flats_for_bill);
+
+
+
+if($this->request->is('post')) 
 {
 
 foreach($result as $data)
