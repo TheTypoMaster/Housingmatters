@@ -3159,103 +3159,97 @@ foreach($test as $child)
 {
 if($i>0)
 {
-$child_ex=explode(',',$child[0]);
 
-		$group_name = trim($child_ex[0]);
-		$account_name = trim($child_ex[1]);
+$child_ex=explode(',',$child[0]);
+		
+		$flat_id = "";
+		$wing_id = "";
+		$group_name = $child_ex[0];
+		ltrim($group_name); rtrim($group_name);
+		$account_name = ltrim($child_ex[1]);
+		ltrim($account_name); rtrim($account_name);
+		$wing_name = ltrim($child_ex[2]);
+		ltrim($wing_name); rtrim($wing_name);
+		$flat_name = ltrim($child_ex[3]);
+		ltrim($flat_name); rtrim($flat_name);
+
 		$debit_or_credit = $child_ex[4];
 		$priciple_amount = $child_ex[5];
 		$penalty_amount = $child_ex[6];
 		$wing_flat = "";
+		$group_id = "";
+
 	 
-	 
-	$this->loadmodel('ledger_account'); 
-	$conditions=array("ledger_name"=> new MongoRegex('/^' .  $group_name . '$/i'));
-	$group_detail=$this->ledger_account->find('all',array('conditions'=>$conditions));
+		$this->loadmodel('ledger_account'); 
+		$conditions=array("ledger_name"=> new MongoRegex('/^' . $group_name . '$/i'));
+		$group_detail=$this->ledger_account->find('all',array('conditions'=>$conditions));
 		foreach($group_detail as $group_data)
 		{
 		$group_id = (int)$group_data['ledger_account']['auto_id'];
 		}
 
-if(empty($group_id))
-{
 		$this->loadmodel('accounts_group'); 
 		$conditions=array("group_name"=> new MongoRegex('/^' .  $group_name . '$/i'));
 		$group_detail2=$this->accounts_group->find('all',array('conditions'=>$conditions));
-			foreach($group_detail2 as $group_data2)
-			{
-			$group_id = (int)$group_data2['accounts_group']['auto_id'];
-			}
-}
+		foreach($group_detail2 as $group_data2)
+		{
+		$group_id = (int)$group_data2['accounts_group']['auto_id'];
+		}
 
-  $auto_id = "";
-  $validdddnnn=5;
+
+		$auto_id = "";
+		$validdddnnn=5;
   
   
 		$this->loadmodel('ledger_account'); 
 		$conditions=array("ledger_name"=> new MongoRegex('/^' .  $account_name . '$/i'),"group_id"=>$group_id);
 		$ledger_acctt_data=$this->ledger_account->find('all',array('conditions'=>$conditions));
-			foreach($ledger_acctt_data as $ledger_acc_ddddtt)
-			{
-			$auto_id = (int)$ledger_acc_ddddtt['ledger_account']['auto_id'];
-			$ledger_type = 2;
-			$validdddnnn=555;
-			}
-
-		if($auto_id == 0 || empty($auto_id))
+		foreach($ledger_acctt_data as $ledger_acc_ddddtt)
 		{
-		$flat_id = "";
-		$wing_id = "";
-			$this->loadmodel('ledger_sub_account'); 
-			$conditions=array("name"=> new MongoRegex('/^' .  $account_name . '$/i'),"ledger_id"=>$group_id);
-			$subledger_data=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
-			foreach($subledger_data as $sub_lddrr_dddttt)
-				{
-					$auto_id = (int)$sub_lddrr_dddttt['ledger_sub_account']['auto_id'];
-					$flltt_id = (int)$sub_lddrr_dddttt['ledger_sub_account']['flat_id'];
-				    $ledger_type = 1;
-				
-				}
-		 		
-					if($group_id == 34)
-					{
-					$wing_name = trim($child_ex[2]);
-					$flat_name = trim($child_ex[3]);
-					
-				
-					$this->loadmodel('flat'); 
-					$conditions=array("flat_name"=> new MongoRegex('/^' .  $flat_name . '$/i'),"society_id"=>$s_society_id);
-					$flat_data=$this->flat->find('all',array('conditions'=>$conditions));
-					foreach($flat_data as $flltdddt)
-					{
-					$flat_id = (int)$flltdddt['flat']['flat_id'];
-					$wing_id = (int)$flltdddt['flat']['wing_id'];
-					}
-				   
-						if(!empty($flat_id) || $flat_id != 0)
-						{
-							if($flltt_id == $flat_id)
-							{
-						    $validdddnnn=555;
-	$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat_with_brackets'),array('pass'=>array($wing_id,$flat_id)));	
-				            }
-			}
-			}
-			else
-			{
-			 $validdddnnn=555;
-			}
+		$auto_id = (int)$ledger_acc_ddddtt['ledger_account']['auto_id'];
+		$ledger_type = 2;
+		$validdddnnn=555;
 		}
 
-$group_name = trim($child_ex[0]);
-		$account_name = trim($child_ex[1]);
-		$debit_or_credit = $child_ex[4];
-		$priciple_amount = $child_ex[5];
-		$penalty_amount = $child_ex[6];
-
+	
+			
+		$this->loadmodel('ledger_sub_account'); 
+		$conditions=array("name"=> new MongoRegex('/^' .  $account_name . '$/i'),"ledger_id"=>$group_id);
+		$subledger_data=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+		foreach($subledger_data as $sub_lddrr_dddttt)
+		{
+		$auto_id = (int)$sub_lddrr_dddttt['ledger_sub_account']['auto_id'];
+		$flltt_id = (int)$sub_lddrr_dddttt['ledger_sub_account']['flat_id'];
+		$ledger_type = 1;
+		}
+		 		
+		if($group_id == 34)
+		{
+		$this->loadmodel('flat'); 
+		$conditions=array("flat_name"=> new MongoRegex('/^' .  $flat_name . '$/i'),"society_id"=>$s_society_id);
+		$flat_data=$this->flat->find('all',array('conditions'=>$conditions));
+		foreach($flat_data as $flltdddt)
+		{
+		$flat_id = (int)$flltdddt['flat']['flat_id'];
+		$wing_id = (int)$flltdddt['flat']['wing_id'];
+		}
+				   
+						
+		if($flltt_id == $flat_id)
+		{
+		$validdddnnn=555;
+		$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat_with_brackets'),array('pass'=>array($wing_id,$flat_id)));	
+		}
+			
+		}
+		else
+		{
+		$validdddnnn=555;
+		}
+		
 		
 $table[] = array(@$account_name,@$debit_or_credit,@$priciple_amount,@$auto_id,@$ledger_type,@$group_id,@$group_name,@$penalty_amount,@$flat_id,@$wing_flat,@$validdddnnn);
-	  } 
+	  }
       $i++;
       }
 
