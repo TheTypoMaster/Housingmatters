@@ -52,7 +52,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <!-- End Import Code -->
 
 
-<div style="background-color:#FFF; overflow:auto; border:solid #CCC; width:100%;">
+<div style="background-color:#FFF; overflow:auto; border:1px solid #CCC;">
 <h4 style="color: #03F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;">&nbsp;&nbsp;&nbsp;<i class="icon-money"></i> Post Bank Receipt</h4>
 <form method="post" id="contact-form" autocomplete="off">
 
