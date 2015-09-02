@@ -463,7 +463,7 @@ function regular_bill_preview_screen_new(){
 				$user_name=$user_info["user"]["user_name"];
 			}
 			
-			$result_ledger_sub_account = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch3'),array('pass'=>array($user_id)));
+			$result_ledger_sub_account = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch3'),array('pass'=>array($flat_id)));
 			foreach($result_ledger_sub_account as $ledger_sub_account)
 			{
 			$ledger_sub_account_id = (int)$ledger_sub_account['ledger_sub_account']['auto_id'];

@@ -16797,10 +16797,10 @@ return $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
 /////////////////////////////// End Ledger Sub Account Fetch (Accounts)/////////////////////////////////////////////
 
 //////////////////////////////////////// Start Ledger Sub Account Fetch (Accounts)///////////////////////////////////////////////////////////////////////
-function ledger_sub_account_fetch3($auto_id) 
+function ledger_sub_account_fetch3($flat_id) 
 {
 $this->loadmodel('ledger_sub_account');
-$conditions=array("user_id" => $auto_id);
+$conditions=array("flat_id" => (int)$flat_id);
 return $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
 }
 
