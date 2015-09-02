@@ -93,7 +93,8 @@ $s_user_id=$this->Session->read('user_id');
 
 $this->set('s_user_id',$s_user_id);
 $this->set('s_role_id',$s_role_id);
-
+$first_day_this_month = date('01-m-Y'); 
+$this->set('default_date',$first_day_this_month);
 $this->loadmodel('user');
 $conditions=array("society_id" => $s_society_id,"user_id" => $s_user_id);
 $cursor=$this->user->find('all',array('conditions'=>$conditions));
@@ -610,10 +611,10 @@ $conditions=array();
 $rfff=$this->reference->find('all',array('conditions'=>$conditions));
 foreach($rfff as $dddtttt)
 {
-$kendo_array = @$dddtttt['reference']['reference'];			
+ $kendo_array = @$dddtttt['reference']['reference'];			
 }
-$kendo_implode = implode(",",$kendo_array);
-$this->set('kendo_implode',$kendo_implode);
+@$kendo_implode = implode(",",@$kendo_array);
+$this->set('kendo_implode',@$kendo_array);
 }
 
 function upload_csv_cash_bank(){

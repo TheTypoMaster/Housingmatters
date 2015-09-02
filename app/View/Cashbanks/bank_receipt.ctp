@@ -116,7 +116,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
     <br />
 
 
-    <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;Drawn on which bank?<span style="color:red;">*</span> </label>
+    <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;Drawn on which bank?<span style="color:red;">ff*</span> </label>
     <div class="controls">
     &nbsp;&nbsp;&nbsp;<input type="text"  name="drawn_on_which_bank" class="m-wrap span9" placeholder="Drawn on which bank?" style="background-color:white !important;" id="ins" data-provide="typeahead" data-source="[<?php echo $kendo_implode; ?>]">
     &nbsp;&nbsp;&nbsp;<label id="ins"></label>
@@ -158,7 +158,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
     <div id="for_resident_view" class="hide">
     <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Select Resident<span style="color:red;">*</span></label>
     <div class="control">
-    &nbsp;&nbsp;<select name="resident_name" class="m-wrap span9" id="resident_flat_id">
+    &nbsp;&nbsp;<select name="resident_name" class="m-wrap chosen" id="resident_flat_id">
     <option value="" style="display:none;">Select Resident</option>
     <?php
     foreach($cursor1 as $data)
@@ -170,9 +170,11 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
     foreach($user_detail as $user_data)
     {
     $flat_id = (int)$user_data['user']['flat'];	
+	$wing = (int)$user_data['user']['wing'];	
     }
+	$wing_flat= $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing,$flat_id)));
     ?>
-    <option value="<?php echo $flat_id; ?>"><?php echo $resident_name; ?></option>
+    <option value="<?php echo $flat_id; ?>"><?php echo $resident_name; ?>  <?php echo $wing_flat; ?></option>
     <?php
     }
     ?>
@@ -617,7 +619,7 @@ $("#myModal3").hide();
 			var auto_id=$("#open_bal tr:nth-child("+i+") td:nth-child(8) select").val();
 			var Amount=$("#open_bal tr:nth-child("+i+") td:nth-child(9) input").val();
 			var narration=$("#open_bal tr:nth-child("+i+") td:nth-child(10) input").val();
-			ar.push([TransactionDate,ReceiptMod,ChequeNo,Reference,DrawnBankname,Date1,bank_id,auto_id,Amount,insert,narration				]);
+			ar.push([TransactionDate,ReceiptMod,ChequeNo,Reference,DrawnBankname,Date1,bank_id,auto_id,Amount,insert,narration	]);
 			}
 
 			var myJsonString = JSON.stringify(ar);
