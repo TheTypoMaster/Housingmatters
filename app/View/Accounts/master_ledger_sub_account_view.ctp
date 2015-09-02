@@ -50,14 +50,23 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 					}
 					if($ledger_id == 34)
 					{
-					$user_id = (int)$collection['ledger_sub_account']['user_id'];	
+					$flat_id = (int)$collection['ledger_sub_account']['flat_id'];	
 					}
-$result_la2 = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));				
-foreach($result_la2	as $data)
-{
-$wing_id = (int)$data['user']['wing'];
-$flat_id = (int)$data['user']['flat'];
-}
+					
+					//wing_id via flat_id//
+					$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_id)));
+					foreach($result_flat_info as $flat_info){
+						$wing_id=$flat_info["flat"]["wing_id"];
+					} 
+					
+					//user info via flat_id//
+					$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($wing_id,$flat_id)));
+					foreach($result_user_info as $user_info){
+						$user_id=(int)$user_info["user"]["user_id"];
+						$user_name=$user_info["user"]["user_name"];
+					} 
+				
+
 
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
 					
