@@ -3196,11 +3196,11 @@ $child_ex=explode(',',$child[0]);
 		$group_name = $child_ex[0];
 		ltrim($group_name); rtrim($group_name);
 		$account_name = ltrim($child_ex[1]);
-		ltrim($account_name); rtrim($account_name);
+		rtrim($account_name);
 		$wing_name = ltrim($child_ex[2]);
-		ltrim($wing_name); rtrim($wing_name);
+		 rtrim($wing_name);
 		$flat_name = ltrim($child_ex[3]);
-		ltrim($flat_name); rtrim($flat_name);
+		 rtrim($flat_name);
 
 		$debit_or_credit = $child_ex[4];
 		$priciple_amount = $child_ex[5];
@@ -3259,7 +3259,7 @@ $child_ex=explode(',',$child[0]);
 		$flat_data=$this->flat->find('all',array('conditions'=>$conditions));
 		foreach($flat_data as $flltdddt)
 		{
-		$flat_id = (int)$flltdddt['flat']['flat_id'];
+		echo $flat_id = (int)$flltdddt['flat']['flat_id'];
 		$wing_id = (int)$flltdddt['flat']['wing_id'];
 		}
 				   
@@ -3277,11 +3277,12 @@ $child_ex=explode(',',$child[0]);
 		}
 		
 		
+		
 $table[] = array(@$account_name,@$debit_or_credit,@$priciple_amount,@$auto_id,@$ledger_type,@$group_id,@$group_name,@$penalty_amount,@$flat_id,@$wing_flat,@$validdddnnn);
 	  }
       $i++;
-      }
-
+	  }
+exit;
 $this->set('table',$table);
 
 $this->loadmodel('ledger_sub_account');
@@ -3580,26 +3581,27 @@ $excel = "Group Name,A/c name,wing,unit,Amount Type(Debit or Credit),Amount(Open
 		$excel.= "$group_name,$ledger_name \n";
 			}
 
-		$this->loadmodel('ledger_sub_account');
-		$conditions=array("society_id" => $s_society_id);
-		$result1 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
-		foreach($result1 as $datadd)
-		{
+			$this->loadmodel('ledger_sub_account');
+			$conditions=array("society_id" => $s_society_id);
+			$result1 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+			foreach($result1 as $datadd)
+			{
 			$user_id = "";
 			$flat_id = "";
 				$ledger_id = (int)$datadd['ledger_sub_account']['ledger_id'];
 				$name = $datadd['ledger_sub_account']['name'];
 				$user_id = (int)@$datadd['ledger_sub_account']['user_id'];
 				$flat_id = (int)@$datadd['ledger_sub_account']['flat_id'];
-		
+
+	
 	if($ledger_id == 34)
 	{
-		$flat_dtttl = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch'),array('pass'=>array($flat_id)));
-		foreach($flat_dtttl as $flltdetll)
-		{
+			$flat_dtttl = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch'),array('pass'=>array($flat_id)));
+			foreach($flat_dtttl as $flltdetll)
+			{
 			$wing_id = (int)$flltdetll['flat']['wing_id'];
 			$flat_name = $flltdetll['flat']['flat_name'];
-		}
+			}
 
 	$wing_data = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_fetch'),array('pass'=>array($wing_id)));
 		foreach($wing_data as $wnngdddtt){

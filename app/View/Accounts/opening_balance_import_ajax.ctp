@@ -1,5 +1,7 @@
 
- 
+ <?php
+ pr($table);
+ ?>
  
  
     <div style="background-color:white; width:100%; overflow:auto;">
