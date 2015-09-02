@@ -3567,40 +3567,38 @@ $excel = "Group Name,A/c name,wing,unit,Amount Type(Debit or Credit),Amount(Open
 		$excel.= "$group_name,$ledger_name \n";
 			}
 
-$this->loadmodel('ledger_sub_account');
-$conditions=array("society_id" => $s_society_id);
-$result1 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
-foreach($result1 as $datadd)
-{
-$ledger_id = (int)$datadd['ledger_sub_account']['ledger_id'];
-$name = $datadd['ledger_sub_account']['name'];
-
-		if($ledger_id == 34){
-		$user_id = @$data['ledger_sub_account']['user_id'];
-		$flat_id = @$data['ledger_sub_account']['flat_id'];
+		$this->loadmodel('ledger_sub_account');
+		$conditions=array("society_id" => $s_society_id);
+		$result1 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+		foreach($result1 as $datadd)
+		{
+			$user_id = "";
+			$flat_id = "";
+				$ledger_id = (int)$datadd['ledger_sub_account']['ledger_id'];
+				$name = $datadd['ledger_sub_account']['name'];
+				$user_id = (int)@$datadd['ledger_sub_account']['user_id'];
+				$flat_id = (int)@$datadd['ledger_sub_account']['flat_id'];
+		
+	if($ledger_id == 34)
+	{
+		$flat_dtttl = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch'),array('pass'=>array($flat_id)));
+		foreach($flat_dtttl as $flltdetll)
+		{
+			$wing_id = (int)$flltdetll['flat']['wing_id'];
+			$flat_name = $flltdetll['flat']['flat_name'];
 		}
-	/*		
-	$flat_data = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch'),array('pass'=>array($flat_id)));
-	foreach($flat_data as $fll_data){
-	$wing_iddd = (int)$fll_data['flat']['wing_id'];
-	$flat = (int)$fll_data['flat']['flat_id'];	
-	$flat_name = $fll_data['flat']['flat_name'];
-	}
 
-	$wing_data = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_fetch'),array('pass'=>array($wing_iddd)));
-	foreach($flat_data as $fll_data){
-	
-	}
+	$wing_data = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_fetch'),array('pass'=>array($wing_id)));
+		foreach($wing_data as $wnngdddtt){
+			$wing_name = $wnngdddtt['wing']['wing_name'];
+			}
+	}	
 
- 
-	
-
-$result_la = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account'),array('pass'=>array($ledger_id)));
-foreach ($result_la as $collection) 
-{
-//$group_id = (int)$collection['ledger_account']['group_id'];	
-$ledger_name = $collection['ledger_account']['ledger_name'];	
-}
+	$result_la = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account'),array('pass'=>array($ledger_id)));
+		foreach ($result_la as $collection) 
+		{
+		$ledger_name = $collection['ledger_account']['ledger_name'];	
+		}
 
 
 		if($ledger_id==34){
@@ -3612,16 +3610,7 @@ $ledger_name = $collection['ledger_account']['ledger_name'];
 
 }
 
-
-*/
-}
-
-
-
-
-
 echo $excel;
-
 
 }
 ////////////////////// End Opening Balance  Excel Export ///////////////////////////////////////////////////////////
