@@ -10,67 +10,74 @@
 </td></tr>
 </table>
 <br />
-<table class="table table-bordered" style="width:100%; background-color:white;" id="open_bal">
-<tr>
-<th>Account Group</th>
-<th>Account Name</th>
-<th>Debit</th>
-<th>Credit</th>
-<th>Penalty</th>
-<th>Delete</th>
-</tr>
-<?php
-$j=0;
-$tt_debit = 0;
-$tt_credit = 0;
+        <table class="table table-bordered" style="width:100%; background-color:white;" id="open_bal">
+        <tr>
+        <th>Account Group</th>
+        <th>Account Name</th>
+        <th>Debit</th>
+        <th>Credit</th>
+        <th>Penalty</th>
+        <th>Delete</th>
+        </tr>
+				<?php
+                $j=0;
+                $tt_debit = 0;
+                $tt_credit = 0;
+                ?>
+			<?php foreach($table as $data){ 
+            $amt_type1 = "";
+            $amt1 = "";
+            $amt_type1 = $data[1];
+            $amt1 = $data[2];
+					if(!empty($amt_type1) && !empty($amt1))
+					{
+					$j++;	
+					$type = $data[1];
+					$group_id = (int)$data[5];
+					$group = $data[6];
+					$flat = (int)$data[8];
+					$wing_flat = $data[9];
+                    $validdnnn = (int)$data[10];
+                   
+
 ?>
-<?php foreach($table as $data){ 
-$amt_type1 = "";
-$amt1 = "";
-//$type = $data[1];
-$amt_type1 = $data[1];
-$amt1 = $data[2];
-if(!empty($amt_type1) && !empty($amt1))
-{
-$j++;	
-$type = $data[1];
-$group_id = (int)$data[5];
-$group = $data[6];
-$flat = (int)$data[8];
-$wing_flat = $data[9];
-?>
-<tr id="tr<?php echo $j; ?>">
-<td>
-<select class="m-wrap span10" disabled="disabled">
-<option value="">Select Group Account</option>
-<?php
-foreach($cursor3 as $collection)
-{
-$group_id5 = (int)$collection['accounts_group']['auto_id'];
-$group_name1= $collection['accounts_group']['group_name'];
-if($group_id == 15 || $group_id == 34 || $group_id == 33 || $group_id == 35)
-{
-?>
-<option value="15" <?php if($group_id == 15) { ?> selected="selected" <?php } ?>>Sundry Creditors Control A/c</option>
-<option value="34" <?php if($group_id == 34) { ?> selected="selected" <?php } ?>>Sundry Debtors Control A/c </option>
-<option value="33" <?php if($group_id == 33) { ?> selected="selected" <?php } ?>>Bank Accounts</option>
-<option value="35" <?php if($group_id == 35) { ?> selected="selected" <?php } ?>>Tax deducted at source (TDS receivable)</option>
-<?php 
-}
-else
-{ ?>
-<option value="<?php echo $group_id; ?>" <?php if($group_id5 == $group_id) { ?> selected="selected" <?php } ?>><?php echo $group_name1; ?></option>
-<?php 
-}} ?>
-</select>
-<input type="hidden" value="<?php echo $flat; ?>"
-</td>
-<td>
+        <tr id="tr<?php echo $j; ?>">
+        <td>
+        <select class="m-wrap span10" disabled="disabled">
+        <option value="">Select Group Account</option>
+        <?php
+        foreach($cursor3 as $collection)
+        {
+        $group_id5 = (int)$collection['accounts_group']['auto_id'];
+        $group_name1= $collection['accounts_group']['group_name'];
+        if($group_id == 15 || $group_id == 34 || $group_id == 33 || $group_id == 35)
+        {
+        ?>
+        <option value="15" <?php if($group_id == 15) { ?> selected="selected" <?php } ?>>Sundry Creditors Control A/c</option>
+        <option value="34" <?php if($group_id == 34) { ?> selected="selected" <?php } ?>>Sundry Debtors Control A/c </option>
+        <option value="33" <?php if($group_id == 33) { ?> selected="selected" <?php } ?>>Bank Accounts</option>
+        <option value="35" <?php if($group_id == 35) { ?> selected="selected" <?php } ?>>Tax deducted at source (TDS receivable)</option>
+        <?php 
+        }
+        else
+        { ?>
+        <option value="<?php echo $group_id; ?>" <?php if($group_id5 == $group_id) { ?> selected="selected" <?php } ?>><?php echo $group_name1; ?></option>
+        <?php 
+        }} ?>
+        </select>
+        <input type="hidden" value="<?php echo $flat; ?>"
+        </td>
+        <td>
 <?php
 $ledger_type = (int)$data[4];
 $auto_id = (int)$data[3];
+
+if($validdnnn == 5)
+{
 ?>
-<input type="text" value="<?php echo $data[0]; ?>" class="m-wrap span7" style="background-color:white !important;" readonly="readonly"/>&nbsp;&nbsp; <?php echo $wing_flat; ?>
+<p style="font-size:12px; color:red; font-weight:300;">This user account is not fount in Subledger</p> 
+<?php } else { ?>
+<input type="text" value="<?php echo $data[0]; ?>" class="m-wrap span7" style="background-color:white !important;" readonly="readonly"/>&nbsp;&nbsp; <?php echo $wing_flat;  } ?>
 <td>
 <?php
 $e = (int)strcasecmp("Debit",$type);

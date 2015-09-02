@@ -3161,110 +3161,100 @@ if($i>0)
 {
 $child_ex=explode(',',$child[0]);
 
-$group = $child_ex[0];
-$ac_name = $child_ex[1];
-$amt_type = $child_ex[4];
-$amt = $child_ex[5];
-$pen_amt = $child_ex[6];
+		$group_name = trim($child_ex[0]);
+		$account_name = trim($child_ex[1]);
+		$debit_or_credit = $child_ex[4];
+		$priciple_amount = $child_ex[5];
+		$penalty_amount = $child_ex[6];
+		$wing_flat = "";
+	 
+	 
+	$this->loadmodel('ledger_account'); 
+	$conditions=array("ledger_name"=> new MongoRegex('/^' .  $group_name . '$/i'));
+	$group_detail=$this->ledger_account->find('all',array('conditions'=>$conditions));
+		foreach($group_detail as $group_data)
+		{
+		$group_id = (int)$group_data['ledger_account']['auto_id'];
+		}
 
-$wing_flat = "";
+if(empty($group_id))
+{
+		$this->loadmodel('accounts_group'); 
+		$conditions=array("group_name"=> new MongoRegex('/^' .  $group_name . '$/i'));
+		$group_detail2=$this->accounts_group->find('all',array('conditions'=>$conditions));
+			foreach($group_detail2 as $group_data2)
+			{
+			$group_id = (int)$group_data2['accounts_group']['auto_id'];
+			}
+}
 
-if($group == 'Sundry Creditors Control A/c ')
-{
-$group_id = 15;
-}
-if($group == 'Tax deducted at source (TDS receivable)')
-{
-$group_id = 35;
-}
-if($group == 'Sundry Debtors Control A/c  ')
-{
-$group_id = 34;
-}
-if($group == 'Bank Accounts')
-{
-$group_id = 33;
-}
+  $auto_id = "";
+  $validdddnnn=5;
   
-	  
-$this->loadmodel('ledger_account'); 
-$conditions=array("ledger_name"=> new MongoRegex('/^' .  $group . '$/i'));
-$group2=$this->ledger_account->find('all',array('conditions'=>$conditions));
-foreach($group2 as $collection6)
-{
-$group_id = (int)$collection6['ledger_account']['auto_id'];
-}
-	  
-$this->loadmodel('accounts_group'); 
-$conditions=array("group_name"=> new MongoRegex('/^' .  $group . '$/i'));
-$group1=$this->accounts_group->find('all',array('conditions'=>$conditions));
-foreach($group1 as $collection5)
-{
-$group_id = (int)$collection5['accounts_group']['auto_id'];
-}
+  
+		$this->loadmodel('ledger_account'); 
+		$conditions=array("ledger_name"=> new MongoRegex('/^' .  $account_name . '$/i'),"group_id"=>$group_id);
+		$ledger_acctt_data=$this->ledger_account->find('all',array('conditions'=>$conditions));
+			foreach($ledger_acctt_data as $ledger_acc_ddddtt)
+			{
+			$auto_id = (int)$ledger_acc_ddddtt['ledger_account']['auto_id'];
+			$ledger_type = 2;
+			$validdddnnn=555;
+			}
 
-	  
-	  
-$auto_id = "";
-$this->loadmodel('ledger_account'); 
-$conditions=array("ledger_name"=> new MongoRegex('/^' .  $ac_name . '$/i'),"group_id"=>$group_id);
-$result_ac=$this->ledger_account->find('all',array('conditions'=>$conditions));
-foreach($result_ac as $collection)
-{
-$auto_id = (int)$collection['ledger_account']['auto_id'];
-$ledger_type = 2;
-}
-$this->loadmodel('ledger_sub_account'); 
-$conditions=array("name"=> new MongoRegex('/^' .  $ac_name . '$/i'),"ledger_id"=>$group_id);
-$result_sac2=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+		if($auto_id == 0 || empty($auto_id))
+		{
+		$flat_id = "";
+		$wing_id = "";
+			$this->loadmodel('ledger_sub_account'); 
+			$conditions=array("name"=> new MongoRegex('/^' .  $account_name . '$/i'),"ledger_id"=>$group_id);
+			$subledger_data=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+			foreach($subledger_data as $sub_lddrr_dddttt)
+				{
+					$auto_id = (int)$sub_lddrr_dddttt['ledger_sub_account']['auto_id'];
+					$flltt_id = (int)$sub_lddrr_dddttt['ledger_sub_account']['flat_id'];
+				    $ledger_type = 1;
+				
+				}
+		 		
+					if($group_id == 34)
+					{
+					$wing_name = trim($child_ex[2]);
+					$flat_name = trim($child_ex[3]);
+					
+				
+					$this->loadmodel('flat'); 
+					$conditions=array("flat_name"=> new MongoRegex('/^' .  $flat_name . '$/i'),"society_id"=>$s_society_id);
+					$flat_data=$this->flat->find('all',array('conditions'=>$conditions));
+					foreach($flat_data as $flltdddt)
+					{
+					$flat_id = (int)$flltdddt['flat']['flat_id'];
+					$wing_id = (int)$flltdddt['flat']['wing_id'];
+					}
+				   
+						if(!empty($flat_id) || $flat_id != 0)
+						{
+							if($flltt_id == $flat_id)
+							{
+						    $validdddnnn=555;
+	$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat_with_brackets'),array('pass'=>array($wing_id,$flat_id)));	
+				            }
+			}
+			}
+			else
+			{
+			 $validdddnnn=555;
+			}
+		}
 
-foreach($result_sac2 as $collection2)
-{
-$auto_id = (int)$collection2['ledger_sub_account']['auto_id'];
-if($group_id == 34)
-{ 
-////////////////
-$wing_name = $child_ex[2];
-$flat_name = $child_ex[3];
+$group_name = trim($child_ex[0]);
+		$account_name = trim($child_ex[1]);
+		$debit_or_credit = $child_ex[4];
+		$priciple_amount = $child_ex[5];
+		$penalty_amount = $child_ex[6];
 
-
-$this->loadmodel('flat');
-$conditions=array("society_id" => $s_society_id);
-$cursor1 = $this->flat->find('all',array('conditions'=>$conditions));
-foreach($cursor1 as $collection)
-{
-$wing_id2 = (int)$collection['flat']['wing_id'];
-$flat_name2 = $collection['flat']['flat_name'];
-$flat_id2 = (int)$collection['flat']['flat_id'];
-if($flat_name2 == $flat_name)
-{ 
-$wing = (int)$wing_id2;
-$flat = (int)$flat_id2;
-}
-}
-///////////////
-$user_id = (int)@$collection2['ledger_sub_account']['user_id'];
-
-$hhhhhh = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));
-foreach($hhhhhh as $fff)
-{
-$wing_id = (int)$fff['user']['wing'];
-$flat_id = (int)$fff['user']['flat'];
-}
-
-
-}
-
-
-$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat_with_brackets'),array('pass'=>array($wing,$flat)));
-
-
-$ledger_type = 1;
-}
-
-
- $table[] = array(@$ac_name,@$amt_type,@$amt,@$auto_id,@$ledger_type,@$group_id,@$group,@$pen_amt,@$flat_id,@$wing_flat);
-
+		
+$table[] = array(@$account_name,@$debit_or_credit,@$priciple_amount,@$auto_id,@$ledger_type,@$group_id,@$group_name,@$penalty_amount,@$flat_id,@$wing_flat,@$validdddnnn);
 	  } 
       $i++;
       }
