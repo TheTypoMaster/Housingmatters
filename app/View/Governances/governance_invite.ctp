@@ -297,6 +297,7 @@ $group_id=$collection["group"]["group_id"];
 </div>
 </div>
 
+<!--<a href="#myModal3" role="button" class="btn blue pull-right" data-toggle="modal" style="">  Templates</a>-->
 
 <div class="control-group">
   <label class="control-label">Attachment <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Limit 2MB"> </i> </label>
@@ -334,6 +335,10 @@ Note: File size must be less than 2 MB and All extension are allowed.
 <div class="alert alert-block alert-success fade in" style="display:none;">
 	<h4 class="alert-heading">Success!</h4>
 </div>
+
+
+
+
 
 <script>
 $(document).ready(function(){
