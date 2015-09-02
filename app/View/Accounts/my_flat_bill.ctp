@@ -1,3 +1,5 @@
+
+
 <?php
 foreach($result_society as $data){
 	$society_name=$data["society"]["society_name"];
@@ -30,6 +32,22 @@ background-color: #E6ECE7;
 <div align="center">
 	<table>
 		<tr>
+		<td>
+		<select class="m-wrap" data-placeholder="Choose a Category"  id="flat_select_box">
+			<option value="" style="display:none;" >Select...</option>
+			<?php foreach($multiple_flat as $flat_data){
+				//wing_id via flat_id//
+				$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_data[1])));
+				foreach($result_flat_info as $flat_info){
+					$wing_id=$flat_info["flat"]["wing_id"];
+				}
+				
+				$wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'wing_flat'), array('pass' => array($wing_id,$flat_data[1])));
+			?>
+			<option value="<?php echo $flat_data[1]; ?>"><?php echo $wing_flat; ?></option>
+			<?php } ?>
+		</select>
+		</td>
 		<td><input class="date-picker m-wrap medium" id="from" data-date-format="dd-mm-yyyy" name="from" placeholder="From" style="background-color:white !important;" value="<?php echo date("d-m-Y",strtotime($from)); ?>" type="text"></td>
 		<td><input class="date-picker  m-wrap medium" id="to" data-date-format="dd-mm-yyyy" name="to" placeholder="To" style="background-color:white !important;" value="<?php echo date("d-m-Y",strtotime($to)); ?>" type="text"></td>
 		<td valign="top"><button type="button" name="sub" class="btn yellow" id="go">Go</button></td>
@@ -47,10 +65,11 @@ background-color: #E6ECE7;
 <script>
 $(document).ready(function() {
 	$("#go").live('click',function(){
+		var flat_id=$("#flat_select_box").val();
 		var from=$("#from").val();
 		var to=$("#to").val();
 		$("#result_statement").show();
-		$("#result_statement").html('<div align="center"><h4>Loading...</h4></div>').load('my_flat_bill_ajax/'+from+'/'+to);
+		$("#result_statement").html('<div align="center"><h4>Loading...</h4></div>').load('my_flat_bill_ajax/'+from+'/'+to+'/'+flat_id);
 	});
 });
 </script>

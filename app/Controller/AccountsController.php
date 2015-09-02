@@ -1069,6 +1069,8 @@ function my_flat_bill(){
 		$user_id=$collection2["user"]["user_id"];
 		$user_name=$collection2["user"]["user_name"];
 		$this->set('user_name',$user_name);
+		$multiple_flat=$collection2["user"]["multiple_flat"];
+		$this->set('multiple_flat',$multiple_flat);
 		$flat_id=$collection2["user"]["flat"];
 	}
 	
@@ -1091,7 +1093,7 @@ function my_flat_bill(){
 
 }
 
-function my_flat_bill_ajax($from=null,$to=null){
+function my_flat_bill_ajax($from=null,$to=null,$flat_id=null){
 	if($this->RequestHandler->isAjax()){
 	$this->layout='blank';
 	}else{
@@ -1102,27 +1104,38 @@ function my_flat_bill_ajax($from=null,$to=null){
 	 $to=date("Y-m-d",strtotime($to));
 	 $this->set("to",$to);
 	
+	
 	$this->ath();
 	$s_society_id = (int)$this->Session->read('society_id');
 	
 	$s_user_id=$this->Session->read('user_id');
 	$this->set("s_user_id",$s_user_id);
-	//fetch user ifp via user_id//
-	$result_user_info=$this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'), array('pass' => array($s_user_id)));
-	foreach ($result_user_info as $collection2){
-		
-		$user_name=$collection2["user"]["user_name"];
-		$this->set('user_name',$user_name);
-		$flat_id=$collection2["user"]["flat"];
-	}
 	
+	
+	//wing_id via flat_id//
+	$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array((int)$flat_id)));
+	foreach($result_flat_info as $flat_info){
+		$wing_id=$flat_info["flat"]["wing_id"];
+	} 
+	
+	$wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'wing_flat'), array('pass' => array($wing_id,(int)$flat_id)));
+	$this->set('wing_flat',$wing_flat);
+	
+	//user info via flat_id//
+	$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($wing_id,$flat_id)));
+	foreach($result_user_info as $user_info){
+		$user_id=(int)$user_info["user"]["user_id"];
+		$user_name=$user_info["user"]["user_name"];
+		$this->set('user_name',$user_name);
+	} 
+
 	$this->loadmodel('society');
 	$conditions=array("society_id" => $s_society_id);
 	$result_society=$this->society->find('all',array('conditions'=>$conditions));
 	$this->set('result_society',$result_society);
 	
 	$this->loadmodel('ledger_sub_account');
-	$conditions=array("society_id" => $s_society_id,"user_id" => (int)$s_user_id);
+	$conditions=array("society_id" => $s_society_id,"flat_id" => (int)$flat_id);
 	$result_ledger_sub_account=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
 	$ledger_sub_account_id=$result_ledger_sub_account[0]["ledger_sub_account"]["auto_id"];
 	

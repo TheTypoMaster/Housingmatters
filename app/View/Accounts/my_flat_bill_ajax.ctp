@@ -33,7 +33,7 @@ foreach($result_ledger as $ledger_data){
 	</div>
 	<div class="row-fluid" style="font-size:14px;">
 		<div class="span6">
-			For : <?php echo $user_name; ?>
+			For : <?php echo $user_name; ?> (<?php echo $wing_flat; ?>)
 		</div>
 		<div class="span6" align="right">
 			<span style="font-size:16px;">Statement of Account</span><br/>
