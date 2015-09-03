@@ -620,7 +620,7 @@ if(!empty($kendo_array))
 {
 $kendo_implode = implode(",",$kendo_array);
 }
-$this->set('kendo_implode',$kendo_implode);
+$this->set('kendo_implode',@$kendo_implode);
 }
 function upload_csv_cash_bank(){
 	$this->layout=null;
