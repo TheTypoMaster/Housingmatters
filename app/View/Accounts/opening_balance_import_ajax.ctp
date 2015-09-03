@@ -38,6 +38,8 @@
 					$flat = (int)$data[8];
 					$wing_flat = $data[9];
 					$validdnnn = (int)$data[10];
+					$flll_id = (int)$data[11];
+					
 				    ?>
                 
         						<tr id="tr<?php echo $j; ?>">
@@ -60,7 +62,7 @@
                                 <option value="<?php echo $group_id; ?>" <?php if($group_id5 == $group_id) { ?> selected="selected" <?php } ?>><?php echo $group_name1; ?></option>
                                 <?php }} ?>
                                 </select>
-                                <input type="hidden" value="<?php echo $flat; ?>" />
+                                <input type="hidden" value="<?php echo $flll_id; ?>" />
                                 </td>
             
             

@@ -3272,7 +3272,7 @@ $child_ex=explode(',',$child[0]);
 		else
 		{
 		$this->loadmodel('ledger_sub_account'); 
-		$conditions=array("flat_id"=> new MongoRegex('/^' .  $account_name . '$/i'),"ledger_id"=>$group_id);
+		$conditions=array("name"=> new MongoRegex('/^' .  $account_name . '$/i'),"ledger_id"=>$group_id);
 		$subledger_data=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
 		foreach($subledger_data as $sub_lddrr_dddttt)
 		{
@@ -3282,14 +3282,8 @@ $child_ex=explode(',',$child[0]);
 		}
 		}
 		
-
-       		
 		
-		
-		
-		
-		
-$table[] = array(@$account_name,@$debit_or_credit,@$priciple_amount,@$auto_id,@$ledger_type,@$group_id,@$group_name,@$penalty_amount,@$flat_id,@$wing_flat,@$validdddnnn);
+$table[] = array(@$account_name,@$debit_or_credit,@$priciple_amount,@$auto_id,@$ledger_type,@$group_id,@$group_name,@$penalty_amount,@$flat_id,@$wing_flat,@$validdddnnn,@$flt_idddd);
 	  }
       $i++;
 	  }
@@ -3428,15 +3422,14 @@ foreach($myArray as $child){
 	$insert = (int)$child[4];
 	$transaction_date =date("Y-m-d",strtotime($child[5]));
 	$intrest_arrear = (int)$child[6];
-
+    $flll_id = (int)$child[7];
 	
 
 if($insert == 2){
-	
-	if($excel_ledger_id==34){
+if($excel_ledger_id==34){
 	
 		$this->loadmodel('ledger_sub_account'); 
-		$conditions=array("ledger_id"=>34,"name"=> new MongoRegex('/^' .  $excel_account_name . '$/i'));
+		$conditions=array("ledger_id"=>34,"name"=> new MongoRegex('/^' .  $excel_account_name . '$/i'),"flat_id"=>$flll_id);
 		$result_ledger_sub_account=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
 		$ledger_sub_account_id=$result_ledger_sub_account[0]["ledger_sub_account"]["auto_id"];
 
