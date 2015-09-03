@@ -93,7 +93,7 @@ count--;
 var ar = [];
 
 $("#open_bal2 tr:nth-child(1) span.report").remove();
-var date = $("#open_bal2 tr:nth-child(1) td:nth-child(1) input").val();
+var date = $("#date").val();
 
 for(var i=2;i<=count;i++)
 {
@@ -138,8 +138,7 @@ var count = $("#open_bal tr").length;
 count--;
 var ar = [];
 
-var date = $("#open_bal2 tr:nth-child(1) td:nth-child(1) input").val();
-
+var date = $("#date").val();
 
 for(var i=2;i<=count;i++)
 {
