@@ -83,7 +83,17 @@ if($nnn == 555)
 					$party_name_id = (int)$collection['new_cash_bank']['party_name_id'];
 					$receipt_type = $collection['new_cash_bank']['receipt_type'];
 			
-			$user_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_user_info_via_flat_id'),array(				'pass'=>array($party_name_id)));	
+			
+$flatt_datta = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($party_name_id)));
+foreach ($flatt_datta as $fltt_datttaa) 
+{
+$wnngg_idddd = (int)$fltt_datttaa['flat']['wing_id'];
+}			
+			
+			
+			
+			
+$user_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_user_info_via_flat_id'),array(				'pass'=>array($wnngg_idddd,$party_name_id)));	
 			foreach($user_fetch as $rrr)
 			{
 				$party_name = $rrr['user']['user_name'];	
