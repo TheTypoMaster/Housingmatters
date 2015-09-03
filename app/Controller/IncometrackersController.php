@@ -217,10 +217,10 @@ function fetch_last_receipt_info_via_flat_id($flat_id,$bill_one_time_id){
 	$order=array('new_cash_bank.bill_one_time_id'=>'DESC');
 	return $this->new_cash_bank->find('all',array('conditions'=>$condition,'order'=>$order)); 
 }
-function fetch_opening_balance_via_user_id($user_id){
+function fetch_opening_balance_via_user_id($flat_id){
 	$s_society_id =(int)$this->Session->read('society_id');
 	$this->loadmodel('ledger_sub_account');
-	$condition=array('user_id'=>$user_id);
+	$condition=array('flat_id'=>$flat_id);
 	$result_ledger_sub_account=$this->ledger_sub_account->find('all',array('conditions'=>$condition)); 
 	foreach($result_ledger_sub_account as $data){
 		$auto_id=(int)$data["ledger_sub_account"]["auto_id"];
