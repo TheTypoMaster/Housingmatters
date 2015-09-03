@@ -183,7 +183,7 @@ foreach($result_society as $data){
 							$last_new_intrest_on_arrears=(int)@$last_bill["new_intrest_on_arrears"];
 						}
 					}else{
-						$result_opening_balance= $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'fetch_opening_balance_via_user_id'),array('pass'=>array($user_id)));
+						$result_opening_balance= $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'fetch_opening_balance_via_user_id'),array('pass'=>array($flat)));
 						
 						if(sizeof($result_opening_balance)>0){
 							$opening_balance_arrear_intrest=0;
