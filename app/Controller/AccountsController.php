@@ -3233,11 +3233,13 @@ $child_ex=explode(',',$child[0]);
 		$validdddnnn=5;
         
 					$this->loadmodel('ledger_account'); 
-					$conditions=array("group_id"=>$group_id);
+					$conditions=array("ledger_name"=> new MongoRegex('/^' .  trim($account_name) . '$/i'),"group_id"=>$group_id);
 					$ledg_ddtaill=$this->ledger_account->find('all',array('conditions'=>$conditions));
 					foreach($ledg_ddtaill as $ledgr_dattt)
 					{
-					echo $auto_id = (int)$ledgr_dattt['ledger_account']['auto_id'];
+					$auto_id = (int)$ledgr_dattt['ledger_account']['auto_id'];
+					$ledger_type = 2;
+					$validdddnnn=555;
 					}
 		
 	
@@ -3291,7 +3293,7 @@ $table[] = array(@$account_name,@$debit_or_credit,@$priciple_amount,@$auto_id,@$
 	  }
       $i++;
 	  }
-exit;
+
 $this->set('table',$table);
 
 $this->loadmodel('ledger_sub_account');
