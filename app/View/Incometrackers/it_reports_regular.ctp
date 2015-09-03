@@ -137,6 +137,7 @@ if(wing === '') { $('#validate_result').html('<div style="background-color:white
 else if(wise == 2)
 {
 var user_id = $("#mem").val();
+
 if(user_id === '') { $('#validate_result').html('<div style="background-color:white; color:red; padding:5px;">Please Select Member </div>'); return false; }
 }
 else if(wise == 3)

@@ -3618,7 +3618,7 @@ $this->layout='blank';
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
-
+$this->ath();
 
 $this->loadmodel('society');
 $conditions=array("society_id"=> $s_society_id);
@@ -3637,7 +3637,7 @@ $to_date2 = date('Y-m-d',strtotime($to));
 $from_date3 = strtotime($from_date2);
 $to_date3 = strtotime($to_date2);
 
-$wise = (int)$this->request->query('wise');
+ $wise = (int)$this->request->query('wise'); 
 if($wise == 1)
 {
 $wing = (int)$this->request->query('wing');
