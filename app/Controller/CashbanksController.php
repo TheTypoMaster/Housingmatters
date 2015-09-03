@@ -327,18 +327,13 @@ if($member_type == 1)
 	$this->new_cash_bank->saveAll($multipleRowData);
 	
 	
-	//wing_id via flat_id//
-	$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array((int)$party_name)));
-	foreach($result_flat_info as $flat_info){
-		$wing=$flat_info["flat"]["wing_id"];
-	} 
-
-	$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($wing,$party_name)));
+	$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($party_name)));
 	foreach($result_flat_info as $flat_info){
 	  echo $user_id = (int)$flat_info["user"]["user_id"];
 	}
-=
+
 	$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'ledger_sub_account_fetch3'),array('pass'=>array($user_id)));
+	
 	foreach($result_flat_info as $flat_info){
 	    $account_id = (int)$flat_info["ledger_sub_account"]["auto_id"];
 	}
@@ -590,6 +585,7 @@ $bill_auto_id=$last_bill["auto_id"];
 $bill_one_time_id=$last_bill["one_time_id"];
 }
 }
+
 ?>
 <div class="modal-backdrop fade in"></div>
 <div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
