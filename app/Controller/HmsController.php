@@ -2516,6 +2516,7 @@ foreach($result as $data)
 {
 $wing_name=$data['wing']['wing_name'];
 }
+
 $this->loadmodel('flat');
 $conditions=array("flat_id" => $flat_id);
 $result2=$this->flat->find('all',array('conditions'=>$conditions));
@@ -16322,19 +16323,22 @@ $this->layout='session';
 
 }
 
-//////////////////////////////////////////////// End Society Setup
-//////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////// End Society Setup //////////////////////
 
+////////////////////////////// Start ledger_sub_account by Flat id ///////////////////////////////////
 
+function ledger_SubAccount_dattta_by_flat_id($flat_id)
+{
+$s_society_id = $this->Session->read('society_id');
 
+$this->loadmodel('ledger_sub_account');
+$conditions=array("flat_id" => $flat_id,"society_id"=>$s_society_id);
+return $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+}
 
+////////////////////////////// Start ledger_sub_account by Flat id ///////////////////////////////////
 
-
-
-
-
-
-//////////////////////////////////////////////////////// Start Rgular Bill Fetch (Accounts)//////////////////////////////////////////////////////////////
+//////////////////////////////// Start Rgular Bill Fetch (Accounts)///////////////////////////////
 function new_regular_bill_detail_via_flat_id($flat_id)
 {
 $this->loadmodel('new_regular_bill');

@@ -14,7 +14,8 @@
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
 <?php
 $bbb = 55;
-foreach($cursor1 as $data3){
+
+            foreach($cursor1 as $data3){
 			$auto_id=$data3["new_regular_bill"]["auto_id"];
 			$flat_id=$data3["new_regular_bill"]["flat_id"];
 			$bill_no=(int)$data3["new_regular_bill"]["bill_no"];
@@ -49,7 +50,6 @@ foreach($cursor1 as $data3){
 		$sq_feet = (int)$data2['flat']['flat_area'];
 		}
 
- 
 if($wise == 2)
 {									
 if($flat_id == $user_id)

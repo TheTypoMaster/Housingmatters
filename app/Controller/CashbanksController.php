@@ -191,7 +191,7 @@ $this->set('cursor3',$cursor3);
 								}
 								for($n=0; $n<sizeof($knnddd); $n++)
 								{
-									echo $kendo_name = $knnddd[$n];
+									 $kendo_name = $knnddd[$n];
 									if($kendo_name == $knddd)
 									{
 									$nnn = 5;
@@ -202,7 +202,7 @@ $this->set('cursor3',$cursor3);
 									$nnn = 555;
 									}
 								}
-							echo $nnn;
+							 $nnn;
 							if($nnn == 555){
                             
 							$knnddd[] = $knddd;
@@ -328,15 +328,12 @@ if($member_type == 1)
 	
 	
 	
-	$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($party_name)));
-	foreach($result_flat_info as $flat_info){
-	   $user_id = (int)$flat_info["user"]["user_id"];
-	}
+		$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'ledger_SubAccount_dattta_by_flat_id'),array('pass'=>array($party_name)));
+		foreach($result_flat_info as $flat_info){
+		$account_id = (int)$flat_info["ledger_sub_account"]["auto_id"];
+		}
 
-	$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'ledger_sub_account_fetch3'),array('pass'=>array($user_id)));
-	foreach($result_flat_info as $flat_info){
-	    $account_id = (int)$flat_info["ledger_sub_account"]["auto_id"];
-	}
+	
 
 $l=$this->autoincrement('ledger','auto_id');
 $this->loadmodel('ledger');
@@ -393,7 +390,13 @@ $wing_flat = "";
 }
 else
 {
-$result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($flat_id)));
+$flatt_datta = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_id)));
+foreach ($flatt_datta as $fltt_datttaa) 
+{
+$wnngg_idddd = (int)$fltt_datttaa['flat']['wing_id'];
+}
+
+$result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($wnngg_idddd,$flat_id)));
 foreach ($result_lsa as $collection) 
 {
 $wing_id = $collection['user']['wing'];  
@@ -547,15 +550,12 @@ if($receipt_type == 2)
 	$multipleRowData = Array( Array("transaction_id"=>$t2, "receipt_id" => $k, "receipt_date" => $TransactionDate, "receipt_mode" => $receipt_mode, "cheque_number" =>@$cheque_number,"cheque_date" =>$cheque_date,"drawn_on_which_bank" =>@$drawn_on_which_bank,"reference_utr" => @$reference_utr,"deposited_bank_id" => $deposited_bank_id,"member_type" => $member_type,"party_name_id"=>$party_name,"receipt_type" => $receipt_type,"amount" => $amount,"current_date" => $current_date,"society_id"=>$s_society_id,"flat_id"=>$party_name,"narration"=>$narration));
 	$this->new_cash_bank->saveAll($multipleRowData);
 
-	$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($party_name)));
-	foreach($result_flat_info as $flat_info){
-		$user_id = (int)$flat_info["user"]["user_id"];
-	}
 	
-	$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'ledger_sub_account_fetch3'),array('pass'=>array($user_id)));
-	foreach($result_flat_info as $flat_info){
-		$account_id = (int)$flat_info["ledger_sub_account"]["auto_id"];
-	}
+	
+$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'ledger_SubAccount_dattta_by_flat_id'),array('pass'=>array($party_name)));
+foreach($result_flat_info as $flat_info){
+$account_id = (int)$flat_info["ledger_sub_account"]["auto_id"];
+}
 
 $l=$this->autoincrement('ledger','auto_id');
 $this->loadmodel('ledger');
@@ -585,6 +585,7 @@ $bill_auto_id=$last_bill["auto_id"];
 $bill_one_time_id=$last_bill["one_time_id"];
 }
 }
+
 ?>
 <div class="modal-backdrop fade in"></div>
 <div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
@@ -2363,7 +2364,7 @@ echo $excel;
 }
 /////////////////////// End Petty Cash Payment Excel////////////////////////////////
 
-/////////////////////////////////////////////////////////////// Start Bank receipt Reference Ajax (Accounts)/////////////////////////////////////////////
+///////////////////////////// Start Bank receipt Reference Ajax (Accounts)/////////////////////////////////////////
 function bank_receipt_reference_ajax()
 {
 $this->layout='blank';

@@ -153,12 +153,12 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
     </div>
 
 
-<div style="background-color:#FFF; width:50%; float:right; overflow:hidden;">
+<div style="background-color:#FFF; width:50%; float:right;">
 
     <div id="for_resident_view" class="hide">
     <label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Select Resident<span style="color:red;">*</span></label>
     <div class="control">
-    &nbsp;&nbsp;<select name="resident_name" class="m-wrap chosen" id="resident_flat_id">
+    &nbsp;&nbsp;<select name="resident_name" class="m-wrap large chosen" id="resident_flat_id">
     <option value="" style="display:none;">Select Resident</option>
     <?php
     foreach($cursor1 as $data)
@@ -476,6 +476,9 @@ error.appendTo('label#' + element.attr('id'));
 			required: true  	
 			},
 		
+		amount4: {
+			required: true  	
+			},
 		
 		},
 		highlight: function(element) {
