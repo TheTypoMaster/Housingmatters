@@ -163,18 +163,18 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
     <?php
     foreach($cursor1 as $data)
     {
-    $user_id = (int)$data['ledger_sub_account']['user_id'];	
+    $flat_iddd = (int)$data['ledger_sub_account']['flat_id'];	
     $resident_name = $data['ledger_sub_account']['name'];
     
-    $user_detail = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));
-    foreach($user_detail as $user_data)
-    {
-    $flat_id = (int)$user_data['user']['flat'];	
-	$wing = (int)$user_data['user']['wing'];	
-    }
-	$wing_flat= $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing,$flat_id)));
+$wing_detailll = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_iddd)));
+foreach($wing_detailll as $wing_dataaa)
+{
+$wing_idddd = (int)$wing_dataaa['flat']['wing_id'];	
+}
+	
+$wing_flat= $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat_with_brackets'),array('pass'=>array($wing_idddd,$flat_iddd)));
     ?>
-    <option value="<?php echo $flat_id; ?>"><?php echo $resident_name; ?>  <?php echo $wing_flat; ?></option>
+    <option value="<?php echo $flat_iddd; ?>"><?php echo $resident_name; ?> &nbsp;&nbsp; <?php echo $wing_flat; ?></option>
     <?php
     }
     ?>
@@ -230,7 +230,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </div>
 <br />
 </div>
-
+<br />
 
 <div style="width:100%; overflow:auto;">
 <hr>
