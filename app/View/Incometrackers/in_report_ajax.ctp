@@ -15,7 +15,7 @@ foreach($result_new_regular_bill as $regular_bill){
 		<tr>
 			<th>Unit Number</th>
 			<th>Name</th>
-			<th>Area</th>
+			<th>Area (sq. feet)</th>
 			<th>Bill No.</th>
 			<?php foreach($income_head_array as $income_head=>$value){ 
 			$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($income_head)));	
@@ -26,9 +26,10 @@ foreach($result_new_regular_bill as $regular_bill){
 			<?php } ?>
 			<th>Non Occupancy charges</th>
 			<th>Total</th>
-			<th>Arrears (Maint.)</th>
-			<th>Arrears (Int.)</th>
-			<th>Interest on Arrears </th>
+			<th>Arrears-Principal</th>
+			<th>Arrears-Interest</th>
+			<th>Interest on Arrears</th>
+			<th>Credit/Rebates</th>
 			<th>Due For Payment</th>
 			<th>View</th>
 		</tr>
@@ -50,6 +51,7 @@ foreach($result_new_regular_bill as $regular_bill){
 	$arrear_intrest=$regular_bill["new_regular_bill"]["arrear_intrest"];
 	$intrest_on_arrears=$regular_bill["new_regular_bill"]["intrest_on_arrears"];
 	$due_for_payment=$regular_bill["new_regular_bill"]["due_for_payment"];
+	$credit_stock=$regular_bill["new_regular_bill"]["credit_stock"];
 	//wing_id via flat_id//
 	$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_id)));
 	foreach($result_flat_info as $flat_info){
@@ -85,6 +87,7 @@ foreach($result_new_regular_bill as $regular_bill){
 		<td><?php echo $arrear_maintenance; ?></td>
 		<td><?php echo $arrear_intrest; ?></td>
 		<td><?php echo $intrest_on_arrears; ?></td>
+		<td><?php echo $credit_stock; ?></td>
 		<td><?php echo $due_for_payment; ?></td>
 		<td><a href="regular_bill_view/<?php echo $auto_id; ?>" target="_blank" class="btn mini yellow"><i class="icon-search"></i></a>
 		<a href="regular_bill_edit2/<?php echo $auto_id; ?>" role="button" rel='tab' class="btn mini blue"><i class="icon-edit"></i></a>
