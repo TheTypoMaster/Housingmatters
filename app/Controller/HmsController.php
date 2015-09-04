@@ -7952,6 +7952,18 @@ $tenant=(int)$collection['user']['tenant'];
 }
 ///////////end fetch data ////////////////////
 
+if(!empty($email) and !empty($mobile)){
+		
+	$page_name='send_sms_for_verify_mobile';		
+	
+}else{
+	
+	$page_name='set_new_password';
+}
+
+
+
+
 $random1=mt_rand(1000000000,9999999999);
 $random2=mt_rand(1000000000,9999999999);
 $random=$random1.$random2 ;
@@ -7998,7 +8010,7 @@ $message_web="<div>
 
 
 
-<p><b><a href='$ip".$this->webroot."/hms/send_sms_for_verify_mobile?q=$random' target='_blank'><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'>Click here</button></a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
+<p><b><a href='$ip".$this->webroot."/hms/$page_name?q=$random' target='_blank'><button style='width:100px; height:30px;  background-color:#00A0E3;color:white'>Click here</button></a> for one time verification of your mobile number and Login into HousingMatters  for making life simpler for all your housing matters!</b></p>
 
 
 <p>Regards,</p>
