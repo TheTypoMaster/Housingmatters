@@ -31,7 +31,7 @@ foreach($result_new_regular_bill as $regular_bill){
 			<th>Interest on Arrears</th>
 			<th>Credit/Rebates</th>
 			<th>Due For Payment</th>
-			<th>View</th>
+			<th>View|Edit</th>
 		</tr>
 	</thead>
 	<tbody>
