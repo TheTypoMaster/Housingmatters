@@ -14,10 +14,55 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <?php
 $default_date = date('d-m-Y');
 ?>
+<?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
+<?php /*		
+<div style="width:99%; background-color:#FFF; overflow:auto; border:solid 1px #CCC;">	
+<h4 style="color:#00F; font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;">&nbsp;&nbsp;&nbsp;<i class="icon-money"></i> Genarate Supplimentry Bill</h4>
+	
+<form class="form-horizontal" method="post" id="contact-form" novalidate>
+<br />
+	<div style="width:48%; border:solid; float:left;">
+
+     
+<label class="" style="font-size:14px;">&nbsp;&nbsp;&nbsp;Billing Date<span style="color:red;">*</span></label>    
+
+&nbsp;&nbsp;<input type="text" class="m-wrap span7"/>
+
+<!-- 
+<input type="text" name="from" id="from" class="m-wrap span7" data-date-format="dd-mm-yyyy" placeholder="Bill Date" value="<?php //echo $default_date; ?>"/> -->
+      
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</div> 
+    
+         
+<div style="width:50%; border:solid; float:right; overflow:hidden;">
+
+	sdfsdfsdf<br />
+	sdasdasd<br />
+    adADa<br />
+
+</div>      
+        
+        
+</div>
+*/ ?>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
-		
-<?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
- 
+        
 			<div style="width:70%; margin-left:15%;">
 			<div class="row-fluid">
 			<div class="span12">
@@ -290,7 +335,8 @@ $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing
             </div>
             </div>
             </div>
-<?php ///////////////////////////////////////////////////////////////////////////////////////// ?>		
+			
+<?php ///////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
 		
 <?php //////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
 <script>

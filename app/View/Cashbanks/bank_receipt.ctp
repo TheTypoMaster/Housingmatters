@@ -15,6 +15,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <center>
 <a href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt" class="btn yellow" rel='tab'>Create</a>
 <a href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt_view" class="btn" rel='tab'>View</a>
+<a href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt_deposit_slip" class="btn" rel='tab'>Deposit Slip</a>
 <a href="#" class="btn purple" role="button" id="import">Import csv</a> 
 </center>
 <!---- Start Import Code -->
