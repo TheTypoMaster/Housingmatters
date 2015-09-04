@@ -404,7 +404,40 @@ foreach($result_society as $data){
 						</td>
 					</tr>
 				<?php } } ?>
+				<tr>
+					<td></td>
+					<td width="200px;"><b>Total</b></td>
+					<td></td>
+					<td></td>
+					<?php foreach($income_heads as $income_head){ 
+					$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($income_head)));	
+					foreach($result_income_head as $data2){
+						$income_head_name = $data2['ledger_account']['ledger_name'];
+					} ?>
+					<td ><?php echo $income_head_name; ?><?php echo $space; ?></td>	
+					<?php } ?>
+					<td>Non Occupancy charges</td>
+					<?php 
+					if(sizeof(@$other_charges_ids)>0){
+						foreach($other_charges_ids as $other_charges_id){
+						$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($other_charges_id)));	
+						foreach($result_income_head as $data2){
+							$income_head_name = $data2['ledger_account']['ledger_name'];
+						}
+						?>
+						<td><?php echo $income_head_name; ?></td>
+					<?php } 
+					} ?>
+					
+					<td>Total<?php echo $space; ?></td>
+					<td>Arrears-Principal</td>
+					<td>Arrears-Interest</td>
+					<td>Interest on Arrears </td>
+					<td>Credit/Rebates</td>
+					<td>Due For Payment</td>
+				</tr>
 			</tbody>
+			
 		</table>
 	
 </div>
