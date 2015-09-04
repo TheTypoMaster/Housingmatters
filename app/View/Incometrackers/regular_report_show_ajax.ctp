@@ -114,7 +114,7 @@ else if($wise == 3)
 <tr>
 <th>Unit Number</th>
 <th>Name</th>
-<th>Area</th>
+<th>Area (sq. feet)</th>
 <th>Bill No.</th>
 
 <?php 
@@ -150,12 +150,12 @@ foreach(@$income_head_array as $income_head=>$value){
 			}?>
 
 <th>Total</th>
-<th>Arrears (Maint.)</th>
-<th>Arrears (Int.)</th>
-<th>Interest on Arrears </th>
+<th>Arrears-Principal</th>
+<th>Arrears-Interest</th>
+<th>Interest on Arrears</th>
 <th>Credit/Rebates</th>
 <th>Due For Payment</th>
-<th></th>
+<th>View|Pdf</th>
 </tr>
 <?php
 
