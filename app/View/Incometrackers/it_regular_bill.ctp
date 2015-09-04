@@ -113,7 +113,7 @@ if($society_detail == 'YES')
 if($income_head_detail == 'YES')	
 {	
 ?>
-    <div style="background-color:#fff;padding:5px;width:99%; overflow:auto; border:solid 1px #CCC;" class="form_div">
+    <div style="background-color:#fff;padding:5px; width:99%; overflow:auto visible; border:solid 1px #CCC;" class="form_div">
     <h4 style="color:#00F; font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;">&nbsp;&nbsp;<i class="icon-money"></i> Generate Regular Bill</h4>
     <form method="post" id="contact-form">
 
@@ -223,7 +223,7 @@ No
 </div>
 </div>
 </div>
-
+<br />
 
 <div style="width:100%; overflow:auto;">
 <hr />
