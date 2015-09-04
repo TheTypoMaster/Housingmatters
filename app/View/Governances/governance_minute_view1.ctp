@@ -83,7 +83,6 @@ foreach($result_user as $data2){
 	
 }
 $flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing,$flat)));
-
 $designation_name=$this->requestAction(array('controller' => 'governances', 'action' => 'designation_find_by_user'), array('pass' => array($designation_id)));
 $flat_name='';
 if(!empty($flat))
