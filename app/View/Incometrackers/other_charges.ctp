@@ -84,15 +84,25 @@ font-weight: bold;
 						  <div class="controls">
 							<select name="flats[]" data-placeholder="Your Favorite Football Teams" id="flats" class="chosen span12" multiple="multiple" tabindex="6">
 								<option value="">
-								<?php foreach($result_user as $user_data){ 
-								$user_id=(int)$user_data["user"]["user_id"];
-								$user_name=$user_data["user"]["user_name"];
-								$wing=$user_data["user"]["wing"];
-								$flat=$user_data["user"]["flat"];
+								<?php foreach($flats_for_bill as $flat_id){ 
 								
-								$wing_flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing,$flat))); 
+								//wing_id via flat_id//
+								$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_id)));
+								foreach($result_flat_info as $flat_info){
+								$wing=$flat_info["flat"]["wing_id"];
+								} 
+
+				
+								//user info via flat_id//
+								$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($wing,$flat_id)));
+								foreach($result_user_info as $user_info){
+								$user_id=(int)$user_info["user"]["user_id"];
+								$user_name=$user_info["user"]["user_name"];
+								} 
+								
+								$wing_flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing,$flat_id))); 
 								?>
-								<option  value="<?php echo $flat; ?>"><?php echo $user_name.' '.$wing_flat; ?>
+								<option  value="<?php echo $flat_id; ?>"><?php echo $user_name.' '.$wing_flat; ?>
 								<?php } ?>
 							</select>
 							 <label id="flats"></label>
@@ -107,11 +117,23 @@ font-weight: bold;
 			
 			<table class="table table-striped table-bordered table-advance">
 				<tbody>
-				<?php  $sr_no=0; foreach($result_user as $user_data){ $sr_no++;
-					$user_id=(int)$user_data["user"]["user_id"];
-					$user_name=$user_data["user"]["user_name"];
-					$wing=$user_data["user"]["wing"];
-					$flat=$user_data["user"]["flat"];
+				<?php  $sr_no=0; foreach($flats_for_bill as $flat){ $sr_no++;
+				
+				
+								//wing_id via flat_id//
+								$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat)));
+								foreach($result_flat_info as $flat_info){
+								$wing=$flat_info["flat"]["wing_id"];
+								} 
+
+				
+								//user info via flat_id//
+								$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($wing,$flat)));
+								foreach($result_user_info as $user_info){
+								$user_id=(int)$user_info["user"]["user_id"];
+								$user_name=$user_info["user"]["user_name"];
+								} 
+									
 					if(!empty($flat)){
 						$wing_flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing,$flat))); 
 						
