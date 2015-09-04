@@ -1,6 +1,5 @@
 <?php
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
-
 ?>
 <script>
 $(document).ready(function() {
@@ -10,7 +9,7 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 </script>
 
 <form method="post" id='contact-form'>
-<div style="background-color:#FFF; width:100%; border:solid #999; overflow:auto; height:700px;">
+<div style="background-color:#FFF; width:100%; border:solid 1px #CCC; overflow:auto; height:700px;">
 <p style="color:#00F; font-weight:500; font-size:16px; border-bottom:solid 1px #DAD9D9; padding:10px;">Assign Multiple Flat</p>
 <br />
 <div style="width:48%; float:left;">
