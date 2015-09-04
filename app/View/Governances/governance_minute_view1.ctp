@@ -76,8 +76,8 @@ $c++;
 $result_user=$this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'), array('pass' => array($data7)));
 foreach($result_user as $data2){
 	$user_name=$data2['user']['user_name'];
-	$wing=(int)$data2['user']['wing'];
-	$flat=(int)$data2['user']['flat'];
+	$wing=(int)@$data2['user']['wing'];
+	$flat=(int)@$data2['user']['flat'];
 	$designation_id=(int)@$data2['user']['designation_id'];
 	
 	
