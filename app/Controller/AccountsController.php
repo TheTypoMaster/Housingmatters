@@ -925,37 +925,31 @@ function account_statement_excel()
 
 			echo $excel;
 }
-/////////////////////// End Account Statement Excel//////////////////////////////////////
+/////////////////////// End Account Statement Excel/////////////////////////////////////////////////
 
-//////////////// Start ac statement Bill View/////////////////////////////////////////////
-/////////// Done////////////////////////////
+/////////////////////////// Start ac statement Bill View/////////////////////////////////////////////
 function ac_statement_bill_view($receipt_id=null)
 {
-$this->layout='blank';
-$s_role_id=$this->Session->read('role_id');
-$s_society_id = (int)$this->Session->read('society_id');
-$s_user_id=$this->Session->read('user_id');
+	$this->layout='blank';
+	$s_role_id=$this->Session->read('role_id');
+	$s_society_id = (int)$this->Session->read('society_id');
+	$s_user_id=$this->Session->read('user_id');
 
-//$receipt_id = (int)$this->request->query('bill');
-$receipt_id = (int)$receipt_id; 
-$this->loadmodel('regular_bill');
-$conditions=array("receipt_id"=>$receipt_id,"society_id" => $s_society_id);
-$cursor=$this->regular_bill->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$bill_html = $collection['regular_bill']['bill_html'];	
+		$receipt_id = (int)$receipt_id; 
+		$this->loadmodel('regular_bill');
+		$conditions=array("receipt_id"=>$receipt_id,"society_id" => $s_society_id);
+		$cursor=$this->regular_bill->find('all',array('conditions'=>$conditions));
+		foreach($cursor as $collection)
+		{
+		$bill_html = $collection['regular_bill']['bill_html'];	
+		}
+			$this->set('bill_html',$bill_html);
 }
-$this->set('bill_html',$bill_html);
-
-}
-//////////////// End ac statement Bill View////////////////////////////////////////
-
-////////////////////////////////////// START ACCOUNTS MODULE /////////////////////////////////////////////////////
-
-//////////////////////////////// START MY FLAT MODULE///////////////////////////////////////////////////////////
+///////////////////////////////////// End ac statement Bill View////////////////////////////////////////
 
 //////////////////////// Start My Flat Bill (Accounts) //////////////////////////////
-function my_flat_bill(){
+function my_flat_bill()
+{
 	if($this->RequestHandler->isAjax()){
 	$this->layout='blank';
 	}else{
@@ -975,7 +969,7 @@ function my_flat_bill(){
 	
 	$s_user_id=$this->Session->read('user_id');
 	$this->set("s_user_id",$s_user_id);
-	//fetch user ifp via user_id//
+	
 	$result_user_info=$this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'), array('pass' => array($s_user_id)));
 	foreach ($result_user_info as $collection2){
 		$user_id=$collection2["user"]["user_id"];
@@ -1004,27 +998,30 @@ function my_flat_bill(){
 	//pr($result_ledger);
 
 }
+////////////////////////////////// End My Flat Bill /////////////////////////////////////////////////////
 
-function my_flat_bill_ajax($from=null,$to=null,$flat_id=null){
-	if($this->RequestHandler->isAjax()){
-	$this->layout='blank';
-	}else{
-	$this->layout='session';
-	} 
-	 $from=date("Y-m-d",strtotime($from));
-	 $this->set("from",$from);
-	 $to=date("Y-m-d",strtotime($to));
-	 $this->set("to",$to);
+/////////////////////////////////// Start my_flat_bill_ajax ////////////////////////////////////////////
+function my_flat_bill_ajax($from=null,$to=null,$flat_id=null)
+{
+		if($this->RequestHandler->isAjax()){
+		$this->layout='blank';
+		}else{
+		$this->layout='session';
+		} 
+			 $from=date("Y-m-d",strtotime($from));
+			 $this->set("from",$from);
+			 $to=date("Y-m-d",strtotime($to));
+			 $this->set("to",$to);
+		
+		$this->ath();
+		$s_society_id = (int)$this->Session->read('society_id');
 	
-	
-	$this->ath();
-	$s_society_id = (int)$this->Session->read('society_id');
-	
-	$s_user_id=$this->Session->read('user_id');
-	$this->set("s_user_id",$s_user_id);
+		$s_user_id=$this->Session->read('user_id');
+		$this->set("s_user_id",$s_user_id);
 	
 	$flat_id=(int)$flat_id; 
-	if($flat_id==0){
+	if($flat_id==0)
+	{
 		$result_user_info=$this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'), array('pass' => array($s_user_id)));
 		foreach($result_user_info as $collection2)
 		{
@@ -1032,20 +1029,18 @@ function my_flat_bill_ajax($from=null,$to=null,$flat_id=null){
 		$this->set('user_name',$user_name);
 		$wing_id=$collection2["user"]["wing"];
 		$flat_id=$collection2["user"]["flat"];
-
 		}
 
 		$wing_flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing_id,$flat_id)));
 		$this->set('wing_flat',$wing_flat);
 	}else{
-		//wing_id via flat_id//
 		$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array((int)$flat_id)));
 		foreach($result_flat_info as $flat_info){
-			$wing_id=$flat_info["flat"]["wing_id"];
+		$wing_id=$flat_info["flat"]["wing_id"];
 		} 
 		
-		$wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'wing_flat'), array('pass' => array($wing_id,(int)$flat_id)));
-		$this->set('wing_flat',$wing_flat);
+	$wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'wing_flat'), array('pass' => array($wing_id,(int)$flat_id)));
+	$this->set('wing_flat',$wing_flat);
 		
 		//user info via flat_id//
 		$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($wing_id,$flat_id)));
@@ -1056,7 +1051,6 @@ function my_flat_bill_ajax($from=null,$to=null,$flat_id=null){
 		} 
 	}
 	
-
 	$this->loadmodel('society');
 	$conditions=array("society_id" => $s_society_id);
 	$result_society=$this->society->find('all',array('conditions'=>$conditions));
@@ -1072,473 +1066,446 @@ function my_flat_bill_ajax($from=null,$to=null,$flat_id=null){
 	$order=array('ledger.transaction_date'=>'ASC');
 	$result_ledger=$this->ledger->find('all',array('conditions'=>$conditions,'order'=>$order));
 	$this->set('result_ledger',$result_ledger);
-	
-	
-
 }
-/////////////////////////// End My Flat Bill (Accounts) ////////////////////////////
+/////////////////////////// End my_flat_bill_ajax (Accounts) /////////////////////////////////////
+
 /////////////////////////// Start Bank Receipt Pdf (Accounts)//////////////////////////////////////
 function bank_receipt_pdf()
 {
-$this->layout = 'pdf'; //this will use the pdf.ctp layout 
-$s_role_id=$this->Session->read('role_id');
-$s_society_id = (int)$this->Session->read('society_id');
-$s_user_id=$this->Session->read('user_id');	
+	$this->layout = 'pdf'; //this will use the pdf.ctp layout 
+	$s_role_id=$this->Session->read('role_id');
+	$s_society_id = (int)$this->Session->read('society_id');
+	$s_user_id=$this->Session->read('user_id');	
 
-$module_id = (int)$this->request->query('m');
-$trns_id = (int)$this->request->query('c');
-$this->set('trns_id',$trns_id);
-$this->set('module_id',$module_id);
+		$module_id = (int)$this->request->query('m');
+		$trns_id = (int)$this->request->query('c');
+		$this->set('trns_id',$trns_id);
+		$this->set('module_id',$module_id);
 
-$this->loadmodel('cash_bank');
-$conditions=array("transaction_id" => $trns_id,"module_id"=>$module_id);
-$cursor1=$this->cash_bank->find('all',array('conditions'=>$conditions));
-$this->set('cursor1',$cursor1);
-
-
+			$this->loadmodel('cash_bank');
+			$conditions=array("transaction_id" => $trns_id,"module_id"=>$module_id);
+			$cursor1=$this->cash_bank->find('all',array('conditions'=>$conditions));
+			$this->set('cursor1',$cursor1);
 
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
 $cursor2=$this->society->find('all',array('conditions'=>$conditions));
 $this->set('cursor2',$cursor2);
-
-
-
 }
-////////////////////////////////////////// End Bank Receipt Pdf (Accounts)////////////////////////////////////
+/////////////////////////////////// End Bank Receipt Pdf (Accounts)////////////////////////////////////
 
-
-//////////////////////// Start my flat Bill Excel////////////////////////////////////
+/////////////////////////////// Start my flat Bill Excel ////////////////////////////////////////////
 function my_flat_bill_excel()
 {
-$this->layout="";
-$filename="My Flat";
-header ("Expires: 0");
-header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
-header ("Cache-Control: no-cache, must-revalidate");
-header ("Pragma: no-cache");
-header ("Content-type: application/vnd.ms-excel");
-header ("Content-Disposition: attachment; filename=".$filename.".xls");
-header ("Content-Description: Generated Report" );
+	$this->layout="";
+	$filename="My Flat";
+	header ("Expires: 0");
+	header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+	header ("Cache-Control: no-cache, must-revalidate");
+	header ("Pragma: no-cache");
+	header ("Content-type: application/vnd.ms-excel");
+	header ("Content-Disposition: attachment; filename=".$filename.".xls");
+	header ("Content-Description: Generated Report" );
 
-$s_role_id=(int)$this->Session->read('role_id');
-$s_society_id = (int)$this->Session->read('society_id');
-$s_user_id=(int)$this->Session->read('user_id');	
+		$s_role_id=(int)$this->Session->read('role_id');
+		$s_society_id = (int)$this->Session->read('society_id');
+		$s_user_id=(int)$this->Session->read('user_id');	
 
-$this->loadmodel('ledger_sub_account');
-$conditions=array("user_id"=>$s_user_id,"society_id"=>$s_society_id);
-$cursor = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$auto_id = (int)$collection['ledger_sub_account']['auto_id'];
-$user_name = $collection['ledger_sub_account']['name'];
-}
+			$this->loadmodel('ledger_sub_account');
+			$conditions=array("user_id"=>$s_user_id,"society_id"=>$s_society_id);
+			$cursor = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+			foreach($cursor as $collection)
+			{
+			$auto_id = (int)$collection['ledger_sub_account']['auto_id'];
+			$user_name = $collection['ledger_sub_account']['name'];
+			}
 
-$this->loadmodel('society');
-$conditions=array("society_id"=>$s_society_id);
-$cursor = $this->society->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$society_name = $collection['society']['society_name'];
-}
-//////////////////////////////////////////////////////////////
+				$this->loadmodel('society');
+				$conditions=array("society_id"=>$s_society_id);
+				$cursor = $this->society->find('all',array('conditions'=>$conditions));
+				foreach($cursor as $collection)
+				{
+				$society_name = $collection['society']['society_name'];
+				}
 
-////////////////////////////////////////////////////////////////
-$from = $this->request->query('f');
-$to = $this->request->query('t');
-//$tp = (int)$this->request->query('tp');
+				$from = $this->request->query('f');
+				$to = $this->request->query('t');
 
-$m_from = date("Y-m-d", strtotime($from));
-//$m_from = new MongoDate(strtotime($m_from));
+		$m_from = date("Y-m-d", strtotime($from));
+		$m_to = date("Y-m-d", strtotime($to));
 
-$m_to = date("Y-m-d", strtotime($to));
-//$m_to = new MongoDate(strtotime($m_to));
+			$excel="<table border='1'>
+			<tr>
+			<th colspan='9' style='text-align:center;'>
+			<p style='font-size:16px;'>
+			Bill Detail($society_name)
+			</p>
+			</th>
+			</tr>
+			<tr>
+			<th style='text-align:center;'>Bill No.</th>
+			<th colspan='2'>Bill Date</th>
+			<th style='text-align:center;' colspan='2'>Bill Period</th>
+			<th style='text-align:center;'>Due Date</th>
+			<th style='text-align:center;'>Total Amount</th>
+			<th style='text-align:center;'>Paid Amount</th>
+			<th style='text-align:center;'>Due Amount</th>
+			</tr>";
+	$nn=0;
+	$gt_amt = 0;
+	$gt_pay_amt = 0;
+	$due_amt = 0;
+		$this->loadmodel('regular_bill');
+		$conditions=array("bill_for_user" => $s_user_id,"society_id"=>$s_society_id);
+		$cursor1 = $this->regular_bill->find('all',array('conditions'=>$conditions));
+		foreach($cursor1 as $collection)
+		{
+			$bill_no = (int)$collection['regular_bill']['receipt_id'];	
+			$from2 = $collection['regular_bill']['bill_daterange_from'];
+			$to2 = $collection['regular_bill']['bill_daterange_to'];
+			$due_date = $collection['regular_bill']['due_date'];
+			$total_amount = (int)$collection['regular_bill']['g_total'];
+			$remaining_amt = (int)$collection['regular_bill']['remaining_amount'];
+			$date = $collection['regular_bill']['date'];
+			$fromm = date('d-M-Y',strtotime($from2));
+			$tom = date('d-M-Y',strtotime($to2));
+			$due = date('d-M-Y',strtotime($due_date));
+			$pay_amt = $total_amount - $remaining_amt; 
+			
+				if($m_from <= $date && $m_to >= $date)
+				{
+					$nn++;
+					$gt_amt = $gt_amt + $total_amount;
+					$gt_pay_amt = $gt_pay_amt + $pay_amt;
+					$due_amt = $due_amt + $remaining_amt;
+					$date1 = date('d-m-Y',strtotime($date));
 
-//////////////////////////////////////////////////////////
-$excel="<table border='1'>
-<tr>
-<th colspan='9' style='text-align:center;'>
-<p style='font-size:16px;'>
-Bill Detail($society_name)
-</p>
-</th>
-</tr>
-<tr>
-<th style='text-align:center;'>Bill No.</th>
-<th colspan='2'>Bill Date</th>
-<th style='text-align:center;' colspan='2'>Bill Period</th>
-<th style='text-align:center;'>Due Date</th>
-<th style='text-align:center;'>Total Amount</th>
-<th style='text-align:center;'>Paid Amount</th>
-<th style='text-align:center;'>Due Amount</th>
-</tr>";
-$nn=0;
-$gt_amt = 0;
-$gt_pay_amt = 0;
-$due_amt = 0;
-$this->loadmodel('regular_bill');
-$conditions=array("bill_for_user" => $s_user_id,"society_id"=>$s_society_id);
-$cursor1 = $this->regular_bill->find('all',array('conditions'=>$conditions));
-foreach($cursor1 as $collection)
-{
-$bill_no = (int)$collection['regular_bill']['receipt_id'];	
-$from2 = $collection['regular_bill']['bill_daterange_from'];
-$to2 = $collection['regular_bill']['bill_daterange_to'];
-$due_date = $collection['regular_bill']['due_date'];
-$total_amount = (int)$collection['regular_bill']['g_total'];
-$remaining_amt = (int)$collection['regular_bill']['remaining_amount'];
-$date = $collection['regular_bill']['date'];
-$fromm = date('d-M-Y',strtotime($from2));
-$tom = date('d-M-Y',strtotime($to2));
-$due = date('d-M-Y',strtotime($due_date));
-$pay_amt = $total_amount - $remaining_amt; 
-if($m_from <= $date && $m_to >= $date)
-{
-$nn++;
-$gt_amt = $gt_amt + $total_amount;
-$gt_pay_amt = $gt_pay_amt + $pay_amt;
-$due_amt = $due_amt + $remaining_amt;
-$date1 = date('d-m-Y',strtotime($date));
+						$excel.="<tr>
+						<td style='text-align:center;'>$bill_no</td>
+						<td colspan='2'>$date1</td>
+						<td style='text-align:center;' colspan='2'>$fromm - $tom</td>
+						<td style='text-align:center;'>$due</td>
+						<td style='text-align:center;'>$total_amount</td>
+						<td style='text-align:center;'>$pay_amt</td>
+						<td style='text-align:center;'>$remaining_amt</td>
+						</tr>";
+				}
+			}
+				$excel.="<tr>
+				<th colspan='6' style='text-align:right;'>Grand Total</th>
+				<th style='text-align:center;'>$gt_amt</th>
+				<th style='text-align:center;'>$gt_pay_amt</th>
+				<th style='text-align:center;'>$due_amt</th>
+				</tr>
+				<tr>
+				<th style='text-align:center;' colspan='9'>
+				<p style='font-size:16px;'>Bank Receipt Detail($society_name)</p>
+				</th>
+				</tr>
+				<tr>
+				<th>Receipt#</th>
+				<th>Transaction Date </th>
+				<th>Party Name</th>
+				<th>Bill Reference</th>
+				<th>Payment Mode</th>
+				<th>Instrument/UTR</th>
+				<th>Deposit Bank</th>
+				<th>Narration</th>
+				<th>Amount</th>
+				</tr>";
 
-$excel.="<tr>
-<td style='text-align:center;'>$bill_no</td>
-<td colspan='2'>$date1</td>
-<td style='text-align:center;' colspan='2'>$fromm - $tom</td>
-<td style='text-align:center;'>$due</td>
-<td style='text-align:center;'>$total_amount</td>
-<td style='text-align:center;'>$pay_amt</td>
-<td style='text-align:center;'>$remaining_amt</td>
-</tr>";
-}
-}
-$excel.="<tr>
-<th colspan='6' style='text-align:right;'>Grand Total</th>
-<th style='text-align:center;'>$gt_amt</th>
-<th style='text-align:center;'>$gt_pay_amt</th>
-<th style='text-align:center;'>$due_amt</th>
-</tr>
-<tr>
-<th style='text-align:center;' colspan='9'>
-<p style='font-size:16px;'>Bank Receipt Detail($society_name)</p>
-</th>
-</tr>
-<tr>
-<th>Receipt#</th>
-<th>Transaction Date </th>
-<th>Party Name</th>
-<th>Bill Reference</th>
-<th>Payment Mode</th>
-<th>Instrument/UTR</th>
-<th>Deposit Bank</th>
-<th>Narration</th>
-<th>Amount</th>
-</tr>";
+	$total_credit = 0;
+	$total_debit = 0;
+	$this->loadmodel('cash_bank');
+	$conditions=array("user_id"=>@$auto_id,"society_id"=>$s_society_id,"module_id"=>1);
+	$cursor4 = $this->cash_bank->find('all',array('conditions'=>$conditions));
+	foreach ($cursor4 as $collection) 
+	{
+		$receipt_no = $collection['cash_bank']['receipt_id'];
+		$transaction_id = (int)$collection['cash_bank']['transaction_id'];	
+		$date = $collection['cash_bank']['transaction_date'];
+		$prepaired_by_id = (int)$collection['cash_bank']['prepaired_by'];
+		$member = (int)$collection['cash_bank']['member'];
+		$narration = $collection['cash_bank']['narration'];
+		$receipt_mode = $collection['cash_bank']['receipt_mode'];
+		$receipt_instruction = $collection['cash_bank']['receipt_instruction'];
+		$account_id = (int)$collection['cash_bank']['account_head'];
+		$amount = $collection['cash_bank']['amount'];
+		$amount_category_id = (int)$collection['cash_bank']['amount_category_id'];
+		$current_date = $collection['cash_bank']['current_date'];  
+		if($member == 1)
+		{
+		$received_from_id = (int)$collection['cash_bank']['user_id'];
+		$ref = $collection['cash_bank']['bill_reference'];
+		$ref = "Bill No:".$ref;
+		}        
+			$result1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($received_from_id)));	
+			foreach($result1 as $collection)
+			{	
+			$user_id = (int)$collection['ledger_sub_account']['user_id'];
+			}			  
+				$creation_date = date('d-m-Y',$current_date->sec);	         
+				$result_prb = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($prepaired_by_id)));
+				foreach ($result_prb as $collection) 
+				{
+				$prepaired_by_name = $collection['user']['user_name'];
+				}	         
+		$result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
+		foreach ($result as $collection) 
+		{
+		$wing_id = (int)$collection['user']['wing'];  
+		$flat_id = (int)$collection['user']['flat'];
+		$tenant = (int)$collection['user']['tenant'];
+		}	
+			$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));	                  
+			$result_lsa2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($account_id)));									
+			foreach ($result_lsa2 as $collection) 
+			{
+			$account_no = $collection['ledger_sub_account']['name'];  
+			}		
+				if($date >= $m_from && $date <= $m_to)
+				{
+				$tr_date = date('d-M-Y',strtotime($date));
+				$total_debit = $total_debit + $amount;		
+				$excel.="<tr>
+				<td>$receipt_no</td>
+				<td>$tr_date</td>
+				<td>$user_name &nbsp&nbsp&nbsp&nbsp $wing_flat</td> 
+				<td>$ref</td>
+				<td>$receipt_mode</td>
+				<td>$receipt_instruction</td>
+				<td>$account_no</td>
+				<td>$narration</td>
+				<td>$amount</td>
+				</tr>";					
+				}
+			}
+				$excel.="<tr>
+				<th colspan='8' style='text-align:right;'>Grand Total</th>
+				<th>$total_debit</th>
+				</tr>
+				<tr>
+				<th colspan='9' style='text-align:center;'>
+				<p style='font-size:16px;'>Petty Cash Receipt Detail($society_name)</p></th>
+				</tr>
+				<tr>
+				<th colspan='2'>PC Receipt #</th>
+				<th colspan='2'>Transaction Date</th>
+				<th colspan='2'>Narration</th>
+				<th colspan='2'>Received From</th>
+				<th>Amount</th>
+				</tr>";
+	$n=1;
+	$total_credit = 0;
+	$total_debit = 0;
+		$this->loadmodel('cash_bank');
+		$conditions=array("society_id" => $s_society_id,"module_id"=>3);
+		$cursor11=$this->cash_bank->find('all',array('conditions'=>$conditions));
+		foreach($cursor11 as $collection)
+		{
+			$receipt_no = @$collection['cash_bank']['receipt_id'];
+			$transaction_id = (int)$collection['cash_bank']['transaction_id'];	
+			$account_type = (int)$collection['cash_bank']['account_type'];    									  
+			$d_user_id = (int)$collection['cash_bank']['user_id'];
+			$date = $collection['cash_bank']['transaction_date'];
+			$prepaired_by = (int)$collection['cash_bank']['prepaired_by'];   
+			$narration = $collection['cash_bank']['narration'];
+			$account_head = $collection['cash_bank']['account_head'];
+			$amount = $collection['cash_bank']['amount'];
+			$prepaired_by = (int)$collection['cash_bank']['prepaired_by'];   
+			$current_date = $collection['cash_bank']['current_date'];
+			$creation_date = date('d-m-Y',$current_date->sec);
 
-$total_credit = 0;
-$total_debit = 0;
-$this->loadmodel('cash_bank');
-$conditions=array("user_id"=>@$auto_id,"society_id"=>$s_society_id,"module_id"=>1);
-$cursor4 = $this->cash_bank->find('all',array('conditions'=>$conditions));
-foreach ($cursor4 as $collection) 
-{
-$receipt_no = $collection['cash_bank']['receipt_id'];
-$transaction_id = (int)$collection['cash_bank']['transaction_id'];	
-$date = $collection['cash_bank']['transaction_date'];
-$prepaired_by_id = (int)$collection['cash_bank']['prepaired_by'];
-$member = (int)$collection['cash_bank']['member'];
-$narration = $collection['cash_bank']['narration'];
-$receipt_mode = $collection['cash_bank']['receipt_mode'];
-$receipt_instruction = $collection['cash_bank']['receipt_instruction'];
-$account_id = (int)$collection['cash_bank']['account_head'];
-$amount = $collection['cash_bank']['amount'];
-$amount_category_id = (int)$collection['cash_bank']['amount_category_id'];
-$current_date = $collection['cash_bank']['current_date'];  
-if($member == 1)
-{
-$received_from_id = (int)$collection['cash_bank']['user_id'];
-$ref = $collection['cash_bank']['bill_reference'];
-$ref = "Bill No:".$ref;
-}        
-$result1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($received_from_id)));	
-foreach($result1 as $collection)
-{	
-$user_id = (int)$collection['ledger_sub_account']['user_id'];
-}			  
-$creation_date = date('d-m-Y',$current_date->sec);	         
-$result_prb = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($prepaired_by_id)));
-foreach ($result_prb as $collection) 
-{
-$prepaired_by_name = $collection['user']['user_name'];
-}	         
-$result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
-foreach ($result as $collection) 
-{
-$wing_id = (int)$collection['user']['wing'];  
-$flat_id = (int)$collection['user']['flat'];
-$tenant = (int)$collection['user']['tenant'];
-}	
-$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));	                  
-$result_lsa2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($account_id)));									
-foreach ($result_lsa2 as $collection) 
-{
-$account_no = $collection['ledger_sub_account']['name'];  
-}		
-if($date >= $m_from && $date <= $m_to)
-{
-$tr_date = date('d-M-Y',strtotime($date));
-$total_debit = $total_debit + $amount;		
-$excel.="<tr>
-<td>$receipt_no</td>
-<td>$tr_date</td>
-<td>$user_name &nbsp&nbsp&nbsp&nbsp $wing_flat</td> 
-<td>$ref</td>
-<td>$receipt_mode</td>
-<td>$receipt_instruction</td>
-<td>$account_no</td>
-<td>$narration</td>
-<td>$amount</td>
-</tr>";					
-}
-}
-$excel.="<tr>
-<th colspan='8' style='text-align:right;'>Grand Total</th>
-<th>$total_debit</th>
-</tr>
-<tr>
-<th colspan='9' style='text-align:center;'>
-<p style='font-size:16px;'>Petty Cash Receipt Detail($society_name)</p></th>
-</tr>
-<tr>
-<th colspan='2'>PC Receipt #</th>
-<th colspan='2'>Transaction Date</th>
-<th colspan='2'>Narration</th>
-<th colspan='2'>Received From</th>
-<th>Amount</th>
-</tr>";
-$n=1;
-$total_credit = 0;
-$total_debit = 0;
-$this->loadmodel('cash_bank');
-$conditions=array("society_id" => $s_society_id,"module_id"=>3);
-$cursor11=$this->cash_bank->find('all',array('conditions'=>$conditions));
-foreach($cursor11 as $collection)
-{
-$receipt_no = @$collection['cash_bank']['receipt_id'];
-$transaction_id = (int)$collection['cash_bank']['transaction_id'];	
-$account_type = (int)$collection['cash_bank']['account_type'];    									  
-$d_user_id = (int)$collection['cash_bank']['user_id'];
-$date = $collection['cash_bank']['transaction_date'];
-$prepaired_by = (int)$collection['cash_bank']['prepaired_by'];   
-$narration = $collection['cash_bank']['narration'];
-$account_head = $collection['cash_bank']['account_head'];
-$amount = $collection['cash_bank']['amount'];
-//$amount_category_id = (int)$collection['cash_bank']['amount_category_id'];
-$prepaired_by = (int)$collection['cash_bank']['prepaired_by'];   
-$current_date = $collection['cash_bank']['current_date'];
+		$result_gh = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($prepaired_by)));
+		foreach ($result_gh as $collection) 
+		{
+		$prepaired_by_name = (int)$collection['user']['user_name'];
+		}			
 
-$creation_date = date('d-m-Y',$current_date->sec);
-
-$result_gh = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($prepaired_by)));
-foreach ($result_gh as $collection) 
-{
-$prepaired_by_name = (int)$collection['user']['user_name'];
-}			
-
-if($account_type == 1)
-{
-$user_id1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($d_user_id)));
-foreach ($user_id1 as $collection)
-{
-$user_id = (int)$collection['ledger_sub_account']['user_id'];
-}
-
-$result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
-foreach ($result as $collection) 
-{
-$user_name = $collection['user']['user_name'];
-$wing_id = $collection['user']['wing'];  
-$flat_id = (int)$collection['user']['flat'];
-$tenant = (int)$collection['user']['tenant'];
-}	
+			if($account_type == 1)
+			{
+		$user_id1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($d_user_id)));
+		foreach ($user_id1 as $collection)
+		{
+		$user_id = (int)$collection['ledger_sub_account']['user_id'];
+		}
+		$resultttt = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
+			foreach ($resultttt as $collection) 
+			{
+			$user_name = $collection['user']['user_name'];
+			$wing_id = $collection['user']['wing'];  
+			$flat_id = (int)$collection['user']['flat'];
+			$tenant = (int)$collection['user']['tenant'];
+			}	
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
 }
 
 if($account_type == 2)
 {
-$user_name1 = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_amount'),array('pass'=>array($d_user_id)));
-foreach ($user_name1 as $collection)
-{
-$user_name = $collection['ledger_account']['ledger_name'];
-$wing_flat = "";
-}
+	$user_name1 = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_amount'),array('pass'=>array($d_user_id)));
+	foreach ($user_name1 as $collection)
+	{
+		$user_name = $collection['ledger_account']['ledger_name'];
+		$wing_flat = "";
+	}
 }
 		
-$result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($prepaired_by)));
-foreach ($result2 as $collection) 
-{
-$prepaired_by_name = $collection['user']['user_name'];   
-$society_id = $collection['user']['society_id'];  	
-}
+		$result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($prepaired_by)));
+		foreach ($result2 as $collection) 
+		{
+		$prepaired_by_name = $collection['user']['user_name'];   
+		$society_id = $collection['user']['society_id'];  	
+		}
 
-if($account_type == 1)
-{
-if($date >= $m_from && $date <= $m_to)
-{
-if($s_user_id == $user_id)  
-{
-$date = date('d-m-Y',strtotime($date));
-$total_debit = $total_debit + $amount;
-$amount = number_format($amount);
+	if($account_type == 1)
+	{
+		if($date >= $m_from && $date <= $m_to)
+		{
+			if($s_user_id == $user_id)  
+			{
+				$date = date('d-m-Y',strtotime($date));
+				$total_debit = $total_debit + $amount;
+				$amount = number_format($amount);
 
-$excel.="<tr>
-<td colspan='2'>$receipt_no</td>
-<td colspan='2'>$date</td>
-<td colspan='2'>$narration</td>
-<td colspan='2'>$user_name &nbsp&nbsp&nbsp&nbsp $wing_flat</td>
-<td>$amount</td>
-</tr>";
+					$excel.="<tr>
+					<td colspan='2'>$receipt_no</td>
+					<td colspan='2'>$date</td>
+					<td colspan='2'>$narration</td>
+					<td colspan='2'>$user_name &nbsp&nbsp&nbsp&nbsp $wing_flat</td>
+					<td>$amount</td>
+					</tr>";
+			}
+		}
+	}
 }
-}
-}
-}
-$total_debit = number_format($total_debit);
-$excel.="<tr>
-<th colspan='8' style='text-align:right;'>Grand Total</th>
-<th>$total_debit</th>
-</tr></table>";
+	$total_debit = number_format($total_debit);
+		$excel.="<tr>
+		<th colspan='8' style='text-align:right;'>Grand Total</th>
+		<th>$total_debit</th>
+		</tr></table>";
 
-echo $excel;
-
+	echo $excel;
 }
-//////////////////////// End my flat Bill Excel////////////////////////////////////
+//////////////////////// End my flat Bill Excel///////////////////////////////////////
 
-///////////////////////Start my flat receipt(Accounts)/////////////////////////////
+///////////////////////Start my flat receipt(Accounts)/////////////////////////////////
 function my_flat_receipt()
 {
-if($this->RequestHandler->isAjax()){
-$this->layout='blank';
-}else{
-$this->layout='session';
+	if($this->RequestHandler->isAjax()){
+	$this->layout='blank';
+	}else{
+	$this->layout='session';
+	}
+
+	$this->ath();
+	$this->check_user_privilages();
+
+		$s_role_id=$this->Session->read('role_id');
+		$s_society_id = (int)$this->Session->read('society_id');
+		$s_user_id=$this->Session->read('user_id');	
 }
+///////////////////////End my flat receipt(Accounts)/////////////////////////////////////
 
-$this->ath();
-$this->check_user_privilages();
-
-
-
-
-$s_role_id=$this->Session->read('role_id');
-$s_society_id = (int)$this->Session->read('society_id');
-$s_user_id=$this->Session->read('user_id');	
-
-}
-///////////////////////End my flat receipt(Accounts)//////////////////////////////
-
-////////////////// Start My Flat receipt Excel/////////////////////////////////////
+////////////////// Start My Flat receipt Excel//////////////////////////////////////////
 function my_flat_receipt_excel()
 {
-$this->layout="";
-$filename=strtotime("now");
-header ("Expires: 0");
-header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
-header ("Cache-Control: no-cache, must-revalidate");
-header ("Pragma: no-cache");
-header ("Content-type: application/vnd.ms-excel");
-header ("Content-Disposition: attachment; filename=".$filename.".xls");
-header ("Content-Description: Generated Report" );
+	$this->layout="";
+	$filename=strtotime("now");
+	header ("Expires: 0");
+	header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+	header ("Cache-Control: no-cache, must-revalidate");
+	header ("Pragma: no-cache");
+	header ("Content-type: application/vnd.ms-excel");
+	header ("Content-Disposition: attachment; filename=".$filename.".xls");
+	header ("Content-Description: Generated Report" );
 
-$s_role_id=$this->Session->read('role_id');
-$s_society_id = (int)$this->Session->read('society_id');
-$s_user_id = (int)$this->Session->read('user_id');	
+		$s_role_id=$this->Session->read('role_id');
+		$s_society_id = (int)$this->Session->read('society_id');
+		$s_user_id = (int)$this->Session->read('user_id');	
 
-$from = $this->request->query('f');
-$to = $this->request->query('t');
+		$from = $this->request->query('f');
+		$to = $this->request->query('t');
 
-$m_from = date("Y-m-d", strtotime($from));
-$m_from = new MongoDate(strtotime($m_from));
+		$m_from = date("Y-m-d", strtotime($from));
+		$m_from = new MongoDate(strtotime($m_from));
 
-$m_to = date("Y-m-d", strtotime($to));
-$m_to = new MongoDate(strtotime($m_to));
+		$m_to = date("Y-m-d", strtotime($to));
+		$m_to = new MongoDate(strtotime($m_to));
 
+			$this->loadmodel('ledger_sub_account');
+			$conditions=array("user_id"=>$s_user_id,"society_id"=>$s_society_id);
+			$cursor = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+			foreach($cursor as $collection)
+			{
+			$auto_id = (int)$collection['ledger_sub_account']['auto_id'];
+			$user_name = $collection['ledger_sub_account']['name'];
+			}
 
-$this->loadmodel('ledger_sub_account');
-$conditions=array("user_id"=>$s_user_id,"society_id"=>$s_society_id);
-$cursor = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$auto_id = (int)$collection['ledger_sub_account']['auto_id'];
-$user_name = $collection['ledger_sub_account']['name'];
-}
+		$excel="<table border='1'>
+		<tr>
+		<th colspan='9' style='text-align:center;'>
+		Bank Receipt Report</th>
+		</tr>
+			<tr>
+			<th>From : $from</th>
+			<th>To : $to</th>
+			<th colspan='7'></th>
+			</tr>
+				<tr>
+				<th>Receipt#</th>
+				<th>Transaction Date </th>
+				<th>Party Name</th>
+				<th>Bill Reference</th>
+				<th>Payment Mode</th>
+				<th>Instrument/UTR</th>
+				<th>Deposit Bank</th>
+				<th>Narration</th>
+				<th>Amount</th>
+				</tr>";
 
-
-$excel="<table border='1'>
-<tr>
-<th colspan='9' style='text-align:center;'>
-Bank Receipt Report</th>
-</tr>
-
-<tr>
-<th>From : $from</th>
-<th>To : $to</th>
-<th colspan='7'></th>
-</tr>
-
-<tr>
-<th>Receipt#</th>
-<th>Transaction Date </th>
-<th>Party Name</th>
-<th>Bill Reference</th>
-<th>Payment Mode</th>
-<th>Instrument/UTR</th>
-<th>Deposit Bank</th>
-<th>Narration</th>
-<th>Amount</th>
-</tr>";
-
-$total_credit = 0;
-$total_debit = 0;
-$this->loadmodel('cash_bank');
-$conditions=array("user_id"=>$auto_id,"society_id"=>$s_society_id,"module_id"=>1);
-$cursor1 = $this->cash_bank->find('all',array('conditions'=>$conditions));
-foreach ($cursor1 as $collection) 
-{
-$receipt_no = $collection['cash_bank']['receipt_id'];
-$transaction_id = (int)$collection['cash_bank']['transaction_id'];	
-$date = $collection['cash_bank']['transaction_date'];
-$prepaired_by_id = (int)$collection['cash_bank']['prepaired_by'];
-$member = (int)$collection['cash_bank']['member'];
-$narration = $collection['cash_bank']['narration'];
-$receipt_mode = $collection['cash_bank']['receipt_mode'];
-$receipt_instruction = $collection['cash_bank']['receipt_instruction'];
-$account_id = (int)$collection['cash_bank']['account_head'];
-$amount = $collection['cash_bank']['amount'];
-$amount_category_id = (int)$collection['cash_bank']['amount_category_id'];
-$current_date = $collection['cash_bank']['current_date'];  
+	$total_credit = 0;
+	$total_debit = 0;
+		$this->loadmodel('cash_bank');
+		$conditions=array("user_id"=>$auto_id,"society_id"=>$s_society_id,"module_id"=>1);
+		$cursor1 = $this->cash_bank->find('all',array('conditions'=>$conditions));
+		foreach ($cursor1 as $collection) 
+		{
+			$receipt_no = $collection['cash_bank']['receipt_id'];
+			$transaction_id = (int)$collection['cash_bank']['transaction_id'];	
+			$date = $collection['cash_bank']['transaction_date'];
+			$prepaired_by_id = (int)$collection['cash_bank']['prepaired_by'];
+			$member = (int)$collection['cash_bank']['member'];
+			$narration = $collection['cash_bank']['narration'];
+			$receipt_mode = $collection['cash_bank']['receipt_mode'];
+			$receipt_instruction = $collection['cash_bank']['receipt_instruction'];
+			$account_id = (int)$collection['cash_bank']['account_head'];
+			$amount = $collection['cash_bank']['amount'];
+			$amount_category_id = (int)$collection['cash_bank']['amount_category_id'];
+			$current_date = $collection['cash_bank']['current_date'];  
                      
-if($member == 1)
-{
-$received_from_id = (int)$collection['cash_bank']['user_id'];
-$ref = $collection['cash_bank']['bill_reference'];
-$ref = "Bill No:".$ref;
-}     
+				if($member == 1)
+				{
+				$received_from_id = (int)$collection['cash_bank']['user_id'];
+				$ref = $collection['cash_bank']['bill_reference'];
+				$ref = "Bill No:".$ref;
+				}     
 
-$result1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($received_from_id)));	
-foreach($result1 as $collection)
-{	
-$user_id = (int)$collection['ledger_sub_account']['user_id'];
-}		
+	$result1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($received_from_id)));	
+	foreach($result1 as $collection)
+	{	
+	$user_id = (int)$collection['ledger_sub_account']['user_id'];
+	}		
 
-$creation_date = date('d-m-Y',$current_date->sec);	         
-$result_prb = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($prepaired_by_id)));
-foreach ($result_prb as $collection) 
-{
-$prepaired_by_name = $collection['user']['user_name'];
-}	
+		$creation_date = date('d-m-Y',$current_date->sec);	         
+		$result_prb = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($prepaired_by_id)));
+		foreach ($result_prb as $collection) 
+		{
+		$prepaired_by_name = $collection['user']['user_name'];
+		}	
 
 $result = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
 foreach ($result as $collection) 
 {
-//$user_name = $collection['user']['user_name'];
 $wing_id = (int)$collection['user']['wing'];  
 $flat_id = (int)$collection['user']['flat'];
 $tenant = (int)$collection['user']['tenant'];
@@ -1546,34 +1513,34 @@ $tenant = (int)$collection['user']['tenant'];
 
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));	                  
 
-$result_lsa2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($account_id)));						
-foreach ($result_lsa2 as $collection) 
-{
-$account_no = $collection['ledger_sub_account']['name'];  
-}
+	$result_lsa2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($account_id)));						
+	foreach ($result_lsa2 as $collection) 
+	{
+	$account_no = $collection['ledger_sub_account']['name'];  
+	}
 	
-if($date >= $m_from && $date <= $m_to)
-{
-$tr_date = date('d-M-Y',$date->sec);
-$total_debit = $total_debit + $amount;		
+	if($date >= $m_from && $date <= $m_to)
+	{
+		$tr_date = date('d-M-Y',$date->sec);
+		$total_debit = $total_debit + $amount;		
 
-$excel.="<tr>
-<td style='text-align:center;'>$receipt_no</td>
-<td style='text-align:center;'>$tr_date</td>
-<td width='15%' style='text-align:center;'>$narration</td>
-<td style='text-align:center;'>$user_name&nbsp;&nbsp;&nbsp;&nbsp;$wing_flat</td>
-<td style='text-align:center;'>$ref</td>
-<td style='text-align:center;'>$receipt_mode</td>
-<td style='text-align:center;'>$receipt_instruction</td>
-<td style='text-align:center;'>$account_no</td>
-<td style='text-align:center;'>$amount</td>
-</tr>";			
+		$excel.="<tr>
+		<td style='text-align:center;'>$receipt_no</td>
+		<td style='text-align:center;'>$tr_date</td>
+		<td width='15%' style='text-align:center;'>$narration</td>
+		<td style='text-align:center;'>$user_name&nbsp;&nbsp;&nbsp;&nbsp;$wing_flat</td>
+		<td style='text-align:center;'>$ref</td>
+		<td style='text-align:center;'>$receipt_mode</td>
+		<td style='text-align:center;'>$receipt_instruction</td>
+		<td style='text-align:center;'>$account_no</td>
+		<td style='text-align:center;'>$amount</td>
+		</tr>";			
 }}
-$excel.="<tr>
-<th colspan='8'> Total</th>
-<th style='text-align:center;'>$total_debit</th>
-</tr>										 
-</table>"; 		
+	$excel.="<tr>
+	<th colspan='8'> Total</th>
+	<th style='text-align:center;'>$total_debit</th>
+	</tr>										 
+	</table>"; 		
 
 echo $excel;
 }
