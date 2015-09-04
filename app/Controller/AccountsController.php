@@ -50,7 +50,7 @@ function opening_balance_import()
 }
 //////////////////// End Opening Balance Import (Accounts)/////////////////////////////////////
 
-/////////////////////////////////// Start Master Period Status (Accounts)///////////////
+/////////////////////////////////// Start Master Period Status (Accounts)//////////////////////
 function master_financial_period_status()
 {
 		if($this->RequestHandler->isAjax()){
@@ -59,25 +59,21 @@ function master_financial_period_status()
 		$this->layout='session';
 		}
 
-			$this->ath();
-			$this->check_user_privilages();
+		$this->ath();
+		$this->check_user_privilages();
 
+		$s_role_id=$this->Session->read('role_id');
+		$s_society_id = (int)$this->Session->read('society_id');
+		$s_user_id=$this->Session->read('user_id');		
 
-			$s_role_id=$this->Session->read('role_id');
-			$s_society_id = (int)$this->Session->read('society_id');
-			$s_user_id=$this->Session->read('user_id');		
-
-
-
-	if(isset($this->request->data['status']))
-	{
-
-		$this->loadmodel('financial_year');
-		$conditions=array("society_id" => $s_society_id);
-		$order=array('financial_year.auto_id'=> 'ASC');
-		$cursor = $this->financial_year->find('all',array('conditions'=>$conditions,'order' =>$order));
-		foreach($cursor as $collection)
+		if(isset($this->request->data['status']))
 		{
+			$this->loadmodel('financial_year');
+			$conditions=array("society_id" => $s_society_id);
+			$order=array('financial_year.auto_id'=> 'ASC');
+			$cursor = $this->financial_year->find('all',array('conditions'=>$conditions,'order' =>$order));
+			foreach($cursor as $collection)
+			{
 			$auto_id = (int)$collection['financial_year']['auto_id'];
 			$xyz = @$this->request->data['abc'.$auto_id];
 				if($xyz == 2)
@@ -90,7 +86,7 @@ function master_financial_period_status()
 				$this->loadmodel('financial_year');
 				$this->financial_year->updateAll(array("status" => 2),array('auto_id'=> $auto_id));	
 				}
-		}
+		    }
 ?>
 		<div class="modal-backdrop fade in"></div>
 		<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
@@ -116,9 +112,9 @@ function master_financial_period_status()
 		$cursor1 = $this->financial_year->find('all',array('conditions'=>$conditions,'order' =>$order));
 		$this->set('cursor1',$cursor1);
 }
-///////////////////////////// End Master Period Status (Accounts)//////////////////////////
+///////////////////////////// End Master Period Status (Accounts)//////////////////////////////
 
-/////////////////// Start master Financial Year (Accounts)/////////////////////////////////
+/////////////////// Start master Financial Year (Accounts)//////////////////////////////////////
 function master_financial_year()
 {
 	if($this->RequestHandler->isAjax()){
@@ -127,31 +123,31 @@ function master_financial_year()
 	$this->layout='session';
 	}
 
-	$this->ath();
-	$this->check_user_privilages();
+		$this->ath();
+		$this->check_user_privilages();
 
-	$s_role_id=$this->Session->read('role_id');
-	$s_society_id = (int)$this->Session->read('society_id');
-	$s_user_id=$this->Session->read('user_id');		
+			$s_role_id=$this->Session->read('role_id');
+			$s_society_id = (int)$this->Session->read('society_id');
+			$s_user_id=$this->Session->read('user_id');		
 
-	if(isset($this->request->data['sub1']))
-	{
-		$from = $this->request->data['from'];	
-		$to = $this->request->data['to'];	
+		if(isset($this->request->data['sub1']))
+		{
+			$from = $this->request->data['from'];	
+			$to = $this->request->data['to'];	
 
-		$m_from = date("Y-m-d", strtotime($from));
-		$m_from = new MongoDate(strtotime($m_from));
+			$m_from = date("Y-m-d", strtotime($from));
+			$m_from = new MongoDate(strtotime($m_from));
 
-		$m_to = date("Y-m-d", strtotime($to));
-		$m_to = new MongoDate(strtotime($m_to));
+			$m_to = date("Y-m-d", strtotime($to));
+			$m_to = new MongoDate(strtotime($m_to));
 
-		$from1 = date('d-M-Y',strtotime($from));
-		$to1 = date('d-M-Y',strtotime($to));
+			$from1 = date('d-M-Y',strtotime($from));
+			$to1 = date('d-M-Y',strtotime($to));
 
-			$a=$this->autoincrement('financial_year','auto_id');
-			$this->loadmodel('financial_year');
-			$multipleRowData = Array( Array("auto_id" => $a, "from" => $m_from, "to" => $m_to,"user_id"=>$s_user_id, "status"=> 1, "society_id" => $s_society_id));
-			$this->financial_year->saveAll($multipleRowData);  
+	$a=$this->autoincrement('financial_year','auto_id');
+	$this->loadmodel('financial_year');
+	$multipleRowData = Array( Array("auto_id" => $a, "from" => $m_from, "to" => $m_to,"user_id"=>$s_user_id, "status"=> 1, "society_id" => $s_society_id));
+	$this->financial_year->saveAll($multipleRowData);  
 ?>
 			<div class="modal-backdrop fade in"></div>
 			<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
@@ -170,7 +166,7 @@ function master_financial_year()
 			</div>
 			</div>
 <?php
-	}
+	 }
 		$this->loadmodel('financial_year');
 		$conditions=array("society_id" => $s_society_id);
 		$order=array('financial_year.auto_id'=> 'ASC');
