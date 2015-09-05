@@ -62,7 +62,7 @@ $income_arrr[] = $data;
 }
 ?>
 <?php ////////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-    <div style=" border:solid 1px #CCC;  background:#FFF; width:100%;  overflow:hidden;">
+    <div style=" border:solid 1px #CCC;  background:#FFF; width:100%; height:650px; overflow:hidden;">
             <h4 style="color: #03C;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;">&nbsp;&nbsp;&nbsp;<i class="icon-money"></i>  Select Income Heads for Bill Charges</h4>
            
            
