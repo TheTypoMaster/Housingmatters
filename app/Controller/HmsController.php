@@ -14082,6 +14082,22 @@ $this->loadmodel('wing');
 $conditions1=array('society_id'=>$s_society_id);
 $result1=$this->wing->find('all',array('conditions'=>$conditions1));
 $this->set('result_wing',$result1);
+
+
+$this->loadmodel('ledger_sub_account');
+$condition=array('society_id'=>$s_society_id,'ledger_id'=>34,'deactive'=>0);
+$result_ledger_sub_account=$this->ledger_sub_account->find('all',array('conditions'=>$condition));
+$this->set('result_ledger_sub_account',$result_ledger_sub_account);
+foreach($result_ledger_sub_account as $ledger_sub_account){
+	$ledger_sub_account_user_id=$ledger_sub_account["ledger_sub_account"]["user_id"];
+	$ledger_sub_account_flat_id=$ledger_sub_account["ledger_sub_account"]["flat_id"];
+		$flats_for_bill[]=$ledger_sub_account_flat_id;
+}
+$this->set('flats_for_bill',$flats_for_bill);
+		
+
+
+
 $this->loadmodel('user');
 $conditions=array("society_id" => $s_society_id,'deactive'=>0);
 $order=array('user.user_name'=> 'ASC');
@@ -14101,11 +14117,17 @@ $s_society_id=$this->Session->read('society_id');
 $this->set('role_id',$s_role_id);
 $this->set('s_society_id',$s_society_id);
 $this->set('user_id',$this->Session->read('user_id'));
-$user_id=(int)$this->request->query('id');
-$this->loadmodel('user');
-$conditions=array("user_id" => $user_id);
-$result=$this->user->find('all',array('conditions'=> $conditions));
-$this->set('result_user1',$result);
+$flat=(int)$this->request->query('id');
+
+	$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat)));
+	foreach($result_flat_info as $flat_info){
+		$wing=$flat_info["flat"]["wing_id"];
+	} 
+	$this->set('c_wing_id',$wing);
+	$this->set('c_flat_id',$flat);
+	//user info via flat_id//
+	$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($wing,$flat)));
+	$this->set('result_user1',$result_user_info);
 
 
 
@@ -14141,7 +14163,7 @@ function resident_directory_search_name()
 $this->layout="blank";
 $this->ath();
 $s_society_id=$this->Session->read('society_id');
-$search=$this->request->query('con');
+$search=$this->request->query('con'); 
 $flat=$search;
 $this->loadmodel('flat'); 
 $conditions=array("society_id"=>$s_society_id,"flat_name"=> new MongoRegex('/^' .  $flat . '$/i'));

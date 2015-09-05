@@ -31,10 +31,10 @@ function substrwords($text, $maxchar, $end='...') {
 			foreach ($result_user1 as $collection)            
 			{  
 				$c_user_id = (int)$collection['user']['user_id'];          
-				$c_wing_id = $collection['user']['wing'];
+				//$c_wing_id = $collection['user']['wing'];
 				$d_role_id = $collection['user']['role_id'];
 				$tenant = $collection['user']['tenant'];
-				$c_flat_id = $collection['user']['flat'];
+				//$c_flat_id = $collection['user']['flat'];
 				$c_email = $collection['user']['email'];
 				$c_mobile = $collection['user']['mobile'];
 				$c_name = $collection['user']['user_name'];
