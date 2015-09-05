@@ -216,7 +216,7 @@ $(document).ready(function() {
 
 function view_ticket(id)
 {
-alert(id);
+
 	$(document).ready(function() {
 				
 				
