@@ -152,7 +152,7 @@ else{
 if(empty($search_value))
 			{		
 			  foreach ($result_user3 as $collection)            
-			  {  
+			{  
 				$c_user_id = (int)$collection['user']['user_id'];          
 				$c_wing_id = $collection['user']['wing'];
 				$c_flat_id = $collection['user']['flat'];
@@ -167,7 +167,35 @@ if(empty($search_value))
 				$profile_pic="blank.jpg"; 
 				}
 				
-				
+				if(!empty($multiple_flat)){
+					
+					foreach($multiple_flat as $data22){
+						
+						
+						$wing=$data22[0];
+						$flat=$data22[1];
+						$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing,$flat)));
+					?>
+
+					<div class="r_d fadeleftsome" onclick="view_ticket(<?php echo $flat;?>)">
+					<div class="hv_b" style="overflow: auto;padding: 5px;cursor: pointer;" title="">
+					<img src="<?php echo $webroot_path; ?>/profile/<?php echo $profile_pic; ?>" style="float:left;width:25%;height:80px;"/>
+					<div style="float:left;margin-left:3%;">
+					<span style="font-size:22px;"><?php echo $c_name; ?></span><?php if(@$medical_pro==1){ ?> <span style="float:right;color:red; font-size:18px;"> <i class="icon-plus-sign"></i> </span> <?php } ?> <br/>
+					<span style="font-size:16px;"><?php echo $wing_flat ; ?></span>
+					</div>
+					</div>
+					</div>
+
+
+
+
+				<?php					
+					}
+					
+					
+				}else{
+					
 					
 ?>
 
@@ -183,7 +211,7 @@ if(empty($search_value))
 
 
 <?php 
-} }
+			} } }
 ?>
 
 
