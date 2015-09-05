@@ -6692,6 +6692,20 @@ $conditions=array("society_id" => $s_society_id);
 $cursor5 = $this->wing->find('all',array('conditions'=>$conditions));
 $this->set('cursor5',$cursor5);
 
+/*
+$aaa = "Deposits (Asset)";
+echo $aaa = htmlentities($aaa);
+$ttt = 55;
+$this->loadmodel('ledger_account'); 
+$conditions=array("ledger_name"=> $aaa );
+$group_detail=$this->ledger_account->find('all',array('conditions'=>$conditions));
+foreach($group_detail as $group_data)
+{
+$ttt = 5555;
+}
+echo $ttt;
+$this->set('ttt',$ttt);
+*/
 }
 ////////////////////////////////////////// End NEFT Add //////////////////////////////////////////////////////////////
 /////////////////////////////// Start regular_bill_edit ////////////////////////////////////////////////////////////////

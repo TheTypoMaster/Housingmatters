@@ -3069,17 +3069,9 @@ $child_ex=explode(',',$child[0]);
 		$flat_id = "";
 		$wing_id = "";
 		$group_name = $child_ex[0];
-		ltrim($group_name); rtrim($group_name);
-		
 		$account_name = $child_ex[1];
-		ltrim($account_name); rtrim($account_name);
-			 
 		$wingg_nammm = $child_ex[2];
-		ltrim($wingg_nammm); rtrim($wingg_nammm);
-		
 		$flatt_nammm = $child_ex[3];
-		ltrim($flatt_nammm); rtrim($flatt_nammm);
-		
 		$debit_or_credit = $child_ex[4];
 		$priciple_amount = $child_ex[5];
 		$penalty_amount = $child_ex[6];
@@ -3104,19 +3096,30 @@ $child_ex=explode(',',$child[0]);
 			}
 
 
-		$auto_id = "";
-		$validdddnnn=5;
+
+			$auto_id = "";
+			$validdddnnn=5;
         
-					$this->loadmodel('ledger_account'); 
-					$conditions=array("ledger_name"=> new MongoRegex('/^' .  trim($account_name) . '$/i'),"group_id"=>$group_id);
-					$ledg_ddtaill=$this->ledger_account->find('all',array('conditions'=>$conditions));
-					foreach($ledg_ddtaill as $ledgr_dattt)
-					{
-					$auto_id = (int)$ledgr_dattt['ledger_account']['auto_id'];
-					$ledger_type = 2;
-					$validdddnnn=555;
-					}
+			$account_nameee = trim($account_name);
+			$account_nameee = htmlentities($account_nameee);
 		
+		
+		$this->loadmodel('ledger_account'); 
+			$conditions=array("ledger_name"=> new MongoRegex('/^' .  trim($account_name) . '$/i'),"group_id"=>$group_id);
+			$conditions =array( '$or' => array( 
+			array("ledger_name"=> new MongoRegex('/^' .  trim($account_name) . '$/i'),"group_id"=>$group_id),
+			array("ledger_name"=> $account_name ,"group_id"=>$group_id),
+			array("ledger_name"=> $account_nameee,"group_id"=>$group_id)));
+	$ledg_ddtaill=$this->ledger_account->find('all',array('conditions'=>$conditions));
+		foreach($ledg_ddtaill as $ledgr_dattt)
+		{
+		$auto_id = (int)$ledgr_dattt['ledger_account']['auto_id'];
+		$ledger_type = 2;
+		$validdddnnn=555;
+		}
+		
+	
+	  
 	
 
 		if($group_id == 34)
@@ -3139,7 +3142,6 @@ $child_ex=explode(',',$child[0]);
 		{
 		$auto_id = (int)$sub_lddrr_dddttt['ledger_sub_account']['auto_id'];
 		$ledger_type = 1;
-		
 		$validdddnnn=555;
 		$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat_with_brackets'),array('pass'=>array($wingg_idddd,$flt_idddd)));	
 		}
@@ -3450,7 +3452,9 @@ $excel = "Group Name,A/c name,wing,unit,Amount Type(Debit or Credit),Amount(Open
 			{
 			$group_id = (int)$collection['ledger_accounts']['group_id'];
 			$ledger_name = $collection['ledger_accounts']['ledger_name'];
-		
+		    $ledger_idddd = (int)$collection['ledger_accounts']['auto_id'];
+	if($ledger_idddd != 34 && $ledger_idddd != 33 && $ledger_idddd != 35 && $ledger_idddd != 15)
+	{	
 		$result_ag = $this->requestAction(array('controller' => 'hms', 'action' => 'accounts_group'),array('pass'=>array($group_id)));
 			foreach ($result_ag as $collection) 
 			{
@@ -3458,7 +3462,8 @@ $excel = "Group Name,A/c name,wing,unit,Amount Type(Debit or Credit),Amount(Open
 			$group_name = $collection['accounts_group']['group_name'];	
 			}
 		$excel.= "$group_name,$ledger_name \n";
-			}
+	}
+	}
 
 			$this->loadmodel('ledger_sub_account');
 			$conditions=array("society_id" => $s_society_id);

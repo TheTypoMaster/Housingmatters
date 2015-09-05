@@ -1,5 +1,8 @@
+<?php 
+pr($table);
 
-<div style="width:99%; background-color:#FFF; border:solid #CCC;" id="done">
+?>
+<div style="width:99%; background-color:#FFF; border:solid 1px #CCC;" id="done">
 &nbsp;&nbsp;&nbsp;&nbsp;<p style="font-size:17px; font-weight:600; color:#00F; border-bottom:solid 1px #DAD9D9; padding-bottom:8px;"><span style="margin-left:2%;">Detail of Opening Balance Import</span></p>
 <br />
         
