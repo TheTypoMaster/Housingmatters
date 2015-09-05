@@ -4130,10 +4130,6 @@ function other_charges(){
 	$result_ledger_account=$this->ledger_account->find('all',array('conditions'=>$conditions));
 	$this->set('result_ledger_account',$result_ledger_account);
 	
-	$this->loadmodel('user');	
-	$conditions=array('society_id'=>$s_society_id,'deactive'=>0);
-	$result=$this->user->find('all',array('conditions'=>$conditions));
-	$this->set('result_user',$result);	
 		
 		$this->loadmodel('ledger_sub_account');
 		$condition=array('society_id'=>$s_society_id,'ledger_id'=>34);
