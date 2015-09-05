@@ -398,9 +398,7 @@ function regular_bill_preview_screen_new(){
 		$result_user=$this->user->find('all',array('conditions'=>$condition));
 		$this->set('result_user',$result_user);
 		
-		foreach($result_user as $user_info){
-			$user_id=$user_info["user"]["user_id"];
-			$flat_id=$user_info["user"]["flat"];
+		foreach($flats_for_bill as $flat_id){
 			
 			$this->loadmodel('flat');
 			$condition=array('flat_id'=>$flat_id);

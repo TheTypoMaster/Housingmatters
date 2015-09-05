@@ -233,21 +233,21 @@ foreach($result_society as $data){
 					
 					
 					
-					
+					$column_id=0;
 					?>
 					<tr>
 						<td>
-							<?php echo $wing_flat; ?>
-							<input type="hidden" name="flat_id<?php echo $inc; ?>" value="<?php echo $flat; ?>"/>
+							<?php echo $wing_flat; $column_id++; ?>
+							<input type="hidden" name="flat_id<?php echo $inc; ?>" value="<?php echo $flat; ?>" />
 						</td>
-						<td><?php echo $user_name; ?></td>
-						<td><?php echo $sq_feet; ?></td>
+						<td><?php echo $user_name;  $column_id++; ?></td>
+						<td><?php echo $sq_feet; $column_id++; ?></td>
 						<td>
-						<?php echo $bill_number; ?>
+						<?php echo $bill_number; $column_id++; ?>
 						<input type="hidden" name="bill_number<?php echo $inc; ?>" value="<?php echo $bill_number; ?>"/>
 						</td>
 						
-						<?php $in_count=0; $maintanence_charges=0;
+						<?php $column_id++; $in_count=0; $maintanence_charges=0;
 						foreach($income_heads as $income_head){ $in_count++;?>
 							<td>
 							<?php foreach($charge as $data4){
@@ -255,17 +255,17 @@ foreach($result_society as $data){
 									if($data4[1]==1){
 										$ih_charges=$data4[2];
 										$ih_charges=round($ih_charges*$multiply);
-										echo '<input type="text" class="text_bx call_calculation" name="income_head'.$income_head.$inc.'" value='.$ih_charges.' row_id="'.$inc.'" id="income_head'.$in_count.'_'.$inc.'" />';
+										echo '<input type="text" class="text_bx call_calculation" name="income_head'.$income_head.$inc.'" value='.$ih_charges.' row_id="'.$inc.'" column_id="'.$column_id.'" id="income_head'.$in_count.'_'.$inc.'" />';
 									}
 									if($data4[1]==2){
 										$ih_charges=$sq_feet*$data4[2];
 										$ih_charges=round($ih_charges*$multiply);
-										echo '<input type="text" class="text_bx call_calculation" name="income_head'.$income_head.$inc.'" value='.$ih_charges.' row_id="'.$inc.'" id="income_head'.$in_count.'_'.$inc.'" />';
+										echo '<input type="text" class="text_bx call_calculation" name="income_head'.$income_head.$inc.'" value='.$ih_charges.' row_id="'.$inc.'" column_id="'.$column_id.'" id="income_head'.$in_count.'_'.$inc.'" />';
 									}
 									if($data4[1]==3){
 										$ih_charges=$data4[2];
 										$ih_charges=round($ih_charges*$multiply);
-										echo '<input type="text" class="text_bx call_calculation" name="income_head'.$income_head.$inc.'" value='.$ih_charges.' row_id="'.$inc.'" id="income_head'.$in_count.'_'.$inc.'" />';
+										echo '<input type="text" class="text_bx call_calculation" name="income_head'.$income_head.$inc.'" value='.$ih_charges.' row_id="'.$inc.'" column_id="'.$column_id.'" id="income_head'.$in_count.'_'.$inc.'" />';
 									}
 									$total+=$ih_charges;
 									
@@ -280,29 +280,29 @@ foreach($result_society as $data){
 						<?php } ?>
 						
 						<td>
-						<?php  if($noc_ch_id==2){
+						<?php $column_id++; if($noc_ch_id==2){
 							if($noc_charge[0]==1){
 								$noc_charges=$noc_charge[1];
 								$noc_charges=$noc_charges*$multiply;
-								echo '<input type="text" class="text_bx call_calculation" name="noc_charges'.$inc.'" value='.$noc_charges.'  row_id="'.$inc.'" />';
+								echo '<input type="text" class="text_bx call_calculation" name="noc_charges'.$inc.'" value='.$noc_charges.' column_id="'.$column_id.'"  row_id="'.$inc.'" />';
 								$total+=$noc_charges;
 							}
 							if($noc_charge[0]==2){
 								$noc_charges=$sq_feet*$noc_charge[1];
 								$noc_charges=$noc_charges*$multiply;
-								echo '<input type="text" class="text_bx call_calculation" name="noc_charges'.$inc.'" value='.$noc_charges.'  row_id="'.$inc.'" />';
+								echo '<input type="text" class="text_bx call_calculation" name="noc_charges'.$inc.'" value='.$noc_charges.' column_id="'.$column_id.'"  row_id="'.$inc.'" />';
 								$total+=$noc_charges;
 							}
 							if($noc_charge[0]==3){
 								$noc_charges=$noc_charge[1];
 								$noc_charges=$noc_charges*$multiply;
-								echo '<input type="text" class="text_bx call_calculation" name="noc_charges'.$inc.'" value='.$noc_charges.'  row_id="'.$inc.'" />';
+								echo '<input type="text" class="text_bx call_calculation" name="noc_charges'.$inc.'" value='.$noc_charges.' column_id="'.$column_id.'"  row_id="'.$inc.'" />';
 								$total+=$noc_charges;
 							}
 							if($noc_charge[0]==4){
 								$noc_charges=$maintanence_charges*(0.1);
 								$noc_charges=$noc_charges*$multiply;
-								echo '<input type="text" class="text_bx call_calculation" name="noc_charges'.$inc.'" value='.$noc_charges.'  row_id="'.$inc.'" />';
+								echo '<input type="text" class="text_bx call_calculation" name="noc_charges'.$inc.'" value='.$noc_charges.' column_id="'.$column_id.'"  row_id="'.$inc.'" />';
 								$total+=$noc_charges;
 							}
 							if($noc_charge[0]==5){
@@ -312,7 +312,7 @@ foreach($result_society as $data){
 						?>
 						</td>
 						
-						<?php 
+						<?php  $column_id++;
 						if(sizeof(@$other_charges_ids)>0){
 							$qwe=0;
 						foreach(@$other_charges_ids as $other_charges_id){
@@ -323,11 +323,11 @@ foreach($result_society as $data){
 								$otheramount=$otheramount*$multiply;
 								$total+=$otheramount;
 								?>
-								<td><?php echo '<input type="text" class="text_bx call_calculation" name="other_charges'.$other_charges_id.$inc.'" value='.$otheramount.' row_id="'.$inc.'" id="other_charges'.$qwe.'_'.$inc.'" />'; ?></td>
+								<td><?php echo '<input type="text" class="text_bx call_calculation" name="other_charges'.$other_charges_id.'_'.$inc.'" column_id="'.$column_id.'"  value='.$otheramount.' row_id="'.$inc.'" id="other_charges'.$qwe.'_'.$inc.'" />'; ?></td>
 								<?php
 							}else{
 								?>
-								<td><?php echo '<input type="text" class="text_bx call_calculation" name="other_charges'.$other_charges_id.$inc.'" value=0 row_id="'.$inc.'" id="other_charges'.$qwe.$inc.'" />'; ?></td>
+								<td><?php echo '<input type="text" class="text_bx call_calculation" name="other_charges'.$other_charges_id.$inc.'" column_id="'.$column_id.'"  value=0 row_id="'.$inc.'" id="other_charges'.$qwe.'_'.$inc.'" />'; ?></td>
 								<?php
 							}
 						} }?>
@@ -335,16 +335,16 @@ foreach($result_society as $data){
 						
 						
 						<td style="background-color:#FBF1C8;">
-						<?php echo '<input type="text" class="m-wrap text_rdoff" name="total'.$inc.'" value='.$total.' readonly/>'; ?></td>
+						<?php $column_id++; echo '<input type="text" class="m-wrap text_rdoff" name="total'.$inc.'" column_id="'.$column_id.'"  value='.$total.' readonly/>'; ?></td>
 						<?php $due_for_payment+=$total; ?>
 						<td>
-						<?php 
+						<?php $column_id++;
 						$arrear_maintenance=$last_arrear_maintenance+$last_total;
 						$due_for_payment+=$arrear_maintenance; 
-						echo '<input type="text" class="text_bx call_calculation" name="arrear_maintenance'.$inc.'" value='.$arrear_maintenance.'  row_id="'.$inc.'" />'; ?>
+						echo '<input type="text" class="text_bx call_calculation" name="arrear_maintenance'.$inc.'" value='.$arrear_maintenance.' column_id="'.$column_id.'"  row_id="'.$inc.'" />'; ?>
 						</td>
 						<td>
-						<?php 
+						<?php  $column_id++;
 						if(sizeof($result_new_cash_bank)>=1){
 							$arrear_intrest=$last_new_arrear_intrest+$last_new_intrest_on_arrears;
 						}else{
@@ -352,10 +352,10 @@ foreach($result_society as $data){
 						}
 						
 						$due_for_payment+=$arrear_intrest;
-						echo '<input type="text" class="text_bx call_calculation" name="arrear_intrest'.$inc.'" value='.$arrear_intrest.'  row_id="'.$inc.'" />'; ?>
+						echo '<input type="text" class="text_bx call_calculation" name="arrear_intrest'.$inc.'" value='.$arrear_intrest.' column_id="'.$column_id.'" row_id="'.$inc.'" />'; ?>
 						</td>
 						<td>
-						<?php 
+						<?php $column_id++;
 						//INTRST COMPUTATION START//
 						$intrest_on_arrears=0;
 						//case-1
@@ -394,12 +394,14 @@ foreach($result_society as $data){
 						if($penalty==2){
 							$intrest_on_arrears=0;
 						}
-						echo '<input type="text" class="text_bx call_calculation" name="intrest_on_arrears'.$inc.'" value='.$intrest_on_arrears.'  row_id="'.$inc.'" />'; ?>
+						echo '<input type="text" class="text_bx call_calculation" name="intrest_on_arrears'.$inc.'" value='.$intrest_on_arrears.' column_id="'.$column_id.'" row_id="'.$inc.'" />'; ?>
 						</td>
-						<td style="background-color:#F8D5D5;"><input type="text" class="text_bx call_calculation" name="credit_stock<?php echo $inc; ?>" value="0" row_id="<?php echo $inc; ?>" /></td>
+						<td style="background-color:#F8D5D5;">
+						<?php $column_id++; ?>
+						<input type="text" class="text_bx call_calculation" name="credit_stock<?php echo $inc; ?>" column_id="<?php echo $column_id; ?>" value="0" row_id="<?php echo $inc; ?>" /></td>
 						<td style="background-color:#DEE6FF;">
-						<?php 
-						echo '<input type="text" class="m-wrap text_rdoff" name="due_for_payment'.$inc.'" value='.$due_for_payment.' readonly/>';
+						<?php $column_id++;
+						echo '<input type="text" class="m-wrap text_rdoff" name="due_for_payment'.$inc.'" column_id="'.$column_id.'" value='.$due_for_payment.' readonly/>';
 						?>
 						</td>
 					</tr>
@@ -409,32 +411,32 @@ foreach($result_society as $data){
 					<td width="200px;"><b>Total</b></td>
 					<td></td>
 					<td></td>
-					<?php foreach($income_heads as $income_head){ 
+					<?php $in_count=0; foreach($income_heads as $income_head){ $in_count++;
 					$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($income_head)));	
 					foreach($result_income_head as $data2){
 						$income_head_name = $data2['ledger_account']['ledger_name'];
 					} ?>
-					<td ><?php echo $income_head_name; ?><?php echo $space; ?></td>	
+					<td id="total<?php echo $in_count; ?>"><?php echo $income_head_name; ?></td>	
 					<?php } ?>
-					<td>Non Occupancy charges</td>
-					<?php 
-					if(sizeof(@$other_charges_ids)>0){
-						foreach($other_charges_ids as $other_charges_id){
+					<td id="total_noc">Non Occupancy charges</td>
+					<?php $in_count=0;
+					if(sizeof(@$other_charges_ids)>0){ 
+						foreach($other_charges_ids as $other_charges_id){ $in_count++;
 						$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($other_charges_id)));	
 						foreach($result_income_head as $data2){
 							$income_head_name = $data2['ledger_account']['ledger_name'];
 						}
 						?>
-						<td><?php echo $income_head_name; ?></td>
+						<td id="total_oth<?php echo $in_count; ?>"><?php echo $income_head_name; ?></td>
 					<?php } 
 					} ?>
 					
-					<td>Total<?php echo $space; ?></td>
-					<td>Arrears-Principal</td>
-					<td>Arrears-Interest</td>
-					<td>Interest on Arrears </td>
-					<td>Credit/Rebates</td>
-					<td>Due For Payment</td>
+					<td id="total_total">Total<?php echo $space; ?></td>
+					<td id="total_arrear_maintenance">Arrears-Principal</td>
+					<td id="total_arrear_intrest">Arrears-Interest</td>
+					<td id="total_intrest_on_arrears">Interest on Arrears </td>
+					<td id="total_credit_stock">Credit/Rebates</td>
+					<td id="total_due_for_payment">Due For Payment</td>
 				</tr>
 			</tbody>
 			
@@ -450,13 +452,21 @@ foreach($result_society as $data){
 </form>
 <input type="hidden" value="<?php echo sizeof($income_heads); ?>" id="income_head_count"/>
 <input type="hidden" value="<?php echo sizeof(@$other_charges_ids); ?>" id="other_charges_count"/>
-
+<input type="hidden" value="<?php echo $inc; ?>" id="number_of_rows"/>
 
 <script>
 $(document).ready(function() {
+	total_calculation();
+	
 	$('.call_calculation').live('keyup',function(){
 		var row_id=$(this).attr('row_id');
 		calculation(row_id);
+	 });
+	 
+	 $('.call_calculation').live('blur',function(){
+		var row_id=$(this).attr('row_id');
+		var column_id=$(this).attr('column_id');
+		total_calculation();
 	 });
 	 
 	$('#generate_bill').live('click',function(){
@@ -532,6 +542,89 @@ function calculation(row_id){
 		
 		
 	});
+}
+
+function total_calculation(){
+	var income_head_count=$('#income_head_count').val();
+	var other_charges_count=$('#other_charges_count').val();
+	var number_of_rows=$('#number_of_rows').val();
+	
+	for(var iqq=1;iqq<=income_head_count;iqq++){
+		var income_head_vlaue=0; var vlaue=0;
+		for(var r=1;r<=number_of_rows;r++){
+			vlaue=parseInt($('#income_head'+iqq+'_'+r).val());
+			if($.isNumeric(vlaue)==false){ vlaue=0; }
+			income_head_vlaue+=vlaue;
+		}
+		$('#total'+iqq).html(income_head_vlaue);
+	}
+	
+	var noc_charges_vlaue=0;
+	for(var r=1;r<=number_of_rows;r++){
+		vlaue=parseInt($('input[name=noc_charges'+r+']').val());
+		if($.isNumeric(vlaue)==false){ vlaue=0; }
+		noc_charges_vlaue+=vlaue;
+	}
+	$('#total_noc').html(noc_charges_vlaue);
+	
+	for(var iq2=1;iq2<=other_charges_count;iq2++){
+		var other_charges_vlaue=0;
+		for(var r=1;r<=number_of_rows;r++){
+			vlaue=parseInt($('#other_charges'+iq2+'_'+r).val());
+			if($.isNumeric(vlaue)==false){ vlaue=0; }
+			other_charges_vlaue+=vlaue;
+		}
+		$('#total_oth'+iq2).html(other_charges_vlaue);
+	}
+	
+	
+	var total_value=0;
+	for(var r=1;r<=number_of_rows;r++){
+		vlaue=parseInt($('input[name=total'+r+']').val());
+		if($.isNumeric(vlaue)==false){ vlaue=0; }
+		total_value+=vlaue;
+	}
+	$('#total_total').html(total_value);
+	
+	var total_arrear_maintenance=0;
+	for(var r=1;r<=number_of_rows;r++){
+		vlaue=parseInt($('input[name=arrear_maintenance'+r+']').val());
+		if($.isNumeric(vlaue)==false){ vlaue=0; }
+		total_arrear_maintenance+=vlaue;
+	}
+	$('#total_arrear_maintenance').html(total_arrear_maintenance);
+	
+	var total_arrear_intrest=0;
+	for(var r=1;r<=number_of_rows;r++){
+		vlaue=parseInt($('input[name=arrear_intrest'+r+']').val());
+		if($.isNumeric(vlaue)==false){ vlaue=0; }
+		total_arrear_intrest+=vlaue;
+	}
+	$('#total_arrear_intrest').html(total_arrear_intrest);
+	
+	var total_intrest_on_arrears=0;
+	for(var r=1;r<=number_of_rows;r++){
+		vlaue=parseInt($('input[name=intrest_on_arrears'+r+']').val());
+		if($.isNumeric(vlaue)==false){ vlaue=0; }
+		total_intrest_on_arrears+=vlaue;
+	}
+	$('#total_intrest_on_arrears').html(total_intrest_on_arrears);
+	
+	var total_credit_stock=0;
+	for(var r=1;r<=number_of_rows;r++){
+		vlaue=parseInt($('input[name=credit_stock'+r+']').val());
+		if($.isNumeric(vlaue)==false){ vlaue=0; }
+		total_credit_stock+=vlaue;
+	}
+	$('#total_credit_stock').html(total_credit_stock);
+	
+	var total_due_for_payment=0;
+	for(var r=1;r<=number_of_rows;r++){
+		vlaue=parseInt($('input[name=due_for_payment'+r+']').val());
+		if($.isNumeric(vlaue)==false){ vlaue=0; }
+		total_due_for_payment+=vlaue;
+	}
+	$('#total_due_for_payment').html(total_due_for_payment);
 }
 </script>
 
