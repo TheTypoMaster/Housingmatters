@@ -4087,38 +4087,35 @@ foreach($myArray as $child){
 
 	$r=0;
 
-	foreach($myArray as $child)	{
-		$r++;
-		$Reference="";
-		$type = (int)$child[9];
-		$current_date = date('Y-m-d');
-		$TransactionDate = $child[0];
-		$TransactionDate = date('Y-m-d',strtotime($TransactionDate));
-		$ReceiptMod = $child[1];
-		$bank_id = (int)$child[6];
-		$auto_id77 = (int)$child[7];
-		$amount = $child[8];
-        $narration = $child[10];
-		$ledger_sub_account = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($auto_id77)));
-		foreach($ledger_sub_account as $data){
-			$user_id = (int)$data['ledger_sub_account']['user_id'];
-		}
+foreach($myArray as $child){
+		
+			$r++;
+			$Reference="";
+			$type = (int)$child[9];
+			$current_date = date('Y-m-d');
+			$TransactionDate = $child[0];
+			$TransactionDate = date('Y-m-d',strtotime($TransactionDate));
+			$ReceiptMod = $child[1];
+			$bank_id = (int)$child[6];
+			$auto_id77 = (int)$child[7];
+			$amount = $child[8];
+			$narration = $child[10];
+		
+	$ledger_sub_account = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($auto_id77)));
+	foreach($ledger_sub_account as $data){
+	$flat_id = (int)$data['ledger_sub_account']['flat_id'];
+	}
 
 
-
-		$user_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));	
-		foreach($user_fetch as $data2){
-			$flat_id = (int)$data2['user']['flat'];	
-		}
-
-		$current_date = date('Y-m-d');
-		$c = (int)strcasecmp("Cheque",$ReceiptMod);
-		$n = (int)strcasecmp("NEFT",$ReceiptMod);
-		$p = (int)strcasecmp("PG",$ReceiptMod);
+			$current_date = date('Y-m-d');
+			$c = (int)strcasecmp("Cheque",$ReceiptMod);
+			$n = (int)strcasecmp("NEFT",$ReceiptMod);
+			$p = (int)strcasecmp("PG",$ReceiptMod);
+		
 		if($c == 0){
-			$ChequeNo = $child[2];
-			$DrawnBankname = $child[4];
-			$cheque_date = $child[5];
+		$ChequeNo = $child[2];
+		$DrawnBankname = $child[4];
+		$cheque_date = $child[5];
 		}
 		else if($n == 0){
 			$Reference = $child[3];
@@ -4149,6 +4146,8 @@ foreach($myArray as $child){
 	$account_id = (int)$sub_leddr_dattttt["ledger_sub_account"]["auto_id"];
 			}
 
+	
+			
 			$amount=$amount;
 			//apply receipt in regular bill
 			$this->loadmodel('new_regular_bill');
@@ -4238,6 +4237,8 @@ foreach($myArray as $child){
 
 	}
 	}
+	
+	
 $output=json_encode(array('report_type'=>'done','text'=>'Please Fill Date in row'));
 die($output);
   
