@@ -116,7 +116,7 @@ background-color:rgb(218, 236, 240);
      
                 <table width="100%" >
                 <tr>
-  <td width="58%" style="color:#666666; font-size:24px; padding-left:10px;"><i class="icon-book"></i> Resident Directory  <span style='font-size:18px;'> (<?php echo sizeof($flats_for_bill); ?>)<span>  </td>
+  <td width="58%" style="color:#666666; font-size:24px; padding-left:10px;"><i class="icon-book"></i> Resident Directory  <span style='font-size:18px;'> (<?php echo sizeof($result_user); ?>)<span>  </td>
                 <td width="20%" valign="bottom"><select style="" id="wing_value" onchange="search_wing_record()" class="chosen" width="30%;"><option value="0">All Wing</option>
                 
                  <?php  
@@ -145,37 +145,23 @@ background-color:rgb(218, 236, 240);
 
  <?php
   
-			foreach ($flats_for_bill as $flat)            
-			{ 
-
-
-			//wing_id via flat_id//
-			$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat)));
-			foreach($result_flat_info as $flat_info){
-				$wing=$flat_info["flat"]["wing_id"];
-			} 
-
-
-			//user info via flat_id//
-			$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($wing,$flat)));
-			foreach($result_user_info as $collection){
-				
-			
+			foreach ($result_user as $collection)            
+			{  
 				$c_user_id = (int)$collection['user']['user_id'];          
-				//$c_wing_id = $collection['user']['wing'];
+				$c_wing_id = $collection['user']['wing'];
 				$medical_pro = @$collection['user']['medical_pro'];
-				//$c_flat_id = $collection['user']['flat'];
+				$c_flat_id = $collection['user']['flat'];
 				$c_name = $collection['user']['user_name'];
 				$c_name_cut=substrwords($c_name,20,'...');
 				@$profile_pic = $collection['user']['profile_pic'];
-				$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing,$flat)));			  
+				$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($c_wing_id,$c_flat_id)));			  
 				if(empty($profile_pic))
 				{
 				$profile_pic="blank.jpg"; 
 				}
 ?>
 
-<div class="r_d fadeleftsome" onclick="view_ticket(<?php echo $flat;?>)">
+<div class="r_d fadeleftsome" onclick="view_ticket(<?php echo $c_user_id;?>)">
 <div class="hv_b" style="overflow: auto;padding: 5px;cursor: pointer;" title="">
 <img src="<?php echo $webroot_path ; ?>/profile/<?php echo $profile_pic; ?>" style="float:left;width:25%;height:80px;"/>
 <div style="float:left;margin-left:3%;">
@@ -189,7 +175,7 @@ background-color:rgb(218, 236, 240);
 
 
 <?php 
-			} }
+}
 ?>
 </div>
 </div>
