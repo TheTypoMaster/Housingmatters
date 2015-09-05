@@ -2532,6 +2532,13 @@ return $wing_flat;
 }
 ///////////////////// End wing flat with bracket ////////////////////////////////// 
 
+function fetch_subLedger_detail_via_flat_id($flat_id){
+	$s_society_id=$this->Session->read('society_id');
+	$this->loadmodel('ledger_sub_account');
+	$conditions=array("flat_id" => $flat_id,"society_id"=>$s_society_id);
+	return $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+}
+
 function fetch_wing_id_via_flat_id($flat_id){
 	$s_society_id=$this->Session->read('society_id');
 	$this->loadmodel('flat');

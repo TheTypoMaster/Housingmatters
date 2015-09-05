@@ -3893,7 +3893,7 @@ foreach ($flatt_datta as $fltt_datttaa)
 {
 $wnngg_idddd = (int)$fltt_datttaa['flat']['wing_id'];
 }			
-		
+}		
 			
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat_with_brackets'),array('pass'=>array($wnngg_idddd,$flat_id)));
 
@@ -4144,9 +4144,9 @@ foreach($myArray as $child){
 
 	if($type == 2){
 
-					$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'ledger_sub_account_fetch3'),array('pass'=>array($user_id)));
-						foreach($result_flat_info as $flat_info){
-				$account_id = (int)$flat_info["ledger_sub_account"]["auto_id"];
+	$sub_leddr_dattt=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_subLedger_detail_via_flat_id'),array('pass'=>array(@$flat_id)));
+	foreach($sub_leddr_dattt as $sub_leddr_dattttt){
+	$account_id = (int)$sub_leddr_dattttt["ledger_sub_account"]["auto_id"];
 			}
 
 			$amount=$amount;
@@ -4224,7 +4224,7 @@ foreach($myArray as $child){
 
 			
 			
-			$l=$this->autoincrement('ledger','auto_id');
+		$l=$this->autoincrement('ledger','auto_id');
 		$this->loadmodel('ledger');
 		$multipleRowData = Array( Array("auto_id" => $l, "transaction_date"=> strtotime($TransactionDate), "debit" => $amount, "credit" =>null, "ledger_account_id" => 33, "ledger_sub_account_id" => $bank_id,"table_name" => "new_cash_bank","element_id" => $t1, "society_id" => $s_society_id,));
 		$this->ledger->saveAll($multipleRowData); 

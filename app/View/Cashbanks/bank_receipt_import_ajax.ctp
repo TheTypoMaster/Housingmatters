@@ -95,17 +95,16 @@ foreach($cursor2 as $collection)
 {
 $a_id = (int)$collection['ledger_sub_account']['auto_id'];
 $name1 = $collection['ledger_sub_account']['name'];
-$user_id = (int)$collection['ledger_sub_account']['user_id'];
+$flat_id = $collection['ledger_sub_account']['flat_id'];
 
-$user_detail = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'user_fetch'),array('pass'=>array($user_id)));
-foreach($user_detail as $data)
+$flatt_datta = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_id)));
+foreach ($flatt_datta as $fltt_datttaa) 
 {
-$flat_id = (int)$data['user']['flat'];
-$wing_id = (int)$data['user']['wing'];
-}
+$wnngg_idddd = (int)$fltt_datttaa['flat']['wing_id'];
+}	
 
 
-$wing_flat = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'wing_flat'),array('pass'=>array($wing_id,$flat_id)));
+$wing_flat = $this->requestAction(array('controller' => 'Incometrackers', 'action' => 'wing_flat'),array('pass'=>array($wnngg_idddd,$flat_id)));
 		
 ?>
 <option value="<?php echo $a_id; ?>" <?php if($a_id == $auto_id) { ?> selected="selected" <?php } ?> ><?php echo $name1; ?>
