@@ -1,11 +1,11 @@
-<div class="bank_rr" style="overflow:auto;">
-<div style="background-color:white; width:100%; overflow:auto;">
-<div class="modal-header">
-<h4 id="myModalLabel1">Import csv</h4>
-</div>
-<div class="modal-body bank_receipt_done" style="overflow:auto;">
-<div class="validat_text"></div> 
-<br />
+	<div class="bank_rr" style="overflow:auto;">
+	<div style="background-color:white; width:100%; overflow:auto;">
+		<div class="modal-header">
+		<h4 id="myModalLabel1">Import csv</h4>
+		</div>
+	<div class="modal-body bank_receipt_done" style="overflow:auto;">
+	<div class="validat_text"></div> 
+	<br />
 <table class="table table-bordered" style="width:100%; background-color:white;" id="open_bal">
 <tr>
 <th>Tranasction Date</th>

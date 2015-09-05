@@ -3789,7 +3789,6 @@ $excel = "Transaction Date,Receipt Mode,Cheque No.,Reference/UTR,Drawn Bank name
 
 $excel.="12-5-2015,Cheque,55434,445566H,SBBJ,SBBJ,33-5-2015,Abhilash,Wing A,101,5000,Receipt for bill";
 
-
 echo $excel;
 }
 /////////////////////////////// End bank_receipt_import ////////////////////////////////////////////////////////////
@@ -3882,24 +3881,23 @@ $flat_id = (int)$collection['flat']['flat_id'];
 
  
 $this->loadmodel('ledger_sub_account'); 
-$conditions=array("name"=> new MongoRegex('/^' . $MemberName . '$/i'),"society_id"=>$s_society_id,"ledger_id"=>34);
+$conditions=array("name"=> new MongoRegex('/^' . $MemberName . '$/i'),"society_id"=>$s_society_id,"ledger_id"=>34,"flat_id"=>$flat_id);
 $result_ac=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
 foreach($result_ac as $collection)
 {
 $user_id = (int)$collection['ledger_sub_account']['user_id'];
 $auto_id = (int)$collection['ledger_sub_account']['auto_id'];
-$hhhhhh = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch'),array('pass'=>array($user_id)));
-foreach($hhhhhh as $fff)
+
+$flatt_datta = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_id)));
+foreach ($flatt_datta as $fltt_datttaa) 
 {
-$wing_id2 = (int)$fff['user']['wing'];
-$flat_id2 = (int)$fff['user']['flat'];
-}
-if(@$wing_id == $wing_id2 && @$flat_id == $flat_id2)
-{
-$id_auto = (int)$collection['ledger_sub_account']['auto_id'];
-}
-} 
- 
+$wnngg_idddd = (int)$fltt_datttaa['flat']['wing_id'];
+}			
+		
+			
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat_with_brackets'),array('pass'=>array($wnngg_idddd,$flat_id)));
+
+
 $this->loadmodel('ledger_sub_account'); 
 $conditions=array("name"=> new MongoRegex('/^' . $Deposited . '$/i'),"society_id"=>$s_society_id);
 $result_ac=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
@@ -3959,7 +3957,7 @@ $ledger_type = 1;
 }
 */
 
-$table[] = array(@$TransactionDate,@$ReceiptMod,@$ChequeNo,@$Reference,@$DrawnBankname,@$bank_id,@$Date1,@$id_auto,@$Amount,@$narration);
+$table[] = array(@$TransactionDate,@$ReceiptMod,@$ChequeNo,@$Reference,@$DrawnBankname,@$bank_id,@$Date1,@$auto_id,@$Amount,@$narration);
 } 
 $i++;
 }

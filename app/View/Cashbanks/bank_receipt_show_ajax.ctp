@@ -89,10 +89,7 @@ foreach ($flatt_datta as $fltt_datttaa)
 {
 $wnngg_idddd = (int)$fltt_datttaa['flat']['wing_id'];
 }			
-			
-			
-			
-			
+		
 $user_fetch = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_user_info_via_flat_id'),array(				'pass'=>array($wnngg_idddd,$party_name_id)));	
 			foreach($user_fetch as $rrr)
 			{
