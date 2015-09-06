@@ -1545,301 +1545,270 @@ echo $excel;
 //////////////////////Start my flat receipt show (Accounts)////////////////////////
 function my_flat_receipt_show()
 {
-$this->layout='blank';
-$s_role_id=$this->Session->read('role_id');
-$s_society_id = (int)$this->Session->read('society_id');
-$s_user_id = (int)$this->Session->read('user_id');	
+	$this->layout='blank';
+	$s_role_id=$this->Session->read('role_id');
+	$s_society_id = (int)$this->Session->read('society_id');
+	$s_user_id = (int)$this->Session->read('user_id');	
 
-$this->loadmodel('society');
-$conditions=array("society_id"=>$s_society_id);
-$cursor = $this->society->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$society_name = $collection['society']['society_name'];
+			$this->loadmodel('society');
+			$conditions=array("society_id"=>$s_society_id);
+			$cursor = $this->society->find('all',array('conditions'=>$conditions));
+			foreach($cursor as $collection)
+			{
+			$society_name = $collection['society']['society_name'];
+			}
+			$this->set('society_name',$society_name);
+
+				$from = $this->request->query('date1');
+				$to = $this->request->query('date2');
+
+				$this->set('from',$from);
+				$this->set('to',$to);
+
+					$this->set('user_id',$s_user_id);
+
+		$this->loadmodel('ledger_sub_account');
+		$conditions=array("user_id"=>$s_user_id,"society_id"=>$s_society_id);
+		$cursor = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+		foreach($cursor as $collection)
+		{
+		$auto_id = (int)$collection['ledger_sub_account']['auto_id'];
+		$user_name = $collection['ledger_sub_account']['name'];
+		}
+		$this->set('user_name',$user_name);
+
+			$this->loadmodel('cash_bank');
+			$conditions=array("user_id"=>$auto_id,"society_id"=>$s_society_id,"module_id"=>1);
+			$cursor1 = $this->cash_bank->find('all',array('conditions'=>$conditions));
+			$this->set('cursor1',$cursor1);
 }
-$this->set('society_name',$society_name);
+//////////////////////End my flat receipt show (Accounts)/////////////////////////////////////
 
-
-$from = $this->request->query('date1');
-$to = $this->request->query('date2');
-
-$this->set('from',$from);
-$this->set('to',$to);
-
-
-
-$this->set('user_id',$s_user_id);
-
-$this->loadmodel('ledger_sub_account');
-$conditions=array("user_id"=>$s_user_id,"society_id"=>$s_society_id);
-$cursor = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$auto_id = (int)$collection['ledger_sub_account']['auto_id'];
-$user_name = $collection['ledger_sub_account']['name'];
-}
-$this->set('user_name',$user_name);
-
-
-$this->loadmodel('cash_bank');
-$conditions=array("user_id"=>$auto_id,"society_id"=>$s_society_id,"module_id"=>1);
-$cursor1 = $this->cash_bank->find('all',array('conditions'=>$conditions));
-$this->set('cursor1',$cursor1);
-
-
-}
-//////////////////////End my flat receipt show (Accounts)//////////////////////////////
-
-
-
-
-
-//////////////////////////////// END MY FLAT MODULE///////////////////////////////////////////////////////////
-
-/////////////////////////////////////////////////// START FINANCIAL REPORT MODULE /////////////////////////////////////
-
-//////////////////// Start Trial Balance Excel////////////////////////////////////////////////////////////////
+//////////////////// Start Trial Balance Excel/////////////////////////////////////////////////
 function trial_balance_excel()
 {
-$this->layout="";
-$filename="Trial balance";
-header ("Expires: 0");
-header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
-header ("Cache-Control: no-cache, must-revalidate");
-header ("Pragma: no-cache");
-header ("Content-type: application/vnd.ms-excel");
-header ("Content-Disposition: attachment; filename=".$filename.".xls");
-header ("Content-Description: Generated Report" );
+		$this->layout="";
+		$filename="Trial balance";
+		header ("Expires: 0");
+		header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+		header ("Cache-Control: no-cache, must-revalidate");
+		header ("Pragma: no-cache");
+		header ("Content-type: application/vnd.ms-excel");
+		header ("Content-Disposition: attachment; filename=".$filename.".xls");
+		header ("Content-Description: Generated Report" );
 
-$s_role_id=$this->Session->read('role_id');
-$s_society_id = (int)$this->Session->read('society_id');
-$s_user_id=$this->Session->read('user_id');	
+			$s_role_id=$this->Session->read('role_id');
+			$s_society_id = (int)$this->Session->read('society_id');
+			$s_user_id=$this->Session->read('user_id');	
 
+				$this->loadmodel('society');
+				$conditions=array("society_id" => $s_society_id);
+				$cursor=$this->society->find('all',array('conditions'=>$conditions));
+				foreach ($cursor as $collection)  
+				{
+				$society_name = $collection['society']['society_name'];
+				}
 
-$this->loadmodel('society');
-$conditions=array("society_id" => $s_society_id);
-$cursor=$this->society->find('all',array('conditions'=>$conditions));
-foreach ($cursor as $collection)  
-{
-$society_name = $collection['society']['society_name'];
-}
+					$from = $this->request->query('f');
+					$to = $this->request->query('t');
+					$tp = (int)$this->request->query('tp');
 
-$from = $this->request->query('f');
-$to = $this->request->query('t');
-$tp = (int)$this->request->query('tp');
+						$m_from = date("Y-m-d", strtotime($from));
+						$m_to = date("Y-m-d", strtotime($to));
 
-$m_from = date("Y-m-d", strtotime($from));
-//$m_from = new MongoDate(strtotime($m_from));
-$m_to = date("Y-m-d", strtotime($to));
-//$m_to = new MongoDate(strtotime($m_to));
-////////
-if($tp == 1)
-{
-$excel="<table border='1'>
-<tr>
-<th colspan='5' style='text-align:center;'>
-$society_name</th>
-</tr>
-<tr>
-<th colspan='5' style='text-align:center;'>
-Trial balance For The Period $from to $to
-</th>
-</tr>
-<tr>
-<th style='text-align:center;'>Account Name</th>
-<th style='text-align:center;'>Opening Balance</th>
-<th style='text-align:center;'>Debit</th>
-<th style='text-align:center;'>Credit</th>
-<th style='text-align:center;'>Closing balance</th>
-</tr>";
-$grand_total_debit = 0;
-$grand_total_credit = 0;
-$grand_total_opening_balance = 0;
-$grand_total_closing_balance = 0;
-$this->loadmodel('ledger_sub_account');
-$conditions=array("ledger_id"=>15);
-$cursor3 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
-foreach($cursor3 as $collection)
-{
-$auto_id11 = (int)$collection['ledger_sub_account']['auto_id'];
-$account_name = $collection['ledger_sub_account']['name'];
-$total_debit1 = 0;
-$total_credit1 = 0;
-$total_opening_balance = 0;
-$total_closing_balance = 0;
+			if($tp == 1)
+			{
+				$excel="<table border='1'>
+				<tr>
+				<th colspan='5' style='text-align:center;'>
+				$society_name</th>
+				</tr>
+				<tr>
+				<th colspan='5' style='text-align:center;'>
+				Trial balance For The Period $from to $to
+				</th>
+				</tr>
+				<tr>
+				<th style='text-align:center;'>Account Name</th>
+				<th style='text-align:center;'>Opening Balance</th>
+				<th style='text-align:center;'>Debit</th>
+				<th style='text-align:center;'>Credit</th>
+				<th style='text-align:center;'>Closing balance</th>
+				</tr>";
+				
+	$grand_total_debit = 0;
+	$grand_total_credit = 0;
+	$grand_total_opening_balance = 0;
+	$grand_total_closing_balance = 0;
+			$this->loadmodel('ledger_sub_account');
+			$conditions=array("ledger_id"=>15);
+			$cursor3 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+			foreach($cursor3 as $collection)
+			{
+				$auto_id11 = (int)$collection['ledger_sub_account']['auto_id'];
+				$account_name = $collection['ledger_sub_account']['name'];
+				$total_debit1 = 0;
+				$total_credit1 = 0;
+				$total_opening_balance = 0;
+				$total_closing_balance = 0;
 
-$ledger1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_fetch1'),array('pass'=>array($auto_id11)));		
-foreach ($ledger1 as $collection) 
-{
-$op_date = "";
-$amount1 = $collection['ledger']['amount'];
-$ammount_type_id1 = (int)$collection['ledger']['amount_category_id'];
-//$module_id = (int)@$collection['ledger']['module_id'];
-$receipt_id = $collection['ledger']['receipt_id'];
-if($receipt_id == 'O_B')
-{
-$op_date = @$collection['ledger']['op_date'];
-}
-$table_name = $collection['ledger']['table_name'];
-if($table_name == "cash_bank")
-{
-$module_id = (int)$collection['ledger']['module_id'];
-}
+	$ledger1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_fetch1'),array('pass'=>array($auto_id11)));		
+		foreach ($ledger1 as $collection) 
+		{
+		$op_date = "";
+		$amount1 = $collection['ledger']['amount'];
+		$ammount_type_id1 = (int)$collection['ledger']['amount_category_id'];
+		$receipt_id = $collection['ledger']['receipt_id'];
+			if($receipt_id == 'O_B')
+			{
+			$op_date = @$collection['ledger']['op_date'];
+			}
+				$table_name = $collection['ledger']['table_name'];
+					if($table_name == "cash_bank")
+					{
+					$module_id = (int)$collection['ledger']['module_id'];
+					}
 
+	if($receipt_id != 'O_B')
+		{
+		if($table_name == "cash_bank")
+			{
+				$date_fetch=$this->requestAction(array('controller'=>'hms','action'=>'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id)));				
+			}
+			else
+			{
+			$date_fetch=$this->requestAction(array('controller'=>'hms','action'=>'module_main_fetch3'),array('pass'=>array($table_name,$receipt_id)));	
+			}
+			foreach ($date_fetch as $collection) 
+				{
+				$date1 = @$collection[$table_name]['transaction_date'];
+				if(empty($date1))
+				{
+				$date1 = @$collection[$table_name]['posting_date'];	
+				}
+				if(empty($date1))
+				{
+				$date1 = @$collection[$table_name]['purchase_date'];	
+				}
+					if(empty($date1))
+					{
+					$date1 = @$collection[$table_name]['date'];	
+					}
+				}	
+			}
+			else 
+			{
+				if($receipt_id == 'O_B')
+					{
+					if($op_date < $from)
+						{
+						if($ammount_type_id1 == 1)
+							{
+							$total_opening_balance = $total_opening_balance - $amount1;
+							}
+						else if($ammount_type_id1 == 2)
+							{
+							$total_opening_balance = $total_opening_balance + $amount1;	
+							}
+						}
+					}
+					else
+						{
+							if($ammount_type_id1 == 1)
+							{
+							$total_closing_balance = $total_closing_balance - $amount1;	
+							}
+							else if($ammount_type_id1 == 2)
+							{
+							$total_closing_balance = $total_closing_balance + $amount1;	
+							}
+						}
+					}
 
-if($receipt_id != 'O_B')
-{
-if($table_name == "cash_bank")
-{
-$date_fetch=$this->requestAction(array('controller'=>'hms','action'=>'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id)));				
-}
-else
-{
-$date_fetch=$this->requestAction(array('controller'=>'hms','action'=>'module_main_fetch3'),array('pass'=>array($table_name,$receipt_id)));	
-}
-foreach ($date_fetch as $collection) 
-{
-$date1 = @$collection[$table_name]['transaction_date'];
-if(empty($date1))
-{
-$date1 = @$collection[$table_name]['posting_date'];	
-}
-if(empty($date1))
-{
-$date1 = @$collection[$table_name]['purchase_date'];	
-}
-if(empty($date1))
-{
-$date1 = @$collection[$table_name]['date'];	
-}
-}	
-}
-else 
-{
-if($receipt_id == 'O_B')
-{
-if($op_date < $from)
-{
-if($ammount_type_id1 == 1)
-{
-$total_opening_balance = $total_opening_balance - $amount1;
-}
-else if($ammount_type_id1 == 2)
-{
-$total_opening_balance = $total_opening_balance + $amount1;	
-}
-}
-}
-else
-{
-if($ammount_type_id1 == 1)
-{
-$total_closing_balance = $total_closing_balance - $amount1;	
-}
-else if($ammount_type_id1 == 2)
-{
-$total_closing_balance = $total_closing_balance + $amount1;	
-}
-}
-}
-
-if($receipt_id != 'O_B')
-{
-/*
-if($date1 < $m_from)
-{
-if($ammount_type_id1 == 1)
-{
-$total_opening_balance = $total_opening_balance - $amount1;
-}
-else if($ammount_type_id1 == 2)
-{
-$total_opening_balance = $total_opening_balance + $amount1;	
-}
-}
-*/
-if($date1 >= $m_from && $date1 <= $m_to)
-{
-if($ammount_type_id1 == 1)
-{
-$total_debit1 = $total_debit1 + $amount1;	
-$grand_total_debit = $grand_total_debit + $amount1;
-}
-else if($ammount_type_id1 == 2)
-{
-$total_credit1 = $total_credit1 + $amount1;	
-$grand_total_credit = $grand_total_credit + $amount1;
-}
-}	
-}
-}
+			if($receipt_id != 'O_B')
+			{
+				if($date1 >= $m_from && $date1 <= $m_to)
+					{
+					if($ammount_type_id1 == 1)
+					{
+					$total_debit1 = $total_debit1 + $amount1;	
+					$grand_total_debit = $grand_total_debit + $amount1;
+					}
+					else if($ammount_type_id1 == 2)
+					{
+					$total_credit1 = $total_credit1 + $amount1;	
+					$grand_total_credit = $grand_total_credit + $amount1;
+					}
+				}	
+			}
+		}
+		
 if($total_debit1 != 0 || $total_credit1 != 0)
 {
 $total_closing_balance = $total_closing_balance + $total_opening_balance + $total_credit1 - $total_debit1;
 $grand_total_closing_balance = $grand_total_closing_balance + $total_closing_balance;
 $grand_total_opening_balance = $grand_total_opening_balance + $total_opening_balance;
-$excel.="<tr><td style='text-align:center;'>          
-$account_name
-</td>
-<td style='text-align:center;'>";
-if($total_opening_balance > 0)
-{
-$total_opening_balance = $total_opening_balance.'Cr';
-}
-else if($total_opening_balance < 0)
-{
-$total_opening_balance = abs($total_opening_balance);
-$total_opening_balance = $total_opening_balance.'Dr';
-}
-$excel.="$total_opening_balance</td>
-<td style='text-align:center;'>$total_debit1</td>
-<td style='text-align:center;'>$total_credit1</td>
-<td>";
-if($total_closing_balance > 0)
-{
-$total_closing_balance = $total_closing_balance.'Cr';
-}
-else if($total_closing_balance < 0)
-{
-$total_closing_balance = abs($total_closing_balance);
-$total_closing_balance = $total_closing_balance.'Dr';
-}
-$excel.="$total_closing_balance</td>
-</tr>";
-}}	
-$excel.="<tr>
-<th style='text-align:center;'>Total</th>
-<th style='text-align:center;'>"; 
-if($grand_total_opening_balance > 0)
-{
-$grand_total_opening_balance = $grand_total_opening_balance.'Cr';
-}
-else if($grand_total_opening_balance < 0)
-{
-$grand_total_opening_balance = abs($grand_total_opening_balance);
-$grand_total_opening_balance = $grand_total_opening_balance.'Dr';
-}
-$excel.="$grand_total_opening_balance</th>
-<th style='text-align:center;'>$grand_total_debit</th>
-<th style='text-align:center;'>$grand_total_credit</th>
-<th style='text-align:center;'>";
-if($grand_total_closing_balance > 0)
-{
-$grand_total_closing_balance = $grand_total_closing_balance.'Cr';
-}
-else if($grand_total_closing_balance < 0)
-{
-$grand_total_closing_balance = abs($grand_total_closing_balance);
-$grand_total_closing_balance = $grand_total_closing_balance.'Dr';
-}
-$excel.="$grand_total_closing_balance</th>
-</tr>
-</table>";
-	
-}
-///////
-if($tp == 2)
-{
+
+	$excel.="<tr><td style='text-align:center;'>          
+	$account_name
+	</td>
+	<td style='text-align:center;'>";
+			if($total_opening_balance > 0)
+			{
+			$total_opening_balance = $total_opening_balance.'Cr';
+			}
+			else if($total_opening_balance < 0)
+			{
+			$total_opening_balance = abs($total_opening_balance);
+			$total_opening_balance = $total_opening_balance.'Dr';
+			}
+	$excel.="$total_opening_balance</td>
+			<td style='text-align:center;'>$total_debit1</td>
+			<td style='text-align:center;'>$total_credit1</td>
+			<td>";
+				if($total_closing_balance > 0)
+				{
+				$total_closing_balance = $total_closing_balance.'Cr';
+				}
+				else if($total_closing_balance < 0)
+				{
+				$total_closing_balance = abs($total_closing_balance);
+				$total_closing_balance = $total_closing_balance.'Dr';
+				}
+				$excel.="$total_closing_balance</td>
+				</tr>";
+				}}	
+					$excel.="<tr>
+					<th style='text-align:center;'>Total</th>
+					<th style='text-align:center;'>"; 
+					if($grand_total_opening_balance > 0)
+					{
+					$grand_total_opening_balance = $grand_total_opening_balance.'Cr';
+					}
+						else if($grand_total_opening_balance < 0)
+						{
+						$grand_total_opening_balance = abs($grand_total_opening_balance);
+						$grand_total_opening_balance = $grand_total_opening_balance.'Dr';
+						}
+				$excel.="$grand_total_opening_balance</th>
+				<th style='text-align:center;'>$grand_total_debit</th>
+				<th style='text-align:center;'>$grand_total_credit</th>
+				<th style='text-align:center;'>";
+					if($grand_total_closing_balance > 0)
+					{
+					$grand_total_closing_balance = $grand_total_closing_balance.'Cr';
+					}
+					else if($grand_total_closing_balance < 0)
+					{
+					$grand_total_closing_balance = abs($grand_total_closing_balance);
+					$grand_total_closing_balance = $grand_total_closing_balance.'Dr';
+					}
+						$excel.="$grand_total_closing_balance</th>
+						</tr>
+						</table>";
+					}
+			if($tp == 2)
+			{
 $excel="<table border='1'>
 <tr>
 <th colspan='5' style='text-align:center;'>
@@ -1858,399 +1827,385 @@ Trial balance for the Period $from to $to
 <th style='text-align:center;'>Credit</th>
 <th style='text-align:center;'>Closing balance</th>
 </tr>";
-$grand_total_debit = 0;
-$grand_total_credit = 0;
-$grand_total_opening_balance = 0;
-$grand_total_closing_balance = 0;
-$this->loadmodel('ledger_sub_account');
-$conditions=array("ledger_id"=>34);
-$cursor4 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
-foreach($cursor4 as $collection)
-{
-$auto_id11 = (int)$collection['ledger_sub_account']['auto_id'];
-$account_name = $collection['ledger_sub_account']['name'];
-$total_debit1 = 0;
-$total_credit1 = 0;
-$total_opening_balance = 0;
-$total_closing_balance = 0;
-$ledger1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_fetch1'),array('pass'=>array($auto_id11)));		
-foreach ($ledger1 as $collection) 
-{
-$amount1 = $collection['ledger']['amount'];
-$ammount_type_id1 = (int)$collection['ledger']['amount_category_id'];
-//$module_id = (int)@$collection['ledger']['module_id'];
-$receipt_id = (int)$collection['ledger']['receipt_id'];
-$op_date = @$collection['ledger']['op_date']; 
-$table_name = $collection['ledger']['table_name']; 
-if($table_name == "cash_bank")
-{ 
-$module_id = (int)$collection['ledger']['module_id']; 
-}
-if($receipt_id != 'O_B')
-{
-/*
-$module1 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_fetch'),array('pass'=>array($module_id)));	
-foreach ($module1 as $collection) 
-{
-$module_name = @$collection['account_category']['ac_category'];
-}
-*/
-if($table_name == "cash_bank")
-{
-$date_fetch=$this->requestAction(array('controller'=>'hms','action'=>'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id)));	
-}
-else
-{
-$date_fetch=$this->requestAction(array('controller'=>'hms','action'=>'module_main_fetch3'),array('pass'=>array($table_name,$receipt_id)));	
-}			
-foreach ($date_fetch as $collection) 
-{
-$date1 = @$collection[$table_name]['transaction_date'];
-if(empty($date1))
-{
-$date1 = @$collection[$table_name]['posting_date'];	
-}
-if(empty($date1))
-{
-$date1 = @$collection[$table_name]['purchase_date'];	
-}
-if(empty($date1))
-{
-$date1 = @$collection[$table_name]['date'];	
-}
-}		
-}
-else
-{
-if($op_date < $from)
-{
-if($ammount_type_id1 == 1)
-{
-$total_opening_balance = $total_opening_balance - $amount1;
-}
-else if($ammount_type_id1 == 2)
-{
-$total_opening_balance = $total_opening_balance + $amount1;	
-}
-}
-else
-{
-if($ammount_type_id1 == 1)
-{
-$total_closing_balance = $total_closing_balance - $amount1;	
-}
-else if($ammount_type_id1 == 2)
-{
-$total_closing_balance = $total_closing_balance + $amount1;	
-}
-}
-}
+		$grand_total_debit = 0;
+		$grand_total_credit = 0;
+		$grand_total_opening_balance = 0;
+		$grand_total_closing_balance = 0;
+			$this->loadmodel('ledger_sub_account');
+			$conditions=array("ledger_id"=>34);
+			$cursor4 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+			foreach($cursor4 as $collection)
+			{
+				$auto_id11 = (int)$collection['ledger_sub_account']['auto_id'];
+				$account_name = $collection['ledger_sub_account']['name'];
+				$total_debit1 = 0;
+				$total_credit1 = 0;
+				$total_opening_balance = 0;
+				$total_closing_balance = 0;
+		$ledger1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_fetch1'),array('pass'=>array($auto_id11)));		
+			foreach ($ledger1 as $collection) 
+			{
+			$amount1 = $collection['ledger']['amount'];
+			$ammount_type_id1 = (int)$collection['ledger']['amount_category_id'];
+			//$module_id = (int)@$collection['ledger']['module_id'];
+			$receipt_id = (int)$collection['ledger']['receipt_id'];
+			$op_date = @$collection['ledger']['op_date']; 
+			$table_name = $collection['ledger']['table_name']; 
+			if($table_name == "cash_bank")
+			{ 
+			$module_id = (int)$collection['ledger']['module_id']; 
+			}
+				if($receipt_id != 'O_B')
+				{
+					if($table_name == "cash_bank")
+					{
+					$date_fetch=$this->requestAction(array('controller'=>'hms','action'=>'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id)));	
+					}
+					else
+					{
+					$date_fetch=$this->requestAction(array('controller'=>'hms','action'=>'module_main_fetch3'),array('pass'=>array($table_name,$receipt_id)));	
+					}			
+		foreach ($date_fetch as $collection) 
+		{
+		$date1 = @$collection[$table_name]['transaction_date'];
+			if(empty($date1))
+			{
+			$date1 = @$collection[$table_name]['posting_date'];	
+			}
+			if(empty($date1))
+			{
+			$date1 = @$collection[$table_name]['purchase_date'];	
+			}
+			if(empty($date1))
+			{
+			$date1 = @$collection[$table_name]['date'];	
+			}
+		}		
+	}
+	else
+	{
+		if($op_date < $from)
+		{
+			if($ammount_type_id1 == 1)
+			{
+			$total_opening_balance = $total_opening_balance - $amount1;
+			}
+			else if($ammount_type_id1 == 2)
+			{
+			$total_opening_balance = $total_opening_balance + $amount1;	
+			}
+		}
+		else
+		{
+			if($ammount_type_id1 == 1)
+			{
+			$total_closing_balance = $total_closing_balance - $amount1;	
+			}
+			else if($ammount_type_id1 == 2)
+			{
+			$total_closing_balance = $total_closing_balance + $amount1;	
+			}
+		}
+	}
 
+	if($receipt_id != 'O_B')
+	{		
+		if($date1 < $m_from)
+		{
+			if($ammount_type_id1 == 1)
+			{
+			$total_opening_balance = $total_opening_balance - $amount1;
+			}
+			else if($ammount_type_id1 == 2)
+			{
+			$total_opening_balance = $total_opening_balance + $amount1;	
+			}
+		}
 
-
-if($receipt_id != 'O_B')
-{		
-if($date1 < $m_from)
-{
-if($ammount_type_id1 == 1)
-{
-$total_opening_balance = $total_opening_balance - $amount1;
-}
-else if($ammount_type_id1 == 2)
-{
-$total_opening_balance = $total_opening_balance + $amount1;	
-}
-}
-
-if($date1 >= $m_from && $date1 <= $m_to)
-{
-if($ammount_type_id1 == 1)
-{
-$total_debit1 = $total_debit1 + $amount1;	
-$grand_total_debit = $grand_total_debit + $amount1;
-}
-else if($ammount_type_id1 == 2)
-{
-$total_credit1 = $total_credit1 + $amount1;	
-$grand_total_credit = $grand_total_credit + $amount1;
-}
-}	
-}
-}
-if($total_debit1 != 0 || $total_credit1 != 0)
-{
-$total_closing_balance = $total_closing_balance + $total_opening_balance + $total_credit1 - $total_debit1;
-$grand_total_closing_balance = $grand_total_closing_balance + $total_closing_balance;
-$grand_total_opening_balance = $grand_total_opening_balance + $total_opening_balance;
+	if($date1 >= $m_from && $date1 <= $m_to)
+	{
+		if($ammount_type_id1 == 1)
+		{
+		$total_debit1 = $total_debit1 + $amount1;	
+		$grand_total_debit = $grand_total_debit + $amount1;
+		}
+		else if($ammount_type_id1 == 2)
+		{
+		$total_credit1 = $total_credit1 + $amount1;	
+		$grand_total_credit = $grand_total_credit + $amount1;
+		}
+		}	
+	}
+	}
+	if($total_debit1 != 0 || $total_credit1 != 0)
+	{
+	$total_closing_balance = $total_closing_balance + $total_opening_balance + $total_credit1 - $total_debit1;
+	$grand_total_closing_balance = $grand_total_closing_balance + $total_closing_balance;
+	$grand_total_opening_balance = $grand_total_opening_balance + $total_opening_balance;
+	
 $excel.="<tr>
 <td style='text-align:center;'>          
 $account_name
 </td><td style='text-align:center;'>"; 
-if($total_opening_balance > 0)
-{
-$total_opening_balance = $total_opening_balance.'Cr';
-}
-else if($total_opening_balance < 0)
-{
-$total_opening_balance = abs($total_opening_balance);
-$total_opening_balance = $total_opening_balance.'Dr';
-}
-$excel.="$total_opening_balance</td>
-<td style='text-align:center;'>$total_debit1</td>
-<td style='text-align:center;'>$total_credit1</td>
-<td style='text-align:center;'>";
-if($total_closing_balance > 0)
-{
-$total_closing_balance = $total_closing_balance.'Cr';
-}
-else if($total_closing_balance < 0)
-{
-$total_closing_balance = abs($total_closing_balance);
-$total_closing_balance = $total_closing_balance.'Dr';
-}
-$excel.="$total_closing_balance</td>
-</tr>";
-}}
-$excel.="
-<tr>
-<th style='text-align:center;'>Total</th>
-<th style='text-align:center;'>"; 
-if($grand_total_opening_balance > 0)
-{
-$grand_total_opening_balance = $grand_total_opening_balance.'Cr';
-}
-else if($grand_total_opening_balance < 0)
-{
-$grand_total_opening_balance = abs($grand_total_opening_balance);
-$grand_total_opening_balance = $grand_total_opening_balance.'Dr';
-}
-$excel.="$grand_total_opening_balance</th>
-<th style='text-align:center;'>$grand_total_debit</th>
-<th style='text-align:center;'>$grand_total_credit</th>
-<th style='text-align:center;'>";
-if($grand_total_closing_balance > 0)
-{		
-$grand_total_closing_balance = $grand_total_closing_balance.'Cr';
-}
-else if($grand_total_closing_balance < 0)
-{
-$grand_total_closing_balance = abs($grand_total_closing_balance);
-$grand_total_closing_balance = $grand_total_closing_balance.'Dr';
-}
-$excel.="$grand_total_closing_balance</th>
-</tr>
-</table>";
-}
-if($tp == 4)
-{
-$excel="<table border='1'>
-<tr>
-<th colspan='5' style='text-align:center;'>
-$society_name</th>
-</tr>
+		if($total_opening_balance > 0)
+		{
+		$total_opening_balance = $total_opening_balance.'Cr';
+		}
+		else if($total_opening_balance < 0)
+		{
+		$total_opening_balance = abs($total_opening_balance);
+		$total_opening_balance = $total_opening_balance.'Dr';
+		}
+			$excel.="$total_opening_balance</td>
+			<td style='text-align:center;'>$total_debit1</td>
+			<td style='text-align:center;'>$total_credit1</td>
+			<td style='text-align:center;'>";
+				if($total_closing_balance > 0)
+				{
+				$total_closing_balance = $total_closing_balance.'Cr';
+				}
+				else if($total_closing_balance < 0)
+				{
+				$total_closing_balance = abs($total_closing_balance);
+				$total_closing_balance = $total_closing_balance.'Dr';
+				}
+	$excel.="$total_closing_balance</td>
+	</tr>";
+	}}
+		$excel.="
+		<tr>
+		<th style='text-align:center;'>Total</th>
+		<th style='text-align:center;'>"; 
+			if($grand_total_opening_balance > 0)
+			{
+			$grand_total_opening_balance = $grand_total_opening_balance.'Cr';
+			}
+			else if($grand_total_opening_balance < 0)
+			{
+			$grand_total_opening_balance = abs($grand_total_opening_balance);
+			$grand_total_opening_balance = $grand_total_opening_balance.'Dr';
+			}
+				$excel.="$grand_total_opening_balance</th>
+				<th style='text-align:center;'>$grand_total_debit</th>
+				<th style='text-align:center;'>$grand_total_credit</th>
+				<th style='text-align:center;'>";
+					if($grand_total_closing_balance > 0)
+					{		
+					$grand_total_closing_balance = $grand_total_closing_balance.'Cr';
+					}
+					else if($grand_total_closing_balance < 0)
+					{
+					$grand_total_closing_balance = abs($grand_total_closing_balance);
+					$grand_total_closing_balance = $grand_total_closing_balance.'Dr';
+					}
+						$excel.="$grand_total_closing_balance</th>
+						</tr>
+						</table>";
+						}
+			if($tp == 4)
+			{
+				$excel="<table border='1'>
+				<tr>
+				<th colspan='5' style='text-align:center;'>
+				$society_name</th>
+				</tr>
 
-<tr>
-<th colspan='5' style='text-align:center;'>
-Trial balance for the Period $from to $to
-</th>
-</tr>
-<tr>
-<th style='text-align:center;'>Account Name</th>
-<th style='text-align:center;'>Opening Balance</th>
-<th style='text-align:center;'>Debit</th>
-<th style='text-align:center;'>Credit</th>
-<th style='text-align:center;'>Closing balance</th>
-</tr>";
+				<tr>
+				<th colspan='5' style='text-align:center;'>
+				Trial balance for the Period $from to $to
+				</th>
+				</tr>
+				<tr>
+				<th style='text-align:center;'>Account Name</th>
+				<th style='text-align:center;'>Opening Balance</th>
+				<th style='text-align:center;'>Debit</th>
+				<th style='text-align:center;'>Credit</th>
+				<th style='text-align:center;'>Closing balance</th>
+				</tr>";
 
-$grand_total_debit = 0;
-$grand_total_credit = 0;
-$grand_total_opening_balance = 0;
-$grand_total_closing_balance = 0;
+		$grand_total_debit = 0;
+		$grand_total_credit = 0;
+		$grand_total_opening_balance = 0;
+		$grand_total_closing_balance = 0;
 
-$this->loadmodel('ledger_sub_account');
-$conditions=array("ledger_id"=>33);
-$cursor5 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
-foreach($cursor5 as $collection)
-{
-$auto_id11 = (int)$collection['ledger_sub_account']['auto_id'];
-$account_name = $collection['ledger_sub_account']['name'];
-$total_debit1 = 0;
-$total_credit1 = 0;
-$total_opening_balance = 0;
-$total_closing_balance = 0;
+			$this->loadmodel('ledger_sub_account');
+			$conditions=array("ledger_id"=>33);
+			$cursor5 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+			foreach($cursor5 as $collection)
+			{
+				$auto_id11 = (int)$collection['ledger_sub_account']['auto_id'];
+				$account_name = $collection['ledger_sub_account']['name'];
+				$total_debit1 = 0;
+				$total_credit1 = 0;
+				$total_opening_balance = 0;
+				$total_closing_balance = 0;
 
-$ledger1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_fetch1'),array('pass'=>array($auto_id11)));		
-foreach ($ledger1 as $collection) 
-{
-$amount1 = $collection['ledger']['amount'];
-$ammount_type_id1 = (int)$collection['ledger']['amount_category_id'];
-//$module_id = (int)@$collection['ledger']['module_id'];
-$receipt_id = (int)$collection['ledger']['receipt_id'];
-$op_date = @$collection['ledger']['op_date'];
-$table_name = $collection['ledger']['table_name']; 
-if($table_name == "cash_bank")
-{
-$module_id = (int)$collection['ledger']['module_id'];
-} 
+		$ledger1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_fetch1'),array('pass'=>array($auto_id11)));
+		
+		foreach ($ledger1 as $collection) 
+		{
+		$amount1 = $collection['ledger']['amount'];
+		$ammount_type_id1 = (int)$collection['ledger']['amount_category_id'];
+		$receipt_id = (int)$collection['ledger']['receipt_id'];
+		$op_date = @$collection['ledger']['op_date'];
+		$table_name = $collection['ledger']['table_name']; 
+			if($table_name == "cash_bank")
+			{
+			$module_id = (int)$collection['ledger']['module_id'];
+			} 
  
-if($receipt_id != 'O_B')
-{
-/*
-$module1 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_fetch'),array('pass'=>array($module_id)));	
-foreach ($module1 as $collection) 
-{
-$module_name = @$collection['account_category']['ac_category'];
-}
-*/
-if($table_name == "cash_bank")
-{
-$date_fetch=$this->requestAction(array('controller'=>'hms','action'=>'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id)));
-}
-else
-{
-$date_fetch=$this->requestAction(array('controller'=>'hms','action'=>'module_main_fetch3'),array('pass'=>array($table_name,$receipt_id)));
-}
+	if($receipt_id != 'O_B')
+	{
+		if($table_name == "cash_bank")
+		{
+		$date_fetch=$this->requestAction(array('controller'=>'hms','action'=>'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id)));
+		}
+		else
+		{
+		$date_fetch=$this->requestAction(array('controller'=>'hms','action'=>'module_main_fetch3'),array('pass'=>array($table_name,$receipt_id)));
+		}
+			
+			foreach ($date_fetch as $collection) 
+			{
+				$date1 = @$collection[$table_name]['transaction_date'];
+				if(empty($date1))
+				{
+				$date1 = @$collection[$table_name]['posting_date'];	
+				}
+				if(empty($date1))
+				{
+				$date1 = @$collection[$table_name]['purchase_date'];	
+				}
+				if(empty($date1))
+				{
+				$date1 = @$collection[$table_name]['date'];	
+				}
+			}		
+		}
+		else
+		{
+			if($op_date < $from)
+			{
+				if($ammount_type_id1 == 1)
+				{
+				$total_opening_balance = $total_opening_balance - $amount1;
+				}
+				else if($ammount_type_id1 == 2)
+				{
+				$total_opening_balance = $total_opening_balance + $amount1;	
+				}
+			}
+			else
+			{
+				if($ammount_type_id1 == 1)
+				{
+				$total_closing_balance = $total_closing_balance - $amount1;	
+				}
+				else if($ammount_type_id1 == 2)
+				{
+				$total_closing_balance = $total_closing_balance + $amount1;	
+				}
+			}
+		}
 
-				
-foreach ($date_fetch as $collection) 
-{
-$date1 = @$collection[$table_name]['transaction_date'];
-if(empty($date1))
-{
-$date1 = @$collection[$table_name]['posting_date'];	
-}
-if(empty($date1))
-{
-$date1 = @$collection[$table_name]['purchase_date'];	
-}
-if(empty($date1))
-{
-$date1 = @$collection[$table_name]['date'];	
-}
-}		
-}
-else
-{
-if($op_date < $from)
-{
-if($ammount_type_id1 == 1)
-{
-$total_opening_balance = $total_opening_balance - $amount1;
-}
-else if($ammount_type_id1 == 2)
-{
-$total_opening_balance = $total_opening_balance + $amount1;	
-}
-}
-else
-{
-if($ammount_type_id1 == 1)
-{
-$total_closing_balance = $total_closing_balance - $amount1;	
-}
-else if($ammount_type_id1 == 2)
-{
-$total_closing_balance = $total_closing_balance + $amount1;	
-}
-}
-}
+		if($receipt_id != 'O_B')
+		{
+			if($date1 < $m_from)
+			{
+				if($ammount_type_id1 == 1)
+				{
+				$total_opening_balance = $total_opening_balance - $amount1;
+				}
+					else if($ammount_type_id1 == 2)
+					{
+					$total_opening_balance = $total_opening_balance + $amount1;	
+					}
+			}
 
+			if($date1 >= $m_from && $date1 <= $m_to)
+			{
+				if($ammount_type_id1 == 1)
+				{
+				$total_debit1 = $total_debit1 + $amount1;	
+				$grand_total_debit = $grand_total_debit + $amount1;
+				}
+				else if($ammount_type_id1 == 2)
+				{
+				$total_credit1 = $total_credit1 + $amount1;	
+				$grand_total_credit = $grand_total_credit + $amount1;
+				}
+			}	
+		}
+	}
+	
+	if($total_debit1 != 0 || $total_credit1 != 0)
+	{
+	$total_closing_balance = $total_closing_balance + $total_opening_balance + $total_credit1 - $total_debit1;
+	$grand_total_closing_balance = $grand_total_closing_balance + $total_closing_balance;
+	$grand_total_opening_balance = $grand_total_opening_balance + $total_opening_balance;
 
-if($receipt_id != 'O_B')
-{
-if($date1 < $m_from)
-{
-if($ammount_type_id1 == 1)
-{
-$total_opening_balance = $total_opening_balance - $amount1;
-}
-else if($ammount_type_id1 == 2)
-{
-$total_opening_balance = $total_opening_balance + $amount1;	
-}
-}
+	$excel.="<tr>
+	<td style='text-align:center;'>$account_name</td>
+	<td style='text-align:center;'>";
+		if($total_opening_balance > 0)
+		{
+		$total_opening_balance = $total_opening_balance.'Cr';
+		}
+		else if($total_opening_balance < 0)
+		{
+		$total_opening_balance = abs($total_opening_balance);
+		$total_opening_balance = $total_opening_balance.'Dr';
+		}
+			$excel.="$total_opening_balance</td>
+			<td style='text-align:center;'>$total_debit1</td>
+			<td style='text-align:center;'>$total_credit1</td>
+			<td style='text-align:center;'>";
+				if($total_closing_balance > 0)
+				{
+				$total_closing_balance = $total_closing_balance.'Cr';
+				}
+				else if($total_closing_balance < 0)
+				{
+				$total_closing_balance = abs($total_closing_balance);
+				$total_closing_balance = $total_closing_balance.'Dr';
+				}
+				$excel.="$total_closing_balance</td>
+				</tr>";
+				}}
+			$excel.="<tr>
+			<th style='text-align:center;'>Total</th>
+			<th style='text-align:center;'>"; 
+			
+			if($grand_total_opening_balance > 0)
+			{
+			$grand_total_opening_balance = $grand_total_opening_balance.'Cr';
+			}
+			else if($grand_total_opening_balance < 0)
+			{
+			$grand_total_opening_balance = abs($grand_total_opening_balance);
+			$grand_total_opening_balance = $grand_total_opening_balance.'Dr';
+			}
+			
+		$excel.="$grand_total_opening_balance</th>
+		<th style='text-align:center;'>$grand_total_debit</th>
+		<th style='text-align:center;'>$grand_total_credit</th>
+		<th style='text-align:center;'>";
+		if($grand_total_closing_balance > 0)
+		{
+		$grand_total_closing_balance = $grand_total_closing_balance.'Cr';
+		}
+		else if($grand_total_closing_balance < 0)
+		{
+		$grand_total_closing_balance = abs($grand_total_closing_balance);
+		$grand_total_closing_balance = $grand_total_closing_balance.'Dr';
+		}
+			$excel.="$grand_total_closing_balance</th>
+			</tr>
+			</table>";
+		}
 
-if($date1 >= $m_from && $date1 <= $m_to)
-{
-if($ammount_type_id1 == 1)
-{
-$total_debit1 = $total_debit1 + $amount1;	
-$grand_total_debit = $grand_total_debit + $amount1;
-}
-else if($ammount_type_id1 == 2)
-{
-$total_credit1 = $total_credit1 + $amount1;	
-$grand_total_credit = $grand_total_credit + $amount1;
-}
-}	
-}
-}
-if($total_debit1 != 0 || $total_credit1 != 0)
-{
-$total_closing_balance = $total_closing_balance + $total_opening_balance + $total_credit1 - $total_debit1;
-$grand_total_closing_balance = $grand_total_closing_balance + $total_closing_balance;
-$grand_total_opening_balance = $grand_total_opening_balance + $total_opening_balance;
-
-$excel.="<tr>
-<td style='text-align:center;'>$account_name</td>
-<td style='text-align:center;'>";
-if($total_opening_balance > 0)
-{
-$total_opening_balance = $total_opening_balance.'Cr';
-}
-else if($total_opening_balance < 0)
-{
-$total_opening_balance = abs($total_opening_balance);
-$total_opening_balance = $total_opening_balance.'Dr';
-}
-$excel.="$total_opening_balance</td>
-<td style='text-align:center;'>$total_debit1</td>
-<td style='text-align:center;'>$total_credit1</td>
-<td style='text-align:center;'>";
-if($total_closing_balance > 0)
-{
-$total_closing_balance = $total_closing_balance.'Cr';
-}
-else if($total_closing_balance < 0)
-{
-$total_closing_balance = abs($total_closing_balance);
-$total_closing_balance = $total_closing_balance.'Dr';
-}
-$excel.="$total_closing_balance</td>
-</tr>";
-}}
-$excel.="<tr>
-<th style='text-align:center;'>Total</th>
-<th style='text-align:center;'>"; 
-if($grand_total_opening_balance > 0)
-{
-$grand_total_opening_balance = $grand_total_opening_balance.'Cr';
-}
-else if($grand_total_opening_balance < 0)
-{
-$grand_total_opening_balance = abs($grand_total_opening_balance);
-$grand_total_opening_balance = $grand_total_opening_balance.'Dr';
-}
-$excel.="$grand_total_opening_balance</th>
-<th style='text-align:center;'>$grand_total_debit</th>
-<th style='text-align:center;'>$grand_total_credit</th>
-<th style='text-align:center;'>";
-if($grand_total_closing_balance > 0)
-{
-$grand_total_closing_balance = $grand_total_closing_balance.'Cr';
-}
-else if($grand_total_closing_balance < 0)
-{
-$grand_total_closing_balance = abs($grand_total_closing_balance);
-$grand_total_closing_balance = $grand_total_closing_balance.'Dr';
-}
-$excel.="$grand_total_closing_balance</th>
-</tr>
-</table>";
-}
-
-if($tp == 3)
-{
+		if($tp == 3)
+		{
 $excel="
 <table border='1'>
 <tr>
@@ -2271,772 +2226,695 @@ Trial balance for the Period $from to $to
 <th style='text-align:center;'>Debit</th>
 <th style='text-align:center;'>Credit</th>
 <th style='text-align:center;'>Closing balance</th>
-</tr>
-";
-$grand_total_debit = 0;
-$grand_total_credit = 0;
-$grand_total_opening_balance = 0;
-$grand_total_closing_balance = 0;
-$this->loadmodel('accounts_category');
-$order=array('accounts_category.auto_id'=> 'ASC');
-$cursor2 = $this->accounts_category->find('all',array('order' =>$order));
-foreach($cursor2 as $collection)
-{
-$auto_id11 = (int)$collection['accounts_category']['auto_id'];
-$result11 = $this->requestAction(array('controller' => 'hms', 'action' => 'accounts_group_fetch'),array('pass'=>array($auto_id11)));
-foreach($result11 as $collection)
-{
-$auto_id22 = (int)$collection['accounts_group']['auto_id'];
-$result22 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch'),array('pass'=>array($auto_id22)));
-foreach($result22 as $collection)
-{
-$auto_id3 = (int)$collection['ledger_account']['auto_id'];
-$account_name = $collection['ledger_account']['ledger_name'];
+</tr>";
 
-if($auto_id3 == 34 || $auto_id3 == 15 || $auto_id3 == 33 || $auto_id3 == 35)
-{	
-$total_debit1 = 0;
-$total_credit1 = 0;
-$total_opening_balance = 0;
-$total_closing_balance = 0;
-$n=1;
-$result_lsa1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch2'),array('pass'=>array($auto_id3)));
-foreach ($result_lsa1 as $collection) 
-{
-$sub_id1 = (int)$collection['ledger_sub_account']['auto_id'];
-$sub_account_name1 = $collection['ledger_sub_account']['name'];
+	$grand_total_debit = 0;
+	$grand_total_credit = 0;
+	$grand_total_opening_balance = 0;
+	$grand_total_closing_balance = 0;
+		$this->loadmodel('accounts_category');
+		$order=array('accounts_category.auto_id'=> 'ASC');
+		$cursor2 = $this->accounts_category->find('all',array('order' =>$order));
+		foreach($cursor2 as $collection)
+		{
+		$auto_id11 = (int)$collection['accounts_category']['auto_id'];
+		$result11 = $this->requestAction(array('controller' => 'hms', 'action' => 'accounts_group_fetch'),array('pass'=>array($auto_id11)));
+			foreach($result11 as $collection)
+			{
+				$auto_id22 = (int)$collection['accounts_group']['auto_id'];
+				$result22 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch'),array('pass'=>array($auto_id22)));
+				foreach($result22 as $collection)
+				{
+				$auto_id3 = (int)$collection['ledger_account']['auto_id'];
+				$account_name = $collection['ledger_account']['ledger_name'];
 
-$ledger1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_fetch1'),array('pass'=>array($sub_id1)));		
-foreach ($ledger1 as $collection) 
-{
-$amount1 = $collection['ledger']['amount'];
-$ammount_type_id1 = (int)$collection['ledger']['amount_category_id'];
-//$module_id = (int)@$collection['ledger']['module_id'];
-$receipt_id = (int)$collection['ledger']['receipt_id'];
-$op_date = @$collection['ledger']['op_date'];
-$table_name = $collection['ledger']['table_name'];
-if($table_name == "cash_bank")
-{
-$module_id = (int)$collection['ledger']['module_id'];
-}
-if($receipt_id != 'O_B')
-{
-/*	
-$module1 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_fetch'),array('pass'=>array($module_id)));	
-foreach ($module1 as $collection) 
-{
-$module_name = @$collection['account_category']['ac_category'];
-}
-*/
-if($table_name == "cash_bank")
-{
-$date_fetch=$this->requestAction(array('controller'=>'hms','action'=>'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id)));	
-}
-else
-{
-$date_fetch=$this->requestAction(array('controller'=>'hms','action'=>'module_main_fetch3'),array('pass'=>array($table_name,$receipt_id)));				
-}
+	if($auto_id3 == 34 || $auto_id3 == 15 || $auto_id3 == 33 || $auto_id3 == 35)
+	{	
+		$total_debit1 = 0;
+		$total_credit1 = 0;
+		$total_opening_balance = 0;
+		$total_closing_balance = 0;
+		$n=1;
+			$result_lsa1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch2'),array('pass'=>array($auto_id3)));
+			
+	foreach ($result_lsa1 as $collection) 
+	{
+	$sub_id1 = (int)$collection['ledger_sub_account']['auto_id'];
+	$sub_account_name1 = $collection['ledger_sub_account']['name'];
 
-foreach ($date_fetch as $collection) 
-{
-$date1 = @$collection[$table_name]['transaction_date'];
-if(empty($date1))
-{
-$date1 = @$collection[$table_name]['posting_date'];	
-}
-if(empty($date1))
-{
-$date1 = @$collection[$table_name]['purchase_date'];	
-}
-if(empty($date1))
-{
-$date1 = @$collection[$table_name]['date'];	
-}
-}	
-}
-else
-{
-if($op_date < $from)
-{
-if($ammount_type_id1 == 1)
-{
-$total_opening_balance = $total_opening_balance - $amount1;
-}
-else if($ammount_type_id1 == 2)
-{
-$total_opening_balance = $total_opening_balance + $amount1;	
-}
-}
-else
-{
-if($ammount_type_id1 == 1)
-{
-$total_closing_balance = $total_closing_balance - $amount1;	
-}
-else if($ammount_type_id1 == 2)
-{
-$total_closing_balance = $total_closing_balance + $amount1;	
-}
-}
-}
+		$ledger1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_fetch1'),array('pass'=>array($sub_id1)));	
+		
+	foreach ($ledger1 as $collection) 
+	{
+	$amount1 = $collection['ledger']['amount'];
+	$ammount_type_id1 = (int)$collection['ledger']['amount_category_id'];
+	$receipt_id = (int)$collection['ledger']['receipt_id'];
+	$op_date = @$collection['ledger']['op_date'];
+	$table_name = $collection['ledger']['table_name'];
+		if($table_name == "cash_bank")
+		{
+		$module_id = (int)$collection['ledger']['module_id'];
+		}
+			if($receipt_id != 'O_B')
+			{
+				if($table_name == "cash_bank")
+				{
+				$date_fetch=$this->requestAction(array('controller'=>'hms','action'=>'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id,$module_id)));	
+				}
+				else
+				{
+				$date_fetch=$this->requestAction(array('controller'=>'hms','action'=>'module_main_fetch3'),array('pass'=>array($table_name,$receipt_id)));				
+				}
 
+			foreach ($date_fetch as $collection) 
+			{
+				$date1 = @$collection[$table_name]['transaction_date'];
+				if(empty($date1))
+				{
+				$date1 = @$collection[$table_name]['posting_date'];	
+				}
+				if(empty($date1))
+				{
+				$date1 = @$collection[$table_name]['purchase_date'];	
+				}
+				if(empty($date1))
+				{
+				$date1 = @$collection[$table_name]['date'];	
+				}
+			}	
+		}
+		else
+		{
+			if($op_date < $from)
+			{
+				if($ammount_type_id1 == 1)
+				{
+				$total_opening_balance = $total_opening_balance - $amount1;
+				}
+				else if($ammount_type_id1 == 2)
+				{
+				$total_opening_balance = $total_opening_balance + $amount1;	
+				}
+			}
+			else
+			{
+				if($ammount_type_id1 == 1)
+				{
+				$total_closing_balance = $total_closing_balance - $amount1;	
+				}
+				else if($ammount_type_id1 == 2)
+				{
+				$total_closing_balance = $total_closing_balance + $amount1;	
+				}
+			}
+			}
 
-if($receipt_id != 'O_B')
-{	
-if($date1 < $m_from)
-{
-if($ammount_type_id1 == 1)
-{
-$total_opening_balance = $total_opening_balance - $amount1;
-}
-else if($ammount_type_id1 == 2)
-{
-$total_opening_balance = $total_opening_balance + $amount1;	
-}
-}
+	if($receipt_id != 'O_B')
+	{	
+		if($date1 < $m_from)
+		{
+			if($ammount_type_id1 == 1)
+			{
+			$total_opening_balance = $total_opening_balance - $amount1;
+			}
+			else if($ammount_type_id1 == 2)
+			{
+			$total_opening_balance = $total_opening_balance + $amount1;	
+			}
+		}
 
-if($date1 >= $m_from && $date1 <= $m_to)
-{
-if($ammount_type_id1 == 1)
-{
-$total_debit1 = $total_debit1 + $amount1;	
-}
-else if($ammount_type_id1 == 2)
-{
-$total_credit1 = $total_credit1 + $amount1;	
-}
-}	
-}
-}
-}
-if($total_debit1 != 0 || $total_credit1 != 0)
-{
-$total_closing_balance = $total_closing_balance + $total_opening_balance + $total_credit1 - $total_debit1; 
-$grand_total_closing_balance = $grand_total_closing_balance + $total_closing_balance;
-$grand_total_opening_balance = $grand_total_opening_balance + $total_opening_balance;  
-
-$excel.="<tr>
-<td>$account_name</td>
-<td></td>
-<td>"; 
-if($total_opening_balance > 0)
-{
-$total_opening_balance = $total_opening_balance.'Cr';
-}
-else if($total_opening_balance < 0) 
-{ 
-$total_opening_balance = abs($total_opening_balance);
-$total_opening_balance = $total_opening_balance.'Dr';
-}
-$excel.="</td>
-<td></td>
-<td></td>
-<td>";
-if($total_closing_balance > 0)
-{
-$total_closing_balance = $total_closing_balance.'Cr';
-}
-else if($total_closing_balance < 0)
-{
-$total_closing_balance = abs($total_closing_balance);
-$total_closing_balance = $total_closing_balance.'Dr';
-}
-$excel.="</td>
-</tr>
-<tr>
-<td colspan='6'>";
-$excel.="
-<table border='1'> 
-";
-
-$n++;
-$total_sub_credit = 0;
-$total_sub_debit = 0;
-$total_sub_opening_balance = 0;
-$total_sub_closing_balance = 0;
-$result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch2'),array('pass'=>array($auto_id3)));			
-foreach ($result_lsa as $collection) 
-{
-$sub_id = (int)$collection['ledger_sub_account']['auto_id'];
-$sub_account_name = $collection['ledger_sub_account']['name'];
-
-$debit_sub = 0;
-$credit_sub = 0;
-$opening_balance_sub = 0;
-$closing_balance_sub = 0;
-$ledger2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_fetch1'),array('pass'=>array($sub_id)));			
-foreach ($ledger2 as $collection) 
-{
-$amount = $collection['ledger']['amount'];
-$ammount_type_id = (int)$collection['ledger']['amount_category_id'];
-//$module_id = (int)@$collection['ledger']['module_id'];
-$receipt_id_s = (int)$collection['ledger']['receipt_id'];
-$op_date2 = @$collection['ledger']['op_date'];
-$table_name = $collection['ledger']['table_name'];
-if($table_name == "cash_bank")
-{
-$module_id = (int)$collection['ledger']['module_id'];
+			if($date1 >= $m_from && $date1 <= $m_to)
+			{
+				if($ammount_type_id1 == 1)
+				{
+				$total_debit1 = $total_debit1 + $amount1;	
+				}
+				else if($ammount_type_id1 == 2)
+				{
+				$total_credit1 = $total_credit1 + $amount1;	
+				}
+			}	
+		}
+	}
 }
 
+	if($total_debit1 != 0 || $total_credit1 != 0)
+	{
+	$total_closing_balance = $total_closing_balance + $total_opening_balance + $total_credit1 - $total_debit1; 
+	$grand_total_closing_balance = $grand_total_closing_balance + $total_closing_balance;
+	$grand_total_opening_balance = $grand_total_opening_balance + $total_opening_balance;  
 
+		$excel.="<tr>
+		<td>$account_name</td>
+		<td></td>
+		<td>"; 
+			if($total_opening_balance > 0)
+			{
+			$total_opening_balance = $total_opening_balance.'Cr';
+			}
+			else if($total_opening_balance < 0) 
+			{ 
+			$total_opening_balance = abs($total_opening_balance);
+			$total_opening_balance = $total_opening_balance.'Dr';
+			}
+				$excel.="</td>
+				<td></td>
+				<td></td>
+				<td>";
+					if($total_closing_balance > 0)
+					{
+					$total_closing_balance = $total_closing_balance.'Cr';
+					}
+					else if($total_closing_balance < 0)
+					{
+					$total_closing_balance = abs($total_closing_balance);
+					$total_closing_balance = $total_closing_balance.'Dr';
+					}
+						$excel.="</td>
+						</tr>
+						<tr>
+						<td colspan='6'>";
+						$excel.="
+						<table border='1'>";
 
-if($receipt_id_s != 'O_B')
-{	
-/*
-$module2 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_fetch'),array('pass'=>array($module_id)));  
-foreach ($module2 as $collection) 
-{
-$module_name = @$collection['account_category']['ac_category'];
-}
-*/	
-if($table_name == "cash_bank")
-{
-$date_fetch2 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id_s,$module_id)));
-}
-else
-{
-$date_fetch2 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch3'),array('pass'=>array($table_name,$receipt_id_s)));
-}	
-foreach ($date_fetch2 as $collection) 
-{
-$date2 = @$collection[$table_name]['transaction_date'];
-if(empty($date2))
-{
-$date2 = @$collection[$table_name]['posting_date'];	
-}
-if(empty($date2))
-{
-$date2 = @$collection[$table_name]['purchase_date'];	
-}
-if(empty($date2))
-{
-$date2 = @$collection[$table_name]['date'];	
-}
-}	
-}
-else
-{
-if($op_date2 < $from)
-{
-if($ammount_type_id == 1)
-{
-$opening_balance_sub = $opening_balance_sub - $amount;
-}
-else if($ammount_type_id == 2)
-{
-$opening_balance_sub = $opening_balance_sub + $amount;	
-}
-}
-else
-{
-if($ammount_type_id == 1)
-{
-$closing_balance_sub = $closing_balance_sub - $amount;	
-}
-else if($ammount_type_id == 2)
-{
-$closing_balance_sub = $closing_balance_sub + $amount;	
-}
-}	
-}
+	$n++;
+		$total_sub_credit = 0;
+		$total_sub_debit = 0;
+		$total_sub_opening_balance = 0;
+		$total_sub_closing_balance = 0;
+	$result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch2'),array('pass'=>array($auto_id3)));			
+		foreach ($result_lsa as $collection) 
+		{
+		$sub_id = (int)$collection['ledger_sub_account']['auto_id'];
+		$sub_account_name = $collection['ledger_sub_account']['name'];
 
-if($receipt_id_s != 'O_B')
-{
-if($date2 < $m_from)
-{
-if($ammount_type_id == 1)
-{
-$opening_balance_sub = $opening_balance_sub - $amount;
-}
-else if($ammount_type_id == 2)
-{
-$opening_balance_sub = $opening_balance_sub + $amount;
-}
-}
+	$debit_sub = 0;
+	$credit_sub = 0;
+	$opening_balance_sub = 0;
+	$closing_balance_sub = 0;
+		$ledger2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_fetch1'),array('pass'=>array($sub_id)));	
+		
+	foreach ($ledger2 as $collection) 
+	{
+	$amount = $collection['ledger']['amount'];
+	$ammount_type_id = (int)$collection['ledger']['amount_category_id'];
+	$receipt_id_s = (int)$collection['ledger']['receipt_id'];
+	$op_date2 = @$collection['ledger']['op_date'];
+	$table_name = $collection['ledger']['table_name'];
+		if($table_name == "cash_bank")
+		{
+		$module_id = (int)$collection['ledger']['module_id'];
+		}
+	if($receipt_id_s != 'O_B')
+	{	
+		if($table_name == "cash_bank")
+		{
+		$date_fetch2 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id_s,$module_id)));
+		}
+		else
+		{
+		$date_fetch2 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_main_fetch3'),array('pass'=>array($table_name,$receipt_id_s)));
+		}	
+			foreach ($date_fetch2 as $collection) 
+			{
+			$date2 = @$collection[$table_name]['transaction_date'];
+				if(empty($date2))
+				{
+				$date2 = @$collection[$table_name]['posting_date'];	
+				}
+				if(empty($date2))
+				{
+				$date2 = @$collection[$table_name]['purchase_date'];	
+				}
+				if(empty($date2))
+				{
+				$date2 = @$collection[$table_name]['date'];	
+				}
+			}	
+		}
+		else
+		{
+			if($op_date2 < $from)
+			{
+				if($ammount_type_id == 1)
+				{
+				$opening_balance_sub = $opening_balance_sub - $amount;
+				}
+				else if($ammount_type_id == 2)
+				{
+				$opening_balance_sub = $opening_balance_sub + $amount;	
+				}
+			}
+			else
+			{
+				if($ammount_type_id == 1)
+				{
+				$closing_balance_sub = $closing_balance_sub - $amount;	
+				}
+				else if($ammount_type_id == 2)
+				{
+				$closing_balance_sub = $closing_balance_sub + $amount;	
+				}
+			}	
+		}
 
-if($date2 >= $m_from && $date2 <= $m_to)
-{
-if($ammount_type_id == 1)
-{
-$debit_sub = $debit_sub + $amount;
-$total_sub_debit = $total_sub_debit + $amount;
-$grand_total_debit = $grand_total_debit + $amount;
-}
-else if($ammount_type_id == 2)
-{
-$credit_sub = $credit_sub + $amount;
-$total_sub_credit = $total_sub_credit + $amount;
-$grand_total_credit =$grand_total_credit + $amount;
-}
-}
-}
-}
-if($credit_sub != 0 || $debit_sub != 0)
-{
-$closing_balance_sub = $closing_balance_sub + $opening_balance_sub - $debit_sub + $credit_sub;
-$total_sub_closing_balance = $total_sub_closing_balance + $closing_balance_sub;
-$total_sub_opening_balance = $total_sub_opening_balance + $opening_balance_sub;
+		if($receipt_id_s != 'O_B')
+		{
+			if($date2 < $m_from)
+			{
+				if($ammount_type_id == 1)
+				{
+				$opening_balance_sub = $opening_balance_sub - $amount;
+				}
+				else if($ammount_type_id == 2)
+				{
+				$opening_balance_sub = $opening_balance_sub + $amount;
+				}
+			}
+
+		if($date2 >= $m_from && $date2 <= $m_to)
+		{
+			if($ammount_type_id == 1)
+			{
+			$debit_sub = $debit_sub + $amount;
+			$total_sub_debit = $total_sub_debit + $amount;
+			$grand_total_debit = $grand_total_debit + $amount;
+			}
+			else if($ammount_type_id == 2)
+			{
+			$credit_sub = $credit_sub + $amount;
+			$total_sub_credit = $total_sub_credit + $amount;
+			$grand_total_credit =$grand_total_credit + $amount;
+			}
+		}
+		}
+		}
+		
+	if($credit_sub != 0 || $debit_sub != 0)
+	{
+	$closing_balance_sub = $closing_balance_sub + $opening_balance_sub - $debit_sub + $credit_sub;
+	$total_sub_closing_balance = $total_sub_closing_balance + $closing_balance_sub;
+	$total_sub_opening_balance = $total_sub_opening_balance + $opening_balance_sub;
+	
 $excel.="<tr>
 <td></td>
 <td>$sub_account_name</td>
 <td>";
-if($opening_balance_sub > 0)
-{
-$opening_balance_sub = $opening_balance_sub.'Cr';
-}
-else if($opening_balance_sub < 0)
-{
-$opening_balance_sub = abs($opening_balance_sub);
-$opening_balance_sub = $opening_balance_sub.'Dr';
-}
-$excel.="$opening_balance_sub</td>
-<td>$debit_sub</td>
-<td>$credit_sub</td>
-<td>";
-if($closing_balance_sub > 0)
-{
-$closing_balance_sub = $closing_balance_sub.'Cr';
-}
-else if($closing_balance_sub < 0)
-{
-$closing_balance_sub = abs($closing_balance_sub);
-$closing_balance_sub = $closing_balance_sub.'Dr';
-}
-$excel.="$closing_balance_sub</td>
-</tr>";
-}}
-/*
-$excel.="<tr>
-<th colspan=''>Total</th>
-<th>";
-if($total_sub_opening_balance > 0)
-{
-$total_sub_opening_balance = $total_sub_opening_balance.'Cr';
-}
-else if($total_sub_opening_balance < 0)
-{
-$total_sub_opening_balance = abs($total_sub_opening_balance);
-$total_sub_opening_balance = $total_sub_opening_balance.'Dr';
-}
-$excel.="$total_sub_opening_balance</th>
-<th>$total_sub_debit</th>
-<th>$total_sub_credit</th>
-<th>";
-if($total_sub_closing_balance > 0)
-{
-$total_sub_closing_balance = $total_sub_closing_balance.'Cr';
-}
-else if($total_sub_closing_balance < 0)
-{
-$total_sub_closing_balance = abs($total_sub_closing_balance);
-$total_sub_closing_balance = $total_sub_closing_balance.'Dr';
-}
-$excel.="$total_sub_closing_balance</th>
-</tr>*/
+		if($opening_balance_sub > 0)
+		{
+		$opening_balance_sub = $opening_balance_sub.'Cr';
+		}
+		else if($opening_balance_sub < 0)
+		{
+		$opening_balance_sub = abs($opening_balance_sub);
+		$opening_balance_sub = $opening_balance_sub.'Dr';
+		}
+		
+		$excel.="$opening_balance_sub</td>
+		<td>$debit_sub</td>
+		<td>$credit_sub</td>
+		<td>";
+			if($closing_balance_sub > 0)
+			{
+			$closing_balance_sub = $closing_balance_sub.'Cr';
+			}
+			else if($closing_balance_sub < 0)
+			{
+			$closing_balance_sub = abs($closing_balance_sub);
+			$closing_balance_sub = $closing_balance_sub.'Dr';
+			}
+		$excel.="$closing_balance_sub</td>
+		</tr>";
+		}}
 
+	$excel.="</table>
+	</td>
+	</tr>";
+		}}
+		else
+		{
+	$total_debit = 0;
+	$total_credit = 0;
+	$total_opening_balance2 = 0;
+	$total_closing_balance2 = 0;
+		$ledger_fetch2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_fetch2'),array('pass'=>array($auto_id3)));	
+	foreach ($ledger_fetch2 as $collection) 
+	{
+	$amount = $collection['ledger']['amount'];
+	$amount_type_id = (int)$collection['ledger']['amount_category_id'];
+	$receipt_id2 = (int)$collection['ledger']['receipt_id'];
+	$op_date3 = @$collection['ledger']['op_date'];
+	$table_name = $collection['ledger']['table_name'];
+		if($table_name == "cash_bank")
+		{
+		$module_id = (int)$collection['ledger']['module_id'];
+		}
+	if($receipt_id2 != 'O_B')
+	{
+		if($table_name == "cash_bank")
+		{
+		$module_fetch3 = $this->requestAction(array('controller' => 'hms', 'action' =>'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id2,$module_id)));
+		}
+		else
+		{
+		$module_fetch3 = $this->requestAction(array('controller' => 'hms', 'action' =>'module_main_fetch3'),array('pass'=>array($table_name,$receipt_id2)));
+		}
+			foreach ($module_fetch3 as $collection) 
+			{
+				$date3 = @$collection[$table_name]['transaction_date'];
+				if(empty($date3))
+				{
+				$date3 = @$collection[$table_name]['posting_date'];	
+				}
+				if(empty($date3))
+				{
+				$date3 = @$collection[$table_name]['purchase_date'];	
+				}
+				if(empty($date3))
+				{
+				$date3 = @$collection[$table_name]['date'];	
+				}
+			}		
+		}
+		else
+		{
+			if($op_date3 < $from)
+			{
+				if($amount_type_id == 1)
+				{
+				$total_opening_balance2 = $total_opening_balance2 - $amount;
+				}
+				else if($amount_type_id == 2)
+				{
+				$total_opening_balance2 = $total_opening_balance2 + $amount;	
+				}
+			}
+			else
+			{
+				if($amount_type_id == 1)
+				{
+				$total_closing_balance2 = $total_closing_balance2 - $amount;	
+				}
+				else if($amount_type_id == 2)
+				{
+				$total_closing_balance2 = $total_closing_balance2 + $amount;	
+				}
+			}		
+		}
 
+		if($receipt_id2 != 'O_B')
+		{
+			if($date3 < $m_from)
+			{
+				if($amount_type_id == 1)
+				{
+				$total_opening_balance2 = $total_opening_balance2 - $amount;
+				}
+				else if($amount_type_id == 2)
+				{
+				$total_opening_balance2 = $total_opening_balance2 + $amount;
+				}
+			}
 
-$excel.="</table>
-</td>
-</tr>";
-}}
-else
-{
-$total_debit = 0;
-$total_credit = 0;
-$total_opening_balance2 = 0;
-$total_closing_balance2 = 0;
-$ledger_fetch2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_fetch2'),array('pass'=>array($auto_id3)));	
-foreach ($ledger_fetch2 as $collection) 
-{
-$amount = $collection['ledger']['amount'];
-$amount_type_id = (int)$collection['ledger']['amount_category_id'];
-//$module_id = (int)@$collection['ledger']['module_id'];
-$receipt_id2 = (int)$collection['ledger']['receipt_id'];
-$op_date3 = @$collection['ledger']['op_date'];
-$table_name = $collection['ledger']['table_name'];
-if($table_name == "cash_bank")
-{
-$module_id = (int)$collection['ledger']['module_id'];
-}
+		if(@$date3 >= $m_from && @$date3 <= $m_to)
+		{
+			if($amount_type_id == 1)
+			{
+			$total_debit = $total_debit + $amount;
+			$grand_total_debit = $grand_total_debit + $amount;
+			}
+			else if($amount_type_id == 2)
+			{
+			$total_credit = $total_credit + $amount;
+			$grand_total_credit = $grand_total_credit + $amount;
+			}
+		}
+	}
+	}
+	
+	if($total_debit !=0 || $total_credit != 0)
+	{ 
+	$total_closing_balance2 = $total_closing_balance2 + $total_opening_balance2 + $total_credit - $total_debit;
+	$grand_total_closing_balance = $grand_total_closing_balance + $total_closing_balance2;
+	$grand_total_opening_balance = $grand_total_opening_balance + $total_opening_balance2;
 
-
-if($receipt_id2 != 'O_B')
-{
-/*
-$module_fetch2 = $this->requestAction(array('controller' => 'hms', 'action' => 'module_fetch'),array('pass'=>array($module_id)));		
-foreach ($module_fetch2 as $collection) 
-{
-$module_name = @$collection['account_category']['ac_category'];
-}
-*/
-if($table_name == "cash_bank")
-{
-$module_fetch3 = $this->requestAction(array('controller' => 'hms', 'action' =>'module_main_fetch5'),array('pass'=>array($table_name,$receipt_id2,$module_id)));
-}
-else
-{
-$module_fetch3 = $this->requestAction(array('controller' => 'hms', 'action' =>'module_main_fetch3'),array('pass'=>array($table_name,$receipt_id2)));
-}
-foreach ($module_fetch3 as $collection) 
-{
-$date3 = @$collection[$table_name]['transaction_date'];
-if(empty($date3))
-{
-$date3 = @$collection[$table_name]['posting_date'];	
-}
-if(empty($date3))
-{
-$date3 = @$collection[$table_name]['purchase_date'];	
-}
-if(empty($date3))
-{
-$date3 = @$collection[$table_name]['date'];	
-}
-}		
-}
-else
-{
-if($op_date3 < $from)
-{
-if($amount_type_id == 1)
-{
-$total_opening_balance2 = $total_opening_balance2 - $amount;
-}
-else if($amount_type_id == 2)
-{
-$total_opening_balance2 = $total_opening_balance2 + $amount;	
-}
-}
-else
-{
-if($amount_type_id == 1)
-{
-$total_closing_balance2 = $total_closing_balance2 - $amount;	
-}
-else if($amount_type_id == 2)
-{
-$total_closing_balance2 = $total_closing_balance2 + $amount;	
-}
-}		
-}
-
-
-if($receipt_id2 != 'O_B')
-{
-if($date3 < $m_from)
-{
-if($amount_type_id == 1)
-{
-$total_opening_balance2 = $total_opening_balance2 - $amount;
-}
-else if($amount_type_id == 2)
-{
-$total_opening_balance2 = $total_opening_balance2 + $amount;
-}
-}
-
-if(@$date3 >= $m_from && @$date3 <= $m_to)
-{
-if($amount_type_id == 1)
-{
-$total_debit = $total_debit + $amount;
-$grand_total_debit = $grand_total_debit + $amount;
-}
-else if($amount_type_id == 2)
-{
-$total_credit = $total_credit + $amount;
-$grand_total_credit = $grand_total_credit + $amount;
-}
-}
-}
-}
-if($total_debit !=0 || $total_credit != 0)
-{ 
-$total_closing_balance2 = $total_closing_balance2 + $total_opening_balance2 + $total_credit - $total_debit;
-$grand_total_closing_balance = $grand_total_closing_balance + $total_closing_balance2;
-$grand_total_opening_balance = $grand_total_opening_balance + $total_opening_balance2;
-
-$excel.="<tr>
-<td>$account_name</td>
-<td></td>
-<td>"; 
-if($total_opening_balance2 > 0)
-{
-$total_opening_balance2 = $total_opening_balance2.'Cr';
-}
-else if($total_opening_balance2 < 0)
-{
-$total_opening_balance2 = abs($total_opening_balance2);
-$total_opening_balance2 = $total_opening_balance2.'Dr';
-}
+	$excel.="<tr>
+	<td>$account_name</td>
+	<td></td>
+	<td>"; 
+		if($total_opening_balance2 > 0)
+		{
+		$total_opening_balance2 = $total_opening_balance2.'Cr';
+		}
+		else if($total_opening_balance2 < 0)
+		{
+		$total_opening_balance2 = abs($total_opening_balance2);
+		$total_opening_balance2 = $total_opening_balance2.'Dr';
+		}
 $excel.="$total_opening_balance2</th>
 <td>$total_debit</td>
 <td>$total_credit</td>
 <td>";
-if($total_closing_balance2 > 0)
-{
-$total_closing_balance2 = $total_closing_balance2.'Cr';
-}
-else if($total_closing_balance2 < 0)
-{
-$total_closing_balance2 = abs($total_closing_balance2);
-$total_closing_balance2 = $total_closing_balance2.'Dr';
-}
-$excel.="$total_closing_balance2</td>
-</tr>";  
-}}}}}
-$excel.="<tr>
-	<th colspan=''>Grand Total</th>
-	<th></th>
-    <th>";
-	if($grand_total_opening_balance > 0)
-	{
-	$grand_total_opening_balance = $grand_total_opening_balance.'Cr';
-	}
-	else if($grand_total_opening_balance < 0)
-	{
-	$grand_total_opening_balance = abs($grand_total_opening_balance);
-	$grand_total_opening_balance = $grand_total_opening_balance.'Dr';
-	}
-	$excel.="$grand_total_opening_balance</th>   
-	<th>$grand_total_debit</th>
-	<th>$grand_total_credit</th>
-	<th>"; 
-	if($grand_total_closing_balance > 0)
-	{
-	$grand_total_closing_balance = $grand_total_closing_balance.'Cr';
-	}
-	else if($grand_total_closing_balance < 0)
-	{
-	$grand_total_closing_balance = abs($grand_total_closing_balance);
-	$grand_total_closing_balance = $grand_total_closing_balance.'Dr';
-	}
-	$excel.="$grand_total_closing_balance</th>
-	</tr>
-
-	</table>";
-
-
-/////////////////
-}
-
+		if($total_closing_balance2 > 0)
+		{
+		$total_closing_balance2 = $total_closing_balance2.'Cr';
+		}
+		else if($total_closing_balance2 < 0)
+		{
+		$total_closing_balance2 = abs($total_closing_balance2);
+		$total_closing_balance2 = $total_closing_balance2.'Dr';
+		}
+		$excel.="$total_closing_balance2</td>
+		</tr>";  
+	}}}}}
+		$excel.="<tr>
+			<th colspan=''>Grand Total</th>
+			<th></th>
+			<th>";
+				if($grand_total_opening_balance > 0)
+				{
+				$grand_total_opening_balance = $grand_total_opening_balance.'Cr';
+				}
+				else if($grand_total_opening_balance < 0)
+				{
+				$grand_total_opening_balance = abs($grand_total_opening_balance);
+				$grand_total_opening_balance = $grand_total_opening_balance.'Dr';
+				}
+			$excel.="$grand_total_opening_balance</th>   
+			<th>$grand_total_debit</th>
+			<th>$grand_total_credit</th>
+			<th>"; 
+				if($grand_total_closing_balance > 0)
+				{
+				$grand_total_closing_balance = $grand_total_closing_balance.'Cr';
+				}
+				else if($grand_total_closing_balance < 0)
+				{
+				$grand_total_closing_balance = abs($grand_total_closing_balance);
+				$grand_total_closing_balance = $grand_total_closing_balance.'Dr';
+				}
+					$excel.="$grand_total_closing_balance</th>
+					</tr>
+					</table>";
+			}
 echo $excel;
-
 }
-//////////////////// End Trial Balance Excel/////////////////////////////////////////
+//////////////////////////// End Trial Balance Excel/////////////////////////////////////////////
 
-/////////////////////////////////////////// Start Trial Balance (Accounts) /////////////////////////////////////////////////////////////////////////////
+/////////////////////////////// Start Trial Balance (Accounts) //////////////////////////////////
 function trial_balance()
 {
-if($this->RequestHandler->isAjax()){
-$this->layout='blank';
-}else{
-$this->layout='session';
+	if($this->RequestHandler->isAjax()){
+	$this->layout='blank';
+	}else{
+	$this->layout='session';
+	}
+
+	$this->ath();
+	$this->check_user_privilages();
+
+	$s_role_id=$this->Session->read('role_id');
+	$s_society_id = (int)$this->Session->read('society_id');
+	$s_user_id=$this->Session->read('user_id');	
 }
+////////////////////////// End Trial Balance (Accounts) /////////////////////////////////////////////////
 
-$this->ath();
-$this->check_user_privilages();
-
-$s_role_id=$this->Session->read('role_id');
-$s_society_id = (int)$this->Session->read('society_id');
-$s_user_id=$this->Session->read('user_id');	
-
-}
-////////////////////////// End Trial Balance (Accounts) //////////////////////////////////////////////////////////
-
-//////////////////// Start Trial Balance Ajax Show (Accounts) //////////////////////
+//////////////////////////////// Start Trial Balance Ajax Show (Accounts) //////////////////////////////
 function trial_balance_ajax_show()
 {
-$this->layout='blank';
-$s_role_id=$this->Session->read('role_id');
-$s_society_id = (int)$this->Session->read('society_id');
-$s_user_id=$this->Session->read('user_id');	
+	$this->layout='blank';
+	$s_role_id=$this->Session->read('role_id');
+	$s_society_id = (int)$this->Session->read('society_id');
+	$s_user_id=$this->Session->read('user_id');	
 
-$from = $this->request->query('date1');
-$to = $this->request->query('date2');
-$wise = $this->request->query('wise');
+		$from = $this->request->query('date1');
+		$to = $this->request->query('date2');
+		$wise = $this->request->query('wise');
 
+	$this->set('wise',$wise);
+	$this->set('from_d',$from);
+	$this->set('to_d',$to);
 
-$this->set('wise',$wise);
-$this->set('from_d',$from);
-$this->set('to_d',$to);
+		$this->loadmodel('society');
+		$conditions=array("society_id"=>$s_society_id);
+		$cursor1=$this->society->find('all',array('conditions'=>$conditions));
+		$this->set('cursor1',$cursor1);		
 
-$this->loadmodel('society');
-$conditions=array("society_id"=>$s_society_id);
-$cursor1=$this->society->find('all',array('conditions'=>$conditions));
-$this->set('cursor1',$cursor1);		
+	$this->loadmodel('accounts_category');
+	$order=array('accounts_category.auto_id'=> 'ASC');
+	$cursor2 = $this->accounts_category->find('all',array('order' =>$order));
+	$this->set('cursor2',$cursor2);
 
-$this->loadmodel('accounts_category');
-$order=array('accounts_category.auto_id'=> 'ASC');
-$cursor2 = $this->accounts_category->find('all',array('order' =>$order));
-$this->set('cursor2',$cursor2);
+		$this->loadmodel('ledger_sub_account');
+		$conditions=array("ledger_id"=>15);
+		$cursor3 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+		$this->set('cursor3',$cursor3);
 
-$this->loadmodel('ledger_sub_account');
-$conditions=array("ledger_id"=>15);
-$cursor3 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
-$this->set('cursor3',$cursor3);
+			$this->loadmodel('ledger_sub_account');
+			$conditions=array("ledger_id"=>34);
+			$cursor4 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+			$this->set('cursor4',$cursor4);
 
+		$this->loadmodel('ledger_sub_account');
+		$conditions=array("ledger_id"=>33);
+		$cursor5 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+		$this->set('cursor5',$cursor5);
 
-$this->loadmodel('ledger_sub_account');
-$conditions=array("ledger_id"=>34);
-$cursor4 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
-$this->set('cursor4',$cursor4);
-
-
-$this->loadmodel('ledger_sub_account');
-$conditions=array("ledger_id"=>33);
-$cursor5 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
-$this->set('cursor5',$cursor5);
-
-$this->loadmodel('ledger');
-$conditions=array("society_id"=>$s_society_id);
-$cursor6 = $this->ledger->find('all',array('conditions'=>$conditions));
-$this->set('cursor6',$cursor6);
-
-
-
+			$this->loadmodel('ledger');
+			$conditions=array("society_id"=>$s_society_id);
+			$cursor6 = $this->ledger->find('all',array('conditions'=>$conditions));
+			$this->set('cursor6',$cursor6);
 }
-
-////////////////////////////////////////// End Trial Balance Ajax Show (Accounts) //////////////////////////////////////////////////////////////////////
+////////////////////// End Trial Balance Ajax Show (Accounts) //////////////////////////////////////////
 
 ///////////////////// Start Regular Bill View (Accounts)//////////////////////////////////////////////////////////////
-function regular_bill_view($auto_id=null)
-{
-$this->layout='session';
-$s_role_id=$this->Session->read('role_id');
-$s_society_id = (int)$this->Session->read('society_id');
-$s_user_id=$this->Session->read('user_id');
+	function regular_bill_view($auto_id=null)
+	{
+		$this->layout='session';
+		$s_role_id=$this->Session->read('role_id');
+		$s_society_id = (int)$this->Session->read('society_id');
+		$s_user_id=$this->Session->read('user_id');
 
-$auto_id = (int)$auto_id;
+			$auto_id = (int)$auto_id;
 
-$this->loadmodel('regular_bill');
-$conditions=array("receipt_id"=>$auto_id,"society_id" => $s_society_id);
-$cursor=$this->regular_bill->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$bill_html = $collection['regular_bill']['bill_html'];	
-}
-$this->set('bill_html',@$bill_html);
-}
+				$this->loadmodel('regular_bill');
+				$conditions=array("receipt_id"=>$auto_id,"society_id" => $s_society_id);
+				$cursor=$this->regular_bill->find('all',array('conditions'=>$conditions));
+				foreach($cursor as $collection)
+				{
+				$bill_html = $collection['regular_bill']['bill_html'];	
+				}
+		$this->set('bill_html',@$bill_html);
+	}
 ////////////////////////////////// End Regular Bill View (Accounts)//////////////////////////////////////////
 
-/////////////////////////////////////////////////// END FINANCIAL REPORT MODULE /////////////////////////////////////
-
 ///////////////////////////////////// Start Master Ledger Sub Account View/////////////////////////////////////////////
-function master_ledger_sub_account_view()
-{
-if($this->RequestHandler->isAjax()){
-$this->layout='blank';
-}else{
-$this->layout='session';
-}
-$this->ath();
-$this->check_user_privilages();
+	function master_ledger_sub_account_view()
+	{
+		if($this->RequestHandler->isAjax()){
+		$this->layout='blank';
+		}else{
+		$this->layout='session';
+		}
+		
+		$this->ath();
+		$this->check_user_privilages();
 
-$s_role_id=$this->Session->read('role_id');
-$s_society_id = (int)$this->Session->read('society_id');
-$s_user_id=$this->Session->read('user_id');	
+			$s_role_id=$this->Session->read('role_id');
+			$s_society_id = (int)$this->Session->read('society_id');
+			$s_user_id=$this->Session->read('user_id');	
 
-$this->loadmodel('ledger_account');
-$cursor1=$this->ledger_account->find('all');
-$this->set('cursor1',$cursor1);	
+				$this->loadmodel('ledger_account');
+				$cursor1=$this->ledger_account->find('all');
+				$this->set('cursor1',$cursor1);	
 
-$this->loadmodel('ledger_sub_account');
-$conditions=array("society_id" => $s_society_id);
-$cursor2=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
-$this->set('cursor2',$cursor2);	
-
+		$this->loadmodel('ledger_sub_account');
+		$conditions=array("society_id" => $s_society_id);
+		$cursor2=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+		$this->set('cursor2',$cursor2);	
 }
 ///////////////////////////////////// End Master Ledger Sub Account View/////////////////////////////////////////////
 
 //////////////////////// Start Master Ledger Accounts View ////////////////////////////////////////////////////////////
 function master_ledger_accounts_view()
 {
-if($this->RequestHandler->isAjax()){
-$this->layout='blank';
-}else{
-$this->layout='session';
+	if($this->RequestHandler->isAjax()){
+	$this->layout='blank';
+	}else{
+	$this->layout='session';
+	}
+
+		$s_role_id=$this->Session->read('role_id');
+		$s_society_id = (int)$this->Session->read('society_id');
+		$s_user_id=$this->Session->read('user_id');	
+		$this->set('s_user_id',$s_user_id);
+
+	$this->ath();
+	$this->check_user_privilages();
+
+	$this->loadmodel('ledger_account');
+	$conditions = array( '$or' => array(array('society_id' =>$s_society_id),array('society_id' =>0)));
+	$cursor2=$this->ledger_account->find('all',array('conditions'=>$conditions));
+	$this->set('cursor2',$cursor2);	
+
+		$this->loadmodel('accounts_group');
+		$conditions=array("delete_id" => 0);
+		$cursor3=$this->accounts_group->find('all',array('conditions'=>$conditions));
+		$this->set('cursor3',$cursor3);
 }
+/////////////////////// End Master Ledger Accounts View ////////////////////////////////////////////////
 
-$s_role_id=$this->Session->read('role_id');
-$s_society_id = (int)$this->Session->read('society_id');
-$s_user_id=$this->Session->read('user_id');	
-$this->set('s_user_id',$s_user_id);
-
-$this->ath();
-$this->check_user_privilages();
-
-$this->loadmodel('ledger_account');
-$conditions = array( '$or' => array( 
-	array('society_id' =>$s_society_id),
-	array('society_id' =>0)
-	));
-$cursor2=$this->ledger_account->find('all',array('conditions'=>$conditions));
-$this->set('cursor2',$cursor2);	
-
-
-$this->loadmodel('accounts_group');
-$conditions=array("delete_id" => 0);
-$cursor3=$this->accounts_group->find('all',array('conditions'=>$conditions));
-$this->set('cursor3',$cursor3);
-
-}
-/////////////////////// End Master Ledger Accounts View ////////////////////////////////////////////////////////////////
-
-////////////////////////////// Start ledger Edit ///////////////////////////////////////////////////////////////////
+////////////////////////////// Start ledger Edit //////////////////////////////////////////////////////
 function ledger_edit()
 {
 $this->layout='blank';
-$s_society_id = (int)$this->Session->read('society_id');
-$auto_id = (int)$this->request->query('t_id');
-$edit = (int)$this->request->query('edit');
-$this->set('edit',$edit);
-if($edit == 0)
-{
-$this->set('ledger_id',$auto_id);
 
-$this->loadmodel('ledger_account');
-$conditions=array('$or' => array( 
-array("society_id" => 0, "auto_id" => $auto_id),
-array("society_id" => $s_society_id, "auto_id" => $auto_id),));
-$cursor1=$this->ledger_account->find('all', array('conditions' => $conditions));
-$this->set('cursor1',$cursor1);
+	$s_society_id = (int)$this->Session->read('society_id');
+	$auto_id = (int)$this->request->query('t_id');
+	$edit = (int)$this->request->query('edit');
+	$this->set('edit',$edit);
+	
+		if($edit == 0)
+		{
+			$this->set('ledger_id',$auto_id);
 
-$this->loadmodel('accounts_group');
-$cursor2=$this->accounts_group->find('all');
-$this->set('cursor2',$cursor2);
+				$this->loadmodel('ledger_account');
+				$conditions=array('$or' => array( 
+				array("society_id" => 0, "auto_id" => $auto_id),
+				array("society_id" => $s_society_id, "auto_id" => $auto_id),));
+				$cursor1=$this->ledger_account->find('all', array('conditions' => $conditions));
+				$this->set('cursor1',$cursor1);
 
+			$this->loadmodel('accounts_group');
+			$cursor2=$this->accounts_group->find('all');
+			$this->set('cursor2',$cursor2);
 }
+	if($edit == 1)
+	{
+		$ledger_name = $this->request->query('led');
+		$group_id = (int)$this->request->query('g');
 
-if($edit == 1)
-{
-$ledger_name = $this->request->query('led');
-$group_id = (int)$this->request->query('g');
-
-$this->loadmodel('ledger_account');
-$this->ledger_account->updateAll(array('group_id'=>$group_id,'ledger_name'=>$ledger_name),array('auto_id'=>$auto_id));
-}
-
+		$this->loadmodel('ledger_account');
+		$this->ledger_account->updateAll(array('group_id'=>$group_id,'ledger_name'=>$ledger_name),array('auto_id'=>$auto_id));
+	}
 }
 ////////////////////////////// End ledger Edit ///////////////////////////////////////////////////////////////////
 
 /////////////////////////////// Start SubLedgerEdit ////////////////////////////////////////////////////
 function subledger_edit()
 {
-$this->layout='blank';
-$s_society_id = (int)$this->Session->read('society_id');
-
+	$this->layout='blank';
+	$s_society_id = (int)$this->Session->read('society_id');
 }
 /////////////////////////////// End SubLedgerEdit ////////////////////////////////////////////////////
 
 ///////////////////////////////////// Start Opening Balance Import Ajax //////////////////////////////////////////
 function opening_balance_import_ajax()
 {
-$this->layout="blank";
-$this->ath();
+	$this->layout="blank";
+	$this->ath();
 
-$s_society_id= (int)$this->Session->read('society_id');
+	$s_society_id= (int)$this->Session->read('society_id');
 
 if(isset($_FILES['file'])){
 $file_name=$_FILES['file']['name'];
@@ -3167,280 +3045,251 @@ $table[] = array(@$account_name,@$debit_or_credit,@$priciple_amount,@$auto_id,@$
 
 $this->set('table',$table);
 
-$this->loadmodel('ledger_sub_account');
-$conditions=array("society_id" => $s_society_id);
-$cursor1 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
-$this->set('cursor1',$cursor1);
+	$this->loadmodel('ledger_sub_account');
+	$conditions=array("society_id" => $s_society_id);
+	$cursor1 = $this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+	$this->set('cursor1',$cursor1);
 
-$this->loadmodel('ledger_account');
-$cursor2 = $this->ledger_account->find('all');
-$this->set('cursor2',$cursor2);
+		$this->loadmodel('ledger_account');
+		$cursor2 = $this->ledger_account->find('all');
+		$this->set('cursor2',$cursor2);
 
-$this->loadmodel('accounts_group');
-$cursor3 = $this->accounts_group->find('all');
-$this->set('cursor3',$cursor3);
-
+	$this->loadmodel('accounts_group');
+	$cursor3 = $this->accounts_group->find('all');
+	$this->set('cursor3',$cursor3);
 }
 ///////////////////////////////////// End Opening Balance Import Ajax //////////////////////////////////////////
 
 //////////////////////////// Start Save Open Bal //////////////////////////////////////////////////////////
 function save_open_bal()
 {
-$this->layout='blank';
-$s_society_id = (int)$this->Session->read('society_id');
-$s_user_id = (int)$this->Session->read('user_id');
+	$this->layout='blank';
+	$s_society_id = (int)$this->Session->read('society_id');
+	$s_user_id = (int)$this->Session->read('user_id');
 	
-$q=$this->request->query('q'); 
-$myArray = json_decode($q, true);
+		$q=$this->request->query('q'); 
+		$myArray = json_decode($q, true);
 	
-$c=1;
-$report=array();
-$array1 = array();
-foreach($myArray as $child){
+		$c=1;
+		$report=array();
+		$array1 = array();
+		foreach($myArray as $child){
+			$c++;
+				if(empty($child[0])){
+				$report[]=array('tr'=>$c,'td'=>1, 'text' => 'Required');
+				}
+				if(empty($child[1])){
+				$report[]=array('tr'=>$c,'td'=>2, 'text' => 'Required');
+				}
 
-$c++;
-if(empty($child[0])){
-$report[]=array('tr'=>$c,'td'=>1, 'text' => 'Required');
-}
-if(empty($child[1])){
-$report[]=array('tr'=>$c,'td'=>2, 'text' => 'Required');
-}
+				if(empty($child[2]) && empty($child[3])){
+				$report[]=array('tr'=>$c,'td'=>3, 'text' => 'Required');
+			}
+		}
+		
+		if(sizeof($report)>0){
+		$output=json_encode(array('report_type'=>'error','report'=>$report));
+		die($output);
+		}
 
-if(empty($child[2]) && empty($child[3])){
-$report[]=array('tr'=>$c,'td'=>3, 'text' => 'Required');
-}
-}
-if(sizeof($report)>0){
-$output=json_encode(array('report_type'=>'error','report'=>$report));
-die($output);
-}
+		$t=1;
+		$total_debit = 0;
+		$total_credit = 0;
+			foreach($myArray as $child)
+			{
+			$t++;
 
-$t=1;
-$total_debit = 0;
-$total_credit = 0;
-foreach($myArray as $child)
-{
-$t++;
-//////////////////////////////////////////////////
-$date2 = $child[5];
-$date1 = date("Y-m-d", strtotime($date2));
-$date1 = new MongoDate(strtotime($date1));
+			$date2 = $child[5];
+			$date1 = date("Y-m-d", strtotime($date2));
+			$date1 = new MongoDate(strtotime($date1));
 
-if(empty($child[5]))
-{
-$output=json_encode(array('report_type'=>'fina','text'=>'Please Select Date'));
-die($output);
-}
+				if(empty($child[5]))
+				{
+				$output=json_encode(array('report_type'=>'fina','text'=>'Please Select Date'));
+				die($output);
+				}
 
+	$this->loadmodel('financial_year');
+	$conditions=array("society_id" => $s_society_id,"status"=>1);
+	$cursor = $this->financial_year->find('all',array('conditions'=>$conditions));
+	$abc = 555;
+	foreach($cursor as $collection)
+	{
+		$from = $collection['financial_year']['from'];
+		$to = $collection['financial_year']['to'];
+			if($date1 <= $to && $date1 >= $from)
+			{
+			$abc = 5;
+			break;
+			}
+	}
+		if($abc == 555)
+		{
+		$output=json_encode(array('report_type'=>'fina','text'=>'Date is not in Financial Year'));
+		die($output);
+		}
 
-$this->loadmodel('financial_year');
-$conditions=array("society_id" => $s_society_id,"status"=>1);
-$cursor = $this->financial_year->find('all',array('conditions'=>$conditions));
-$abc = 555;
-foreach($cursor as $collection)
-{
-$from = $collection['financial_year']['from'];
-$to = $collection['financial_year']['to'];
-if($date1 <= $to && $date1 >= $from)
-{
-$abc = 5;
-break;
-}
-}
-if($abc == 555)
-{
-$output=json_encode(array('report_type'=>'fina','text'=>'Date is not in Financial Year'));
-die($output);
-}
+		$opening_bal = $child[3];
+			if($opening_bal == "")
+			{
+			$opening_bal = $child[2];
+			}
 
-$opening_bal = $child[3];
-if($opening_bal == "")
-{
-$opening_bal = $child[2];
-}
+				if(is_numeric($opening_bal))
+				{
+				}
+				else
+				{
+				$output=json_encode(array('report_type'=>'fina','text'=>'Amount (Opening Balance Should be Numeric in row '.$t));
+				die($output);
+				}
+					$penalty_amt = (int)$child[6];
+					$ch2 = (int)$child[2];
+					$ch3 = (int)$child[3];
+			if($ch2 != 0)
+			{
+			$total_debit = $total_debit + $child[2] + $penalty_amt;
+			}
+			if($ch3 != 0)
+			{
+			$total_credit = $total_credit + $child[3];
+			}
+		}
 
-if(is_numeric($opening_bal))
-{
-}
-else
-{
-$output=json_encode(array('report_type'=>'fina','text'=>'Amount (Opening Balance Should be Numeric in row '.$t));
-die($output);
-}
-$penalty_amt = (int)$child[6];
-//$amt_type = (int)$child[2];
-$ch2 = (int)$child[2];
-$ch3 = (int)$child[3];
-if($ch2 != 0)
-{
-$total_debit = $total_debit + $child[2] + $penalty_amt;
-}
-if($ch3 != 0)
-{
-$total_credit = $total_credit + $child[3];
-}
-//////////////////////////////////////////////////////////////////////
-}
+		if($total_credit != $total_debit)
+		{
+		$output=json_encode(array('report_type'=>'fina','text'=>'Total Debit must be Equal to Total Credit','deb'=>$total_debit,'cre'=>$total_credit));
+		die($output);
+		}
 
-if($total_credit != $total_debit)
-{
-$output=json_encode(array('report_type'=>'fina','text'=>'Total Debit must be Equal to Total Credit','deb'=>$total_debit,'cre'=>$total_credit));
-die($output);
-}
+		foreach($myArray as $child){
+			$excel_ledger_id = (int)$child[0];
+			$excel_account_name = trim($child[1]);
+			$debit = (int)$child[2];
+			$credit =(int)$child[3];
+			$insert = (int)$child[4];
+			$transaction_date =date("Y-m-d",strtotime($child[5]));
+			$intrest_arrear = (int)$child[6];
+			$flll_id = (int)$child[7];
 
-
-
-foreach($myArray as $child){
-	
-	$excel_ledger_id = (int)$child[0];
-	$excel_account_name = trim($child[1]);
-	$debit = (int)$child[2];
-	$credit =(int)$child[3];
-	$insert = (int)$child[4];
-	$transaction_date =date("Y-m-d",strtotime($child[5]));
-	$intrest_arrear = (int)$child[6];
-    $flll_id = (int)$child[7];
-	
-
-if($insert == 2){
-if($excel_ledger_id==34){
+	if($insert == 2){
+	if($excel_ledger_id==34){
 	
 		$this->loadmodel('ledger_sub_account'); 
 		$conditions=array("ledger_id"=>34,"name"=> new MongoRegex('/^' .  $excel_account_name . '$/i'),"flat_id"=>$flll_id);
 		$result_ledger_sub_account=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
 		$ledger_sub_account_id=$result_ledger_sub_account[0]["ledger_sub_account"]["auto_id"];
 
-		
-	
-		
-		
 		$this->loadmodel('ledger');
 		$ledger_auto_id=$this->autoincrement('ledger','auto_id');
 		$this->ledger->saveAll(array("auto_id" => $ledger_auto_id,"ledger_account_id" => 34,"ledger_sub_account_id" => $ledger_sub_account_id,"debit"=>$debit,"credit"=>$credit,"table_name"=>"opening_balance","element_id"=>null,"society_id"=>$s_society_id,"transaction_date"=>strtotime($transaction_date)));
-		
-		
-		
-		
-		
+
 		
 		if($intrest_arrear>0){
-			$this->loadmodel('ledger');
-			$ledger_auto_id=$this->autoincrement('ledger','auto_id');
-			$this->ledger->saveAll(array("auto_id" => $ledger_auto_id,"ledger_account_id" => 34,"ledger_sub_account_id" => $ledger_sub_account_id,"debit"=>$intrest_arrear,"credit"=>null,"table_name"=>"opening_balance","element_id"=>null,"society_id"=>$s_society_id,"transaction_date"=>strtotime($transaction_date),"arrear_int_type"=>"YES"));
+		$this->loadmodel('ledger');
+		$ledger_auto_id=$this->autoincrement('ledger','auto_id');
+		$this->ledger->saveAll(array("auto_id" => $ledger_auto_id,"ledger_account_id" => 34,"ledger_sub_account_id" => $ledger_sub_account_id,"debit"=>$intrest_arrear,"credit"=>null,"table_name"=>"opening_balance","element_id"=>null,"society_id"=>$s_society_id,"transaction_date"=>strtotime($transaction_date),"arrear_int_type"=>"YES"));
 		}
-	
-
-
-
-	
-	}else{
-	
-	
-		
+		}else{
 		$this->loadmodel('ledger_account'); 
 		$conditions=array("group_id"=>$excel_ledger_id,"ledger_name"=> new MongoRegex('/^' .  $excel_account_name . '$/i'));
 		$result_ledger_account=$this->ledger_account->find('all',array('conditions'=>$conditions));
 		$ledger_account_id=$result_ledger_account[0]["ledger_account"]["auto_id"];
-		
-		
-	
+
 		$this->loadmodel('ledger');
 		$ledger_auto_id=$this->autoincrement('ledger','auto_id');
 		$this->ledger->saveAll(array("auto_id" => $ledger_auto_id,"ledger_account_id" => $ledger_account_id,"ledger_sub_account_id" => null,"debit"=>$debit,"credit"=>$credit,"table_name"=>"opening_balance","element_id"=>null,"society_id"=>$s_society_id,"transaction_date"=>strtotime($transaction_date)));
-		
-		
-		
+
+		}
+		}
+		} 
+			$output=json_encode(array('report_type'=>'done','text'=>'Total Debit must be Equal to Total Credit'));
+			die($output);
 	}
-}
-} 
-
-
-		
-
-$output=json_encode(array('report_type'=>'done','text'=>'Total Debit must be Equal to Total Credit'));
-die($output);
-}
 //////////////////////////// End Save Open Bal //////////////////////////////////////////////////////////
-///////////////////////////////// Start pay Bill //////////////////////////////////////////////////////////////////
+
+///////////////////////////////// Start pay Bill ////////////////////////////////////////////////////////
 function pay_bill()
 {
-if($this->RequestHandler->isAjax()){
-$this->layout='blank';
-}else{
-$this->layout='session';
-}
+		if($this->RequestHandler->isAjax()){
+		$this->layout='blank';
+		}else{
+		$this->layout='session';
+		}
 
-$this->ath();
-$this->check_user_privilages();
+		$this->ath();
+		$this->check_user_privilages();
 
-$s_society_id=(int)$this->Session->read('society_id');
-$s_user_id=$this->Session->read('user_id');
+				$s_society_id=(int)$this->Session->read('society_id');
+				$s_user_id=$this->Session->read('user_id');
 
-$receipt_no = (int)$this->request->query('b');
-$this->set('receipt_no',$receipt_no);
+				$receipt_no = (int)$this->request->query('b');
+				$this->set('receipt_no',$receipt_no);
 
-if(isset($this->request->data['sub']))
-{
-$transaction_date = $this->request->data['date'];
-$bank_name = $this->request->data['bank_name'];
-$mobile = $this->request->data['mobile'];
-echo $bill_receipt = (int)$this->request->data['bill_no'];
-$branch = $this->request->data['branch'];
-$account_number = $this->request->data['acno'];
-$pay_amt = $this->request->data['amt'];
-$paying_mode = (int)$this->request->data['mode'];
-if($paying_mode == 1)
-{
-$cheque_number = $this->request->data['chq_no'];
-$mode="Cheque";
-}
-else
-{
-$cheque_number = "";
-$mode="Cash";
-}
-$transaction_date = date('Y-m-d',strtotime($transaction_date));
-
-$this->loadmodel('regular_bill');
-$this->regular_bill->updateAll(array("payment_date" => $transaction_date,"bank_name"=>$bank_name,"mobile"=>$mobile,"branch"=>$branch,"account_number"=>$account_number,"pay_amount"=>$pay_amt,"pay_mode"=>$mode,"cheque_no"=>$cheque_number),array("society_id" => $s_society_id,"receipt_id"=>$bill_receipt));
-?>
-<div class="modal-backdrop fade in"></div>
-<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-<div class="modal-header">
-<center>
-<h3 id="myModalLabel3" style="color:#999;"><b>Pay Bill Detail</b></h3>
-</center>
-</div>
-<div class="modal-body">
-<center>
-<h5><b>Record Inserted Successfully</b></h5>
-</center>
-</div>
-<div class="modal-footer">
-<a href="my_flat_bill" class="btn blue">OK</a>
-</div>
-</div>
-<?php
-}
+	if(isset($this->request->data['sub']))
+	{
+		$transaction_date = $this->request->data['date'];
+		$bank_name = $this->request->data['bank_name'];
+		$mobile = $this->request->data['mobile'];
+		$bill_receipt = (int)$this->request->data['bill_no'];
+		$branch = $this->request->data['branch'];
+		$account_number = $this->request->data['acno'];
+		$pay_amt = $this->request->data['amt'];
+		$paying_mode = (int)$this->request->data['mode'];
+			
+			if($paying_mode == 1)
+			{
+			$cheque_number = $this->request->data['chq_no'];
+			$mode="Cheque";
+			}
+			else
+			{
+			$cheque_number = "";
+			$mode="Cash";
+			}
+			
+		$transaction_date = date('Y-m-d',strtotime($transaction_date));
+		$this->loadmodel('regular_bill');
+		$this->regular_bill->updateAll(array("payment_date" => $transaction_date,"bank_name"=>$bank_name,"mobile"=>$mobile,"branch"=>$branch,"account_number"=>$account_number,"pay_amount"=>$pay_amt,"pay_mode"=>$mode,"cheque_no"=>$cheque_number),array("society_id" => $s_society_id,"receipt_id"=>$bill_receipt));
+		
+		?>
+		<div class="modal-backdrop fade in"></div>
+		<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+		<div class="modal-header">
+		<center>
+		<h3 id="myModalLabel3" style="color:#999;"><b>Pay Bill Detail</b></h3>
+		</center>
+		</div>
+		<div class="modal-body">
+		<center>
+		<h5><b>Record Inserted Successfully</b></h5>
+		</center>
+		</div>
+		<div class="modal-footer">
+		<a href="my_flat_bill" class="btn blue">OK</a>
+		</div>
+		</div>
+		<?php
+	}
 }
 ///////////////////////////////// End pay Bill //////////////////////////////////////////////////////////////////
 
-////////////////////// Start Opening Balance  Excel Export ///////////////////////////////////////////////////////////
+////////////////////// Start Opening Balance  Excel Export ///////////////////////////////////////////////////
 function open_excel()
 {
-$this->layout="";
-$filename="Opening_Balance_Import";
-header ("Expires: 0");
-header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
-header ("Cache-Control: no-cache, must-revalidate");
-header ("Pragma: no-cache");
-header ("Content-type: application/vnd.ms-excel");
-header ("Content-Disposition: attachment; filename=".$filename.".csv");
-header ("Content-Description: Generated Report" );
+		$this->layout="";
+		$filename="Opening_Balance_Import";
+		header ("Expires: 0");
+		header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+		header ("Cache-Control: no-cache, must-revalidate");
+		header ("Pragma: no-cache");
+		header ("Content-type: application/vnd.ms-excel");
+		header ("Content-Disposition: attachment; filename=".$filename.".csv");
+		header ("Content-Description: Generated Report" );
 
-$s_role_id=$this->Session->read('role_id');
-$s_society_id = (int)$this->Session->read('society_id');
-$s_user_id = (int)$this->Session->read('user_id');
+		$s_role_id=$this->Session->read('role_id');
+		$s_society_id = (int)$this->Session->read('society_id');
+		$s_user_id = (int)$this->Session->read('user_id');
 
 
 $excel = "Group Name,A/c name,wing,unit,Amount Type(Debit or Credit),Amount(Opening Balance),Penalty \n";
@@ -3453,17 +3302,17 @@ $excel = "Group Name,A/c name,wing,unit,Amount Type(Debit or Credit),Amount(Open
 			$group_id = (int)$collection['ledger_accounts']['group_id'];
 			$ledger_name = $collection['ledger_accounts']['ledger_name'];
 		    $ledger_idddd = (int)$collection['ledger_accounts']['auto_id'];
-	if($ledger_idddd != 34 && $ledger_idddd != 33 && $ledger_idddd != 35 && $ledger_idddd != 15)
-	{	
-		$result_ag = $this->requestAction(array('controller' => 'hms', 'action' => 'accounts_group'),array('pass'=>array($group_id)));
-			foreach ($result_ag as $collection) 
-			{
-			$accounts_id = (int)$collection['accounts_group']['accounts_id'];	
-			$group_name = $collection['accounts_group']['group_name'];	
+				if($ledger_idddd != 34 && $ledger_idddd != 33 && $ledger_idddd != 35 && $ledger_idddd != 15)
+				{	
+				$result_ag = $this->requestAction(array('controller' => 'hms', 'action' => 'accounts_group'),array('pass'=>array($group_id)));
+				foreach ($result_ag as $collection) 
+				{
+				$accounts_id = (int)$collection['accounts_group']['accounts_id'];	
+				$group_name = $collection['accounts_group']['group_name'];	
+				}
+				$excel.= "$group_name,$ledger_name \n";
+				}
 			}
-		$excel.= "$group_name,$ledger_name \n";
-	}
-	}
 
 			$this->loadmodel('ledger_sub_account');
 			$conditions=array("society_id" => $s_society_id);
@@ -3476,24 +3325,23 @@ $excel = "Group Name,A/c name,wing,unit,Amount Type(Debit or Credit),Amount(Open
 				$name = $datadd['ledger_sub_account']['name'];
 				$user_id = (int)@$datadd['ledger_sub_account']['user_id'];
 				$flat_id = (int)@$datadd['ledger_sub_account']['flat_id'];
-
 	
-	if($ledger_id == 34)
-	{
-			$flat_dtttl = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch'),array('pass'=>array($flat_id)));
-			foreach($flat_dtttl as $flltdetll)
+			if($ledger_id == 34)
 			{
-			$wing_id = (int)$flltdetll['flat']['wing_id'];
-			$flat_name = $flltdetll['flat']['flat_name'];
-			}
+				$flat_dtttl = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch'),array('pass'=>array($flat_id)));
+				foreach($flat_dtttl as $flltdetll)
+				{
+				$wing_id = (int)$flltdetll['flat']['wing_id'];
+				$flat_name = $flltdetll['flat']['flat_name'];
+				}
 
-	$wing_data = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_fetch'),array('pass'=>array($wing_id)));
-		foreach($wing_data as $wnngdddtt){
+			$wing_data = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_fetch'),array('pass'=>array($wing_id)));
+			foreach($wing_data as $wnngdddtt){
 			$wing_name = $wnngdddtt['wing']['wing_name'];
 			}
-	}	
+			}	
 
-	$result_la = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account'),array('pass'=>array($ledger_id)));
+		$result_la = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account'),array('pass'=>array($ledger_id)));
 		foreach ($result_la as $collection) 
 		{
 		$ledger_name = $collection['ledger_account']['ledger_name'];	
@@ -3506,13 +3354,9 @@ $excel = "Group Name,A/c name,wing,unit,Amount Type(Debit or Credit),Amount(Open
 		else {
 		$excel.= "$ledger_name,$name \n";
 		}
-
-}
-
+			}
 echo $excel;
-
 }
 ////////////////////// End Opening Balance  Excel Export ///////////////////////////////////////////////////////////
-
 }
 ?>
