@@ -398,7 +398,6 @@ function regular_bill_preview_screen_new(){
 		$result_user=$this->user->find('all',array('conditions'=>$condition));
 		$this->set('result_user',$result_user);
 		
-		
 		foreach($flats_for_bill as $flat_id){
 			
 			$this->loadmodel('flat');
@@ -406,11 +405,10 @@ function regular_bill_preview_screen_new(){
 			$result_flat=$this->flat->find('all',array('conditions'=>$condition));
 			$other_charges=@$result_flat[0]["flat"]["other_charges"];
 			
-			
 			if(sizeof($other_charges)>0){
 				$other_charges_array[$flat_id]=$other_charges;
 			}
-		}  
+		}
 		
 		if(sizeof(@$other_charges_array)>0){
 			foreach($other_charges_array as $other_charges_data){
@@ -422,7 +420,6 @@ function regular_bill_preview_screen_new(){
 			
 			$this->set('other_charges_ids',$other_charges_ids);
 		}
-		
 		
 		$this->set('other_charges_array',@$other_charges_array);
 
@@ -482,19 +479,17 @@ function regular_bill_preview_screen_new(){
 			
 		
 			if(sizeof(@$other_charges_ids)>0){
-				
 				foreach($other_charges_ids as $other_charges_id){
 					$flat_other_charges=@$other_charges_array[$flat_id];
 					
 					if(sizeof($flat_other_charges)>0){
-						$other_charges_amount=(int)@$this->request->data['other_charges'.$other_charges_id.'_'.$inc];
+						$other_charges_amount=(int)@$this->request->data['other_charges'.$other_charges_id.$inc];
 						if(!empty($other_charges_amount)){
 							$other_charges_insert[$other_charges_id]=$other_charges_amount;
 						}
 					}
 				}
 			}
-			 
 			
 			if(@$other_charges_insert==null){
 				$other_charges_insert=array();
@@ -850,7 +845,7 @@ $bill_html='<div style="width:80%;margin:auto;line-height: 18px;" class="bill_on
 				
 			
 
-		}  unset($other_charges_insert); } 
+		}  unset($other_charges_insert); }
 		$this->response->header('Location','aprrove_bill');
 	}
 	
@@ -3756,6 +3751,7 @@ function in_head_report(){
 				$other_charges_ids[]=$key;
 			}
 		}
+		
 	}
 	if(sizeof(@$other_charges_ids)>0){
 	$other_charges_ids=array_unique($other_charges_ids);
@@ -4907,15 +4903,15 @@ foreach($result_new_regular_bill as $regular_bill_data)
 $one_time_id= (int)$regular_bill_data["new_regular_bill"]["one_time_id"];
 if($one_time_id==$one_timmm_iddd){
 $income_head_array=$regular_bill_data["new_regular_bill"]["income_head_array"];
-}
 $other_charges_array=@$regular_bill_data["new_regular_bill"]["other_charges_array"];
+
 if(!empty($other_charges_array)){
 foreach($other_charges_array as $key=>$value){
 $other_charges_ids[]=$key;
 }
 }
 }
-
+}
 
 $excel=" Unit Number \t Name \t Area (sq. feet) \t Bill No. \t";
 
@@ -4990,7 +4986,7 @@ foreach($result_new_regular_bill as $regular_bill){
 				$excel.="$noc_charges \t";
 				if(sizeof(@$other_charges_ids)>0){
 			    foreach(@$other_charges_ids as $other_charges_id){
-				//$excel.=" (int)$other_charges_array[$other_charges_id] \t";
+				//$excel.="$other_charges_array[$other_charges_id] \t";
 				} 
 			    }
 				
