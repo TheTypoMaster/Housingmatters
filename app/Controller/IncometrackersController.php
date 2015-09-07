@@ -483,7 +483,7 @@ function regular_bill_preview_screen_new(){
 					$flat_other_charges=@$other_charges_array[$flat_id];
 					
 					if(sizeof($flat_other_charges)>0){
-						$other_charges_amount=(int)@$this->request->data['other_charges'.$other_charges_id.$inc];
+						$other_charges_amount=(int)@$this->request->data['other_charges'.$other_charges_id.'_'.$inc];
 						if(!empty($other_charges_amount)){
 							$other_charges_insert[$other_charges_id]=$other_charges_amount;
 						}
