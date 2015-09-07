@@ -4419,8 +4419,8 @@ $payload = file_get_contents('http://alerts.sinfini.com/api/web2sms.php?workingk
 }
 }	
 			
-	}
-	}
+}
+}
 	
 $output=json_encode(array('report_type'=>'done','text'=>'Please Fill Date in row'));
 die($output);
