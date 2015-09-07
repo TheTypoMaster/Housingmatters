@@ -4832,6 +4832,7 @@ $this->set('cursor1',$result2);
 
 /////////////////// /// Start in report ajax ////////////////////////////////////
 function in_report_ajax(){
+	
 	$this->layout='blank';
 	$s_role_id=$this->Session->read('role_id');
 	$s_society_id = (int)$this->Session->read('society_id');
@@ -4839,9 +4840,6 @@ function in_report_ajax(){
 
 	$one_time_id = (int)$this->request->query('un');
 	$this->set('one_time_id',$one_time_id);
-
-	
-	
 	
 	$this->loadmodel('new_regular_bill');
 	$conditions=array("society_id" => $s_society_id,"approval_status" => 1,"one_time_id" => $one_time_id);
@@ -4875,124 +4873,109 @@ function in_report_ajax(){
 ///////////////////////// Start In Head Excel///////////////////////////////////////
 function in_head_excel()
 {
-	$this->layout="";
-	$filename="Regular_Bill";
-	header ("Expires: 0");
-	header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
-	header ("Cache-Control: no-cache, must-revalidate");
-	header ("Pragma: no-cache");
-	header ("Content-type: application/vnd.ms-excel");
-	header ("Content-Disposition: attachment; filename=".$filename.".xls");
-	header ("Content-Description: Generated Report" );
+		$this->layout="";
+		$filename="Regular_Bill";
+		header ("Expires: 0");
+		header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+		header ("Cache-Control: no-cache, must-revalidate");
+		header ("Pragma: no-cache");
+		header ("Content-type: application/vnd.ms-excel");
+		header ("Content-Disposition: attachment; filename=".$filename.".xls");
+		header ("Content-Description: Generated Report" );
 
-		$s_role_id=$this->Session->read('role_id');
-		$s_society_id = (int)$this->Session->read('society_id');
-		$s_user_id = (int)$this->Session->read('user_id');	
+			$s_role_id=$this->Session->read('role_id');
+			$s_society_id = (int)$this->Session->read('society_id');
+			$s_user_id = (int)$this->Session->read('user_id');	
 
-$one_timmm_iddd = (int)$this->request->query('one');
+		$one_timmm_iddd = (int)$this->request->query('one');
+	
+		$this->loadmodel('society');
+		$condition=array('society_id'=>$s_society_id);
+		$result_society=$this->society->find('all',array('conditions'=>$condition)); 
+		foreach($result_society as $socitt_datttt)
+		{
+		$income_heads = $socitt_datttt["society"]["income_head"];
+		}
+		
+		$this->loadmodel('new_regular_bill');
+		$conditions=array("society_id" => $s_society_id,"approval_status"=>1,"one_time_id" => $one_timmm_iddd);
+		$order=array('new_regular_bill.one_time_id'=> 'DESC');
+		$result_new_regular_bill = $this->new_regular_bill->find('all',array('conditions'=>$conditions,'order'=>$order));
+		foreach($result_new_regular_bill as $regular_bill){
+		$income_head_array=$regular_bill["new_regular_bill"]["income_head_array"];
+			$other_charges_array=@$regular_bill["new_regular_bill"]["other_charges_array"];
+			if(!empty($other_charges_array)){
+			foreach($other_charges_array as $key=>$value){
+			$other_charges_ids[]=$key;
+				}
+			}
+		}
+		/*
+			if(sizeof(@$other_charges_ids)>0){
+			$other_charges_ids=array_unique($other_charges_ids);
+			$this->set('other_charges_ids',$other_charges_ids);
+			}		
 
+			$excel="Unit Number \t Name \t Area (sq. feet) \t Bill No. \t";
 
-$this->loadmodel('new_regular_bill');
-$conditions=array("society_id" => $s_society_id,"approval_status" => 1);
-$order=array('new_regular_bill.one_time_id'=> 'DESC');
-$result_new_regular_bill = $this->new_regular_bill->find('all',array('conditions'=>$conditions,'order'=>$order));
-foreach($result_new_regular_bill as $regular_bill_data)
-{
-$one_time_id= (int)$regular_bill_data["new_regular_bill"]["one_time_id"];
-if($one_time_id==$one_timmm_iddd){
-$income_head_array=$regular_bill_data["new_regular_bill"]["income_head_array"];
-$other_charges_array=@$regular_bill_data["new_regular_bill"]["other_charges_array"];
-
-if(!empty($other_charges_array)){
-foreach($other_charges_array as $key=>$value){
-$other_charges_ids[]=$key;
-}
-}
-}
-}
-
-$excel=" Unit Number \t Name \t Area (sq. feet) \t Bill No. \t";
-
-			foreach($income_head_array as $income_head=>$value){ 
+		    foreach($income_head_array as $income_head=>$value){ 
 			$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($income_head)));	
 			foreach($result_income_head as $data2){
 			$income_head_name = $data2['ledger_account']['ledger_name'];
 			} 
 		$excel.="$income_head_name \t";
-			 } 
-			 
-		$excel."Non Occupancy charges \t";
-					
-					if(sizeof(@$other_charges_ids)>0){
-					foreach($other_charges_ids as $other_charges_id){
-					$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($other_charges_id)));	
-					foreach($result_income_head as $data2){
-					$income_head_name = $data2['ledger_account']['ledger_name'];
-					}
-				
-					$excel.="$income_head_name \t";
-					} 
-					}
-$excel.="Total \t Arrears-Principal \t Arrears-Interest \t Interest on Arrears \t Credit/Rebates \t Due For Payment \n";
-
-foreach($result_new_regular_bill as $regular_bill){
-	$one_time_id=$regular_bill["new_regular_bill"]["one_time_id"];
-	if($one_time_id==$one_timmm_iddd){
-		$auto_id=$regular_bill["new_regular_bill"]["auto_id"];
-		$bill_start_date=$regular_bill["new_regular_bill"]["bill_start_date"];
-		$bill_end_date=$regular_bill["new_regular_bill"]["bill_end_date"];
-		$flat_id=$regular_bill["new_regular_bill"]["flat_id"];
-		$bill_no=(int)$regular_bill["new_regular_bill"]["bill_no"];
-		$income_head_array=$regular_bill["new_regular_bill"]["income_head_array"];
-		$noc_charges=$regular_bill["new_regular_bill"]["noc_charges"];
-		$other_charges_array=$regular_bill["new_regular_bill"]["other_charges_array"];
-		$total=$regular_bill["new_regular_bill"]["total"];
-		$arrear_maintenance=$regular_bill["new_regular_bill"]["arrear_maintenance"];
-		$arrear_intrest=$regular_bill["new_regular_bill"]["arrear_intrest"];
-		$intrest_on_arrears=$regular_bill["new_regular_bill"]["intrest_on_arrears"];
-		$credit_stock=$regular_bill["new_regular_bill"]["credit_stock"];
-		$due_for_payment=$regular_bill["new_regular_bill"]["due_for_payment"];
-		
-		$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_id)));
-		foreach($result_flat_info as $flat_info){
-			$wing_id=$flat_info["flat"]["wing_id"];
-		   }
-		
-		
-		
-		$wing_flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing_id,$flat_id)));
-		
-		
-		//user info via flat_id//
-		$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($wing_id,$flat_id)));
-		foreach($result_user_info as $user_info){
-			$user_name=$user_info["user"]["user_name"];
-		}
-		
-		$result_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch2'),array('pass'=>array(@$flat_id,$wing_id))); 
-		foreach($result_flat as $data2){
-			$flat_type_id = (int)$data2['flat']['flat_type_id'];
-			$noc_ch_id = (int)@$data2['flat']['noc_ch_tp'];
-			$sq_feet = (int)$data2['flat']['flat_area'];
-		}
-
-		$excel.="$wing_flat \t $user_name \t $sq_feet \t $bill_no \t";
-			foreach($income_head_array as $income_head=>$value){ 
-		 $excel.="$value \t";	
+			} 
+		$excel.="Non Occupancy charges \t";
+			
+			if(sizeof(@$other_charges_ids)>0){
+			foreach($other_charges_ids as $other_charges_id){
+			$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($other_charges_id)));	
+			foreach($result_income_head as $data2){
+			$income_head_name = $data2['ledger_account']['ledger_name'];
 			}
+			$excel.="$income_head_name \t";
+			} 
+			}
+			$excel.="Total \t Arrears-Principal \t Arrears-Interest \t Interest on Arrears \t Credit/Rebates \t Due For \t 
+		Payment \n";
+			*/
+		/*
+		$this->loadmodel('new_regular_bill');
+		$conditions=array("society_id" => $s_society_id,"approval_status" => 1,"one_time_id" => $one_time_id);
+		$order=array('new_regular_bill.one_time_id'=> 'DESC');
+		$result_new_regular_bill = $this->new_regular_bill->find('all',array('conditions'=>$conditions,'order'=>$order));
+		$this->set("result_new_regular_bill",$result_new_regular_bill);
+		foreach($result_new_regular_bill as $regular_bill){
+		$other_charges_array=@$regular_bill["new_regular_bill"]["other_charges_array"];
+		if(!empty($other_charges_array)){
+		foreach($other_charges_array as $key=>$value){
+		$other_charges_ids[]=$key;
+		}
+		}
+		}
+	
+	
+	
+	
+	if(sizeof(@$other_charges_ids)>0){
+	$other_charges_ids=array_unique($other_charges_ids);
+	$this->set('other_charges_ids',$other_charges_ids);
+	}
+
+	$this->loadmodel('society');
+	$condition=array('society_id'=>$s_society_id);
+	$result_society=$this->society->find('all',array('conditions'=>$condition)); 
+	$this->set('result_society',$result_society);
+	*/
+		
+
+		
 			
-				$excel.="$noc_charges \t";
-				if(sizeof(@$other_charges_ids)>0){
-			    foreach(@$other_charges_ids as $other_charges_id){
-				//$excel.="$other_charges_array[$other_charges_id] \t";
-				} 
-			    }
 				
 				
-			$excel.="$total \t $arrear_maintenance \t $arrear_intrest \t $intrest_on_arrears \t $credit_stock \t $due_for_payment \n";
-			}}
+				
 			
-			echo $excel;
+//echo $excel;
 			
 }
 ///////////////////////// End In Head Excel///////////////////////////////////////
