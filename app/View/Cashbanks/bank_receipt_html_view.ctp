@@ -4,7 +4,7 @@ foreach ($cursor1 as $collection)
 $receipt_no = (int)$collection['new_cash_bank']['receipt_id'];
 $d_date = $collection['new_cash_bank']['receipt_date'];
 $today = date("d-M-Y");
-$flat_id = $collection['new_cash_bank']['party_name_id'];
+$flat_id = $collection['new_cash_bank']['party_name_id']; 
 $amount = $collection['new_cash_bank']['amount'];
 $society_id = (int)$collection['new_cash_bank']['society_id'];
 $bill_reference = $collection['new_cash_bank']['reference_utr'];
@@ -34,15 +34,23 @@ $wing_flat = "";
 }
 else
 {
-$result_lsa = $this->requestAction(array('controller' => 'hms', 'action' => 'user_fetch2'),array('pass'=>array($flat_id)));
-foreach($result_lsa as $collection)
-{
-$wing_id = $collection['user']['wing'];  
-$flat_id = (int)$collection['user']['flat'];
-$tenant = (int)$collection['user']['tenant'];
-$user_name = $collection['user']['user_name'];
-}	
-$wing_flat = $this->requestAction(array('controller' => 'hms', 'action'=>'wing_flat'),array('pass'=>array($wing_id,$flat_id)));									
+
+//wing_id via flat_id//
+				$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_id)));
+				foreach($result_flat_info as $flat_info){
+					$wing=$flat_info["flat"]["wing_id"];
+				} 
+				
+				
+				//user info via flat_id//
+				$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($wing,$flat_id)));
+				foreach($result_user_info as $user_info){
+					$user_id=(int)$user_info["user"]["user_id"];
+					$user_name=$user_info["user"]["user_name"];
+					$tenant = (int)$user_info['user']['tenant'];
+				} 
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action'=>'wing_flat'),array('pass'=>array($wing,$flat_id)));	
+								
 }  
 $result2 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_sub_account_fetch'),array('pass'=>array($sub_account))); 
 foreach($result2 as $collection)
