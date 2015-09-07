@@ -151,6 +151,7 @@ foreach($result_new_regular_bill as $regular_bill){
 	</thead>
 	<tbody>
 <?php
+$total_noc_charges=0;
 foreach($result_new_regular_bill as $regular_bill){
 	$one_time_id=$regular_bill["new_regular_bill"]["one_time_id"];
 	if($one_time_id==$last_one_time_id){
@@ -195,11 +196,11 @@ foreach($result_new_regular_bill as $regular_bill){
 			<td><?php echo $sq_feet; ?></td>
 			<td><?php echo $bill_no; ?></td>
 			<?php foreach($income_head_array as $income_head=>$value){
-					
+				$total_income_heads[$income_head][]=$value;
 			 ?>
 			<td><?php echo @$value; ?></td>	
 			<?php } ?>
-			<td><?php echo $noc_charges; ?></td>
+			<td><?php echo $noc_charges; $total_noc_charges+=$noc_charges; ?></td>
 			<?php 
 			if(sizeof(@$other_charges_ids)>0){
 				foreach(@$other_charges_ids as $other_charges_id){
@@ -227,14 +228,14 @@ foreach($result_new_regular_bill as $regular_bill){
 	</tbody>
 		<tr>
 			<td colspan="4" align="right">Total</td>
-			<?php foreach($income_head_array as $income_head=>$value){ 
-			$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($income_head)));	
-			foreach($result_income_head as $data2){
-				$income_head_name = $data2['ledger_account']['ledger_name'];
-			} ?>
-			<td>hello</td>	
-			<?php } ?>
-			<td>Non Occupancy charges</td>
+			<?php foreach($income_head_array as $income_head=>$value){ $total_income_heads_am=0;
+				foreach($total_income_heads[$income_head] as $data5){
+					$total_income_heads_am+=$data5;
+				}
+			 ?>
+			<td><?php echo $total_income_heads_am; ?></td>	
+			<?php }   ?>
+			<td><?php echo $total_noc_charges; ?></td>
 			
 			<?php 
 			if(sizeof(@$other_charges_ids)>0){

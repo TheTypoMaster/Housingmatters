@@ -327,7 +327,7 @@ foreach($result_society as $data){
 								<?php
 							}else{
 								?>
-								<td><?php echo '<input type="text" class="text_bx call_calculation" name="other_charges'.$other_charges_id.$inc.'" column_id="'.$column_id.'"  value=0 row_id="'.$inc.'" id="other_charges'.$qwe.'_'.$inc.'" />'; ?></td>
+								<td><?php echo '<input type="text" class="text_bx call_calculation" name="other_charges'.$other_charges_id.'_'.$inc.'" column_id="'.$column_id.'"  value=0 row_id="'.$inc.'" id="other_charges'.$qwe.'_'.$inc.'" />'; ?></td>
 								<?php
 							}
 						} }?>
