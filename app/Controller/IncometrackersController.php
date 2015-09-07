@@ -4320,7 +4320,6 @@ $this->layout='session';
 $this->ath();
 $this->check_user_privilages();
 
-
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
@@ -4329,7 +4328,6 @@ $this->set('nnn',$nnn);
 
 if(isset($this->request->data['sub']))
 {
-
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
 $cursor2 = $this->society->find('all',array('conditions'=>$conditions));
