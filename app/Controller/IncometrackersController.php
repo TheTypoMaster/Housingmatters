@@ -4846,10 +4846,28 @@ function in_report_ajax(){
 	$one_time_id = (int)$this->request->query('un');
 	$this->set('one_time_id',$one_time_id);
 
+	
+	
+	
 	$this->loadmodel('new_regular_bill');
 	$conditions=array("society_id" => $s_society_id,"approval_status" => 1,"one_time_id" => $one_time_id);
-	$result_new_regular_bill = $this->new_regular_bill->find('all',array('conditions'=>$conditions));
+	$order=array('new_regular_bill.one_time_id'=> 'DESC');
+	$result_new_regular_bill = $this->new_regular_bill->find('all',array('conditions'=>$conditions,'order'=>$order));
 	$this->set("result_new_regular_bill",$result_new_regular_bill);
+	foreach($result_new_regular_bill as $regular_bill){
+		$other_charges_array=@$regular_bill["new_regular_bill"]["other_charges_array"];
+		if(!empty($other_charges_array)){
+			foreach($other_charges_array as $key=>$value){
+				$other_charges_ids[]=$key;
+			}
+		}
+	}
+	if(sizeof(@$other_charges_ids)>0){
+	$other_charges_ids=array_unique($other_charges_ids);
+	$this->set('other_charges_ids',$other_charges_ids);
+	}
+	
+	
 
 	$this->loadmodel('society');
 	$condition=array('society_id'=>$s_society_id);
