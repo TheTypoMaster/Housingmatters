@@ -3750,7 +3750,6 @@ function in_head_report(){
 				$other_charges_ids[]=$key;
 			}
 		}
-		
 	}
 	if(sizeof(@$other_charges_ids)>0){
 	$other_charges_ids=array_unique($other_charges_ids);

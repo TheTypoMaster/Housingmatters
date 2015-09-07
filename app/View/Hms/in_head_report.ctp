@@ -74,10 +74,6 @@ $(document).ready(function() {
 	$("#go").live('click',function(){
 		var unic = document.getElementById('un').value;
 		
-		
-		
-	
-		
 		$("#result").html('<div align="center" style="padding:10px;"><img src="as/loding.gif" />Loding....</div>').load("in_report_ajax?un=" +unic+ "");
 		
 		
