@@ -15,48 +15,150 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 $default_date = date('d-m-Y');
 ?>
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>
-<div style="width:99%; background-color:#FFF; overflow:auto; border:solid 1px #CCC;">	
+<div style="width:99%; background-color:#FFF; overflow:hidden; border:solid 1px #CCC;">	
 <h4 style="color:#00F; font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;">&nbsp;&nbsp;&nbsp;<i class="icon-money"></i> Genarate Supplimentry Bill</h4>
 	
 <form class="form-horizontal" method="post" id="contact-form" novalidate>
 <br />
-	<div style="width:48%; border:solid; float:left;">
+	<div style="width:48%; float:left;">
 
-     
-<label class="" style="font-size:14px;">&nbsp;&nbsp;&nbsp;Billing Date<span style="color:red;">*</span></label>    
-
-&nbsp;&nbsp;<input type="text" name="from" id="from" class="m-wrap span7" data-date-format="dd-mm-yyyy" placeholder="Bill Date" value="<?php //echo $default_date; ?>"/>
-      
-  
-
+<!-- Start Form -->
+<label class="" style="font-size:14px;">&nbsp;&nbsp;&nbsp;Billing Date<span style="color:red;">*</span></label>   
+&nbsp;&nbsp;<input type="text" name="from" id="from" class="m-wrap span7" data-date-format="dd-mm-yyyy" placeholder="Bill Date" value="<?php echo $default_date; ?>"/>
+<label id="from"></label>
+<br /> 
 
 
+<label style="font-size:14px; color:red;">&nbsp;&nbsp;&nbsp;Payment Due Date<span style="color:red;">*</span></label>
+&nbsp;&nbsp;<input type="text" class="span7 m-wrap  m-ctrl-medium date-picker" data-date-format="dd-mm-yyyy" placeholder="Due Date" name="due_date" id="due" style="color:red; border-color:red;">
+<label id="due" ></label>
+<div id="result12"></div>
+<br />
+
+
+<label class="radio">
+<div class="radio requirecheck1" id="uniform-undefined"><input type="radio" class="go requirecheck1" name="type" value="1" style="opacity: 0;" id="requirecheck1"></div>
+Non-residential
+</label>
+<label class="radio">
+<div class="radio" id="uniform-undefined"><input type="radio" class="go1 requirecheck1" name="type" value="2"  style="opacity: 0;" id="requirecheck1"></span></div>
+Residential
+</label> 
+<label id="requirecheck1"></label>	
+<br />
 
 
 
 
 
+<label class="" style="font-size:14px;">&nbsp;&nbsp;&nbsp;Billing Description</label>
+&nbsp;&nbsp;<textarea class="span9 m-wrap" name="description" style="resize:none;" rows="3" id="des"></textarea>
+&nbsp;&nbsp;<label id="des"></label>
+
+<!-- ------------------------- -->
+</div> 
+        
+<div style="width:50%; float:right; overflow:hidden;">
+
+<div id="div1" class="hide">
+<label class="" style="font-size:14px;">&nbsp;&nbsp;&nbsp;Company Name<span style="color:red;">*</span></label>
+&nbsp;&nbsp;<input type="text" class="span9 m-wrap section1" name="c_name" id="cn">
+&nbsp;&nbsp;<label id="cn"></label>
+<br />
 
 
+<label class="" style="font-size:14px;">&nbsp;&nbsp;&nbsp;Person Name<span style="color:red;">*</span></label>
+&nbsp;&nbsp;<input type="text" class="span9 m-wrap section1" name="p_name" id="pn">
+&nbsp;&nbsp;<label id="pn"></label>
+<br />
+</div>
+
+<div id="div2" class="hide">
+<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Resident Name<span style="color:red;">*</span></label>
+&nbsp;&nbsp;<select class="chosen qwerty2 section2" name="r_name"  data-placeholder="Choose Resident Name" tabindex="1" id="hide1">
+<option value=""></option>
+<?php
+foreach ($cursor1 as $collection) 
+{
+$auto_id = (int)$collection['ledger_sub_account']['auto_id'];
+$user_id = (int)$collection['ledger_sub_account']['user_id'];
+
+$result_user = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>			array($user_id)));
+foreach ($result_user as $collection) 
+{
+$user_name = $collection['user']['user_name'];  
+$wing_id = (int)$collection['user']['wing'];
+$flat_id = (int)$collection['user']['flat'];
+}
+$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat_with_brackets'),array('pass'=>			array($wing_id,$flat_id)));			
+?>
+<option value="<?php echo $auto_id; ?>"><?php echo $user_name; ?> &nbsp;&nbsp; <?php echo $wing_flat; ?></option>
+<?php } ?>
+</select>
+&nbsp;&nbsp;<label id = "hide1"></label>
+<br />
+</div>
 
 
+<div id="div6" class="hide">
+<label style="font-size:14px;">&nbsp;&nbsp;&nbsp;Amount<span style="color:red;">*</span></label>
+&nbsp;&nbsp;<input type="text" class="span5 m-wrap section1" name="amt" id="amt">
+&nbsp;&nbsp;<label id="amt"></label>
+<br />
+</div>
 
 
-
-	</div> 
-    
-         
-<div style="width:50%; border:solid; float:right; overflow:hidden;">
-
-	sdfsdfsdf<br />
-	sdasdasd<br />
-    adADa<br />
-
+<div id="div5" class="hide">
+    <table border="0">
+    <tr>
+    <th><label><b>Select Income Heads</b></label></th>
+    <th><label><b>Amount (Rs.)</b></label></th>
+    </tr>
+		<?php
+        foreach ($cursor2 as $collection) 
+        {
+        $income_heads_id= (int)$collection['ledger_account']["auto_id"];
+        $income_heads_name=$collection['ledger_account']["ledger_name"];
+        ?>
+<tr>
+        <td>
+        <label class="checkbox">
+        <div class="checker" id="uniform-undefined"><span><input type="checkbox" value="<?php echo $income_heads_id; ?>" style="opacity: 0;" id="ih<?php echo $income_heads_id; ?>" name="ih<?php echo $income_heads_id; ?>" onclick="show(<?php echo $income_heads_id; ?>)" class="ignr"></span></div><?php echo $income_heads_name; ?>
+        </label>
+        </td>
+            <td>
+            <input type="text" class="m-wrap small" id="amt<?php echo $income_heads_id; ?>" name="amt<?php echo $income_heads_id; ?>" style="display:none;"/>
+            </td>
+                </tr>
+                <?php } ?>
+                <tr>
+        <td>
+        <label class="checkbox">
+        <div class="checker" id="uniform-undefined"><span><input type="checkbox" value="43" style="opacity: 0;" name="ih43" id="ih43" onclick="show(43)" class="ignr"></span></div>Non Occupancy Charges
+        </label>
+        </td>
+            <td>
+            <input type="text" class="m-wrap small" id="amt43" name="amt43" style="display:none;" />
+            </td>
+    </tr>
+    </table>
+<label id="chk_vali"></label>
+<label id="chk_vali2"></label>
+<label id="vali_amt"></label>
+<br />
+</div>
 </div>      
+<br />
+
+<div style="width:100%; overflow:hidden">
+<hr />
+&nbsp;&nbsp;&nbsp;<button type="submit" class="btn green" value="Generate Bill" name="sub1" id="go5">Preview Bill</button>
+<a href="it_supplimentry_bill" class="btn">Reset</a>
+</div>
         
         
 </div>
-*/ ?>
+
 <?php /////////////////////////////////////////////////////////////////////////////////////////////////////////// ?>		
         <?php /*
 			<div style="width:70%; margin-left:15%;">
@@ -117,20 +219,17 @@ $default_date = date('d-m-Y');
 		
  
  
- <div class="control-group">
-		<div class="controls">
+ 
 		<label class="" style="font-size:14px; color:red;">Payment Due Date <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Please select payment due date"> </i></label>
         <input type="text" class="span3 m-wrap  m-ctrl-medium date-picker" data-date-format="dd-mm-yyyy" placeholder="Due Date" name="due_date" id="due" style="color:red; border-color:red;">
         <label id="due" ></label>
 		 <div id="result12"></div>
-        </div>
-		</div>	
+       
  
 
  
 
-			<div class="control-group ">
-			<div class="controls">
+			
 			<label class="radio">
 			<div class="radio requirecheck1" id="uniform-undefined"><input type="radio" class="go requirecheck1" name="type" value="1" style="opacity: 0;" id="requirecheck1"></div>
 			Non-residential
@@ -140,34 +239,24 @@ $default_date = date('d-m-Y');
 			Residential
 			</label> 
 <label id="requirecheck1"></label>			
-			</div>
-			</div>		
+				
 		
-		
-			
+				
 			<div id="div1" class="hide">
-			<div class="control-group ">
-			<div class="controls">
 			<label class="" style="font-size:14px;">Company Name</label>
 			<input type="text" class="span8 m-wrap section1" name="c_name" id="cn">
 			<label id="cn"></label>
-			</div>
-			</div>
+			
                  		
 		 
-			<div class="control-group ">
-			<div class="controls">
 			<label class="" style="font-size:14px;">Person Name</label>
 			<input type="text" class="span8 m-wrap section1" name="p_name" id="pn">
 			<label id="pn"></label>
-			</div>
-			</div>
+			
 		    </div>
 		
 	 
 			<div id="div2" class="hide">
-			<div class="control-group">
-			<div class="controls">
 			<label >Resident Name</label>
 			<select class="chosen qwerty2 section2" name="r_name"  data-placeholder="Choose Resident Name" tabindex="1" id="hide1">
 			<option value=""></option>
@@ -186,31 +275,20 @@ $default_date = date('d-m-Y');
 			}
 			
 $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat_with_brackets'),array('pass'=>			array($wing_id,$flat_id)));			
-			
-			
-			
-			
-			
-			
 			?>
 			<option value="<?php echo $auto_id; ?>"><?php echo $user_name; ?> &nbsp;&nbsp; <?php echo $wing_flat; ?></option>
 			<?php } ?>
 			</select>
 			<label id = "hide1"></label>
 			</div>
-			</div>
-            </div>	
-            
-            
+			           
+          
             <div id="div6" class="hide">
-			<div class="control-group">
-			<div class="controls">
 			<label >Amount</label>
 			<input type="text" class="span8 m-wrap section1" name="amt" id="amt">
 			<label id="amt"></label>
 			</div>
-			</div>
-            </div>	
+			
             
             
             
@@ -224,10 +302,7 @@ $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing
             
 		
             <div id="div5" class="hide">
-			<div class="control-group">
-			<div class="controls">
-            
-            <table border="0">
+			<table border="0">
 			<tr>
             <th><label><b>Select Income Heads</b></label></th>
             <th><label><b>Amount (Rs.)</b></label></th>
@@ -263,11 +338,9 @@ $wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing
             <label id="chk_vali"></label>
             <label id="chk_vali2"></label>
            <label id="vali_amt"></label>
-           	</div>
-			</div>
-		    </div>
+           </div>
 	
-    
+    ///////////////////////////////
     <!--
 			<div class="control-group">
 			<div class="controls">
