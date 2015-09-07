@@ -25,6 +25,18 @@ foreach($result_new_regular_bill as $regular_bill){
 			<th><?php echo $income_head_name; ?></th>	
 			<?php } ?>
 			<th>Non Occupancy charges</th>
+			<?php 
+			if(sizeof(@$other_charges_ids)>0){
+				foreach($other_charges_ids as $other_charges_id){
+					$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($other_charges_id)));	
+						foreach($result_income_head as $data2){
+							$income_head_name = $data2['ledger_account']['ledger_name'];
+						}
+					?>
+					<th><?php echo $income_head_name; ?></th>
+					<?php
+				} 
+			}?>
 			<th>Total</th>
 			<th>Arrears-Principal</th>
 			<th>Arrears-Interest</th>
@@ -45,6 +57,7 @@ foreach($result_new_regular_bill as $regular_bill){
 	$flat_id=$regular_bill["new_regular_bill"]["flat_id"];
 	$bill_no = (int)$regular_bill["new_regular_bill"]["bill_no"];
 	$income_head_array=$regular_bill["new_regular_bill"]["income_head_array"];
+	$other_charges_array=$regular_bill["new_regular_bill"]["other_charges_array"];
 	$noc_charges=$regular_bill["new_regular_bill"]["noc_charges"];
 	$total=$regular_bill["new_regular_bill"]["total"];
 	$arrear_maintenance=$regular_bill["new_regular_bill"]["arrear_maintenance"];
@@ -83,6 +96,15 @@ foreach($result_new_regular_bill as $regular_bill){
 		<td><?php echo $value; ?></td>	
 		<?php } ?>
 		<td><?php echo $noc_charges; ?></td>
+		<?php 
+			if(sizeof(@$other_charges_ids)>0){
+				foreach(@$other_charges_ids as $other_charges_id){
+					$total_other_charges[$other_charges_id][]=@(int)$other_charges_array[$other_charges_id];
+					?>
+					<td><?php echo @(int)$other_charges_array[$other_charges_id]; ?></td>
+					<?php
+				} 
+			} ?>
 		<td><?php echo $total; ?></td>
 		<td><?php echo $arrear_maintenance; ?></td>
 		<td><?php echo $arrear_intrest; ?></td>
