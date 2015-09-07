@@ -5010,7 +5010,29 @@ $excel.="$arrear_intrest \t"; $total_arrear_intrest+=$arrear_intrest;
 $excel.="$intrest_on_arrears \t"; $total_intrest_on_arrears+=$intrest_on_arrears; 
 $excel.="$credit_stock \t"; $total_credit_stock+=$credit_stock; 
 $excel.="$due_for_payment \n"; $total_due_for_payment+=$due_for_payment; 
-}		
+}	
+/*	
+$excel.=" \t \t \t Total \t";
+			foreach($income_head_array as $income_head=>$value){ $total_income_heads_am=0;
+			foreach($total_income_heads[$income_head] as $data5){
+					$total_income_heads_am+=$data5;
+					}
+			 $excel.="$total_income_heads_am \t";
+				}  
+			$excel.="$total_noc_charges \t";
+			
+			if(sizeof(@$other_charges_ids)>0){
+				foreach($other_charges_ids as $other_charges_id){ $total_other_charges_am=0;
+					foreach($total_other_charges[$other_charges_id] as $data6){
+						$total_other_charges_am+=$data6;
+					}
+					$excel.="$total_other_charges_am \t";				
+				  } 
+			    }
+			$excel.="$total_total \t $total_arrear_maintenance \t $total_arrear_intrest \t $total_intrest_on_arrears \t 
+			$total_credit_stock \t $total_due_for_payment \n";
+			
+*/
 	
 echo $excel;
 			
