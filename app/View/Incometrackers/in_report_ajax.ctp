@@ -1,15 +1,16 @@
 <?php
 foreach($result_society as $data){
-	$income_heads=$data["society"]["income_head"];
+$income_heads=$data["society"]["income_head"];
 }
 foreach($result_new_regular_bill as $regular_bill){
-	$income_head_array=$regular_bill["new_regular_bill"]["income_head_array"];
+$income_head_array=$regular_bill["new_regular_bill"]["income_head_array"];
 }
 ?>
 <div align="right">
 <a href="in_head_excel?one=<?php echo @$one_time_id; ?>" class="btn blue">Export</a>
 <a href="print_all_bill/<?php echo @$one_time_id; ?>" target="_blank" class="btn purple"><i class="icon-print"></i> Print All</a>
 </div>
+
 <table id="report_tb">
 	<thead>
 		<tr>
