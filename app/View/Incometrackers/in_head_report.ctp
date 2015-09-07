@@ -151,7 +151,7 @@ foreach($result_new_regular_bill as $regular_bill){
 	</thead>
 	<tbody>
 <?php
-$total_noc_charges=0;
+$total_noc_charges=0; $total_total=0; $total_arrear_maintenance=0; $total_arrear_intrest=0; $total_intrest_on_arrears=0; $total_credit_stock=0; $total_due_for_payment=0;
 foreach($result_new_regular_bill as $regular_bill){
 	$one_time_id=$regular_bill["new_regular_bill"]["one_time_id"];
 	if($one_time_id==$last_one_time_id){
@@ -204,17 +204,18 @@ foreach($result_new_regular_bill as $regular_bill){
 			<?php 
 			if(sizeof(@$other_charges_ids)>0){
 				foreach(@$other_charges_ids as $other_charges_id){
+					$total_other_charges[$other_charges_id][]=@(int)$other_charges_array[$other_charges_id];
 					?>
 					<td><?php echo @(int)$other_charges_array[$other_charges_id]; ?></td>
 					<?php
 				} 
-			}?>
-			<td><?php echo $total; ?></td>
-			<td><?php echo $arrear_maintenance; ?></td>
-			<td><?php echo $arrear_intrest; ?></td>
-			<td><?php echo $intrest_on_arrears; ?></td>
-			<td><?php echo $credit_stock; ?></td>
-			<td><?php echo $due_for_payment; ?></td>
+			} ?>
+			<td><?php echo $total; $total_total+=$total; ?></td>
+			<td><?php echo $arrear_maintenance; $total_arrear_maintenance+=$arrear_maintenance; ?></td>
+			<td><?php echo $arrear_intrest; $total_arrear_intrest+=$arrear_intrest; ?></td>
+			<td><?php echo $intrest_on_arrears; $total_intrest_on_arrears+=$intrest_on_arrears; ?></td>
+			<td><?php echo $credit_stock; $total_credit_stock+=$credit_stock; ?></td>
+			<td><?php echo $due_for_payment; $total_due_for_payment+=$due_for_payment; ?></td>
 			<td><a href="regular_bill_view/<?php echo $auto_id; ?>" target="_blank" class="btn mini yellow"><i class="icon-search"></i></a>
 			<a href="regular_bill_edit2/<?php echo $auto_id; ?>" role="button" rel='tab' class="btn mini blue"><i class="icon-edit"></i></a>
   
@@ -227,34 +228,33 @@ foreach($result_new_regular_bill as $regular_bill){
 ?>
 	</tbody>
 		<tr>
-			<td colspan="4" align="right">Total</td>
+			<td colspan="4" align="right"><b>Total<b/></td>
 			<?php foreach($income_head_array as $income_head=>$value){ $total_income_heads_am=0;
 				foreach($total_income_heads[$income_head] as $data5){
 					$total_income_heads_am+=$data5;
 				}
 			 ?>
-			<td><?php echo $total_income_heads_am; ?></td>	
+			<td><b><?php echo $total_income_heads_am; ?></b></td>	
 			<?php }   ?>
-			<td><?php echo $total_noc_charges; ?></td>
+			<td><b><?php echo $total_noc_charges; ?></b></td>
 			
 			<?php 
 			if(sizeof(@$other_charges_ids)>0){
-				foreach($other_charges_ids as $other_charges_id){
-					$result_income_head = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($other_charges_id)));	
-						foreach($result_income_head as $data2){
-							$income_head_name = $data2['ledger_account']['ledger_name'];
-						}
+				foreach($other_charges_ids as $other_charges_id){ $total_other_charges_am=0;
+					foreach($total_other_charges[$other_charges_id] as $data6){
+						$total_other_charges_am+=$data6;
+					}
 					?>
-					<td><?php echo $income_head_name; ?></td>
+					<td><b><?php echo $total_other_charges_am; ?></b></td>
 					<?php
 				} 
 			}?>
-			<td>Total</td>
-			<td>Arrears-Principal</td>
-			<td>Arrears-Interest</td>
-			<td>Interest on Arrears</td>
-			<td>Credit/Rebates</td>
-			<td>Due For Payment</td>
+			<td><b><?php echo $total_total; ?></b></td>
+			<td><b><?php echo $total_arrear_maintenance; ?></b></td>
+			<td><b><?php echo $total_arrear_intrest; ?></b></td>
+			<td><b><?php echo $total_intrest_on_arrears; ?></b></td>
+			<td><b><?php echo $total_credit_stock; ?></b></td>
+			<td><b><?php echo $total_due_for_payment; ?></b></td>
 			<td></td>
 		</tr>
 </table>

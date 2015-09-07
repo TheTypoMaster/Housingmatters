@@ -36,7 +36,7 @@ foreach($result_society as $data){
 ?>
 <form method="post" >
 <div class="portlet-body" style="background-color: #fff; overflow-x: auto;overflow-y:hidden;" align="center">
-<?php pr($other_charges_ids); ?>
+
 <table >
 	<thead>
 		<tr>
