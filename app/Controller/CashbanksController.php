@@ -11,175 +11,176 @@ var $name = 'Cashbanks';
 ///////////////////// Start bank receipt View/////////////////////////////////////////////////////////
 function bank_receipt_view()
 {
-if($this->RequestHandler->isAjax()){
+		if($this->RequestHandler->isAjax()){
 		$this->layout='blank';
-	}else{
+		}else{
 		$this->layout='session';
-	}
+		}
 	
-$this->ath();
-$this->check_user_privilages();	
+			$this->ath();
+			$this->check_user_privilages();	
 	
-	
-$s_role_id=$this->Session->read('role_id');
-$s_society_id = $this->Session->read('society_id');
-$s_user_id=$this->Session->read('user_id');
+				$s_role_id=$this->Session->read('role_id');
+				$s_society_id = $this->Session->read('society_id');
+				$s_user_id=$this->Session->read('user_id');
 
-$this->set('s_role_id',$s_role_id);
+		$this->set('s_role_id',$s_role_id);
 }
 ////////////////////End Bank receipt View////////////////////////////////////////////////////////////
 
 /////////////////////// Start bank receipt show ajax //////////////////////////////////////////////
-
 function bank_receipt_show_ajax()
 {
-$this->layout='blank';
+	$this->layout='blank';
 
-$this->ath();
-$s_role_id=$this->Session->read('role_id');
-$s_society_id = $this->Session->read('society_id');
-$s_user_id=$this->Session->read('user_id');
+		$this->ath();
+		$s_role_id=$this->Session->read('role_id');
+		$s_society_id = $this->Session->read('society_id');
+		$s_user_id=$this->Session->read('user_id');
 
-$this->set('s_user_id',$s_user_id);
-$this->set('s_role_id',$s_role_id);
+	$this->set('s_user_id',$s_user_id);
+	$this->set('s_role_id',$s_role_id);
 
-$from = $this->request->query('date1');
-$to = $this->request->query('date2');
+		$from = $this->request->query('date1');
+		$to = $this->request->query('date2');
 
-$date_from = date('Y-m-d',strtotime($from));
-$date_to = date('Y-m-d',strtotime($to));
+	$date_from = date('Y-m-d',strtotime($from));
+	$date_to = date('Y-m-d',strtotime($to));
 
+		$from_strtotime = strtotime($date_from);
+		$to_strtotime = strtotime($date_to);
 
-$from_strtotime = strtotime($date_from);
-$to_strtotime = strtotime($date_to);
+	$this->set('from',$from);
+	$this->set('to',$to);
 
-$this->set('from',$from);
-$this->set('to',$to);
+		$this->loadmodel('new_cash_bank');
+		$conditions=array('society_id'=>$s_society_id,'new_cash_bank.receipt_date'=>array('$gte'=>$from_strtotime,'$lte'=>$to_strtotime));
+		$cursor2=$this->new_cash_bank->find('all',array('conditions'=>$conditions));
+		$this->set('cursor2',$cursor2);
 
-$this->loadmodel('new_cash_bank');
-$conditions=array('society_id'=>$s_society_id,'new_cash_bank.receipt_date'=>array('$gte'=>$from_strtotime,'$lte'=>$to_strtotime));
-$cursor2=$this->new_cash_bank->find('all',array('conditions'=>$conditions));
-$this->set('cursor2',$cursor2);
-
-$this->loadmodel('society');
-$conditions=array("society_id" => $s_society_id);
-$cursor = $this->society->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$society_name = $collection['society']['society_name'];
-}
-$this->set('society_name',$society_name);
-
+			$this->loadmodel('society');
+			$conditions=array("society_id" => $s_society_id);
+			$cursor = $this->society->find('all',array('conditions'=>$conditions));
+			foreach($cursor as $collection)
+			{
+			$society_name = $collection['society']['society_name'];
+			}
+	$this->set('society_name',$society_name);
 }
 ///////////////////////////////////End bank receipt show ajax//////////////////////////////////////////////////
 
-//////////////////////// Start bank receipt ////////////////////////////////////////////
+//////////////////////// Start bank receipt ///////////////////////////////////////////////////////////
 function bank_receipt()
 {
-if($this->RequestHandler->isAjax())
-{
-$this->layout='blank';
-}else{
-$this->layout='session';
-}
+		if($this->RequestHandler->isAjax())
+		{
+		$this->layout='blank';
+		}else{
+		$this->layout='session';
+		}
 
-$this->ath();
-$this->check_user_privilages();
+		$this->ath();
+		$this->check_user_privilages();
 
-App::import('', 'sendsms.php');
-$s_role_id=$this->Session->read('role_id');
-$s_society_id = (int)$this->Session->read('society_id');
-$s_user_id=$this->Session->read('user_id');
+			App::import('', 'sendsms.php');
+			$s_role_id=$this->Session->read('role_id');
+			$s_society_id = (int)$this->Session->read('society_id');
+			$s_user_id=$this->Session->read('user_id');
 
-$this->set('s_user_id',$s_user_id);
-$this->set('s_role_id',$s_role_id);
-$first_day_this_month = date('01-m-Y'); 
-$this->set('default_date',$first_day_this_month);
-$this->loadmodel('user');
-$conditions=array("society_id" => $s_society_id,"user_id" => $s_user_id);
-$cursor=$this->user->find('all',array('conditions'=>$conditions));
-foreach ($cursor as $collection) 
-{
-$tenant_c = (int)$collection['user']['tenant'];
-}
-$this->set('tenant_c',$tenant_c);
-
-$this->loadmodel('financial_year');
-$conditions=array("society_id" => $s_society_id, "status"=>1);
-$cursor=$this->financial_year->find('all',array('conditions'=>$conditions));
-foreach($cursor as $collection)
-{
-$date_from = @$collection['financial_year']['from'];
-$date_to = @$collection['financial_year']['to'];
-
-$date_from1 = date('Y-m-d',$date_from->sec);
-$date_to1 = date('Y-m-d',$date_to->sec);
-
-$datef[] = $date_from1;
-$datet[] = $date_to1;
-}
-if(!empty($datef))
-{
-$datef1 = implode(',',$datef);
-$datet1 = implode(',',$datet);
-}
-$count = sizeof(@$datef);
-$this->set('datef1',@$datef1);
-$this->set('datet1',@$datet1);
-$this->set('count',$count);
-
-
-$this->loadmodel('cash_bank');
-$conditions=array("society_id" => $s_society_id,"module_id"=>1);
-$order=array('cash_bank.receipt_id'=> 'DESC');
-$cursor=$this->cash_bank->find('all',array('conditions'=>$conditions,'order' =>$order,'limit'=>1));
-foreach ($cursor as $collection) 
-{
-$last=$collection['cash_bank']['receipt_id'];
-}
-if(empty($last))
-{
-$zz=0;
-}	
-else
-{	
-$zz=$last;
-}
-$this->set('zz',$zz);
-
-
-
-$this->loadmodel('ledger_sub_account');
-$conditions=array("society_id" => $s_society_id, "ledger_id" => 34);
-$cursor1=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
-$this->set('cursor1',$cursor1);
-foreach($cursor1 as $collection)
-{
-$user_id = (int)@$collection['ledger_sub_account']['user_id'];
-
-$this->loadmodel('user');
-$conditions=array("user_id" => $user_id);
-$cursor2=$this->user->find('all',array('conditions'=>$conditions));
-$this->set('cursor',$cursor2);
-}
-$this->loadmodel('ledger_sub_account');
-$conditions=array("ledger_id" => 33,"society_id"=>$s_society_id);
-$cursor3=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
-$this->set('cursor3',$cursor3);
-
-	if(isset($this->request->data['bank_receipt_add']))
-	{
-	$current_date = date('Y-m-d');
-	$receipt_date = $this->request->data['transaction_date']; 
-	$TransactionDate = date('Y-m-d',strtotime($receipt_date));
-	$TransactionDate = strtotime($TransactionDate); 
-	$deposited_bank_id = (int)$this->request->data['deposited_bank_id'];
-	$receipt_mode = $this->request->data['receipt_mode'];
-			if($receipt_mode == "Cheque")
+		$this->set('s_user_id',$s_user_id);
+		$this->set('s_role_id',$s_role_id);
+		$first_day_this_month = date('01-m-Y'); 
+		$this->set('default_date',$first_day_this_month);
+		
+			$this->loadmodel('user');
+			$conditions=array("society_id" => $s_society_id,"user_id" => $s_user_id);
+			$cursor=$this->user->find('all',array('conditions'=>$conditions));
+			foreach ($cursor as $collection) 
 			{
-			$cheque_number = $this->request->data['cheque_number'];
-			$cheque_date = $this->request->data['cheque_date1'];
-			$drawn_on_which_bank = $this->request->data['drawn_on_which_bank'];
+			$tenant_c = (int)$collection['user']['tenant'];
+			}
+			
+		$this->set('tenant_c',$tenant_c);
+
+			$this->loadmodel('financial_year');
+			$conditions=array("society_id" => $s_society_id, "status"=>1);
+			$cursor=$this->financial_year->find('all',array('conditions'=>$conditions));
+			foreach($cursor as $collection)
+			{
+			$date_from = @$collection['financial_year']['from'];
+			$date_to = @$collection['financial_year']['to'];
+
+				$date_from1 = date('Y-m-d',$date_from->sec);
+				$date_to1 = date('Y-m-d',$date_to->sec);
+
+			$datef[] = $date_from1;
+			$datet[] = $date_to1;
+			}
+			
+				if(!empty($datef))
+				{
+				$datef1 = implode(',',$datef);
+				$datet1 = implode(',',$datet);
+				}
+				
+			$count = sizeof(@$datef);
+			$this->set('datef1',@$datef1);
+			$this->set('datet1',@$datet1);
+			$this->set('count',$count);
+
+
+		$this->loadmodel('cash_bank');
+		$conditions=array("society_id" => $s_society_id,"module_id"=>1);
+		$order=array('cash_bank.receipt_id'=> 'DESC');
+		$cursor=$this->cash_bank->find('all',array('conditions'=>$conditions,'order' =>$order,'limit'=>1));
+		foreach ($cursor as $collection) 
+		{
+		$last=$collection['cash_bank']['receipt_id'];
+		}
+		if(empty($last))
+		{
+		$zz=0;
+		}	
+		else
+		{	
+		$zz=$last;
+		}
+		$this->set('zz',$zz);
+
+
+
+		$this->loadmodel('ledger_sub_account');
+		$conditions=array("society_id" => $s_society_id, "ledger_id" => 34);
+		$cursor1=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+		$this->set('cursor1',$cursor1);
+		foreach($cursor1 as $collection)
+		{
+		$user_id = (int)@$collection['ledger_sub_account']['user_id'];
+		$this->loadmodel('user');
+		$conditions=array("user_id" => $user_id);
+		$cursor2=$this->user->find('all',array('conditions'=>$conditions));
+		$this->set('cursor',$cursor2);
+		}
+		
+			$this->loadmodel('ledger_sub_account');
+			$conditions=array("ledger_id" => 33,"society_id"=>$s_society_id);
+			$cursor3=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+			$this->set('cursor3',$cursor3);
+
+				if(isset($this->request->data['bank_receipt_add']))
+				{
+				$current_date = date('Y-m-d');
+				$receipt_date = $this->request->data['transaction_date']; 
+				$TransactionDate = date('Y-m-d',strtotime($receipt_date));
+				$TransactionDate = strtotime($TransactionDate); 
+				$deposited_bank_id = (int)$this->request->data['deposited_bank_id'];
+				$receipt_mode = $this->request->data['receipt_mode'];
+			
+				if($receipt_mode == "Cheque")
+				{
+				$cheque_number = $this->request->data['cheque_number'];
+				$cheque_date = $this->request->data['cheque_date1'];
+				$drawn_on_which_bank = $this->request->data['drawn_on_which_bank'];
 			
 								$knddd = "&quot;".$drawn_on_which_bank."&quot;";
 								$this->loadmodel('reference');
@@ -314,11 +315,9 @@ if($member_type == 1)
 						}
 				        }
 			            }
-
 			
 			$this->loadmodel('new_regular_bill');
 			$this->new_regular_bill->updateAll(array('new_arrear_intrest'=>$new_arrear_intrest,"new_intrest_on_arrears"=>$new_intrest_on_arrears,"new_arrear_maintenance"=>$new_arrear_maintenance,"new_total"=>$new_total),array('auto_id'=>$auto_id));
-
 			
 	$t1=$this->autoincrement('new_cash_bank','transaction_id');
 	$k = (int)$this->autoincrement_with_society_ticket('new_cash_bank','receipt_id');
