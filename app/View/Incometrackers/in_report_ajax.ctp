@@ -92,12 +92,12 @@ foreach($result_new_regular_bill as $regular_bill){
 		<td><?php echo $user_name; ?></td>
 		<td><?php echo $sq_feet; ?></td>
 		<td><?php echo $bill_no; ?></td>
-		<?php foreach($income_head_array as $value){ 
-		$total_income_heads[$income_head][]=$value;
+		<?php  foreach($income_head_array as $income_head=>$value){ 
+			$total_income_heads[$income_head][]=$value;
 		 ?>
 		<td><?php echo $value; ?></td>	
 		<?php } ?>
-		<td><?php echo $noc_charges; ?></td>
+		<td><?php echo $noc_charges; $total_noc_charges+=$noc_charges; ?></td>
 		<?php 
 			if(sizeof(@$other_charges_ids)>0){
 				foreach(@$other_charges_ids as $other_charges_id){
@@ -107,12 +107,12 @@ foreach($result_new_regular_bill as $regular_bill){
 					<?php
 				} 
 			} ?>
-		<td><?php echo $total; ?></td>
-		<td><?php echo $arrear_maintenance; ?></td>
-		<td><?php echo $arrear_intrest; ?></td>
-		<td><?php echo $intrest_on_arrears; ?></td>
-		<td><?php echo $credit_stock; ?></td>
-		<td><?php echo $due_for_payment; ?></td>
+		<td><?php echo $total; $total_total+=$total; ?></td>
+		<td><?php echo $arrear_maintenance; $total_arrear_maintenance+=$arrear_maintenance; ?></td>
+		<td><?php echo $arrear_intrest; $total_arrear_intrest+=$arrear_intrest; ?></td>
+		<td><?php echo $intrest_on_arrears; $total_intrest_on_arrears+=$intrest_on_arrears; ?></td>
+		<td><?php echo $credit_stock; $total_credit_stock+=$credit_stock; ?></td>
+		<td><?php echo $due_for_payment; $total_due_for_payment+=$due_for_payment; ?></td>
 		<td><a href="regular_bill_view/<?php echo $auto_id; ?>" target="_blank" class="btn mini yellow"><i class="icon-search"></i></a>
 		<a href="regular_bill_edit2/<?php echo $auto_id; ?>" role="button" rel='tab' class="btn mini blue"><i class="icon-edit"></i></a>
        </td>
@@ -122,4 +122,35 @@ foreach($result_new_regular_bill as $regular_bill){
 }
 ?>
 	</tbody>
+	<tr>
+			<td colspan="4" align="right"><b>Total<b/></td>
+			
+			<?php foreach($income_head_array as $income_head=>$value){ $total_income_heads_am=0;
+				foreach($total_income_heads[$income_head] as $data5){
+					$total_income_heads_am+=$data5;
+				}
+			 ?>
+			<td><b><?php echo $total_income_heads_am; ?></b></td>	
+			<?php }   ?>
+			<td><b><?php echo $total_noc_charges; ?></b></td>
+			
+			<?php 
+			if(sizeof(@$other_charges_ids)>0){
+				foreach($other_charges_ids as $other_charges_id){ $total_other_charges_am=0;
+					foreach($total_other_charges[$other_charges_id] as $data6){
+						$total_other_charges_am+=$data6;
+					}
+					?>
+					<td><b><?php echo $total_other_charges_am; ?></b></td>
+					<?php
+				} 
+			}?>
+			<td><b><?php echo $total_total; ?></b></td>
+			<td><b><?php echo $total_arrear_maintenance; ?></b></td>
+			<td><b><?php echo $total_arrear_intrest; ?></b></td>
+			<td><b><?php echo $total_intrest_on_arrears; ?></b></td>
+			<td><b><?php echo $total_credit_stock; ?></b></td>
+			<td><b><?php echo $total_due_for_payment; ?></b></td>
+			<td></td>
+		</tr>
 </table>
