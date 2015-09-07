@@ -1,0 +1,6 @@
+Transaction Date,Receipt Mode,Cheque No.,Reference/UTR,Drawn Bank name,Deposited In,Date,Member Name,Wing,Flat,Amount,Narration 
+25-01-15,Cheque,55434,445566H,SBBJ,SBI,25-01-15,,A,101,1500,Receipt for bill
+25-01-15,Cheque,55434,445566H,SBBJ,SBI,25-01-15,,B,202,2500,Receipt for bill
+25-01-15,Cheque,55434,445566H,SBBJ,SBI,25-01-15,,B,201,3500,Receipt for bill
+25-01-15,Cheque,55434,445566H,SBBJ,SBI,25-01-15,,B,203,4500,Receipt for bill
+25-01-15,Cheque,55434,445566H,SBBJ,SBI,25-01-15,,A,102,5500,Receipt for bill

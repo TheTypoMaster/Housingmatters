@@ -75,7 +75,7 @@ Other Income,Advertising Income ,,,,,
 Fixed Assets,Furniture & Fixtures ,,,,,
 Contribution from Members,Interest from  Fixed deposits ,,,,,
 Contribution from Members,Interest from  saving accounts ,,,,,
-Contribution from Members,Interest from members ,,,credit,125550,
+Contribution from Members,Interest from members ,,,,,
 Other Income,Income from Advertising & events ,,,,,
 Contribution from Members,Sinking Fund ,,,,,
 Contribution from Members,Repair Fund ,,,,,
@@ -85,16 +85,11 @@ Contribution from Members,Parking Charges ,,,,,
 Contribution from Members,Water Charges ,,,,,
 Contribution from Members,Municipal Taxes ,,,,,
 Contribution from Members,Electricity Charges ,,,,,
-Contribution from Members,Insurance Charges ,,,,,
+Contribution from Members,Insurance Charges ,,,credit,20000,
 Administrative Expenses,Reversals & Adjustments ,,,,,
-Sundry Debtors Control A/c  ,Nikhil Vyas,A,101,Debit,10000,100
-Sundry Debtors Control A/c  ,Abhilash lohar,A,102,debit,15000,500
-Sundry Debtors Control A/c  ,Rohit Joshi,B,201,Debit,10000,100
-Sundry Debtors Control A/c  ,Gopesh Parihar,B,202,debit,10000,100
-Sundry Debtors Control A/c  ,ankit,C,302,,,
-Sundry Debtors Control A/c  ,Nikhil Vyas,A,103,debit,11000,110
-Sundry Debtors Control A/c  ,Abhilash lohar,B,203,Debit,16000,600
-Sundry Debtors Control A/c  ,Abhilash lohar,C,1001,debit,17000,700
-Sundry Debtors Control A/c  ,Rohit Joshi,B,205,Debit,11000,110
-Sundry Debtors Control A/c  ,Gopesh Parihar,C,1002,debit,11000,110
-Sundry Debtors Control A/c  ,Gopesh Parihar,A,105,Debit,12000,120
+Sundry Debtors Control A/c  ,Nikhil,A,101,,,
+Sundry Debtors Control A/c  ,Rohit,B,202,,,
+Sundry Debtors Control A/c  ,Rohit,B,201,debit,8500,1500
+Sundry Debtors Control A/c  ,Rohit,B,203,debit,8500,1500
+Sundry Debtors Control A/c  ,Nikhil,A,102,,,
+Bank Accounts,SBI ,,,,,
