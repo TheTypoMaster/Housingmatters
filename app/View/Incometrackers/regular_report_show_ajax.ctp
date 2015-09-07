@@ -32,7 +32,7 @@ $bbb = 55;
 			//wing_id via flat_id//
 			$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array($flat_id)));
 			foreach($result_flat_info as $flat_info){
-				$wing_id=$flat_info["flat"]["wing_id"];
+			$wing_id=$flat_info["flat"]["wing_id"];
 			}
 			
 			$wing_flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat_with_brackets'), array('pass' => array($wing_id,$flat_id))); 
@@ -73,9 +73,6 @@ if($wise == 3)
 //////////////
 foreach($cursor2 as $data3)
 {
-
-		
-	
 $bbb = 555;	
 }
 }
@@ -91,7 +88,7 @@ if($bbb == 555)
 if($wise == 1)
 {
 ?>
-<a href="regular_bill_excel?f=<?php echo $from; ?>&t=<?php echo $to; ?>&w=<?php echo $wise; ?>&wi=<?php echo $wing; ?>" class="btn blue">Export in Excel</a>
+<a href="regular_bill_excel?f=<?php echo $from; ?>&t=<?php echo $to; ?>&w=<?php echo $wise; ?>&u=<?php echo $wing; ?>" class="btn blue">Export in Excel</a>
 <?php
 }
 else if($wise == 2)
@@ -116,11 +113,8 @@ else if($wise == 3)
 <th>Name</th>
 <th>Area (sq. feet)</th>
 <th>Bill No.</th>
-
 <?php 
-
-
-if(!empty($income_head_array)){
+	if(!empty($income_head_array)){
 	
 
 foreach(@$income_head_array as $income_head=>$value){ 
