@@ -48,6 +48,7 @@ foreach($result_new_regular_bill as $regular_bill){
 	</thead>
 	<tbody>
 <?php
+$total_noc_charges=0; $total_total=0; $total_arrear_maintenance=0; $total_arrear_intrest=0; $total_intrest_on_arrears=0; $total_credit_stock=0; $total_due_for_payment=0;
 foreach($result_new_regular_bill as $regular_bill){
 	$id=$regular_bill["new_regular_bill"]["id"];
 	$auto_id=$regular_bill["new_regular_bill"]["auto_id"];
@@ -92,6 +93,7 @@ foreach($result_new_regular_bill as $regular_bill){
 		<td><?php echo $sq_feet; ?></td>
 		<td><?php echo $bill_no; ?></td>
 		<?php foreach($income_head_array as $value){ 
+		$total_income_heads[$income_head][]=$value;
 		 ?>
 		<td><?php echo $value; ?></td>	
 		<?php } ?>
