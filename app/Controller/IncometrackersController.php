@@ -4936,7 +4936,7 @@ function in_head_excel()
 			$excel.="$income_head_name \t";
 			} 
 			}
-$excel.="Total \t Arrears-Principal \t Arrears-Interest \t Interest on Arrears \t Credit/Rebates \t Due For \t Payment \n";
+$excel.="Total \t Arrears-Principal \t Arrears-Interest \t Interest on Arrears \t Credit/Rebates \t Due For Payment \n";
 		
 $total_noc_charges=0; $total_total=0; $total_arrear_maintenance=0; $total_arrear_intrest=0; $total_intrest_on_arrears=0; $total_credit_stock=0; $total_due_for_payment=0;
 foreach($result_new_regular_bill as $regular_bill){
@@ -5010,51 +5010,8 @@ $excel.="$arrear_intrest \t"; $total_arrear_intrest+=$arrear_intrest;
 $excel.="$intrest_on_arrears \t"; $total_intrest_on_arrears+=$intrest_on_arrears; 
 $excel.="$credit_stock \t"; $total_credit_stock+=$credit_stock; 
 $excel.="$due_for_payment \n"; $total_due_for_payment+=$due_for_payment; 
-
 }		
-/*		
-		
-		
-		
-		
-		
-		
-/*		
-		$this->loadmodel('new_regular_bill');
-		$conditions=array("society_id" => $s_society_id,"approval_status" => 1,"one_time_id" => $one_timmm_iddd);
-		$order=array('new_regular_bill.one_time_id'=> 'DESC');
-		$result_new_regular_bill = $this->new_regular_bill->find('all',array('conditions'=>$conditions,'order'=>$order));
-		$this->set("result_new_regular_bill",$result_new_regular_bill);
-		foreach($result_new_regular_bill as $regular_bill){
-		$other_charges_array=@$regular_bill["new_regular_bill"]["other_charges_array"];
-		if(!empty($other_charges_array)){
-		foreach($other_charges_array as $key=>$value){
-		$other_charges_ids[]=$key;
-		}
-		}
-		}
 	
-	
-	
-	
-	if(sizeof(@$other_charges_ids)>0){
-	$other_charges_ids=array_unique($other_charges_ids);
-	$this->set('other_charges_ids',$other_charges_ids);
-	}
-
-	$this->loadmodel('society');
-	$condition=array('society_id'=>$s_society_id);
-	$result_society=$this->society->find('all',array('conditions'=>$condition)); 
-	$this->set('result_society',$result_society);
-	*/
-		
-
-		
-			
-				
-				
-				
-			
 echo $excel;
 			
 }
