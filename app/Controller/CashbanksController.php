@@ -4105,7 +4105,8 @@ foreach($myArray as $child){
 	$flat_id = (int)$data['ledger_sub_account']['flat_id'];
 	}
 
-
+	
+	
 			$current_date = date('Y-m-d');
 			$c = (int)strcasecmp("Cheque",$ReceiptMod);
 			$n = (int)strcasecmp("NEFT",$ReceiptMod);
@@ -4126,11 +4127,16 @@ foreach($myArray as $child){
 		}
 
 
-		$result_rb1 = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array(@$flat_id)));
-		foreach($result_rb1 as $data2){
-			$user_id = (int)$data2['user']['user_id'];
+		$flat_dttt = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array(@$flat_id)));
+		foreach($flat_dttt as $flat_datttt){
+		$wing_iddd = (int)$flat_datttt['flat']['wing_id'];
 		}
 
+		$result_rb1 = $this->requestAction(array('controller' => 'hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($wing_iddd,@$flat_id)));
+		foreach($result_rb1 as $data2){
+		$user_id = (int)$data2['user']['user_id'];
+		}
+		
 		$result_rb = $this->requestAction(array('controller' => 'hms', 'action' => 'new_regular_bill_detail_via_flat_id'),array('pass'=>array(@$flat_id)));
 		foreach ($result_rb as $collection){
 			$bill_no = (int)$collection['new_regular_bill']['bill_no'];
@@ -4207,8 +4213,6 @@ foreach($myArray as $child){
 			}
 
 			
-
-
 			$this->loadmodel('new_regular_bill');
 			$this->new_regular_bill->updateAll(array('new_arrear_intrest'=>$new_arrear_intrest,"new_intrest_on_arrears"=>$new_intrest_on_arrears,"new_arrear_maintenance"=>$new_arrear_maintenance,"new_total"=>$new_total),array('auto_id'=>$auto_id));
 			
