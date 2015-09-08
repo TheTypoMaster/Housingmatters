@@ -38,7 +38,7 @@ function governance_invite_submit()
 	$this->layout=null;
 	$post_data=$this->request->data;
 	pr($post_data);
-	exit;
+	
 	$this->ath();
 	$s_society_id=$this->Session->read('society_id');
 	$s_role_id=$this->Session->read('role_id'); 
@@ -53,6 +53,7 @@ function governance_invite_submit()
 	$time=$post_data['time'];
 	$location=$post_data['location'];
 	$covering_note=$post_data['covering_note'];
+	$any_other=$post_data['any_other'];
 	 $meeting_agenda_time=$post_data['meeting_agenda_time'];
 	 $meeting_agenda_input=$post_data['meeting_agenda_input'];
 	 $meeting_agenda_textarea=$post_data['meeting_agenda_textarea'];
@@ -200,6 +201,7 @@ function governance_invite_submit()
 						<div>
 						<p><b>Covering Note:</b><br/>
 						<p>$covering_note</p>
+						
 						<p> <b>	Agenda to be discussed: </b></p>
 						<table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
 						<tr class='tr_heading' style='background-color:#00A0E3;color:white;'>
@@ -216,7 +218,9 @@ function governance_invite_submit()
 						<td>".$jj.". ".urldecode($ddd[0]). " <br/> ".urldecode($ddd[1])."</td>
 						</tr>";	
 						}
-						$message_web.="</table>
+						$message_web.="</table><br/>
+						<p><b>Any other Note:</b><br/>
+						<p>$any_other</p>
 						</div>
 						<br/>
 						For [ $society_name ].<br/>
@@ -237,7 +241,7 @@ function governance_invite_submit()
 			
 			  
 				$this->loadmodel('governance_invite');
-				$multipleRowData = Array( Array("governance_invite_id" => $email_id,"message"=>$message,"user_id"=>$s_user_id,"date"=>$date,"time"=>$time,"society_id"=>$s_society_id,"subject"=>$subject,"type"=>$Invitations_type,"file"=>@$file_name,"deleted"=>0,'user'=>$user,'location'=>$location,'meeting_type'=>$type_mettings,'covering_note'=>$covering_note,'agenda_id'=>0,'notice_of_date'=>$current_date));
+				$multipleRowData = Array( Array("governance_invite_id" => $email_id,"message"=>$message,"user_id"=>$s_user_id,"date"=>$date,"time"=>$time,"society_id"=>$s_society_id,"subject"=>$subject,"type"=>$Invitations_type,"file"=>@$file_name,"deleted"=>0,'user'=>$user,'location'=>$location,'meeting_type'=>$type_mettings,'covering_note'=>$covering_note,'agenda_id'=>0,'notice_of_date'=>$current_date,'any_other_note'=>$any_other));
 				$this->governance_invite->saveAll($multipleRowData); 
 			
 		
@@ -343,7 +347,9 @@ function governance_invite_submit()
 						<td>".$jj.". ".urldecode($ddd[0]). " <br/> ".urldecode($ddd[1])."</td>
 						</tr>";	
 						}
-						$message_web.="</table>
+						$message_web.="</table><br/>
+						<p><b>Any other Note:</b><br/>
+						<p>$any_other</p>
 						</div>
 						<br/>
 						For [ $society_name ].<br/>
@@ -361,7 +367,7 @@ function governance_invite_submit()
 			
 			
 			$this->loadmodel('governance_invite');
-			$multipleRowData = Array( Array("governance_invite_id" => $email_id,"message"=>$message,"user_id"=>$s_user_id,"date"=>$date,"time"=>$time,"society_id"=>$s_society_id,"subject"=>$subject,"type"=>$Invitations_type,"file"=>@$file_name,"deleted"=>0,'location'=>$location,'meeting_type'=>$type_mettings,'covering_note'=>$covering_note,'user'=>$user,'group_id'=>$Invite_group,'agenda_id'=>0,'notice_of_date'=>$current_date));
+			$multipleRowData = Array( Array("governance_invite_id" => $email_id,"message"=>$message,"user_id"=>$s_user_id,"date"=>$date,"time"=>$time,"society_id"=>$s_society_id,"subject"=>$subject,"type"=>$Invitations_type,"file"=>@$file_name,"deleted"=>0,'location'=>$location,'meeting_type'=>$type_mettings,'covering_note'=>$covering_note,'user'=>$user,'group_id'=>$Invite_group,'agenda_id'=>0,'notice_of_date'=>$current_date,'any_other_note'=>$any_other));
 			$this->governance_invite->saveAll($multipleRowData); 
 			
 			
@@ -451,6 +457,7 @@ function governance_invite_submit()
 						<div>
 						<p><b>Covering Note:</b><br/>
 						<p>$covering_note</p>
+						
 						<p> <b>	Agenda to be discussed: </b></p>
 						<table  cellpadding='10' width='100%;' border='1' bordercolor='#e1e1e1'  >
 						<tr class='tr_heading' style='background-color:#00A0E3;color:white;'>
@@ -467,7 +474,9 @@ function governance_invite_submit()
 						<td>".$jj.". ".urldecode($ddd[0]). " <br/> ".urldecode($ddd[1])."</td>
 						</tr>";	
 						}
-						$message_web.="</table>
+						$message_web.="</table><br/>
+						<p><b>Any other Note:</b><br/>
+						<p>$any_other</p>
 						</div>
 						<br/>
 						For [ $society_name ].<br/>
@@ -482,7 +491,7 @@ function governance_invite_submit()
 			/////////////////////  End code /////////////////////////////
 			
 			$this->loadmodel('governance_invite');
-			$multipleRowData = Array( Array("governance_invite_id" => $email_id,"message"=>$message,"user_id"=>$s_user_id,"date"=>$date,"time"=>$time,"society_id"=>$s_society_id,"subject"=>$subject,"type"=>$Invitations_type,"file"=>@$file_name,"deleted"=>0,'user'=>$da_user_id,'location'=>$location,'visible'=>$visible,'sub_visible'=>$sub_visible,'meeting_type'=>$type_mettings,'covering_note'=>$covering_note,'agenda_id'=>0,'notice_of_date'=>$current_date));
+			$multipleRowData = Array( Array("governance_invite_id" => $email_id,"message"=>$message,"user_id"=>$s_user_id,"date"=>$date,"time"=>$time,"society_id"=>$s_society_id,"subject"=>$subject,"type"=>$Invitations_type,"file"=>@$file_name,"deleted"=>0,'user'=>$da_user_id,'location'=>$location,'visible'=>$visible,'sub_visible'=>$sub_visible,'meeting_type'=>$type_mettings,'covering_note'=>$covering_note,'agenda_id'=>0,'notice_of_date'=>$current_date,'any_other_note'=>$any_other));
 			$this->governance_invite->saveAll($multipleRowData); 
 			
 			
@@ -523,7 +532,7 @@ function governance_invite_submit()
 			}
 			
 				$this->loadmodel('governance_invite');
-				$multipleRowData = Array( Array("governance_invite_id" => $email_id,"message"=>$message,"user_id"=>$s_user_id,"date"=>$date,"time"=>$time,"society_id"=>$s_society_id,"subject"=>$subject,"type"=>$Invitations_type,"file"=>@$file_name,"deleted"=>1,'user'=>$user,'location'=>$location,'meeting_type'=>$type_mettings,'covering_note'=>$covering_note,'agenda_id'=>0,'notice_of_date'=>$current_date));
+				$multipleRowData = Array( Array("governance_invite_id" => $email_id,"message"=>$message,"user_id"=>$s_user_id,"date"=>$date,"time"=>$time,"society_id"=>$s_society_id,"subject"=>$subject,"type"=>$Invitations_type,"file"=>@$file_name,"deleted"=>1,'user'=>$user,'location'=>$location,'meeting_type'=>$type_mettings,'covering_note'=>$covering_note,'agenda_id'=>0,'notice_of_date'=>$current_date,'any_other_note'=>$any_other));
 				$this->governance_invite->saveAll($multipleRowData); 
 		}
 		
@@ -571,7 +580,7 @@ function governance_invite_submit()
 				$user=array_values($user);
 				$da_user_id=$user;
 			$this->loadmodel('governance_invite');
-			$multipleRowData = Array( Array("governance_invite_id" => $email_id,"message"=>$message,"user_id"=>$s_user_id,"date"=>$date,"time"=>$time,"society_id"=>$s_society_id,"subject"=>$subject,"type"=>$Invitations_type,"file"=>@$file_name,"deleted"=>1,'location'=>$location,'meeting_type'=>$type_mettings,'covering_note'=>$covering_note,'user'=>$user,'group_id'=>$Invite_group,'agenda_id'=>0,'notice_of_date'=>$current_date));
+			$multipleRowData = Array( Array("governance_invite_id" => $email_id,"message"=>$message,"user_id"=>$s_user_id,"date"=>$date,"time"=>$time,"society_id"=>$s_society_id,"subject"=>$subject,"type"=>$Invitations_type,"file"=>@$file_name,"deleted"=>1,'location'=>$location,'meeting_type'=>$type_mettings,'covering_note'=>$covering_note,'user'=>$user,'group_id'=>$Invite_group,'agenda_id'=>0,'notice_of_date'=>$current_date,'any_other_note'=>$any_other));
 			$this->governance_invite->saveAll($multipleRowData); 
 			
 			
@@ -608,7 +617,7 @@ function governance_invite_submit()
 			}
 			
 			$this->loadmodel('governance_invite');
-			$multipleRowData = Array( Array("governance_invite_id" => $email_id,"message"=>$message,"user_id"=>$s_user_id,"date"=>$date,"time"=>$time,"society_id"=>$s_society_id,"subject"=>$subject,"type"=>$Invitations_type,"file"=>@$file_name,"deleted"=>1,'user'=>$da_user_id,'location'=>$location,'visible'=>$visible,'sub_visible'=>$sub_visible,'meeting_type'=>$type_mettings,'covering_note'=>$covering_note,'agenda_id'=>0,'notice_of_date'=>$current_date));
+			$multipleRowData = Array( Array("governance_invite_id" => $email_id,"message"=>$message,"user_id"=>$s_user_id,"date"=>$date,"time"=>$time,"society_id"=>$s_society_id,"subject"=>$subject,"type"=>$Invitations_type,"file"=>@$file_name,"deleted"=>1,'user'=>$da_user_id,'location'=>$location,'visible'=>$visible,'sub_visible'=>$sub_visible,'meeting_type'=>$type_mettings,'covering_note'=>$covering_note,'agenda_id'=>0,'notice_of_date'=>$current_date,'any_other_note'=>$any_other));
 			$this->governance_invite->saveAll($multipleRowData);
 			
 		}

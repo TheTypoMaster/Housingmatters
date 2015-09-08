@@ -4873,15 +4873,44 @@ function in_report_ajax(){
 ///////////////////////// Start In Head Excel///////////////////////////////////////
 function in_head_excel()
 {
-		$this->layout="";
-		$filename="Regular_Bill";
-		header ("Expires: 0");
-		header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
-		header ("Cache-Control: no-cache, must-revalidate");
-		header ("Pragma: no-cache");
-		header ("Content-type: application/vnd.ms-excel");
-		header ("Content-Disposition: attachment; filename=".$filename.".xls");
-		header ("Content-Description: Generated Report" );
+
+$this->layout="";
+$s_role_id=$this->Session->read('role_id');
+$s_society_id = (int)$this->Session->read('society_id');
+$s_user_id = (int)$this->Session->read('user_id');	
+		
+		
+$one_timmm_iddd = (int)$this->request->query('one');
+
+$this->loadmodel('new_regular_bill');
+$conditions=array("society_id" => $s_society_id,"approval_status" =>1,"one_time_id"=>$one_timmm_iddd);
+$order=array('new_regular_bill.one_time_id'=> 'DESC');
+$result_new_rggg = $this->new_regular_bill->find('all',array('conditions'=>$conditions,'order'=>$order));
+foreach($result_new_rggg as $reggg_dtttt)
+{
+$bill_start_date= (int)$reggg_dtttt["new_regular_bill"]["bill_start_date"];
+$bill_end_date = (int)$reggg_dtttt["new_regular_bill"]["bill_end_date"];
+
+$fff = date("d-M",$bill_start_date);
+$ttt = date("d-M",$bill_end_date);
+}
+$dddddatt = "(".$fff." to ".$ttt.")";
+
+	$filename="Regular_Bill From ".$dddddatt."";
+	header ("Expires: 0");
+	header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+	header ("Cache-Control: no-cache, must-revalidate");
+	header ("Pragma: no-cache");
+	header ("Content-type: application/vnd.ms-excel");
+	header ("Content-Disposition: attachment; filename=".$filename.".xls");
+	header ("Content-Description: Generated Report" );
+
+		$s_role_id=$this->Session->read('role_id');
+		$s_society_id = (int)$this->Session->read('society_id');
+		$s_user_id = (int)$this->Session->read('user_id');	
+
+
+
 
 			$s_role_id=$this->Session->read('role_id');
 			$s_society_id = (int)$this->Session->read('society_id');

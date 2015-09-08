@@ -162,7 +162,7 @@ foreach($result_society as $data){
 			<td colspan="4" align="right"><b>Total<b/></td>
 			
 			<?php foreach($income_head_array as $income_head=>$value){ $total_income_heads_am=0;
-				foreach($total_income_heads[$income_head] as $data5){
+				foreach(@$total_income_heads[$income_head] as $data5){
 					$total_income_heads_am+=$data5;
 				}
 			 ?>
