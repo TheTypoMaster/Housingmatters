@@ -5597,7 +5597,7 @@ $bill_id = (int)$this->request->query('bb');
 //$this->set('bill_id',$bill_id);
 $bill_id = (int)$bill_id;
 $this->loadmodel('new_regular_bill');
-$conditions=array("bill_no" => $bill_id);
+$conditions=array("bill_no" => $bill_id,"society_id"=>$s_society_id);
 $cursor1=$this->new_regular_bill->find('all',array('conditions'=>$conditions));
 $this->set('cursor1',$cursor1);
 
