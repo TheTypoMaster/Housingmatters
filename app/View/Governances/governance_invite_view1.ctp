@@ -19,6 +19,7 @@ $file=$data['governance_invite']['file'];
 $type=$data['governance_invite']['type'];
 $location=$data['governance_invite']['location'];
 $covering_note=$data['governance_invite']['covering_note'];
+$any_other_note=$data['governance_invite']['any_other_note'];
  $meeting_type=(int)@$data['governance_invite']['meeting_type'];
  $user=$data['governance_invite']['user'];
  if($meeting_type==1)
@@ -167,6 +168,12 @@ foreach($message_web as $data)
 } ?>
 </table>
 </div>
+
+<div  align="" style="padding: 10px;">
+<span  style="font-size:14px;"><b> Meeting Any Other Note: </b></span><br/><span><?php echo $any_other_note; ?></span>
+</div>
+
+
 
 <?php if(!empty($file)) { ?>
 <br/>

@@ -38,7 +38,6 @@ $type=$data['governance_invite']['type'];
 $deleted=$data['governance_invite']['deleted'];
 $location=$data['governance_invite']['location'];
 $meeting_type=(int)@$data['governance_invite']['meeting_type'];
-$gov_id=(int)$data['governance_invite']['governance_invite_id'];
  $user=@$data['governance_invite']['user'];
  $invite_user=sizeof($user);
  if($meeting_type==1)

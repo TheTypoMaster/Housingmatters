@@ -42,6 +42,8 @@ foreach($result_gov_invite as $data){
 	$location= $data['governance_invite']['location'];
 	$meeting_type= $data['governance_invite']['meeting_type'];
 	$covering_note= $data['governance_invite']['covering_note'];
+	$any_other_note= $data['governance_invite']['any_other_note'];
+	$file= $data['governance_invite']['file'];
 
 }
 
@@ -168,6 +170,41 @@ foreach($result_gov_invite as $data){
 
 <?php } ?>
 </div>
+
+<div class="control-group" >
+  <label class="control-label" style="font-size:14px; font-weight:bold;">Meeting Any Other Note:</label>
+  <div class="controls">
+	 <textarea name="any_other" rows="3" id="alloptions" class="span12 m-wrap" placeholder="Description"><?php echo $any_other_note; ?></textarea>
+	 <label report="" class="remove_report"></label>
+  </div>
+</div>
+
+
+<div class="control-group">
+  <label class="control-label">Attachment <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Limit 2MB"> </i> </label>
+  <div class="controls">
+	 <div class="<?php if(!empty($file)){ ?>fileupload fileupload-exists <?php } else{ ?> fileupload fileupload-new   <?php } ?>" data-provides="fileupload"><input type="hidden" value="" name="">
+		<div class="input-append">
+		   <div class="uneditable-input">
+			  <i class="icon-file fileupload-exists"></i> 
+			  <span class="fileupload-preview"><?php echo $file; ?></span>
+		   </div>
+		   <span class="btn btn-file">
+		   <span class="fileupload-new">Select file</span>
+		   <span class="fileupload-exists">Change</span>
+		   <input type="file" name="file" id="file" class="default">
+		   </span>
+		   <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+		</div>
+	 </div>
+  </div>
+</div>
+<label style="color: #696969;font-size: 12px;">
+Note: File size must be less than 2 MB and All extension are allowed.
+</label>
+<label id="file"></label>				   
+
+
 
 	<button type="submit" name="send" class="btn blue test" value="<?php echo $governance_invite_id; ?>"><i class=" icon-envelope-alt "></i> Approved</button>
 	
@@ -397,12 +434,14 @@ $('form#contact-form').submit( function(ev){
 	var time=$('input[name=time]').val();
 	var location=$('textarea[name=location]').val();
 	var covering_note=$('textarea[name=covering_note]').val();
+	var any_other=$('textarea[name=any_other]').val();
 	m_data.append( 'subject',subject );
 	m_data.append( 'date',date );
 	m_data.append( 'time',time );
 	m_data.append( 'location',location );
 	m_data.append( 'covering_note',covering_note );
-	//m_data.append( 'file', $('input[name=file]')[0].files[0]);
+	m_data.append( 'any_other',any_other );
+	m_data.append( 'file', $('input[name=file]')[0].files[0]);
 	
 	$.ajax({
 			url: "<?php echo $webroot_path ; ?>Governances/governance_invite_submit_draft",
@@ -411,7 +450,7 @@ $('form#contact-form').submit( function(ev){
 			contentType: false,
 			type: 'POST',
 			dataType:'json',
-			}).done(function(response) { //alert(response);
+			}).done(function(response) { 
 			
 			//$("#output").html(response);
 				if(response.type=='created'){

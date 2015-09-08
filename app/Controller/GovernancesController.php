@@ -37,7 +37,6 @@ function governance_invite_submit()
 	
 	$this->layout=null;
 	$post_data=$this->request->data;
-	
 	$this->ath();
 	$s_society_id=$this->Session->read('society_id');
 	$s_role_id=$this->Session->read('role_id'); 
@@ -944,7 +943,7 @@ function governance_invite_submit_draft(){
  
  
  $this->layout=null;	
- $post_data=$this->request->data;	
+ $post_data=$this->request->data;
 
  $s_society_id=$this->Session->read('society_id');
  $s_user_id=$this->Session->read('user_id');
@@ -957,6 +956,7 @@ function governance_invite_submit_draft(){
  $subject=$post_data['subject'];
  $location=$post_data['location'];
  $covering_note=$post_data['covering_note'];
+ $any_other_note=$post_data['any_other'];
  $meeting_agenda_time=$post_data['meeting_agenda_time'];
  $meeting_agenda_time=explode(",",$meeting_agenda_time);
  $meeting_agenda_input=$post_data['meeting_agenda_input'];
@@ -964,7 +964,6 @@ function governance_invite_submit_draft(){
  $meeting_agenda_textarea=$post_data['meeting_agenda_textarea'];
  $meeting_agenda_textarea=explode(",",$meeting_agenda_textarea);
 	
-		
 	
 	    $message="";
 		for($z=0;$z<sizeof($meeting_agenda_input);$z++){
@@ -975,8 +974,41 @@ function governance_invite_submit_draft(){
 		if($type_mettings==2){ $moc="General Body"; }
 		if($type_mettings==3){ $moc="Special General Body"; }
 		
+		
+		
+		
+				$this->loadmodel('governance_invite');	
+				$conditions=array('governance_invite_id'=>$id);
+				$result_governance_invite=$this->governance_invite->find('all',array('conditions'=>$conditions));
+				$invite_user=$result_governance_invite[0]['governance_invite']['user'];
+				$file_data=$result_governance_invite[0]['governance_invite']['file'];
+				
+
+		
+		
+				
+				$file_name=@$_FILES['file']['name']; 
+				if(!empty($file_name)){
+					$file=$file_name;
+					$file_name=@$_FILES['file']['name'];
+					$target = "governances_file/";
+					$file_tmp_name =$_FILES['file']['tmp_name'];
+					$target=@$target.basename($file_name);
+					move_uploaded_file($file_tmp_name,@$target);
+				}else{
+					$file=$file_data;
+					
+				}
+				
+				$file_att="";
+				if(!empty($file)){
+						@$file_att='<br/><a href="'.$ip.'/'.$this->webroot.'governances_file/'.$file.'" download>Download attachment</a>';
+				}
+		
+		
+		
 		$this->loadmodel('governance_invite');		
-		$this->governance_invite->updateAll(array('date'=>$date,'time'=>$time,'subject'=>$subject,'location'=>$location,'meeting_type'=>$type_mettings,'covering_note'=>$covering_note,'message'=>$message,'deleted'=>0,'notice_of_date'=>$current_date),array('governance_invite_id'=>$id));
+		$this->governance_invite->updateAll(array('date'=>$date,'time'=>$time,'subject'=>$subject,'location'=>$location,'meeting_type'=>$type_mettings,'covering_note'=>$covering_note,'any_other_note'=>$any_other_note,'message'=>$message,'deleted'=>0,'notice_of_date'=>$current_date,'file'=>@$file),array('governance_invite_id'=>$id));
 
 
 		/////////////////////////// Send Email code start/////////////////////////////
@@ -988,15 +1020,6 @@ function governance_invite_submit_draft(){
 			$user_name=$result_user[0]['user']['user_name'];
 			
 			
-			$this->loadmodel('governance_invite');	
-			$conditions=array('governance_invite_id'=>$id);
-			$result_governance_invite=$this->governance_invite->find('all',array('conditions'=>$conditions));
-			$invite_user=$result_governance_invite[0]['governance_invite']['user'];
-			$file=$result_governance_invite[0]['governance_invite']['file'];
-				$file_att="";
-				if(!empty($file)){
-						@$file_att='<br/><a href="'.$ip.'/'.$this->webroot.'governances_file/'.$file.'" download>Download attachment</a>';
-				}
 			
 			
 			
@@ -1047,7 +1070,9 @@ function governance_invite_submit_draft(){
 						<td>".$jj.". ".urldecode($ddd[0]). " <br/> ".urldecode($ddd[1])."</td>
 						</tr>";	
 						}
-						$message_web.="</table>
+						$message_web.="</table><br/>
+						<p><b>Any Other Note:</b><br/>
+						<p>$any_other_note</p>
 						</div>
 						<br/>
 						For [ $society_name ].<br/>
@@ -1246,6 +1271,7 @@ function governance_minute_drft_submit()
 {
 	$this->layout=null;
 	$post_data=$this->request->data;
+	
 	$this->ath();
 	$s_society_id=$this->Session->read('society_id');
 	$s_role_id=$this->Session->read('role_id'); 
@@ -1258,7 +1284,6 @@ function governance_minute_drft_submit()
 	}
 	
 	$meeting_id=$post_data['meeting_id'];
-	
 	$any_other=$post_data['any_other'];
 	$minute_agenda=$post_data['minute_agenda'];
 	$minute_agenda=explode(',',$minute_agenda);
@@ -1271,6 +1296,26 @@ function governance_minute_drft_submit()
 	    $message[]=$value;
 		}
 	
+					
+					$this->loadmodel('governance_minute');
+					$condition2=array('governance_minute_id'=>$minute_id);
+					$result_gov_min=$this->governance_minute->find('all',array('conditions'=>$condition2));
+					$file_data=$result_gov_min[0]['governance_minute']['file'];
+					
+					 $file_name=@$_FILES['file']['name']; 
+					if(!empty($file_name)){
+						$file=$file_name;
+						$file_name=@$_FILES['file']['name'];
+						$target = "governances_file/";
+						$file_tmp_name =$_FILES['file']['tmp_name'];
+						$target=@$target.basename($file_name);
+						move_uploaded_file($file_tmp_name,@$target);
+					}else{
+						$file=$file_data;
+						
+					}
+				
+
 	$this->loadmodel('governance_minute');
 	$this->governance_minute->updateAll(array('present_user'=>$present_user,'any_other'=>$any_other,'message'=>$message,'final'=>1),array('governance_minute_id'=>$minute_id));
 	

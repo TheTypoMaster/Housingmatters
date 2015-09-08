@@ -31,6 +31,7 @@ $file=$data['governance_invite']['file'];
 $type=$data['governance_invite']['type'];
 $location=$data['governance_invite']['location'];
 $covering_note=$data['governance_invite']['covering_note'];
+$any_other_note=$data['governance_invite']['any_other_note'];
  $meeting_type=(int)@$data['governance_invite']['meeting_type'];
  $user=$data['governance_invite']['user'];
  if($meeting_type==1){
@@ -138,8 +139,8 @@ if($type==3){
 
 $html.='</div><div  align="" style="padding: 2px;">
 <span  style="font-size:12px;"><b> Meeting Covering Note: </b></span><br/> <span style="font-size:12px;"> '.$covering_note.' </span>
-</div>
-<div style="padding: 2px;">
+</div>';
+$html.='<div style="padding: 2px;">
 <table  cellpadding="5" width="100%;" border="1">
 <tr>
 <td width="20%"><span  style="font-size:12px;"><b> Time </b></span></td>
@@ -153,6 +154,9 @@ $html.='<tr>
 	</tr>';
 }
 $html.='</table>
+</div>
+<div  style="padding: 2px;">
+<span  style="font-size:12px;"><b> Meeting Any Other Note: </b></span><br/> <span style="font-size:12px;"> '.$any_other_note.' </span>
 </div>
 <div align="center" style="background-color: rgb(0, 141, 210);padding: 5px;font-size: 12px;font-weight: bold;color: #fff;vertical-align: middle;">
 <span>Your Society is empowered by HousingMatters - 

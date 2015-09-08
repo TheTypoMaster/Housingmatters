@@ -140,21 +140,22 @@ $flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat')
 	</div>
 </div>
 
-<!--<div class="control-group">
+
+<div class="control-group">
   <label class="control-label">Attachment <i class=" icon-info-sign tooltips" data-placement="right" data-original-title="Limit 2MB"> </i> </label>
   <div class="controls">
-	 <div class="fileupload fileupload-new" data-provides="fileupload"><input type="hidden" value="" name="">
+	 <div class="<?php if(!empty($file)){ ?>fileupload fileupload-exists <?php } else{ ?> fileupload fileupload-new   <?php } ?>" data-provides="fileupload">
 		<div class="input-append">
 		   <div class="uneditable-input">
 			  <i class="icon-file fileupload-exists"></i> 
-			  <span class="fileupload-preview"></span>
+			  <span class="fileupload-preview"><?php echo $file; ?></span>
 		   </div>
 		   <span class="btn btn-file">
 		   <span class="fileupload-new">Select file</span>
 		   <span class="fileupload-exists">Change</span>
-		   <input type="file" name="file" id="file" class="default" >
+		   <input type="file" name="file"  id="file" class="default" value=''>
 		   </span>
-		   <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+		   <a href="#" class="btn fileupload-exists new_add_data" data-dismiss="fileupload">Remove</a>
 		</div>
 	 </div>
   </div>
@@ -162,7 +163,7 @@ $flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat')
 <label style="color: #696969;font-size: 12px;">
 Note: File size must be less than 2 MB and All extension are allowed.
 </label>
-<label id="file"></label><br/>	-->			   
+<label id="file"></label>				   
 
 
 <input type="hidden" value="<?php echo $governance_minute_id; ?>" id="minute_id">
@@ -314,6 +315,12 @@ $(document).ready(function() {
 
 <script>
 $(document).ready(function(){
+	
+ $(".new_add_data").live('click',function(){
+	$('#file').attr('name','file');
+	$('.input-append').parents('div').find('input[type=hidden]').attr('name','');
+ });
+	
 $('form#contact-form').submit( function(ev){
 	ev.preventDefault();	
 	var m_data = new FormData(); 
@@ -324,12 +331,11 @@ $('form#contact-form').submit( function(ev){
 	m_data.append('minute_id',minute_id);
 	m_data.append( 'present_user',present_user );
 	m_data.append( 'meeting_id',meeting_id );
-	//m_data.append( 'file', $('input[name=file]')[0].files[0]);
+	var file=$('input[name=file]')[0].files[0];
+	m_data.append( 'file',file);
 	var any_other=encodeURIComponent($('textarea[name=any_other]').val());
 	m_data.append('any_other',any_other);
-	
 	var count1 = $("table#count_table tbody tr").length;
-	
 	var minute = [];
 	for(var j=1;j<=count1;j++)
 	{
