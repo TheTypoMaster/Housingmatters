@@ -37,6 +37,8 @@ function governance_invite_submit()
 	
 	$this->layout=null;
 	$post_data=$this->request->data;
+	pr($post_data);
+	exit;
 	$this->ath();
 	$s_society_id=$this->Session->read('society_id');
 	$s_role_id=$this->Session->read('role_id'); 
@@ -1473,8 +1475,7 @@ function governance_minute_submit()
 				//$user=array_values($user);
 				
 				
-				
-				
+							
 				
 				$date=date("d-m-y");
 				$minut_id=$this->autoincrement('governance_minute','governance_minute_id');

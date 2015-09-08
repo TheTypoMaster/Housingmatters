@@ -297,6 +297,16 @@ $group_id=$collection["group"]["group_id"];
 </div>
 </div>
 
+
+<label style="font-size:14px; font-weight:bold;">Any Other Note: </label>
+<div class="control-group">
+	<div class="controls">
+	 <textarea name="any_other" class="span12" rows="5"></textarea>
+	</div>
+</div>
+
+
+
 <!--<a href="#myModal3" role="button" class="btn blue pull-right" data-toggle="modal" style="">  Templates</a>-->
 
 <div class="control-group">
@@ -556,11 +566,13 @@ $('form#contact-form').submit( function(ev){
 	var time=$('input[name=time]').val();
 	var location=$('textarea[name=location]').val();
 	var covering_note=$('textarea[name=covering_note]').val();
+	var any_other=$('textarea[name=any_other]').val();
 	m_data.append( 'subject',subject );
 	m_data.append( 'date',date );
 	m_data.append( 'time',time );
 	m_data.append( 'location',location );
 	m_data.append( 'covering_note',covering_note );
+	m_data.append( 'any_other',any_other );
 	m_data.append( 'file', $('input[name=file]')[0].files[0]);
 	$.ajax({
 			url: "governance_invite_submit",
@@ -568,10 +580,10 @@ $('form#contact-form').submit( function(ev){
 			processData: false,
 			contentType: false,
 			type: 'POST',
-			dataType:'json',
+			//dataType:'json',
 			}).done(function(response) { 
-			
-			//$("#output").html(response);
+			alert(response);
+			$("#output").html(response);
 				if(response.type=='created'){
 					$(".portal").remove();
 				$(".alert-success").show().append("<p>"+response.text+"</p><p><a class='btn green' href='<?php echo $webroot_path; ?>Governances/governance_invite_view' rel='tab' >ok</a></p>");
