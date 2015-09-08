@@ -1320,12 +1320,7 @@ function governance_minute_drft_submit()
 	$this->governance_minute->updateAll(array('present_user'=>$present_user,'any_other'=>$any_other,'message'=>$message,'final'=>1),array('governance_minute_id'=>$minute_id));
 	
 				
-	////////////////  update  ///////////////////////////////////////////
 	
-				$this->loadmodel('governance_invite');
-				$this->governance_invite->updateAll(array('agenda_id'=>1),array('governance_invite_id'=>$meeting_id));
-			
-	/////////////////// // End //////////////////////////
 	
 	
 	$output = json_encode(array('type'=>'created', 'text' =>'Minutes successfully submitted'));
@@ -1535,6 +1530,13 @@ function governance_minute_submit()
 				$this->loadmodel('governance_minute');
 				$multipleRowData = Array( Array("governance_minute_id" => $minut_id,"message"=>$message,"user_id"=>$s_user_id,"society_id"=>$s_society_id,"file"=>@$file_name,'user'=>$user_minute,'meeting_id'=>$meeting_id,'present_user'=>$present_user,'date'=>$date,'invitation_type'=>$Invitations_type,'visible'=>@$visible,'sub_visible'=>@$sub_visible,'any_other'=>$any_other,'final'=>0));
 				$this->governance_minute->saveAll($multipleRowData);
+	
+	////////////////  update  ///////////////////////////////////////////
+	
+				$this->loadmodel('governance_invite');
+				$this->governance_invite->updateAll(array('agenda_id'=>1),array('governance_invite_id'=>$meeting_id));
+			
+	/////////////////// // End //////////////////////////
 	
 	////////////////////////////// Email code start //////////////////////////////////
 	/*
