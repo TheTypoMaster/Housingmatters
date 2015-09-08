@@ -225,22 +225,38 @@ No
 </div>
 <br />
 
-
-
-
-
-
 <div style="width:100%; overflow:auto;">
 <hr />
 <br />
 <button type="submit" class="btn green" value="Generate Bill" name="sub1" id="go" onclick="vali()" style="margin-left:75%;">Preview Bill</button>
 <a href="it_regular_bill" class="btn">Reset</a>
 </div>
+
+<?php /////////////////// ?>
+
+<div id="shwd" class="hide">
+<div class="modal-backdrop fade in"></div>
+<div   class="modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+<div class="modal-body">
+<p style="font-size:14px; font-weight:500;">Bill due date is beyond the bill period,are you sure to genarate bill</p>
+</div>
+<div class="modal-footer">
+<button type="submit" class="btn red" value="Generate Bill" name="sub1" id="go">Preview Bill</button>
+<a href="#" class="btn" rel='tab' onclick="hdd_ppupp()">No</a>
+</div>
+</div>
+</div> 
+<?php ////////////////// ?>
 </form>	
 <br />
 </div>
 
-		
+<script>
+function hdd_ppupp()
+{
+$("#shwd").hide();	
+}
+</script>		
 <script>
 $.validator.addMethod('requirecheck1', function (value, element) {
 	 return $('.requirecheck1:checked').size() > 0;
