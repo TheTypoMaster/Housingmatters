@@ -20913,19 +20913,6 @@ $output = json_encode(array('type'=>'error', 'text' => 'Please Select Flat Type 
 die($output);
 }	
 
-if(empty($child[3])){
-$output = json_encode(array('type'=>'error', 'text' => 'Please Fill Area of the Flat in row'.$c));
-die($output);
-}	
-
-if(is_numeric($child[3]))
-{
-}
-else
-{
-$output = json_encode(array('type'=>'error', 'text' => 'Please Fill Numeric Area of the Flat in row'.$c));
-die($output);
-}
 }
 
 foreach($myArray as $child)
