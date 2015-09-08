@@ -297,6 +297,16 @@ $group_id=$collection["group"]["group_id"];
 </div>
 </div>
 
+
+<label style="font-size:14px; font-weight:bold;">Any Other Note: </label>
+<div class="control-group">
+	<div class="controls">
+	 <textarea name="any_other" class="span12" rows="5"></textarea>
+	</div>
+</div>
+
+
+
 <!--<a href="#myModal3" role="button" class="btn blue pull-right" data-toggle="modal" style="">  Templates</a>-->
 
 <div class="control-group">
@@ -568,10 +578,10 @@ $('form#contact-form').submit( function(ev){
 			processData: false,
 			contentType: false,
 			type: 'POST',
-			dataType:'json',
+			//dataType:'json',
 			}).done(function(response) { 
-			
-			//$("#output").html(response);
+			alert(response);
+			$("#output").html(response);
 				if(response.type=='created'){
 					$(".portal").remove();
 				$(".alert-success").show().append("<p>"+response.text+"</p><p><a class='btn green' href='<?php echo $webroot_path; ?>Governances/governance_invite_view' rel='tab' >ok</a></p>");

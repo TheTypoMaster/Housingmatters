@@ -37,6 +37,8 @@ function governance_invite_submit()
 	
 	$this->layout=null;
 	$post_data=$this->request->data;
+	pr($post_data);
+	exit;
 	$this->ath();
 	$s_society_id=$this->Session->read('society_id');
 	$s_role_id=$this->Session->read('role_id'); 
