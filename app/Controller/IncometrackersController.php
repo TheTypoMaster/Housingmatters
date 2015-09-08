@@ -4922,7 +4922,7 @@ $bill_end_date = (int)$reggg_dtttt["new_regular_bill"]["bill_end_date"];
 $fff = date("d-M",$bill_start_date);
 $ttt = date("d-M",$bill_end_date);
 }
-$dddddatt = "(".$fff." to ".$ttt.")";
+$dddddatt = "".$fff."_to_".$ttt."";
 
 	$filename="Regular_Bill From ".$dddddatt."";
 	header ("Expires: 0");
