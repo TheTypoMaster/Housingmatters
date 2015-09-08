@@ -7671,9 +7671,7 @@ $this->set('poll_id',$p_id);
 
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////End of polls//////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////
+
 function resident_approve() 
 {
 if($this->RequestHandler->isAjax()){
@@ -7686,13 +7684,12 @@ $this->check_user_privilages();
 $society_id=(int)$this->Session->read('society_id');
 $user_id=(int)$this->Session->read('user_id');
 $this->seen_notification(100,$user_id);
+
 $this->loadmodel('user_temp');
 $conditions=array("society_id"=>$society_id,"complete_signup"=>1,"reject"=>0,"role"=>2);
 $result=$this->user_temp->find('all',array('conditions'=>$conditions));
 $this->set('result_user_temp',$result);
 }
-
-
 
 
 function resident_approve_reply()

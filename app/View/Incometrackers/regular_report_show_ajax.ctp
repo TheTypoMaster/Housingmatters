@@ -303,7 +303,6 @@ $flat_type_id = (int)$data2['flat']['flat_type_id'];
 $noc_ch_id = (int)@$data2['flat']['noc_ch_tp'];
 $sq_feet = (int)$data2['flat']['flat_area'];
 }
-
 	
 ?>
 <tr>
