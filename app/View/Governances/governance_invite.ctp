@@ -566,11 +566,13 @@ $('form#contact-form').submit( function(ev){
 	var time=$('input[name=time]').val();
 	var location=$('textarea[name=location]').val();
 	var covering_note=$('textarea[name=covering_note]').val();
+	var any_other=$('textarea[name=any_other]').val();
 	m_data.append( 'subject',subject );
 	m_data.append( 'date',date );
 	m_data.append( 'time',time );
 	m_data.append( 'location',location );
 	m_data.append( 'covering_note',covering_note );
+	m_data.append( 'any_other',any_other );
 	m_data.append( 'file', $('input[name=file]')[0].files[0]);
 	$.ajax({
 			url: "governance_invite_submit",
