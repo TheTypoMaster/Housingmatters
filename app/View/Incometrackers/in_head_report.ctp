@@ -3,7 +3,7 @@
 echo $this->requestAction(array('controller' => 'hms', 'action' => 'submenu'), array('pass' => array()));
 
 foreach($result_society as $data){
-	$income_heads=$data["society"]["income_head"];
+$income_heads=$data["society"]["income_head"];
 }
 ?>				   
 <script>
