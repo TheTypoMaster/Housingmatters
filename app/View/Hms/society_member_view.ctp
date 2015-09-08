@@ -46,66 +46,128 @@ foreach ($result_society as $collection){
 		</thead>
 		<tbody>
 		<?php
-		foreach ($result_user as $data) { 
-		$user_id=$data['user']['user_id'];
-		$user_name=$data['user']['user_name'];
-		$result_user1 = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
-		foreach ($result_user1 as $collection) 
-		{	
+		foreach ($result_user as $collection) { 
+			$user_id=$collection['user']['user_id'];
+			$user_name=$collection['user']['user_name'];
 			$role_ids=$collection['user']['role_id'];
 			$wing=$collection['user']['wing'];
 			$email=$collection['user']['email'];
 			$mobile=$collection['user']['mobile'];
+			$multiple_flat=@$collection['user']['multiple_flat'];
 			$flat=$collection['user']['flat'];
 			$tenant=$collection['user']['tenant'];
 			$date=$collection['user']['date'];
 			@$profile_status=$collection['user']['profile_status'];
-		}
-		$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing,$flat)));
-		if($tenant==1){ $color="#13D17E"; }else{ $color="#C709F0"; }
-		
-		$role_name=array();
-		if(sizeof($role_ids)>0){
-			foreach($role_ids as $role_id){
-				$role_name[] = $this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_rolename_via_roleid'),array('pass'=>array($role_id)));
-			}
-		}
-		
-		$role_name_des=implode(",",$role_name);
-		unset($role_name);
-		?>
-			<tr id="tr<?php echo $user_id; ?>">
-				<td style="color:<?php echo $color; ?>">
-					<?php echo $user_name; ?>
-					<?php if($profile_status!=2) { ?>  
-					<span style="color:red; font-size:10px;"> <i class=' icon-star'></i> </span> 
-					<?php } ?> 
-				</td>
-				<td><?php echo $wing_flat; ?></td>
-				<td><?php echo $role_name_des; ?></td>
-				<td><?php echo $mobile; ?></td>
-				<td><?php echo $email; ?></td>
-				<td>
-					<?php if($profile_status!=2) { ?>  
-					<?php if(!empty($email)) { ?> 
-					<a href="#" role='button' class="btn green mini resend" id="<?php echo $user_id; ?>"><i class=" icon-exclamation-sign"></i>  Send Reminder</a> <?php } elseif(!empty($mobile)) { ?>
-					<a href="#" role='button' class="btn green mini resend_sms" id="<?php echo $user_id; ?>"><i class=" icon-exclamation-sign"></i> Send Reminder</a> <?php } ?>
-					<?php }
+
+		if(!empty($multiple_flat)){
+				foreach($multiple_flat as $data4){
+				
+					$wing=$data4[0];
+					$flat=$data4[1];
+				//user info via flat_id//
+					$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($wing,$flat)));
+					foreach($result_user_info as $user_info){
+						$user_id=(int)$user_info["user"]["user_id"];
+						$user_name=$user_info["user"]["user_name"];
+					} 
+				
+				$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing,$flat)));
+				if($tenant==1){ $color="#13D17E"; }else{ $color="#C709F0"; }
+				$role_name=array();
+				if(sizeof($role_ids)>0){
+					foreach($role_ids as $role_id){
+					$role_name[] = $this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_rolename_via_roleid'),array('pass'=>array($role_id)));
+					}
+				}
+				$role_name_des=implode(",",$role_name);
+				unset($role_name);
+?>
+				
+						<tr id="tr<?php echo $user_id; ?>">
+						<td style="color:<?php echo $color; ?>">
+						<?php echo $user_name; ?>
+						<?php if($profile_status!=2) { ?>  
+						<span style="color:red; font-size:10px;"> <i class=' icon-star'></i> </span> 
+						<?php } ?> 
+						</td>
+						<td><?php echo $wing_flat; ?></td>
+						<td><?php echo $role_name_des; ?></td>
+						<td><?php echo $mobile; ?></td>
+						<td><?php echo $email; ?></td>
+						<td>
+						<?php if($profile_status!=2) { ?>  
+						<?php if(!empty($email)) { ?> 
+						<a href="#" role='button' class="btn green mini resend" id="<?php echo $user_id; ?>"><i class=" icon-exclamation-sign"></i>  Send Reminder</a> <?php } elseif(!empty($mobile)) { ?>
+						<a href="#" role='button' class="btn green mini resend_sms" id="<?php echo $user_id; ?>"><i class=" icon-exclamation-sign"></i> Send Reminder</a> <?php } ?>
+						<?php }
 						else
 						{ ?>
 						<span> <a class="btn green mini"><i class=" icon-ok"></i>  done</a></span>
-						
+
 						<?php 
 						}
 
 
-					?>
-				</td>
-				<td><?php echo $date; ?></td>
-				<td><a href="#" class="btn red mini deactive_conferm tooltips" id="<?php echo $user_id; ?>" data-placement="bottom" data-original-title="Deactivate?" role="button"><i class=" icon-remove-sign"></i></a>
-				</td>
-			</tr>
-		<?php } ?>	
+						?>
+						</td>
+						<td><?php echo $date; ?></td>
+						<td><a href="#" class="btn red mini deactive_conferm tooltips" id="<?php echo $user_id; ?>" data-placement="bottom" data-original-title="Deactivate?" role="button"><i class=" icon-remove-sign"></i></a>
+						</td>
+						</tr>
+				
+				<?php
+			}
+			
+	}else{
+
+					$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing,$flat)));
+					if($tenant==1){ $color="#13D17E"; }else{ $color="#C709F0"; }
+
+					$role_name=array();
+					if(sizeof($role_ids)>0){
+						foreach($role_ids as $role_id){
+							$role_name[] = $this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_rolename_via_roleid'),array('pass'=>array($role_id)));
+						}
+					}
+
+					$role_name_des=implode(",",$role_name);
+					unset($role_name);?>
+					
+						<tr id="tr<?php echo $user_id; ?>">
+									<td style="color:<?php echo $color; ?>">
+										<?php echo $user_name; ?>
+										<?php if($profile_status!=2) { ?>  
+										<span style="color:red; font-size:10px;"> <i class=' icon-star'></i> </span> 
+										<?php } ?> 
+									</td>
+									<td><?php echo $wing_flat; ?></td>
+									<td><?php echo $role_name_des; ?></td>
+									<td><?php echo $mobile; ?></td>
+									<td><?php echo $email; ?></td>
+									<td>
+										<?php if($profile_status!=2) { ?>  
+										<?php if(!empty($email)) { ?> 
+										<a href="#" role='button' class="btn green mini resend" id="<?php echo $user_id; ?>"><i class=" icon-exclamation-sign"></i>  Send Reminder</a> <?php } elseif(!empty($mobile)) { ?>
+										<a href="#" role='button' class="btn green mini resend_sms" id="<?php echo $user_id; ?>"><i class=" icon-exclamation-sign"></i> Send Reminder</a> <?php } ?>
+										<?php }
+											else
+											{ ?>
+											<span> <a class="btn green mini"><i class=" icon-ok"></i>  done</a></span>
+											
+											<?php 
+											}
+
+
+										?>
+									</td>
+									<td><?php echo $date; ?></td>
+									<td><a href="#" class="btn red mini deactive_conferm tooltips" id="<?php echo $user_id; ?>" data-placement="bottom" data-original-title="Deactivate?" role="button"><i class=" icon-remove-sign"></i></a>
+									</td>
+						</tr>	
+							
+  <?php } ?>
+			
+<?php } ?>	
 		</tbody>
 	</table>
 	
