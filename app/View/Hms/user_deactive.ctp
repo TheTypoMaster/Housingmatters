@@ -36,36 +36,58 @@ foreach ($result_society as $collection){
 		</thead>
 		<tbody>
 		<?php
-		foreach ($result_user_deactive as $data) { 
-		$user_id=$data['user']['user_id'];
-		$user_name=$data['user']['user_name'];
-		$result_user1 = $this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'),array('pass'=>array($user_id)));
-		foreach ($result_user1 as $collection) 
-		{	
+		foreach ($result_user_deactive as $collection) { 
+			$user_id=$collection['user']['user_id'];
+			$user_name=$collection['user']['user_name'];
 			$wing=$collection['user']['wing'];
 			$email=$collection['user']['email'];
 			$mobile=$collection['user']['mobile'];
+			$multiple_flat=@$collection['user']['multiple_flat'];
 			$flat=$collection['user']['flat'];
 			$tenant=$collection['user']['tenant'];
 			$date=$collection['user']['date'];
 			@$profile_status=$collection['user']['profile_status'];
-		}
-		$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing,$flat)));
-		if($tenant==1){ $status="Owner"; }else{ $status="Tenant"; }
 		
-		?>
-			<tr id="tr<?php echo $user_id; ?>">
-				<td>
-					<?php echo $user_name; ?>
-				</td>
-				<td><?php echo $wing_flat; ?></td>
-				<td><?php echo $status; ?></td>
-				<td><?php echo $mobile; ?></td>
-				<td><?php echo $email; ?></td>
-				<td>
-				<a href="#" class="btn green mini deactive_conferm tooltips" data-placement="bottom" data-original-title="Activate?" id="<?php echo $user_id; ?>" role="button"><i class=" icon-ok-sign"></i></a></td>
-			</tr>
-		<?php } ?>	
+			if(!empty($multiple_flat)){
+			
+				foreach($multiple_flat as $data4){
+				
+					$wing=$data4[0];
+					$flat=$data4[1];
+				
+					$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing,$flat)));
+					if($tenant==1){ $status="Owner"; }else{ $status="Tenant"; }?>
+			
+					<tr id="tr<?php echo $user_id; ?>">
+						<td>
+							<?php echo $user_name; ?>
+						</td>
+						<td><?php echo $wing_flat; ?></td>
+						<td><?php echo $status; ?></td>
+						<td><?php echo $mobile; ?></td>
+						<td><?php echo $email; ?></td>
+						<td>
+						<a href="#" class="btn green mini deactive_conferm tooltips" data-placement="bottom" data-original-title="Activate?" id="<?php echo $user_id; ?>" role="button"><i class=" icon-ok-sign"></i></a></td>
+					</tr>
+			
+			
+			 <?php }
+		}else{
+				$wing_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'),array('pass'=>array($wing,$flat)));
+				if($tenant==1){ $status="Owner"; }else{ $status="Tenant"; } ?>
+					<tr id="tr<?php echo $user_id; ?>">
+					<td>
+						<?php echo $user_name; ?>
+					</td>
+					<td><?php echo $wing_flat; ?></td>
+					<td><?php echo $status; ?></td>
+					<td><?php echo $mobile; ?></td>
+					<td><?php echo $email; ?></td>
+					<td>
+					<a href="#" class="btn green mini deactive_conferm tooltips" data-placement="bottom" data-original-title="Activate?" id="<?php echo $user_id; ?>" role="button"><i class=" icon-ok-sign"></i></a></td>
+					</tr>
+	<?php }?>
+<?php } ?>	
 		</tbody>
 	</table>
 </div>
