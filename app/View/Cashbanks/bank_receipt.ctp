@@ -16,7 +16,6 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 <a href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt" class="btn yellow" rel='tab'>Create</a>
 <a href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt_view" class="btn" rel='tab'>View</a>
 <a href="<?php echo $webroot_path; ?>Cashbanks/bank_receipt_deposit_slip" class="btn" rel='tab'>Deposit Slip</a>
-<a href="#" class="btn purple" role="button" id="import">Import csv</a> 
 </center>
 <!---- Start Import Code -->
         <div id='suces'>
@@ -54,7 +53,8 @@ $("#fix<?php echo $id_current_page; ?>").addClass("red");
 
 <div id="url_main" style="overflow:auto;">
 <div style="background-color:#FFF; overflow:auto; border:1px solid #CCC;">
-<h4 style="color: #03F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom: 10px;">&nbsp;&nbsp;&nbsp;<i class="icon-money"></i> Post Bank Receipt</h4>
+<h4 style="color: #03F;font-weight: 500;border-bottom: solid 1px #DAD9D9;padding-bottom:18px;">&nbsp;&nbsp;&nbsp;<i class="icon-money"></i> Post Bank Receipt <a href="#" class="btn purple" role="button" id="import" style="float:right; margin-right:8px;">Import csv</a> </h4>
+
 <form method="post" id="contact-form" autocomplete="off">
 
         
