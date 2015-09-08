@@ -4144,7 +4144,12 @@ function other_charges(){
 	$conditions=array("group_id"=>7);
 	$result_ledger_account=$this->ledger_account->find('all',array('conditions'=>$conditions));
 	$this->set('result_ledger_account',$result_ledger_account);
-	
+		
+	$this->loadmodel('society');
+	$conditions=array("society_id"=>$s_society_id);
+	$cursor3=$this->society->find('all',array('conditions'=>$conditions));
+	$this->set('cursor3',$cursor3);
+		
 		
 		$this->loadmodel('ledger_sub_account');
 		$condition=array('society_id'=>$s_society_id,'ledger_id'=>34);

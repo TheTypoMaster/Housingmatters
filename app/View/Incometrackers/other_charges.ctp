@@ -39,6 +39,42 @@ label.control-label{
 font-weight: bold;
 }
 </style>
+<?php
+
+$result1 = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch'),array('pass'=>array(7)));			
+foreach($result1 as $collection)
+{
+$ac_name = $collection['ledger_account']['ledger_name'];
+$ac_id = (int)$collection['ledger_account']['auto_id'];		
+if($ac_id != 43 && $ac_id != 39 && $ac_id != 40)
+{
+$income_head_arr1[] = (int)$ac_id;	
+}
+}
+foreach($cursor3 as $collection)
+{
+$income_head_selected_arr = @$collection['society']['income_head'];
+}
+if(!empty($income_head_selected_arr))
+{
+@$income_head_arr2 = array_diff($income_head_arr1,$income_head_selected_arr);
+}
+else
+{
+$income_head_arr2 = $income_head_arr1;	
+}
+foreach($income_head_arr2 as $data)
+{
+$income_arrr[] = $data;
+}
+
+
+?>
+
+
+
+
+
 	<!-- BEGIN VALIDATION STATES-->
 	<div class="portlet box purple">
 	 <div class="portlet-title">
@@ -55,11 +91,18 @@ font-weight: bold;
 							<select name="income_head"  id="income_head" class="span12 chosen" data-placeholder="Choose a Category" tabindex="1">
 								<option value="">
 								<?php
-								foreach($result_ledger_account as $data){
-									$ledger_account_auto_id = (int)$data["ledger_account"]["auto_id"];
-									$ledger_name = $data["ledger_account"]["ledger_name"];
+					for($r=0; $r<sizeof($income_arrr); $r++)
+					{ 
+					$income_id = (int)$income_arrr[$r];
+					
+					$ledgerac = $this->requestAction(array('controller' => 'hms', 'action' => 'ledger_account_fetch2'),array('pass'=>array($income_id)));			
+					foreach($ledgerac as $collection2)
+					{
+					$ac_name = $collection2['ledger_account']['ledger_name'];
+					$ac_id = (int)$collection2['ledger_account']['auto_id'];		
+					}
 									?>
-								<option value="<?php echo $ledger_account_auto_id; ?>"><?php echo $ledger_name; ?>
+								<option value="<?php echo $ac_id; ?>"><?php echo $ac_name; ?>
 								<?php } ?>
 							 </select>
 							  <label id="income_head"></label>
