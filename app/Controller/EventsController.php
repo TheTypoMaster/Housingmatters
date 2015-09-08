@@ -382,11 +382,11 @@ $this->layout=null;
 	}
 	
 	@$ip=$this->hms_email_ip();
-	$recieve_info=$this->visible_subvisible($visible,$sub_visible);
+	$receive_info=$this->visible_subvisible($visible,$sub_visible);
 		
 	$event_id=$this->autoincrement('event','event_id');
 	$this->loadmodel('event');
-	$this->event->saveAll(array('event_id' => $event_id,'e_name' => $e_name, 'user_id' => $s_user_id, 'society_id' => $s_society_id, 'date_from' => $date_from , 'date_to' => $date_to, 'day_type' => $day_type, 'location' => $location,'description' => $description,'visible' => $visible,'sub_visible' => $sub_visible,'visible_user_id' => $recieve_info[2],'date' => $date,'time'=>$e_time,'ask_no_of_member'=>$ask_no_of_member,'no_of_member'=>0));
+	$this->event->saveAll(array('event_id' => $event_id,'e_name' => $e_name, 'user_id' => $s_user_id, 'society_id' => $s_society_id, 'date_from' => $date_from , 'date_to' => $date_to, 'day_type' => $day_type, 'location' => $location,'description' => $description,'visible' => $visible,'sub_visible' => $sub_visible,'visible_user_id' => $receive_info[2],'date' => $date,'time'=>$e_time,'ask_no_of_member'=>$ask_no_of_member,'no_of_member'=>0));
 
 
 	
@@ -413,7 +413,7 @@ $this->layout=null;
 	}
 		
 		
-	foreach($recieve_info[0] as $user_id=>$email)
+	foreach($receive_info[0] as $user_id=>$email)
 	{
 	$to = @$email;
 	$d_user_id = @$user_id;	

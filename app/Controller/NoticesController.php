@@ -1491,7 +1491,7 @@ if($post_data['post_type']==1){
 		@$ip=$this->hms_email_ip();
 		
 		
-		$recieve_info=$this->visible_subvisible($visible,$sub_visible);
+		$receive_info=$this->visible_subvisible($visible,$sub_visible);
 		
 		 
 		if(isset($_FILES['file'])){
@@ -1507,7 +1507,7 @@ if($post_data['post_type']==1){
 		
 		$notice_id=$this->autoincrement('notice','notice_id');
 		$this->loadmodel('notice');
-		$this->notice->save(array('notice_id' => $notice_id, 'user_id' => $s_user_id, 'society_id' => $s_society_id, 'n_category_id' => $category_id ,'n_subject' => $notice_subject , 'n_expire_date' => $notice_expire_date, 'n_attachment' => @$file_name, 'n_message' => $code,'n_date' => $date, 'n_time' => $time, 'n_delete_id' => 0,'n_draft_id' => 0,'visible' => $visible,'sub_visible' => $sub_visible,'visible_user_id' => $recieve_info[2],'allowed' => $allowed));
+		$this->notice->save(array('notice_id' => $notice_id, 'user_id' => $s_user_id, 'society_id' => $s_society_id, 'n_category_id' => $category_id ,'n_subject' => $notice_subject , 'n_expire_date' => $notice_expire_date, 'n_attachment' => @$file_name, 'n_message' => $code,'n_date' => $date, 'n_time' => $time, 'n_delete_id' => 0,'n_draft_id' => 0,'visible' => $visible,'sub_visible' => $sub_visible,'visible_user_id' => $receive_info[2],'allowed' => $allowed));
 		
 		
 		
@@ -1529,7 +1529,7 @@ if($post_data['post_type']==1){
 		}
 
 		
-		foreach($recieve_info[0] as $user_id=>$email)
+		foreach($receive_info[0] as $user_id=>$email)
 		{
 		$to = @$email;
 		$d_user_id = @$user_id;	
@@ -1555,7 +1555,7 @@ if($post_data['post_type']==1){
 		<td>$date</td>
 		<td>$notice_subject</td>
 		<td>$category_name</td>
-		<td>".$recieve_info[3]."</td>
+		<td>".$receive_info[3]."</td>
 		</tr>
 		</table>
 		<div>
@@ -1680,11 +1680,11 @@ function submit_notice_edit($id=null){
 		@$ip=$this->hms_email_ip();
 		
 		
-		$recieve_info=$this->visible_subvisible($visible,$sub_visible);
+		$receive_info=$this->visible_subvisible($visible,$sub_visible);
 		
 		$notice_id=$this->autoincrement('notice','notice_id');
 		$this->loadmodel('notice');
-		$this->notice->updateAll(array('notice_id' => $notice_id, 'user_id' => $s_user_id, 'society_id' => $s_society_id, 'n_category_id' => $category_id ,'n_subject' => $notice_subject , 'n_expire_date' => $notice_expire_date, 'n_attachment' => "" , 'n_message' => $code,'n_date' => $date, 'n_time' => $time, 'n_delete_id' => 0,'n_draft_id' => 0,'visible' => $visible,'sub_visible' => $sub_visible,'visible_user_id' => $recieve_info[2] ),array('notice_id'=>$notice_id_q));
+		$this->notice->updateAll(array('notice_id' => $notice_id, 'user_id' => $s_user_id, 'society_id' => $s_society_id, 'n_category_id' => $category_id ,'n_subject' => $notice_subject , 'n_expire_date' => $notice_expire_date, 'n_attachment' => "" , 'n_message' => $code,'n_date' => $date, 'n_time' => $time, 'n_delete_id' => 0,'n_draft_id' => 0,'visible' => $visible,'sub_visible' => $sub_visible,'visible_user_id' => $receive_info[2] ),array('notice_id'=>$notice_id_q));
 		
 		
 		
@@ -1706,7 +1706,7 @@ function submit_notice_edit($id=null){
 		}
 
 		
-		foreach($recieve_info[0] as $user_id=>$email)
+		foreach($receive_info[0] as $user_id=>$email)
 		{
 		$to = @$email;
 		$d_user_id = @$user_id;	 
@@ -1731,7 +1731,7 @@ function submit_notice_edit($id=null){
 		<td>$date</td>
 		<td>$notice_subject</td>
 		<td>$category_name</td>
-		<td>".$recieve_info[3]."</td>
+		<td>".$receive_info[3]."</td>
 		</tr>
 		</table>
 		<div>

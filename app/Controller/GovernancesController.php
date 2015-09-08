@@ -417,11 +417,11 @@ function governance_invite_submit()
 			
 			
 			
-			$recieve_info=$this->visible_subvisible($visible,$sub_visible);
+			$receive_info=$this->visible_subvisible($visible,$sub_visible);
 			
 			////////////////////  Start email code ////////////////////////////
 			
-			foreach($recieve_info[0] as $data=>$key )
+			foreach($receive_info[0] as $data=>$key )
 			{
 				 $to = @$key;
 				 $d_user_id = @$data;	
@@ -607,8 +607,8 @@ function governance_invite_submit()
 					}
 			
 			///////////////  end /////////////////////////
-			$recieve_info=$this->visible_subvisible($visible,$sub_visible);
-			foreach($recieve_info[0] as $data=>$key){
+			$receive_info=$this->visible_subvisible($visible,$sub_visible);
+			foreach($receive_info[0] as $data=>$key){
 				 $to = @$key;
 				 $d_user_id = @$data;	
 				 $da_user_id[]=$d_user_id;	
@@ -1467,8 +1467,8 @@ function governance_minute_submit()
 
 					
 					
-					$recieve_info=$this->visible_subvisible($visible,$sub_visible);
-					foreach($recieve_info[2] as $data){
+					$receive_info=$this->visible_subvisible($visible,$sub_visible);
+					foreach($receive_info[2] as $data){
 					$user_minute[]=(int)$data;
 					}
 			}

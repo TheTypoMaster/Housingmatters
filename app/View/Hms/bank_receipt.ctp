@@ -374,14 +374,14 @@ $(document).ready(function(){
 	        required: true
 	      },
 		
-		recieved_from2: {
+		received_from2: {
 	       
 	        required: true
 	      },
 		
 		
 		
-		recieved_from: {
+		received_from: {
 	       
 	        required: true
 	      },

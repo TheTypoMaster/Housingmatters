@@ -3,7 +3,7 @@
 if($ff == 5)
 {
 ?>
-<select   name="recieved_from2"  class="medium m-wrap chosen" id="go">
+<select   name="received_from2"  class="medium m-wrap chosen" id="go">
 						<option value="">Party Name</option>
 						<?php foreach ($cursor1 as $collection) 
 						{
@@ -31,7 +31,7 @@ if($ff == 8)
 {
 ?>						
 
-<input type="text" name="recieved_from" class="m-wrap medium" style="background-color:white !important;" placeholder="Party Name" id="re">
+<input type="text" name="received_from" class="m-wrap medium" style="background-color:white !important;" placeholder="Party Name" id="re">
 
 
 

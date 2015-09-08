@@ -254,7 +254,7 @@ $s_role_id=$this->Session->read('role_id');
 $s_user_id=$this->Session->read('user_id');
 	
 	//$member_id = (int)@$this->request->data['member'];
-	//$flat_id = (int)$this->request->data['recieved_from2'];
+	//$flat_id = (int)$this->request->data['received_from2'];
 	//$receipt_date = $this->request->data['date'];
 	
 	
