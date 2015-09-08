@@ -396,7 +396,6 @@ $(document).ready(function(){
 //$.validator.setDefaults({ ignore: ":hidden:not()" });
 
 $('#contact-form').validate({
-
 errorElement: "label",
 //place all errors in a <div id="errors"> element
 errorPlacement: function(error, element) {

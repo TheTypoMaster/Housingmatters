@@ -1008,6 +1008,82 @@ function my_flat_bill_ajax($from=null,$to=null,$flat_id=null)
 			 $this->set("from",$from);
 			 $to=date("Y-m-d",strtotime($to));
 			 $this->set("to",$to);
+			 
+			 $this->set("flat_id",$flat_id);
+		
+		$this->ath();
+		$s_society_id = (int)$this->Session->read('society_id');
+	
+		$s_user_id=$this->Session->read('user_id');
+		$this->set("s_user_id",$s_user_id);
+	
+	$flat_id=(int)$flat_id; 
+	if($flat_id==0)
+	{
+		$result_user_info=$this->requestAction(array('controller' => 'hms', 'action' => 'profile_picture'), array('pass' => array($s_user_id)));
+		foreach($result_user_info as $collection2)
+		{
+		$user_name=$collection2["user"]["user_name"];
+		$this->set('user_name',$user_name);
+		$wing_id=$collection2["user"]["wing"];
+		$flat_id=$collection2["user"]["flat"];
+		}
+
+		$wing_flat=$this->requestAction(array('controller' => 'hms', 'action' => 'wing_flat'), array('pass' => array($wing_id,$flat_id)));
+		$this->set('wing_flat',$wing_flat);
+	}else{
+		$result_flat_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_wing_id_via_flat_id'),array('pass'=>array((int)$flat_id)));
+		foreach($result_flat_info as $flat_info){
+		$wing_id=$flat_info["flat"]["wing_id"];
+		} 
+		
+	$wing_flat=$this->requestAction(array('controller' => 'Bookkeepings', 'action' => 'wing_flat'), array('pass' => array($wing_id,(int)$flat_id)));
+	$this->set('wing_flat',$wing_flat);
+		
+		//user info via flat_id//
+		$result_user_info=$this->requestAction(array('controller' => 'Hms', 'action' => 'fetch_user_info_via_flat_id'),array('pass'=>array($wing_id,$flat_id)));
+		foreach($result_user_info as $user_info){
+			$user_id=(int)$user_info["user"]["user_id"];
+			$user_name=$user_info["user"]["user_name"];
+			$this->set('user_name',$user_name);
+		} 
+	}
+	
+	$this->loadmodel('society');
+	$conditions=array("society_id" => $s_society_id);
+	$result_society=$this->society->find('all',array('conditions'=>$conditions));
+	$this->set('result_society',$result_society);
+	
+	$this->loadmodel('ledger_sub_account');
+	$conditions=array("society_id" => $s_society_id,"flat_id" => (int)$flat_id);
+	$result_ledger_sub_account=$this->ledger_sub_account->find('all',array('conditions'=>$conditions));
+	$ledger_sub_account_id=$result_ledger_sub_account[0]["ledger_sub_account"]["auto_id"];
+	
+	$this->loadmodel('ledger');
+	$conditions=array("society_id" => $s_society_id,"ledger_account_id" => 34,"ledger_sub_account_id" => $ledger_sub_account_id,'transaction_date'=> array('$gte' => strtotime($from),'$lte' => strtotime($to)));
+	$order=array('ledger.transaction_date'=>'ASC');
+	$result_ledger=$this->ledger->find('all',array('conditions'=>$conditions,'order'=>$order));
+	$this->set('result_ledger',$result_ledger);
+}
+
+function my_flat_bill_excel_export($from=null,$to=null,$flat_id=null)
+{
+		
+		$this->layout=null;
+		
+		$filename="Regular_Bill";
+	header ("Expires: 0");
+	header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
+	header ("Cache-Control: no-cache, must-revalidate");
+	header ("Pragma: no-cache");
+	header ("Content-type: application/vnd.ms-excel");
+	header ("Content-Disposition: attachment; filename=".$filename.".xls");
+	header ("Content-Description: Generated Report" );
+	
+			 $from=date("Y-m-d",strtotime($from));
+			 $this->set("from",$from);
+			 $to=date("Y-m-d",strtotime($to));
+			 $this->set("to",$to);
 		
 		$this->ath();
 		$s_society_id = (int)$this->Session->read('society_id');

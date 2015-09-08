@@ -25,30 +25,28 @@ foreach($result_ledger as $ledger_data){
 	
 }
 ?>
-<div style="overflow: auto;">
-<a href="<?php echo $webroot_path; ?>Accounts/my_flat_bill_excel_export/<?php echo $from; ?>/<?php echo $to; ?>/<?php echo $flat_id; ?>" class="btn mini blue pull-right hide_at_print" style="margin-left: 2px;" ><i class="fa fa-file-excel-o"></i> Excel</a>
+<style>
+#report_tb th{
+	font-size: 14px !important;background-color:#C8EFCE;padding:5px;border:solid 1px #55965F;text-align: left;
+}
+#report_tb td{
+	padding:5px;
+	font-size: 15px;border:solid 1px #55965F;background-color:#FFF;
+}
+table#report_tb tr:hover td {
+background-color: #E6ECE7;
+}
+</style>
 
-<a href="#" role="button" class="btn mini purple pull-right hide_at_print" style="margin-left: 2px;" onclick="window.print();"><i class="fa fa-print"></i> Print</a>
-</div>
-
-
-	<div align="center" style="color:#606060;">
-		<h4 style="color:#5D9B5D;"><b><?php echo strtoupper($society_name); ?></b></h4>
-		Regn # <?php echo $society_reg_num; ?><br/>
-		<?php echo $society_address; ?><br/>
-		Email: <?php echo $society_email; ?> | Phone : <?php echo $society_phone; ?>
-	</div>
-	<div class="row-fluid" style="font-size:14px;">
-		<div class="span6">
-			For : <?php echo $user_name; ?> (<?php echo $wing_flat; ?>)
-		</div>
-		<div class="span6" align="right">
-			<span style="font-size:16px;">Statement of Account</span><br/>
-			<span style="font-size:12px;">From <?php echo date("d-m-Y",strtotime($from)); ?> to <?php echo date("d-m-Y",strtotime($to)); ?></span>
-		</div>
-	</div>
+	
 	<div>
-		<table id="report_tb" width="100%">
+	
+		<table id="report_tb" width="100%" border="1">
+			<tr>
+				<td colspan="7">
+				<span style="font-size:16px;">From <?php echo date("d-m-Y",strtotime($from)); ?> to <?php echo date("d-m-Y",strtotime($to)); ?></span>
+				</td>
+			</tr>
 			<tr>
 				<th>Date</th>
 				<th>Reference</th>
@@ -135,10 +133,10 @@ foreach($result_ledger as $ledger_data){
 						<td><?php echo date("d-m-Y",$transaction_date); ?></td>
 						<td>
 						<?php if($table_name=="new_regular_bill"){
-							echo '<a class="tooltips" data-original-title="Click for view Source" data-placement="bottom" href="'.$this->webroot.'Incometrackers/regular_bill_view/'.$element_id.'" target="_blank">'.$refrence_no.'</a>';
+							echo $refrence_no;
 						}
 						if($table_name=="new_cash_bank"){
-							echo '<a class="tooltips" data-original-title="Click for view Source" data-placement="bottom" href="'.$this->webroot.'Cashbanks/bank_receipt_html_view/'.$element_id.'" target="_blank">'.$refrence_no.'</a>';
+							echo $refrence_no;
 						} ?>
 						</td>
 						<td><?php echo $description; ?></td>
@@ -162,5 +160,3 @@ foreach($result_ledger as $ledger_data){
 					</tr>
 		</table>
 	</div>
-	
-	

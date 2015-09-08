@@ -1,5 +1,3 @@
-
-
 <?php
 foreach($result_society as $data){
 	$society_name=$data["society"]["society_name"];
@@ -14,7 +12,7 @@ $result_opening_balance= $this->requestAction(array('controller' => 'Incometrack
 
 
 ?>
- <style>
+<style>
 #report_tb th{
 	font-size: 14px !important;background-color:#C8EFCE;padding:5px;border:solid 1px #55965F;text-align: left;
 }
@@ -26,10 +24,16 @@ table#report_tb tr:hover td {
 background-color: #E6ECE7;
 }
 </style>
+<style media="print">
+ #result_statement a[href]:after { display:none; } 
+ #result_statement{
+	 width:98% !important;
+ }
+</style>
 
 
 
-<div align="center">
+<div align="center" class="hide_at_print">
 	<table>
 		<tr>
 		<?php  if(sizeof($multiple_flat)>1){  ?>
