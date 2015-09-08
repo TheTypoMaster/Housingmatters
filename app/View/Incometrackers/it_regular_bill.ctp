@@ -225,6 +225,11 @@ No
 </div>
 <br />
 
+
+
+
+
+
 <div style="width:100%; overflow:auto;">
 <hr />
 <br />
@@ -480,7 +485,9 @@ $(document).ready(function(){
 		}
 		else if(Date.parse(due) > Date.parse(to))
 		{
-		$("#result12").load("regular_vali?ss=" + 505 + "");	
+		$("#shwd").show();
+			
+		//$("#result12").load("regular_vali?ss=" + 505 + "");	
 		return false;
 		}
 		else
@@ -551,9 +558,6 @@ Dear Sir, For Regular Bill genereation you have to full fill the Non Occupancy C
 <?php
 }
 ?>
-
-
-
 
 
 
