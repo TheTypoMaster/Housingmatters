@@ -861,6 +861,8 @@ $this->layout='blank';
 $this->layout='session';
 }
 
+$this->ath();
+
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
@@ -3108,6 +3110,9 @@ $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
 
+$this->ath();
+
+
 $this->loadmodel('society');
 $conditions=array("society_id" => $s_society_id);
 $cursor = $this->society->find('all',array('conditions'=>$conditions));
@@ -3813,6 +3818,9 @@ $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');		
 
+$this->ath();
+
+
 $this->set('s_society_id',$s_society_id);
 
 $c = (int)$this->request->query('c');
@@ -3840,6 +3848,9 @@ $this->set('cursor3',$cursor3);
 function income_head_report_excel()
 {
 $this->layout="";
+
+$this->ath();
+
 $filename="Income Head  Report";
 header ("Expires: 0");
 header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
@@ -3848,6 +3859,8 @@ header ("Pragma: no-cache");
 header ("Content-type: application/vnd.ms-excel");
 header ("Content-Disposition: attachment; filename=".$filename.".xls");
 header ("Content-Description: Generated Report" );
+
+
 
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
@@ -4085,6 +4098,9 @@ $this->set('cursor3',$cursor3);
 
 function other_charges_all_remove(){
 	$this->layout=null;
+	
+	$this->ath();
+	
 	 $status=(int)$this->request->query('con2');
 	 if($status==0){
 			$flat_id=(int)$this->request->query('con');	
@@ -4461,6 +4477,9 @@ $this->set('cursor4',$cursor4);
 function supplimentry_vali()
 {
 $this->layout='blank';
+
+$this->ath();
+
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
@@ -4473,6 +4492,8 @@ $this->set('cc',$cc);
 function regular_vali()
 {
 $this->layout='blank';
+$this->ath();
+
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
@@ -4492,7 +4513,7 @@ $this->layout='blank';
 }else{
 $this->layout='session';
 }
-
+$this->ath();
 
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
@@ -4777,6 +4798,8 @@ $this->set("tax_type",$tax_type);
 function noc_edit()
 {
 $this->layout="session";
+$this->ath();
+
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id = (int)$this->Session->read('user_id');
@@ -4834,6 +4857,8 @@ $this->set('cursor1',$result2);
 function in_report_ajax(){
 	
 	$this->layout='blank';
+	$this->ath();
+	
 	$s_role_id=$this->Session->read('role_id');
 	$s_society_id = (int)$this->Session->read('society_id');
 	$s_user_id=$this->Session->read('user_id');	
@@ -4875,6 +4900,9 @@ function in_head_excel()
 {
 
 $this->layout="";
+
+$this->ath();
+
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id = (int)$this->Session->read('user_id');	
@@ -5071,6 +5099,10 @@ function regular_bill_excel()
 $s_society_id=(int)$this->Session->read('society_id');
 $s_user_id = (int)$this->Session->read('user_id');
 $this->layout="";
+
+$this->ath();
+
+
 $filename= "Regular_Bill";
 header ("Expires: 0");
 header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
@@ -5235,6 +5267,9 @@ echo $excel;
 function supplimentry_reports_show_ajax()
 {
 $this->layout='blank';
+
+$this->ath();
+
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
@@ -5284,6 +5319,9 @@ $this->set('cursor1',$cursor1);
 function supplimentry_bill_excel()
 {
 $this->layout="";
+$this->ath();
+
+
 $filename="Supplimentry_Bill";
 header ("Expires: 0");
 header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
@@ -5570,6 +5608,9 @@ $s_user_id=$this->Session->read('user_id');
 function income_heads_report_ajax()
 {
 $this->layout='blank';
+
+$this->ath();
+
 $s_role_id= (int)$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
@@ -5617,6 +5658,9 @@ $this->set('cursor9',$cursor9);
 function regular_bill_pdf()
 {
 $this->layout = 'pdf'; //this will use the pdf.ctp layout 
+
+$this->ath();
+
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
@@ -5650,6 +5694,9 @@ $this->set("so_address",$so_address);
 function supplimentry_bill_pdf()
 {
 $this->layout = 'pdf'; //this will use the pdf.ctp layout 
+$this->ath();
+
+
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
@@ -5683,6 +5730,8 @@ $this->set('tems_arr',$tems_arr);
 function regular_bill_view($auto_id=null)
 {
 $this->layout='session';
+$this->ath();
+
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
@@ -5782,6 +5831,9 @@ function regular_bill_edit2($auto_id=null){
 
 function print_all_bill($last_one_time_id=null){
 	$this->layout='session';
+	
+	$this->ath();
+	
 	$s_role_id=$this->Session->read('role_id');
 	$s_society_id = (int)$this->Session->read('society_id');
 	$s_user_id=$this->Session->read('user_id');
@@ -5813,6 +5865,9 @@ $this->set('cursor2',$cursor2);
 function rate_card_view2()
 {
 $this->layout='session';
+$this->ath();
+
+
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');	
@@ -5895,6 +5950,8 @@ $this->set('cursor4',$cursor4);
 function noc_view2()
 {
 $this->layout="session";
+$this->ath();
+
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id = (int)$this->Session->read('user_id');
@@ -5940,6 +5997,8 @@ $this->set('cursor1',$cursor1);
 function supplimentry_view($auto_id=null)
 {
 $this->layout='session';
+$this->ath();
+
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
@@ -5962,6 +6021,8 @@ $this->set('bill_html',$bill_html);
 function noc_json()
 {
 $this->layout='blank';
+$this->ath();
+
 $q=$this->request->query('q');
 $q = html_entity_decode($q);
 $typ = $this->request->query('b');
@@ -6042,6 +6103,8 @@ die($output);
 function rate_card_json()
 {
 $this->layout='blank';
+$this->ath();
+
 $q=$this->request->query('q');
 $q = html_entity_decode($q);
 $typ = $this->request->query('b');
@@ -6145,6 +6208,8 @@ die($output);
 function delete_select_income()
 {
 $this->layout='blank';
+$this->ath();
+
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
@@ -6226,6 +6291,9 @@ $this->set('cursor2',$cursor2);
 function ac_statement_bill_view($receipt_id=null)
 {
 $this->layout='blank';
+
+$this->ath();
+
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
@@ -6251,6 +6319,9 @@ $this->set('bill_html',@$bill_html);
 function account_statement_show_ajax()
 {
 $this->layout='blank';
+
+$this->ath();
+
 $s_role_id=$this->Session->read('role_id');
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id=$this->Session->read('user_id');
@@ -6280,6 +6351,8 @@ $this->set('to',$to);
 function account_statement_excel()
 {
 $this->layout="";
+$this->ath();
+
 $filename="Account Statement";
 header ("Expires: 0");
 header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");
@@ -6387,6 +6460,9 @@ echo $excel;
 function delete_terms()
 {
 $this->layout='blank';
+$this->ath();
+
+
 $s_society_id = (int)$this->Session->read('society_id');
 
 $delete = (int)$this->request->query('delete');
@@ -6426,6 +6502,8 @@ $this->society->updateAll(array('terms_conditions'=>$terms_arr2),array("society_
 function edit_terms()
 {
 $this->layout='blank';
+$this->ath();
+
 $s_society_id = (int)$this->Session->read('society_id');
 $t_id = (int)$this->request->query('t_id');
 $edit = (int)$this->request->query('edit');
@@ -6836,6 +6914,8 @@ $this->set('cursor1',$cursor1);
 function bill_reminder()
 {
 $this->layout='session';
+$this->ath();
+
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id = (int)$this->Session->read('user_id');
 
@@ -6877,11 +6957,16 @@ $this->send_email($email,$from,$from_name,$subject,$html,$reply);
 /////////////////////////////////////// Start Bill bill_reminder ////////////////////////////////////////////////
 function test_page(){
 	$this->layout='session';
+	$this->ath();
+	
+	
 }
 /////////////////////////////////////// Start NEFT Show Ajax ///////////////////////////////////////////////////
 function neft_show_ajax()
 {
 $this->layout='blank';
+$this->ath();
+
 $s_society_id = (int)$this->Session->read('society_id');
 $s_user_id = (int)$this->Session->read('user_id');
 
