@@ -1,4 +1,3 @@
-
 <style>
 #report_tb th{
 	font-size: 10px !important;background-color:#C8EFCE;padding:2px;border:solid 1px #55965F;
@@ -227,7 +226,7 @@ if($flat_id == $user_id)
 <td><?php echo $due_for_payment; ?></td>
 <td>
 <a href="regular_bill_view/<?php echo $auto_id; ?>" target="_blank" class="btn mini yellow"><i class="icon-search"></i></a>
-<a href="regular_bill_pdf/<?php echo $bill_no; ?>" target="_blank" class="btn mini yellow">Pdf</a></td>
+<!-- <a href="regular_bill_pdf/<?php //echo $bill_no; ?>" target="_blank" class="btn mini yellow">Pdf</a>--></td>
 </tr>
 <?php 
 
@@ -260,7 +259,7 @@ if($wing_id == $wing)
 <td><?php echo $due_for_payment; ?></td>
 <td>
 <a href="regular_bill_view/<?php echo $auto_id; ?>" target="_blank" class="btn mini yellow"><i class="icon-search"></i></a>
-<a href="regular_bill_pdf/<?php echo $bill_no; ?>" target="_blank" class="btn mini yellow">Pdf</a></td>
+<!--<a href="regular_bill_pdf/<?php echo $bill_no; ?>" target="_blank" class="btn mini yellow">Pdf</a>--></td>
 </tr>	
 <?php 	
 //}
@@ -301,7 +300,7 @@ $bill_for_user = $user_info["user"]["user_id"];
 $result_flat = $this->requestAction(array('controller' => 'hms', 'action' => 'flat_fetch2'),array('pass'=>array(@$flat_id,$wing_id))); 
 foreach($result_flat as $data2){
 $flat_type_id = (int)$data2['flat']['flat_type_id'];
-$noc_ch_id = (int)$data2['flat']['noc_ch_tp'];
+$noc_ch_id = (int)@$data2['flat']['noc_ch_tp'];
 $sq_feet = (int)$data2['flat']['flat_area'];
 }
 
@@ -321,7 +320,7 @@ $sq_feet = (int)$data2['flat']['flat_area'];
 <td><?php echo $due_for_payment; ?></td>
 <td>
 <a href="regular_bill_view/<?php echo $auto_id; ?>" target="_blank" class="btn mini yellow"><i class="icon-search"></i></a>
-<a href="regular_bill_pdf/<?php echo $bill_no; ?>" target="_blank" class="btn mini yellow">Pdf</a></td>
+<!--<a href="regular_bill_pdf/<?php echo $bill_no; ?>" target="_blank" class="btn mini yellow">Pdf</a>--></td>
 </tr>
 <?php
 //}
