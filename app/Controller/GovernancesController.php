@@ -1473,8 +1473,7 @@ function governance_minute_submit()
 				//$user=array_values($user);
 				
 				
-				
-				
+							
 				
 				$date=date("d-m-y");
 				$minut_id=$this->autoincrement('governance_minute','governance_minute_id');
