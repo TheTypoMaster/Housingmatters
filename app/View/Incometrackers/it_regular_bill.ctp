@@ -242,7 +242,7 @@ No
 </div>
 <div class="modal-footer">
 <button type="submit" class="btn red" value="Generate Bill" name="sub1" id="go">Preview Bill</button>
-<a href="#" class="btn" rel='tab' onclick="hdd_ppupp()">No</a>
+<a href="#" class="btn" onclick="hdd_ppupp()">No</a>
 </div>
 </div>
 </div> 
